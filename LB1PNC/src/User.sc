@@ -8,6 +8,7 @@
 (use Menu)
 (use Actor)
 (use System)
+(use Inventory)
 
 (local
 	[inputLine 23]
@@ -178,6 +179,14 @@
 						(self setMotion: MoveTo (event x:) (event y:))
 						(User prevDir: 0)
 						(event claimed: 1)
+					)
+					(if
+						(and
+							(& (event modifiers:) emSHIFT)
+							(User controls:)
+						)
+						(event claimed: 1)
+						(Inv showSelf: gEgo)
 					)
 				)
 				($0040 ; direction
