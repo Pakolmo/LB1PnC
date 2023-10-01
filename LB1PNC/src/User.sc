@@ -108,7 +108,7 @@
 
 	(method (said event)
 		(if global54
-			(proc984_0 alterEgo gSortedFeatures gCast gFeatures)
+			(__proc984_0 alterEgo gSortedFeatures gCast gFeatures)
 		else
 			(gSortedFeatures add: gCast gFeatures)
 		)

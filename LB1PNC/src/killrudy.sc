@@ -29,7 +29,7 @@
 (procedure (localproc_0)
 	(HandsOff)
 	(TheMenuBar state: 0)
-	(fight cycles: 0 115 0)
+	(fight cycles: 0 seconds: 0)
 	(Duo setLoop: 0)
 	(gEgo
 		view: 52

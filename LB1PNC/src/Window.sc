@@ -77,7 +77,7 @@
 	)
 
 	(method (show)
-		(Graph grUPDATE_BOX top left bottom right (self setMapSet:))
+		(kernel_112 grUPDATE_BOX top left bottom right (self setMapSet:))
 	)
 
 	(method (draw v p)
@@ -87,16 +87,16 @@
 		(if (>= argc 2)
 			(= priority p)
 		)
-		(Graph grFILL_BOX top left bottom right (self setMapSet:) color priority)
+		(kernel_112 grFILL_BOX top left bottom right (self setMapSet:) color priority)
 	)
 
 	(method (save)
-		(= underBits (Graph grSAVE_BOX top left bottom right (self setMapSet:)))
+		(= underBits (kernel_112 grSAVE_BOX top left bottom right (self setMapSet:)))
 	)
 
 	(method (restore)
 		(if underBits
-			(Graph grRESTORE_BOX underBits)
+			(kernel_112 grRESTORE_BOX underBits)
 		)
 	)
 

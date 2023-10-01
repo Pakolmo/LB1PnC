@@ -824,13 +824,13 @@
 	)
 )
 
-(instance Mouth of Prop ; UNUSED
-	(properties
-		view 364
-		loop 6
-		signal 16384
-	)
-)
+;;;(instance Mouth of Prop ; UNUSED
+;;;	(properties
+;;;		view 364
+;;;		loop 6
+;;;		signal 16384
+;;;	)
+;;;)
 
 (instance CueBall of Act
 	(properties

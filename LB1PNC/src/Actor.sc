@@ -520,8 +520,8 @@
 		(= goodPosn 0)
 		(for ((= legLen 1)) (not goodPosn) ((++ legLen))
 			(for ((= legDir 0)) (and (not goodPosn) (< legDir 8)) ((++ legDir))
-				(= x (+ xOrg (* legLen (sign (CosMult (* legDir 45) 100)))))
-				(= y (- yOrg (* legLen (sign (SinMult (* legDir 45) 100)))))
+				(= x (+ xOrg (* legLen (sign (TimesCos (* legDir 45) 100)))))
+				(= y (- yOrg (* legLen (sign (TimesSin (* legDir 45) 100)))))
 				(= goodPosn
 					(if (self canBeHere:)
 						(self onControl:)
@@ -571,11 +571,11 @@
 						(/
 							(= yIncr
 								(*
-									(= yIncr (SinMult vx 173))
+									(= yIncr (TimesSin vx 173))
 									(+ (gEgo y:) 1)
 								)
 							)
-							(CosMult vx 173)
+							(TimesCos vx 173)
 						)
 					)
 					(self setMotion: MoveTo (+ x yIncr) -1)
@@ -591,11 +591,11 @@
 						(/
 							(= yIncr
 								(*
-									(= yIncr (SinMult vx 173))
+									(= yIncr (TimesSin vx 173))
 									(- 190 (gEgo y:))
 								)
 							)
-							(CosMult vx 173)
+							(TimesCos vx 173)
 						)
 					)
 					(self setMotion: MoveTo (- x yIncr) 190)
@@ -618,8 +618,8 @@
 					(-= maxCoord 360)
 				)
 				(= maxCoord (+ (/ (+ maxCoord 90) 2) (* 45 (- dir 2))))
-				(= yIncr (SinMult maxCoord 100))
-				(= ang (- (CosMult maxCoord 100)))
+				(= yIncr (TimesSin maxCoord 100))
+				(= ang (- (TimesCos maxCoord 100)))
 			)
 		)
 		(while (and (< (Abs ang) 1000) (< (Abs yIncr) 1000))

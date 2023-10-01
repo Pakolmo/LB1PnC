@@ -651,7 +651,8 @@
 			open:
 		)
 		(if time
-			(Unknown_Class_8 setReal: self time)
+			;(Unknown_Class_8 setReal: self time)
+			(timer setReal: self time)
 		)
 		(self draw:)
 	)

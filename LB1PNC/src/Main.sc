@@ -831,13 +831,13 @@
 	)
 )
 
-(instance statusCode of Code ; UNUSED
-	(properties)
-
-	(method (doit param1)
-		(StrCpy param1 0 1)
-	)
-)
+;;;(instance statusCode of Code ; UNUSED
+;;;	(properties)
+;;;
+;;;	(method (doit param1)
+;;;		(StrCpy param1 0 1)
+;;;	)
+;;;)
 
 (instance ego of Ego
 	(properties)
@@ -879,14 +879,14 @@
 		(if (!= priority -1)
 			(|= temp0 $0002)
 		)
-		(= underBits (Graph grSAVE_BOX temp1 temp2 temp3 temp4 temp0))
-		(Graph grFILL_BOX temp1 temp2 temp3 temp4 temp0 back priority)
+		(= underBits (kernel_112 grSAVE_BOX temp1 temp2 temp3 temp4 temp0))
+		(kernel_112 grFILL_BOX temp1 temp2 temp3 temp4 temp0 back priority)
 		(DrawCel 657 0 0 temp2 temp1 -1)
 		(DrawCel 657 0 1 temp2 (- temp3 temp5) -1)
 		(DrawCel 657 1 0 (- temp4 temp6) temp1 -1)
 		(DrawCel 657 1 2 (- temp4 temp6) (- temp3 temp5) -1)
-		(Graph grDRAW_LINE temp1 (+ temp2 temp8) temp1 (- temp4 temp8) 31 -1 -1)
-		(Graph
+		(kernel_112 grDRAW_LINE temp1 (+ temp2 temp8) temp1 (- temp4 temp8) 31 -1 -1)
+		(kernel_112
 			grDRAW_LINE
 			(+ temp1 2)
 			(+ temp2 temp8)
@@ -896,7 +896,7 @@
 			-1
 			-1
 		)
-		(Graph
+		(kernel_112
 			grDRAW_LINE
 			(- temp3 1)
 			(+ temp2 temp8)
@@ -906,7 +906,7 @@
 			-1
 			-1
 		)
-		(Graph
+		(kernel_112
 			grDRAW_LINE
 			(- temp3 3)
 			(+ temp2 temp8)
@@ -916,8 +916,8 @@
 			-1
 			-1
 		)
-		(Graph grDRAW_LINE (+ temp1 temp7) temp2 (- temp3 temp7) temp2 31 -1 -1)
-		(Graph
+		(kernel_112 grDRAW_LINE (+ temp1 temp7) temp2 (- temp3 temp7) temp2 31 -1 -1)
+		(kernel_112
 			grDRAW_LINE
 			(+ temp1 temp7)
 			(+ temp2 2)
@@ -927,7 +927,7 @@
 			-1
 			-1
 		)
-		(Graph
+		(kernel_112
 			grDRAW_LINE
 			(+ temp1 temp7)
 			(- temp4 1)
@@ -937,7 +937,7 @@
 			-1
 			-1
 		)
-		(Graph
+		(kernel_112
 			grDRAW_LINE
 			(+ temp1 temp7)
 			(- temp4 3)
@@ -947,15 +947,15 @@
 			-1
 			-1
 		)
-		(Graph grUPDATE_BOX temp1 temp2 temp3 temp4 1)
+		(kernel_112 grUPDATE_BOX temp1 temp2 temp3 temp4 1)
 		(= type 129)
 		(super open:)
 	)
 
 	(method (dispose)
 		(SetPort 0)
-		(Graph grRESTORE_BOX underBits)
-		(Graph grREDRAW_BOX (- top 8) (- left 8) (+ bottom 8) (+ right 8))
+		(kernel_112 grRESTORE_BOX underBits)
+		(kernel_112 grREDRAW_BOX (- top 8) (- left 8) (+ bottom 8) (+ right 8))
 		(DisposeWindow window)
 		(DisposeClone self)
 	)
@@ -972,7 +972,7 @@
 		(= global190 1)
 		(= gMMSaidsAnchor MMSaidsAnchor)
 		(= gMyWindow myWindow)
-		(if (< (Graph grGET_COLOURS) 16)
+		(if (< (kernel_112 grGET_COLOURS) 16)
 			(gMyWindow color: 15 back: 0)
 		)
 		(User alterEgo: (= gEgo ego))

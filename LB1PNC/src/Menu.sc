@@ -141,7 +141,7 @@
 						(!= gCurRoomNum 64)
 						(!=
 							(= temp1
-								(GetNumber {Volume (1 - 16)?} (+ 1 (DoSound sndVOLUME)))
+								(GetNumber {Volume (1 - 16)?} (+ 1 (DoSound 8)))
 							)
 							-1
 						)
@@ -152,7 +152,7 @@
 					(if (> temp1 15)
 						(= temp1 15)
 					)
-					(DoSound sndVOLUME temp1)
+					(DoSound 8 temp1)
 				)
 			)
 			(1283

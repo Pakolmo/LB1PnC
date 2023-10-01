@@ -364,9 +364,9 @@
 	)
 )
 
-(instance myMusic of Sound ; UNUSED
-	(properties)
-)
+;;;(instance myMusic of Sound ; UNUSED
+;;;	(properties)
+;;;)
 
 (instance Table of RFeature
 	(properties

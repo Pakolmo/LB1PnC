@@ -49,7 +49,16 @@
 )
 
 (procedure (localproc_2)
-	(= local0 (Display &rest dsFONT 41 dsALIGN alCENTER dsCOORD local3 local4 dsWIDTH 260 dsCOLOR 15 dsSAVEPIXELS))
+	(= local0
+		(Display &rest
+			105 41
+			dsALIGN alCENTER
+			dsCOORD local3 local4
+			dsWIDTH 260
+			dsCOLOR 15
+			dsSAVEPIXELS
+		)
+	)
 )
 
 (procedure (localproc_3)
@@ -57,7 +66,7 @@
 )
 
 (procedure (localproc_4)
-	(= local1 (Display &rest dsFONT 41 dsALIGN alCENTER dsCOORD local3 local4 dsWIDTH 260 dsCOLOR 0 dsSAVEPIXELS))
+	(= local1 (Display &rest 105 41 dsALIGN alCENTER dsCOORD local3 local4 dsWIDTH 260 dsCOLOR 0 dsSAVEPIXELS))
 )
 
 (procedure (localproc_5)

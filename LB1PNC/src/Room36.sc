@@ -1174,9 +1174,9 @@
 	(properties)
 )
 
-(instance pianoMusic of Sound ; UNUSED
-	(properties)
-)
+;;;(instance pianoMusic of Sound ; UNUSED
+;;;	(properties)
+;;;)
 
 (instance doorMusic of Sound
 	(properties)

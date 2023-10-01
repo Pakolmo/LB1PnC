@@ -370,13 +370,13 @@
 	)
 )
 
-(instance Sweeper of Prop ; UNUSED
-	(properties
-		y 119
-		x 158
-		view 475
-		loop 2
-		cel 2
-	)
-)
+;;;(instance Sweeper of Prop ; UNUSED
+;;;	(properties
+;;;		y 119
+;;;		x 158
+;;;		view 475
+;;;		loop 2
+;;;		cel 2
+;;;	)
+;;;)
 

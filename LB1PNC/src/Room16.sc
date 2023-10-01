@@ -191,7 +191,8 @@
 	(method (doit)
 		(super doit:)
 		(if (and (== state 5) (== (Rover cel:) 0))
-			(if (<= (DoSound sndCHECK_DRIVER) 3)
+			;(if (<= (DoSound sndCHECK_DRIVER) 3)
+			(if (<= (DoSound 11) 3)
 				(myBark number: 128)
 			)
 			(myBark loop: 1 play: self)
@@ -489,9 +490,9 @@
 	)
 )
 
-(instance Wind of Sound ; UNUSED
-	(properties)
-)
+;;;(instance Wind of Sound ; UNUSED
+;;;	(properties)
+;;;)
 
 (instance myMusic of Sound
 	(properties)

@@ -49,11 +49,11 @@
 )
 
 (procedure (localproc_0)
-	(= local2 (Display &rest dsFONT 4 dsALIGN alCENTER dsCOORD 1 90 dsWIDTH 320 dsCOLOR 15 dsSAVEPIXELS))
+	(= local2 (Display &rest 105 4 dsALIGN alCENTER dsCOORD 1 90 dsWIDTH 320 dsCOLOR 15 dsSAVEPIXELS))
 )
 
 (procedure (localproc_1)
-	(= local1 (Display &rest dsFONT 8 dsALIGN alCENTER dsCOORD 1 165 dsWIDTH 320 dsCOLOR 15 dsSAVEPIXELS))
+	(= local1 (Display &rest 105 8 dsALIGN alCENTER dsCOORD 1 165 dsWIDTH 320 dsCOLOR 15 dsSAVEPIXELS))
 )
 
 (procedure (localproc_2)
@@ -65,11 +65,11 @@
 )
 
 (procedure (localproc_4)
-	(= local3 (Display &rest dsFONT 41 dsALIGN alCENTER dsCOORD local5 local6 dsWIDTH 300 dsCOLOR 0 dsSAVEPIXELS))
+	(= local3 (Display &rest 105 41 dsALIGN alCENTER dsCOORD local5 local6 dsWIDTH 300 dsCOLOR 0 dsSAVEPIXELS))
 )
 
 (procedure (localproc_5)
-	(= local4 (Display &rest dsFONT 41 dsALIGN alCENTER dsCOORD local5 local6 dsWIDTH 300 dsCOLOR 15 dsSAVEPIXELS))
+	(= local4 (Display &rest 105 41 dsALIGN alCENTER dsCOORD local5 local6 dsWIDTH 300 dsCOLOR 15 dsSAVEPIXELS))
 )
 
 (procedure (localproc_6)

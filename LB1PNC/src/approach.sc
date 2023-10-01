@@ -22,11 +22,11 @@
 )
 
 (procedure (localproc_0)
-	(= local0 (Display &rest dsFONT 41 dsALIGN alCENTER dsCOORD local2 local3 dsWIDTH 300 dsCOLOR 15 dsSAVEPIXELS))
+	(= local0 (Display &rest 105 41 dsALIGN alCENTER dsCOORD local2 local3 dsWIDTH 300 dsCOLOR 15 dsSAVEPIXELS))
 )
 
 (procedure (localproc_1)
-	(= local1 (Display &rest dsFONT 41 dsALIGN alCENTER dsCOORD local2 local3 dsWIDTH 300 dsCOLOR 0 dsSAVEPIXELS))
+	(= local1 (Display &rest 105 41 dsALIGN alCENTER dsCOORD local2 local3 dsWIDTH 300 dsCOLOR 0 dsSAVEPIXELS))
 )
 
 (procedure (localproc_2)

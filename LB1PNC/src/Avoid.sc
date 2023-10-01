@@ -65,12 +65,12 @@
 			x:
 				(+
 					(client x:)
-					(* (sign (SinMult heading 100)) (client xStep:))
+					(* (sign (TimesSin heading 100)) (client xStep:))
 				)
 			y:
 				(-
 					(client y:)
-					(* (sign (CosMult heading 100)) (client yStep:))
+					(* (sign (TimesCos heading 100)) (client yStep:))
 				)
 			heading: heading
 		)

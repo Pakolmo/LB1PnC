@@ -185,10 +185,10 @@
 				)
 				(shadow setCycle: End self)
 			)
-			(12
+			(13 ;12
 				(= seconds 7)
 			)
-			(13
+			(14 ;13
 				(= global128 271)
 				(= global129 9)
 				(EgoDead 215 0) ; "Didn't Alfred teach you anything?!"

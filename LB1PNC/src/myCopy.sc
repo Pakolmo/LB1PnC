@@ -72,9 +72,9 @@
 	(properties)
 )
 
-(instance Mood of Sound ; UNUSED
-	(properties)
-)
+;;;(instance Mood of Sound ; UNUSED
+;;;	(properties)
+;;;)
 
 (instance myCopy of Rm
 	(properties
@@ -155,7 +155,8 @@
 						)
 						(self cue:)
 					else
-						(localproc_3)
+						;(localproc_3)
+						(self cue:)
 					)
 					(event claimed: 1)
 				)
@@ -169,7 +170,8 @@
 						)
 						(self cue:)
 					else
-						(localproc_3)
+						;(localproc_3)
+						(self cue:)
 					)
 					(event claimed: 1)
 				)
