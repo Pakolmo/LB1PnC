@@ -186,7 +186,9 @@
 							(User controls:)
 						)
 						(event claimed: 1)
-						(Inv showSelf: gEgo)
+						(if (MousedOn self event emSHIFT)
+							(Inv showSelf: gEgo)
+						)
 					)
 				)
 				($0040 ; direction

@@ -41,6 +41,7 @@
 	proc0_23 23
 	proc0_24 24
 	DoLook 25
+	DoVerb 26
 )
 
 (local
@@ -753,6 +754,14 @@
 (procedure (DoLook param1 &tmp temp0)
 	(StrCpy (User inputLineAddr:) {Look })
 	(StrCat (User inputLineAddr:) param1)
+	((= temp0 (Event new:)) type: evSAID)
+	(Parse (User inputLineAddr:) temp0)
+	(User said: temp0)
+	(temp0 dispose:)
+)
+
+(procedure (DoVerb param1 &tmp temp0)
+	(StrCpy (User inputLineAddr:) param1)
 	((= temp0 (Event new:)) type: evSAID)
 	(Parse (User inputLineAddr:) temp0)
 	(User said: temp0)

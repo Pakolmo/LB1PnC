@@ -494,10 +494,53 @@
 		signal 16384
 	)
 
-	(method (handleEvent event)
+	(method (handleEvent event &tmp temp0)
 		(if (or (MousedOn self event 3) (Said 'look[<at]/bed'))
 			(event claimed: 1)
-			(Print 44 22) ; "There is a suitcase lying on each bed."
+			(= temp0
+				(Print
+					44 22 ; "There is a suitcase lying on each bed."
+					#button {Open suitcase} 1
+				)
+			)
+			(switch temp0
+				(1
+					(cond
+						((gEgo inRect: 245 131 290 140)
+							(cond
+								((< gAct 5)
+									(Print 44 9) ; "Lillian's suitcase is locked."
+								)
+								((== gAct 5)
+									(Print 44 37) ; "Lillian isn't going to let you look in her suitcase!"
+								)
+								(else
+									(HandsOff)
+									(= local2 1)
+									(= local1 0)
+									(suit2 setScript: OpenSuit)
+								)
+							)
+						)
+						(
+							(or
+								(gEgo inRect: 241 154 320 200)
+								(gEgo inRect: 178 0 320 98)
+							)
+							(Print 44 38) ; "You're on the wrong side of the bed to do that."
+						)
+						((< (gEgo distanceTo: suit1) 25)
+							(= local1 1)
+							(= local2 0)
+							(HandsOff)
+							(suit1 setScript: OpenSuit)
+						)
+						(else
+							(NotClose) ; "You're not close enough."
+						)
+					)
+				)
+			)
 		)
 	)
 )
@@ -718,7 +761,7 @@
 		loop 1
 	)
 
-	(method (handleEvent event)
+	(method (handleEvent event &tmp temp0)
 		(cond
 			((Said 'get/cloth')
 				(if (gEgo inRect: 245 131 290 160)
@@ -800,7 +843,22 @@
 			)
 			((MousedOn self event 3)
 				(event claimed: 1)
-				(DoLook {suitcase})
+				;(DoLook {suitcase})
+				(= temp0
+					(Print
+						44 22 ; "There is a suitcase lying on each bed."
+						#button {Get suitcase} 1
+						#button {Open suitcase} 2
+					)
+				)
+				(switch temp0
+					(1
+						(DoVerb {get suitcase})
+					)
+					(2
+						(DoVerb {open suitcase})
+					)
+				)
 			)
 		)
 	)
