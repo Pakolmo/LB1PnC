@@ -842,7 +842,11 @@
 					)
 				)
 			)
-			((MousedOn self event 3)
+			(
+				(and
+					(MousedOn self event 3)
+					(== (event claimed?) FALSE)
+				)
 				(event claimed: 1)
 				;(DoLook {suitcase})
 				(= temp0
@@ -884,7 +888,11 @@
 	)
 
 	(method (handleEvent event &tmp temp0)
-		(if (MousedOn self event 3)
+		(if
+			(and
+				(MousedOn self event 3)
+				(== (event claimed?) FALSE)
+			)
 			(event claimed: 1)
 			;(DoLook {suitcase})
 			(= temp0
