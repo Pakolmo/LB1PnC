@@ -132,7 +132,7 @@
 (instance speech38a of Script
 	(properties)
 
-	(method (handleEvent event)
+	(method (handleEvent event &tmp temp0)
 		(super handleEvent: event)
 		(if
 			(and
@@ -146,6 +146,21 @@
 				(localproc_3)
 			)
 			(gCurRoom newRoom: gPrevRoomNum)
+		)
+		(if (== evMOUSEBUTTON (event type:))
+			(= temp0
+				(Print {Skip scene?}
+					#button {Yes} 1
+					#button {No} 0
+				)
+			)
+			(if (== temp0 1)
+				(cls)
+				(if (not (& gSpyFlags $0002))
+					(localproc_3)
+				)
+				(gCurRoom newRoom: gPrevRoomNum)
+			)
 		)
 	)
 

@@ -157,6 +157,21 @@
 			)
 			(gCurRoom newRoom: gPrevRoomNum)
 		)
+		(if (== evMOUSEBUTTON (event type:))
+			(= temp0
+				(Print {Skip scene?}
+					#button {Yes} 1
+					#button {No} 0
+				)
+			)
+			(if (== temp0 1)
+				(cls)
+				(if (not (& gSpyFlags $0001))
+					(localproc_3)
+				)
+				(gCurRoom newRoom: gPrevRoomNum)
+			)
+		)
 	)
 
 	(method (doit)
