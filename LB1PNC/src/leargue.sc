@@ -11,6 +11,7 @@
 (use User)
 (use Actor)
 (use System)
+(use Inventory) ;add for use/show inv
 
 (public
 	leargue 0
@@ -666,7 +667,8 @@
 		view 500
 	)
 
-	(method (handleEvent event)
+	;(method (handleEvent event)
+	(method (handleEvent event &tmp temp0)
 		(if (== global203 2)
 			(= global213 6)
 			(cond
@@ -680,7 +682,28 @@
 						(or (MousedOn self event 3) (Said 'look/lil'))
 					)
 					(event claimed: 1)
-					(Print 230 1) ; "Ethel and Lillian seem to be having a little "mother-daughter" chat."
+					;(Print 230 1) ; "Ethel and Lillian seem to be having a little "mother-daughter" chat."
+					(= temp0
+						(Print
+							230 1 ; "Ethel and Lillian seem to be having a little "mother-daughter" chat."
+							#button {Talk Lillian} 1
+							#button {Use Item} 2
+							#button {Show Item} 3
+						)
+					)
+					(switch temp0
+						(1
+							(DoVerb {Talk Lillian})
+						)
+						(2
+							(Inv showSelf: 777) ;select inv item to use.
+							(DoUseItem {Lillian} event) ;use selected inv item on Lillian
+						)
+						(3
+							(Inv showSelf: 777) ;select inv item to use.
+							(DoShowItem {Lillian} event) ;Show selected inv item to Lillian
+						)
+					)
 				)
 				((Said 'talk/lil')
 					(switch local2

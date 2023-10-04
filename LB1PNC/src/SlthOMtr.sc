@@ -617,7 +617,7 @@
 						#mode
 						1
 						#button
-						{   Yes  }
+						{___Yes__}
 						1
 						#button
 						{  Quit  }

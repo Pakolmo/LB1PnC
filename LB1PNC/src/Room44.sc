@@ -45,7 +45,7 @@
 		(= west 43)
 		(= global190 0)
 		(super init:)
-		(SetCursor 997 1 300 0)
+		;(SetCursor 997 1 300 0)
 		(gConMusic stop:)
 		(Load rsFONT 4)
 		(LoadMany rsVIEW 22 653 38)
@@ -127,6 +127,7 @@
 			(if (== global203 0)
 				(self setRegions: 411) ; Startup
 				(= local5 1)
+				(SetCursor 997 1 300 0) ;fix cursor bug
 			)
 		)
 		(switch gPrevRoomNum
@@ -855,7 +856,6 @@
 						#button {Get suitcase} 1
 						#button {Open suitcase} 2
 						#button {Use Item} 3
-						#button {Show Item} 4
 					)
 				)
 				(switch temp0
@@ -868,10 +868,6 @@
 					(3
 						(Inv showSelf: 777) ;select inv item to use.
 						(DoUseItem {suitcase} event) ;use selected inv item on suitcase
-					)
-					(4
-						(Inv showSelf: 777) ;select inv item to use.
-						(DoShowItem {suitcase} event) ;use selected inv item on suitcase
 					)
 				)
 			)
@@ -901,7 +897,6 @@
 					#button {Get} 1
 					#button {Open} 2
 					#button {Use Item} 3
-					#button {Show Item} 4
 				)
 			)
 			(switch temp0
@@ -914,10 +909,6 @@
 				(3
 					(Inv showSelf: 777) ;select inv item to use.
 					(DoUseItem {suitcase} event) ;use selected inv item on suitcase
-				)
-				(4
-					(Inv showSelf: 777) ;select inv item to use.
-					(DoShowItem {suitcase} event) ;use selected inv item on suitcase
 				)
 			)
 		)
