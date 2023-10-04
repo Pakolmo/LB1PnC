@@ -114,7 +114,7 @@
 (instance speech of Script
 	(properties)
 
-	(method (handleEvent event)
+	(method (handleEvent event &tmp temp0)
 		(super handleEvent: event)
 		(if
 			(and
