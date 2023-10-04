@@ -52,7 +52,8 @@
 	(Print txt #icon v l c &rest)
 )
 
-(procedure (Print args &tmp theDialog textI iconI editI ret i atX atY fixWidth keepIt default curPort [buttons 6] buttonWide buttonsUsed butAtX [buffer 1000])
+(procedure (Print args &tmp theDialog textI iconI editI ret i atX atY fixWidth keepIt default curPort [buttons 6] buttonWide buttonsUsed butAtX [buffer 1000] butRow)
+	(= butRow 0)
 	(= atX (= atY -1))
 	(= keepIt (= fixWidth (= buttonWide (= iconI (= editI (= buttonsUsed 0))))))
 	((= theDialog (Dialog new:)) window: gMyWindow name: {PrintD})
@@ -163,7 +164,15 @@
 		)
 	)
 	(for ((= i 0)) (< i buttonsUsed) ((++ i))
-		([buttons i] moveTo: butAtX (theDialog nsBottom:))
+		(if (> butAtX 160) ;fix for button rows
+			(= butAtX 4)
+			(= butRow (+ butRow 14))
+		)
+		(if (== STRINGS_EQUAL (StrCmp ([buttons i] text?) {Return})) ;reposition return button for custom imput window
+			([buttons i] moveTo: 226 (- (theDialog nsBottom:) 1))
+		else	
+			([buttons i] moveTo: butAtX (+ (theDialog nsBottom:) butRow))
+		)
 		(theDialog add: [buttons i])
 		(= butAtX (+ 4 ([buttons i] nsRight:)))
 	)

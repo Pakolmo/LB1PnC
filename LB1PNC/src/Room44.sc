@@ -12,6 +12,7 @@
 (use User)
 (use Actor)
 (use System)
+(use Inventory)
 
 (public
 	Room44 0
@@ -761,7 +762,7 @@
 		loop 1
 	)
 
-	(method (handleEvent event &tmp temp0)
+	(method (handleEvent event &tmp temp0 [str 200])
 		(cond
 			((Said 'get/cloth')
 				(if (gEgo inRect: 245 131 290 160)
@@ -849,6 +850,8 @@
 						44 22 ; "There is a suitcase lying on each bed."
 						#button {Get suitcase} 1
 						#button {Open suitcase} 2
+						#button {Use Item} 3
+						#button {Show Item} 4
 					)
 				)
 				(switch temp0
@@ -857,6 +860,14 @@
 					)
 					(2
 						(DoVerb {open suitcase})
+					)
+					(3
+						(Inv showSelf: 777) ;select inv item to use.
+						(DoUseItem {suitcase} event) ;use selected inv item on suitcase
+					)
+					(4
+						(Inv showSelf: 777) ;select inv item to use.
+						(DoShowItem {suitcase} event) ;use selected inv item on suitcase
 					)
 				)
 			)
@@ -872,10 +883,35 @@
 		loop 2
 	)
 
-	(method (handleEvent event)
+	(method (handleEvent event &tmp temp0)
 		(if (MousedOn self event 3)
 			(event claimed: 1)
-			(DoLook {suitcase})
+			;(DoLook {suitcase})
+			(= temp0
+				(Print
+					44 22 ; "There is a suitcase lying on each bed."
+					#button {Get} 1
+					#button {Open} 2
+					#button {Use Item} 3
+					#button {Show Item} 4
+				)
+			)
+			(switch temp0
+				(1
+					(DoVerb {get suitcase})
+				)
+				(2
+					(DoVerb {open suitcase})
+				)
+				(3
+					(Inv showSelf: 777) ;select inv item to use.
+					(DoUseItem {suitcase} event) ;use selected inv item on suitcase
+				)
+				(4
+					(Inv showSelf: 777) ;select inv item to use.
+					(DoShowItem {suitcase} event) ;use selected inv item on suitcase
+				)
+			)
 		)
 	)
 )

@@ -34,7 +34,7 @@
 		)
 		(AddMenu { Speed } {Faster`+:Normal`=:Slower`-})
 		(AddMenu { Sound } {Volume`^v:-!:Turn Off=1`#2})
-		(SetMenu 1283 110 (if (DoSound sndSET_SOUND) {Turn Off} else {Turn On}))
+		(SetMenu 1283 110 (if (DoSound 4) {Turn Off} else {Turn On}))
 		(SetMenu 258 109 'help[/game]')
 		(SetMenu 513 109 'save[/game]')
 		(SetMenu 514 109 'restore[/game]')
@@ -96,8 +96,9 @@
 					(Print 997 6) ; "Inventory can not be displayed at this time."
 				else
 					(= temp5 (Sound pause: 1))
-					(Inv showSelf: gEgo)
+					(Inv showSelf: 888)
 					(Sound pause: temp5)
+					(DoUseItem useInvItem event)
 				)
 			)
 			(771
@@ -156,12 +157,12 @@
 				)
 			)
 			(1283
-				(if (= temp1 (DoSound sndSET_SOUND))
+				(if (= temp1 (DoSound 4))
 					(SetMenu 1283 110 {Turn On})
 				else
 					(SetMenu 1283 110 {Turn Off})
 				)
-				(DoSound sndSET_SOUND (not temp1))
+				(DoSound 4 (not temp1))
 			)
 			(else
 				(if global392

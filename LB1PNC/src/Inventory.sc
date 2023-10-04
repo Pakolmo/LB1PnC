@@ -8,6 +8,8 @@
 
 (local
 	yesI
+	useMonocleI
+	useToggle
 )
 
 (class InvI of Obj
@@ -122,11 +124,58 @@
 			moveTo: (- nsRight (+ 4 (yesI nsRight:))) nsBottom
 		)
 		(yesI move: (- (yesI nsLeft:) (yesI nsRight:)) 0)
-		(self add: yesI setSize: center:)
+		(if
+			(and
+				(gEgo has: 1) ; has monocle
+				(not useToggle)
+			)
+			(= useMonocleI (DButton new:))
+			(useMonocleI
+				text: {Use Monocle}
+				setSize:
+				moveTo: (- nsRight (+ 4 (useMonocleI nsRight:))) (+ nsBottom 14)
+			)
+			;(useMonocleI move: (- (useMonocleI nsLeft:) (useMonocleI nsRight:)) 0)
+			(= yesI (DButton new:))
+			(yesI
+				text: {OK}
+				setSize:
+				moveTo: (- (useMonocleI nsRight:) (yesI nsRight:)) nsBottom
+			)
+			(yesI move: (- (yesI nsLeft:) (yesI nsRight:)) 0)
+			(self add: yesI useMonocleI setSize: center:)
+		else
+			(= yesI (DButton new:))
+			(yesI
+				text: {OK}
+				setSize:
+				moveTo: (- nsRight (+ 4 (yesI nsRight:))) nsBottom
+			)
+			(yesI move: (- (yesI nsLeft:) (yesI nsRight:)) 0)
+			(self add: yesI setSize: center:)
+		)
 		(return temp3)
 	)
 
-	(method (doit param1 &tmp temp0)
+	(method (doit param1 &tmp temp0 [str 200])
+		(cond
+			((== param1 777) ;inv use hack
+				(= useToggle 1)
+				(= useInvItem 0)
+				(= useInvItem2 0)
+				(= param1 gEgo)
+			)
+			((== param1 888) ;inv on inv from right-click ego
+				(= useToggle 0)
+				(= useInvItem 0)
+				(= useInvItem2 0)
+				(= param1 gEgo)
+			)
+			(else
+				(= useToggle 0)
+			)
+		)
+		(gEgo get: 0 1 2 3 4 5 6 18)
 		(if (not (self init: param1))
 			(Print (gInventory empty:))
 			(return)
@@ -142,7 +191,25 @@
 				)
 				(break)
 			)
-			((temp0 value:) showSelf:)
+			(if useToggle
+				(= useInvItem ((temp0 value:) name?))
+				(break)
+			else
+				(if (== temp0 useMonocleI)
+					(= useInvItem2 {monocle })
+					(Print {Select item to examine.})
+				else
+					(if (== useInvItem2 0)
+						((temp0 value:) showSelf:)
+					else
+						(= useInvItem ((temp0 value:) name?))
+						(break)
+					)	
+				)	
+			)
+		)
+		(if (== temp0 yesI)
+			(= useInvItem 0)
 		)
 		(self dispose:)
 	)

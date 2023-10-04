@@ -25,7 +25,7 @@
 	(method (init)
 		(= state (= signal 0))
 		(gSounds add: self)
-		(DoSound sndINIT self)
+		(DoSound 0 self)
 	)
 
 	(method (play caller &tmp oldInfo)
@@ -35,7 +35,7 @@
 		)
 		(self init:)
 		(= client (if argc caller else 0))
-		(DoSound sndPLAY self)
+		(DoSound 1 self)
 	)
 
 	(method (playMaybe)
@@ -60,7 +60,7 @@
 			(= client 0)
 		)
 		(if handle
-			(DoSound sndSTOP handle)
+			(DoSound 5 handle)
 		)
 	)
 
@@ -70,18 +70,18 @@
 		)
 		(gSounds delete: self)
 		(if handle
-			(DoSound sndDISPOSE handle)
+			(DoSound 3 handle)
 			(= handle 0)
 		)
 		(super dispose:)
 	)
 
 	(method (pause value)
-		(DoSound sndPAUSE value)
+		(DoSound 6 value)
 	)
 
 	(method (changeState)
-		(DoSound sndUPDATE self)
+		(DoSound 9 self)
 	)
 
 	(method (clean who)
@@ -94,7 +94,7 @@
 		(if (and argc (not doCue))
 			(= client 0)
 		)
-		(DoSound sndFADE handle)
+		(DoSound 10 handle)
 	)
 )
 

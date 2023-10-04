@@ -42,6 +42,8 @@
 	proc0_24 24
 	DoLook 25
 	DoVerb 26
+	DoUseItem 27
+	DoShowItem 28
 )
 
 (local
@@ -583,6 +585,8 @@
 	global445
 	gCellar
 	gGetItemMusic
+	useInvItem ;for using inv items
+	useInvItem2 ;for inv on inv
 )
 
 (procedure (LookAt param1 param2)
@@ -766,6 +770,24 @@
 	(Parse (User inputLineAddr:) temp0)
 	(User said: temp0)
 	(temp0 dispose:)
+)
+
+(procedure (DoUseItem param1 event &tmp temp0 [str 200])
+	(if useInvItem
+		(event claimed: 0 type: evKEYBOARD message: (User echo:))
+		(if useInvItem2
+			(StrCpy (User inputLineAddr:) (Format @str {examine %swith monocle} useInvItem))
+		else
+			(StrCpy (User inputLineAddr:) (Format @str {use %son %s} useInvItem param1))
+		)
+	)
+)
+
+(procedure (DoShowItem param1 event &tmp temp0 [str 200])
+	(if useInvItem
+		(event claimed: 0 type: evKEYBOARD message: (User echo:))
+		(StrCpy (User inputLineAddr:) (Format @str {show %sto %s} useInvItem param1))
+	)
 )
 
 (procedure (LoadMany param1 param2 &tmp temp0 temp1)
@@ -1037,12 +1059,12 @@
 
 	(method (replay)
 		(= gUserFont gBigFont)
-		(SetMenu 1283 110 (if (DoSound sndSET_SOUND) {Turn Off} else {Turn On}))
+		(SetMenu 1283 110 (if (DoSound 4) {Turn Off} else {Turn On}))
 		(TheMenuBar draw: hide:)
 		(super replay:)
 	)
 
-	(method (doit &tmp temp0 temp1)
+	(method (doit &tmp temp0 temp1 temp2)
 		(cond
 			(
 				(and

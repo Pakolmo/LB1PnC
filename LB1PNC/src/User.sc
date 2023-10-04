@@ -9,6 +9,7 @@
 (use Actor)
 (use System)
 (use Inventory)
+(use Sound)
 
 (local
 	[inputLine 23]
@@ -96,7 +97,11 @@
 		(if (!= (event message:) echo)
 			(Format @inputLine 996 0 (event message:)) ; "%c"
 		)
-		(= temp1 (GetInput @inputLine inputLen prompt 67 x y))
+		(if (== (event message:) echo)
+			(= temp1 (Print prompt #edit @inputLine inputLen #at x y #button {Return} 1))
+		else
+			(= temp1 (GetInput @inputLine inputLen prompt 67 x y))
+		)
 	)
 
 	(method (canControl value)
@@ -167,7 +172,7 @@
 		)
 	)
 
-	(method (handleEvent event &tmp temp0)
+	(method (handleEvent event &tmp temp0 temp5)
 		(if (not (super handleEvent: event))
 			(switch (event type:)
 				(evMOUSEBUTTON
@@ -187,7 +192,10 @@
 						)
 						(event claimed: 1)
 						(if (MousedOn self event emSHIFT)
-							(Inv showSelf: gEgo)
+							(= temp5 (Sound pause: 1))
+							(Inv showSelf: 888)
+							(Sound pause: temp5)
+							(DoUseItem useInvItem event)
 						)
 					)
 				)
