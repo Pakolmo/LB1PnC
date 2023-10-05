@@ -587,6 +587,7 @@
 	gGetItemMusic
 	useInvItem ;for using inv items
 	useInvItem2 ;for inv on inv
+	DoShowToggle ;hack for look room rClick
 )
 
 (procedure (LookAt param1 param2)
@@ -774,6 +775,7 @@
 
 (procedure (DoUseItem param1 event &tmp temp0 [str 200])
 	(if useInvItem
+		(= DoShowToggle 1)
 		(event claimed: 0 type: evKEYBOARD message: (User echo:))
 		(if useInvItem2
 			(StrCpy (User inputLineAddr:) (Format @str {examine %swith monocle} useInvItem))
@@ -785,6 +787,7 @@
 
 (procedure (DoShowItem param1 event &tmp temp0 [str 200])
 	(if useInvItem
+		(= DoShowToggle 1)
 		(event claimed: 0 type: evKEYBOARD message: (User echo:))
 		(StrCpy (User inputLineAddr:) (Format @str {show %sto %s} useInvItem param1))
 	)
@@ -1180,13 +1183,17 @@
 				(if (not (event claimed:))
 					(gMmMouseDownHandler handleEvent: event)
 				)
-				(if
-					(and
-						(not (event claimed:))
-						(== (event modifiers:) 547)
+				(if DoShowToggle
+					(= DoShowToggle 0)
+				else	
+					(if
+						(and
+							(not (event claimed:))
+							(== (event modifiers:) 547)
+						)
+						(DoLook {room})
+						(event claimed: TRUE)
 					)
-					(DoLook {room})
-					(event claimed: TRUE)
 				)
 			)
 			(evSAID
