@@ -688,7 +688,8 @@
 			(theItem select: 1)
 		)
 		(if (not theItem)
-			(= eatMice 60)
+			;(= eatMice 60)
+			(= eatMice 1)
 			(= lastTick (GetTime))
 		else
 			(= eatMice 0)

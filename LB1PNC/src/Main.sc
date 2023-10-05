@@ -1180,6 +1180,14 @@
 				(if (not (event claimed:))
 					(gMmMouseDownHandler handleEvent: event)
 				)
+				(if
+					(and
+						(not (event claimed:))
+						(== (event modifiers:) 547)
+					)
+					(DoLook {room})
+					(event claimed: TRUE)
+				)
 			)
 			(evSAID
 				(if (and (not (event claimed:)) global219)
