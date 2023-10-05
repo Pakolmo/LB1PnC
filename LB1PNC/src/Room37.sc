@@ -322,7 +322,7 @@
 		(super newRoom: newRoomNumber)
 	)
 
-	(method (handleEvent event &tmp temp0)
+	(method (handleEvent event &tmp temp0 temp1)
 		(if (event claimed:)
 			(return 1)
 		)
@@ -341,6 +341,31 @@
 					(self setScript: 0)
 					(gEgo setAvoider: 0)
 					(= local57 0)
+				)
+			)
+		)
+		(if
+			(and
+				local57
+				(== evMOUSEBUTTON (event type:))
+				(== local53 1)
+			)
+			(event claimed: 1)
+			(= temp1
+				(Print {Exit?}
+					#button {Yes} 1
+					#button {No} 0
+				)
+			)
+			(if (== temp1 1)
+				(if (or local53 local57)
+					(Crash stop:)
+					(localproc_2)
+					(if local57
+						(self setScript: 0)
+						(gEgo setAvoider: 0)
+						(= local57 0)
+					)
 				)
 			)
 		)
