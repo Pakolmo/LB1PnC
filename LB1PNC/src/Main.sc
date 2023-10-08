@@ -1185,11 +1185,15 @@
 				)
 				(if DoShowToggle
 					(= DoShowToggle 0)
-				else	
+				else
+					;(Printf {modifiers %d}(event modifiers:))
 					(if
 						(and
 							(not (event claimed:))
-							(== (event modifiers:) 547)
+							(or
+								(== (event modifiers:) 547) ; dosbox rClick modifiers
+								(== (event modifiers:) 515) ; scummvm rClick modifiers
+							)
 						)
 						(DoLook {room})
 						(event claimed: TRUE)
