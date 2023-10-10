@@ -237,7 +237,8 @@
 								)
 								(self cue:)
 							else
-								(localproc_3)
+								;(localproc_3)
+								(self cue:)
 							)
 						)
 						((== (event message:) KEY_F2)
