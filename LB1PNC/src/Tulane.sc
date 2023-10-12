@@ -1,9 +1,8 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-;;; Decompiled by sluicebox
 (script# 779)
-(include sci.sh)
+(include game.sh)
 (use Main)
-(use Interface)
+(use Intrface)
 (use Wander)
 (use Path)
 (use Sound)
@@ -17,165 +16,180 @@
 )
 
 (local
-	local0 = 1
-	local1
-	local2
+	local0 =  1
+	saveBits
+	saveBits2
 	local3
-	[local4 5] = [98 101 324 101 -32768]
-	[local9 21] = [93 135 138 132 175 125 220 126 247 124 277 132 288 133 304 150 320 161 332 161 -32768]
-	[local30 21] = [320 161 304 150 288 133 277 132 247 124 220 126 175 125 138 132 93 135 14 130 -32768]
-	[local51 11] = [317 131 298 137 304 150 320 161 332 161 -32768]
+	tinyLRPoints = [
+		98 101
+		324 101
+		PATHEND
+		]
+	largeLRPoints = [
+		93 135
+		138 132
+		175 125
+		220 126
+		247 124
+		277 132
+		288 133
+		304 150
+		320 161
+		332 161
+		PATHEND
+		]
+	largeRLPoints = [
+		320 161
+		304 150
+		288 133
+		277 132
+		247 124
+		220 126
+		175 125
+		138 132
+		93 135
+		14 130
+		PATHEND
+		]
+	largeTBPoints = [
+		317 131
+		298 137
+		304 150
+		320 161
+		332 161
+		PATHEND
+		]
 )
-
-(procedure (localproc_0 param1 param2 param3)
-	(Print &rest #at param1 param2 #font 4 #width param3 #mode 1 #draw #dispose)
+(procedure (DoPrint theX theY theWidth)
+	(Print &rest
+		#at theX theY
+		#font 4
+		#width theWidth
+		#mode teJustCenter
+		#draw
+		#dispose
+	)
 )
 
 (instance tinyLRPath of Path
-	(properties)
-
-	(method (at param1)
-		(return [local4 param1])
+	
+	(method (at n)
+		(return [tinyLRPoints n])
 	)
 )
 
 (instance largeLRPath of Path
-	(properties)
-
-	(method (at param1)
-		(return [local9 param1])
+	
+	(method (at n)
+		(return [largeLRPoints n])
 	)
 )
 
 (instance largeRLPath of Path
-	(properties)
-
-	(method (at param1)
-		(return [local30 param1])
+	
+	(method (at n)
+		(return [largeRLPoints n])
 	)
 )
 
 (instance largeTBPath of Path
-	(properties)
-
-	(method (at param1)
-		(return [local51 param1])
+	
+	(method (at n)
+		(return [largeTBPoints n])
 	)
 )
 
-(instance statue of PV
+(instance statue of PicView
 	(properties
 		y 112
 		x 226
 		view 178
 		priority 11
-		signal 16384
+		signal ignrAct
 	)
 )
 
-(instance bench of PV
+(instance bench of PicView
 	(properties
 		y 183
 		x 104
 		view 178
 		cel 1
 		priority 13
-		signal 16384
+		signal ignrAct
 	)
 )
 
-(instance LilysHead of PV
+(instance LilysHead of PicView
 	(properties
 		y 140
 		x 127
 		view 513
 		loop 1
 		priority 12
-		signal 16384
+		signal ignrAct
 	)
 )
 
-(instance LilysLegs of PV
+(instance LilysLegs of PicView
 	(properties
 		y 183
 		x 128
 		view 513
 		loop 1
 		cel 1
-		signal 16384
+		signal ignrAct
 	)
 )
 
-(instance LaurasHead of Prop
-	(properties)
-)
+(instance LaurasHead of Prop)
 
-(instance LaurasArms of Prop
-	(properties)
-)
+(instance LaurasArms of Prop)
 
-(instance squirrel of Prop
-	(properties)
-)
+(instance squirrel of Prop)
 
-(instance pigeon of Act
-	(properties)
-)
+(instance pigeon of Actor)
 
-(instance tiny of Act
-	(properties)
-)
+(instance tiny of Actor)
 
-(instance small of Act
-	(properties)
-)
+(instance small of Actor)
 
-(instance large of Act
-	(properties)
-)
+(instance large of Actor)
 
-(instance Lillian of Act
-	(properties)
-)
+(instance Lillian of Actor)
 
-(instance bFly of Act
-	(properties)
-)
+(instance bFly of Actor)
 
-(instance picWindow of Cage
-	(properties)
-)
+(instance picWindow of Cage)
 
-(instance campusRag of Sound
-	(properties)
-)
+(instance campusRag of Sound)
 
-(instance Tulane of Rm
+(instance Tulane of Room
 	(properties
 		picture 78
-		style 4
+		style WIPEUP
 	)
-
+	
 	(method (init)
 		(super init:)
-		(= global161 (= local3 0))
+		(= talkTimer (= local3 0))
 		(HandsOff)
-		(Load rsVIEW 278)
-		(Load rsVIEW 513)
-		(Load rsVIEW 524)
-		(Load rsVIEW 528)
-		(Load rsSOUND 3)
-		(Load rsFONT 4)
-		(Load rsFONT 40)
-		(Load rsFONT 41)
-		(gAddToPics add: bench statue doit:)
+		(Load VIEW 278)
+		(Load VIEW 513)
+		(Load VIEW 524)
+		(Load VIEW 528)
+		(Load SOUND 3)
+		(Load FONT 4)
+		(Load FONT 40)
+		(Load FONT 41)
+		(addToPics add: bench statue doit:)
 		(LaurasHead
 			view: 178
 			loop: 1
 			cel: 0
 			posn: 100 142
 			setPri: 12
-			ignoreActors: 1
+			ignoreActors: TRUE
 			stopUpd:
 			setScript: LauraReading
 			init:
@@ -186,7 +200,7 @@
 			cel: 0
 			posn: 101 165
 			setPri: 14
-			ignoreActors: 1
+			ignoreActors: TRUE
 			stopUpd:
 			init:
 		)
@@ -212,7 +226,7 @@
 			init:
 			hide:
 		)
-		(Lillian ignoreActors: 1 init: stopUpd: hide:)
+		(Lillian ignoreActors: TRUE init: stopUpd: hide:)
 		(picWindow left: -2 right: 321 bottom: 191 top: -2 init:)
 		(bFly
 			view: 378
@@ -220,7 +234,7 @@
 			setStep: 3 3
 			setPri: 14
 			observeBlocks: picWindow
-			ignoreHorizon: 1
+			ignoreHorizon: TRUE
 			setMotion: Wander
 			cycleSpeed: 0
 			setCycle: Walk
@@ -246,61 +260,66 @@
 		)
 		(self setScript: campusLife)
 	)
-
+	
+	(method (dispose)
+		(DisposeScript WANDER)
+		(DisposeScript PATH)
+		(super dispose:)
+	)
+	
 	(method (handleEvent event)
-		(if (event claimed:)
-			(return)
-		)
-		(switch (event type:)
-			(evKEYBOARD
-				(cond
-					((or (== (event message:) KEY_S) (== (event message:) KEY_s))
+		(if (event claimed?) (return))
+		(switch (event type?)
+			(keyDown
+				(cond 
+					(
+						(or
+							(== (event message?) `S)
+							(== (event message?) `s)
+						)
 						(LaurasHead setScript: 0)
 						(LaurasArms setScript: 0)
 						(Lillian setScript: 0)
-						(gCurRoom newRoom: 780) ; boat
+						(curRoom newRoom: 780)
 					)
-					((or (== (event message:) KEY_RETURN) (== (event message:) KEY_SPACE))
-						(SetFlag 50)
+					(
+						(or
+							(== (event message?) ENTER)
+							(== (event message?) SPACEBAR)
+						)
+						(Bset fSkippedIntro)
 					)
 				)
 			)
-			(evMOUSEBUTTON
-				(SetFlag 50)
+			(mouseDown
+				(Bset fSkippedIntro)
 			)
 		)
-		(if (IsFlag 50)
-			(event claimed: 1)
+		(if (Btst fSkippedIntro)
+			(event claimed: TRUE)
 			(LaurasHead setScript: 0)
 			(LaurasArms setScript: 0)
 			(Lillian setScript: 0)
-			(gCurRoom newRoom: 44)
+			(curRoom newRoom: 44)
 		)
 	)
-
-	(method (dispose)
-		(DisposeScript 976)
-		(DisposeScript 983)
-		(super dispose:)
-	)
-
-	(method (newRoom newRoomNumber)
-		(= global161 0)
-		(super newRoom: newRoomNumber)
+	
+	(method (newRoom n)
+		(= talkTimer 0)
+		(super newRoom: n)
 	)
 )
 
 (instance campusLife of Script
-	(properties)
-
+	
 	(method (doit)
 		(super doit:)
-		(if (== (campusRag prevSignal:) -1)
+		(if (== (campusRag prevSignal?) -1)
 			(client setScript: 0)
-			(gCurRoom newRoom: 780) ; boat
+			(curRoom newRoom: 780)
 		)
 	)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
@@ -308,7 +327,14 @@
 				(= cycles 2)
 			)
 			(1
-				(Print 779 0 #at 80 20 #font 40 #width 160 #mode 1 #draw #dispose) ; "1925 Tulane University New Orleans, LA"
+				(Print 779 0
+					#at 80 20
+					#font 40
+					#width 160
+					#mode teJustCenter
+					#draw
+					#dispose
+				)
 				(= seconds 6)
 			)
 			(2
@@ -319,11 +345,25 @@
 			)
 			(3
 				(tiny show: setMotion: tinyLRPath)
-				(= local1
-					(Display 779 1 dsCOORD 11 12 dsWIDTH 240 dsCOLOR 0 dsBACKGROUND -1 dsFONT 41 dsSAVEPIXELS) ; "Directed by:   Roberta Williams     Chris Iden"
+				(= saveBits
+					(Display 779 1
+						p_at 11 12
+						p_width 240
+						p_color vBLACK
+						p_back -1
+						p_font 41
+						p_save
+					)
 				)
-				(= local2
-					(Display 779 1 dsCOORD 10 10 dsWIDTH 240 dsCOLOR 14 dsBACKGROUND -1 dsFONT 41 dsSAVEPIXELS) ; "Directed by:   Roberta Williams     Chris Iden"
+				(= saveBits2
+					(Display 779 1
+						p_at 10 10
+						p_width 240
+						p_color vYELLOW
+						p_back -1
+						p_font 41
+						p_save
+					)
 				)
 				(= seconds 5)
 			)
@@ -333,8 +373,12 @@
 			)
 			(5
 				(squirrel startUpd:)
-				(Display 779 2 dsRESTOREPIXELS local2)
-				(Display 779 2 dsRESTOREPIXELS local1)
+				(Display 779 2
+					p_restore saveBits2
+				)
+				(Display 779 2
+					p_restore saveBits
+				)
 				(Lillian
 					view: 513
 					setLoop: 0
@@ -347,17 +391,17 @@
 				)
 			)
 			(6
-				(gAddToPics add: LilysHead LilysLegs doit:)
+				(addToPics add: LilysHead LilysLegs doit:)
 				(Lillian
 					loop: 2
 					cel: 0
-					x: (- (Lillian x:) 3)
-					y: (- (Lillian y:) 26)
+					x: (- (Lillian x?) 3)
+					y: (- (Lillian y?) 26)
 					stopUpd:
 				)
-				(LaurasHead setScript: 0 setCycle: End)
-				(LaurasArms loop: 4 cel: 0 setCycle: End)
-				(squirrel cycleSpeed: 1 setCycle: End self)
+				(LaurasHead setScript: 0 setCycle: EndLoop)
+				(LaurasArms loop: 4 cel: 0 setCycle: EndLoop)
+				(squirrel cycleSpeed: 1 setCycle: EndLoop self)
 			)
 			(7
 				(squirrel
@@ -365,11 +409,11 @@
 					cel: 0
 					posn: 41 159
 					cycleSpeed: 8
-					setCycle: Fwd
+					setCycle: Forward
 				)
-				(LaurasArms loop: 5 cel: 0 setCycle: End)
+				(LaurasArms loop: 5 cel: 0 setCycle: EndLoop)
 				(Lillian setScript: LillianSpeaking)
-				(localproc_0 170 25 130 779 3) ; "Hey, Laura! Wanna come with me this weekend to my Uncle Henri's estate? He's having a "family reunion" of some sort. You can keep me company."
+				(DoPrint 170 25 130 779 3)
 				(= seconds 8)
 			)
 			(8
@@ -378,21 +422,27 @@
 				(= local3 1)
 				(LaurasHead loop: 2 cel: 0 stopUpd:)
 				(LaurasArms loop: 6 stopUpd: setScript: LauraSpeaking)
-				(localproc_0 10 75 100 779 4) ; "I don't know. I have studying to do...."
+				(DoPrint 10 75 100 779 4)
 				(= seconds 8)
 			)
 			(9
-				(squirrel loop: 1 cel: 0 setPri: -1 cycleSpeed: 1 setCycle: End)
+				(squirrel
+					loop: 1
+					cel: 0
+					setPri: -1
+					cycleSpeed: 1
+					setCycle: EndLoop
+				)
 				(small view: 529 setLoop: 6 setMotion: MoveTo 320 110)
 				(LaurasHead cel: 0 forceUpd:)
 				(= local3 0)
-				(localproc_0 170 40 130 779 5) ; "Oh, come on! It'll be a scream! It's such a creepy old place; you might find it interesting."
+				(DoPrint 170 40 130 779 5)
 				(= seconds 8)
 			)
 			(10
 				(squirrel stopUpd:)
 				(= local3 1)
-				(localproc_0 10 60 100 779 6) ; "Okay. Count me in."
+				(DoPrint 10 60 100 779 6)
 				(= seconds 5)
 			)
 			(11
@@ -406,16 +456,15 @@
 )
 
 (instance LauraReading of Script
-	(properties)
-
+	
 	(method (changeState newState)
-		(if (not (LaurasArms script:))
+		(if (not (LaurasArms script?))
 			(switch (= state newState)
 				(0
 					(= cycles (Random 20 50))
 				)
 				(1
-					(LaurasArms setCycle: End self)
+					(LaurasArms setCycle: EndLoop self)
 				)
 				(2
 					(LaurasArms stopUpd:)
@@ -429,26 +478,26 @@
 
 (instance LauraSpeaking of Script
 	(properties)
-
+	
 	(method (changeState newState)
 		(if local3
-			(if (== global161 0)
-				(= global161 (Random 10 20))
+			(if (== talkTimer 0)
+				(= talkTimer (Random 10 20))
 				(switch (= state newState)
 					(0
-						(LaurasHead setCycle: Fwd)
-						(LaurasArms setCycle: End self)
+						(LaurasHead setCycle: Forward)
+						(LaurasArms setCycle: EndLoop self)
 					)
 					(1
-						(LaurasArms setCycle: Beg)
+						(LaurasArms setCycle: BegLoop)
 					)
 				)
 			)
 		else
 			(switch (= state newState)
 				(0
-					(if (LaurasArms cel:)
-						(LaurasArms setCycle: Beg self)
+					(if (LaurasArms cel?)
+						(LaurasArms setCycle: BegLoop self)
 						(LaurasHead cel: 0 setCycle: 0 stopUpd:)
 					else
 						(= cycles 1)
@@ -465,26 +514,21 @@
 )
 
 (instance LillianSpeaking of Script
-	(properties)
-
+	
 	(method (changeState newState)
 		(if (not local3)
-			(if (== global161 0)
-				(= global161 (Random 10 20))
+			(if (== talkTimer 0)
+				(= talkTimer (Random 10 20))
 				(switch (= state newState)
-					(0
-						(Lillian setCycle: End self)
-					)
-					(1
-						(Lillian setCycle: Beg)
-					)
+					(0 (Lillian setCycle: EndLoop self))
+					(1 (Lillian setCycle: BegLoop))
 				)
 			)
 		else
 			(switch (= state newState)
 				(0
-					(if (Lillian cel:)
-						(Lillian setCycle: Beg self)
+					(if (Lillian cel?)
+						(Lillian setCycle: BegLoop self)
 					else
 						(= cycles 1)
 					)
@@ -500,7 +544,6 @@
 )
 
 (instance Pigeon of Script
-	(properties)
 
 	(method (changeState newState)
 		(switch (= state newState)
@@ -514,10 +557,10 @@
 				(pigeon setCel: -1 setMotion: MoveTo 225 38 self)
 			)
 			(3
-				(pigeon setCycle: Beg self)
+				(pigeon setCycle: BegLoop self)
 			)
 			(4
-				(pigeon loop: 1 posn: 219 46 setCycle: End self)
+				(pigeon loop: 1 posn: 219 46 setCycle: EndLoop self)
 			)
 			(5
 				(pigeon addToPic:)
@@ -526,4 +569,3 @@
 		)
 	)
 )
-

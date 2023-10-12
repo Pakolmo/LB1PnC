@@ -1,9 +1,8 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-;;; Decompiled by sluicebox
 (script# 279)
-(include sci.sh)
+(include game.sh)
 (use Main)
-(use Interface)
+(use Intrface)
 (use Motion)
 (use Game)
 (use User)
@@ -13,128 +12,109 @@
 (public
 	pray 0
 )
-
 (synonyms
-	(celie person woman)
+	(celie person girl)
 )
 
 (local
-	local0
+	talkCount
 )
-
 (instance Celie of Prop
 	(properties)
-
+	
 	(method (handleEvent event)
-		(cond
-			((and (MousedOn self event 3) (not (& global207 $0002)))
+		(cond 
+			(
+			(and (MousedOn self event shiftDown) (not (& global207 $0002)))
 				(|= global207 $0002)
-				(= global213 2)
-				(event claimed: 1)
-				(Say 0 279 0) ; "Celie is the Colonel's cook. She is an overweight black lady who, on the surface, seems to be distant and unfriendly. However, you sense that she is probably a very nice person just "mindin' her own bizness." You have heard that Celie practices voodoo and you wonder about this."
+				(= theTalker talkCELIE)
+				(event claimed: TRUE)
+				(Say 0 279 0)
 			)
 			(
 				(and
 					(& global207 $0002)
-					(or (MousedOn self event 3) (Said 'look/celie'))
+					(or (MousedOn self event shiftDown) (Said 'examine/celie'))
 				)
-				(event claimed: 1)
-				(Print 279 1) ; "Celie sits in a pew before the pulpit, her head bent in fearful prayer."
+				(event claimed: TRUE)
+				(Print 279 1)
 			)
 			((Said 'ask,tell//*<about')
-				(Print 279 2) ; "Celie's not listening to you. She's visibly frightened and deep in prayer."
+				(Print 279 2)
 			)
-			((Said 'give,show/*')
-				(if (and global219 global224)
-					(Print 279 3) ; "Celie's not paying any attention to you. She's too engrossed in her praying."
+			((Said 'deliver,hold/*')
+				(if (and theInvItem haveInvItem)
+					(Print 279 3)
 				else
-					(DontHave) ; "You don't have it."
+					(DontHave)
 				)
 			)
 			((Said '/celie>')
-				(cond
-					((Said 'talk')
-						(= global213 2)
-						(switch local0
-							(0
-								(Say 1 279 4) ; "What're you doin' here, girl?! Somethin' mighty turrible is happenin'! Evil spirits is all 'round us. I think we're a'goin' to die before this night is over!!"
-							)
-							(1
-								(Say 1 279 5) ; "Pray, chile, pray! Mebbe the Good Lord'll show some pity on us and help us!"
-							)
-							(else
-								(Print 279 6) ; "Celie is deep in prayer. She pays no more attention to you."
-							)
+				(cond 
+					((Said 'converse')
+						(= theTalker talkCELIE)
+						(switch talkCount
+							(0 (Say 1 279 4))
+							(1 (Say 1 279 5))
+							(else  (Print 279 6))
 						)
-						(++ local0)
+						(++ talkCount)
 					)
-					((Said 'get')
-						(Print 279 7) ; "You can't get her!"
-					)
-					((Said 'kill')
-						(Print 279 8) ; "There's no need for THAT sort of thing!"
-					)
-					((Said 'kiss')
-						(Print 279 9) ; "You don't feel like kissing her."
-					)
-					((Said 'embrace')
-						(Print 279 10) ; "You don't feel like hugging her."
-					)
+					((Said 'get') (Print 279 7))
+					((Said 'kill') (Print 279 8))
+					((Said 'kiss') (Print 279 9))
+					((Said 'embrace') (Print 279 10))
 				)
 			)
 		)
 	)
 )
 
-(instance pray of Rgn
-	(properties)
-
+(instance pray of Region
+	
 	(method (init)
 		(super init:)
-		(Load rsFONT 4)
+		(Load FONT 4)
 		(= global195 2)
-		(if (not (& gMustDos $0008))
-			(Load rsFONT 41)
-			(LoadMany rsSOUND 29 94 95 96)
-			(Load rsSCRIPT 406)
-			(Load rsVIEW 642)
+		(if (not (& global118 $0008))
+			(Load FONT 41)
+			(LoadMany SOUND 29 94 95 96)
+			(Load SCRIPT 406)
+			(Load VIEW 642)
 		)
 		(Celie view: 481 loop: 0 posn: 142 105 init:)
 		(self setScript: praying)
 	)
-
+	
 	(method (doit)
 		(super doit:)
 	)
-
+	
 	(method (dispose)
 		(super dispose:)
 	)
-
+	
 	(method (handleEvent event &tmp temp0)
 		(super handleEvent: event)
-		(if (event claimed:)
-			(return 1)
-		)
+		(return (if (event claimed?) (return TRUE) else FALSE))
 	)
 )
 
 (instance praying of Script
-	(properties)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
-				(cond
+				(cond 
 					((not global216)
 						(= state -1)
 					)
-					((not (& gMustDos $0008))
-						(|= gMustDos $0008)
-						(self setScript: (ScriptID 406 0)) ; Clock
+					((not (& global118 $0008))
+						(|= global118 $0008)
+						(self setScript: (ScriptID 406 0))
 						(= state -1)
 					)
-					((self script:)
+					((self script?)
 						(= state -1)
 					)
 				)
@@ -142,19 +122,18 @@
 			)
 			(1
 				(cls)
-				(User canInput: 1)
-				(Celie loop: 0 setCycle: End)
+				(User canInput: TRUE)
+				(Celie loop: 0 setCycle: EndLoop)
 			)
 			(2
-				(User canInput: 0)
-				(Celie setCycle: Beg self)
+				(User canInput: FALSE)
+				(Celie setCycle: BegLoop self)
 			)
 			(3
-				(Celie loop: 1 setCycle: Fwd)
+				(Celie loop: 1 setCycle: Forward)
 				(= state 0)
 				(= seconds 5)
 			)
 		)
 	)
 )
-

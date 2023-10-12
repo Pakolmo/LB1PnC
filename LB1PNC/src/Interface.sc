@@ -27,9 +27,12 @@
 )
 
 (procedure (MousedOn obj event theMods)
+
+	(if (== theCursor 998))
 	(cond
-		((!= (event type:) 1) 0)
-		((and (>= argc 3) theMods (== (& (event modifiers:) theMods) 0)) 0)
+
+		((!= (event type:) 1) 0) 
+		((and (>= argc 3) theMods (== (& (event modifiers:) theMods) 0)) 0) 
 		((obj respondsTo: #nsLeft)
 			(InRect
 				(obj nsLeft:)
@@ -39,7 +42,9 @@
 				event
 			)
 		)
+	
 	)
+	
 )
 
 (procedure (GetInput str maxLen prompt &tmp [temp0 3])
@@ -248,7 +253,7 @@
 	(Print @str)
 )
 
-(class MenuBar of Obj
+(class MenuBar of Object
 	(properties
 		state 0
 	)
@@ -275,7 +280,7 @@
 	)
 )
 
-(class Item of Obj
+(class Item of Object
 	(properties
 		type 0
 		state 0
@@ -630,7 +635,7 @@
 	)
 )
 
-(class Dialog of Collect
+(class Dialog of Collection
 	(properties
 		text 0
 		window 0
@@ -928,7 +933,7 @@
 	)
 )
 
-(class Controls of Collect
+(class Controls of Collection
 	(properties)
 
 	(method (draw)

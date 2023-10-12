@@ -1,9 +1,8 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-;;; Decompiled by sluicebox
 (script# 405)
-(include sci.sh)
+(include game.sh)
 (use Main)
-(use Interface)
+(use Intrface)
 (use DCIcon)
 (use Chase)
 (use Sound)
@@ -19,20 +18,18 @@
 (local
 	local0
 )
-
-(instance Gator of Rgn
-	(properties)
-
+(instance Gator of Region
+	
 	(method (init)
 		(super init:)
-		(Load rsSOUND 10)
+		(Load SOUND 10)
 		(if
 			(= local0
-				(if gDetailLevel
-					(and (> (gEgo y:) 161) (== (Random 1 3) 2))
+				(if (and howFast (> (ego y?) 161))
+					(== (Random 1 3) 2)
 				)
 			)
-			(if (< (gEgo x:) 160)
+			(if (< (ego x?) 160)
 				(gatorHead setLoop: 0 posn: -28 173)
 				(gatorBody setLoop: 2 posn: -40 173)
 			else
@@ -43,115 +40,124 @@
 			(gatorBody init: hide:)
 		)
 	)
-
+	
 	(method (doit)
-		(if (gCast contains: gatorHead)
+		(if (cast contains: gatorHead)
 			(gatorHead
 				posn:
-					(if (& (gatorHead loop:) $0001)
-						(- (gatorBody x:) 12)
+					(if (& (gatorHead loop?) 1)
+						(- (gatorBody x?) 12)
 					else
-						(+ (gatorBody x:) 12)
+						(+ (gatorBody x?) 12)
 					)
-					(gatorBody y:)
+					(gatorBody y?)
 			)
 		)
 		(if
 			(and
 				local0
 				(or
-					(and (gatorHead loop:) (< (gEgo x:) 275))
-					(and (not (gatorHead loop:)) (> (gEgo x:) 55))
+					(and (gatorHead loop?) (< (ego x?) 275))
+					(and (not (gatorHead loop?)) (> (ego x?) 55))
 				)
 			)
-			(gatorHead setCycle: Fwd show:)
+			(gatorHead setCycle: Forward show:)
 			(gatorBody setCycle: Walk setScript: GrabEgo show:)
 			(= local0 0)
 		)
 		(super doit:)
 	)
-
+	
 	(method (dispose)
 		(super dispose:)
 	)
-
+	
 	(method (handleEvent event)
-		(if (event claimed:)
-			(return 1)
-		)
-		(if (and (== (event type:) evSAID) (Said 'look/alligator'))
-			(if (gCast contains: gatorBody)
-				(Print 405 0) ; "That's one big, mean-looking alligator!"
+		(if (event claimed?) (return TRUE))
+		(return
+			(if
+				(and
+					(== (event type?) saidEvent)
+					(Said 'examine/alligator')
+				)
+				(if (cast contains: gatorBody)
+					(Print 405 0)
+				else
+					(DontSee)
+				)
 			else
-				(NotHere) ; "You don't see it here."
+				0
 			)
 		)
 	)
 )
 
 (instance GrabEgo of Script
-	(properties)
-
-	(method (changeState newState &tmp temp0)
+	
+	(method (changeState newState &tmp myIconLastCel)
 		(switch (= state newState)
 			(0
-				(gatorBody setMotion: Chase gEgo 35 self)
+				(gatorBody setMotion: Chase ego 35 self)
 			)
 			(1
 				(HandsOff)
 				(gatorBody stopUpd:)
 				(gatorHead
-					loop: (+ (gatorHead loop:) 4)
+					loop: (+ (gatorHead loop?) 4)
 					cel: 0
-					setCycle: End self
+					setCycle: EndLoop self
 				)
-				(gEgo hide:)
+				(ego hide:)
 			)
 			(2
 				(scream play:)
 				(gatorHead
-					loop: (+ (gatorHead loop:) 2)
+					loop: (+ (gatorHead loop?) 2)
 					cel: 0
-					setCycle: End self
+					setCycle: EndLoop self
 				)
 			)
 			(3
-				(gatorHead loop: (+ (gatorHead loop:) 2) cel: 0 setCycle: Fwd)
+				(gatorHead
+					loop: (+ (gatorHead loop?) 2)
+					cel: 0
+					setCycle: Forward
+				)
 				(gatorBody
 					startUpd:
 					setMotion:
 						MoveTo
-						(if (& (gatorHead loop:) $0001) -80 else 400)
-						(gatorBody y:)
+						(if (& (gatorHead loop?) $0001) -80 else 400)
+						(gatorBody y?)
 						self
 				)
 			)
 			(4
 				(scream dispose:)
-				(= temp0 (myIcon lastCel:))
-				(= global128 myIcon)
-				(= global129 0)
-				(= global130 temp0)
-				(= global132 1)
-				(EgoDead 405 1) ; "Laura, please don't feed the animals!"
+				(= myIconLastCel (myIcon lastCel:))
+				(= cIcon myIcon)
+				(= deathLoop 0)
+				(= deathCel myIconLastCel)
+				(= cyclingIcon TRUE)
+				(EgoDead 405 1)
 				(client setScript: 0)
 			)
 		)
 	)
 )
 
-(instance gatorHead of Act
+(instance gatorHead of Actor
 	(properties
 		view 208
-		signal 16384
+		signal ignrAct
 	)
 )
 
-(instance gatorBody of Act
+(instance gatorBody of Actor
 	(properties
 		yStep 4
 		view 208
-		signal 16384
+		signal ignrAct
 		xStep 6
 	)
 )
@@ -159,10 +165,11 @@
 (instance myIcon of DCIcon
 	(properties
 		view 650
+		cycleSpeed 16
 	)
-
+	
 	(method (init)
-		((= cycler (End new:)) init: self)
+		((= cycler (EndLoop new:)) init: self)
 	)
 )
 
@@ -172,4 +179,3 @@
 		priority 15
 	)
 )
-

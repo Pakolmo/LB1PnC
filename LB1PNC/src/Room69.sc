@@ -1,11 +1,10 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-;;; Decompiled by sluicebox
 (script# 69)
-(include sci.sh)
+(include game.sh)
 (use Main)
-(use Interface)
+(use Intrface)
 (use RFeature)
-(use Avoid)
+(use Avoider)
 (use Sound)
 (use Motion)
 (use Game)
@@ -15,9 +14,8 @@
 (public
 	Room69 0
 )
-
 (synonyms
-	(butler man person)
+	(butler fellow person)
 	(room barn)
 )
 
@@ -29,44 +27,51 @@
 	local4
 	local5
 )
-
-(instance Room69 of Rm
+(instance Room69 of Room
 	(properties
 		picture 69
 	)
-
+	
 	(method (init)
 		(super init:)
-		(gAddToPics add: saddle trough bridle eachElementDo: #init doit:)
+		(addToPics
+			add: saddle trough bridle
+			eachElementDo: #init
+			doit:
+		)
 		(self
 			setFeatures: saddle trough bridle hay1 hay2 window1 window2 window3
 		)
-		(LoadMany rsSOUND 40 85 118)
-		(LoadMany rsVIEW 269 63)
-		(if (gEgo has: 17) ; carrot
-			(Load rsVIEW 8)
+		(LoadMany SOUND 40 85 118)
+		(LoadMany VIEW 269 63)
+		(if (ego has: iCarrot)
+			(Load VIEW 8)
 		)
 		(myMusic number: 40 loop: 1)
-		(if (and (not gWilburCorpseRoomNum) (>= gAct 2))
-			(if (or (== gAct 6) (== (Random 1 2) 1))
-				(= gWilburCorpseRoomNum 69)
+		(if (and (not global121) (>= currentAct 2))
+			(if (or (== currentAct 6) (== (Random 1 2) 1))
+				(= global121 69)
 			else
-				(= gWilburCorpseRoomNum 58)
+				(= global121 58)
 			)
 		)
 		(if
 			(and
-				(== gWilburCorpseRoomNum 69)
-				(not (& gCorpseFlags $0002)) ; Wilbur
-				(not (& gCorpseFlags $0040)) ; Lillian
+				(== global121 69)
+				(not (& deadGuests deadWILBUR))
+				(not (& deadGuests deadLILLIAN))
 			)
-			(self setRegions: 256) ; Dwilb
+			(self setRegions: cGREY)
 		)
-		(Door init: ignoreActors: 1 stopUpd:)
-		(if (== ((gInventory at: 2) owner:) 69) ; lantern
+		(Door init: ignoreActors: TRUE stopUpd:)
+		(if (== ((inventory at: iLantern) owner?) 69)
 			(Lamp init: stopUpd:)
 		)
-		(if (and (== gAct 1) (or (== global155 6) (== global155 7)))
+		(if
+			(and
+				(== currentAct 1)
+				(or (== global155 6) (== global155 7))
+			)
 			(Jeeves init:)
 			(HandsOff)
 			(self setScript: feedNag)
@@ -78,68 +83,60 @@
 		(Leg setPri: 9 init: stopUpd:)
 		(Tail setPri: 9 init: stopUpd:)
 		(Head setPri: 9 init: stopUpd:)
-		(gEgo view: 0 posn: 211 170 illegalBits: -32752 init:)
-		(if (== gAct 1)
-			(Load rsVIEW 440)
-			(Load rsVIEW 445)
-			(Load rsVIEW 452)
+		(ego view: 0 posn: 211 170 illegalBits: -32752 init:)
+		(if (== currentAct 1)
+			(Load VIEW 440)
+			(Load VIEW 445)
+			(Load VIEW 452)
 			(Hay init:)
 		)
 	)
-
-	(method (newRoom newRoomNumber)
-		(if (gCast contains: Jeeves)
-			(= [gCycleTimers 2] 1050)
-			(= global155 7)
-		)
-		(super newRoom: newRoomNumber)
-	)
-
+	
 	(method (doit &tmp temp0)
-		(if (IsFirstTimeInRoom)
-			(Print 69 0) ; "There is only one stall in this old stable. As there is an old, broken-down nag in the stall, you deduce this must be Blaze."
+		(if (FirstEntry)
+			(Print 69 0)
 		)
-		(if (and local0 (& (gEgo onControl: 1) $0001) (not script))
+		(if (and local0 (& (ego onControl: origin) cBLACK) (not script))
 			(Room69 setScript: myDoor)
 		)
-		(if (and (== [gCycleTimers 2] 1100) (== gAct 1))
+		(if (and (== [global368 2] 1100) (== currentAct 1))
 			(if (not script)
 				(= local4 1)
 				(HandsOff)
 				(self setScript: feedNag)
 			else
-				(= [gCycleTimers 2] 1110)
+				(= [global368 2] 1110)
 			)
 		)
 		(if (not local1)
-			(cond
+			(cond 
 				((== (= temp0 (Random 1 25)) 1)
-					(cond
-						((== (Ears cel:) 0)
-							(Ears setCycle: End)
+					(cond 
+						((== (Ears cel?) 0)
+							(Ears setCycle: EndLoop)
 						)
-						((== (Ears cel:) (- (NumCels Ears) 1))
-							(Ears setCycle: Beg)
-						)
-					)
-				)
-				((and gDetailLevel (> temp0 2) (< temp0 6))
-					(cond
-						((== (Tail cel:) 0)
-							(Tail setCycle: End)
-						)
-						((== (Tail cel:) (- (NumCels Tail) 1))
-							(Tail setCycle: Beg)
+						((== (Ears cel?) (- (NumCels Ears) 1))
+							(Ears setCycle: BegLoop)
 						)
 					)
 				)
-				((and gDetailLevel (> temp0 5) (< temp0 8))
-					(cond
-						((== (Leg cel:) 0)
-							(Leg setCycle: End)
+				((and howFast (> temp0 2) (< temp0 6))
+					(cond 
+						((== (Tail cel?) 0)
+							(Tail setCycle: EndLoop)
 						)
-						((== (Leg cel:) (- (NumCels Leg) 1))
-							(Leg setCycle: Beg)
+						((== (Tail cel?) (- (NumCels Tail) 1))
+							(Tail setCycle: BegLoop)
+						)
+					)
+				)
+				((and howFast (> temp0 5) (< temp0 8))
+					(cond 
+						((== (Leg cel?) 0)
+							(Leg setCycle: EndLoop)
+						)
+						((== (Leg cel?) (- (NumCels Leg) 1))
+							(Leg setCycle: BegLoop)
 						)
 					)
 				)
@@ -150,15 +147,15 @@
 			(myMusic number: 40 loop: 1 play:)
 		)
 		(-- local3)
-		(if (& (gEgo onControl: 0) $0002)
+		(if (& (ego onControl: FALSE) cBLUE)
 			(HandsOff)
-			(gCurRoom newRoom: 13)
+			(curRoom newRoom: 13)
 		)
 		(if
 			(and
-				(< (gEgo distanceTo: Horse) 65)
-				(> (gEgo y:) 140)
-				(!= ((gInventory at: 17) owner:) 69) ; carrot
+				(< (ego distanceTo: Horse) 65)
+				(> (ego y?) 140)
+				(!= ((inventory at: iCarrot) owner?) 69)
 				(== local0 1)
 				(== local1 0)
 			)
@@ -167,102 +164,111 @@
 		)
 		(super doit:)
 	)
-
+	
 	(method (dispose)
-		(DisposeScript 985)
+		(DisposeScript AVOIDER)
 		(super dispose:)
 	)
-
+	
 	(method (handleEvent event)
-		(if (event claimed:)
-			(return 1)
-		)
-		(if (== (event type:) evSAID)
-			(cond
-				((Said 'look>')
-					(cond
-						((Said '[<around,at][/room]')
-							(Print 69 0) ; "There is only one stall in this old stable. As there is an old, broken-down nag in the stall, you deduce this must be Blaze."
-						)
-						((Said '/door')
-							(Print 69 1) ; "The door leads out front."
-						)
-						((Said '/room')
-							(if (== ((gInventory at: 2) owner:) 69) ; lantern
-								(Print 69 2) ; "You see an old, sway-backed horse in the stall. Behind the horse, hanging on the wall, is a lantern."
-							else
-								(Print 69 3) ; "You see an old, sway-backed horse in the stall."
+		(if (event claimed?) (return TRUE))
+		(return
+			(if (== (event type?) saidEvent)
+				(cond 
+					((Said 'examine>')
+						(cond 
+							((Said '[<around,at][/room]')
+								(Print 69 0)
+							)
+							((Said '/door')
+								(Print 69 1)
+							)
+							((Said '/room')
+								(if (== ((inventory at: iLantern) owner?) 69)
+									(Print 69 2)
+								else
+									(Print 69 3)
+								)
+							)
+							((or (Said '/dirt,dirt') (Said '<down'))
+								(Print 69 4)
+							)
+							((Said '/wall')
+								(if (== ((inventory at: iLantern) owner?) 69)
+									(Print 69 5)
+								else
+									(Print 69 6)
+								)
+							)
+							((or (Said '/ceiling') (Said '<up'))
+								(Print 69 7)
 							)
 						)
-						((or (Said '/dirt,dirt') (Said '<down'))
-							(Print 69 4) ; "The stable floor is littered with hay."
-						)
-						((Said '/wall')
-							(if (== ((gInventory at: 2) owner:) 69) ; lantern
-								(Print 69 5) ; "A lantern hangs from the wall inside the stall."
-							else
-								(Print 69 6) ; "You look carefully at the walls around you, but see nothing special about them."
-							)
-						)
-						((or (Said '/ceiling') (Said '<up'))
-							(Print 69 7) ; "You look up at the ceiling but see nothing of interest."
+					)
+					((Said 'feel,get/lantern/cane')
+						(if (ego has: iCane)
+							(Print 69 8)
+						else
+							(DontHave)
 						)
 					)
-				)
-				((Said 'feel,get/lantern/cane')
-					(if (gEgo has: 21) ; cane
-						(Print 69 8) ; "The cane is not quite long enough."
-					else
-						(DontHave) ; "You don't have it."
+					((Said 'climb/wall,room')
+						(Print 69 9)
+					)
+					((Said 'open/window')
+						(Print 69 10)
+					)
+					((Said 'break/window')
+						(Print 69 11)
 					)
 				)
-				((Said 'climb/wall,room')
-					(Print 69 9) ; "The horse might bite you if you tried that!"
-				)
-				((Said 'open/window')
-					(Print 69 10) ; "The windows do not open."
-				)
-				((Said 'break/window')
-					(Print 69 11) ; "There is no reason to do that."
-				)
+			else
+				FALSE
 			)
 		)
+	)
+	
+	(method (newRoom n)
+		(if (cast contains: Jeeves)
+			(= [global368 2] 1050)
+			(= global155 7)
+		)
+		(super newRoom: n)
 	)
 )
 
 (instance feedHorse of Script
-	(properties)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
 				(HandsOff)
-				(gEgo
-					setAvoider: (Avoid new:)
+				(ego
+					setAvoider: (Avoider new:)
 					setMotion: MoveTo 150 138 self
 				)
 			)
 			(1
-				(LookAt gEgo Horse)
-				(gEgo
+				(Face ego Horse)
+				(ego
 					view: 8
 					cel: 0
 					loop: 0
 					setAvoider: 0
-					setCycle: End self
+					setCycle: EndLoop self
 				)
 			)
 			(2
-				(Print 69 12) ; "You hold the carrot in front of Blaze's nose who begins to cautiously sniff at it. He then gently takes it into his mouth and eats it. He looks at you and whinnies softly as if in friendship."
-				(gEgo cel: 0 loop: 1 setCycle: End self)
+				(Print 69 12)
+				(ego cel: 0 loop: 1 setCycle: EndLoop self)
 			)
 			(3
-				(gEgo cel: 0 loop: 2 setCycle: End self)
-				(Mouth setPri: 9 cycleSpeed: 3 setCycle: Fwd init:)
+				(ego cel: 0 loop: 2 setCycle: EndLoop self)
+				(Mouth setPri: 9 cycleSpeed: 3 setCycle: Forward init:)
 			)
 			(4
-				(gEgo put: 17 69) ; carrot
-				(gEgo view: 0 loop: 1 setCycle: Walk)
+				(ego put: iCarrot 69)
+				(ego view: 0 loop: 1 setCycle: Walk)
 				(HandsOn)
 				(= seconds 5)
 			)
@@ -275,34 +281,33 @@
 )
 
 (instance myDoor of Script
-	(properties)
 
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
 				(HandsOff)
-				(gEgo
-					ignoreActors: 0
-					setAvoider: (Avoid new:)
+				(ego
+					ignoreActors: FALSE
+					setAvoider: (Avoider new:)
 					setMotion: MoveTo 140 142 self
 				)
 			)
 			(1
-				(LookAt gEgo Horse)
+				(Face ego Horse)
 				(if (== local0 0)
 					(= local0 1)
-					(Door setPri: 13 cycleSpeed: 3 setCycle: End self)
-					(gEgo ignoreControl: 16 observeControl: 32)
+					(Door setPri: 13 cycleSpeed: 3 setCycle: EndLoop self)
+					(ego ignoreControl: cRED observeControl: cMAGENTA)
 				else
 					(= local0 0)
-					(Door setPri: 10 cycleSpeed: 3 setCycle: Beg self)
-					(gEgo ignoreControl: 32 observeControl: 16)
+					(Door setPri: 10 cycleSpeed: 3 setCycle: BegLoop self)
+					(ego ignoreControl: cMAGENTA observeControl: cRED)
 				)
 			)
 			(2
-				(gEgo setAvoider: 0)
+				(ego setAvoider: 0)
 				(Door stopUpd:)
-				(if (!= ((gInventory at: 17) owner:) 69) ; carrot
+				(if (!= ((inventory at: iCarrot) owner?) 69)
 					(Room69 setScript: kicked)
 				else
 					(HandsOn)
@@ -314,27 +319,26 @@
 )
 
 (instance kicked of Script
-	(properties)
 
 	(method (doit)
 		(super doit:)
-		(if (and (== state 1) (== local2 0) (== (Horse cel:) 4))
+		(if (and (== state 1) (== local2 0) (== (Horse cel?) 4))
 			(= local2 1)
-			(gEgo
+			(ego
 				view: 269
 				setLoop: 1
 				cel: 0
 				illegalBits: 0
 				cycleSpeed: 1
-				setCycle: End
+				setCycle: EndLoop
 			)
 		)
 	)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
-				(gEgo setMotion: MoveTo 130 142 self)
+				(ego setMotion: MoveTo 130 142 self)
 			)
 			(1
 				(HandsOff)
@@ -349,7 +353,7 @@
 					cycleSpeed: 1
 					setPri: 12
 					startUpd:
-					setCycle: End self
+					setCycle: EndLoop self
 				)
 				(myMusic number: 85 loop: 1 play:)
 			)
@@ -358,11 +362,11 @@
 				(= cycles 21)
 			)
 			(3
-				(= global128 269)
-				(= global129 2)
-				(= global130 2)
+				(= cIcon 269)
+				(= deathLoop 2)
+				(= deathCel 2)
 				(= global127 1)
-				(EgoDead 69 13) ; "You're a DEAD ringer, Laura!"
+				(EgoDead 69 13)
 				(client setScript: 0)
 			)
 		)
@@ -370,29 +374,28 @@
 )
 
 (instance feedNag of Script
-	(properties)
 
 	(method (doit)
-		(if (and (== state 3) (== (Jeeves cel:) 3))
-			(Hay posn: 104 145 setPri: 9 setCycle: End show:)
+		(if (and (== state 3) (== (Jeeves cel?) 3))
+			(Hay posn: 104 145 setPri: 9 setCycle: EndLoop show:)
 		)
-		(if (and (== state 1) (== (Jeeves cel:) 4))
+		(if (and (== state 1) (== (Jeeves cel?) 4))
 			(Hay hide:)
 		)
 		(super doit:)
 	)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
-				(if (gEgo inRect: 109 138 200 150)
-					(gEgo setMotion: MoveTo 160 135)
+				(if (ego inRect: 109 138 200 150)
+					(ego setMotion: MoveTo 160 135)
 				)
-				(if (gEgo inRect: 200 139 259 150)
-					(gEgo setMotion: MoveTo 259 143)
+				(if (ego inRect: 200 139 259 150)
+					(ego setMotion: MoveTo 259 143)
 				)
-				(if (gEgo inRect: 204 151 263 200)
-					(gEgo setMotion: MoveTo 189 153)
+				(if (ego inRect: 204 151 263 200)
+					(ego setMotion: MoveTo 189 153)
 				)
 				(if local4
 					(Jeeves
@@ -407,7 +410,7 @@
 				)
 			)
 			(1
-				(Jeeves view: 445 loop: 1 cel: 0 setCycle: End self)
+				(Jeeves view: 445 loop: 1 cel: 0 setCycle: EndLoop self)
 			)
 			(2
 				(Jeeves
@@ -418,18 +421,18 @@
 				)
 			)
 			(3
-				(Jeeves view: 445 setLoop: 2 cel: 0 setCycle: End self)
+				(Jeeves view: 445 setLoop: 2 cel: 0 setCycle: EndLoop self)
 			)
 			(4
 				(Jeeves
 					view: 440
 					setLoop: -1
 					setCycle: Walk
-					setAvoider: (Avoid new:)
+					setAvoider: (Avoider new:)
 					setMotion: MoveTo 193 145 self
 				)
-				(if (gEgo inRect: 200 162 227 176)
-					(gEgo setMotion: MoveTo 186 170)
+				(if (ego inRect: 200 162 227 176)
+					(ego setMotion: MoveTo 186 170)
 				)
 			)
 			(5
@@ -438,7 +441,7 @@
 			(6
 				(HandsOn)
 				(= global155 8)
-				(= [gCycleTimers 2] (- 1700 (* 8 100)))
+				(= [global368 2] (- 1700 (* global155 100)))
 				(Jeeves dispose:)
 				(client setScript: 0)
 			)
@@ -447,42 +450,41 @@
 )
 
 (instance petHorse of Script
-	(properties)
 
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
 				(HandsOff)
-				(gEgo
-					setAvoider: (Avoid new:)
+				(ego
+					setAvoider: (Avoider new:)
 					setMotion: MoveTo 145 138 self
 				)
 			)
 			(1
-				(LookAt gEgo Horse)
-				(gEgo
+				(Face ego Horse)
+				(ego
 					view: 63
 					cel: 0
 					loop: 0
 					setAvoider: 0
-					setCycle: End self
+					setCycle: EndLoop self
 				)
 			)
 			(2
-				(gEgo cel: 0 loop: 2 setCycle: Fwd)
+				(ego cel: 0 loop: 2 setCycle: Forward)
 				(= seconds 3)
 			)
 			(3
-				(if (== ((gInventory at: 17) owner:) 69) ; carrot
-					(Print 69 14) ; "You gently stroke Blaze's soft nose. He seems to like that."
+				(if (== ((inventory at: iCarrot) owner?) 69)
+					(Print 69 14)
 				else
-					(Print 69 15) ; "As you stroke Blaze's velvety-soft nose, his eyes open wide and his ears twitch uncontrollably."
-					(Ears setCycle: End)
+					(Print 69 15)
+					(Ears setCycle: EndLoop)
 				)
-				(gEgo cel: 0 loop: 2 setCycle: End self)
+				(ego cel: 0 loop: 2 setCycle: EndLoop self)
 			)
 			(4
-				(gEgo view: 0 loop: 1 setCycle: Walk)
+				(ego view: 0 loop: 1 setCycle: Walk)
 				(HandsOn)
 				(client setScript: 0)
 			)
@@ -498,20 +500,20 @@
 		loop 1
 		cel 2
 	)
-
+	
 	(method (handleEvent event)
-		(cond
+		(cond 
 			(
 				(or
 					(Said 'detach,use,get/saddle')
 					(Said 'attach/saddle')
 					(Said 'saddle/blaze')
 				)
-				(Print 69 16) ; "The saddle is very heavy. Besides, you've never been fond of horseback riding."
+				(Print 69 16)
 			)
-			((or (MousedOn self event 3) (Said 'look/saddle'))
-				(event claimed: 1)
-				(Print 69 17) ; "You see an old saddle hanging on the wall."
+			((or (MousedOn self event shiftDown) (Said 'examine/saddle'))
+				(event claimed: TRUE)
+				(Print 69 17)
 			)
 		)
 	)
@@ -525,11 +527,15 @@
 		loop 1
 		cel 1
 	)
-
+	
 	(method (handleEvent event)
-		(if (or (MousedOn self event 3) (Said 'look/trough,water'))
-			(event claimed: 1)
-			(Print 69 18) ; "Why, that's Blaze's drinking water!"
+		(if
+			(or
+				(MousedOn self event shiftDown)
+				(Said 'examine/trough,water')
+			)
+			(event claimed: TRUE)
+			(Print 69 18)
 		)
 	)
 )
@@ -542,15 +548,15 @@
 		loop 1
 		cel 3
 	)
-
+	
 	(method (handleEvent event)
-		(cond
+		(cond 
 			((Said 'detach,use,get/bit')
-				(Print 69 19) ; "The bridle doesn't belong to you. Besides, you've never been fond of horseback riding."
+				(Print 69 19)
 			)
-			((or (MousedOn self event 3) (Said 'look/bit'))
-				(event claimed: 1)
-				(Print 69 20) ; "That must be Blaze's old bridle."
+			((or (MousedOn self event shiftDown) (Said 'examine/bit'))
+				(event claimed: TRUE)
+				(Print 69 20)
 			)
 		)
 	)
@@ -563,33 +569,37 @@
 		view 169
 		priority 9
 	)
-
+	
 	(method (handleEvent event)
-		(cond
+		(cond 
 			((Said 'enter,(go<in)/room,archway')
-				(Print 69 21) ; "Go ahead! Just open the stall!"
+				(Print 69 21)
 			)
 			((Said 'open,enter,(go<in)/room,archway')
-				(if (& (gEgo onControl: 0) $0004)
+				(if (& (ego onControl: FALSE) cGREEN)
 					(if (== local0 0)
 						(Room69 setScript: myDoor)
 					else
-						(AlreadyOpen) ; "It is already open."
+						(AlreadyOpen)
 					)
 				else
-					(Print 69 22) ; "You can't from here."
+					(Print 69 22)
 				)
 			)
 			((Said 'close/archway,room')
 				(if (== local0 1)
 					(Room69 setScript: myDoor)
 				else
-					(AlreadyClosed) ; "It is already closed."
+					(AlreadyClosed)
 				)
 			)
-			((or (MousedOn self event 3) (Said 'look/archway,room'))
-				(event claimed: 1)
-				(Print 69 23) ; "A gate leads into the stall."
+			(
+				(or
+					(MousedOn self event shiftDown)
+					(Said 'examine/archway,room')
+				)
+				(event claimed: TRUE)
+				(Print 69 23)
 			)
 		)
 	)
@@ -603,20 +613,24 @@
 		loop 1
 		priority 7
 	)
-
+	
 	(method (handleEvent event)
-		(cond
-			((or (MousedOn self event 3) (Said 'look/lantern,lamp,ignite'))
-				(event claimed: 1)
-				(Print 69 5) ; "A lantern hangs from the wall inside the stall."
+		(cond 
+			(
+				(or
+					(MousedOn self event shiftDown)
+					(Said 'examine/lantern,lamp,ignite')
+				)
+				(event claimed: TRUE)
+				(Print 69 5)
 			)
 			((Said 'get/lantern,ignite')
-				(if (< (gEgo distanceTo: Lamp) 45)
+				(if (< (ego distanceTo: Lamp) 45)
 					(Lamp dispose:)
-					(= global182 1)
-					(gEgo get: 2) ; lantern
+					(= gotItem TRUE)
+					(ego get: iLantern)
 				else
-					(NotClose) ; "You're not close enough."
+					(NotClose)
 				)
 			)
 		)
@@ -639,7 +653,7 @@
 		x 104
 		view 169
 		loop 4
-		signal 16384
+		signal ignrAct
 		cycleSpeed 2
 	)
 )
@@ -650,7 +664,7 @@
 		x 62
 		view 169
 		loop 3
-		signal 16384
+		signal ignrAct
 		cycleSpeed 2
 	)
 )
@@ -661,7 +675,7 @@
 		x 119
 		view 169
 		loop 5
-		signal 16384
+		signal ignrAct
 	)
 )
 
@@ -691,108 +705,108 @@
 		view 169
 		loop 2
 	)
-
+	
 	(method (handleEvent event)
-		(cond
-			((or (MousedOn self event 3) (Said 'look/blaze'))
-				(event claimed: 1)
-				(Print 69 24) ; "Blaze must have once been a beautiful stallion, but now, with many passing years, he has been reduced to an old broken-down nag. You guess that he must be the Colonel's horse."
+		(cond 
+			((or (MousedOn self event shiftDown) (Said 'examine/blaze'))
+				(event claimed: TRUE)
+				(Print 69 24)
 			)
 			((or (Said 'bit/blaze') (Said 'attach,attach/bit/blaze'))
-				(Print 69 25) ; "This isn't King's Quest IV!"
+				(Print 69 25)
 			)
-			((Said '(feed,give,show)>')
-				(cond
+			((Said '(feed,deliver,hold)>')
+				(cond 
 					((Said '/carrot')
-						(cond
-							((== ((gInventory at: 17) owner:) 69) ; carrot
-								(Print 69 26) ; "You already fed him."
+						(cond 
+							((== ((inventory at: iCarrot) owner?) 69)
+								(Print 69 26)
 							)
-							((gEgo has: 17) ; carrot
-								(if (& (gEgo onControl: 0) $0004)
+							((ego has: iCarrot)
+								(if (& (ego onControl: FALSE) cGREEN)
 									(Room69 setScript: feedHorse)
 								else
-									(NotClose) ; "You're not close enough."
+									(NotClose)
 								)
 							)
 							(else
-								(DontHave) ; "You don't have it."
+								(DontHave)
 							)
 						)
 					)
 					((Said '/(bale[<blaze]),blaze')
-						(Print 69 27) ; "Blaze is tired of hay. He's not interested."
+						(Print 69 27)
 					)
 					((Said '/food')
-						(Print 69 28) ; "You don't have anything to feed to Blaze."
+						(Print 69 28)
 					)
 					((Said '/*')
-						(event claimed: 1)
-						(if (and global219 global224)
-							(Print 69 29) ; "Blaze isn't interested."
+						(event claimed: TRUE)
+						(if (and theInvItem haveInvItem)
+							(Print 69 29)
 						else
-							(DontHave) ; "You don't have it."
+							(DontHave)
 						)
 					)
 				)
 			)
 			((Said 'ask[/blaze]/c<about')
 				(myEd number: 118 loop: 1 play:)
-				(Print 69 30) ; "A horse is a horse of course. But Wilbur is just imaginary."
+				(Print 69 30)
 			)
 			((Said 'ask,tell[/blaze]/*<about')
-				(Print 69 31) ; "The horse doesn't understand you!"
+				(Print 69 31)
 			)
 			((Said '/blaze>')
-				(cond
-					((Said 'talk')
-						(Print 69 32) ; "You gently speak to Blaze. He just looks at you with his big, brown eyes."
+				(cond 
+					((Said 'converse')
+						(Print 69 32)
 					)
 					((Said '(get<on),mount,mount,climb')
-						(Print 69 33) ; "You don't like to ride horses, remember?"
+						(Print 69 33)
 					)
 					((Said 'guide,move,press,get,get')
-						(if (== ((gInventory at: 17) owner:) 69) ; carrot
-							(Print 69 34) ; "Blaze seems happy right where he is."
+						(if (== ((inventory at: iCarrot) owner?) 69)
+							(Print 69 34)
 						else
-							(Print 69 21) ; "Go ahead! Just open the stall!"
+							(Print 69 21)
 						)
 					)
-					((Said 'feed,give/carrot')
-						(cond
-							((== ((gInventory at: 17) owner:) 69) ; carrot
-								(Print 69 26) ; "You already fed him."
+					((Said 'feed,deliver/carrot')
+						(cond 
+							((== ((inventory at: iCarrot) owner?) 69)
+								(Print 69 26)
 							)
-							((gEgo has: 17) ; carrot
-								(if (& (gEgo onControl: 0) $0004)
+							((ego has: 17)
+								(if (& (ego onControl: FALSE) cGREEN)
 									(Room69 setScript: feedHorse)
 								else
-									(NotClose) ; "You're not close enough."
+									(NotClose)
 								)
 							)
 							(else
-								(Print 69 28) ; "You don't have anything to feed to Blaze."
+								(Print 69 28)
 							)
 						)
 					)
-					((Said 'yell')
-						(Print 69 35) ; "You yell at the horse and he twitches his ears."
+					((Said 'call')
+						(Print 69 35)
 					)
 					((Said 'kiss')
-						(if (== ((gInventory at: 17) owner:) 69) ; carrot
-							(Print 69 36) ; "You plant a big kiss on Blaze's nose. He looks at you curiously."
+						(if (== ((inventory at: iCarrot) owner?) 69)
+							(Print 69 36)
 						else
-							(Print 69 37) ; "That's not a nice thought, Laura!"
+							(Print 69 37)
 						)
 					)
 					((Said 'kill')
-						(Print 69 38) ; "You have to move closer to do that."
+						(Print 69 38)
 					)
 					((Said 'pat,pat')
-						(if (< (gEgo distanceTo: Horse) 105)
+						(if (< (ego distanceTo: Horse) 105)
 							(Room69 setScript: petHorse)
 						else
-							(NotClose) ; "You're not close enough."
+							(NotClose)
 						)
 					)
 				)
@@ -801,32 +815,28 @@
 	)
 )
 
-(instance Jeeves of Act
+(instance Jeeves of Actor
 	(properties
 		y 145
 		x 238
 		view 440
 	)
-
+	
 	(method (handleEvent)
-		(cond
-			((Said 'look/butler')
-				(Print 69 39) ; "Jeeves seems to be busy doing his chores."
+		(cond 
+			((Said 'examine/butler')
+				(Print 69 39)
 			)
 			((Said '*/butler')
-				(Print 69 40) ; "You attempt to talk to Jeeves but he ignores you as he goes about his business."
+				(Print 69 40)
 			)
 		)
 	)
 )
 
-(instance myMusic of Sound
-	(properties)
-)
+(instance myMusic of Sound)
 
-(instance myEd of Sound
-	(properties)
-)
+(instance myEd of Sound)
 
 (instance hay1 of RFeature
 	(properties
@@ -835,31 +845,31 @@
 		nsBottom 163
 		nsRight 169
 	)
-
+	
 	(method (handleEvent event)
-		(cond
+		(cond 
 			((or (Said 'drink[/water]') (Said 'get/drink'))
-				(Print 69 41) ; "Not that water!"
+				(Print 69 41)
 			)
 			((Said 'get/water')
-				(Print 69 42) ; "You have no need to carry water."
+				(Print 69 42)
 			)
-			((Said 'look<in/water,trough')
-				(Print 69 43) ; "There is only water in the trough."
+			((Said 'examine<in/water,trough')
+				(Print 69 43)
 			)
 			((Said 'get/bale')
-				(Print 69 44) ; "You don't want to carry hay around!"
+				(Print 69 44)
 			)
-			((Said 'search,(look<in)/bale')
-				(if (gEgo inRect: 193 128 241 142)
-					(Print 69 45) ; "It's just hay, nothing more."
+			((Said 'search,(examine<in)/bale')
+				(if (ego inRect: 193 128 241 142)
+					(Print 69 45)
 				else
-					(NotClose) ; "You're not close enough."
+					(NotClose)
 				)
 			)
-			((or (MousedOn self event 3) (Said 'look/bale'))
-				(event claimed: 1)
-				(Print 69 46) ; "Bales of hay have been haphazardly piled around."
+			((or (MousedOn self event shiftDown) (Said 'examine/bale'))
+				(event claimed: TRUE)
+				(Print 69 46)
 			)
 		)
 	)
@@ -872,11 +882,11 @@
 		nsBottom 135
 		nsRight 238
 	)
-
+	
 	(method (handleEvent event)
-		(if (MousedOn self event 3)
-			(event claimed: 1)
-			(Print 69 46) ; "Bales of hay have been haphazardly piled around."
+		(if (MousedOn self event shiftDown)
+			(event claimed: TRUE)
+			(Print 69 46)
 		)
 	)
 )
@@ -888,11 +898,11 @@
 		nsBottom 81
 		nsRight 198
 	)
-
+	
 	(method (handleEvent event)
-		(if (or (MousedOn self event 3) (Said '/window'))
-			(event claimed: 1)
-			(Print 69 47) ; "You can see the dark night out the stable windows."
+		(if (or (MousedOn self event shiftDown) (Said '/window'))
+			(event claimed: TRUE)
+			(Print 69 47)
 		)
 	)
 )
@@ -904,11 +914,11 @@
 		nsBottom 87
 		nsRight 241
 	)
-
+	
 	(method (handleEvent event)
-		(if (MousedOn self event 3)
-			(event claimed: 1)
-			(Print 69 47) ; "You can see the dark night out the stable windows."
+		(if (MousedOn self event shiftDown)
+			(event claimed: TRUE)
+			(Print 69 47)
 		)
 	)
 )
@@ -920,12 +930,11 @@
 		nsBottom 26
 		nsRight 95
 	)
-
+	
 	(method (handleEvent event)
-		(if (MousedOn self event 3)
-			(event claimed: 1)
-			(Print 69 47) ; "You can see the dark night out the stable windows."
+		(if (MousedOn self event shiftDown)
+			(event claimed: TRUE)
+			(Print 69 47)
 		)
 	)
 )
-

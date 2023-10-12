@@ -1,7 +1,6 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-;;; Decompiled by sluicebox
 (script# 353)
-(include sci.sh)
+(include game.sh)
 (use Main)
 (use Sound)
 (use Motion)
@@ -16,27 +15,26 @@
 (local
 	local0
 )
-
-(procedure (localproc_0)
+(procedure (localproc_000c)
 	(if (not local0)
 		(= local0 1)
-		(DrawPic 62 6)
-		(gCast eachElementDo: #hide)
+		(DrawPic 62 IRISIN)
+		(cast eachElementDo: #hide)
 		(Colonel view: 302 loop: 0 posn: 105 107 setPri: 1)
 	)
 )
 
-(procedure (localproc_1)
+(procedure (localproc_0044)
 	(if local0
 		(= local0 0)
 		(DrawPic 42)
-		(DrawPic 162 7 0)
-		(gAddToPics doit:)
-		(gCast eachElementDo: #show)
-		(if gDetailLevel
-			(lamp1 setCycle: Fwd init:)
-			(lamp2 setPri: 11 setCycle: Fwd init:)
-			(logs setCycle: Fwd init:)
+		(DrawPic 162 IRISOUT FALSE)
+		(addToPics doit:)
+		(cast eachElementDo: #show)
+		(if howFast
+			(lamp1 setCycle: Forward init:)
+			(lamp2 setPri: 11 setCycle: Forward init:)
+			(logs setCycle: Forward init:)
 		else
 			(logs init: stopUpd:)
 			(lamp1 init: stopUpd:)
@@ -48,41 +46,37 @@
 	)
 )
 
-(instance scene42c of Rm
+(instance scene42c of Room
 	(properties
 		picture 62
-		style 7
+		style IRISOUT
 	)
-
+	
 	(method (init)
 		(super init:)
 		(HandsOff)
-		(= global190 1)
-		(SetFlag 34)
-		(Load rsPIC 42 162)
-		(Load rsVIEW 301)
-		(Load rsVIEW 309)
-		(Load rsVIEW 310)
+		(= saveDisabled TRUE)
+		(Bset 34)
+		(Load PICTURE 42 162)
+		(Load VIEW 301)
+		(Load VIEW 309)
+		(Load VIEW 310)
 		(= local0 1)
-		(gAddToPics
-			add:
-				bed
-				table1
-				table2
-				table3
-				sofa
-				mirror
-				lift
-				gate
-				vase
-				flower
-				cannon
+		(addToPics
+			add: bed table1 table2 table3 sofa mirror lift gate vase flower cannon
 		)
 		(stand view: 310 loop: 3 posn: 169 90)
-		(Chair view: 142 loop: 1 cel: 9 ignoreActors: 1 init: hide:)
+		(Chair
+			view: 142
+			loop: 1
+			cel: 9
+			ignoreActors: TRUE
+			init:
+			hide:
+		)
 		(Colonel
 			view: 302
-			ignoreActors: 1
+			ignoreActors: TRUE
 			posn: 105 107
 			setPri: 1
 			loop: 0
@@ -90,62 +84,53 @@
 			init:
 		)
 		(myMusic number: 27 loop: -1 play:)
-		(|= gSpyFlags $0040)
+		(|= global173 $0040)
 		(self setScript: stoke)
 	)
-
+	
 	(method (doit)
 		(super doit:)
 	)
-
+	
 	(method (dispose)
 		(super dispose:)
 	)
-
-	(method (newRoom newRoomNumber)
-		(= global190 0)
-		(super newRoom: newRoomNumber)
-	)
-
+	
 	(method (handleEvent event)
 		(super handleEvent: event)
+	)
+	
+	(method (newRoom n)
+		(= saveDisabled FALSE)
+		(super newRoom: n)
 	)
 )
 
 (instance stoke of Script
-	(properties)
-
-	(method (handleEvent event)
-		(super handleEvent: event)
-		(if
-			(and
-				(not (event claimed:))
-				(== evKEYBOARD (event type:))
-				(or (== (event message:) KEY_S) (== (event message:) KEY_s))
-			)
-			(cls)
-			(gCurRoom newRoom: gPrevRoomNum)
-		)
-	)
 
 	(method (changeState newState)
 		(switch (= state newState)
-			(0
-				(= cycles 7)
-			)
+			(0 (= cycles 7))
 			(1
-				(Display 353 0 dsCOORD 48 8 dsWIDTH 256 dsCOLOR 15 dsBACKGROUND -1 dsFONT 0 dsSAVEPIXELS) ; "Press the 'S' key to skip this scene."
-				(Colonel cycleSpeed: 2 setCycle: End self)
+				(Display 353 0
+					p_at 48 8
+					p_width 256
+					p_color vWHITE
+					p_back -1
+					p_font SYSFONT
+					p_save
+				)
+				(Colonel cycleSpeed: 2 setCycle: EndLoop self)
 			)
 			(2
-				(localproc_1)
+				(localproc_0044)
 				(Colonel
 					view: 309
 					loop: 0
 					cel: 0
 					setPri: -1
 					cycleSpeed: 6
-					setCycle: End self
+					setCycle: EndLoop self
 				)
 				(Chair show:)
 			)
@@ -168,19 +153,19 @@
 					loop: 0
 					cel: 0
 					cycleSpeed: 0
-					setCycle: End self
+					setCycle: EndLoop self
 				)
 				(stand loop: 2)
 			)
 			(6
-				(Colonel loop: 1 setCycle: Fwd)
+				(Colonel loop: 1 setCycle: Forward)
 				(= cycles 21)
 			)
 			(7
 				(Colonel
 					loop: 0
 					cel: (- (NumCels Colonel) 1)
-					setCycle: Beg self
+					setCycle: BegLoop self
 				)
 			)
 			(8
@@ -205,28 +190,44 @@
 					cel: 2
 					setPri: -1
 					cycleSpeed: 3
-					setCycle: Beg self
+					setCycle: BegLoop self
 				)
 			)
 			(11
 				(Chair hide:)
-				(localproc_0)
+				(localproc_000c)
 				(Colonel
 					cel: (- (NumCels Colonel) 1)
 					cycleSpeed: 2
-					setCycle: Beg
+					setCycle: BegLoop
 					show:
 				)
 				(= seconds 3)
 			)
 			(12
-				(gCurRoom newRoom: gPrevRoomNum)
+				(curRoom newRoom: prevRoomNum)
 			)
+		)
+	)
+	
+	(method (handleEvent event)
+		(super handleEvent: event)
+		(if
+			(and
+				(not (event claimed?))
+				(== keyDown (event type?))
+				(or
+					(== (event message?) `S)
+					(== (event message?) `s)
+				)
+			)
+			(cls)
+			(curRoom newRoom: prevRoomNum)
 		)
 	)
 )
 
-(instance bed of PV
+(instance bed of PicView
 	(properties
 		y 167
 		x 121
@@ -236,7 +237,7 @@
 	)
 )
 
-(instance table1 of PV
+(instance table1 of PicView
 	(properties
 		y 167
 		x 148
@@ -247,7 +248,7 @@
 	)
 )
 
-(instance table2 of PV
+(instance table2 of PicView
 	(properties
 		y 167
 		x 69
@@ -258,7 +259,7 @@
 	)
 )
 
-(instance sofa of PV
+(instance sofa of PicView
 	(properties
 		y 125
 		x 158
@@ -268,7 +269,7 @@
 	)
 )
 
-(instance mirror of PV
+(instance mirror of PicView
 	(properties
 		y 141
 		x 41
@@ -278,7 +279,7 @@
 	)
 )
 
-(instance table3 of PV
+(instance table3 of PicView
 	(properties
 		y 123
 		x 202
@@ -289,7 +290,7 @@
 	)
 )
 
-(instance cannon of PV
+(instance cannon of PicView
 	(properties
 		y 52
 		x 190
@@ -299,7 +300,7 @@
 	)
 )
 
-(instance lift of PV
+(instance lift of PicView
 	(properties
 		y 126
 		x 296
@@ -307,7 +308,7 @@
 	)
 )
 
-(instance gate of PV
+(instance gate of PicView
 	(properties
 		y 126
 		x 283
@@ -316,7 +317,7 @@
 	)
 )
 
-(instance vase of PV
+(instance vase of PicView
 	(properties
 		y 52
 		x 210
@@ -326,7 +327,7 @@
 	)
 )
 
-(instance flower of PV
+(instance flower of PicView
 	(properties
 		y 52
 		x 170
@@ -364,19 +365,10 @@
 	)
 )
 
-(instance Colonel of Act
-	(properties)
-)
+(instance Colonel of Actor)
 
-(instance Chair of Act
-	(properties)
-)
+(instance Chair of Actor)
 
-(instance stand of Prop
-	(properties)
-)
+(instance stand of Prop)
 
-(instance myMusic of Sound
-	(properties)
-)
-
+(instance myMusic of Sound)

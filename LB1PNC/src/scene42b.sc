@@ -1,9 +1,8 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-;;; Decompiled by sluicebox
 (script# 352)
-(include sci.sh)
+(include game.sh)
 (use Main)
-(use Interface)
+(use Intrface)
 (use Sound)
 (use Motion)
 (use Game)
@@ -18,41 +17,26 @@
 	[local0 3]
 	local3
 )
+(instance Hand of Actor)
 
-(instance Hand of Act
-	(properties)
-)
+(instance Smoke of Actor)
 
-(instance Smoke of Act
-	(properties)
-)
+(instance Colonel of Prop)
 
-(instance Colonel of Prop
-	(properties)
-)
+(instance coloFace of Prop)
 
-(instance coloFace of Prop
-	(properties)
-)
+(instance coloMouth of Prop)
 
-(instance coloMouth of Prop
-	(properties)
-)
+(instance coloEyes of Prop)
 
-(instance coloEyes of Prop
-	(properties)
-)
+(instance myMusic of Sound)
 
-(instance myMusic of Sound
-	(properties)
-)
-
-(instance scene42b of Rm
+(instance scene42b of Room
 	(properties
 		picture 62
-		style 7
+		style IRISOUT
 	)
-
+	
 	(method (init)
 		(super init:)
 		(HandsOff)
@@ -77,7 +61,7 @@
 		)
 		(coloEyes
 			view: 311
-			posn: 114 (- (coloFace y:) 15)
+			posn: 114 (- (coloFace y?) 15)
 			loop: 2
 			cel: 0
 			setPri: 3
@@ -103,7 +87,7 @@
 			setPri: 3
 			moveSpeed: 1
 			illegalBits: 0
-			ignoreActors: 1
+			ignoreActors: TRUE
 			init:
 			hide:
 		)
@@ -113,28 +97,27 @@
 			setCycle: Walk
 			setPri: 3
 			illegalBits: 0
-			ignoreActors: 1
+			ignoreActors: TRUE
 			init:
 			hide:
 		)
 		(self setScript: twice)
 	)
-
+	
 	(method (doit)
 		(super doit:)
 	)
-
+	
 	(method (dispose)
 		(super dispose:)
 	)
-
+	
 	(method (handleEvent event)
 		(super handleEvent: event)
 	)
 )
 
 (instance ColoEyes of Script
-	(properties)
 
 	(method (changeState newState)
 		(switch (= state newState)
@@ -144,7 +127,11 @@
 					(coloEyes hide:)
 					(= seconds (Random 2 3))
 				else
-					(coloEyes cel: (/ (Random 1 29999) 10000) forceUpd: show:)
+					(coloEyes
+						cel: (/ (Random 1 29999) 10000)
+						forceUpd:
+						show:
+					)
 					(= cycles 3)
 				)
 			)
@@ -153,46 +140,53 @@
 )
 
 (instance twice of Script
-	(properties)
 
 	(method (doit)
 		(super doit:)
-		(if (and (== state 3) (== (Smoke cel:) (- (NumCels Smoke) 1)))
+		(if
+			(and
+				(== state 3)
+				(== (Smoke cel?) (- (NumCels Smoke) 1))
+			)
 			(Smoke hide:)
 		)
 	)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
-				(Print 352 0 #dispose) ; "You see the Colonel sitting in his room."
+				(Print 352 0 #dispose)
 				(= cycles 1)
 			)
 			(1
 				(coloFace cel: 0 forceUpd:)
-				(coloEyes y: (- (coloFace y:) 15) forceUpd:)
+				(coloEyes y: (- (coloFace y?) 15) forceUpd:)
 				(Hand show: setMotion: MoveTo 116 116 self)
 			)
 			(2
 				(Hand stopUpd:)
-				(coloMouth show: setCycle: Fwd)
+				(coloMouth show: setCycle: Forward)
 				(= seconds 3)
 			)
 			(3
-				(coloMouth setCycle: End)
+				(coloMouth setCycle: EndLoop)
 				(Hand setMotion: MoveTo 128 136 self)
 			)
 			(4
 				(Hand hide:)
 				(coloFace cel: 1 forceUpd:)
 				(coloMouth hide:)
-				(coloEyes y: (- (coloFace y:) 16) forceUpd:)
-				(Smoke show: cel: 0 posn: 116 81 setMotion: MoveTo 128 101 self)
+				(coloEyes y: (- (coloFace y?) 16) forceUpd:)
+				(Smoke
+					show:
+					cel: 0
+					posn: 116 81
+					setMotion: MoveTo 128 101 self
+				)
 			)
 			(5
-				(gCurRoom newRoom: gPrevRoomNum)
+				(curRoom newRoom: prevRoomNum)
 			)
 		)
 	)
 )
-

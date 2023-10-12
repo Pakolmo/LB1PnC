@@ -1,9 +1,8 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-;;; Decompiled by sluicebox
 (script# 305)
-(include sci.sh)
+(include game.sh)
 (use Main)
-(use Interface)
+(use Intrface)
 (use Sound)
 (use Motion)
 (use Game)
@@ -15,46 +14,59 @@
 )
 
 (local
-	local0
-	local1
-	local2
+	saveBits
+	talkCycles
+	mouthCued
+)
+(procedure (Measure &tmp [str 500])
+	(GetFarText &rest @str)
+	(= talkCycles (+ (/ (StrLen @str) 3) 1))
 )
 
-(procedure (localproc_0 &tmp [temp0 500])
-	(GetFarText &rest @temp0)
-	(= local1 (+ (/ (StrLen @temp0) 3) 1))
-)
-
-(procedure (localproc_1)
-	(localproc_0 &rest)
-	(+= local1 (/ local1 4))
+(procedure (WilbPrint)
+	(Measure &rest)
+	(= talkCycles (+ talkCycles (/ talkCycles 4)))
 	(wilbMouth setScript: cycleMouth)
-	(Print &rest #at 140 115 #font 4 #width 140 #mode 1 #draw #dispose)
+	(Print &rest
+		#at 140 115
+		#font 4
+		#width 140
+		#mode teJustCenter
+		#draw
+		#dispose
+	)
 )
 
-(procedure (localproc_2)
-	(localproc_0 &rest)
-	(+= local1 (/ local1 4))
+(procedure (ClarPrint)
+	(Measure &rest)
+	(= talkCycles (+ talkCycles (/ talkCycles 4)))
 	(clarMouth setScript: cycleMouth)
-	(Print &rest #at 10 115 #font 4 #width 140 #mode 1 #draw #dispose)
+	(Print &rest
+		#at 10 115
+		#font 4
+		#width 140
+		#mode teJustCenter
+		#draw
+		#dispose
+	)
 )
 
-(instance scene34b of Rm
+(instance scene34b of Room
 	(properties
 		picture 62
-		style 7
+		style IRISOUT
 	)
-
+	
 	(method (init)
 		(super init:)
-		(SetFlag 16)
-		(SetFlag 17)
-		(SetFlag 18)
-		(SetFlag 19)
-		(Load rsFONT 4)
+		(Bset 16)
+		(Bset fExaminedMagazine)
+		(Bset 18)
+		(Bset 19)
+		(Load FONT 4)
 		(HandsOff)
 		(myMusic number: 27 loop: -1 play:)
-		(= gClarenceWilburState 4)
+		(= global154 4)
 		(Clarence setPri: 1 init:)
 		(clarMouth setPri: 2 init:)
 		(clarEye setPri: 2 init: setScript: eyeball2)
@@ -65,23 +77,22 @@
 		(wilbEye setPri: 2 init: setScript: eyeball)
 		(self setScript: speech)
 	)
-
+	
 	(method (doit)
 		(super doit:)
 	)
-
+	
 	(method (dispose)
 		(super dispose:)
 	)
-
+	
 	(method (handleEvent event)
 		(super handleEvent: event)
 	)
 )
 
 (instance eyeball of Script
-	(properties)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
@@ -98,12 +109,11 @@
 )
 
 (instance eyeball2 of Script
-	(properties)
 
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
-				(client setCycle: Beg)
+				(client setCycle: BegLoop)
 				(= state -1)
 				(= seconds (Random 4 6))
 			)
@@ -112,48 +122,22 @@
 )
 
 (instance speech of Script
-	(properties)
-
-	(method (handleEvent event &tmp temp0)
-		(super handleEvent: event)
-		(if
-			(and
-				(not (event claimed:))
-				(== evKEYBOARD (event type:))
-				(or (== (event message:) KEY_S) (== (event message:) KEY_s))
-			)
-			(cls)
-			(gCurRoom newRoom: gPrevRoomNum)
-		)
-		(if (== evMOUSEBUTTON (event type:))
-			(= temp0
-				(Print {Skip scene?}
-					#button {Yes} 1
-					#button {No} 0
-				)
-			)
-			(if (== temp0 1)
-				(cls)
-				(gCurRoom newRoom: gPrevRoomNum)
-			)
-		)
-	)
 
 	(method (doit)
 		(super doit:)
 		(if (and (== (mod state 2) 1) (!= state 9))
-			(if (and (== (Hand x:) 122) (== (Hand y:) 135))
-				(Smoke show: setCycle: End)
+			(if (and (== (Hand x?) 122) (== (Hand y?) 135))
+				(Smoke show: setCycle: EndLoop)
 			)
 			(Hand setMotion: MoveTo 122 135)
 		else
 			(Hand setMotion: MoveTo 140 190)
 		)
 	)
-
+	
 	(method (changeState newState)
-		(if (cycleMouth client:)
-			(= local2 1)
+		(if (cycleMouth client?)
+			(= mouthCued TRUE)
 			(= cycles 1)
 		else
 			(switch (= state newState)
@@ -161,42 +145,49 @@
 					(= cycles 7)
 				)
 				(1
-					(= local0
-						(Display 305 0 dsCOORD 48 8 dsWIDTH 256 dsCOLOR 15 dsBACKGROUND -1 dsFONT 0 dsSAVEPIXELS) ; "Press the 'S' key to skip this scene."
+					(= saveBits
+						(Display 305 0
+							p_at 48 8
+							p_width 256
+							p_color vWHITE
+							p_back -1
+							p_font SYSFONT
+							p_save
+						)
 					)
-					(localproc_1 305 1) ; "It's just not right! We've got to tell him about it!"
+					(WilbPrint 305 1)
 					(= seconds 10)
 				)
 				(2
-					(localproc_2 305 2) ; "No! It'll work out, Wilbur. I've got some plans."
+					(ClarPrint 305 2)
 					(= seconds 4)
 				)
 				(3
-					(localproc_1 305 3) ; "How are you going to replace that hundred grand we took from Henri? Where would YOU get that kind of money?!"
+					(WilbPrint 305 3)
 					(= seconds 7)
 				)
 				(4
-					(localproc_2 305 4) ; "I know people. I can do it...trust me."
+					(ClarPrint 305 4)
 					(= seconds 10)
 				)
 				(5
-					(localproc_1 305 5) ; "Why were we so stupid as to buy into a racehorse, anyway?! And to use Henri's money! We should've known better!"
+					(WilbPrint 305 5)
 					(= seconds 8)
 				)
 				(6
-					(localproc_2 305 6) ; "It would've worked out, Wilbur. It wasn't our fault that &$#@*% horse broke his leg!"
+					(ClarPrint 305 6)
 					(= seconds 10)
 				)
 				(7
-					(localproc_1 305 7) ; "All I can say, Clarence, is you'd better do something fast...because if you don't, I'm 'fessing up.'"
+					(WilbPrint 305 7)
 					(= seconds 8)
 				)
 				(8
-					(localproc_2 305 8) ; "I'll handle it, Wilbur! Just don't be stupid and say something!"
+					(ClarPrint 305 8)
 					(= seconds 10)
 				)
 				(9
-					(localproc_2 305 9) ; "I've gotta go...remember, don't say nothin'!"
+					(ClarPrint 305 9)
 					(= seconds 10)
 				)
 				(10
@@ -209,33 +200,49 @@
 						setLoop: 7
 						setCycle: Walk
 						setStep: 5 5
-						setMotion: MoveTo -40 (Clarence y:) self
+						setMotion: MoveTo -40 (Clarence y?) self
 					)
 				)
 				(11
-					(gCurRoom newRoom: gPrevRoomNum)
+					(curRoom newRoom: prevRoomNum)
 				)
 			)
+		)
+	)
+	
+	(method (handleEvent event)
+		(super handleEvent: event)
+		(if
+			(and
+				(not (event claimed?))
+				(== keyDown (event type?))
+				(or
+					(== (event message?) `S)
+					(== (event message?) `s)
+				)
+			)
+			(cls)
+			(curRoom newRoom: prevRoomNum)
 		)
 	)
 )
 
 (instance cycleMouth of Script
 	(properties)
-
+	
 	(method (doit)
 		(super doit:)
-		(if local2
-			(= local2 0)
+		(if mouthCued
+			(= mouthCued FALSE)
 			(= cycles 1)
 		)
 	)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
-				(client cel: 0 setCycle: Fwd show:)
-				(= cycles local1)
+				(client cel: 0 setCycle: Forward show:)
+				(= cycles talkCycles)
 			)
 			(1
 				(client setScript: 0 hide:)
@@ -245,7 +252,7 @@
 	)
 )
 
-(instance Wilbur of Act
+(instance Wilbur of Actor
 	(properties
 		y 106
 		x 223
@@ -253,7 +260,7 @@
 	)
 )
 
-(instance Clarence of Act
+(instance Clarence of Actor
 	(properties
 		y 115
 		x 102
@@ -306,7 +313,7 @@
 	)
 )
 
-(instance Hand of Act
+(instance Hand of Actor
 	(properties
 		y 190
 		x 140
@@ -314,7 +321,4 @@
 	)
 )
 
-(instance myMusic of Sound
-	(properties)
-)
-
+(instance myMusic of Sound)

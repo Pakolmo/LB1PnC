@@ -1,88 +1,83 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-;;; Decompiled by sluicebox
 (script# 213)
-(include sci.sh)
+(include game.sh)
 (use Main)
-(use Interface)
+(use Intrface)
 (use Game)
 
 (public
 	fireReg 0
 )
 
-(instance fireReg of Rgn
-	(properties)
-
+(instance fireReg of Region
+	
 	(method (dispose)
 		(super dispose:)
 	)
-
+	
 	(method (handleEvent event)
-		(if (event claimed:)
-			(return)
-		)
-		(if (== (event type:) evSAID)
-			(cond
-				((Said 'look>')
-					(cond
+		(if (event claimed?) (return))
+		(if (== (event type?) saidEvent)
+			(cond 
+				((Said 'examine>')
+					(cond 
 						((Said '<in/fireplace')
-							(switch gCurRoomNum
+							(switch curRoomNum
 								(31
-									(Print 213 0) ; "You peer into the fireplace but nothing catches your interest."
+									(Print 213 0)
 								)
 								(44
-									(Print 213 0) ; "You peer into the fireplace but nothing catches your interest."
+									(Print 213 0)
 								)
 								(42
-									(Print 213 1) ; "You see logs smoldering in the fireplace."
+									(Print 213 1)
 								)
-								(else
-									(if (< gAct 4)
-										(Print 213 2) ; "A cheery fire brightens the room."
+								(else 
+									(if (< currentAct 4)
+										(Print 213 2)
 									else
-										(Print 213 1) ; "You see logs smoldering in the fireplace."
+										(Print 213 1)
 									)
 								)
 							)
 						)
 						((Said '/fireplace')
-							(Print 213 3) ; "The finely carved fireplaces show the craftsmanship of bygone days."
+							(Print 213 3)
 						)
 						((Said '/fire')
-							(cond
-								((or (== gCurRoomNum 32) (== gCurRoomNum 34))
-									(if (< gAct 4)
-										(Print 213 2) ; "A cheery fire brightens the room."
+							(cond 
+								((or (== curRoomNum 32) (== curRoomNum 34))
+									(if (< currentAct 4)
+										(Print 213 2)
 									else
-										(Print 213 1) ; "You see logs smoldering in the fireplace."
+										(Print 213 1)
 									)
 								)
-								((== gCurRoomNum 42)
-									(Print 213 1) ; "You see logs smoldering in the fireplace."
+								((== curRoomNum 42)
+									(Print 213 1)
 								)
 								(else
-									(event claimed: 0)
+									(event claimed: FALSE)
 								)
 							)
 						)
 						((Said '/mantel')
-							(if (== gCurRoomNum 34)
-								(Print 213 4) ; "Nothing on the fireplace mantel catches your attention."
+							(if (== curRoomNum 34)
+								(Print 213 4)
 							else
-								(Print 213 5) ; "Various objects and knickknacks are displayed on the fireplace mantel. None of it interests you, though."
+								(Print 213 5)
 							)
 						)
 					)
 				)
 				((Said 'get/fire')
-					(if (or (== gCurRoomNum 32) (== gCurRoomNum 34))
-						(Print 213 6) ; "Don't get too close to it!"
+					(if (or (== curRoomNum 32) (== curRoomNum 34))
+						(Print 213 6)
 					else
-						(Print 213 7) ; "You can't get that."
+						(Print 213 7)
 					)
 				)
 			)
 		)
 	)
 )
-

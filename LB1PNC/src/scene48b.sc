@@ -1,9 +1,8 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-;;; Decompiled by sluicebox
 (script# 332)
-(include sci.sh)
+(include game.sh)
 (use Main)
-(use Interface)
+(use Intrface)
 (use Sound)
 (use Motion)
 (use Game)
@@ -14,12 +13,12 @@
 	scene48b 0
 )
 
-(instance scene48b of Rm
+(instance scene48b of Room
 	(properties
 		picture 62
-		style 7
+		style IRISOUT
 	)
-
+	
 	(method (init)
 		(super init:)
 		(HandsOff)
@@ -30,50 +29,49 @@
 		(Eyes setPri: 3 init: hide:)
 		(self setScript: drink)
 	)
-
+	
 	(method (doit)
 		(super doit:)
 	)
-
+	
 	(method (dispose)
 		(super dispose:)
 	)
-
+	
 	(method (handleEvent event)
 		(super handleEvent: event)
 	)
 )
 
 (instance drink of Script
-	(properties)
 
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
-				(Print 332 0 #dispose) ; "Rudy is having a drink in his room."
+				(Print 332 0 #dispose)
 				(= cycles 2)
 			)
 			(1
-				(glass setCycle: End self)
+				(glass setCycle: EndLoop self)
 			)
 			(2
-				(rFace show: setCycle: Fwd)
+				(rFace show: setCycle: Forward)
 				(= cycles 20)
 			)
 			(3
 				(rFace hide:)
-				(glass setCycle: Beg)
+				(glass setCycle: BegLoop)
 				(= seconds 2)
 			)
 			(4
-				(Eyes show: setCycle: End)
+				(Eyes show: setCycle: EndLoop)
 				(= seconds 2)
 			)
 			(5
-				(Eyes setCycle: Beg self)
+				(Eyes setCycle: BegLoop self)
 			)
 			(6
-				(gCurRoom newRoom: gPrevRoomNum)
+				(curRoom newRoom: prevRoomNum)
 			)
 		)
 	)
@@ -116,7 +114,4 @@
 	)
 )
 
-(instance myMusic of Sound
-	(properties)
-)
-
+(instance myMusic of Sound)

@@ -1,9 +1,8 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-;;; Decompiled by sluicebox
 (script# 48)
-(include sci.sh)
+(include game.sh)
 (use Main)
-(use Interface)
+(use Intrface)
 (use RFeature)
 (use Sound)
 (use Motion)
@@ -14,42 +13,38 @@
 (public
 	Room48 0
 )
-
 (synonyms
+	(notebook book)
 	(luggage case bag)
 	(drawer dresser)
-	(notebook book)
 	(room bedroom)
 )
 
 (local
 	local0
 )
+(instance mySound of Sound)
 
-(instance mySound of Sound
-	(properties)
-)
-
-(instance Room48 of Rm
+(instance Room48 of Room
 	(properties
 		picture 48
 	)
-
+	
 	(method (init)
 		(= west 47)
 		(super init:)
-		(LoadMany rsSOUND 74 75)
-		(if (== gAct 6)
-			(if (not (& gMustDos $0001))
-				(Load rsFONT 41)
-				(LoadMany rsSOUND 29 94 95 96)
-				(Load rsSCRIPT 406)
-				(Load rsVIEW 642)
+		(LoadMany 132 74 75)
+		(if (== currentAct 6)
+			(if (not (& global118 $0001))
+				(Load FONT 41)
+				(LoadMany SOUND 29 94 95 96)
+				(Load SCRIPT 406)
+				(Load VIEW 642)
 			)
 			(chair cel: 4)
 			(stain setPri: 4 ignoreActors: 1 init:)
 		)
-		(gAddToPics
+		(addToPics
 			add: lady bed1 bed2 chest desk table1 table2 suit1 suit2 sofa chair
 			eachElementDo: #init
 			doit:
@@ -68,9 +63,9 @@
 				table2
 				desk
 		)
-		(if gDetailLevel
-			(lamp1 setPri: 1 setCycle: Fwd init:)
-			(lamp2 setPri: 5 setCycle: Fwd init:)
+		(if howFast
+			(lamp1 setPri: 1 setCycle: Forward init:)
+			(lamp2 setPri: 5 setCycle: Forward init:)
 		else
 			(lamp1 setPri: 1 init: stopUpd:)
 			(lamp2 setPri: 5 init: stopUpd:)
@@ -78,160 +73,161 @@
 		(panel
 			setLoop: 2
 			setCel: 6
-			x: (if (== gPrevRoomNum 50) 165 else 169)
+			x: (if (== prevRoomNum 50) 165 else 169)
 			setPri: 4
 			init:
 			stopUpd:
 		)
-		(switch gAct
+		(switch currentAct
 			(0
 				(if (> global199 0)
 					(= local0 1)
-					(self setRegions: 379) ; rudyDrin
+					(self setRegions: 379)
 				)
 			)
 			(1
 				(= local0 1)
-				(self setRegions: 241) ; rudyslap
+				(self setRegions: 241)
 			)
 			(2
-				(if (and (& gMustDos $0004) (< [gCycleTimers 2] 2))
-					(|= gSpyFlags $0008)
+				(if (and (& global118 $0004) (< [global368 2] 2))
+					(|= global173 $0008)
 					(= local0 1)
-					(self setRegions: 260) ; csleep
+					(self setRegions: 260)
 				else
 					(HandsOff)
 					(= local0 1)
-					(self setRegions: 259) ; crArgue
+					(self setRegions: 259)
 				)
 			)
 			(5
 				(= local0 1)
-				(self setRegions: 276) ; desk
+				(self setRegions: 276)
 			)
 			(6
 				(notebook setPri: 9 init: stopUpd:)
 			)
 		)
-		(if (!= gPrevRoomNum 50)
-			(gEgo view: 0 posn: 8 96 illegalBits: -32760 init:)
+		(if (!= prevRoomNum 50)
+			(ego view: 0 posn: 8 96 illegalBits: (| cWHITE cCYAN) init:)
 		else
-			(gEgo
+			(ego
 				view: 0
-				illegalBits: -32768
+				illegalBits: cWHITE
 				setPri: 2
 				loop: 2
 				posn: 175 79
 				init:
 			)
 			(if (== local0 0)
-				(gEgo posn: 169 79)
+				(ego posn: 169 79)
 				(self setScript: enterPanel)
 			)
 		)
 	)
-
+	
 	(method (doit)
-		(if (and (not (& gSpyFlags $0008)) (== gAct 6))
-			(|= gSpyFlags $0008)
-			(Print 48 0) ; "Uh, oh! A bad feeling comes over you as you look around this room. The small desk chair has been knocked over and you see a fresh bloodstain on the rug!"
+		(if (and (not (& global173 $0008)) (== currentAct 6))
+			(|= global173 $0008)
+			(Print 48 0)
 		)
-		(if (IsFirstTimeInRoom)
-			(Print 48 1) ; "This appears to be another guest room that Rudy and Clarence are sharing."
+		(if (FirstEntry)
+			(Print 48 1)
 		)
-		(if (gEgo inRect: 110 84 143 107)
-			(gEgo setPri: 5)
+		(if (ego inRect: 110 84 143 107)
+			(ego setPri: 5)
 		else
-			(gEgo setPri: -1)
+			(ego setPri: -1)
 		)
-		(if (and (& (gEgo onControl: 0) $0008) (== global204 0))
-			(gCurRoom newRoom: 50)
+		(if (and (& (ego onControl: 0) cCYAN) (== global204 0))
+			(curRoom newRoom: 50)
 		)
-		(if (< (gEgo x:) 140)
+		(if (< (ego x?) 140)
 			(= vertAngle 163)
 		else
 			(= vertAngle 137)
 		)
 		(super doit:)
 	)
-
+	
 	(method (dispose)
 		(DisposeScript 204)
 		(super dispose:)
 	)
-
-	(method (newRoom newRoomNumber)
-		(super newRoom: newRoomNumber)
-	)
-
+	
 	(method (handleEvent event)
 		(super handleEvent: event)
-		(if (event claimed:)
-			(return)
+		(if (event claimed?)
+			(return (event claimed?))
 		)
-		(if (== (event type:) evSAID)
-			(if
-				(and
-					global208
-					(Said
-						'ask,tell,show,give,look,get,kill,kiss,embrace,flirt>'
+		(return
+			(if (== (event type?) saidEvent)
+				(if
+					(and
+						global208
+						(Said
+							'ask,tell,hold,deliver,examine,get,kill,kiss,embrace,flirt>'
+						)
 					)
+					(self setScript: (ScriptID 243 0))
+					((self script?) handleEvent: event)
+					(if (event claimed?) (return TRUE))
 				)
-				(self setScript: (ScriptID 243 0)) ; atsgl
-				((self script:) handleEvent: event)
-				(if (event claimed:)
-					(return 1)
-				)
-			)
-			(cond
-				((Said '/panel,(door<hidden)>')
-					(cond
-						((and (& global175 $0080) (Said 'open,move'))
-							(if (not local0)
-								(if (& (gEgo onControl: 0) $0004)
-									(HandsOff)
-									(self setScript: exiting)
+				(cond 
+					((Said '/panel,(door<hidden)>')
+						(cond 
+							((and (& global175 $0080) (Said 'open,move'))
+								(if (not local0)
+									(if (& (ego onControl: 0) cGREEN)
+										(HandsOff)
+										(self setScript: exiting)
+									else
+										(NotClose)
+									)
 								else
-									(NotClose) ; "You're not close enough."
+									(Print 48 2)
 								)
-							else
-								(Print 48 2) ; "You better not while others are in the room."
+							)
+							((Said 'examine')
+								(if (& global175 $0080)
+									(Print 48 3)
+								else
+									(Print 48 4)
+								)
 							)
 						)
-						((Said 'look')
-							(if (& global175 $0080)
-								(Print 48 3) ; "Even though you know where it is, you can't see it."
-							else
-								(Print 48 4) ; "You don't see one."
+					)
+					((Said 'examine>')
+						(cond 
+							((Said '[<around,at][/room]')
+								(if (>= currentAct 6)
+									(Print 48 0)
+								else
+									(Print 48 1)
+								)
+							)
+							((or (Said '/carpet,dirt,blood,stain') (Said '<down'))
+								(if (== currentAct 6)
+									(Print 48 5)
+								else
+									(event claimed: FALSE)
+								)
 							)
 						)
 					)
 				)
-				((Said 'look>')
-					(cond
-						((Said '[<around,at][/room]')
-							(if (>= gAct 6)
-								(Print 48 0) ; "Uh, oh! A bad feeling comes over you as you look around this room. The small desk chair has been knocked over and you see a fresh bloodstain on the rug!"
-							else
-								(Print 48 1) ; "This appears to be another guest room that Rudy and Clarence are sharing."
-							)
-						)
-						((or (Said '/carpet,dirt,blood,stain') (Said '<down'))
-							(if (== gAct 6)
-								(Print 48 5) ; "You see a fresh bloodstain on the rug near the overturned chair."
-							else
-								(event claimed: 0)
-							)
-						)
-					)
-				)
+			else
+				FALSE
 			)
 		)
+	)
+	
+	(method (newRoom n)
+		(super newRoom: n)
 	)
 )
 
 (instance enterPanel of Script
-	(properties)
 
 	(method (changeState newState)
 		(switch (= state newState)
@@ -242,18 +238,16 @@
 				(mySound number: 74 loop: 1 play:)
 			)
 			(1
-				(gEgo
-					setMotion: MoveTo (gEgo x:) (+ (gEgo y:) 15) self
-				)
+				(ego setMotion: MoveTo (ego x?) (+ (ego y?) 15) self)
 			)
 			(2
-				(gEgo setPri: -1 illegalBits: -32760)
+				(ego setPri: -1 illegalBits: (| cWHITE cCYAN))
 				(panel setMotion: MoveTo 169 84 self)
 				(mySound number: 75 loop: 1 play:)
 			)
 			(3
 				(HandsOn)
-				(Print 48 6) ; "The secret panel closes behind you and leaves no trace!"
+				(Print 48 6)
 				(= global204 0)
 				(client setScript: 0)
 			)
@@ -262,8 +256,7 @@
 )
 
 (instance exiting of Script
-	(properties)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
@@ -273,17 +266,17 @@
 				(mySound number: 74 loop: 1 play:)
 			)
 			(1
-				(if (gEgo inRect: 168 87 169 89)
+				(if (ego inRect: 168 87 169 89)
 					(= cycles 1)
 				else
-					(gEgo illegalBits: -32768 setMotion: MoveTo 169 88 self)
+					(ego illegalBits: cWHITE setMotion: MoveTo 169 88 self)
 				)
 			)
 			(2
-				(gEgo illegalBits: -32768 setMotion: MoveTo 169 79 self)
+				(ego illegalBits: cWHITE setMotion: MoveTo 169 79 self)
 			)
 			(3
-				(gEgo setPri: 2)
+				(ego setPri: 2)
 				(panel setMotion: MoveTo 169 84 self)
 				(mySound number: 75 loop: 1 play:)
 			)
@@ -297,26 +290,25 @@
 )
 
 (instance LookNote of Script
-	(properties)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
-				(cond
-					((not (& gMustDos $0001))
-						(|= gMustDos $0001)
-						(self setScript: (ScriptID 406 0)) ; Clock
+				(cond 
+					((not (& global118 $0001))
+						(|= global118 $0001)
+						(self setScript: (ScriptID 406 0))
 						(= state -1)
 					)
-					((self script:)
+					((self script?)
 						(= state -1)
 					)
 				)
 				(= cycles 1)
 			)
 			(1
-				(Print 48 7) ; "You notice that just one page has been written on, and today's date, May 27th, 1925, heads it. Curiously, you read the rest. It says..."
-				(Print 48 8) ; "...I'm terribly apprehensive about what's going on here. I can't say why...just call it a bad sensation...but as the evening wears on I'm feeling more and more alone. Where's Wilbur? Where's Gertie? Where's Gloria? Could they have left without me? Is there a way to leave the island that I'm not aware of? Still, the spine-tingling feeling won't leave, and frankly, I'm scared."
+				(Print 48 7)
+				(Print 48 8)
 				(= cycles 1)
 			)
 			(2
@@ -334,34 +326,34 @@
 		loop 1
 		priority 5
 	)
-
+	
 	(method (handleEvent event)
-		(cond
-			((Said 'look<behind,below/painting')
-				(Print 48 9) ; "You can't see behind the picture."
+		(cond 
+			((Said 'examine<behind,below/painting')
+				(Print 48 9)
 			)
 			((Said 'get/painting')
-				(Print 48 10) ; "The picture is firmly attached to the wall."
+				(Print 48 10)
 			)
 			((Said 'open/painting')
-				(Print 48 11) ; "It doesn't open."
+				(Print 48 11)
 			)
 			(
 				(or
-					(and (Said 'look/eye>') (Said 'look/woman'))
-					(Said 'look/eye[<woman,painting]')
-					(Said 'look/eye/woman')
+					(and (Said 'examine/eye>') (Said 'examine/girl'))
+					(Said 'examine/eye[<girl,painting]')
+					(Said 'examine/eye/girl')
 				)
-				(Print 48 12) ; "The eyes of the woman have a strange, faraway look to them."
+				(Print 48 12)
 			)
 			(
 				(or
-					(MousedOn self event 3)
-					(Said 'look/painting')
-					(Said 'look/woman/painting')
+					(MousedOn self event shiftDown)
+					(Said 'examine/painting')
+					(Said 'examine/girl/painting')
 				)
-				(event claimed: 1)
-				(Print 48 13) ; "You notice an interesting picture of a woman and child. Oddly, the woman's eyes have a strange, faraway look in them."
+				(event claimed: TRUE)
+				(Print 48 13)
 			)
 		)
 	)
@@ -374,12 +366,12 @@
 		view 148
 		loop 2
 		priority 6
-		signal 16384
+		signal ignrAct
 	)
-
+	
 	(method (handleEvent event)
-		(if (MousedOn self event 3)
-			(event claimed: 1)
+		(if (MousedOn self event shiftDown)
+			(event claimed: TRUE)
 			(DoLook {bed})
 		)
 	)
@@ -394,21 +386,19 @@
 		cel 1
 		priority 5
 	)
-
+	
 	(method (handleEvent event)
-		(cond
-			((Said 'open,(look<in)/luggage')
-				(Print 48 14) ; "They're locked."
-			)
-			((Said 'look[<at]/luggage')
-				(Print 48 15) ; "You notice three suitcases next to the beds. They must belong to Rudy and Clarence."
-			)
-			((Said 'get/luggage')
-				(Print 48 16) ; "You'd look silly carrying a suitcase around with you."
-			)
-			((or (MousedOn self event 3) (Said 'look[<at]/drawer'))
-				(event claimed: 1)
-				(Print 48 17) ; "It's a plain old dresser."
+		(cond 
+			((Said 'open,(examine<in)/luggage') (Print 48 14))
+			((Said 'examine[<at]/luggage') (Print 48 15))
+			((Said 'get/luggage') (Print 48 16))
+			(
+				(or
+					(MousedOn self event shiftDown)
+					(Said 'examine[<at]/drawer')
+				)
+				(event claimed: TRUE)
+				(Print 48 17)
 			)
 		)
 	)
@@ -422,12 +412,12 @@
 		loop 2
 		cel 1
 		priority 6
-		signal 16384
+		signal ignrAct
 	)
-
+	
 	(method (handleEvent event)
-		(if (MousedOn self event 3)
-			(event claimed: 1)
+		(if (MousedOn self event shiftDown)
+			(event claimed: TRUE)
 			(DoLook {bed})
 		)
 	)
@@ -442,18 +432,18 @@
 		cel 8
 		priority 9
 	)
-
+	
 	(method (handleEvent event)
-		(cond
-			((Said 'open,(look<in)/(drawer<desk),desk,(top[<desk])')
-				(Print 48 18) ; "There is nothing of interest in the small desk."
+		(cond 
+			((Said 'open,(examine<in)/(drawer<desk),desk,(top[<desk])')
+				(Print 48 18)
 			)
-			((or (MousedOn self event 3) (Said 'look/desk'))
-				(event claimed: 1)
-				(if (== gAct 5)
-					(Print 48 19) ; "Clarence is writing in his notebook at the small desk."
+			((or (MousedOn self event shiftDown) (Said 'examine/desk'))
+				(event claimed: TRUE)
+				(if (== currentAct 5)
+					(Print 48 19)
 				else
-					(Print 48 20) ; "You see a small writing desk against the right wall."
+					(Print 48 20)
 				)
 			)
 		)
@@ -469,11 +459,11 @@
 		cel 2
 		priority 5
 	)
-
+	
 	(method (handleEvent event)
-		(if (MousedOn self event 3)
-			(event claimed: 1)
-			(Print 48 17) ; "It's a plain old dresser."
+		(if (MousedOn self event shiftDown)
+			(event claimed: TRUE)
+			(Print 48 17)
 		)
 	)
 )
@@ -487,20 +477,20 @@
 		cel 3
 		priority 9
 	)
-
+	
 	(method (handleEvent event)
-		(if (== gAct 6)
-			(cond
+		(if (== currentAct 6)
+			(cond 
 				((Said 'get,straighten/chair')
-					(Print 48 21) ; "Don't worry about the chair. You have other things to worry about."
+					(Print 48 21)
 				)
-				((or (Said 'look/chair') (MousedOn self event 3))
-					(event claimed: 1)
-					(Print 48 22) ; "During some sort of struggle, the desk chair has been over-turned."
+				((or (Said 'examine/chair') (MousedOn self event shiftDown))
+					(event claimed: TRUE)
+					(Print 48 22)
 				)
 			)
 		)
-		(if (MousedOn self event 3)
+		(if (MousedOn self event shiftDown)
 			(event claimed: 1)
 			(DoLook {chair})
 		)
@@ -516,10 +506,10 @@
 		cel 7
 		priority 11
 	)
-
+	
 	(method (handleEvent event)
-		(if (MousedOn self event 3)
-			(event claimed: 1)
+		(if (MousedOn self event shiftDown)
+			(event claimed: TRUE)
 			(DoLook {couch})
 		)
 	)
@@ -534,17 +524,20 @@
 		cel 6
 		priority 11
 	)
-
+	
 	(method (handleEvent event)
-		(if (or (MousedOn self event 3) (Said 'look/nightstand>'))
-			(cond
-				((and (== gAct 2) (> [gCycleTimers 2] 2))
-					(Print 48 23) ; "Upon the table you notice Clarence's cigar and drink."
-					(event claimed: 1)
+		(if
+			(or
+				(MousedOn self event shiftDown)
+				(Said 'examine/nightstand>')
+			)
+			(cond 
+				((and (== currentAct 2) (> [global368 2] 2))
+					(Print 48 23)
+					(event claimed: TRUE)
 				)
-				((MousedOn self event 3)
-					(DoLook {table})
-					(event claimed: 1)
+				((MousedOn self event shiftDown) (DoLook {table})
+					(event claimed: TRUE)
 				)
 			)
 		)
@@ -559,11 +552,11 @@
 		loop 1
 		cel 3
 	)
-
+	
 	(method (handleEvent event)
-		(if (MousedOn self event 3)
-			(event claimed: 1)
-			(Print 48 15) ; "You notice three suitcases next to the beds. They must belong to Rudy and Clarence."
+		(if (MousedOn self event shiftDown)
+			(event claimed: TRUE)
+			(Print 48 15)
 		)
 	)
 )
@@ -576,11 +569,11 @@
 		loop 1
 		cel 4
 	)
-
+	
 	(method (handleEvent event)
-		(if (MousedOn self event 3)
-			(event claimed: 1)
-			(Print 48 15) ; "You notice three suitcases next to the beds. They must belong to Rudy and Clarence."
+		(if (MousedOn self event shiftDown)
+			(event claimed: TRUE)
+			(Print 48 15)
 		)
 	)
 )
@@ -593,36 +586,28 @@
 		loop 1
 		cel 9
 	)
-
+	
 	(method (handleEvent event)
 		(super handleEvent: event)
-		(cond
+		(cond 
 			(
 				(or
-					(MousedOn self event 3)
-					(Said 'look/desk')
-					(Said 'look/top[<desk]')
+					(MousedOn self event shiftDown)
+					(Said 'examine/desk')
+					(Said 'examine/top[<desk]')
 				)
-				(event claimed: 1)
-				(Print 48 24) ; "Clarence has left his notebook on the small writing desk."
+				(event claimed: TRUE)
+				(Print 48 24)
 			)
-			((Said 'rotate/page')
-				(Print 48 25) ; "Only one page has been written on."
-			)
-			((Said 'open/notebook')
-				(Print 48 26) ; "The notebook is already open."
-			)
-			((Said 'close/notebook')
-				(Print 48 27) ; "You don't need to close it."
-			)
-			((Said 'get/notebook')
-				(Print 48 28) ; "You don't need to carry around Clarence's notebook."
-			)
-			((Said 'look,read/notebook')
-				(if (gEgo inRect: 249 118 306 144)
+			((Said 'rotate/page') (Print 48 25))
+			((Said 'open/notebook') (Print 48 26))
+			((Said 'close/notebook') (Print 48 27))
+			((Said 'get/notebook') (Print 48 28))
+			((Said 'examine,read/notebook')
+				(if (ego inRect: 249 118 306 144)
 					(Room48 setScript: LookNote)
 				else
-					(NotClose) ; "You're not close enough."
+					(NotClose)
 				)
 			)
 		)
@@ -635,11 +620,11 @@
 		x 72
 		view 148
 	)
-
+	
 	(method (handleEvent event)
 		(super handleEvent: event)
-		(if (MousedOn self event 3)
-			(event claimed: 1)
+		(if (MousedOn self event shiftDown)
+			(event claimed: TRUE)
 			(DoLook {lamp})
 		)
 	)
@@ -651,20 +636,20 @@
 		x 202
 		view 148
 	)
-
+	
 	(method (handleEvent event)
-		(if (MousedOn self event 3)
-			(event claimed: 1)
+		(if (MousedOn self event shiftDown)
+			(event claimed: TRUE)
 			(DoLook {lamp})
 		)
 	)
 )
 
-(instance panel of Act
+(instance panel of Actor
 	(properties
 		y 84
 		view 148
-		illegalBits 0
+		illegalBits $0000
 	)
 )
 
@@ -677,4 +662,3 @@
 		cel 5
 	)
 )
-

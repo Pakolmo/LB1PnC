@@ -1,9 +1,8 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-;;; Decompiled by sluicebox
 (script# 35)
-(include sci.sh)
+(include game.sh)
 (use Main)
-(use Interface)
+(use Intrface)
 (use RFeature)
 (use Sound)
 (use Motion)
@@ -14,7 +13,6 @@
 (public
 	Room35 0
 )
-
 (synonyms
 	(room kitchen)
 )
@@ -22,39 +20,38 @@
 (local
 	local0
 	local1
-	local2
-	local3
+	firstTime
+	askedCelie
+)
+(procedure (localproc_000c)
+	(addToPics dispose:)
+	(cast eachElementDo: #hide)
+	(DrawPic 992 IRISIN TRUE 0)
 )
 
-(procedure (localproc_0)
-	(gAddToPics dispose:)
-	(gCast eachElementDo: #hide)
-	(DrawPic 992 6 1 0)
-)
-
-(procedure (localproc_1)
+(procedure (localproc_002a)
 	(cls)
-	(DrawPic 35 7 1 0)
-	(gAddToPics
+	(DrawPic 35 IRISOUT TRUE 0)
+	(addToPics
 		add: sink butterchurn stool rack icebox shelves shelf
 		eachElementDo: #init
 		doit:
 	)
-	(gCast eachElementDo: #show)
+	(cast eachElementDo: #show)
 )
 
-(instance Room35 of Rm
+(instance Room35 of Room
 	(properties
 		picture 35
 	)
-
+	
 	(method (init)
 		(= west 34)
 		(super init:)
 		(= global202 0)
-		(= local2 (IsFirstTimeInRoom))
-		(LoadMany rsSOUND 43 44)
-		(gAddToPics
+		(= firstTime (FirstEntry))
+		(LoadMany SOUND 43 44)
+		(addToPics
 			add: sink butterchurn stool rack icebox shelves shelf
 			eachElementDo: #init
 			doit:
@@ -74,195 +71,177 @@
 				Table
 		)
 		(kettle setPri: 5 init:)
-		(if gDetailLevel
-			(lamp1 setCycle: Fwd init:)
-			(lamp2 setCycle: Fwd init:)
-			(if (< gAct 2)
-				(kettle loop: 0 setCycle: Fwd)
-			)
+		(if howFast
+			(lamp1 setCycle: Forward init:)
+			(lamp2 setCycle: Forward init:)
+			(if (< currentAct 2) (kettle loop: 0 setCycle: Forward))
 		else
 			(lamp1 init: stopUpd:)
 			(lamp2 init: stopUpd:)
 		)
 		(iceDoor setPri: 5 init: stopUpd:)
-		(if (== ((gInventory at: 12) owner:) 35) ; soup_bone
+		(if (== ((inventory at: iSoupBone) owner?) 35)
 			(Bone setPri: 4 init: stopUpd:)
 		)
-		(if (and (<= (Random 1 100) 35) (> gAct 1) (< gAct 7))
+		(if
+			(and
+				(<= (Random 1 100) 35)
+				(> currentAct 1)
+				(< currentAct 7)
+			)
 			(Shadow illegalBits: 0 posn: 13 82 setPri: 2 init:)
 			(Shadow setScript: shadowWalk)
 		)
-		(switch gAct
-			(0
-				(self setRegions: 229) ; celiWash
-			)
-			(1
-				(self setRegions: 236) ; celiBrea
-			)
+		(switch currentAct
+			(0 (self setRegions: 229))
+			(1 (self setRegions: 236))
 		)
 		(Fdoor
-			cel: (if (== gPrevRoomNum 12) 2 else 0)
-			ignoreActors: 1
+			cel: (if (== prevRoomNum 12) 2 else 0)
+			ignoreActors: TRUE
 			init:
 			stopUpd:
 		)
-		(= global373 Fdoor)
+		(= gDoor Fdoor)
 		(Bdoor
-			cel: (if (== gPrevRoomNum 12) 2 else 0)
+			cel: (if (== prevRoomNum 12) 2 else 0)
 			setPri: 9
-			ignoreActors: 1
+			ignoreActors: TRUE
 			init:
 			stopUpd:
 		)
-		(= global374 Bdoor)
-		(if (== gPrevRoomNum 34)
-			(gEgo posn: 1 123)
+		(= gMySound Bdoor)
+		(if (== prevRoomNum 34)
+			(ego posn: 1 123)
 		else
 			(HandsOff)
-			(gEgo posn: 235 120)
-			(if (not local2)
+			(ego posn: 235 120)
+			(if (not firstTime)
 				(self setScript: closeDoor)
 			)
 		)
-		(gEgo view: 0 illegalBits: -32732 init:)
+		(ego view: 0 illegalBits: -32732 init:)
 	)
-
+	
 	(method (doit)
-		(if local2
-			(= local2 0)
-			(Print 35 0) ; "This old house has a nice big kitchen."
-			(if (== gAct 0)
-				(Print 35 1) ; "Right now you see Celie washing the dinner dishes while Beauregard has found a warm spot by the stove."
+		(if firstTime
+			(= firstTime 0)
+			(Print 35 0)
+			(if (== currentAct 0)
+				(Print 35 1)
 			)
-			(if (== gPrevRoomNum 12)
+			(if (== prevRoomNum 12)
 				(self setScript: closeDoor)
 			)
 		)
 		(if
 			(and
-				(& (gEgo onControl: 0) $0010)
+				(& (ego onControl: 0) cRED)
 				(not local0)
-				(== (gEgo loop:) 0)
+				(== (ego loop?) 0)
 			)
 			(HandsOff)
 			(= local0 1)
-			(gEgo setScript: myDoor)
+			(ego setScript: myDoor)
 		)
-		(if (& (gEgo onControl: 1) $0004)
-			(gCurRoom newRoom: 12)
+		(if (& (ego onControl: origin) cGREEN)
+			(curRoom newRoom: 12)
 		)
-		(cond
-			((< (gEgo x:) 100)
-				(= vertAngle 0)
-			)
-			((< (gEgo x:) 160)
-				(= vertAngle 167)
-			)
-			(else
-				(= vertAngle 137)
-			)
+		(cond 
+			((< (ego x?) 100) (= vertAngle 0))
+			((< (ego x?) 160) (= vertAngle 167))
+			(else (= vertAngle 137))
 		)
 		(switch global202
-			(1
-				(localproc_0)
-			)
-			(2
-				(localproc_1)
-			)
+			(1 (localproc_000c))
+			(2 (localproc_002a))
 		)
 		(= global202 0)
 		(super doit:)
 	)
-
+	
 	(method (dispose)
 		(super dispose:)
 	)
-
-	(method (newRoom newRoomNumber)
-		(cls)
-		(super newRoom: newRoomNumber)
-	)
-
+	
 	(method (handleEvent event &tmp temp0)
 		(DisposeScript 990)
 		(super handleEvent: event)
-		(if (event claimed:)
-			(return 1)
-		)
-		(if (== (event type:) evSAID)
-			(= temp0
-				(or
-					(!= gAct 1)
-					(and
-						(not (Said 'ask[/celie]/lil<about>'))
-						(not (Said 'ask[/lil]/celie<about>'))
+		(if (event claimed?) (return TRUE))
+		(return
+			(if (== (event type?) saidEvent)
+				(= temp0
+					(cond 
+						((!= currentAct 1))
+						((not (Said 'ask[/celie]/lil<about>')) (not (Said 'ask[/lil]/celie<about>')))
 					)
 				)
-			)
-			(if
-				(and
-					global208
-					temp0
-					(Said
-						'ask,tell,show,give,look,get,kill,kiss,embrace,flirt>'
+				(if global208
+					(if temp0
+						(if
+							(Said
+								'ask,tell,hold,deliver,examine,get,kill,kiss,embrace,flirt>'
+							)
+							(self setScript: (ScriptID 243 0))
+							((self script?) handleEvent: event)
+						)
 					)
 				)
-				(self setScript: (ScriptID 243 0)) ; atsgl
-				((self script:) handleEvent: event)
-			)
-			(if (event claimed:)
-				(return 1)
-			)
-			(cond
-				((Said 'look>')
-					(cond
-						((Said '[<around,at][/room]')
-							(Print 35 0) ; "This old house has a nice big kitchen."
-							(if (== gAct 0)
-								(Print 35 1) ; "Right now you see Celie washing the dinner dishes while Beauregard has found a warm spot by the stove."
+				(if (event claimed?) (return TRUE))
+				(cond 
+					((Said 'examine>')
+						(cond 
+							((Said '[<around,at][/room]')
+								(Print 35 0)
+								(if (== currentAct 0)
+									(Print 35 1))
+								)
+							((Said '/dish')
+								(if (== currentAct 0)
+									(Print 35 2)
+								else
+									(Print 35 3)
+								)
+							)
+							((Said '/door')
+								(Print 35 4)
+							)
+							((Said '/carpet')
+								(Print 35 5)
+							)
+							((Said '<(in,below)/nightstand')
+								(Print 35 6)
 							)
 						)
-						((Said '/dish')
-							(if (== gAct 0)
-								(Print 35 2) ; "Right now the sink's full of dirty dishes."
-							else
-								(Print 35 3) ; "You don't see any dishes."
-							)
-						)
-						((Said '/door')
-							(Print 35 4) ; "The French doors lead outside."
-						)
-						((Said '/carpet')
-							(Print 35 5) ; "You see a tiny rug by the kitchen sink."
-						)
-						((Said '<(in,below)/nightstand')
-							(Print 35 6) ; "Various kitchen implements are stored under the table. There's nothing you need there."
+					)
+					((Said 'scrub/deliver')
+						(Print 35 7)
+					)
+					((Said 'get/dish')
+						(if (== currentAct 0)
+							(Print 35 8)
+						else
+							(Print 35 3)
 						)
 					)
 				)
-				((Said 'scrub/give')
-					(Print 35 7) ; "You should do that in the bathroom."
-				)
-				((Said 'get/dish')
-					(if (== gAct 0)
-						(Print 35 8) ; "Why would you want dirty old dishes?"
-					else
-						(Print 35 3) ; "You don't see any dishes."
-					)
-				)
+			else
+				FALSE
 			)
 		)
+	)
+	
+	(method (newRoom n)
+		(cls)
+		(super newRoom: n)
 	)
 )
 
 (instance shadowWalk of Script
-	(properties)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
-			(0
-				(= seconds 8)
-			)
+			(0 (= seconds 8))
 			(1
 				(Shadow setMotion: MoveTo 295 82 self)
 			)
@@ -275,55 +254,51 @@
 )
 
 (instance myDoor of Script
-	(properties)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
-			(0
-				(= cycles 2)
-			)
+			(0 (= cycles 2))
 			(1
-				(gEgo illegalBits: 0)
-				(if (> (gEgo x:) 229)
-					(gEgo setMotion: MoveTo 229 (gEgo y:) self)
+				(ego illegalBits: 0)
+				(if (> (ego x?) 229)
+					(ego setMotion: MoveTo 229 (ego y?) self)
 				else
 					(= cycles 1)
 				)
 			)
 			(2
-				(Bdoor cycleSpeed: 1 ignoreActors: 1 setCycle: End)
-				(Fdoor cycleSpeed: 1 ignoreActors: 1 setCycle: End self)
+				(Bdoor cycleSpeed: 1 ignoreActors: TRUE setCycle: EndLoop)
+				(Fdoor cycleSpeed: 1 ignoreActors: TRUE setCycle: EndLoop self)
 				(mySound number: 43 play:)
 			)
 			(3
-				(gEgo setMotion: MoveTo (+ (gEgo x:) 50) 122)
+				(ego setMotion: MoveTo (+ (ego x?) 50) 122)
 			)
 		)
 	)
 )
 
 (instance frigDoor of Script
-	(properties)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
 				(HandsOff)
-				(iceDoor setCycle: End self)
+				(iceDoor setCycle: EndLoop self)
 			)
 			(1
-				(if (== ((gInventory at: 12) owner:) 35) ; soup_bone
-					(Print 35 9) ; "Aha! A leftover soup bone! As it might come in handy, you grab it and take it with you."
-					(= global182 1)
-					(gEgo get: 12) ; soup_bone
+				(if (== ((inventory at: iSoupBone) owner?) 35)
+					(Print 35 9)
+					(= gotItem TRUE)
+					(ego get: iSoupBone)
 					(Bone dispose:)
 				else
-					(Print 35 10) ; "Nope. Nothing interesting in there!"
+					(Print 35 10)
 				)
 				(= cycles 1)
 			)
 			(2
-				(iceDoor setCycle: Beg self)
+				(iceDoor setCycle: BegLoop self)
 			)
 			(3
 				(HandsOn)
@@ -335,8 +310,7 @@
 )
 
 (instance closeDoor of Script
-	(properties)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
@@ -344,9 +318,9 @@
 				(= cycles 3)
 			)
 			(1
-				(gEgo ignoreActors: 0 setMotion: MoveTo 226 122 self)
-				(Fdoor setCycle: Beg)
-				(Bdoor setCycle: Beg)
+				(ego ignoreActors: 0 setMotion: MoveTo 226 122 self)
+				(Fdoor setCycle: BegLoop)
+				(Bdoor setCycle: BegLoop)
 				(mySound number: 44 play:)
 			)
 			(2
@@ -367,14 +341,14 @@
 		cel 1
 		priority 4
 	)
-
+	
 	(method (handleEvent event)
-		(if (or (MousedOn self event 3) (Said 'look/sink'))
-			(event claimed: 1)
-			(if (== gAct 0)
-				(Print 35 11) ; "The sink is full of dirty dinner dishes."
+		(if (or (MousedOn self event shiftDown) (Said 'examine/sink'))
+			(event claimed: TRUE)
+			(if (== currentAct 0)
+				(Print 35 11)
 			else
-				(Print 35 12) ; "It's just an empty sink."
+				(Print 35 12)
 			)
 		)
 	)
@@ -388,15 +362,19 @@
 		cel 3
 		priority 12
 	)
-
+	
 	(method (handleEvent event)
-		(cond
-			((Said 'open,(look<in)/butterchurn')
-				(Print 35 13) ; "It's empty."
+		(cond 
+			((Said 'open,(examine<in)/butterchurn')
+				(Print 35 13)
 			)
-			((or (MousedOn self event 3) (Said 'look/butterchurn'))
-				(event claimed: 1)
-				(Print 35 14) ; "The old butter churn is empty."
+			(
+				(or
+					(MousedOn self event shiftDown)
+					(Said 'examine/butterchurn')
+				)
+				(event claimed: TRUE)
+				(Print 35 14)
 			)
 		)
 	)
@@ -409,13 +387,17 @@
 		view 135
 		cel 2
 		priority 10
-		signal 16384
+		signal ignrAct
 	)
-
+	
 	(method (handleEvent event)
-		(if (or (MousedOn self event 3) (Said 'look/chair,barstool'))
-			(event claimed: 1)
-			(Print 35 15) ; "That's a pretty basic three-legged stool."
+		(if
+			(or
+				(MousedOn self event shiftDown)
+				(Said 'examine/chair,barstool')
+			)
+			(event claimed: TRUE)
+			(Print 35 15)
 		)
 	)
 )
@@ -429,11 +411,11 @@
 		cel 2
 		priority 3
 	)
-
+	
 	(method (handleEvent event)
-		(if (or (MousedOn self event 3) (Said 'look/pan'))
-			(event claimed: 1)
-			(Print 35 16) ; "Cooking pans hang on the wall above the sink."
+		(if (or (MousedOn self event shiftDown) (Said 'examine/pan'))
+			(event claimed: TRUE)
+			(Print 35 16)
 		)
 	)
 )
@@ -445,58 +427,61 @@
 		view 135
 		priority 3
 	)
-
+	
 	(method (handleEvent event)
-		(cond
+		(cond 
 			(
 				(or
-					(Said 'open,(look<in)/freezer')
-					(and (== ((gInventory at: 12) owner:) 35) (Said 'get/bone')) ; soup_bone
+					(Said 'open,(examine<in)/freezer')
+					(and
+						(== ((inventory at: iSoupBone) owner?) 35)
+						(Said 'get/bone')
+					)
 				)
-				(if (gEgo inRect: 9 84 43 100)
-					(gEgo setScript: frigDoor)
+				(if (ego inRect: 9 84 43 100)
+					(ego setScript: frigDoor)
 				else
-					(NotClose) ; "You're not close enough."
+					(NotClose)
 				)
 			)
 			((and global208 (Said 'ask,tell'))
-				(event claimed: 0)
+				(event claimed: FALSE)
 			)
 			(
 				(and
-					(!= gAct 0)
+					(!= currentAct 0)
 					(or (Said '/beauregard') (Said '//beauregard'))
 				)
-				(Print 35 17) ; "Beauregard isn't here right now."
+				(Print 35 17)
 			)
 			(
 				(and
-					(== gAct 0)
-					(== ((gInventory at: 12) owner:) 0) ; soup_bone
+					(== currentAct 0)
+					(== ((inventory at: iSoupBone) owner?) 0)
 					(or
 						(Said 'get/back<bone[<from]')
 						(Said 'get/*/beauregard')
 						(Said 'get/bone')
 					)
 				)
-				(Print 35 18) ; "It doesn't look like Beauregard is going to stop chewing on the bone long enough for you to retrieve it."
+				(Print 35 18)
 			)
 			((Said 'get/bone')
-				(cond
-					((gEgo has: 12) ; soup_bone
-						(AlreadyTook) ; "You already took it."
+				(cond 
+					((ego has: iSoupBone)
+						(AlreadyTook)
 					)
-					((== ((gInventory at: 12) owner:) 35) ; soup_bone
-						(DontHave) ; "You don't have it."
+					((== ((inventory at: iSoupBone) owner?) 35)
+						(DontHave)
 					)
 					(else
-						(Print 35 19) ; "You already took the bone and gave it to Beauregard."
+						(Print 35 19)
 					)
 				)
 			)
-			((or (MousedOn self event 3) (Said 'look/freezer'))
-				(event claimed: 1)
-				(Print 35 20) ; "This is your average, run-of-the-mill icebox."
+			((or (MousedOn self event shiftDown) (Said 'examine/freezer'))
+				(event claimed: TRUE)
+				(Print 35 20)
 			)
 		)
 	)
@@ -510,21 +495,21 @@
 		loop 1
 		priority 10
 	)
-
+	
 	(method (handleEvent event)
-		(cond
-			((Said 'open,(look<in)/armoire')
-				(Print 35 21) ; "There's nothing you need in the cupboards."
+		(cond 
+			((Said 'open,(examine<in)/armoire')
+				(Print 35 21)
 			)
-			((or (MousedOn self event 3) (Said 'look/armoire'))
-				(event claimed: 1)
-				(Print 35 22) ; "This kitchen could use more cupboard space!"
+			((or (MousedOn self event shiftDown) (Said 'examine/armoire'))
+				(event claimed: TRUE)
+				(Print 35 22)
 			)
 		)
 	)
 )
 
-(instance shelf of PV
+(instance shelf of PicView
 	(properties
 		y 133
 		x 150
@@ -532,7 +517,7 @@
 		loop 1
 		cel 1
 		priority 10
-		signal 16384
+		signal ignrAct
 	)
 )
 
@@ -544,12 +529,12 @@
 		loop 4
 		cel 1
 		priority 6
-		signal 16
+		signal fixPriOn
 	)
-
+	
 	(method (handleEvent event)
-		(if (MousedOn self event 3)
-			(event claimed: 1)
+		(if (MousedOn self event shiftDown)
+			(event claimed: TRUE)
 			(DoLook {lamp})
 		)
 	)
@@ -562,12 +547,12 @@
 		view 135
 		loop 4
 		priority 11
-		signal 16
+		signal fixPriOn
 	)
-
+	
 	(method (handleEvent event)
-		(if (MousedOn self event 3)
-			(event claimed: 1)
+		(if (MousedOn self event shiftDown)
+			(event claimed: TRUE)
 			(DoLook {lamp})
 		)
 	)
@@ -581,10 +566,10 @@
 		loop 1
 		priority 7
 	)
-
+	
 	(method (handleEvent event)
-		(if (MousedOn self event 3)
-			(event claimed: 1)
+		(if (MousedOn self event shiftDown)
+			(event claimed: TRUE)
 			(DoLook {door})
 		)
 	)
@@ -597,10 +582,10 @@
 		view 201
 		loop 3
 	)
-
+	
 	(method (handleEvent event)
-		(if (MousedOn self event 3)
-			(event claimed: 1)
+		(if (MousedOn self event shiftDown)
+			(event claimed: TRUE)
 			(DoLook {door})
 		)
 	)
@@ -613,45 +598,49 @@
 		view 235
 		loop 1
 	)
-
+	
 	(method (handleEvent event)
-		(cond
-			((Said 'open,(look<in)/caldron')
-				(cond
-					((< gAct 2)
-						(Print 35 23) ; "There's hot coffee in there!"
+		(cond 
+			((Said 'open,(examine<in)/caldron')
+				(cond 
+					((< currentAct 2)
+						(Print 35 23)
 					)
-					((<= gAct 4)
-						(Print 35 24) ; "A small amount of lukewarm coffee is still in the pot."
+					((<= currentAct 4)
+						(Print 35 24)
 					)
 					(else
-						(Print 35 25) ; "The coffee pot's empty."
+						(Print 35 25)
 					)
 				)
 			)
 			((Said 'get/caldron')
-				(if (< gAct 2)
-					(Print 35 26) ; "No! It's hot!"
+				(if (< currentAct 2)
+					(Print 35 26)
 				else
-					(Print 35 27) ; "You don't need a coffee pot."
+					(Print 35 27)
 				)
 			)
 			((Said 'pour,get,drink/cup,coffee')
-				(Print 35 28) ; "You've never been fond of coffee."
+				(Print 35 28)
 			)
-			((or (MousedOn self event 3) (Said 'look[<at]/caldron[<coffee]'))
-				(if (< gAct 2)
-					(Print 35 29) ; "The smell of coffee permeates the room from the bubbling pot."
-				else
-					(Print 35 30) ; "A big coffee pot sits on top of the stove."
+			(
+				(or
+					(MousedOn self event shiftDown)
+					(Said 'examine[<at]/caldron[<coffee]')
 				)
-				(event claimed: 1)
+				(if (< currentAct 2)
+					(Print 35 29)
+				else
+					(Print 35 30)
+				)
+				(event claimed: TRUE)
 			)
 		)
 	)
 )
 
-(instance Shadow of Act
+(instance Shadow of Actor
 	(properties
 		view 110
 	)
@@ -664,19 +653,19 @@
 		nsBottom 88
 		nsRight 133
 	)
-
+	
 	(method (handleEvent event)
-		(cond
-			((Said 'open,(look<in)/oven')
-				(Print 35 31) ; "There is nothing in the stove or oven."
+		(cond 
+			((Said 'open,(examine<in)/oven')
+				(Print 35 31)
 			)
-			((or (MousedOn self event 3) (Said 'look/oven'))
-				(if (< gAct 2)
-					(Print 35 32) ; "A pot of coffee bubbles on the stove."
+			((or (MousedOn self event shiftDown) (Said 'examine/oven'))
+				(if (< currentAct 2)
+					(Print 35 32)
 				else
-					(Print 35 30) ; "A big coffee pot sits on top of the stove."
+					(Print 35 30)
 				)
-				(event claimed: 1)
+				(event claimed: TRUE)
 			)
 		)
 	)
@@ -689,10 +678,10 @@
 		nsBottom 85
 		nsRight 72
 	)
-
+	
 	(method (handleEvent event)
-		(if (MousedOn self event 3)
-			(event claimed: 1)
+		(if (MousedOn self event shiftDown)
+			(event claimed: TRUE)
 			(DoLook {window})
 		)
 	)
@@ -705,10 +694,10 @@
 		nsBottom 85
 		nsRight 172
 	)
-
+	
 	(method (handleEvent event)
-		(if (MousedOn self event 3)
-			(event claimed: 1)
+		(if (MousedOn self event shiftDown)
+			(event claimed: TRUE)
 			(DoLook {window})
 		)
 	)
@@ -731,17 +720,17 @@
 		loop 2
 		cel 1
 	)
-
+	
 	(method (handleEvent)
-		(cond
-			((and (< gAct 2) (Said 'ask/celie/bone<for'))
-				(= global213 2)
-				(++ local3)
-				(Say 1 35 33) ; "You kin have it. It' been in that there icebox for a long time."
+		(cond 
+			((and (< currentAct 2) (Said 'ask/celie/bone<for'))
+				(= theTalker talkCELIE)
+				(++ askedCelie)
+				(Say 1 35 33)
 			)
-			((and (== gAct 1) (Said 'ask/lil/bone<for'))
-				(= global213 6)
-				(Say 1 35 33) ; "You kin have it. It' been in that there icebox for a long time."
+			((and (== currentAct 1) (Said 'ask/lil/bone<for'))
+				(= theTalker talkLILLIAN)
+				(Say 1 35 33)
 			)
 		)
 	)
@@ -760,15 +749,15 @@
 		nsBottom 12
 		nsRight 175
 	)
-
+	
 	(method (handleEvent event)
-		(if (or (MousedOn self event 3) (Said 'look/nightstand'))
-			(if (== gAct 1)
-				(Print 35 34) ; "Celie rolls out tomorrow's bread on the kitchen table."
+		(if (or (MousedOn self event shiftDown) (Said 'examine/nightstand'))
+			(if (== currentAct 1)
+				(Print 35 34)
 			else
-				(Print 35 35) ; "A large kitchen table dominates the center on the room."
+				(Print 35 35)
 			)
-			(event claimed: 1)
+			(event claimed: TRUE)
 		)
 	)
 )
@@ -780,12 +769,11 @@
 		nsBottom 52
 		nsRight 210
 	)
-
+	
 	(method (handleEvent event)
-		(if (MousedOn self event 3)
-			(Print 35 22) ; "This kitchen could use more cupboard space!"
-			(event claimed: 1)
+		(if (MousedOn self event shiftDown)
+			(Print 35 22)
+			(event claimed: TRUE)
 		)
 	)
 )
-

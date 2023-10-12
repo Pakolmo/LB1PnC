@@ -1,9 +1,8 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-;;; Decompiled by sluicebox
 (script# 409)
-(include sci.sh)
+(include game.sh)
 (use Main)
-(use Interface)
+(use Intrface)
 (use DCIcon)
 (use Motion)
 (use Menu)
@@ -14,43 +13,31 @@
 )
 
 (instance FirstTimeCk of Script
-	(properties)
 
-	(method (doit &tmp [temp0 500])
+	(method (doit &tmp [str 500])
 		(super doit:)
-		(DrawPic 992 7)
-		(gCast eachElementDo: #hide)
-		(= global221 999)
-		(gGame setCursor: 999 1)
-		(gConMusic number: 17 loop: 1 play:)
+		(DrawPic 992 IRISOUT)
+		(cast eachElementDo: #hide)
+		(= savedCursor ARROW_CURSOR)
+		(theGame setCursor: ARROW_CURSOR TRUE)
+		(cSound number: 17 loop: 1 play:)
 		(if
-			(Print ; "Have you previously attended a performance of "The Colonel's Bequest?""
-				409
-				0
-				#icon
-				myIcon
-				0
-				1
-				#mode
-				1
-				#font
-				0
-				#button
-				{______Yes______}
-				0
-				#button
-				{_______No_______}
-				1
+			(Print 409 0
+				#icon myIcon 0 1
+				#mode teJustCenter
+				#font SYSFONT
+				#button {______Yes______} 0
+				#button {_______No_______} 1
 			)
-			(gConMusic fade:)
-			(gCurRoom newRoom: 777) ; myWill
+			(cSound fade:)
+			(curRoom newRoom: 777)
 		else
-			(gConMusic fade:)
-			(TheMenuBar state: 1)
-			(gCurRoom newRoom: 44)
+			(cSound fade:)
+			(TheMenuBar state: TRUE)
+			(curRoom newRoom: 44)
 		)
 	)
-
+	
 	(method (dispose)
 		(super dispose:)
 		(DisposeScript 409)
@@ -63,9 +50,8 @@
 		cel 1
 		cycleSpeed 24
 	)
-
+	
 	(method (init)
-		((= cycler (End new:)) init: self)
+		((= cycler (EndLoop new:)) init: self)
 	)
 )
-

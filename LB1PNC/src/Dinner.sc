@@ -1,9 +1,8 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-;;; Decompiled by sluicebox
 (script# 209)
-(include sci.sh)
+(include game.sh)
 (use Main)
-(use Interface)
+(use Intrface)
 (use Path)
 (use Sound)
 (use Motion)
@@ -16,31 +15,35 @@
 )
 
 (local
-	local0
-	local1
+	saveBits
+	saveBits2
 	local2
-	local3
-	local4
+	msgX
+	msgY
 	local5
 	local6
 	local7
-	[local8 7] = [73 113 50 149 -20 149 -32768]
+	pathPts = [
+		73 113
+		50 149
+		-20 149
+		PATHEND
+		]
 )
-
-(procedure (localproc_0)
-	(gCast eachElementDo: #hide)
-	(DrawPic 67 7)
+(procedure (localproc_000c)
+	(cast eachElementDo: #hide)
+	(DrawPic 67 IRISOUT)
 	(CHead setPri: 1 init:)
 	(FHead init: setScript: eyeball)
 	(Mouth init:)
-	(Eye cycleSpeed: 5 setCycle: Fwd init:)
+	(Eye cycleSpeed: 5 setCycle: Forward init:)
 	(Hand cycleSpeed: 5 init: setScript: handMotion)
 )
 
-(procedure (localproc_1)
-	(DrawPic 34 6)
-	(gAddToPics doit:)
-	(gCast eachElementDo: #show)
+(procedure (localproc_006b)
+	(DrawPic 34 IRISIN)
+	(addToPics doit:)
+	(cast eachElementDo: #show)
 	(CHead dispose:)
 	(FHead dispose:)
 	(Mouth dispose:)
@@ -48,48 +51,57 @@
 	(Hand dispose:)
 )
 
-(procedure (localproc_2)
-	(= local0
+(procedure (ForeDisplay)
+	(= saveBits
 		(Display &rest
 			105 41
-			dsALIGN alCENTER
-			dsCOORD local3 local4
-			dsWIDTH 260
-			dsCOLOR 15
-			dsSAVEPIXELS
+			p_mode teJustCenter
+			p_at msgX msgY
+			p_width 260
+			p_color vWHITE
+			p_save
 		)
 	)
 )
 
-(procedure (localproc_3)
-	(Display 209 0 dsRESTOREPIXELS local0)
+(procedure (ForeClear)
+	(Display 209 0 p_restore saveBits)
 )
 
-(procedure (localproc_4)
-	(= local1 (Display &rest 105 41 dsALIGN alCENTER dsCOORD local3 local4 dsWIDTH 260 dsCOLOR 0 dsSAVEPIXELS))
+(procedure (BackDisplay)
+	(= saveBits2
+		(Display &rest
+			105 41
+			p_mode teJustCenter
+			p_at msgX msgY
+			p_width 260
+			p_color vBLACK
+			p_save
+		)
+	)
 )
 
-(procedure (localproc_5)
-	(Display 209 0 dsRESTOREPIXELS local1)
+(procedure (BackClear)
+	(Display 209 0 p_restore saveBits2)
 )
 
 (instance wOPath of Path
 	(properties)
-
-	(method (at param1)
-		(return [local8 param1])
+	
+	(method (at n)
+		(return [pathPts n])
 	)
 )
 
-(instance Dinner of Rm
+(instance Dinner of Room
 	(properties
 		picture 34
 	)
-
+	
 	(method (init)
 		(super init:)
 		(HandsOff)
-		(gAddToPics
+		(addToPics
 			add:
 				tableTop
 				chute
@@ -107,9 +119,9 @@
 				flowers
 			doit:
 		)
-		(Load rsPIC 67)
-		(LoadMany rsVIEW 0 500 800)
-		(Load rsFONT 41)
+		(Load PICTURE 67)
+		(LoadMany VIEW 0 500 800)
+		(Load FONT 41)
 		(RHead setPri: 14 init: stopUpd:)
 		(lHead setPri: 10 init: stopUpd:)
 		(yHead setPri: 10 init: stopUpd:)
@@ -120,174 +132,180 @@
 		(wHead setPri: 7 init: stopUpd:)
 		(You init: stopUpd:)
 		(Lilian init: stopUpd:)
-		(if gDetailLevel
-			(fire setCycle: Fwd init:)
-			(gas setPri: 9 setCycle: Fwd init:)
+		(if howFast
+			(fire setCycle: Forward init:)
+			(gas setPri: 9 setCycle: Forward init:)
 		else
 			(gas setPri: 9 init: stopUpd:)
 			(fire init: stopUpd:)
 		)
-		(Colonel illegalBits: 0 setCycle: Walk setPri: 10 init: stopUpd:)
+		(Colonel
+			illegalBits: 0
+			setCycle: Walk
+			setPri: 10
+			init:
+			stopUpd:
+		)
 		(self setScript: speech)
 	)
-
+	
 	(method (doit)
 		(super doit:)
 	)
-
+	
 	(method (dispose)
-		(DisposeScript 983)
+		(DisposeScript PATH)
 		(super dispose:)
 	)
-
-	(method (newRoom newRoomNumber)
-		(super newRoom: newRoomNumber)
-	)
-
+	
 	(method (handleEvent event)
-		(if (event claimed:)
-			(return 1)
-		)
-		(switch (event type:)
-			(evKEYBOARD
+		(if (event claimed?) (return TRUE))
+		(switch (event type?)
+			(keyDown
 				(if
 					(or
-						(== (event message:) KEY_S)
-						(== (event message:) KEY_s)
-						(== (event message:) KEY_RETURN)
-						(== (event message:) KEY_SPACE)
+						(== (event message?) `S)
+						(== (event message?) `s)
+						(== (event message?) ENTER)
+						(== (event message?) SPACEBAR)
 					)
-					(SetFlag 50)
+					(Bset 50)
 				)
 			)
-			(evMOUSEBUTTON
-				(SetFlag 50)
+			(mouseDown
+				(Bset fSkippedIntro)
 			)
 		)
-		(if (IsFlag 50)
-			(event claimed: 1)
-			(gCurRoom newRoom: 44)
+		(return
+			(if (Btst fSkippedIntro)
+				(event claimed: TRUE)
+				(curRoom newRoom: 44)
+			else
+				FALSE
+			)
 		)
+	)
+	
+	(method (newRoom n)
+		(super newRoom: n)
 	)
 )
 
 (instance speech of Script
 	(properties)
-
+	
 	(method (doit)
 		(super doit:)
-		(if (and (== (myMusic prevSignal:) -1) (== state 20))
-			(SetFlag 50)
-			(gCurRoom newRoom: 44)
+		(if (and (== (myMusic prevSignal?) -1) (== state 20))
+			(Bset fSkippedIntro)
+			(curRoom newRoom: 44)
 		)
 	)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
-			(0
-				(= cycles 5)
-			)
+			(0 (= cycles 5))
 			(1
 				(myMusic number: 4 loop: -1 play:)
-				(= local3 41)
-				(= local4 32)
-				(localproc_4 209 1) ; "System Development by  Robert Heitman Jeff Stephenson Stuart Goldstein Pablo Ghenis Corinna Abdul"
-				(= local3 40)
-				(= local4 30)
-				(localproc_2 209 1) ; "System Development by  Robert Heitman Jeff Stephenson Stuart Goldstein Pablo Ghenis Corinna Abdul"
+				(= msgX 41)
+				(= msgY 32)
+				(BackDisplay 209 1)
+				(= msgX 40)
+				(= msgY 30)
+				(ForeDisplay 209 1)
 				(= seconds 8)
 			)
 			(2
-				(localproc_3)
-				(localproc_5)
+				(ForeClear)
+				(BackClear)
 				(= cycles 1)
 			)
 			(3
-				(Print 209 2 #at 104 10 #dispose) ; "During dinner..."
+				(Print 209 2 #at 104 10 #dispose)
 				(Colonel setMotion: MoveTo 75 123 self)
-				(cHead setCycle: End)
-				(wHead setCycle: End)
-				(eHead setCycle: End)
-				(grHead setCycle: End)
-				(RHead setCycle: End)
-				(yHead setCycle: End)
-				(lHead setCycle: End)
+				(cHead setCycle: EndLoop)
+				(wHead setCycle: EndLoop)
+				(eHead setCycle: EndLoop)
+				(grHead setCycle: EndLoop)
+				(RHead setCycle: EndLoop)
+				(yHead setCycle: EndLoop)
+				(lHead setCycle: EndLoop)
 			)
 			(4
 				(cls)
-				(localproc_0)
-				(Print 209 3 #at 10 117 #dispose) ; "I'm glad you are all here. I'm sure you are wondering why I sent for you."
+				(localproc_000c)
+				(Print 209 3 #at 10 117 #dispose)
 				(= local7 5)
 				(Mouth setScript: mouthCyc)
-				(Eye loop: 2 setCycle: End)
+				(Eye loop: 2 setCycle: EndLoop)
 				(= seconds 10)
 			)
 			(5
 				(cls)
-				(Eye setCycle: Beg)
+				(Eye setCycle: BegLoop)
 				(= local7 6)
 				(Mouth setScript: mouthCyc)
-				(Print 209 4 #at 10 117 #dispose) ; "As you know, I'm a very wealthy man. I have invested my money wisely and have put away almost every dime."
+				(Print 209 4 #at 10 117 #dispose)
 				(= seconds 10)
 			)
 			(6
 				(cls)
-				(Eye loop: 1 cycleSpeed: 6 setCycle: Fwd)
+				(Eye loop: 1 cycleSpeed: 6 setCycle: Forward)
 				(= local7 5)
 				(Mouth setScript: mouthCyc)
-				(Print 209 5 #at 10 117 #dispose) ; "However, my end is near and I have decided to bequeath my millions to each of you sitting at the table."
+				(Print 209 5 #at 10 117 #dispose)
 				(= seconds 10)
 			)
 			(7
 				(cls)
 				(= local7 3)
 				(Mouth setScript: mouthCyc)
-				(Print 209 6 #at 10 117 #dispose) ; "Except of course Lillian's friend, Laura."
+				(Print 209 6 #at 10 117 #dispose)
 				(= seconds 5)
 			)
 			(8
 				(cls)
 				(= local7 1)
 				(Mouth setScript: mouthCyc)
-				(Print 209 7 #at 10 117 #dispose) ; "AHEM!"
+				(Print 209 7 #at 10 117 #dispose)
 				(= seconds 3)
 			)
 			(9
 				(cls)
 				(= local7 5)
 				(Mouth setScript: mouthCyc)
-				(Print 209 8 #at 10 117 #dispose) ; "Anyway, as I have said, you're all inheriting my money, and you will inherit equally when I go."
+				(Print 209 8 #at 10 117 #dispose)
 				(= seconds 10)
 			)
 			(10
 				(cls)
-				(Eye loop: 2 setCycle: End)
+				(Eye loop: 2 setCycle: EndLoop)
 				(= local7 5)
 				(Mouth setScript: mouthCyc)
-				(Print 209 9 #at 10 117 #dispose) ; "If any of you should die before I do, then your share will be distributed equally to the surviving parties."
+				(Print 209 9 #at 10 117 #dispose)
 				(= seconds 10)
 			)
 			(11
 				(cls)
-				(Eye setCycle: Beg)
+				(Eye setCycle: BegLoop)
 				(= local7 3)
 				(Mouth setScript: mouthCyc)
-				(Print 209 10 #at 10 117 #dispose) ; "I'm tired, Fifi. Help me back to my room."
+				(Print 209 10 #at 10 117 #dispose)
 				(= seconds 5)
 			)
 			(12
 				(cls)
 				(= local7 1)
 				(Mouth setScript: mouthCyc)
-				(Print 209 11 #at 10 117 #dispose) ; "Good-night, all."
+				(Print 209 11 #at 10 117 #dispose)
 				(Hand setCycle: 0)
 				(= seconds 5)
 			)
 			(13
 				(cls)
-				(localproc_1)
+				(localproc_006b)
 				(Colonel
-					setMotion: MoveTo (Colonel x:) (+ (Colonel y:) 20) self
+					setMotion: MoveTo (Colonel x?) (+ (Colonel y?) 20) self
 				)
 			)
 			(14
@@ -295,86 +313,86 @@
 			)
 			(15
 				(cls)
-				(cHead setCycle: Beg)
-				(wHead setCycle: Beg)
-				(eHead setCycle: Beg)
-				(grHead setCycle: Beg)
-				(RHead setCycle: Beg)
-				(yHead setCycle: Beg)
-				(lHead setCycle: Beg)
+				(cHead setCycle: BegLoop)
+				(wHead setCycle: BegLoop)
+				(eHead setCycle: BegLoop)
+				(grHead setCycle: BegLoop)
+				(RHead setCycle: BegLoop)
+				(yHead setCycle: BegLoop)
+				(lHead setCycle: BegLoop)
 				(= cycles 4)
 			)
 			(16
 				(cls)
 				(switch local2
 					(0
-						(Print 209 12 #at 73 145 #dispose) ; "Can you believe that?!"
-						(yHead loop: 4 setCycle: End)
-						(lHead loop: 9 setCycle: End)
-						(grHead setCycle: End)
+						(Print 209 12 #at 73 145 #dispose)
+						(yHead loop: 4 setCycle: EndLoop)
+						(lHead loop: 9 setCycle: EndLoop)
+						(grHead setCycle: EndLoop)
 					)
 					(1
-						(Print 209 13 #at 110 28 #dispose) ; "The old goat!"
-						(wHead setCycle: Beg)
-						(grHead setCycle: Beg)
-						(eHead setCycle: End)
-						(wHead loop: 1 setCycle: Fwd)
+						(Print 209 13 #at 110 28 #dispose)
+						(wHead setCycle: BegLoop)
+						(grHead setCycle: BegLoop)
+						(eHead setCycle: EndLoop)
+						(wHead loop: 1 setCycle: Forward)
 					)
 					(2
-						(Print 209 14 #at 73 145 #dispose) ; "I'm surprised he didn't try to take it with him!"
-						(eHead setCycle: Beg)
-						(RHead setCycle: End)
-						(cHead loop: 8 setCycle: End)
+						(Print 209 14 #at 73 145 #dispose)
+						(eHead setCycle: BegLoop)
+						(RHead setCycle: EndLoop)
+						(cHead loop: 8 setCycle: EndLoop)
 						(wHead setCycle: 0)
 					)
 					(3
-						(Print 209 15 #at 200 144 #width 75 #dispose) ; "He's such an old skinflint!"
-						(RHead setCycle: Beg)
-						(cHead setCycle: Beg)
-						(grHead loop: 2 setCycle: End)
+						(Print 209 15 #at 200 144 #width 75 #dispose)
+						(RHead setCycle: BegLoop)
+						(cHead setCycle: BegLoop)
+						(grHead loop: 2 setCycle: EndLoop)
 					)
 					(4
-						(Print 209 16 #at 149 15 #width 100 #dispose) ; "I don't think you deserve any money!"
-						(grHead setCycle: Beg)
-						(wHead loop: 4 setCycle: End)
-						(eHead loop: 3 setCycle: Fwd)
+						(Print 209 16 #at 149 15 #width 100 #dispose)
+						(grHead setCycle: BegLoop)
+						(wHead loop: 4 setCycle: EndLoop)
+						(eHead loop: 3 setCycle: Forward)
 					)
 					(5
-						(Print 209 17 #at 110 25 #dispose) ; "Speak for yourself!"
-						(wHead setCycle: Beg)
-						(eHead loop: 2 setCycle: End)
-						(wHead loop: 1 setCycle: Fwd)
+						(Print 209 17 #at 110 25 #dispose)
+						(wHead setCycle: BegLoop)
+						(eHead loop: 2 setCycle: EndLoop)
+						(wHead loop: 1 setCycle: Forward)
 					)
 					(6
-						(Print 209 18 #at 200 144 #width 100 #dispose) ; "How much do you think he's got?"
-						(eHead setCycle: Beg)
-						(grHead setCycle: End)
+						(Print 209 18 #at 200 144 #width 100 #dispose)
+						(eHead setCycle: BegLoop)
+						(grHead setCycle: EndLoop)
 						(wHead loop: 1 setCycle: 0)
 					)
 					(7
-						(Print 209 19 #at 204 10 #width 95 #dispose) ; "Well, I know what I'm going to do with MY share!"
-						(grHead setCycle: Beg)
-						(eHead loop: 1 setCycle: End)
-						(glHead setCycle: Fwd)
+						(Print 209 19 #at 204 10 #width 95 #dispose)
+						(grHead setCycle: BegLoop)
+						(eHead loop: 1 setCycle: EndLoop)
+						(glHead setCycle: Forward)
 					)
 					(8
-						(Print 209 20 #at 149 15 #width 100 #dispose) ; "YOUR SHARE?! I bet the old codger outlives YOU!"
-						(eHead setCycle: Beg)
-						(wHead loop: 4 setCycle: End)
+						(Print 209 20 #at 149 15 #width 100 #dispose)
+						(eHead setCycle: BegLoop)
+						(wHead loop: 4 setCycle: EndLoop)
 						(glHead setCycle: 0)
-						(eHead loop: 3 setCycle: Fwd)
+						(eHead loop: 3 setCycle: Forward)
 					)
 					(9
-						(Print 209 21 #at 144 147 #dispose) ; "I wonder how sick he is?"
-						(wHead setCycle: Beg)
-						(grHead setCycle: End)
+						(Print 209 21 #at 144 147 #dispose)
+						(wHead setCycle: BegLoop)
+						(grHead setCycle: EndLoop)
 						(eHead setCycle: 0)
 					)
 					(10
-						(Print 209 22 #at 224 15 #width 75 #dispose) ; "Do you think he's gonna go soon?"
-						(grHead setCycle: Beg)
-						(eHead loop: 1 setCycle: End)
-						(glHead setCycle: Fwd)
+						(Print 209 22 #at 224 15 #width 75 #dispose)
+						(grHead setCycle: BegLoop)
+						(eHead loop: 1 setCycle: EndLoop)
+						(glHead setCycle: Forward)
 					)
 				)
 				(= seconds 3)
@@ -387,17 +405,17 @@
 					(= state 15)
 					(= cycles 1)
 				else
-					(yHead setCycle: Beg self)
+					(yHead setCycle: BegLoop self)
 				)
 			)
 			(18
 				(chair addToPic:)
-				(yHead loop: 3 setCycle: End)
-				(cHead loop: 7 setCycle: End)
-				(wHead loop: 5 setCycle: End)
-				(eHead loop: 2 setCycle: End)
-				(grHead loop: 1 setCycle: End)
-				(RHead setCycle: End)
+				(yHead loop: 3 setCycle: EndLoop)
+				(cHead loop: 7 setCycle: EndLoop)
+				(wHead loop: 5 setCycle: EndLoop)
+				(eHead loop: 2 setCycle: EndLoop)
+				(grHead loop: 1 setCycle: EndLoop)
+				(RHead setCycle: EndLoop)
 				(lHead dispose:)
 				(Lilian
 					startUpd:
@@ -407,10 +425,10 @@
 					x: 100
 					y: 118
 					illegalBits: 0
-					ignoreActors: 1
-					setCycle: Fwd
+					ignoreActors: TRUE
+					setCycle: Forward
 				)
-				(Print 209 23 #at 40 18 #dispose) ; "I've had enough of this! Laura and I will retire to our room now."
+				(Print 209 23 #at 40 18 #dispose)
 				(= seconds 5)
 			)
 			(19
@@ -431,7 +449,7 @@
 					startUpd:
 					setCycle: Walk
 					illegalBits: 0
-					ignoreActors: 1
+					ignoreActors: TRUE
 					setMotion: (Clone wOPath) self
 				)
 			)
@@ -440,19 +458,18 @@
 			)
 			(21
 				(client setScript: 0)
-				(gCurRoom newRoom: 44)
+				(curRoom newRoom: 44)
 			)
 		)
 	)
 )
 
 (instance eyeball of Script
-	(properties)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
-				(FHead setCycle: End)
+				(FHead setCycle: EndLoop)
 				(= seconds (Random 1 6))
 			)
 			(1
@@ -464,12 +481,11 @@
 )
 
 (instance handMotion of Script
-	(properties)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
-				(Hand setCycle: End)
+				(Hand setCycle: EndLoop)
 				(= seconds (Random 1 6))
 			)
 			(1
@@ -481,16 +497,14 @@
 )
 
 (instance mouthCyc of Script
-	(properties)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
-				(client setCycle: End self)
+				(client setCycle: EndLoop self)
 			)
 			(1
-				(++ local6)
-				(if (== local7 local6)
+				(if (== local7 (++ local6))
 					(= local6 0)
 					(client cel: 0 setScript: 0)
 				else
@@ -502,7 +516,7 @@
 	)
 )
 
-(instance tableTop of PV
+(instance tableTop of PicView
 	(properties
 		y 107
 		x 151
@@ -512,7 +526,7 @@
 	)
 )
 
-(instance chute of PV
+(instance chute of PicView
 	(properties
 		y 121
 		x 23
@@ -521,7 +535,7 @@
 	)
 )
 
-(instance Wilbur of PV
+(instance Wilbur of PicView
 	(properties
 		y 118
 		x 152
@@ -530,7 +544,7 @@
 	)
 )
 
-(instance Jeeves of PV
+(instance Jeeves of PicView
 	(properties
 		y 105
 		x 175
@@ -539,7 +553,7 @@
 	)
 )
 
-(instance Clarence of PV
+(instance Clarence of PicView
 	(properties
 		y 135
 		x 132
@@ -549,7 +563,7 @@
 	)
 )
 
-(instance Ethel of PV
+(instance Ethel of PicView
 	(properties
 		y 118
 		x 178
@@ -559,7 +573,7 @@
 	)
 )
 
-(instance Gertie of PV
+(instance Gertie of PicView
 	(properties
 		y 135
 		x 161
@@ -569,7 +583,7 @@
 	)
 )
 
-(instance Gloria of PV
+(instance Gloria of PicView
 	(properties
 		y 119
 		x 218
@@ -579,7 +593,7 @@
 	)
 )
 
-(instance Rudy of PV
+(instance Rudy of PicView
 	(properties
 		y 135
 		x 199
@@ -589,7 +603,7 @@
 	)
 )
 
-(instance chair4 of PV
+(instance chair4 of PicView
 	(properties
 		y 90
 		x 205
@@ -600,7 +614,7 @@
 	)
 )
 
-(instance chair5 of PV
+(instance chair5 of PicView
 	(properties
 		y 90
 		x 50
@@ -610,7 +624,7 @@
 	)
 )
 
-(instance coffee of PV
+(instance coffee of PicView
 	(properties
 		y 138
 		x 301
@@ -619,7 +633,7 @@
 	)
 )
 
-(instance chandelier of PV
+(instance chandelier of PicView
 	(properties
 		y 42
 		x 144
@@ -629,7 +643,7 @@
 	)
 )
 
-(instance flowers of PV
+(instance flowers of PicView
 	(properties
 		y 55
 		x 129
@@ -723,7 +737,7 @@
 	)
 )
 
-(instance Colonel of Act
+(instance Colonel of Actor
 	(properties
 		y 150
 		x -10
@@ -731,7 +745,7 @@
 	)
 )
 
-(instance You of Act
+(instance You of Actor
 	(properties
 		y 118
 		x 124
@@ -739,7 +753,7 @@
 	)
 )
 
-(instance Lilian of Act
+(instance Lilian of Actor
 	(properties
 		y 118
 		x 100
@@ -832,4 +846,3 @@
 		priority 1
 	)
 )
-

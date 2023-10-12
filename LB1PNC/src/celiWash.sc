@@ -1,10 +1,9 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-;;; Decompiled by sluicebox
 (script# 229)
-(include sci.sh)
+(include game.sh)
 (use Main)
-(use Interface)
-(use Avoid)
+(use Intrface)
+(use Avoider)
 (use Motion)
 (use Game)
 (use Actor)
@@ -13,174 +12,177 @@
 (public
 	celiWash 0
 )
-
 (synonyms
-	(celie person woman)
+	(celie person girl)
 )
 
 (local
-	local0
+	talkCount
 	[local1 2]
-	local3
+	gaveBoneToDog
 )
-
-(instance celiWash of Rgn
-	(properties)
-
+(instance celiWash of Region
+	
 	(method (init)
 		(super init:)
-		(LoadMany rsMESSAGE 243 228)
-		(LoadMany rsVIEW 480 22 522 901)
+		(LoadMany 143 243 228)
+		(LoadMany VIEW 480 22 522 901)
 		(= global208 2)
 		(= [global377 1] 228)
 		(Celie illegalBits: 0 init: setScript: wash)
-		(if (== ((gInventory at: 12) owner:) 0) ; soup_bone
-			(Rover view: 522 loop: 4 cycleSpeed: 2 setCycle: Fwd init:)
+		(if (== ((inventory at: iSoupBone) owner?) 0)
+			(Rover
+				view: 522
+				loop: 4
+				cycleSpeed: 2
+				setCycle: Forward
+				init:
+			)
 		else
 			(Rover init: setScript: dogActions)
 		)
 	)
-
+	
 	(method (doit)
 		(super doit:)
 	)
-
+	
 	(method (dispose)
-		(DisposeScript 985)
+		(DisposeScript AVOIDER)
 		(super dispose:)
 	)
-
+	
 	(method (handleEvent event &tmp temp0)
-		(if (event claimed:)
-			(return 1)
-		)
-		(if (== (event type:) evSAID)
-			(cond
-				((Said 'talk/celie')
-					(= global213 2)
-					(switch local0
-						(0
-							(Say 1 229 0) ; "I gotta git these dishes done 'fore the Colonel get mad. Go on wid you, now!"
+		(if (event claimed?) (return TRUE))
+		(return
+			(if (== (event type?) saidEvent)
+				(cond 
+					((Said 'converse/celie')
+						(= theTalker talkCELIE)
+						(switch talkCount
+							(0 (Say 1 229 0))
+							(1 (Say 1 229 1))
+							(2 (Say 1 229 2))
+							(else  (Say 1 229 3))
 						)
-						(1
-							(Say 1 229 1) ; "I don't wanna talk. I ain't got nothin' to say!"
-						)
-						(2
-							(Say 1 229 2) ; "Go on, now! Scat!"
-						)
-						(else
-							(Say 1 229 3) ; "I ain't talkin!"
-						)
+						(++ talkCount)
 					)
-					(++ local0)
-				)
-				(
-					(or
-						(Said 'feed,give/bone/beauregard')
-						(Said 'feed,give/beauregard/bone')
-					)
-					(if (gEgo has: 12) ; soup_bone
-						(if (< (gEgo distanceTo: Rover) 60)
-							(self setScript: giveBone)
-						else
-							(NotClose) ; "You're not close enough."
+					(
+						(or
+							(Said 'feed,deliver/bone/beauregard')
+							(Said 'feed,deliver/beauregard/bone')
 						)
-					else
-						(DontHave) ; "You don't have it."
-					)
-				)
-				(
-					(or
-						(Said 'give,feed/*<beauregard')
-						(Said 'give,feed/*/beauregard')
-						(Said 'feed/beauregard')
-					)
-					(if global219
-						(if global224
-							(Print 229 4) ; "Beauregard isn't interested."
-						else
-							(DontHave) ; "You don't have it."
-						)
-					else
-						(Print 229 5) ; "That's not your job."
-					)
-				)
-				((or (Said 'show/*/beauregard') (Said 'show/*<beauregard'))
-					(if (and global219 global224)
-						(if (== global171 12)
-							(Print 229 6) ; "Beauregard drools up at the sight of the bone!"
-						else
-							(Print 229 4) ; "Beauregard isn't interested."
-						)
-					else
-						(DontHave) ; "You don't have it."
-					)
-				)
-				((or (Said 'give/*/beauregard') (Said 'give/*<beauregard'))
-					(if global224
-						(Print 229 4) ; "Beauregard isn't interested."
-					else
-						(DontHave) ; "You don't have it."
-					)
-				)
-				((Said '/beauregard>')
-					(cond
-						((Said 'get,move')
-							(Print 229 7) ; "It doesn't appear that Beauregard wants to move from his spot."
-						)
-						((Said 'pat')
-							(if (< (gEgo distanceTo: Rover) 60)
-								(Print 229 8) ; "Okay."
-								(self setScript: petDog)
+						(if (ego has: iSoupBone)
+							(if (< (ego distanceTo: Rover) 60)
+								(self setScript: giveBone)
 							else
-								(NotClose) ; "You're not close enough."
+								(NotClose)
+							)
+						else
+							(DontHave)
+						)
+					)
+					(
+						(or
+							(Said 'deliver,feed/*<beauregard')
+							(Said 'deliver,feed/*/beauregard')
+							(Said 'feed/beauregard')
+						)
+						(if theInvItem
+							(if haveInvItem
+								(Print 229 4)
+							else
+								(DontHave)
+							)
+						else
+							(Print 229 5)
+						)
+					)
+					(
+						(or
+							(Said 'hold/*/beauregard')
+							(Said 'hold/*<beauregard')
+						)
+						(if (and theInvItem haveInvItem)
+							(if (== whichItem iSoupBone)
+								(Print 229 6)
+							else
+								(Print 229 4)
+							)
+						else
+							(DontHave)
+						)
+					)
+					(
+						(or
+							(Said 'deliver/*/beauregard')
+							(Said 'deliver/*<beauregard')
+						)
+						(if haveInvItem
+							(Print 229 4)
+						else
+							(DontHave)
+						)
+					)
+					((Said '/beauregard>')
+						(cond 
+							((Said 'get,move')
+								(Print 229 7)
+							)
+							((Said 'pat')
+								(if (< (ego distanceTo: Rover) 60)
+									(Print 229 8)
+									(self setScript: petDog)
+								else
+									(NotClose)
+								)
+							)
+							((Said 'converse')
+								(Print 229 9)
+							)
+							((Said 'call')
+								(Print 229 10)
+							)
+							((Said 'kill')
+								(Print 229 11)
+							)
+							((Said 'kiss')
+								(Print 229 12)
 							)
 						)
-						((Said 'talk')
-							(Print 229 9) ; "The dog pricks up his ears as you speak to him."
+					)
+					(
+						(or
+							(Said 'dry,scrub/dish')
+							(Said 'help/celie')
+							(Said 'help/dish/scrub<celie')
 						)
-						((Said 'yell')
-							(Print 229 10) ; "You call to Beauregard but he ignores you."
-						)
-						((Said 'kill')
-							(Print 229 11) ; "That's not a nice thought, Laura!"
-						)
-						((Said 'kiss')
-							(Print 229 12) ; "Don't kiss a dog!"
-						)
+						(Print 229 13)
 					)
 				)
-				(
-					(or
-						(Said 'dry,scrub/dish')
-						(Said 'help/celie')
-						(Said 'help/dish/scrub<celie')
-					)
-					(Print 229 13) ; "Celie's got the dishes under control."
-				)
+			else
+				FALSE
 			)
 		)
 	)
 )
 
 (instance wash of Script
-	(properties)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
 				(cls)
-				(Celie loop: 0 setCycle: Fwd)
+				(Celie loop: 0 setCycle: Forward)
 				(= seconds (Random 6 12))
 			)
 			(1
-				(Celie cel: 0 loop: 1 setCycle: End self)
+				(Celie cel: 0 loop: 1 setCycle: EndLoop self)
 				(= state
 					(switch (Random 1 2)
 						(1 -1)
 						(2 1)
-					)
-				)
+					))
 			)
 			(2
 				(Celie loop: 0 stopUpd:)
@@ -192,38 +194,37 @@
 )
 
 (instance petDog of Script
-	(properties)
 
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
 				(HandsOff)
-				(gEgo
-					setAvoider: (Avoid new:)
-					setMotion: MoveTo (+ (Rover x:) 26) (+ (Rover y:) 5) self
+				(ego
+					setAvoider: (Avoider new:)
+					setMotion: MoveTo (+ (Rover x?) 26) (+ (Rover y?) 5) self
 				)
 			)
 			(1
-				(gEgo view: 22 loop: 0 setAvoider: 0 setCycle: End self)
+				(ego view: 22 loop: 0 setAvoider: 0 setCycle: EndLoop self)
 			)
 			(2
-				(gEgo loop: 5 cel: 0 setCycle: End self)
+				(ego loop: 5 cel: 0 setCycle: EndLoop self)
 			)
 			(3
-				(gEgo loop: 7 setCycle: Fwd)
+				(ego loop: 7 setCycle: Forward)
 				(= seconds 3)
 			)
 			(4
-				(gEgo loop: 5)
-				(gEgo cel: (- (NumCels gEgo) 1) setCycle: Beg self)
+				(ego loop: 5)
+				(ego cel: (- (NumCels ego) 1) setCycle: BegLoop self)
 			)
 			(5
-				(gEgo loop: 0)
-				(gEgo cel: (- (NumCels gEgo) 1) setCycle: Beg self)
+				(ego loop: 0)
+				(ego cel: (- (NumCels ego) 1) setCycle: BegLoop self)
 			)
 			(6
 				(HandsOn)
-				(gEgo view: 0 loop: 1 setCycle: Walk)
+				(ego view: 0 loop: 1 setCycle: Walk)
 				(client setScript: 0)
 			)
 		)
@@ -231,16 +232,15 @@
 )
 
 (instance dogActions of Script
-	(properties)
-
+	
 	(method (doit)
 		(super doit:)
-		(cond
-			((not local3)
-				(if (and (< (gEgo distanceTo: Rover) 30) (== state 0))
+		(cond 
+			((not gaveBoneToDog)
+				(if (and (< (ego distanceTo: Rover) 30) (== state 0))
 					(= cycles 1)
 				)
-				(if (and (> (gEgo distanceTo: Rover) 30) (== state 2))
+				(if (and (> (ego distanceTo: Rover) 30) (== state 2))
 					(= state -1)
 					(= cycles 1)
 				)
@@ -251,7 +251,7 @@
 			)
 		)
 	)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
@@ -259,55 +259,58 @@
 					loop: 0
 					cycleSpeed: 2
 					cel: (- (NumCels Rover) 1)
-					setCycle: Beg
+					setCycle: BegLoop
 				)
 			)
 			(1
-				(Rover loop: 0 cycleSpeed: 2 setCycle: End self)
+				(Rover loop: 0 cycleSpeed: 2 setCycle: EndLoop self)
 			)
 			(2
-				(Rover loop: 2 cycleSpeed: 2 setCycle: Fwd)
+				(Rover loop: 2 cycleSpeed: 2 setCycle: Forward)
 			)
 			(3
 				(Bone dispose:)
-				(Rover view: 522 loop: 4 cycleSpeed: 2 setCycle: Fwd)
+				(Rover view: 522 loop: 4 cycleSpeed: 2 setCycle: Forward)
 			)
 		)
 	)
 )
 
 (instance giveBone of Script
-	(properties)
 
 	(method (doit)
 		(super doit:)
-		(if (and (== state 1) (== (gEgo cel:) 4))
-			(gEgo put: 12 0) ; soup_bone
-			(Bone init:)
-			(++ local3)
+		(return
+			(if (and (== state 1) (== (ego cel?) 4))
+				(ego put: 12 0)
+				(Bone init:)
+				(++ gaveBoneToDog)
+			else
+				0
+			)
 		)
 	)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
 				(HandsOff)
-				(gEgo
-					setAvoider: (Avoid new:)
-					setMotion: MoveTo (+ (Rover x:) 31) (+ (Rover y:) 3) self
+				(ego
+					setAvoider: (Avoider new:)
+					setMotion: MoveTo (+ (Rover x?) 31) (+ (Rover y?) 3) self
 				)
 			)
 			(1
-				(gEgo view: 48 setLoop: 7 cel: 8 setCycle: Beg self)
-				(Bone cel: 0 posn: (- (gEgo x:) 13) (- (gEgo y:) 1))
+				(ego view: 48 setLoop: 7 cel: 8 setCycle: BegLoop self)
+				(Bone cel: 0 posn: (- (ego x?) 13) (- (ego y?) 1))
 			)
 			(2
-				(Print 229 14) ; "You give the bone to Beauregard who eagerly begins to gnaw on it."
-				(gEgo view: 0 loop: 1)
+				(Print 229 14)
+				(ego view: 0 loop: 1)
 				(= cycles 1)
 			)
 			(3
-				(gEgo view: 0 setAvoider: 0 setLoop: -1 setCycle: Walk)
+				(ego view: 0 setAvoider: FALSE setLoop: -1 setCycle: Walk)
 				(HandsOn)
 				(self setScript: 0)
 			)
@@ -330,46 +333,49 @@
 		x 97
 		view 527
 	)
-
+	
 	(method (handleEvent event)
-		(if (or (MousedOn self event 3) (Said 'look/beauregard,dirt'))
-			(event claimed: 1)
-			(if (IsFlag 49)
-				(if local3
-					(Print 229 15) ; "You see Beauregard lying on the floor by the stove greedily chewing the bone that you gave him."
+		(if
+			(or
+				(MousedOn self event shiftDown)
+				(Said 'examine/beauregard,dirt')
+			)
+			(event claimed: TRUE)
+			(if (Btst fLookedAtDog)
+				(if gaveBoneToDog
+					(Print 229 15)
 				else
-					(Print 229 16) ; "You see Beauregard lying on the floor by the stove."
+					(Print 229 16)
 				)
 			else
-				(SetFlag 49)
-				(Print 229 17) ; "Beauregard appears to be a very old (and lazy) bloodhound. His loose skin hangs in folds and his long ears almost drag the ground. You sense that Beauregard must be the Colonel's beloved dog."
+				(Bset fLookedAtDog)
+				(Print 229 17)
 			)
 		)
 	)
 )
 
-(instance Celie of Act
+(instance Celie of Actor
 	(properties
 		y 103
 		x 214
 		view 486
 	)
-
+	
 	(method (handleEvent event)
-		(cond
-			((and (MousedOn self event 3) (not (& global207 $0002)))
-				(event claimed: 1)
+		(cond 
+			((and (MousedOn self event shiftDown) (not (& global207 $0002)))
+				(event claimed: TRUE)
 				(DoLook {celie})
 			)
 			(
 				(and
 					(& global207 $0002)
-					(or (MousedOn self event 3) (Said 'look/celie'))
+					(or (MousedOn self event shiftDown) (Said 'examine/celie'))
 				)
-				(event claimed: 1)
-				(Print 229 18) ; "Celie is busily washing the dinner dishes."
+				(event claimed: TRUE)
+				(Print 229 18)
 			)
 		)
 	)
 )
-

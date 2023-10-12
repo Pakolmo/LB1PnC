@@ -1,11 +1,10 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-;;; Decompiled by sluicebox
 (script# 22)
-(include sci.sh)
+(include game.sh)
 (use Main)
-(use Interface)
+(use Intrface)
 (use RFeature)
-(use Avoid)
+(use Avoider)
 (use Sound)
 (use Motion)
 (use Game)
@@ -15,7 +14,6 @@
 (public
 	Room22 0
 )
-
 (synonyms
 	(lamp ignite)
 )
@@ -24,20 +22,33 @@
 	local0
 	local1
 )
-
-(procedure (localproc_0)
-	(Print &rest #at 160 80 #font 4 #width 125 #mode 1 #draw #dispose)
+(procedure (LowPrint)
+	(Print &rest
+		#at 160 80
+		#font 4
+		#width 125
+		#mode teJustCenter
+		#draw
+		#dispose
+	)
 )
 
-(procedure (localproc_1)
-	(Print &rest #at 10 80 #font 4 #width 125 #mode 1 #draw #dispose)
+(procedure (HighPrint)
+	(Print &rest
+		#at 10 80
+		#font 4
+		#width 125
+		#mode teJustCenter
+		#draw
+		#dispose
+	)
 )
 
-(instance Room22 of Rm
+(instance Room22 of Room
 	(properties
 		picture 22
 	)
-
+	
 	(method (init)
 		(= south 28)
 		(= west 21)
@@ -45,14 +56,14 @@
 		(= horizon 135)
 		(= global102 0)
 		(super init:)
-		(Load rsFONT 4)
-		(gAddToPics add: statue eachElementDo: #init doit:)
-		(self setRegions: 206 setFeatures: statue House) ; houseOReg
-		(if (== gAct 1)
-			(self setRegions: 381) ; walkabout
+		(Load FONT 4)
+		(addToPics add: statue eachElementDo: #init doit:)
+		(self setRegions: 206 setFeatures: statue House)
+		(if (== currentAct 1)
+			(self setRegions: 381)
 		)
 		(Thunder number: 17 loop: 0)
-		(if gDetailLevel
+		(if howFast
 			(strike init:)
 			(Treflect init:)
 			(Greflect init: setScript: showers)
@@ -62,172 +73,159 @@
 			(and
 				(or
 					(== global114 8)
-					(== gJeevesChoresState 8)
-					(== [gCycleTimers 3] 1)
-					(== [gCycleTimers 1] 1)
+					(== global115 8)
+					(== [global368 3] 1)
+					(== [global368 1] 1)
 				)
-				(== gAct 3)
+				(== currentAct 3)
 				(!= global114 10)
 			)
-			(Load rsFONT 41)
-			(LoadMany rsMESSAGE 406)
-			(LoadMany rsVIEW 380 389 400 406 414 642)
-			(LoadMany rsSOUND 19 29 94 95 96)
+			(Load FONT 41)
+			(LoadMany 143 406)
+			(LoadMany VIEW 380 389 400 406 414 642)
+			(LoadMany SOUND 19 29 94 95 96)
 			(CHead setPri: 15 init: hide:)
 			(Clarence
 				posn: 292 161
 				loop: 1
-				setAvoider: ((Avoid new:) offScreenOK: 1)
+				setAvoider: ((Avoider new:) offScreenOK: TRUE)
 				setCycle: Walk
 				init:
 			)
 			(Rudy
 				posn: 40 161
-				setAvoider: ((Avoid new:) offScreenOK: 1)
+				setAvoider: ((Avoider new:) offScreenOK: TRUE)
 				setCycle: Walk
 				init:
 			)
 			(self setScript: fight)
 		)
-		(switch gPrevRoomNum
-			(16
-				(gEgo posn: 161 139)
-			)
-			(15
-				(gEgo posn: 61 139)
-			)
-			(17
-				(gEgo posn: 261 139)
-			)
+		(switch prevRoomNum
+			(16 (ego posn: 161 139))
+			(15 (ego posn: 61 139))
+			(17 (ego posn: 261 139))
 			(21
-				(if (> (gEgo y:) 150)
-					(gEgo posn: 1 162)
+				(if (> (ego y?) 150)
+					(ego posn: 1 162)
 				else
-					(gEgo posn: 1 139)
+					(ego posn: 1 139)
 				)
 			)
 			(23
-				(if (> (gEgo y:) 150)
-					(gEgo posn: 305 162)
+				(if (> (ego y?) 150)
+					(ego posn: 305 162)
 				else
-					(gEgo posn: 305 139)
+					(ego posn: 305 139)
 				)
 			)
 		)
-		(gEgo view: 0 illegalBits: -32768 init:)
+		(ego view: 0 illegalBits: cWHITE init:)
 	)
-
+	
 	(method (doit)
-		(if (IsFirstTimeInRoom)
-			(Print 22 0) ; "What a wonderful view of the old plantation house! From here you can almost imagine what it must have been like during its glory days."
+		(if (FirstEntry)
+			(Print 22 0)
 		)
 		(if
 			(and
-				(< gJeevesChoresState 10)
+				(< global115 10)
 				(not script)
-				(== gAct 3)
-				(or (== [gCycleTimers 3] 1) (== [gCycleTimers 1] 1))
-				(or (< (gEgo x:) 60) (> (gEgo x:) 250))
+				(== currentAct 3)
+				(or (== [global368 3] 1) (== [global368 1] 1))
+				(or (< (ego x?) 60) (> (ego x?) 250))
 			)
-			(= gJeevesChoresState 17)
+			(= global115 17)
 			(CHead setPri: 15 init: hide:)
 			(Clarence
 				posn: 340 161
 				loop: 1
-				setAvoider: ((Avoid new:) offScreenOK: 1)
+				setAvoider: ((Avoider new:) offScreenOK: TRUE)
 				setCycle: Walk
 				init:
 			)
 			(Rudy
 				posn: -20 161
-				setAvoider: ((Avoid new:) offScreenOK: 1)
+				setAvoider: ((Avoider new:) offScreenOK: TRUE)
 				setCycle: Walk
 				init:
 			)
 			(self setScript: fight)
 		)
-		(switch (gEgo onControl: 0)
-			(2
-				(gCurRoom newRoom: 16)
-			)
-			(4
-				(gCurRoom newRoom: 15)
-			)
-			(8
-				(gCurRoom newRoom: 17)
-			)
+		(switch (ego onControl: FALSE)
+			(cBLUE (curRoom newRoom: 16))
+			(cGREEN (curRoom newRoom: 15))
+			(cCYAN (curRoom newRoom: 17))
 		)
 		(super doit:)
 	)
-
+	
 	(method (dispose)
-		(DisposeScript 985)
+		(DisposeScript AVOIDER)
 		(super dispose:)
 	)
-
-	(method (newRoom newRoomNumber)
-		(super newRoom: newRoomNumber)
-	)
-
+	
 	(method (handleEvent event &tmp temp0)
 		(super handleEvent: event)
-		(if (event claimed:)
-			(return 1)
-		)
-		(if (== (event type:) evSAID)
-			(cond
-				((Said 'look>')
-					(cond
-						((Said '[<around,at][/room]')
-							(Print 22 0) ; "What a wonderful view of the old plantation house! From here you can almost imagine what it must have been like during its glory days."
-						)
-						((Said '/path')
-							(Print 22 1) ; "A stone path leads toward the house."
-						)
-						((Said '/door,(lamp[<gallery])')
-							(Print 22 2) ; "Porch lights highlight the mansion's front door."
+		(if (event claimed?) (return TRUE))
+		(return
+			(if (== (event type?) saidEvent)
+				(cond 
+					((Said 'examine>')
+						(cond 
+							((Said '[<around,at][/room]')
+								(Print 22 0)
+							)
+							((Said '/path')
+								(Print 22 1)
+							)
+							((Said '/door,(lamp[<gallery])')
+								(Print 22 2)
+							)
 						)
 					)
+					((Said 'open/door')
+						(NotClose)
+					)
 				)
-				((Said 'open/door')
-					(NotClose) ; "You're not close enough."
-				)
+			else
+				FALSE
 			)
 		)
+	)
+	
+	(method (newRoom n)
+		(super newRoom: n)
 	)
 )
 
 (instance showers of Script
-	(properties)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
 				(if (< (= local0 (Random 0 100)) 50)
-					(strike setCycle: Fwd)
-					(if gDetailLevel
-						(Treflect setCycle: Fwd)
-						(Greflect setCycle: Fwd)
+					(strike setCycle: Forward)
+					(if howFast
+						(Treflect setCycle: Forward)
+						(Greflect setCycle: Forward)
 					)
 				else
-					(cloud setCycle: Fwd)
+					(cloud setCycle: Forward)
 				)
 				(= cycles 7)
 			)
 			(1
 				(if (< local0 50)
-					(strike setCycle: End self)
-					(if gDetailLevel
-						(Treflect setCycle: End)
-						(Greflect setCycle: End)
+					(strike setCycle: EndLoop self)
+					(if howFast
+						(Treflect setCycle: EndLoop)
+						(Greflect setCycle: EndLoop)
 					)
 				else
-					(cloud setCycle: End self)
+					(cloud setCycle: EndLoop self)
 				)
 			)
-			(2
-				(Thunder loop: 1 play: self)
-			)
+			(2 (Thunder loop: 1 play: self))
 			(3
 				(if (< (Random 1 100) 25)
 					(= state -1)
@@ -241,27 +239,26 @@
 )
 
 (instance fight of Script
-	(properties)
 
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
 				(HandsOff)
-				(cond
+				(cond 
 					((not global216)
 						(= state -1)
 					)
-					((self script:)
+					((self script?)
 						(= state -1)
 					)
-					((not (& gMustDos $0001))
-						(|= gMustDos $0001)
-						(self setScript: (ScriptID 406 0)) ; Clock
+					((not (& global118 $0001))
+						(|= global118 $0001)
+						(self setScript: (ScriptID 406 0))
 						(= state -1)
 					)
-					((not (& gMustDos $0008))
-						(|= gMustDos $0008)
-						(self setScript: (ScriptID 406 0)) ; Clock
+					((not (& global118 $0008))
+						(|= global118 $0008)
+						(self setScript: (ScriptID 406 0))
 						(= state -1)
 					)
 				)
@@ -269,28 +266,28 @@
 			)
 			(1
 				(Rudy setMotion: MoveTo 135 183)
-				(Clarence ignoreActors: 1 setMotion: MoveTo 175 183 self)
+				(Clarence ignoreActors: TRUE setMotion: MoveTo 175 183 self)
 				(myMusic number: 19 loop: 1 play:)
 			)
 			(2
-				(LookAt gEgo Rudy)
-				(Rudy view: 389 loop: 0 cel: 0 setCycle: End self)
+				(Face ego Rudy)
+				(Rudy view: 389 loop: 0 cel: 0 setCycle: EndLoop self)
 			)
 			(3
-				(localproc_1 22 3) ; "Get out of my sight, JERK!!"
-				(Rudy loop: 1 cel: 0 setCycle: Fwd)
+				(HighPrint 22 3)
+				(Rudy loop: 1 cel: 0 setCycle: Forward)
 				(= seconds 3)
 			)
 			(4
-				(localproc_0 22 4) ; "NO! YOU get out of MY sight!!"
+				(LowPrint 22 4)
 				(Rudy setCycle: 0)
-				(Clarence view: 406 loop: 1 cel: 0 setCycle: Fwd)
+				(Clarence view: 406 loop: 1 cel: 0 setCycle: Forward)
 				(= seconds 3)
 			)
 			(5
-				(localproc_1 22 5) ; "WHY, YOU...!!"
+				(HighPrint 22 5)
 				(Clarence setCycle: 0)
-				(Rudy loop: 1 cel: 0 setCycle: Fwd)
+				(Rudy loop: 1 cel: 0 setCycle: Forward)
 				(= seconds 2)
 			)
 			(6
@@ -302,41 +299,41 @@
 					setMotion: MoveTo 142 183
 				)
 				(Clarence
-					ignoreActors: 1
+					ignoreActors: TRUE
 					setCycle: Walk
 					setLoop: 2
 					setMotion: MoveTo 165 183 self
 				)
 			)
 			(7
-				(Rudy loop: 4 cel: 0 cycleSpeed: 2 setCycle: Fwd)
-				(Clarence loop: 3 cel: 0 cycleSpeed: 2 setCycle: Fwd)
+				(Rudy loop: 4 cel: 0 cycleSpeed: 2 setCycle: Forward)
+				(Clarence loop: 3 cel: 0 cycleSpeed: 2 setCycle: Forward)
 				(= cycles 14)
 			)
 			(8
-				(Clarence loop: 8 cel: 0 cycleSpeed: 0 setCycle: End self)
-				(Rudy loop: 6 cel: 0 cycleSpeed: 1 setCycle: End)
+				(Clarence loop: 8 cel: 0 cycleSpeed: 0 setCycle: EndLoop self)
+				(Rudy loop: 6 cel: 0 cycleSpeed: 1 setCycle: EndLoop)
 			)
 			(9
-				(localproc_1 22 6) ; "You little PIPSQUEAK...!!"
-				(Rudy setCycle: Beg)
-				(Clarence setCycle: Beg self)
+				(HighPrint 22 6)
+				(Rudy setCycle: BegLoop)
+				(Clarence setCycle: BegLoop self)
 			)
 			(10
-				(Rudy loop: 5 cel: 0 cycleSpeed: 0 setCycle: End)
-				(Clarence loop: 4 cel: 0 cycleSpeed: 2 setCycle: End self)
+				(Rudy loop: 5 cel: 0 cycleSpeed: 0 setCycle: EndLoop)
+				(Clarence loop: 4 cel: 0 cycleSpeed: 2 setCycle: EndLoop self)
 			)
 			(11
 				(cls)
-				(Rudy setPri: -1 setCycle: Beg self)
+				(Rudy setPri: -1 setCycle: BegLoop self)
 			)
 			(12
 				(Clarence
 					loop: 5
 					cel: 0
-					x: (+ (Clarence x:) 5)
+					x: (+ (Clarence x?) 5)
 					cycleSpeed: 6
-					setCycle: End self
+					setCycle: EndLoop self
 				)
 			)
 			(13
@@ -344,11 +341,11 @@
 					loop: 6
 					cel: 0
 					cycleSpeed: 0
-					x: (+ (Clarence x:) 5)
-					setCycle: Fwd
+					x: (+ (Clarence x?) 5)
+					setCycle: Forward
 				)
-				(Rudy loop: 1 cel: 0 setCycle: Fwd)
-				(localproc_1 22 7) ; "Don't mess with me, BUD!! Just stay out of my way!!"
+				(Rudy loop: 1 cel: 0 setCycle: Forward)
+				(HighPrint 22 7)
 				(= seconds 4)
 			)
 			(14
@@ -362,16 +359,22 @@
 				(Clarence
 					loop: 7
 					cel: 0
-					x: (+ (Clarence x:) 16)
-					y: (+ (Clarence y:) 1)
+					x: (+ (Clarence x?) 16)
+					y: (+ (Clarence y?) 1)
 					cycleSpeed: 6
-					setCycle: End self
+					setCycle: EndLoop self
 				)
 			)
 			(15
-				(CHead show: setCycle: Fwd)
-				(localproc_0 22 8) ; "You ain't heard the last of me, RUDY! I'll get you for this!!"
-				(Clarence view: 402 loop: 3 cel: 0 cycleSpeed: 0 setCycle: Fwd)
+				(CHead show: setCycle: Forward)
+				(LowPrint 22 8)
+				(Clarence
+					view: 402
+					loop: 3
+					cel: 0
+					cycleSpeed: 0
+					setCycle: Forward
+				)
 				(= seconds 4)
 			)
 			(16
@@ -386,7 +389,13 @@
 				)
 			)
 			(17
-				(Clarence view: 414 loop: 1 cel: 0 cycleSpeed: 1 setCycle: End)
+				(Clarence
+					view: 414
+					loop: 1
+					cel: 0
+					cycleSpeed: 1
+					setCycle: EndLoop
+				)
 				(= seconds 4)
 			)
 			(18
@@ -398,11 +407,11 @@
 				)
 			)
 			(19
-				(= gJeevesChoresState 12)
+				(= global115 12)
 				(= global114 10)
-				(= [gCycleTimers 3] 0)
-				(= [gCycleTimers 1] 0)
-				(SetFlag 45)
+				(= [global368 3] 0)
+				(= [global368 1] 0)
+				(Bset 45)
 				(HandsOn)
 				(Clarence dispose:)
 				(Rudy dispose:)
@@ -412,7 +421,7 @@
 	)
 )
 
-(instance Clarence of Act
+(instance Clarence of Actor
 	(properties
 		y 163
 		x 340
@@ -430,7 +439,7 @@
 	)
 )
 
-(instance Rudy of Act
+(instance Rudy of Actor
 	(properties
 		y 163
 		x -20
@@ -480,13 +489,9 @@
 	)
 )
 
-(instance Thunder of Sound
-	(properties)
-)
+(instance Thunder of Sound)
 
-(instance myMusic of Sound
-	(properties)
-)
+(instance myMusic of Sound)
 
 (instance statue of RPicView
 	(properties
@@ -494,25 +499,25 @@
 		x 165
 		view 122
 		priority 13
-		signal 16384
+		signal ignrAct
 	)
-
+	
 	(method (handleEvent event)
-		(cond
-			((or (MousedOn self event 3) (Said 'look/monument'))
-				(event claimed: 1)
-				(Print 22 9) ; "The statue appears to resemble the Colonel in full officer's regalia."
+		(cond 
+			((or (MousedOn self event shiftDown) (Said 'examine/monument'))
+				(event claimed: TRUE)
+				(Print 22 9)
 			)
 			((Said '/monument>')
-				(cond
+				(cond 
 					((Said 'get')
-						(Print 22 10) ; "You can't get the statue."
+						(Print 22 10)
 					)
 					((Said 'press,move')
-						(Print 22 11) ; "It's too heavy to move."
+						(Print 22 11)
 					)
 					((Said 'rotate')
-						(Print 22 12) ; "It doesn't turn."
+						(Print 22 12)
 					)
 				)
 			)
@@ -527,12 +532,11 @@
 		nsBottom 96
 		nsRight 284
 	)
-
+	
 	(method (handleEvent event)
-		(if (MousedOn self event 3)
-			(event claimed: 1)
+		(if (MousedOn self event shiftDown)
+			(event claimed: TRUE)
 			(DoLook {house})
 		)
 	)
 )
-

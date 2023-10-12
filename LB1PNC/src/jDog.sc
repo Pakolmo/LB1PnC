@@ -1,10 +1,9 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-;;; Decompiled by sluicebox
 (script# 386)
-(include sci.sh)
+(include game.sh)
 (use Main)
-(use Interface)
-(use Avoid)
+(use Intrface)
+(use Avoider)
 (use Motion)
 (use System)
 
@@ -13,103 +12,101 @@
 )
 
 (instance jDog of Script
-	(properties)
 
 	(method (init)
 		(super init: &rest)
 	)
-
-	(method (dispose)
-		(super dispose: &rest)
-		(DisposeScript 985)
-		(DisposeScript 386)
-	)
-
+	
 	(method (doit)
 		(super doit: &rest)
-		(if (and (== state 3) (== (global373 cel:) 4))
-			(global375 show: ignoreActors: 1 stopUpd:)
+		(if (and (== state 3) (== (gDoor cel?) 4))
+			(gBdoor show: ignoreActors: 1 stopUpd:)
 		)
 	)
-
+	
+	(method (dispose)
+		(super dispose: &rest)
+		(DisposeScript AVOIDER)
+		(DisposeScript 386)
+	)
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
 				(HandsOff)
-				(if (!= gPrevRoomNum 35)
-					(global376 setCycle: End self)
-					(global131 number: 43 loop: 1 priority: 5 play:)
+				(if (!= prevRoomNum 35)
+					(gDoor_2 setCycle: EndLoop self)
+					(gMyMusic number: 43 loop: 1 priority: 5 play:)
 				else
 					(= cycles 1)
 				)
 			)
 			(1
-				(global373
+				(gDoor
 					setCycle: Walk
-					setAvoider: ((Avoid new:) offScreenOK: 1)
+					setAvoider: ((Avoider new:) offScreenOK: TRUE)
 				)
-				(if (!= gPrevRoomNum 35)
-					(global373 setMotion: MoveTo 196 141 self init:)
+				(if (!= prevRoomNum 35)
+					(gDoor setMotion: MoveTo 196 141 self init:)
 				else
 					(= cycles 1)
 				)
 			)
 			(2
-				(if (!= gPrevRoomNum 35)
-					(global376 setCycle: Beg)
-					(global131 number: 44 loop: 1 priority: 5 play:)
+				(if (!= prevRoomNum 35)
+					(gDoor_2 setCycle: BegLoop)
+					(gMyMusic number: 44 loop: 1 priority: 5 play:)
 				)
-				(Print 386 0 #at 175 15 #font 4 #dispose) ; "Come and get it!"
-				(global373 setMotion: MoveTo 216 161 self)
+				(Print 386 0 #at 175 15 #font 4 #dispose)
+				(gDoor setMotion: MoveTo 216 161 self)
 			)
 			(3
 				(cls)
-				(global376 stopUpd:)
-				(global373 view: 445 loop: 0 cel: 0 setCycle: End self)
+				(gDoor_2 stopUpd:)
+				(gDoor view: 445 loop: 0 cel: 0 setCycle: EndLoop self)
 			)
 			(4
-				(global373 view: 440 setMotion: MoveTo 140 248 setCycle: Walk)
-				(global374
+				(gDoor view: 440 setMotion: MoveTo 140 248 setCycle: Walk)
+				(gMySound
 					setCycle: Walk
-					setAvoider: ((Avoid new:) offScreenOK: 1)
+					setAvoider: ((Avoider new:) offScreenOK: TRUE)
 					setMotion: MoveTo 224 159 self
 				)
 			)
 			(5
-				(global374 view: 526 setLoop: 0 cel: 0 setCycle: End self)
+				(gMySound view: 526 setLoop: 0 cel: 0 setCycle: EndLoop self)
 			)
 			(6
-				(global374 setLoop: 2 cel: 0 setCycle: Fwd)
+				(gMySound setLoop: 2 cel: 0 setCycle: Forward)
 				(= seconds 5)
 			)
 			(7
-				(global374
+				(gMySound
 					setLoop: 0
-					cel: (- (NumCels global374) 1)
+					cel: (- (NumCels gMySound) 1)
 					setPri: 11
-					setCycle: Beg self
+					setCycle: BegLoop self
 				)
 			)
 			(8
-				(global374
+				(gMySound
 					view: 520
 					setLoop: -1
 					setCycle: Walk
 					illegalBits: 0
 					setMotion: MoveTo 160 156 self
 				)
-				(global373 dispose:)
+				(gDoor dispose:)
 			)
 			(9
 				(HandsOn)
-				(= [gCycleTimers 2] 1800)
+				(= [global368 2] 1800)
 				(= global162 1)
 				(= global155 2)
-				(global375 ignoreActors: 0)
-				(= global190 0)
+				(gBdoor ignoreActors: FALSE)
+				(= saveDisabled FALSE)
 				(client setScript: 0)
 			)
 		)
 	)
 )
-

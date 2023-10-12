@@ -1,9 +1,8 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-;;; Decompiled by sluicebox
 (script# 333)
-(include sci.sh)
+(include game.sh)
 (use Main)
-(use Interface)
+(use Intrface)
 (use Sound)
 (use Motion)
 (use Game)
@@ -15,45 +14,56 @@
 )
 
 (local
-	local0
-	local1
-	local2
+	theCycles
+	mouthCued
+	saveBits
+)
+(procedure (Measure &tmp [str 500])
+	(GetFarText &rest @str)
+	(= theCycles (+ (/ (StrLen @str) 3) 1))
 )
 
-(procedure (localproc_0 &tmp [temp0 500])
-	(GetFarText &rest @temp0)
-	(= local0 (+ (/ (StrLen @temp0) 3) 1))
-)
-
-(procedure (localproc_1)
-	(localproc_0 &rest)
+(procedure (ClarPrint)
+	(Measure &rest)
 	(clarMouth setScript: cycleMouth)
-	(Print &rest #at 160 110 #font 4 #width 140 #mode 1 #dispose)
+	(Print &rest
+		#at 160 110
+		#font 4
+		#width 140
+		#mode teJustCenter
+		#dispose
+	)
 )
 
-(procedure (localproc_2)
-	(localproc_0 &rest)
+(procedure (RudyPrint)
+	(Measure &rest)
 	(rudyMouth setScript: cycleMouth)
-	(Print &rest #at 10 120 #font 4 #width 140 #mode 1 #dispose)
+	(Print &rest
+		#at 10 120
+		#font 4
+		#width 140
+		#mode teJustCenter
+		#dispose
+	)
 )
 
-(procedure (localproc_3)
-	(|= gSpyFlags $0008)
-	(= [gCycleTimers 2] 1)
-	(SetFlag 23)
+(procedure (localproc_008d)
+	(|= global173 $0008)
+	(= [global368 2] 1)
+	(Bset 23)
 )
 
-(instance scene48c of Rm
+(instance scene48c of Room
 	(properties
 		picture 62
-		style 7
+		style IRISOUT
 	)
-
+	
 	(method (init)
 		(super init:)
 		(HandsOff)
-		(if (& gSpyFlags $0008)
-			(LoadMany rsSOUND 114 115)
+		(if (& global173 $0008)
+			(LoadMany SOUND 114 115)
 			(snoring number: 114 loop: 1 play:)
 			(Snoring
 				setLoop: 0
@@ -62,52 +72,61 @@
 				setMotion: MoveTo 176 59 self
 				init:
 			)
-			(Print 333 0 #width 240 #dispose) ; "You don't see anything, but you hear what sounds like someone snoring."
+			(Print 333 0 #width 240 #dispose)
 		else
-			(Load rsFONT 4)
+			(Load FONT 4)
 			(snoring number: 27 loop: -1 play:)
 			(clarMouth setPri: 2 init:)
-			(Clarence setPri: 1 ignoreActors: 1 init:)
+			(Clarence setPri: 1 ignoreActors: TRUE init:)
 			(clarEye setPri: 2 init: stopUpd: setScript: ClarsEye)
 			(Rudy setPri: 1 init:)
 			(rudyMouth setPri: 2 init:)
 			(rudyEye setPri: 2 init: stopUpd: setScript: RudysEyes)
-			(Hand setLoop: 7 setPri: 3 xStep: 5 yStep: 5 ignoreActors: 1)
+			(Hand
+				setLoop: 7
+				setPri: 3
+				xStep: 5
+				yStep: 5
+				ignoreActors: TRUE
+			)
 			(self setScript: speech48c)
 		)
 	)
-
+	
 	(method (doit)
 		(super doit:)
-		(if (and (== (snoring prevSignal:) -1) (== (snoring number:) 114))
+		(if
+			(and
+				(== (snoring prevSignal?) -1)
+				(== (snoring number?) 114)
+			)
 			(snoring number: 115 loop: 1 prevSignal: 0 play:)
 		)
 	)
-
+	
 	(method (dispose)
-		(localproc_3)
+		(localproc_008d)
 		(super dispose:)
 	)
-
-	(method (cue)
-		(cls)
-		(gCurRoom newRoom: gPrevRoomNum)
-	)
-
+	
 	(method (handleEvent event)
 		(super handleEvent: event)
+	)
+	
+	(method (cue)
+		(cls)
+		(curRoom newRoom: prevRoomNum)
 	)
 )
 
 (instance ClarsEye of Script
-	(properties)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
-				(clarEye cel: (^ (clarEye cel:) $0001) forceUpd:)
+				(clarEye cel: (^ (clarEye cel?) 1) forceUpd:)
 				(= state -1)
-				(if (clarEye cel:)
+				(if (clarEye cel?)
 					(= cycles 2)
 				else
 					(= seconds (Random 2 5))
@@ -118,14 +137,13 @@
 )
 
 (instance RudysEyes of Script
-	(properties)
 
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
 				(rudyEye cel: (Random 0 2) forceUpd:)
 				(= state -1)
-				(if (== (rudyEye cel:) 2)
+				(if (== (rudyEye cel?) 2)
 					(= cycles 2)
 				else
 					(= seconds (Random 2 5))
@@ -136,89 +154,69 @@
 )
 
 (instance speech48c of Script
-	(properties)
-
-	(method (handleEvent event &tmp temp0)
-		(super handleEvent: event)
-		(if
-			(and
-				(not (event claimed:))
-				(not script)
-				(== evKEYBOARD (event type:))
-				(or (== (event message:) KEY_S) (== (event message:) KEY_s))
-			)
-			(cls)
-			(gCurRoom newRoom: gPrevRoomNum)
-		)
-		(if (== evMOUSEBUTTON (event type:))
-			(= temp0
-				(Print {Skip scene?}
-					#button {Yes} 1
-					#button {No} 0
-				)
-			)
-			(if (== temp0 1)
-				(cls)
-				(gCurRoom newRoom: gPrevRoomNum)
-			)
-		)
-	)
 
 	(method (changeState newState)
-		(if (cycleMouth client:)
-			(= local1 1)
+		(if (cycleMouth client?)
+			(= mouthCued TRUE)
 			(= cycles 1)
 		else
 			(switch (= state newState)
 				(0
-					(cond
+					(cond 
 						((not global216)
 							(= state -1)
 						)
-						((not (& gMustDos $0004))
-							(|= gMustDos $0004)
-							(self setScript: (ScriptID 406 0)) ; Clock
+						((not (& global118 $0004))
+							(|= global118 $0004)
+							(self setScript: (ScriptID 406 0))
 							(= state -1)
 						)
-						((self script:)
+						((self script?)
 							(= state -1)
 						)
 					)
 					(= cycles 1)
 				)
 				(1
-					(= local2
-						(Display 333 1 dsCOORD 48 8 dsWIDTH 256 dsCOLOR 15 dsBACKGROUND -1 dsFONT 0 dsSAVEPIXELS) ; "Press the 'S' key to skip this scene."
+					(= saveBits
+						(Display 333 1
+							p_at 48 8
+							p_width 256
+							p_color vWHITE
+							p_back -1
+							p_font SYSFONT
+							p_save
+						)
 					)
-					(localproc_1 333 2) ; "Who is this so-called "director" that Gloria's seeing now?! Why, I oughta punch his lights out for getting between me and my gal!"
+					(ClarPrint 333 2)
 					(= seconds 10)
 				)
 				(2
-					(localproc_2 333 3) ; "Gloria was never "your gal." Just because she went out with you a couple of times, you thought you owned her!"
+					(RudyPrint 333 3)
 					(= seconds 6)
 				)
 				(3
 					(= cycles 1)
 				)
 				(4
-					(localproc_2 333 4) ; "Well, I got news for you, buddy!...my sister doesn't need to settle for the likes of you! As a matter of fact, you were nothing but a mere dalliance for her!"
+					(RudyPrint 333 4)
 					(= seconds 7)
 				)
 				(5
-					(localproc_1 333 5) ; "Dalliance! HAH! Why, YOU'RE the one who can't make a commitment to anyone! You're just trying to sink Gloria down to your lousy level!"
+					(ClarPrint 333 5)
 					(= seconds 7)
 				)
 				(6
-					(localproc_2 333 6) ; "You ain't good enough to kiss the ground she walks on! You're nothing but a low-class jerk!"
+					(RudyPrint 333 6)
 					(= seconds 10)
 				)
 				(7
-					(localproc_1 333 7) ; "Quit buttin' in between me and Gloria! This is none of YOUR business! I'll handle it the way I want and I WON'T be asking YOUR permission!"
+					(ClarPrint 333 7)
 					(= seconds 8)
 				)
 				(8
 					(Hand init: setMotion: MoveTo 161 100)
-					(localproc_2 333 8) ; "I'm warning you, Jack!! If I see you near my sister again, I'll cut you up in little pieces and feed them to the dog! GOT IT?!!"
+					(RudyPrint 333 8)
 					(= seconds 10)
 				)
 				(9
@@ -230,35 +228,51 @@
 						setLoop: 0
 						setCycle: Walk
 						setStep: 5 5
-						setMotion: MoveTo 340 (Rudy y:) self
+						setMotion: MoveTo 340 (Rudy y?) self
 					)
 					(rudyEye hide:)
 					(rudyMouth stopUpd: hide:)
 				)
 				(11
-					(gCurRoom newRoom: gPrevRoomNum)
+					(curRoom newRoom: prevRoomNum)
 				)
 			)
+		)
+	)
+	
+	(method (handleEvent event)
+		(super handleEvent: event)
+		(if
+			(and
+				(not (event claimed?))
+				(not script)
+				(== keyDown (event type?))
+				(or
+					(== (event message?) `S)
+					(== (event message?) `s)
+				)
+			)
+			(cls)
+			(curRoom newRoom: prevRoomNum)
 		)
 	)
 )
 
 (instance cycleMouth of Script
-	(properties)
 
 	(method (doit)
 		(super doit:)
-		(if local1
-			(= local1 0)
+		(if mouthCued
+			(= mouthCued FALSE)
 			(= cycles 1)
 		)
 	)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
-				(client cel: 0 setCycle: Fwd show:)
-				(= cycles local0)
+				(client cel: 0 setCycle: Forward show:)
+				(= cycles theCycles)
 			)
 			(1
 				(client setScript: 0 hide:)
@@ -268,7 +282,7 @@
 	)
 )
 
-(instance Rudy of Act
+(instance Rudy of Actor
 	(properties
 		y 113
 		x 103
@@ -294,7 +308,7 @@
 	)
 )
 
-(instance Hand of Act
+(instance Hand of Actor
 	(properties
 		y 130
 		x 161
@@ -302,7 +316,7 @@
 	)
 )
 
-(instance Clarence of Act
+(instance Clarence of Actor
 	(properties
 		y 117
 		x 217
@@ -329,7 +343,7 @@
 	)
 )
 
-(instance Snoring of Act
+(instance Snoring of Actor
 	(properties
 		y 164
 		x 80
@@ -338,7 +352,4 @@
 	)
 )
 
-(instance snoring of Sound
-	(properties)
-)
-
+(instance snoring of Sound)

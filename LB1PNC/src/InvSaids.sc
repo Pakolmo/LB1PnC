@@ -1,9 +1,8 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-;;; Decompiled by sluicebox
 (script# 410)
-(include sci.sh)
+(include game.sh)
 (use Main)
-(use Interface)
+(use Intrface)
 (use System)
 
 (public
@@ -11,19 +10,23 @@
 )
 
 (instance InvSaids of Script
-	(properties)
 
-	(method (handleEvent event &tmp temp0 [temp1 50])
-		(if (gEgo has: 3) ; oilcan
-			(cond
+	(method (dispose)
+		(super dispose:)
+		(DisposeScript 410)
+	)
+	
+	(method (handleEvent event &tmp cantDo [str 50])
+		(if (ego has: iOilcan)
+			(cond 
 				((Said 'get,get/oil<from/can')
-					(Print 410 0) ; "That would be very messy."
+					(Print 410 0)
 				)
-				((Said '(look<in),open/can[<oil]')
-					(Print 410 1) ; "The old oilcan is half-filled with oil."
+				((Said '(examine<in),open/can[<oil]')
+					(Print 410 1)
 				)
 				((Said 'oil[/*]')
-					(Print 410 2) ; "You would just waste your oil."
+					(Print 410 2)
 				)
 			)
 		)
@@ -32,85 +35,89 @@
 				(or
 					(Said '/monocle>')
 					(Said '//monocle>')
-					(Said 'look<use<monocle>')
+					(Said 'examine<use<monocle>')
 				)
-				(not (Said 'look[<at]/monocle>'))
+				(not (Said 'examine[<at]/monocle>'))
 			)
-			(cond
-				((not (gEgo has: 1)) ; monocle
-					(event claimed: 1)
-					(Print 410 3) ; "You don't have the monocle."
+			(cond 
+				((not (ego has: iMonocle))
+					(event claimed: TRUE)
+					(Print 410 3)
 				)
 				((Said 'wear,(attach<on)')
-					(Print 410 4) ; "You don't know how to wear a monocle; it keeps falling off!"
+					(Print 410 4)
 				)
-				((Said 'look>')
-					(cond
+				((Said 'examine>')
+					(cond 
 						((Said '<in')
-							(Print 410 5) ; "Things appear larger and sharper when you look through the monocle; much like a magnifying glass."
+							(Print 410 5)
 						)
 						((Said '/fingerprint')
-							(event claimed: 0)
+							(event claimed: FALSE)
 							(client setScript: 0)
 							(return)
 						)
-						((not global224)
-							(DontHave) ; "You don't have it."
+						((not haveInvItem)
+							(DontHave)
 						)
 						(else
-							(switch global171
-								(23
-									(Print 410 6 #icon 634 0 0) ; "You carefully examine the white handkerchief using Wilbur's monocle much like a magnifying glass. Why, what's this? You see a small "EP" in one corner of the white lace trim."
-									(SetFlag 6)
+							(switch whichItem
+								(iHandkerchief
+									(Print 410 6 #icon 634 0 0)
+									(Bset fExaminedHandkerchief)
 								)
-								(4
-									(Print 410 7 #icon 639 0 0) ; "You scrutinize the entire rolling pin with Wilbur's monocle. Aha! You have discovered traces of blood on it!"
-									(SetFlag 7)
+								(iRollingPin
+									(Print 410 7 #icon 639 0 0)
+									(Bset fExaminedRollingPin)
 								)
-								(6
-									(Print 410 8 #icon 632 0 0) ; "You examine the entire fireplace poker with the monocle. Oh, oh! There are traces of blood on it!"
-									(SetFlag 8)
+								(iPoker
+									(Print 410 8 #icon 632 0 0)
+									(Bset fExaminedPoker)
 								)
-								(9
-									(Print 410 9 #icon 636 0 0) ; "Squinting into the monocle you carefully examine the piece of broken record. Closely situated to each other, you notice two different fingerprints."
-									(SetFlag 9)
+								(iBrokenRecord
+									(Print 410 9 #icon 636 0 0)
+									(Bset fExaminedRecord)
 								)
-								(19
-									(Print 410 10 #icon 637 0 0) ; "Upon opening the diary you see a small inky fingerprint inside the front cover. You examine it more closely with Wilbur's monocle."
-									(SetFlag 12)
+								(iDiary
+									(Print 410 10 #icon 637 0 0)
+									(Bset fExaminedDiary)
 								)
 								(else
-									(Print 410 11) ; "You examine it with the monocle, but don't see anything interesting."
+									(Print 410 11)
 								)
 							)
 						)
 					)
-					(event claimed: 1)
+					(event claimed: TRUE)
 				)
 			)
 		)
-		(if (event claimed:)
+		(if (event claimed?)
 			(client setScript: 0)
 			(return)
 		)
-		(= temp0 0)
-		(cond
-			((or (Said 'load/derringer') (Said 'attach,load/bullet/derringer'))
-				(cond
-					(global185
-						(Print 410 12) ; "It's already loaded."
+		(= cantDo 0)
+		(cond 
+			(
+				(or
+					(Said 'load/derringer')
+					(Said 'attach,load/bullet/derringer')
+				)
+				(cond 
+					(gunIsLoaded
+						(Print 410 12)
 					)
-					((gEgo has: 15) ; derringer
-						(if (gEgo has: 14) ; bullet
-							(Ok) ; "Okay."
-							(gEgo put: 14 99) ; bullet
-							(= global185 1)
+					((ego has: iDerringer)
+						(if (ego has: iBullet)
+							(Ok)
+							(ego put: iBullet 99)
+							(= gunIsLoaded TRUE)
 						else
-							(Print 410 13) ; "You have no bullet."
+							(Print 410 13)
 						)
 					)
 					(else
-						(Print 410 14) ; "You have no gun."
+						(Print 410 14)
 					)
 				)
 			)
@@ -119,240 +126,230 @@
 					(Said 'detach,unload/bullet[/derringer<from]')
 					(Said 'unload/derringer')
 				)
-				(cond
-					(global185
-						(Print 410 15) ; "That would probably be unwise."
+				(cond 
+					(gunIsLoaded
+						(Print 410 15)
 					)
-					((gEgo has: 15) ; derringer
-						(Print 410 16) ; "It hasn't been loaded."
+					((ego has: iDerringer)
+						(Print 410 16)
 					)
 					(else
-						(Print 410 14) ; "You have no gun."
+						(Print 410 14)
 					)
 				)
 			)
-			((Said 'open,(look<in)/derringer')
-				(cond
-					(global185
-						(Print 410 17) ; "When you open the small derringer, you see there is one bullet in it."
+			((Said 'open,(examine<in)/derringer')
+				(cond 
+					(gunIsLoaded
+						(Print 410 17)
 					)
-					((gEgo has: 15) ; derringer
-						(Print 410 18) ; "Upon opening the derringer, you notice no bullets."
+					((ego has: iDerringer)
+						(Print 410 18)
 					)
 					(else
-						(Print 410 14) ; "You have no gun."
+						(Print 410 14)
 					)
 				)
 			)
-			((and global224 (Said 'look/fingerprint>'))
-				(cond
+			((and haveInvItem (Said 'examine/fingerprint>'))
+				(cond 
 					((Said '//diary')
-						(Print 410 10 #icon 637 0 0) ; "Upon opening the diary you see a small inky fingerprint inside the front cover. You examine it more closely with Wilbur's monocle."
-						(SetFlag 12)
+						(Print 410 10 #icon 637 0 0)
+						(Bset fExaminedDiary)
 					)
 					((Said '//record')
-						(Print 410 9 #icon 636 0 0) ; "Squinting into the monocle you carefully examine the piece of broken record. Closely situated to each other, you notice two different fingerprints."
-						(SetFlag 9)
+						(Print 410 9 #icon 636 0 0)
+						(Bset fExaminedRecord)
 					)
 				)
 			)
 			((Said 'smoke/butt')
-				(Print 410 19) ; "What an awful thought!"
+				(Print 410 19)
 			)
 			((Said 'get>')
-				(cond
-					(global224
-						(AlreadyTook) ; "You already took it."
-						(event claimed: 1)
+				(cond 
+					(haveInvItem
+						(AlreadyTook)
+						(event claimed: TRUE)
 					)
-					((!= (global219 owner:) gCurRoomNum)
-						(NotHere) ; "You don't see it here."
-						(event claimed: 1)
+					((!= (theInvItem owner?) curRoomNum)
+						(DontSee)
+						(event claimed: TRUE)
 					)
 				)
 			)
 			((or (Said 'ask/*<for') (Said 'ask//*<for'))
-				(if global224
-					(AlreadyTook) ; "You already took it."
+				(if haveInvItem
+					(AlreadyTook)
 				else
-					(Print 410 20) ; "If you want it, just GET it."
+					(Print 410 20)
 				)
 			)
 			((Said 'ask,tell>')
 				(client setScript: 0)
 				(return)
 			)
-			((not global224)
-				(event claimed: 1)
-				(DontHave) ; "You don't have it."
+			((not haveInvItem)
+				(event claimed: TRUE)
+				(DontHave)
 			)
 			((Said 'drop')
-				(Print 410 21) ; "Better not! You might need it!"
+				(Print 410 21)
 			)
 			((Said 'throw')
-				(Print 410 22) ; "That wouldn't accomplish anything."
+				(Print 410 22)
 			)
-			((and (not (Said 'look<in>')) (Said 'look'))
-				(global219 showSelf:)
+			((and (not (Said 'examine<in>')) (Said 'examine'))
+				(theInvItem showSelf:)
 			)
 			((Said 'use')
-				(Format @temp1 410 23 (global219 name:)) ; "What do you want to do with the %s"
-				(Format (- (StrEnd @temp1) 1) 410 24) ; "?"
-				(Print @temp1)
+				(Format @str 410 23 (theInvItem name?))
+				(Format (- (StrEnd @str) 1) 410 24)
+				(Print @str)
 			)
-			((Said 'give,show>')
+			((Said 'deliver,hold>')
 				(client setScript: 0)
 				(return)
 			)
 			(else
-				(switch global171
-					(19
-						(cond
-							((Said 'write')
-								(Print 410 25) ; "It's not your diary!"
-							)
-							((Said 'open,read,(look<in)')
-								(Print 410 26) ; "Upon opening the diary, you casually notice an ink-stained fingerprint inside the front cover. Curiously, and a bit guiltily, you scan through the rest of the diary's pages. Nothing much captures your interest until you come to the latest entry. It reads..."
-								(Print 410 27) ; "May 27th (that's today!) Dear Diary, I'm so terribly upset! I can't believe Uncle Henri would do this to me! I thought I was like a daughter to him and now I find out I'm no more important than any of those other creeps! They can't get away with it, you know...they just can't! Between you and me, Diary, you know they have to go..."
-								(Print 410 28) ; "...because of what they all did to me. I KNOW they were all in it together to have me put away in the nuthouse. I was never crazy, they just wanted me out of the picture! Now they have to..."
-								(Print 410 29) ; "That's it. The passage ends abruptly. Hmmmmm. What could Lillian mean by all this?!"
-								(SetFlag 3)
+				(switch whichItem
+					(iDiary
+						(cond 
+							((Said 'write') (Print 410 25))
+							((Said 'open,read,(examine<in)')
+								(Print 410 26)
+								(Print 410 27)
+								(Print 410 28)
+								(Print 410 29)
+								(Bset fReadDiary)
 							)
 							(else
-								(= temp0 1)
+								(= cantDo TRUE)
 							)
 						)
 					)
-					(22
-						(if (Said 'open,(look<in)')
-							(Print 410 30) ; "You open the leather pouch and peer inside. It's full of precious jewels! Carefully, you close it again so as not to lose any."
+					(iPouch
+						(if (Said 'open,(examine<in)')
+							(Print 410 30)
 						else
-							(= temp0 1)
+							(= cantDo TRUE)
 						)
 					)
-					(11
-						(cond
-							((Said 'open,(look<in)/box')
-								(switch global136
+					(iCrackers
+						(cond 
+							((Said 'open,(examine<in)/box')
+								(switch numCrackers
 									(0
-										(Print 410 31) ; "The cracker box is empty."
+										(Print 410 31)
 									)
 									(1
-										(Print 410 32) ; "There is only one cracker in the cracker box."
+										(Print 410 32)
 									)
-									(else
-										(Print
-											(Format @temp1 410 33 global136) ; "There are %u crackers in the cracker box."
-										)
+									(else 
+										(Print (Format @str 410 33 numCrackers))
 									)
 								)
 							)
 							((Said 'eat')
-								(if (> global136 0)
-									(Print 410 34) ; "You pop a cracker into your mouth. Mmmmmm. Quite tasty."
-									(-- global136)
+								(if (> numCrackers 0)
+									(Print 410 34)
+									(-- numCrackers)
 								else
-									(Print 410 35) ; "The box of crackers is empty."
+									(Print 410 35)
 								)
 							)
 							(else
-								(= temp0 1)
+								(= cantDo TRUE)
 							)
 						)
 					)
-					(16
+					(iMatches
 						(if (Said 'ignite')
-							(Print 410 36) ; "Okay. You light a match."
-							(Print 410 37) ; "Ouch!! The match burned your fingers!"
+							(Print 410 36)
+							(Print 410 37)
 						else
-							(= temp0 1)
+							(= cantDo TRUE)
 						)
 					)
-					(17
+					(iCarrot
 						(if (Said 'eat>')
-							(Print 410 38) ; "Mmmmmmmm. You always love a good carrot."
-							(gEgo put: 17 0) ; carrot
-							(event claimed: 1)
+							(Print 410 38)
+							(ego put: iCarrot 0)
+							(event claimed: TRUE)
 						else
-							(= temp0 1)
+							(= cantDo TRUE)
 						)
 					)
-					(0
-						(cond
+					(iNecklace
+						(cond 
 							((Said 'wear,(attach<on)')
-								(Print 410 39) ; "It wouldn't become you."
+								(Print 410 39)
 							)
 							((Said 'polish')
-								(Print 410 40) ; "That wouldn't do anything."
+								(Print 410 40)
 							)
 							(else
-								(= temp0 1)
+								(= cantDo TRUE)
 							)
 						)
 					)
-					(2
-						(cond
-							((Said 'open,(look<in)')
-								(Print 410 41) ; "There appears to be kerosene in the lantern."
+					(iLantern
+						(cond 
+							((Said 'open,(examine<in)')
+								(Print 410 41)
 							)
 							((Said 'ignite,(rotate<on)')
-								(if (gEgo has: 16) ; matches
-									(if global137
-										(Print 410 42) ; "It's already lit."
+								(if (ego has: iMatches)
+									(if lanternIsLit
+										(Print 410 42)
 									else
-										(Print 410 43) ; "Using a match, you carefully light the lantern. It glows brightly."
-										(= global137 1)
+										(Print 410 43)
+										(= lanternIsLit TRUE)
 									)
 								else
-									(Print 410 44) ; "You don't have any matches."
+									(Print 410 44)
 								)
 							)
 							((Said 'extinguish,extinguish,(rotate<off)')
-								(if global137
-									(= global137 0)
-									(Print 410 45) ; "You extinguish the lantern."
+								(if lanternIsLit
+									(= lanternIsLit FALSE)
+									(Print 410 45)
 								else
-									(Print 410 46) ; "It's already extinguished."
+									(Print 410 46)
 								)
 							)
 							(else
-								(= temp0 1)
+								(= cantDo TRUE)
 							)
 						)
 					)
-					(10
-						(cond
+					(iNotebook
+						(cond 
 							(
 								(or
-									(Said 'read,open,(look<in)')
+									(Said 'read,open,(examine<in)')
 									(Said 'rotate/page')
 								)
-								(Print 410 47) ; "You open your notebook and skim through your many notes and observations."
+								(Print 410 47)
 							)
 							((Said 'close')
-								(Print 410 48) ; "It is closed."
+								(Print 410 48)
 							)
 							((Said 'write')
-								(Print 410 49) ; "From your detective father, you have learned to write down all your notes and observations."
+								(Print 410 49)
 							)
 							(else
-								(= temp0 1)
+								(= cantDo TRUE)
 							)
 						)
 					)
 				)
 			)
 		)
-		(if temp0
-			(CantDo) ; "You can't do that."
+		(if cantDo
+			(CantDo)
 			(event claimed: 1)
 		)
 		(client setScript: 0)
 	)
-
-	(method (dispose)
-		(super dispose:)
-		(DisposeScript 410)
-	)
 )
-

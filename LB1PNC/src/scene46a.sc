@@ -1,9 +1,8 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-;;; Decompiled by sluicebox
 (script# 351)
-(include sci.sh)
+(include game.sh)
 (use Main)
-(use Interface)
+(use Intrface)
 (use Sound)
 (use Motion)
 (use Game)
@@ -16,27 +15,22 @@
 (local
 	local0
 )
+(instance Snoring of Actor)
 
-(instance Snoring of Act
-	(properties)
-)
+(instance snoring of Sound)
 
-(instance snoring of Sound
-	(properties)
-)
-
-(instance scene46a of Rm
+(instance scene46a of Room
 	(properties
 		picture 62
-		style 7
+		style IRISOUT
 	)
-
+	
 	(method (init)
 		(super init:)
 		(HandsOff)
-		(LoadMany rsSOUND 114 115)
+		(LoadMany SOUND 114 115)
 		(snoring number: 114 loop: 1 play:)
-		(if (& gSpyFlags $0002)
+		(if (& global173 $0002)
 			(Snoring
 				view: 146
 				setLoop: 0
@@ -47,24 +41,27 @@
 				setMotion: MoveTo 176 59 self
 				init:
 			)
-			(Print 351 0 #width 240 #dispose) ; "You don't see anything, but you hear what sounds like someone snoring."
+			(Print 351 0 #width 240 #dispose)
 		)
 	)
-
+	
 	(method (doit)
 		(super doit:)
-		(if (and (== (snoring prevSignal:) -1) (== (snoring number:) 114))
+		(if
+			(and
+				(== (snoring prevSignal?) -1)
+				(== (snoring number?) 114)
+			)
 			(snoring number: 115 loop: 1 prevSignal: 0 play:)
 		)
 	)
-
+	
 	(method (dispose)
 		(super dispose:)
 	)
-
+	
 	(method (cue)
 		(cls)
-		(gCurRoom newRoom: gPrevRoomNum)
+		(curRoom newRoom: prevRoomNum)
 	)
 )
-

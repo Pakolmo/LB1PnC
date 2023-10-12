@@ -1,12 +1,11 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-;;; Decompiled by sluicebox
 (script# 3)
-(include sci.sh)
+(include game.sh)
 (use Main)
-(use Interface)
+(use Intrface)
 (use DCIcon)
 (use RFeature)
-(use Avoid)
+(use Avoider)
 (use Sound)
 (use Motion)
 (use Game)
@@ -19,47 +18,50 @@
 )
 
 (local
-	local0
+	nearLadder
 	local1
 	local2
-	local3
+	climbingUp
 	local4
 )
-
-(procedure (localproc_0)
-	(Print &rest #at 110 25 #mode 1 #dispose)
+(procedure (RoomPrint)
+	(Print &rest
+		#at 110 25
+		#mode teJustCenter
+		#dispose
+	)
 )
 
-(instance Room3 of Rm
+(instance Room3 of Room
 	(properties
 		picture 3
 	)
-
+	
 	(method (init)
 		(= south 14)
 		(= west 9)
 		(= east 10)
 		(super init:)
-		(Load rsVIEW 34)
-		(Load rsSOUND 73)
-		(if (gEgo has: 21) ; cane
-			(LoadMany rsVIEW 31 32 53)
-			(LoadMany rsSOUND 30 42)
+		(Load VIEW 34)
+		(Load SOUND 73)
+		(if (ego has: iCane)
+			(LoadMany VIEW 31 32 53)
+			(LoadMany SOUND 30 42)
 		)
-		(Load rsSOUND 17)
-		(if (and (== gAct 1) (<= global155 13))
-			(self setRegions: 381) ; walkabout
+		(Load SOUND 17)
+		(if (and (== currentAct 1) (<= global155 13))
+			(self setRegions: 381)
 		)
-		(if gDetailLevel
+		(if howFast
 			(cloud1 init: stopUpd: setScript: showers)
 			(cloud2 init: stopUpd:)
 		)
 		(soundFX number: 17 loop: 0)
 		(bat setLoop: 4 xStep: 8 illegalBits: 0 init: hide:)
-		(if global164
+		(if bellOnGround
 			(bell
 				illegalBits: 0
-				setLoop: (if (== ((gInventory at: 20) owner:) 3) 0 else 6) ; crank
+				setLoop: (if (== ((inventory at: iCrank) owner?) 3) 0 else 6)
 				posn: 72 138
 			)
 		else
@@ -69,196 +71,196 @@
 		(ring setLoop: 1 setPri: 11 init: stopUpd:)
 		(arm setPri: 14 init: hide:)
 		(self setFeatures: Ladder)
-		(if (and (>= gAct 2) (< gAct 4) (< [gCycleTimers 1] 700))
-			(self setRegions: 202) ; EthelDrunk
+		(if
+			(and
+				(>= currentAct 2)
+				(< currentAct 4)
+				(< [global368 1] 700)
+			)
+			(self setRegions: 202)
 		)
 		(if
 			(or
-				(and (== gAct 3) (< global114 2))
-				(and (== gAct 6) (not (& gMustDos $0002)))
+				(and (== currentAct 3) (< global114 2))
+				(and (== currentAct 6) (not (& global118 $0002)))
 			)
-			(self setRegions: 281) ; rudywand
+			(self setRegions: 281)
 		)
-		(switch gPrevRoomNum
-			(10
-				(gEgo posn: 318 175)
-			)
-			(14
-				(gEgo posn: 305 187)
-			)
-			(9
-				(gEgo posn: 1 176)
-			)
+		(switch prevRoomNum
+			(10 (ego posn: 318 175))
+			(14 (ego posn: 305 187))
+			(9 (ego posn: 1 176))
 		)
-		(gEgo view: 0 illegalBits: -32768 init:)
+		(ego view: 0 illegalBits: cWHITE init:)
 	)
-
+	
 	(method (doit)
-		(if (IsFirstTimeInRoom)
-			(Print 3 0) ; "You see a rusted, iron bell at the top of an old, bell tower. A rope dangles a short distance beneath the bell while a ladder runs up the tower's side. Behind a weathered fence, you also notice the remnants of the old plantation's fields."
+		(if (FirstEntry)
+			(Print 3 0)
 		)
-		(if (and (not local3) (& (gEgo onControl: 0) $0002))
-			(= local3 1)
-			(gEgo setScript: climbUp)
+		(if (and (not climbingUp) (& (ego onControl: FALSE) cBLUE))
+			(= climbingUp TRUE)
+			(ego setScript: climbUp)
 		)
 		(super doit:)
 	)
-
+	
 	(method (dispose)
-		(DisposeScript 985)
+		(DisposeScript AVOIDER)
 		(super dispose:)
 	)
-
-	(method (newRoom newRoomNumber)
-		(super newRoom: newRoomNumber)
-	)
-
+	
 	(method (handleEvent event &tmp temp0)
-		(DisposeScript 990)
+		(DisposeScript SAVE)
 		(super handleEvent: event)
-		(if (event claimed:)
-			(return 1)
-		)
-		(switch (event type:)
-			(evSAID
-				(cond
-					((Said 'look>')
-						(cond
-							((Said '[<around,at][/room]')
-								(if global164
-									(Print 3 1) ; "A rope dangles a short distance dwon from the tower while a ladder runs up the tower's side. Behind a weathered fence, you also notice the remnants of the old plantation's fields."
-								else
-									(Print 3 0) ; "You see a rusted, iron bell at the top of an old, bell tower. A rope dangles a short distance beneath the bell while a ladder runs up the tower's side. Behind a weathered fence, you also notice the remnants of the old plantation's fields."
-								)
-							)
-							((Said '<up')
-								(if (& (gEgo onControl: 1) $0004)
-									(if global164
-										(Print 3 2) ; "The rope dangles a short distance above you."
+		(if (event claimed?) (return TRUE))
+		(return
+			(switch (event type?)
+				(saidEvent
+					(cond 
+						((Said 'examine>')
+							(cond 
+								((Said '[<around,at][/room]')
+									(if bellOnGround
+										(Print 3 1)
 									else
-										(Print 3 3) ; "The rope dangles a short distance above you. Higher up, you see the old bell."
-									)
-								else
-									(event claimed: 0)
-								)
-							)
-							((Said '/path')
-								(Print 3 4) ; "A path travels by the old bell tower."
-							)
-							((Said '/field')
-								(Print 3 5) ; "Behind a weather-beaten fence, you see the old, unused sugar cane fields. The fields look as if they haven't been planted in years."
-							)
-							((Said '/fence')
-								(Print 3 6) ; "An old weather-beaten fence partitions off the remaining vestiges of the plantation's once-vast sugar cane fields. Now, all that's left are long-ago plowed furrows and old dead stalks."
-							)
-							((Said '/archway')
-								(Print 3 7) ; "You don't see a gate here."
-							)
-							((or (Said '<(at,in)/tower') (Said '<in'))
-								(cond
-									(local0
-										(if global164
-											(SeeNothing) ; "You see nothing special."
-										else
-											(Print 3 8) ; "All you see is the old, rusted bell."
-										)
-									)
-									((& (gEgo onControl: 1) $0004)
-										(if global164
-											(Print 3 2) ; "The rope dangles a short distance above you."
-										else
-											(Print 3 3) ; "The rope dangles a short distance above you. Higher up, you see the old bell."
-										)
-									)
-									(else
-										(Print 3 9) ; "You can't see into the bell tower from here."
+										(Print 3 0)
 									)
 								)
-							)
-							((Said '/tower[<bell]')
-								(if global164
-									(Print 3 1) ; "A rope dangles a short distance dwon from the tower while a ladder runs up the tower's side. Behind a weathered fence, you also notice the remnants of the old plantation's fields."
-								else
-									(Print 3 10) ; "You see a rusted iron bell at the top of an old bell tower. A rope dangles a short distance beneath the bell while a ladder runs up the tower's side."
+								((Said '<up')
+									(if (& (ego onControl: origin) cGREEN)
+										(if bellOnGround
+											(Print 3 2)
+										else
+											(Print 3 3)
+										)
+									else
+										(event claimed: FALSE)
+									)
+								)
+								((Said '/path')
+									(Print 3 4)
+								)
+								((Said '/field')
+									(Print 3 5)
+								)
+								((Said '/fence')
+									(Print 3 6)
+								)
+								((Said '/archway')
+									(Print 3 7)
+								)
+								((or (Said '<(at,in)/tower') (Said '<in'))
+									(cond 
+										(nearLadder
+											(if bellOnGround
+												(SeeNothing)
+											else
+												(Print 3 8)
+											)
+										)
+										((& (ego onControl: origin) cGREEN)
+											(if bellOnGround
+												(Print 3 2)
+											else
+												(Print 3 3)
+											)
+										)
+										(else
+											(Print 3 9)
+										)
+									)
+								)
+								((Said '/tower[<bell]')
+									(if bellOnGround
+										(Print 3 1)
+									else
+										(Print 3 10)
+									)
 								)
 							)
 						)
-					)
-					((Said 'climb/fence')
-						(Print 3 11) ; "The fence is too difficult to climb. Besides, you don't care about those old fields."
-					)
-					(
-						(or
-							(Said 'use/can<oil')
-							(Said 'oil/bell')
-							(Said 'attach/oil/bell')
+						((Said 'climb/fence')
+							(Print 3 11)
 						)
-						(if (== global184 0)
-							(if (gEgo has: 3) ; oilcan
-								(if local0
-									(= global184 1)
-									(self setScript: oilBell)
+						(
+							(or
+								(Said 'use/can<oil')
+								(Said 'oil/bell')
+								(Said 'attach/oil/bell')
+							)
+							(if (== oiledBell FALSE)
+								(if (ego has: iOilcan)
+									(if nearLadder
+										(= oiledBell TRUE)
+										(self setScript: oilBell)
+									else
+										(Print 3 12)
+									)
 								else
-									(Print 3 12) ; "You're not in a position to do that."
+									(Print 3 13)
 								)
 							else
-								(Print 3 13) ; "You have no way of doing that."
+								(Print 3 14)
 							)
-						else
-							(Print 3 14) ; "The bell has been oiled."
 						)
 					)
 				)
-			)
-			(evMOUSEBUTTON
-				(if
-					(and
-						local0
-						(> (event y:) (gEgo y:))
-						(not (& (event modifiers:) $000f)) ; emALT | emCTRL | emSHIFT
-						(User canInput:)
+				(mouseDown
+					(if
+						(and
+							nearLadder
+							(> (event y?) (ego y?))
+							(not (& (event modifiers?) (| shiftDown ctrlDown altDown)))
+							(User canInput?)
+						)
+						(ego setScript: climbDown)
 					)
-					(gEgo setScript: climbDown)
 				)
-			)
-			($0040 ; direction
-				(if (and local0 (== (event message:) JOY_DOWN) (User canInput:))
-					(gEgo setScript: climbDown)
+				(direction
+					(if
+						(and
+							nearLadder
+							(== (event message?) dirS)
+							(User canInput?)
+						)
+						(ego setScript: climbDown)
+					)
 				)
 			)
 		)
+	)
+	
+	(method (newRoom n)
+		(super newRoom: n)
 	)
 )
 
 (instance bellBase of Code
-	(properties)
-
+	
 	(method (doit)
 		(bell
-			brTop: (+ (bell y:) 8)
-			brLeft: (- (bell x:) 2)
-			brBottom: (+ (bell y:) 12)
-			brRight: (+ (bell x:) 2)
+			brTop: (+ (bell y?) 8)
+			brLeft: (- (bell x?) 2)
+			brBottom: (+ (bell y?) 12)
+			brRight: (+ (bell x?) 2)
 		)
 	)
 )
 
 (instance showers of Script
-	(properties)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
-			(0
-				(= seconds (= state 3))
-			)
+			(0 (= seconds (= state 3)))
 			(1
-				(cloud1 setCycle: Fwd)
-				(cloud2 setCycle: Fwd)
+				(cloud1 setCycle: Forward)
+				(cloud2 setCycle: Forward)
 				(= cycles 7)
 			)
 			(2
-				(cloud1 setCycle: End)
-				(cloud2 setCycle: End self)
+				(cloud1 setCycle: EndLoop)
+				(cloud2 setCycle: EndLoop self)
 			)
 			(3
 				(soundFX number: 17 play: self)
@@ -278,40 +280,39 @@
 )
 
 (instance climbUp of Script
-	(properties)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
-				(= local3 1)
+				(= climbingUp TRUE)
 				(HandsOff)
-				(gEgo
+				(ego
 					illegalBits: 0
-					setLoop: (gEgo loop:)
+					setLoop: (ego loop?)
 					setMotion: MoveTo 26 156 self
 				)
 			)
 			(1
-				(gEgo
+				(ego
 					view: 34
 					setLoop: 0
 					cel: 0
 					cycleSpeed: 1
 					setPri: 12
-					setCycle: End self
+					setCycle: EndLoop self
 				)
 			)
 			(2
-				(gEgo posn: 26 145 setLoop: 1 cel: 0 setCycle: End self)
+				(ego posn: 26 145 setLoop: 1 cel: 0 setCycle: EndLoop self)
 			)
 			(3
-				(gEgo posn: 26 120 cel: 0 setCycle: End self)
+				(ego posn: 26 120 cel: 0 setCycle: EndLoop self)
 			)
 			(4
-				(gEgo setLoop: 2 posn: 26 110 cel: 0 setCycle: End self)
+				(ego setLoop: 2 posn: 26 110 cel: 0 setCycle: EndLoop self)
 			)
 			(5
-				(gEgo setLoop: 3 cel: 0 posn: 39 55 setCycle: End self)
+				(ego setLoop: 3 cel: 0 posn: 39 55 setCycle: EndLoop self)
 				(if (not local4)
 					(++ local4)
 					(bat show: setCycle: Walk setMotion: MoveTo 340 80)
@@ -319,12 +320,12 @@
 			)
 			(6
 				(arm show:)
-				(gEgo loop: 8 stopUpd: 0)
+				(ego loop: 8 stopUpd: 0)
 				(= cycles 1)
 			)
 			(7
-				(= local0 1)
-				(User canInput: 1)
+				(= nearLadder 1)
+				(User canInput: TRUE)
 				(client setScript: 0)
 			)
 		)
@@ -332,43 +333,42 @@
 )
 
 (instance climbDown of Script
-	(properties)
 
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
-				(User canInput: 0)
-				(gEgo cel: 3 loop: 3 setCycle: Beg self)
+				(User canInput: FALSE)
+				(ego cel: 3 loop: 3 setCycle: BegLoop self)
 				(arm hide:)
 			)
 			(1
-				(gEgo setLoop: 2 posn: 26 110 cel: 3 setCycle: Beg self)
+				(ego setLoop: 2 posn: 26 110 cel: 3 setCycle: BegLoop self)
 			)
 			(2
-				(gEgo setLoop: 1 posn: 26 120 cel: 3 setCycle: Beg self)
+				(ego setLoop: 1 posn: 26 120 cel: 3 setCycle: BegLoop self)
 			)
 			(3
-				(gEgo posn: 26 145 cel: 3 setCycle: Beg self)
+				(ego posn: 26 145 cel: 3 setCycle: BegLoop self)
 			)
 			(4
-				(gEgo setLoop: 0 posn: 26 156 cel: 3 setCycle: Beg self)
+				(ego setLoop: 0 posn: 26 156 cel: 3 setCycle: BegLoop self)
 			)
 			(5
-				(gEgo
+				(ego
 					view: 0
 					posn: 26 158
 					setPri: -1
 					setCycle: Walk
 					setLoop: 2
-					illegalBits: -32768
+					illegalBits: cWHITE
 					cycleSpeed: 0
 					setMotion: MoveTo 32 164 self
 				)
 			)
 			(6
-				(gEgo setLoop: -1)
+				(ego setLoop: -1)
 				(HandsOn)
-				(= local1 (= local0 (= local3 0)))
+				(= local1 (= nearLadder (= climbingUp 0)))
 				(client setScript: 0)
 			)
 		)
@@ -376,27 +376,26 @@
 )
 
 (instance oilBell of Script
-	(properties)
 
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
 				(User canInput: 0)
 				(arm setLoop: 6)
-				(arm cel: (- (NumCels arm) 1) setCycle: Beg self)
+				(arm cel: (- (NumCels arm) 1) setCycle: BegLoop self)
 			)
 			(1
 				(soundFX number: 73 loop: 1 play:)
-				(arm setLoop: 7 setCycle: Fwd)
+				(arm setLoop: 7 setCycle: Forward)
 				(= cycles 16)
 			)
 			(2
 				(soundFX stop:)
-				(arm setLoop: 6 cel: 0 setCycle: End self)
+				(arm setLoop: 6 cel: 0 setCycle: EndLoop self)
 			)
 			(3
-				(Print 3 15) ; "Oiling the rusted bell may have loosened it."
-				(User canInput: 1)
+				(Print 3 15)
+				(User canInput: TRUE)
 				(client setScript: 0)
 			)
 		)
@@ -404,183 +403,188 @@
 )
 
 (instance ringBell of Script
-	(properties)
 
 	(method (doit)
 		(super doit:)
 		(if
 			(and
-				(< (gEgo distanceTo: bell) 75)
-				(!= (gEgo view:) 31)
+				(< (ego distanceTo: bell) 75)
+				(!= (ego view?) 31)
 				local2
 			)
-			(gEgo view: 31 setLoop: 0 cel: 0 cycleSpeed: 0 setCycle: End)
+			(ego
+				view: 31
+				setLoop: 0
+				cel: 0
+				cycleSpeed: 0
+				setCycle: EndLoop
+			)
 		)
-		(if (and (== (gEgo view:) 31) (== (gEgo cel:) 3))
-			(gEgo setMotion: MoveTo 73 148)
+		(if (and (== (ego view?) 31) (== (ego cel?) 3))
+			(ego setMotion: MoveTo 73 148)
 			(bell hide:)
 		)
 	)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
 				(HandsOff)
-				(if (& (gEgo onControl: 1) $0008)
-					(gEgo setMotion: MoveTo 94 144 self)
+				(if (& (ego onControl: origin) cCYAN)
+					(ego setMotion: MoveTo 94 144 self)
 					(= local2 0)
 				else
-					(gEgo illegalBits: 0 setMotion: MoveTo 73 144 self)
+					(ego illegalBits: 0 setMotion: MoveTo 73 144 self)
 					(= local2 1)
 				)
 			)
 			(1
-				(gEgo
+				(ego
 					view: 53
 					cel: 0
 					loop: (if local2 4 else 0)
-					setCycle: End
+					setCycle: EndLoop
 				)
-				(localproc_0 3 16) ; "Reaching up with the cane you hook it onto the short rope's iron ring and PULL..."
+				(RoomPrint 3 16)
 				(= seconds 3)
 			)
 			(2
 				(cls)
-				(if global184
-					(gEgo
+				(if oiledBell
+					(ego
 						loop: (if local2 5 else 2)
 						cycleSpeed: 2
-						setCycle: Fwd
+						setCycle: Forward
 					)
-					(bell setCycle: Fwd)
-					(ring startUpd: setCycle: Fwd)
+					(bell setCycle: Forward)
+					(ring startUpd: setCycle: Forward)
 					(soundFX number: 30 loop: 1 play:)
 					(= cycles 8)
 				else
-					(= state 3)
-					(localproc_0 3 17) ; "...Nothing happens. Oh! The bell's too rusted to move!"
+					(RoomPrint (= state 3) 17)
 					(= seconds 4)
 				)
 			)
 			(3
 				(cls)
-				(bell view: 203 setLoop: 0 setCel: 0 cycleSpeed: 0 yStep: 10)
-				(ring setCycle: Beg)
-				(if (and global184 local2)
+				(bell
+					view: 203
+					setLoop: 0
+					setCel: 0
+					cycleSpeed: 0
+					yStep: 10
+				)
+				(ring setCycle: BegLoop)
+				(if (and oiledBell local2)
 					(bell setMotion: MoveTo 66 108 self)
-					(localproc_0 3 18) ; "Uh, oh!!"
+					(RoomPrint 3 18)
 				else
-					(= global164 1)
+					(= bellOnGround 1)
 					(bell
 						setLoop: 6
 						ignoreActors: 1
 						setMotion: MoveTo 72 138 self
 					)
-					(gEgo setCycle: 0)
-					(localproc_0 3 19) ; "Look out! It's falling...!"
+					(ego setCycle: 0)
+					(RoomPrint 3 19)
 				)
 			)
 			(4
 				(cls)
-				(if (and global184 local2)
+				(if (and oiledBell local2)
 					(soundFX number: 42 play:)
-					(ShakeScreen 5 ssUPDOWN)
-					(if (< (Random 1 100) 6)
-						(= state 5)
-					else
-						(= state 8)
-					)
+					(ShakeScreen 5 1)
+					(if (< (Random 1 100) 6) (= state 5) else (= state 8))
 					(= cycles 14)
 				else
-					(if (== global164 1)
+					(if (== bellOnGround 1)
 						(soundFX number: 30 play:)
-						(ShakeScreen 5 ssUPDOWN)
+						(ShakeScreen 5 1)
 					)
-					(gEgo loop: (if local2 4 else 0))
-					(gEgo cel: (- (NumCels gEgo) 1) setCycle: Beg self)
+					(ego loop: (if local2 4 else 0))
+					(ego cel: (- (NumCels ego) 1) setCycle: BegLoop self)
 				)
 			)
 			(5
-				(gEgo
+				(ego
 					view: 0
-					loop: (if global184 1 else 2)
+					loop: (if oiledBell 1 else 2)
 					cycleSpeed: 0
-					illegalBits: -32768
+					illegalBits: cWHITE
 					setCycle: Walk
 				)
 				(ring stopUpd:)
-				(if global184
-					(bell ignoreActors: 0 stopUpd:)
-					(Print 3 20) ; "Whew! That was close!"
+				(if oiledBell
+					(bell ignoreActors: FALSE stopUpd:)
+					(Print 3 20)
 				)
 				(HandsOn)
 				(client setScript: 0)
 			)
 			(6
 				(= local2 0)
-				(gEgo
+				(ego
 					view: 32
 					setLoop: -1
 					setCycle: Walk
-					setAvoider: (Avoid new:)
-					illegalBits: -32768
+					setAvoider: (Avoider new:)
+					illegalBits: cWHITE
 					setMotion: MoveTo 179 167 self
 				)
 			)
 			(7
 				(soundFX number: 30 play:)
-				(ShakeScreen 5 ssLEFTRIGHT)
-				(gEgo setLoop: 5 setMotion: MoveTo 159 167 self)
+				(ShakeScreen 5 shakeSRight)
+				(ego setLoop: 5 setMotion: MoveTo 159 167 self)
 			)
 			(8
-				(gEgo loop: 4)
+				(ego loop: 4)
 				(= seconds 7)
 			)
 			(9
-				(= global128 myIcon)
-				(= global129 2)
-				(= global130 0)
-				(EgoDead 3 21) ; "Now you're a real southern belle."
+				(= cIcon myIcon)
+				(= deathLoop 2)
+				(= deathCel 0)
+				(EgoDead 3 21)
 			)
 		)
 	)
 )
 
 (instance pullRope of Script
-	(properties)
 
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
 				(HandsOff)
-				(gEgo illegalBits: 0 setMotion: MoveTo 85 146 self)
+				(ego illegalBits: 0 setMotion: MoveTo 85 146 self)
 			)
 			(1
-				(gEgo
+				(ego
 					view: 58
 					cel: 0
 					loop: 0
 					cycleSpeed: 1
-					setCycle: End self
+					setCycle: EndLoop self
 				)
-				(localproc_0 3 22) ; "You reach up and try to grab the ring attached to the end of the rope..."
+				(RoomPrint 3 22)
 			)
 			(2
-				(gEgo loop: 2 setCycle: Fwd)
+				(ego loop: 2 setCycle: Forward)
 				(= seconds 3)
 			)
 			(3
-				(gEgo loop: 0 cel: 5 setCycle: Beg)
+				(ego loop: 0 cel: 5 setCycle: BegLoop)
 				(= seconds 3)
 			)
 			(4
 				(cls)
-				(Print 3 23) ; "...but the short rope is too high for you to reach the ring."
-				(gEgo
+				(Print 3 23)
+				(ego
 					view: 0
 					loop: 1
 					cycleSpeed: 0
-					illegalBits: -32768
+					illegalBits: cWHITE
 					setCycle: Walk
 				)
 				(HandsOn)
@@ -591,31 +595,28 @@
 )
 
 (instance pickUp of Script
-	(properties)
 
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
 				(HandsOff)
-				(DirLoop gEgo (GetAngle (gEgo x:) (gEgo y:) 72 150))
+				(DirLoop ego (GetAngle (ego x?) (ego y?) 72 150))
 				(= cycles 2)
 			)
 			(1
-				(gEgo view: 17 cel: 0 setMotion: 0 setCycle: End self)
+				(ego view: 17 cel: 0 setMotion: 0 setCycle: EndLoop self)
 			)
 			(2
-				(= global182 1)
-				(Print 3 24) ; "Okay. Thinking it might be useful, you remove the crank from the bell and take it with you."
-				(gEgo get: 20) ; crank
+				(= gotItem TRUE)
+				(Print 3 24)
+				(ego get: iCrank)
 				(bell setLoop: 0 forceUpd:)
 				(= cycles 2)
 			)
-			(3
-				(gEgo setCycle: Beg self)
-			)
+			(3 (ego setCycle: BegLoop self))
 			(4
 				(HandsOn)
-				(gEgo view: 0 setCycle: Walk)
+				(ego view: 0 setCycle: Walk)
 				(client setScript: 0)
 			)
 		)
@@ -629,114 +630,118 @@
 	)
 )
 
-(instance bell of Act
+(instance bell of Actor
 	(properties
 		y 12
 		x 72
 		view 203
 	)
-
+	
 	(method (handleEvent event)
-		(cond
-			((Said 'look<(in,below)/bell')
-				(if global164
-					(Print 3 25) ; "You see nothing there."
+		(cond 
+			((Said 'examine<(in,below)/bell')
+				(if bellOnGround
+					(Print 3 25)
 				else
-					(Print 3 26) ; "You cannot look into the bell from here."
+					(Print 3 26)
 				)
 			)
 			((Said 'get/control')
-				(if global164
-					(cond
-						((!= ((gInventory at: 20) owner:) 3) ; crank
-							(AlreadyTook) ; "You already took it."
+				(if bellOnGround
+					(cond 
+						((!= ((inventory at: iCrank) owner?) 3)
+							(AlreadyTook)
 						)
-						((< (gEgo distanceTo: bell) 15)
+						((< (ego distanceTo: bell) 15)
 							(self setScript: pickUp)
 						)
 						(else
-							(NotClose) ; "You're not close enough."
+							(NotClose)
 						)
 					)
 				else
-					(Print 3 27) ; "You don't see a crank here."
+					(Print 3 27)
 				)
 			)
 			((Said 'get,move/bell')
-				(Print 3 28) ; "You could never carry around that big bell!"
+				(Print 3 28)
 			)
 			(
 				(or
-					(Said '(ring,pull)<use<cane/(hemp,ring,bell)')
+					(Said '(ring,drag)<use<cane/(hemp,ring,bell)')
 					(Said 'use/cane/bell<ring')
-					(Said 'pull,get,get/(ring,hemp,bell)/cane<(with,use)')
+					(Said 'drag,get,get/(ring,hemp,bell)/cane<(with,use)')
 					(Said 'ring/bell/cane<(with,use)')
 				)
-				(if (not global164)
-					(if (gEgo has: 21) ; cane
+				(if (not bellOnGround)
+					(if (ego has: iCane)
 						(if
 							(or
-								(& (gEgo onControl: 1) $0008)
-								(& (gEgo onControl: 1) $0004)
+								(& (ego onControl: origin) cCYAN)
+								(& (ego onControl: origin) cGREEN)
 							)
-							(gEgo setScript: ringBell)
+							(ego setScript: ringBell)
 						else
-							(NotClose) ; "You're not close enough."
+							(NotClose)
 						)
 					else
-						(DontHave) ; "You don't have it."
+						(DontHave)
 					)
 				else
-					(Print 3 29) ; "You can't ring the bell now!"
+					(Print 3 29)
 				)
 			)
 			(
 				(or
-					(Said '(ring,pull)<use<*/(hemp,ring,bell)')
+					(Said '(ring,drag)<use<*/(hemp,ring,bell)')
 					(Said 'use/*/bell<ring')
-					(Said 'pull/(ring,hemp)/*<with')
+					(Said 'drag/(ring,hemp)/*<with')
 				)
-				(Print 3 30) ; "That would not do any good."
+				(Print 3 30)
 			)
 			((Said 'ring/bell')
-				(if global164
-					(Print 3 29) ; "You can't ring the bell now!"
+				(if bellOnGround
+					(Print 3 29)
 				else
-					(Print 3 31) ; "You need to pull on the rope to ring the bell."
+					(Print 3 31)
 				)
 			)
-			((Said 'get,get,pull,ring/bell,hemp,ring')
-				(cond
-					(global164
-						(Print 3 29) ; "You can't ring the bell now!"
+			((Said 'get,get,drag,ring/bell,hemp,ring')
+				(cond 
+					(bellOnGround
+						(Print 3 29)
 					)
 					(
 						(or
-							(& (gEgo onControl: 1) $0008)
-							(& (gEgo onControl: 1) $0004)
+							(& (ego onControl: origin) cCYAN)
+							(& (ego onControl: origin) cGREEN)
 						)
-						(gEgo setScript: pullRope)
+						(ego setScript: pullRope)
 					)
 					(else
-						(NotClose) ; "You're not close enough."
+						(NotClose)
 					)
 				)
 			)
-			((or (MousedOn self event 3) (Said 'search,look/bell'))
-				(event claimed: 1)
-				(cond
-					(global164
-						(if (== ((gInventory at: 20) owner:) 3) ; crank
-							(Print 3 32) ; "What's that attached to the bell?! Hmmmm. It's some sort of old metal crank."
+			(
+				(or
+					(MousedOn self event shiftDown)
+					(Said 'search,examine/bell')
+				)
+				(event claimed: TRUE)
+				(cond 
+					(bellOnGround
+						(if (== ((inventory at: iCrank) owner?) 3)
+							(Print 3 32)
 						else
-							(Print 3 33) ; "It's just an old, rusted, iron bell."
+							(Print 3 33)
 						)
 					)
-					(global184
-						(Print 3 15) ; "Oiling the rusted bell may have loosened it."
+					(oiledBell
+						(Print 3 15)
 					)
 					(else
-						(Print 3 34) ; "Dusty cobwebs cover the old bell that over years has rusted in place."
+						(Print 3 34)
 					)
 				)
 			)
@@ -749,13 +754,13 @@
 		y 82
 		x 77
 		view 203
-		signal 16384
+		signal ignrAct
 	)
-
+	
 	(method (handleEvent event)
-		(if (or (MousedOn self event 3) (Said 'look/hemp,ring'))
-			(event claimed: 1)
-			(Print 3 35) ; "A short rope hangs slightly below the old bell tower. There is a rusty, iron ring attached to the bottom of it."
+		(if (or (MousedOn self event shiftDown) (Said 'examine/hemp,ring'))
+			(event claimed: TRUE)
+			(Print 3 35)
 		)
 	)
 )
@@ -790,22 +795,22 @@
 	)
 )
 
-(instance bat of Act
+(instance bat of Actor
 	(properties
 		y 14
 		x 74
 		view 203
 		loop 4
 	)
-
+	
 	(method (handleEvent event)
-		(cond
-			((or (MousedOn self event 3) (Said 'look/bat'))
-				(event claimed: 1)
-				(Print 3 36) ; "You scared away a bat!"
+		(cond 
+			((or (MousedOn self event shiftDown) (Said 'examine/bat'))
+				(event claimed: TRUE)
+				(Print 3 36)
 			)
 			((Said 'capture,get/bat')
-				(Print 3 37) ; "You don't want a bat."
+				(Print 3 37)
 			)
 		)
 	)
@@ -818,18 +823,18 @@
 		nsBottom 156
 		nsRight 37
 	)
-
+	
 	(method (handleEvent event)
-		(cond
-			((or (MousedOn self event 3) (Said 'look/ladder'))
-				(event claimed: 1)
-				(Print 3 38) ; "A rickety ladder runs up the side of the old bell tower."
+		(cond 
+			((or (MousedOn self event shiftDown) (Said 'examine/ladder'))
+				(event claimed: TRUE)
+				(Print 3 38)
 			)
 			((Said 'climb[/ladder,tower]')
-				(if local0
-					(gEgo setScript: climbDown)
+				(if nearLadder
+					(ego setScript: climbDown)
 				else
-					(NotClose) ; "You're not close enough."
+					(NotClose)
 				)
 			)
 		)
@@ -840,6 +845,6 @@
 	(properties
 		view 31
 		loop 2
+		cycleSpeed 16
 	)
 )
-

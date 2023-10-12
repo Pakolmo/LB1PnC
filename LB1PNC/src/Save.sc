@@ -1,14 +1,56 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-;;; Decompiled by sluicebox
-(script# 990)
-(include sci.sh)
+;;;;
+;;;;	SAVE.SC
+;;;;	(c) Sierra On-Line, Inc, 1988
+;;;;
+;;;;	Author: Jeff Stephenson
+;;;;
+;;;;	Classes which create the save/restore game user interface.  Also
+;;;;	contains a number of instances of Dialogs and associated DItems
+;;;;	used in the interface.
+;;;;
+;;;;	Classes:
+;;;;		SRDialog
+;;;;		Save
+;;;;		Restore
+
+
+
+(script# SAVE)
+(include game.sh)
 (use Main)
-(use Interface)
+(use Intrface)
 (use Window)
 
+(define	GAMESSHOWN 8)		;the number of games displayed in the selector
+(define	MAXGAMES 20)		;maximum number of games in a save directory
+(define	COMMENTSIZE 36)		;size of user's description of the game
+(define COMMENTBUFF 18) 	;(define	COMMENTBUFF (/ (+ 1 COMMENTSIZE) 2))
+
+(define	DIRECTORYSIZE 29) ;size of the save directory name
+ ;(define	DIRECTORYBUFF (/ (+ 1 DIRECTORYSIZE) 2))
+
+(define BUFFERSIZE 361) ;(define	BUFFERSIZE (+ (* MAXGAMES COMMENTBUFF) 1))
+
+
+;;;(procedure
+;;;	GetDirectory
+;;;	HaveSpace
+;;;	GetStatus
+;;;	NeedDescription
+;;;)
+
+
 (public
-	GetDirectory 0
+	GetDirectory	0
 )
+
+;;;(define noRoomMsg
+;;;	{This directory/disk can hold no more saved games. 
+;;;	You must replace one of your saved games or use
+;;;	Change Directory to save on a different directory/disk.}
+;;;)
+
 
 (local
 	default
@@ -16,336 +58,484 @@
 	numGames
 	selected
 	status
-	[okIText 4] = [{Restore} {  Save  } {Replace} {Replace}]
-	[textIText 4] = [{Select the game that you would like to restore.} {Type the description of this saved game.} {This directory/disk can hold no more saved games. You must replace one of your saved games or use Change Directory to save on a different directory/disk.} {This directory/disk can hold no more saved games. You must replace one of your saved games or use Change Directory to save on a different directory/disk.}]
+	okIText = [{Restore} {__Save__} {Replace} {Replace}]
+	textIText = [
+					{Select the game that you would like to restore.}
+					{Type the description of this saved game.}
+					{This directory/disk can hold no more saved games. 
+	You must replace one of your saved games or use
+	Change Directory to save on a different directory/disk.}
+					{This directory/disk can hold no more saved games. 
+	You must replace one of your saved games or use
+	Change Directory to save on a different directory/disk.}
+					]
 )
 
-(procedure (localproc_0)
-	(return
-		(cond
-			((== self Restore) 0)
-			((localproc_1) 1)
-			(numGames 2)
-			(else 3)
-		)
-	)
+
+
+(enum
+	RESTORE			;Restore games
+	HAVESPACE		;Save, with space on disk
+	NOSPACE			;Save, no space on disk but games to replace
+	NOREPLACE		;Save, no space on disk, no games to replace
 )
 
-(procedure (GetDirectory where &tmp result [newDir 33] [str 40])
-	(repeat
-		(if
-			(not
-				(= result
-					(Print ; "New save-game directory:"
-						990
-						1
-						#font
-						0
-						#edit
-						(StrCpy @newDir where)
-						29
-						#button
-						{OK}
-						1
-						#button
-						{Cancel}
-						0
-					)
-				)
-			)
-			(return 0)
-		)
-		(if (not (StrLen @newDir))
-			(GetCWD @newDir)
-		)
-		(if (ValidPath @newDir)
-			(StrCpy where @newDir)
-			(return 1)
-		else
-			(Print (Format @str 990 2 @newDir) #font 0) ; "%s is not a valid directory"
-		)
-	)
-)
 
-(procedure (localproc_1)
-	(if (< numGames 20)
-		(CheckFreeSpace gCurSaveDir)
-	)
-)
 
-(procedure (localproc_2)
-	(Print 990 3 #font 0) ; "You must type a description for the game."
-)
-
-(class SRDialog of Dialog
-	(properties)
+(class SRDialog kindof Dialog
+	;;; The SRDialog class implements the user interface for save/restore.
+	;;; Its subclasses are the specific save and restore game dialogs,
+	;;; Save and Restore.
 
 	(method (init theComment names nums)
+		;; Initialize the dialog.
+
+
+		; give ourself the class SysWindow as our window
 		(= window SysWindow)
+
+		;Re-init our size, with no elements.
 		(= nsBottom 0)
-		(if (== (= numGames (GetSaveFiles (gGame name:) names nums)) -1)
-			(return 0)
+
+		;Get some files for this directory.
+		(= numGames (GetSaveFiles (theGame name?) names nums))
+		(if (== numGames -1)
+			(return FALSE)
 		)
-		(if (== (= status (localproc_0)) 1)
+
+		(= status (GetStatus))
+
+		;Set up the edit item for saved games.
+		(if (== status HAVESPACE)
 			(editI
-				text: (StrCpy theComment names)
-				font: gSmallFont
-				setSize:
-				moveTo: 4 4
+				text: (StrCpy theComment names),
+				font: smallFont,
+				setSize:,
+				moveTo: MARGIN MARGIN
 			)
-			(self add: editI setSize:)
+			(self add: editI, setSize:)
 		)
+
+		;Set up the selectorI box.
 		(selectorI
-			text: names
-			font: gSmallFont
-			setSize:
-			moveTo: 4 (+ nsBottom 4)
-			state: 2
+			text: names,
+			font: smallFont,
+			setSize:,
+			moveTo: MARGIN (+ nsBottom MARGIN),
+			state: dExit
 		)
-		(= i (+ (selectorI nsRight:) 4))
+
+		;Add three buttons down the side.
+		(= i (+ (selectorI nsRight?) MARGIN))
 		(okI
-			text: [okIText status]
-			setSize:
-			moveTo: i (selectorI nsTop:)
-			state: (if (== status 3) 0 else 3)
+			text: [okIText status],
+			setSize:,
+			moveTo: i (selectorI nsTop?),
+			state:(if (== status NOREPLACE) 0 else (| dActive dExit))
 		)
 		(cancelI
-			setSize:
-			moveTo: i (+ (okI nsBottom:) 4)
-			state: (& (cancelI state:) $fff7)
+			setSize:,
+			moveTo: i (+ (okI nsBottom?) MARGIN),
+			state: (& (cancelI state?) (~ dSelected))
 		)
 		(changeDirI
+			setSize:,
+			moveTo: i (+ (cancelI nsBottom?) MARGIN),
+			state: (& (changeDirI state?) (~ dSelected))
+		)
+
+		;Put these elements into the dialog and size it.
+		(self
+			add: selectorI okI cancelI changeDirI,
 			setSize:
-			moveTo: i (+ (cancelI nsBottom:) 4)
-			state: (& (changeDirI state:) $fff7)
 		)
-		(self add: selectorI okI cancelI changeDirI setSize:)
+
+		;Use the width of the dialog to size the text which goes into it.
 		(textI
-			text: [textIText status]
-			setSize: (- (- nsRight nsLeft) 8)
-			moveTo: 4 4
+			text: [textIText status],
+			setSize: (- (- nsRight nsLeft) (* 2 MARGIN)),
+			moveTo: MARGIN MARGIN
 		)
-		(= i (+ (textI nsBottom:) 4))
-		(self eachElementDo: #move 0 i)
-		(self add: textI setSize: center: open: 4 15)
-		(return 1)
+
+		;Now move all elements down by the height of the text.
+		(= i (+ (textI nsBottom?) MARGIN))
+		(self eachElementDo: #move: 0 i)
+
+		;Add the text to the dialog, and resize.
+		(self
+			add: textI,
+			setSize:, 
+			center:,
+			open: wTitled 15
+		)
+
+		(return TRUE)
 	)
 
-	(method (doit theComment &tmp fd ret offset names [nums 361] [str 21] [dir 40])
-		(if (and (== self Restore) argc theComment)
-			(if (== (= ret (FOpen (Format @dir 990 0 (gGame name:)))) -1) ; "%ssg.dir"
+
+
+
+	(method	(doit theComment
+						&tmp 	oldStatus fd ret offset
+								[names BUFFERSIZE] [nums 21]
+								[str 40]
+				)
+
+		;If restore: is called with a TRUE parameter, do nothing if there
+		;are no saved games.  This allows optionally presenting the user
+		;with his saved games at the start of the game.
+		(if
+			(and
+				(== self Restore)
+				argc
+				theComment
+			)
+
+			(= fd (FOpen (Format @str SAVE 0 (theGame name?))))
+			(if (== fd -1)
+				;no directory -> no saved games
 				(return)
 			)
-			(FClose ret)
+			(FClose fd)
 		)
-		(if (not (self init: theComment @nums @str))
+
+		(if (not (self init: theComment @names @nums))
 			(return -1)
 		)
+
 		(repeat
 			(= default
 				(switch status
-					(0
-						(if numGames okI)
+					(RESTORE
+						(if numGames okI else changeDirI)
 					)
-					(1 editI)
-					(2 okI)
-					(else changeDirI)
+					(HAVESPACE
+						;Edit item of save games is active if present
+						editI
+					)
+					(NOSPACE
+						;If there are save-games to replace, 'Replace'
+						;button is active.
+						okI
+					)
+					(else
+						;Otherwise 'Change Directory' button is active.
+						changeDirI
+					)
 				)
 			)
+
 			(= i (super doit: default))
-			(= names (* (= selected (selectorI indexOf: (selectorI cursor:))) 18))
-			(if (== i changeDirI)
-				(if (GetDirectory gCurSaveDir)
-					(if
-						(==
-							(= numGames
-								(GetSaveFiles (gGame name:) @nums @str)
-							)
-							-1
+
+			(= selected (selectorI indexOf: (selectorI cursor?)))
+			(= offset (* selected COMMENTBUFF))
+			(cond
+				((== i changeDirI)
+					(if (GetDirectory curSaveDir)
+						(= numGames
+							(GetSaveFiles (theGame name?) @names @nums)
 						)
-						(= offset -1)
-						(break)
-					)
-					(= fd status)
-					(switch (= status (localproc_0))
-						(0)
-						(fd
-							(if (self contains: editI)
-								(editI
-									cursor: (StrLen (StrCpy theComment @nums))
-									draw:
+						(if (== numGames -1)
+							(= ret -1)
+							(break)
+						)
+
+						(= oldStatus status)
+						(= status (GetStatus))
+						(switch status
+							(RESTORE
+							)
+							(oldStatus
+								(if (self contains: editI)
+									(editI
+										cursor: (StrLen (StrCpy theComment @names)),
+										draw:
+									)
+								)
+							)
+							(else
+								(self
+									dispose:,
+									init: theComment @names @nums
 								)
 							)
 						)
-						(else
-							(self dispose: init: theComment @nums @str)
-						)
+
+						(selectorI draw:)
 					)
-					(selectorI draw:)
 				)
-			else
-				(if (and (== status 2) (== i okI))
-					(if (GetReplaceName doit: (StrCpy theComment @[nums names]))
-						(= offset [str selected])
+
+				((and (== status NOSPACE) (== i okI))
+					(if (GetReplaceName doit: (StrCpy theComment @[names offset]))
+						(= ret [nums selected])
 						(break)
 					)
-					(continue)
 				)
-				(if (and (== status 1) (or (== i okI) (== i editI)))
+
+				((and (== status HAVESPACE) (or (== i okI) (== i editI)))
 					(if (== (StrLen theComment) 0)
-						(localproc_2)
+						(NeedDescription)
 						(continue)
 					)
-					(= offset -1)
-					(for ((= i 0)) (< i numGames) ((++ i))
-						(breakif
-							(not
-								(= offset (StrCmp theComment @[nums (* i 18)]))
-							)
-						)
+
+					(= ret -1)
+					(for	((= i 0))
+							(< i numGames)
+							((++ i))
+
+						(= ret (StrCmp theComment @[names (* i COMMENTBUFF)]))
+						(breakif (not ret))
 					)
-					(= offset
+
+					(= ret
 						(cond
-							((not offset) [str i])
-							((== numGames 20) [str selected])
-							(else numGames)
+							((not ret)
+								[nums i]
+							)
+							((== numGames MAXGAMES)
+								[nums selected]
+							)
+							(else
+								numGames
+							)
 						)
 					)
 					(break)
 				)
-				(cond
-					((== i okI)
-						(= offset [str selected])
-						(break)
-					)
-					((or (== i 0) (== i cancelI))
-						(= offset -1)
-						(break)
-					)
-					((== status 1)
-						(editI
-							cursor: (StrLen (StrCpy theComment @[nums names]))
-							draw:
-						)
+
+				((== i okI)
+					(= ret [nums selected])
+					(break)
+				)
+
+				((or (== i 0) (== i cancelI))
+					(= ret -1)
+					(break)
+				)
+
+				((== status HAVESPACE)
+					(editI
+						cursor:
+							(StrLen (StrCpy theComment @[names offset])),
+						draw:
 					)
 				)
 			)
 		)
+
 		(self dispose:)
-		(return offset)
+		(return ret)
+	)
+
+
+
+	(procedure (GetStatus)
+		(return
+			(cond
+				((== self Restore)
+					RESTORE
+				)
+				((HaveSpace)
+					HAVESPACE
+				)
+				(numGames
+					NOSPACE
+				)
+				(else
+					NOREPLACE
+				)
+			)
+		)
 	)
 )
+
+
 
 (class Restore of SRDialog
 	(properties
-		text {Restore a Game}
+		text "Restore a Game"
 	)
 )
+
 
 (class Save of SRDialog
 	(properties
-		text {Save a Game}
+		text "Save a Game"
 	)
 )
+
+
 
 (instance GetReplaceName of Dialog
-	(properties)
 
-	(method (doit theComment &tmp temp0)
+	(method (doit theComment &tmp ret)
+		; give ourself the class SysWindow as our window
 		(= window SysWindow)
-		(text1 setSize: moveTo: 4 4)
-		(self add: text1 setSize:)
-		(oldName text: theComment font: gSmallFont setSize: moveTo: 4 nsBottom)
-		(self add: oldName setSize:)
-		(text2 setSize: moveTo: 4 nsBottom)
-		(self add: text2 setSize:)
-		(newName text: theComment font: gSmallFont setSize: moveTo: 4 nsBottom)
-		(self add: newName setSize:)
-		(button1 nsLeft: 0 nsTop: 0 setSize:)
-		(button2 nsLeft: 0 nsTop: 0 setSize:)
-		(button2 moveTo: (- nsRight (+ (button2 nsRight:) 4)) nsBottom)
-		(button1
-			moveTo: (- (button2 nsLeft:) (+ (button1 nsRight:) 4)) nsBottom
+
+		(text1
+			setSize:,
+			moveTo:MARGIN MARGIN
 		)
-		(self add: button1 button2 setSize: center: open: 0 15)
-		(= temp0 (super doit: newName))
+		(self add:text1, setSize:)
+		(oldName
+			text: theComment,
+			font: smallFont,
+			setSize:,
+			moveTo:MARGIN nsBottom
+		)
+		(self add:oldName, setSize:)
+		(text2
+			setSize:,
+			moveTo:MARGIN nsBottom
+		)
+		(self add:text2, setSize:)
+		(newName
+			text: theComment,
+			font: smallFont,
+			setSize:,
+			moveTo: MARGIN nsBottom
+		)
+		(self add:newName, setSize:)
+
+		(button1 nsLeft:0, nsTop:0, setSize:)
+		(button2 nsLeft:0, nsTop:0, setSize:)
+		(button2
+			moveTo:
+				(-	nsRight (+ (button2 nsRight?) MARGIN))
+				nsBottom
+		)
+		(button1
+			moveTo:
+				(- (button2 nsLeft?) (+ (button1 nsRight?) MARGIN))
+				nsBottom
+		)
+
+		(self
+			add:button1 button2,
+			setSize:,
+			center:, 
+			open:stdWindow 15
+		)
+
+		(= ret (super doit:newName))
 		(self dispose:)
 		(if (not (StrLen theComment))
-			(localproc_2)
-			(= temp0 0)
+			(NeedDescription)
+			(= ret 0)
 		)
-		(return (or (== temp0 newName) (== temp0 button1)))
+
+		(return (or (== ret newName) (== ret button1)))
 	)
 )
+
+
+
+(procedure (GetDirectory where &tmp result [newDir 33] [str 40])
+	(repeat
+		(= result
+			(Print 
+				SAVE 1
+				#font: SYSFONT
+				#edit: (StrCpy @newDir where) DIRECTORYSIZE
+				#button: {OK} 1
+				#button: {Cancel} 0
+			)
+		)
+
+		;Pressed ESC -- return FALSE.
+		(if (not result)
+			(return FALSE)
+		)
+
+		;No string defaults to current drive.
+		(if (not (StrLen @newDir))
+			(GetCWD @newDir)
+		)
+
+		;If drive is valid, return TRUE, otherwise complain.
+		(if (ValidPath @newDir)
+			(StrCpy where @newDir)
+			(return TRUE)
+		else
+			(Print
+				(Format @str SAVE 2 @newDir)
+				#font:SYSFONT
+			)
+		)
+	)
+)
+
+
+
+(procedure (HaveSpace)
+	(return (and (< numGames MAXGAMES) (CheckFreeSpace curSaveDir)))
+)
+
+
+
+(procedure (NeedDescription)
+	(Print SAVE 3 #font:SYSFONT)
+)
+
+
 
 (instance selectorI of DSelector
 	(properties
-		x 36
-		y 8
+		x COMMENTSIZE 
+		y GAMESSHOWN
 	)
 )
-
 (instance editI of DEdit
 	(properties
-		max 35
+		max (- COMMENTSIZE 1)
 	)
 )
-
 (instance okI of DButton
-	(properties)
 )
-
 (instance cancelI of DButton
 	(properties
-		text { Cancel }
+		text "_Cancel_"
 	)
 )
-
 (instance changeDirI of DButton
 	(properties
-		text {Change\r\nDirectory}
+		text {Change\nDirectory}
+	)
+)
+(instance textI of DText
+	(properties
+		font SYSFONT
 	)
 )
 
-(instance textI of DText
-	(properties
-		font 0
-	)
-)
 
 (instance text1 of DText
 	(properties
-		text {Replace}
-		font 0
+		font SYSFONT
+		text "Replace"
 	)
 )
-
 (instance text2 of DText
 	(properties
-		text {with:}
-		font 0
+		font SYSFONT
+		text "with:"
 	)
 )
-
 (instance oldName of DText
-	(properties)
 )
-
 (instance newName of DEdit
 	(properties
-		max 35
+		max (- COMMENTSIZE 1)
 	)
 )
-
 (instance button1 of DButton
 	(properties
-		text {Replace}
+		text "Replace"
 	)
 )
-
 (instance button2 of DButton
 	(properties
-		text {Cancel}
+		text "Cancel"
 	)
 )
 

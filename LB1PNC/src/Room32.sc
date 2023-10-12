@@ -1,10 +1,9 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-;;; Decompiled by sluicebox
 (script# 32)
-(include sci.sh)
+(include game.sh)
 (use Main)
 (use ElevGate)
-(use Interface)
+(use Intrface)
 (use RFeature)
 (use Motion)
 (use Game)
@@ -15,7 +14,6 @@
 (public
 	Room32 0
 )
-
 (synonyms
 	(painting beauregard)
 	(bookcase bookcase shelf)
@@ -25,28 +23,27 @@
 (local
 	local0
 	local1
-	local2
+	newElevGate
 	local3
 	local4
 	local5
 	local6
 	local7
-	[local8 4] = [32 0 32 1]
+	msgID = [32 0 32 1]
 )
-
-(instance Room32 of Rm
+(instance Room32 of Room
 	(properties
 		picture 32
 	)
-
+	
 	(method (init)
 		(= east 33)
 		(super init:)
-		(if (== (& global111 $7fff) gCurRoomNum)
-			(= [local8 0] [local8 2])
-			(= [local8 1] [local8 3])
+		(if (== (& global111 $7fff) curRoomNum)
+			(= [msgID 0] [msgID 2])
+			(= [msgID 1] [msgID 3])
 		)
-		(gAddToPics
+		(addToPics
 			add:
 				mantle
 				books
@@ -60,42 +57,42 @@
 				table
 				tools
 		)
-		(lamp1 setPri: 5 setCycle: Fwd init:)
-		(lamp2 setPri: 5 setCycle: Fwd init:)
-		(fire loop: (/ gAct 2) setCycle: Fwd init:)
-		(if (not gDetailLevel)
+		(lamp1 setPri: 5 setCycle: Forward init:)
+		(lamp2 setPri: 5 setCycle: Forward init:)
+		(fire loop: (/ currentAct 2) setCycle: Forward init:)
+		(if (not howFast)
 			(lamp1 addToPic:)
 			(lamp2 addToPic:)
 			(fire addToPic:)
 		)
-		(if (!= gPrevRoomNum 66)
-			(if (!= gPrevRoomNum 49)
-				(if (== gPrevRoomNum 33)
-					(gEgo posn: 310 150)
+		(if (!= prevRoomNum 66)
+			(if (!= prevRoomNum 49)
+				(if (== prevRoomNum 33)
+					(ego posn: 310 150)
 				else
-					(gEgo posn: 55 120)
+					(ego posn: 55 120)
 				)
-				(gEgo view: 0 illegalBits: -32768 setPri: -1)
+				(ego view: 0 illegalBits: cWHITE setPri: -1)
 			else
-				(gEgo view: 0 illegalBits: -32768 setPri: -1 posn: 252 167)
+				(ego view: 0 illegalBits: cWHITE setPri: -1 posn: 252 167)
 				(= local6 1)
 			)
 		)
-		(if (>= gAct 2)
-			(Mag ignoreActors: 1 init: stopUpd:)
-			(if (< gAct 3)
-				(Feather setPri: 8 ignoreActors: 1 init:)
+		(if (>= currentAct 2)
+			(Mag ignoreActors: TRUE init: stopUpd:)
+			(if (< currentAct 3)
+				(Feather setPri: 8 ignoreActors: TRUE init:)
 				(chair1 view: 132 loop: 2 cel: 3 y: 135)
 				(tools cel: 1)
 			)
-			(if (and ((gInventory at: 6) ownedBy: 32) (< gAct 3)) ; poker
-				(Load rsVIEW 17)
+			(if (and ((inventory at: iPoker) ownedBy: 32) (< currentAct 3))
+				(Load VIEW 17)
 				(poker setPri: 9 stopUpd: init:)
 			)
-			(gAddToPics add: chair1 tools)
+			(addToPics add: chair1 tools)
 		)
 		(self
-			setRegions: 213 ; fireReg
+			setRegions: 213
 			setFeatures:
 				chair2
 				chair3
@@ -113,34 +110,37 @@
 				mantle
 				Mirror
 		)
-		(if (not gDetailLevel)
+		(if (not howFast)
 			(self setFeatures: lamp1 lamp2 fire)
 		)
-		(if (and (<= (Random 1 100) 35) (> gAct 0) (< gAct 3))
+		(if
+			(and
+				(<= (Random 1 100) 35)
+				(> currentAct 0)
+				(< currentAct 3)
+			)
 			(Shadow illegalBits: 0 posn: 13 82 setPri: 1 init:)
 			(Shadow setScript: shadowWalk)
 		)
-		(switch gAct
+		(switch currentAct
 			(0
 				(= local0 1)
 				(= local7 1)
-				(self setRegions: 220) ; wilbRead
+				(self setRegions: 220)
 			)
 			(1
 				(if
 					(and
-						(not (& gElevatorState $0020))
-						(or (== gClarenceWilburState 2) (>= gClarenceWilburState 4))
+						(not (& global109 $0020))
+						(or (== global154 2) (>= global154 4))
 					)
-					(if (== gClarenceWilburState 2)
-						(User canInput: 0)
-					)
+					(if (== global154 2) (User canInput: 0))
 					(= local0 1)
 					(= local7 1)
-					(self setRegions: 402) ; wilbRead
+					(self setRegions: 402)
 				)
-				(if (<= gClarenceWilburState 3)
-					(gAddToPics add: chair1)
+				(if (<= global154 3)
+					(addToPics add: chair1)
 				)
 			)
 			(2
@@ -151,18 +151,18 @@
 			(3
 				(if
 					(and
-						(!= gPrevRoomNum 42)
-						(< gMinute 3)
+						(!= prevRoomNum 42)
+						(< gameMinutes 3)
 						(not (& global141 $0002))
 					)
-					(self setRegions: 269) ; sweeping
+					(self setRegions: 269)
 					(= global111 42)
 				)
 			)
 		)
 		(if (not local0)
-			(= local2 (ElevGate new:))
-			(local2
+			(= newElevGate (ElevGate new:))
+			(newElevGate
 				chainID: chain
 				elevatorID: elevator
 				downID: down
@@ -172,147 +172,114 @@
 		else
 			(elevGate
 				cel:
-					(if (& gElevatorState $0001)
+					(if (& global109 $0001)
 						(- (NumCels elevGate) 1)
 					else
-						(&= gElevatorState $fffe)
+						(&= global109 $fffe)
 					)
 				setPri: 9
 				init:
 				stopUpd:
 			)
-			(gEgo init:)
+			(ego init:)
 		)
-		(gAddToPics eachElementDo: #init doit:)
+		(addToPics eachElementDo: #init doit:)
 	)
-
+	
 	(method (doit)
-		(if (and (== gAct 3) (== global373 1))
+		(if (and (== currentAct 3) (== gDoor 1))
 			(= local7 1)
 		)
-		(if (and (== gAct 3) (== global373 0))
+		(if (and (== currentAct 3) (== gDoor 0))
 			(= local7 0)
 		)
-		(if (and (not (& gElevatorState $0010)) (IsFirstTimeInRoom))
-			(Print [local8 0] [local8 1])
+		(if (and (not (& global109 $0010)) (FirstEntry))
+			(Print [msgID 0] [msgID 1])
 		)
 		(if local6
 			(= local6 0)
-			(Print 32 2) ; "The secret panel closes behind you and leaves no trace!"
+			(Print 32 2)
 		)
 		(if (== global198 100)
 			(= global198 101)
-			(Print 32 3) ; "Something looks wrong here! A chair has been knocked over, and there are signs of a struggle on the floor!"
+			(Print 32 3)
 		)
-		(if (& (gEgo onControl: 1) $0004)
-			(gCurRoom newRoom: 31)
+		(if (& (ego onControl: origin) cGREEN)
+			(curRoom newRoom: 31)
 		)
-		(cond
-			((< (gEgo x:) 140)
-				(= vertAngle 44)
-			)
-			((< (gEgo x:) 260)
-				(= vertAngle 27)
-			)
-			(else
-				(= vertAngle 18)
-			)
+		(cond 
+			((< (ego x?) 140) (= vertAngle 44))
+			((< (ego x?) 260) (= vertAngle 27))
+			(else (= vertAngle 18))
 		)
 		(super doit:)
 	)
-
+	
 	(method (dispose)
 		(DisposeScript 204)
 		(DisposeScript 201)
 		(super dispose:)
 	)
-
-	(method (newRoom newRoomNumber)
-		(super newRoom: newRoomNumber)
-	)
-
+	
 	(method (handleEvent event &tmp temp0)
 		(super handleEvent: event)
-		(if (event claimed:)
-			(return)
-		)
-		(if (== (event type:) evSAID)
-			(DisposeScript 990)
+		(if (event claimed?) (return))
+		(if (== (event type?) saidEvent)
+			(DisposeScript SAVE)
 			(if
 				(and
 					global208
 					(Said
-						'ask,tell,show,give,look,get,kill,kiss,embrace,flirt>'
+						'ask,tell,hold,deliver,examine,get,kill,kiss,embrace,flirt>'
 					)
 				)
-				(self setScript: (ScriptID 243 0)) ; atsgl
-				((self script:) handleEvent: event)
-				(if (event claimed:)
-					(return)
-				)
+				(self setScript: (ScriptID 243 0))
+				((self script?) handleEvent: event)
+				(if (event claimed?) (return))
 			)
 			(if (== local0 1)
 				(= local4 -1)
-				(cond
+				(cond 
 					((or (Said '*/elevator,lift') (Said 'lift[<open][/*]'))
-						(Print 32 4) ; "Currently, you don't SEE an elevator, just an elevator shaft."
+						(Print 32 4)
 					)
-					((Said 'look>')
-						(cond
+					((Said 'examine>')
+						(cond 
 							((Said '/archway')
-								(Print 32 5) ; "The gate provides protection from the elevator as it moves between floors."
+								(Print 32 5)
 							)
 							((Said '/shaft')
-								(cond
-									((< gCurRoomNum global111)
-										(Print 32 6) ; "The elevator seems to be upstairs."
-									)
-									((> gCurRoomNum global111)
-										(Print 32 7) ; "The elevator seems to be downstairs."
-									)
-									((not (& (gEgo onControl: 1) $0028))
-										(NotClose) ; "You're not close enough."
-									)
+								(cond 
+									((< curRoomNum global111) (Print 32 6))
+									((> curRoomNum global111) (Print 32 7))
+									((not (& (ego onControl: origin) (| cMAGENTA cCYAN))) (NotClose))
 								)
 							)
 						)
 					)
 					((Said 'open/archway')
 						(= local3 1)
-						(cond
-							((& gElevatorState $0001)
-								(AlreadyOpen) ; "It is already open."
-							)
-							((& (gEgo onControl: 1) $0008)
-								(= local4 3)
-							)
-							((& (gEgo onControl: 1) $0020)
-								(= local4 2)
-							)
-							(else
-								(NotClose) ; "You're not close enough."
-							)
+						(cond 
+							((& global109 $0001) (AlreadyOpen))
+							((& (ego onControl: origin) cCYAN) (= local4 3))
+							((& (ego onControl: origin) cMAGENTA) (= local4 2))
+							(else (NotClose))
 						)
 					)
 					((Said 'close/archway')
 						(= local3 0)
-						(cond
-							((not (& gElevatorState $0001))
-								(AlreadyClosed) ; "It is already closed."
+						(cond 
+							((not (& global109 $0001))
+								(AlreadyClosed)
 							)
-							((& (gEgo onControl: 1) $0008)
-								(if (== (gEgo y:) (elevGate y:))
-									(Print 32 8) ; "You can't; you are blocking the gate."
-									(return)
-								)
+							((& (ego onControl: origin) cRED)
+								(if (== (ego y?) (elevGate y?)) (Print 32 8) (return))
 								(= local4 3)
 							)
-							((& (gEgo onControl: 1) $0020)
+							((& (ego onControl: origin) cMAGENTA)
 								(= local4 2)
 							)
-							(else
-								(NotClose) ; "You're not close enough."
-							)
+							(else (NotClose))
 						)
 					)
 				)
@@ -320,179 +287,155 @@
 					(elevGate setScript: GateFunc)
 				)
 			)
-			(if (event claimed:)
-				(return)
-			)
-			(cond
+			(if (event claimed?) (return))
+			(cond 
 				((Said '/panel,(door<hidden)>')
-					(cond
-						((Said 'look')
+					(cond 
+						((Said 'examine')
 							(if (& global175 $0001)
-								(Print 32 9) ; "Even though you know where it is, you can't see it."
+								(Print 32 9)
 							else
-								(Print 32 10) ; "You don't see one."
+								(Print 32 10)
 							)
 						)
 						((and (& global175 $0001) (Said 'open,move'))
 							(if (not local7)
-								(if (& (gEgo onControl: 1) $0080)
-									(gCurRoom newRoom: 49)
+								(if (& (ego onControl: 1) $0080)
+									(curRoom newRoom: 49)
 								else
-									(NotClose) ; "You're not close enough."
+									(NotClose)
 								)
 							else
-								(Print 32 11) ; "Better not while someone is in the room."
+								(Print 32 11)
 							)
 						)
 					)
 				)
-				((Said 'look>')
-					(cond
+				((Said 'examine>')
+					(cond 
 						((Said '[<around,at][/room]')
-							(cond
-								((gCast contains: poker)
-									(&= global166 (~ (<< $0001 gAct)))
-									(Print 32 3) ; "Something looks wrong here! A chair has been knocked over, and there are signs of a struggle on the floor!"
+							(cond 
+								((cast contains: poker)
+									(&= global166 (~ (<< $0001 currentAct)))
+									(Print 32 3)
 								)
-								((& (gEgo onControl: 0) $0020)
-									(Print 32 12) ; "You're in the elevator shaft!"
-								)
-								(else
-									(Print [local8 0] [local8 1])
-								)
+								((& (ego onControl: 0) cMAGENTA) (Print 32 12))
+								(else (Print [msgID 0] [msgID 1]))
 							)
 						)
 						((or (Said '<up') (Said '/elevator'))
-							(if (& (gEgo onControl: 0) $0020)
-								(Print 32 6) ; "The elevator seems to be upstairs."
+							(if (& (ego onControl: 0) cMAGENTA)
+								(Print 32 6)
 							else
-								(event claimed: 0)
+								(event claimed: FALSE)
 							)
 						)
-						((Said '<behind,below/mirror')
-							(Print 32 13) ; "There is nothing of interest behind the mirror."
-						)
+						((Said '<behind,below/mirror') (Print 32 13))
 						((or (Said '<in/mirror') (Said '/reflection'))
-							(if (< (gEgo distanceTo: fire) 70)
-								(= global213 12)
-								(Say 0 32 14) ; "You gaze into the mirror and appraise your appearance. A bit disheveled, perhaps, but not bad...considering the circumstances."
+							(if (< (ego distanceTo: fire) 70)
+								(= theTalker talkLAURA)
+								(Say 0 32 14)
 							else
-								(NotClose) ; "You're not close enough."
+								(NotClose)
 							)
 						)
 						((Said '/mirror')
-							(Print 32 15) ; "You see a dusty, old mirror hanging on the wall."
+							(Print 32 15)
 						)
-						((>= gAct 2)
-							(cond
+						((>= currentAct 2)
+							(cond 
 								((Said '[<down][/dirt]')
-									(cond
-										((== gAct 2)
-											(if (not (gEgo has: 6)) ; poker
-												(Print 32 16) ; "A fireplace poker has been dropped on the library floor."
+									(cond 
+										((== currentAct 2)
+											(if (not (ego has: 6))
+												(Print 32 16)
 											)
-											(Print 32 17) ; "You see some small pink feathers scattered upon the floor."
+											(Print 32 17)
 										)
-										(
-											(and
-												(== gAct 3)
-												(not (& global141 $0002))
-											)
-											(Print 32 17) ; "You see some small pink feathers scattered upon the floor."
+										((and (== currentAct 3) (not (& global141 $0002)))
+											(Print 32 17)
 										)
 										(else
-											(event claimed: 0)
+											(event claimed: FALSE)
 											(return)
 										)
 									)
 								)
 								((Said '/chair')
-									(if (< gAct 3)
-										(Print 32 18) ; "A chair has been knocked askew."
+									(if (< currentAct 3)
+										(Print 32 18)
 									else
-										(event claimed: 0)
+										(event claimed: FALSE)
 									)
 								)
 								((Said '/nightstand')
-									(Print 32 19) ; "You spy an open magazine on the library table. Why, this must be the magazine that Wilbur was reading!"
+									(Print 32 19)
 								)
 								((Said '/magazine')
-									(if (& (gEgo onControl:) $0040)
-										(Print 32 20) ; "You read the name of the magazine. It's called, "The Racehorse Quarterly." Upon examining the open page you see a picture of a beautiful thoroughbred named "Sunny Boy." The name "Sunny Boy" has been circled in red."
+									(if (& (ego onControl:) cBROWN)
+										(Print 32 20)
 									else
-										(NotClose) ; "You're not close enough."
+										(NotClose)
 									)
 								)
 								((Said '/racehorse')
-									(if (& (gEgo onControl:) $0040)
-										(Print 32 21) ; "There are pictures of racehorses in Wilbur's magazine."
+									(if (& (ego onControl:) cBROWN)
+										(Print 32 21)
 									else
-										(Print 32 22) ; "You don't see any racehorses."
+										(Print 32 22)
 									)
 								)
 							)
 						)
 						((Said '/eye,(painting<eye)')
-							(Print 32 23) ; "The dog's eyes are very black...almost hollow-looking."
+							(Print 32 23)
 						)
 						((Said '<behind,below/painting')
-							(Print 32 24) ; "You can see nothing behind the picture."
+							(Print 32 24)
 						)
 						((or (Said '/painting') (Said '/painting/painting'))
-							(Print 32 25) ; "Upon the wall opposite the fireplace hangs a portrait of a bloodhound (Beauregard?). Strange, the dog's eyes are very black...almost hollow-looking."
+							(Print 32 25)
 						)
 					)
 				)
 				((Said 'move,get/painting')
-					(Print 32 26) ; "The portrait is firmly attached to the wall."
+					(Print 32 26)
 				)
 				((Said 'get>')
-					(cond
-						((Said '/fire,log')
-							(Print 32 27) ; "Don't play with fire!"
-						)
-						((Said '/book/nightstand')
-							(Print 32 28) ; "They don't look interesting."
-						)
-						((Said '/book')
-							(Print 32 29) ; "You glance at the titles of various books, but frankly find most of them boring. You decide to pass."
-						)
-						((Said '/mirror')
-							(Print 32 30) ; "The mirror is firmly attached to the wall."
-						)
-						((and (>= gAct 2) (< gAct 3))
-							(cond
+					(cond 
+						((Said '/fire,log') (Print 32 27))
+						((Said '/book/nightstand') (Print 32 28))
+						((Said '/book') (Print 32 29))
+						((Said '/mirror') (Print 32 30))
+						((and (>= currentAct 2) (< currentAct 3))
+							(cond 
 								((Said '/poker')
-									(if (not (gEgo has: 6)) ; poker
-										(if (& (gEgo onControl:) $0200)
+									(if (not (ego has: iPoker))
+										(if (& (ego onControl:) cLBLUE)
 											(self setScript: pickUp)
 										else
-											(NotClose) ; "You're not close enough."
+											(NotClose)
 										)
 									else
-										(AlreadyTook) ; "You already took it."
+										(AlreadyTook)
 									)
 								)
 								((Said '/magazine')
-									(Print 32 31) ; "Just another thing to carry around. Better leave it here."
+									(Print 32 31)
 								)
 							)
 						)
 					)
 				)
 				((Said 'read>')
-					(cond
-						((Said '/book/nightstand')
-							(Print 32 28) ; "They don't look interesting."
-						)
-						((Said '/book')
-							(Print 32 29) ; "You glance at the titles of various books, but frankly find most of them boring. You decide to pass."
-						)
-						((and (>= gAct 2) (Said '/magazine'))
-							(if (& (gEgo onControl:) $0040)
-								(Print 32 20) ; "You read the name of the magazine. It's called, "The Racehorse Quarterly." Upon examining the open page you see a picture of a beautiful thoroughbred named "Sunny Boy." The name "Sunny Boy" has been circled in red."
+					(cond 
+						((Said '/book/nightstand') (Print 32 28))
+						((Said '/book') (Print 32 29))
+						((and (>= currentAct 2) (Said '/magazine'))
+							(if (& (ego onControl:) cBROWN)
+								(Print 32 20)
 							else
-								(NotClose) ; "You're not close enough."
+								(NotClose)
 							)
 						)
 					)
@@ -501,31 +444,34 @@
 		)
 		(super handleEvent: event)
 	)
+	
+	(method (newRoom n)
+		(super newRoom: n)
+	)
 )
 
 (instance GateFunc of Script
-	(properties)
 
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
 				(elevGate startUpd:)
 				(if (== local3 1)
-					(gConMusic number: 81)
-					(elevGate setCycle: End)
-					(|= gElevatorState $0001)
+					(cSound number: 81)
+					(elevGate setCycle: EndLoop)
+					(|= global109 $0001)
 				else
-					(gConMusic number: 79)
-					(elevGate setCycle: Beg)
-					(&= gElevatorState $fffe)
+					(cSound number: 79)
+					(elevGate setCycle: BegLoop)
+					(&= global109 $fffe)
 				)
-				(gConMusic loop: 1 play: self)
+				(cSound loop: 1 play: self)
 				(if (!= local4 -1)
-					(gEgo loop: local4)
+					(ego loop: local4)
 				)
 			)
 			(1
-				(elevGate ignoreActors: (elevGate cel:) stopUpd:)
+				(elevGate ignoreActors: (elevGate cel?) stopUpd:)
 				(client setScript: 0)
 			)
 		)
@@ -533,31 +479,30 @@
 )
 
 (instance pickUp of Script
-	(properties)
 
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
 				(HandsOff)
-				(LookAt gEgo poker)
+				(Face ego poker)
 				(= cycles 2)
 			)
 			(1
-				(gEgo view: 17 cel: 0 setMotion: 0 setCycle: End self)
+				(ego view: 17 cel: 0 setMotion: 0 setCycle: EndLoop self)
 			)
 			(2
-				(Print 32 32) ; "As you retrieve the fireplace poker your eyes happen to fall upon some small pink feathers scattered upon the floor."
+				(Print 32 32)
 				(poker hide:)
-				(= global182 1)
-				(gEgo get: 6) ; poker
+				(= gotItem TRUE)
+				(ego get: iPoker)
 				(= cycles 2)
 			)
 			(3
-				(gEgo setCycle: Beg self)
+				(ego setCycle: BegLoop self)
 			)
 			(4
 				(HandsOn)
-				(gEgo loop: 0 view: 0 setCycle: Walk)
+				(ego loop: 0 view: 0 setCycle: Walk)
 				(client setScript: 0)
 			)
 		)
@@ -565,13 +510,10 @@
 )
 
 (instance shadowWalk of Script
-	(properties)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
-			(0
-				(= seconds 8)
-			)
+			(0 (= seconds 8))
 			(1
 				(Shadow setMotion: MoveTo 295 82 self)
 			)
@@ -589,12 +531,12 @@
 		x 192
 		view 132
 		priority 5
-		signal 16384
+		signal ignrAct
 	)
-
+	
 	(method (handleEvent event)
-		(if (MousedOn self event 3)
-			(event claimed: 1)
+		(if (MousedOn self event shiftDown)
+			(event claimed: TRUE)
 			(DoLook {mantel})
 		)
 	)
@@ -607,17 +549,17 @@
 		view 132
 		loop 1
 		priority 10
-		signal 16384
+		signal ignrAct
 	)
-
+	
 	(method (handleEvent event)
-		(cond
-			((Said 'look/book/nightstand')
-				(Print 32 33) ; "You see some books on the table."
+		(cond 
+			((Said 'examine/book/nightstand')
+				(Print 32 33)
 			)
-			((or (MousedOn self event 3) (Said 'look/book'))
-				(Print 32 33) ; "You see some books on the table."
-				(event claimed: 1)
+			((or (MousedOn self event shiftDown) (Said 'examine/book'))
+				(Print 32 33)
+				(event claimed: TRUE)
 			)
 		)
 	)
@@ -631,18 +573,18 @@
 		loop 1
 		cel 2
 	)
-
+	
 	(method (handleEvent event)
-		(cond
+		(cond 
 			((Said 'get,(get<up),straighten/chair')
-				(if (== gAct 2)
-					(Print 32 34) ; "Don't worry about it; Jeeves will get it."
+				(if (== currentAct 2)
+					(Print 32 34)
 				else
-					(event claimed: 0)
+					(event claimed: FALSE)
 				)
 			)
-			((MousedOn self event 3)
-				(event claimed: 1)
+			((MousedOn self event shiftDown)
+				(event claimed: TRUE)
 				(DoLook {chair})
 			)
 		)
@@ -657,10 +599,10 @@
 		loop 1
 		cel 4
 	)
-
+	
 	(method (handleEvent event)
-		(if (MousedOn self event 3)
-			(event claimed: 1)
+		(if (MousedOn self event shiftDown)
+			(event claimed: TRUE)
 			(DoLook {chair})
 		)
 	)
@@ -674,10 +616,10 @@
 		loop 1
 		cel 3
 	)
-
+	
 	(method (handleEvent event)
-		(if (MousedOn self event 3)
-			(event claimed: 1)
+		(if (MousedOn self event shiftDown)
+			(event claimed: TRUE)
 			(DoLook {chair})
 		)
 	)
@@ -691,10 +633,10 @@
 		loop 1
 		cel 3
 	)
-
+	
 	(method (handleEvent event)
-		(if (MousedOn self event 3)
-			(event claimed: 1)
+		(if (MousedOn self event shiftDown)
+			(event claimed: TRUE)
 			(DoLook {chair})
 		)
 	)
@@ -708,10 +650,10 @@
 		loop 2
 		cel 1
 	)
-
+	
 	(method (handleEvent event)
-		(if (MousedOn self event 3)
-			(event claimed: 1)
+		(if (MousedOn self event shiftDown)
+			(event claimed: TRUE)
 			(DoLook {chair})
 		)
 	)
@@ -725,10 +667,10 @@
 		loop 2
 		cel 2
 	)
-
+	
 	(method (handleEvent event)
-		(if (MousedOn self event 3)
-			(event claimed: 1)
+		(if (MousedOn self event shiftDown)
+			(event claimed: TRUE)
 			(DoLook {chair})
 		)
 	)
@@ -740,12 +682,12 @@
 		x 131
 		view 132
 		loop 2
-		signal 16384
+		signal ignrAct
 	)
-
+	
 	(method (handleEvent event)
-		(if (MousedOn self event 3)
-			(event claimed: 1)
+		(if (MousedOn self event shiftDown)
+			(event claimed: TRUE)
 			(DoLook {couch})
 		)
 	)
@@ -757,12 +699,12 @@
 		x 212
 		view 132
 		loop 2
-		signal 16384
+		signal ignrAct
 	)
-
+	
 	(method (handleEvent event)
-		(if (MousedOn self event 3)
-			(event claimed: 1)
+		(if (MousedOn self event shiftDown)
+			(event claimed: TRUE)
 			(DoLook {couch})
 		)
 	)
@@ -775,18 +717,18 @@
 		view 132
 		loop 1
 		cel 1
-		signal 16384
+		signal ignrAct
 	)
-
+	
 	(method (handleEvent event)
-		(if (MousedOn self event 3)
-			(event claimed: 1)
-			(Print 32 35) ; "Some of these tables could use a good dusting!"
+		(if (MousedOn self event shiftDown)
+			(event claimed: TRUE)
+			(Print 32 35)
 		)
 	)
 )
 
-(instance tools of PV
+(instance tools of PicView
 	(properties
 		y 91
 		x 166
@@ -802,10 +744,10 @@
 		view 232
 		priority 9
 	)
-
+	
 	(method (handleEvent event)
-		(if (or (MousedOn self event 3) (Said 'look/log'))
-			(event claimed: 1)
+		(if (or (MousedOn self event shiftDown) (Said 'examine/log'))
+			(event claimed: TRUE)
 			(DoLook {fire})
 		)
 	)
@@ -819,11 +761,11 @@
 		loop 3
 		cel 2
 	)
-
+	
 	(method (handleEvent event)
-		(if (MousedOn self event 3)
-			(event claimed: 1)
-			(Print 32 16) ; "A fireplace poker has been dropped on the library floor."
+		(if (MousedOn self event shiftDown)
+			(event claimed: TRUE)
+			(Print 32 16)
 		)
 	)
 )
@@ -835,10 +777,10 @@
 		view 132
 		loop 6
 	)
-
+	
 	(method (handleEvent event)
-		(if (MousedOn self event 3)
-			(event claimed: 1)
+		(if (MousedOn self event shiftDown)
+			(event claimed: TRUE)
 			(DoLook {lamp})
 		)
 	)
@@ -851,10 +793,10 @@
 		view 132
 		loop 6
 	)
-
+	
 	(method (handleEvent event)
-		(if (MousedOn self event 3)
-			(event claimed: 1)
+		(if (MousedOn self event shiftDown)
+			(event claimed: TRUE)
 			(DoLook {lamp})
 		)
 	)
@@ -867,15 +809,15 @@
 		view 132
 		loop 5
 	)
-
+	
 	(method (handleEvent event)
-		(cond
+		(cond 
 			((Said 'get/feather')
-				(Print 32 36) ; "You see no sense in carrying around a bunch of feathers."
+				(Print 32 36)
 			)
-			((or (Said 'look/feather') (MousedOn self event 3))
-				(Print 32 37) ; "You wonder how the small pink feathers got on the floor. They look like they may have come from a pillow...or...a feather boa!"
-				(event claimed: 1)
+			((or (Said 'examine/feather') (MousedOn self event shiftDown))
+				(Print 32 37)
+				(event claimed: TRUE)
 			)
 		)
 	)
@@ -889,23 +831,23 @@
 		loop 1
 		cel 5
 		priority 10
-		signal 16
+		signal fixPriOn
 	)
-
+	
 	(method (handleEvent event)
-		(cond
+		(cond 
 			((Said 'open/magazine')
-				(AlreadyOpen) ; "It is already open."
+				(AlreadyOpen)
 			)
 			((or (Said 'rotate/page') (Said 'read<more/magazine'))
-				(Print 32 38) ; "Except this one page, nothing else interests you about the magazine."
+				(Print 32 38)
 			)
-			((or (Said 'look/magazine') (MousedOn self event 3))
-				(event claimed: 1)
-				(if (& (gEgo onControl:) $0040)
-					(Print 32 20) ; "You read the name of the magazine. It's called, "The Racehorse Quarterly." Upon examining the open page you see a picture of a beautiful thoroughbred named "Sunny Boy." The name "Sunny Boy" has been circled in red."
+			((or (Said 'examine/magazine') (MousedOn self event shiftDown))
+				(event claimed: TRUE)
+				(if (& (ego onControl:) cBROWN)
+					(Print 32 20)
 				else
-					(NotClose) ; "You're not close enough."
+					(NotClose)
 				)
 			)
 		)
@@ -919,10 +861,10 @@
 		nsBottom 125
 		nsRight 310
 	)
-
+	
 	(method (handleEvent event)
-		(if (MousedOn self event 3)
-			(event claimed: 1)
+		(if (MousedOn self event shiftDown)
+			(event claimed: TRUE)
 			(DoLook {elevator})
 		)
 	)
@@ -935,10 +877,10 @@
 		nsBottom 41
 		nsRight 211
 	)
-
+	
 	(method (handleEvent event)
-		(if (MousedOn self event 3)
-			(event claimed: 1)
+		(if (MousedOn self event shiftDown)
+			(event claimed: TRUE)
 			(DoLook {mirror})
 		)
 	)
@@ -950,11 +892,11 @@
 		nsBottom 139
 		nsRight 38
 	)
-
+	
 	(method (handleEvent event)
-		(if (or (MousedOn self event 3) (Said 'look/bookcase'))
-			(event claimed: 1)
-			(Print 32 39) ; "The bookcases are crammed full of books."
+		(if (or (MousedOn self event shiftDown) (Said 'examine/bookcase'))
+			(event claimed: TRUE)
+			(Print 32 39)
 		)
 	)
 )
@@ -966,36 +908,28 @@
 		nsBottom 76
 		nsRight 107
 	)
-
+	
 	(method (handleEvent event)
-		(if (or (MousedOn self event 3) (Said 'look/bookcase'))
-			(event claimed: 1)
-			(Print 32 39) ; "The bookcases are crammed full of books."
+		(if (or (MousedOn self event shiftDown) (Said 'examine/bookcase'))
+			(event claimed: TRUE)
+			(Print 32 39)
 		)
 	)
 )
 
-(instance Shadow of Act
+(instance Shadow of Actor
 	(properties
 		view 110
 	)
 )
 
-(instance chain of Act
-	(properties)
-)
+(instance chain of Actor)
 
-(instance elevator of Act
-	(properties)
-)
+(instance elevator of Actor)
 
-(instance down of View
-	(properties)
-)
+(instance down of View)
 
-(instance up of View
-	(properties)
-)
+(instance up of View)
 
 (instance elevGate of Prop
 	(properties
@@ -1005,4 +939,3 @@
 		loop 2
 	)
 )
-

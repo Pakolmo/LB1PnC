@@ -1,9 +1,8 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-;;; Decompiled by sluicebox
 (script# 401)
-(include sci.sh)
+(include game.sh)
 (use Main)
-(use Interface)
+(use Intrface)
 (use Game)
 (use System)
 
@@ -12,34 +11,35 @@
 )
 
 (local
-	local0
+	cuedIt
 )
-
-(instance scuffReg of Rgn
-	(properties)
-
+(instance scuffReg of Region
+	
 	(method (init)
 		(super init:)
-		(if (or (< gPrevRoomNum 31) (and (< gPrevRoomNum 41) (> gCurRoomNum 41)))
-			(= local0 1)
+		(if
+			(or
+				(< prevRoomNum 31)
+				(and (< prevRoomNum 41) (> curRoomNum 41))
+			)
+			(= cuedIt TRUE)
 		)
 		(self setScript: scuffing)
 	)
-
+	
 	(method (dispose)
 		(super dispose:)
 	)
 )
 
 (instance scuffing of Script
-	(properties)
 
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
-				(if local0
+				(if cuedIt
 					(= cycles 1)
-					(= local0 0)
+					(= cuedIt FALSE)
 				else
 					(= seconds (Random 18 25))
 				)
@@ -48,13 +48,13 @@
 				(= cycles 1)
 			)
 			(2
-				(if (!= [gCycleTimers 0] 1)
-					(cond
-						((< gCurRoomNum 40)
-							(Print 401 0) ; "You hear scuffling upstairs."
+				(if (!= [global368 0] 1)
+					(cond 
+						((< curRoomNum 40)
+							(Print 401 0)
 						)
-						((< gCurRoomNum 74)
-							(Print 401 1) ; "You hear scuffling further upstairs."
+						((< curRoomNum 74)
+							(Print 401 1)
 						)
 					)
 				)
@@ -64,4 +64,3 @@
 		)
 	)
 )
-

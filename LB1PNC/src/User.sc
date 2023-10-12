@@ -16,7 +16,7 @@
 	inputLen
 )
 
-(class User of Obj
+(class User of Object
 	(properties
 		alterEgo 0
 		canInput 0
@@ -47,8 +47,8 @@
 			(if mapKeyToDir
 				(MapKeyToDir event)
 			)
-			(if TheMenuBar
-				(TheMenuBar handleEvent: event evType)
+			(if MenuBar
+				(MenuBar handleEvent: event evType)
 			)
 			(GlobalToLocal event)
 			(if (not (event claimed:))
@@ -113,22 +113,22 @@
 	)
 
 	(method (said event)
-		(if global54
-			(__proc984_0 alterEgo gSortedFeatures gCast gFeatures)
+		(if useSortedFeatures
+			(__proc984_0 alterEgo sortedFeatures gCast features)
 		else
-			(gSortedFeatures add: gCast gFeatures)
+			(sortedFeatures add: gCast features)
 		)
 		(if TheMenuBar
-			(gSortedFeatures addToFront: TheMenuBar)
+			(sortedFeatures addToFront: TheMenuBar)
 		)
-		(gSortedFeatures addToEnd: gGame handleEvent: event release:)
+		(sortedFeatures addToEnd: gGame handleEvent: event release:)
 		(if (and (== (event type:) 128) (not (event claimed:)))
 			(gGame pragmaFail: @inputLine)
 		)
 	)
 )
 
-(class Ego of Act
+(class Ego of Actor
 	(properties
 		signal 8192
 		edgeHit 0
@@ -146,7 +146,7 @@
 		(= edgeHit
 			(cond
 				((<= x 0) 4)
-				((<= y (gCurRoom horizon:)) 1)
+				((<= y (curRoom horizon:)) 1)
 				((>= x 319) 2)
 				((>= y 189) 3)
 				(else 0)
@@ -216,4 +216,5 @@
 		(event claimed:)
 	)
 )
+
 

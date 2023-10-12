@@ -1,40 +1,40 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-;;; Decompiled by sluicebox
 (script# 201)
-(include sci.sh)
+(include game.sh)
 (use Main)
-(use Interface)
+(use Intrface)
 (use Motion)
 (use Actor)
 
-(procedure (localproc_0 param1)
-	(Printf 201 16 param1) ; "You firmly %s the handle, but the darn elevator won't move!"
+
+(procedure (UpOrDown pushOrPull)
+	(Printf 201 16 pushOrPull)
 )
 
-(procedure (localproc_1)
-	(Print 201 3) ; "Why don't you enter the elevator first?"
+(procedure (EnterFirst)
+	(Print 201 3)
 )
 
-(procedure (localproc_2 param1)
-	(Printf 201 17 param1) ; "The elevator seems to be %sstairs."
+(procedure (WrongFloor upOrDown)
+	(Printf 201 17 upOrDown)
 )
 
-(procedure (localproc_3 param1)
-	(Printf 201 18 param1) ; "You %s in the elevator."
+(procedure (AlreadyInOrOut inOrOut)
+	(Printf 201 18 inOrOut)
 )
 
-(procedure (localproc_4 param1 param2)
-	(gCast eachElementDo: #hide)
+(procedure (localproc_0ffb param1 param2)
+	(cast eachElementDo: #hide)
 	(param1 show:)
 	(param2 show:)
-	(DrawPic 66 7)
-	(Print 201 19 #at 120 32) ; "There is a handle on the elevator control. On the face of the control are a keyhole and the words: "up" and "down.""
-	(DrawPic gCurRoomNum 6)
-	(gAddToPics doit:)
-	(gCast eachElementDo: #show)
+	(DrawPic 66 IRISOUT)
+	(Print 201 19 #at 120 32)
+	(DrawPic curRoomNum IRISIN)
+	(addToPics doit:)
+	(cast eachElementDo: #show)
 	(param1 hide:)
 	(param2 hide:)
-	(gEgo hide:)
+	(ego hide:)
 )
 
 (class ElevGate of Prop
@@ -53,11 +53,11 @@
 		upRoomNo 0
 		downRoomNo 0
 	)
-
-	(method (init &tmp temp0 temp1)
+	
+	(method (init &tmp elevatorIDLastCel temp1)
 		(super init:)
 		(= global110 -1)
-		(switch gCurRoomNum
+		(switch curRoomNum
 			(32
 				(= gateStMask 1)
 				(= upRoomNo 42)
@@ -84,19 +84,24 @@
 		(= cel
 			(if
 				(and
-					(& gElevatorState gateStMask)
-					(not (& gElevatorState $0010))
-					(!= global111 gCurRoomNum)
+					(& global109 gateStMask)
+					(not (& global109 $0010))
+					(!= global111 curRoomNum)
 				)
 				(self lastCel:)
 			else
-				(&= gElevatorState (~ gateStMask))
+				(&= global109 (~ gateStMask))
 				0
 			)
 		)
-		(elevatorID view: 242 setPri: 6 ignoreActors: 1 illegalBits: 0)
-		(gEgo init:)
-		(if (== (& global111 $7fff) gCurRoomNum)
+		(elevatorID
+			view: 242
+			setPri: 6
+			ignoreActors: TRUE
+			illegalBits: 0
+		)
+		(ego init:)
+		(if (== (& global111 $7fff) curRoomNum)
 			(elevatorID x: elevX)
 			(downID
 				view: 166
@@ -104,7 +109,7 @@
 				cel: 0
 				x: 72
 				y: 177
-				ignoreActors: 1
+				ignoreActors: TRUE
 				init:
 				hide:
 			)
@@ -114,29 +119,29 @@
 				cel: 1
 				x: 139
 				y: 151
-				ignoreActors: 1
+				ignoreActors: TRUE
 				init:
 				hide:
 			)
-			(= temp0 0)
-			(if (== global111 gCurRoomNum)
-				(Load rsPIC 66)
-				(LoadMany rsSOUND 9 66 79 80 81 89 90 103)
+			(= elevatorIDLastCel 0)
+			(if (== global111 curRoomNum)
+				(Load PICTURE 66)
+				(LoadMany SOUND 9 66 79 80 81 89 90 103)
 				(elevatorID loop: 0 y: elevY stopUpd:)
-				(gConMusic stop: prevSignal: 0)
+				(cSound stop: prevSignal: 0)
 			else
-				(gEgo
+				(ego
 					posn: elevX (- elevY 2)
 					illegalBits: 0
-					ignoreActors: 1
+					ignoreActors: TRUE
 					hide:
 				)
-				(if (< gPrevRoomNum gCurRoomNum)
+				(if (< prevRoomNum curRoomNum)
 					(= temp1 50)
 					(chainID
 						view: 242
 						setLoop: 3
-						ignoreActors: 1
+						ignoreActors: TRUE
 						illegalBits: 0
 						posn: elevX (+ chainY 50)
 						setPri: 6
@@ -148,7 +153,7 @@
 					(= temp1 -52)
 				)
 				(&= global111 $7fff)
-				(|= gElevatorState $0040)
+				(&= global109 $0040)
 				(HandsOff)
 				(= global110 0)
 				(elevatorID
@@ -157,24 +162,24 @@
 					moveSpeed: 1
 					setMotion: MoveTo elevX elevY self
 				)
-				(= temp0 (elevatorID lastCel:))
+				(= elevatorIDLastCel (elevatorID lastCel:))
 			)
-			(elevatorID cel: temp0 init:)
+			(elevatorID cel: elevatorIDLastCel init:)
 		else
-			(Load rsVIEW 5)
-			(if (& gElevatorState $0020)
+			(Load VIEW 5)
+			(if (& global109 $0020)
 				(HandsOff)
-				(if (== gCurRoomNum 32)
+				(if (== curRoomNum 32)
 					(= temp1 0)
 				else
 					(= temp1 60)
 				)
 				(= global110 15)
-				(gEgo
+				(ego
 					view: 5
 					setLoop: 4
 					setCel: 0
-					ignoreActors: 1
+					ignoreActors: TRUE
 					illegalBits: 0
 					posn: elevX (- elevY 60)
 					setPri: 6
@@ -183,237 +188,253 @@
 					setMotion: MoveTo elevX (+ elevY temp1) self
 				)
 			)
-			(cond
-				((== gCurRoomNum 32)
-					(self setPri: 9 ignoreActors: 1)
+			(cond 
+				((== curRoomNum 32)
+					(self setPri: 9 ignoreActors: TRUE)
 					(elevatorID
 						loop: 4
-						cel: (* (& gElevatorState gateStMask) 1)
+						cel: (* (& global109 gateStMask) 1)
 						posn: gateX gateY
 						ignoreActors: 0
 						stopUpd:
 					)
 				)
-				((< global111 gCurRoomNum)
-					(elevatorID loop: 3 posn: elevX (+ elevY 2))
-				)
+				((< global111 curRoomNum) (elevatorID loop: 3 posn: elevX (+ elevY 2)))
 			)
 			(elevatorID init:)
 		)
 	)
-
+	
 	(method (doit)
-		(if (and (not (& gElevatorState $0010)) (not (& gElevatorState $0020)))
-			(cond
-				((& (gEgo onControl: 1) $0010)
+		(if
+			(and
+				(not (& global109 $0010))
+				(not (& global109 $0020))
+			)
+			(cond 
+				((& (ego onControl: origin) cRED)
 					(= global110 15)
-					(|= gElevatorState $0020)
+					(|= global109 $0020)
 					(HandsOff)
-					(gEgo
+					(ego
 						view: 5
 						setLoop: 4
 						setCel: 0
 						setPri: 6
-						ignoreActors: 1
+						ignoreActors: TRUE
 						illegalBits: 0
 						setStep: 0 7
 						moveSpeed: 0
 						setMotion: MoveTo elevX (+ elevY 60) self
 					)
-					(gConMusic number: 9 loop: -1 play:)
+					(cSound number: 9 loop: -1 play:)
 				)
-				((and (& (gEgo onControl: 1) $0008) (== gCurRoomNum global111))
+				(
+					(and
+						(& (ego onControl: origin) cCYAN)
+						(== curRoomNum global111)
+					)
 					(self elevatorFunc:)
 				)
 			)
 		)
-		(if (== (& gElevatorState $0050) 16)
-			(cond
-				((> (gEgo y:) (- gateY 2))
-					(gEgo posn: elevX (- elevY 2))
+		(if (== (& global109 $0050) 16)
+			(cond 
+				((> (ego y?) (- gateY 2))
+					(ego posn: elevX (- elevY 2))
 					(self elevatorFunc:)
 				)
-				((!= (gEgo x:) elevX)
-					(gEgo posn: elevX (- elevY 2))
+				((!= (ego x?) elevX)
+					(ego posn: elevX (- elevY 2))
 				)
 			)
 		)
-		(if (and (== (gConMusic number:) 66) (== (gConMusic prevSignal:) -1))
-			(gConMusic prevSignal: 0 number: 103 loop: -1 priority: 15 play:)
+		(if
+			(and
+				(== (cSound number?) 66)
+				(== (cSound prevSignal?) -1)
+			)
+			(cSound
+				prevSignal: 0
+				number: 103
+				loop: -1
+				priority: 15
+				play:
+			)
 		)
 		(super doit:)
 	)
-
+	
 	(method (dispose)
 		(super dispose:)
 	)
-
+	
 	(method (handleEvent event)
-		(if (event claimed:)
-			(return)
-		)
-		(if (== (event type:) evSAID)
-			(cond
+		(if (event claimed?) (return))
+		(if (== (event type?) saidEvent)
+			(cond 
 				(
 					(and
-						(!= gCurRoomNum global111)
+						(!= curRoomNum global111)
 						(or (Said '*/elevator,lift') (Said 'lift[<open][/*]'))
 					)
-					(Print 201 0) ; "Currently, you don't SEE an elevator, just an elevator shaft."
+					(Print 201 0)
 				)
-				((Said 'look>')
-					(cond
+				((Said 'examine>')
+					(cond 
 						((Said '/archway')
-							(Print 201 1) ; "The gate provides protection from the elevator as it moves from floor to floor."
+							(Print 201 1)
 						)
 						((Said '<in,in,in/elevator,lift')
-							(if (& gElevatorState $0010)
-								(Print 201 2) ; "You see the elevator control on the elevator wall."
+							(if (& global109 $0010)
+								(Print 201 2)
 							else
-								(Print 201 3) ; "Why don't you enter the elevator first?"
+								(Print 201 3)
 							)
 						)
 						((Said '/elevator,lift')
-							(Print 201 4) ; "It's odd to see a new-fangled elevator in this old-fashioned house; but how else would the Colonel get up or down the stairs?"
+							(Print 201 4)
 						)
 						((Said '/control')
-							(cond
-								((!= gCurRoomNum global111)
-									(CantDo) ; "You can't do that."
+							(cond 
+								((!= curRoomNum global111)
+									(CantDo)
 								)
-								((& gElevatorState $0010)
-									(localproc_4 downID upID)
+								((& global109 $0010)
+									(localproc_0ffb downID upID)
 								)
 								(else
-									(Print 201 3) ; "Why don't you enter the elevator first?"
+									(Print 201 3)
 								)
 							)
 						)
 						((Said '/keyhole')
-							(cond
-								((!= gCurRoomNum global111)
-									(CantDo) ; "You can't do that."
+							(cond 
+								((!= curRoomNum global111)
+									(CantDo)
 								)
-								((& gElevatorState $0010)
-									(Print 201 5) ; "It's just an empty keyhole."
+								((& global109 $0010)
+									(Print 201 5)
 								)
 								(else
-									(Print 201 3) ; "Why don't you enter the elevator first?"
+									(Print 201 3)
 								)
 							)
 						)
 						((Said '/shaft')
-							(cond
-								((< gCurRoomNum global111)
-									(localproc_2 {up})
+							(cond 
+								((< curRoomNum global111)
+									(WrongFloor {up})
 								)
-								((> gCurRoomNum global111)
-									(localproc_2 {down})
+								((> curRoomNum global111)
+									(WrongFloor {down})
 								)
-								((not (& (gEgo onControl: 1) $0028))
-									(NotClose) ; "You're not close enough."
+								((not (& (ego onControl: origin) (| cMAGENTA cCYAN)))
+									(NotClose)
 								)
 							)
 						)
 					)
 				)
-				((or (Said 'open/archway,elevator') (Said 'lift[<open][/*]'))
+				(
+					(or
+						(Said 'open/archway,elevator')
+						(Said 'lift[<open][/*]')
+					)
 					(self elevatorFunc:)
 				)
 				((Said 'enter/elevator,lift')
-					(if (& gElevatorState $0010)
-						(localproc_3 {ARE})
+					(if (& global109 $0010)
+						(AlreadyInOrOut {ARE})
 					else
 						(self elevatorFunc:)
 					)
 				)
 				((Said 'exit/elevator,lift')
-					(if (& gElevatorState $0010)
+					(if (& global109 $0010)
 						(self elevatorFunc:)
 					else
-						(localproc_3 {AREN'T})
+						(AlreadyInOrOut {AREN'T})
 					)
 				)
 				((Said 'close/archway,elevator,lift')
-					(cond
-						((not (& gElevatorState gateStMask))
-							(AlreadyClosed) ; "It is already closed."
-						)
-						((& (gEgo onControl: 1) $0008)
-							(if (and (== (gEgo y:) gateY) (== gCurRoomNum 32))
-								(Print 201 6) ; "You can't; you are blocking the gate."
+					(cond 
+						((not (& global109 gateStMask)) (AlreadyClosed))
+						((& (ego onControl: origin) cCYAN)
+							(if (and (== (ego y?) gateY) (== curRoomNum 32))
+								(Print 201 6)
 								(return)
 							)
 							(self gateFunc: 0 3)
 						)
-						((& (gEgo onControl: 1) $0020)
+						((& (ego onControl: origin) cMAGENTA)
 							(self gateFunc: 0 2)
 						)
 						(else
-							(NotClose) ; "You're not close enough."
+							(NotClose)
 						)
 					)
 				)
 				((Said 'get/control')
-					(Print 201 7) ; "Just move it "up" or "down.""
+					(Print 201 7)
 				)
 				(
 					(or
-						(Said '(press,pull,move)<up/control,handle')
+						(Said '(press,drag,move)<up/control,handle')
 						(Said 'up[/!*]')
-						(Said '(go,press,pull,move)<up[/!*]')
+						(Said '(go,press,drag,move)<up[/!*]')
 					)
-					(if (& gElevatorState $0010)
+					(if (& global109 $0010)
 						(if
 							(and
 								(!= upRoomNo -1)
-								(or (!= upRoomNo 75) (& gElevatorState $0008))
+								(or (!= upRoomNo 75) (& global109 $0008))
 							)
-							(|= gElevatorState $0040)
+							(|= global109 $0040)
 							(= global110 9)
 							(self cue:)
 						else
-							(localproc_0 {push})
+							(UpOrDown {push})
 						)
 					else
-						(localproc_1)
+						(EnterFirst)
 					)
 				)
 				(
 					(or
-						(Said '(press,pull,move)<down/control,handle')
+						(Said '(press,drag,move)<down/control,handle')
 						(Said 'down[/!*]')
-						(Said '(go,press,pull,move)<down[/!*]')
+						(Said '(go,press,drag,move)<down[/!*]')
 					)
-					(if (& gElevatorState $0010)
+					(if (& global109 $0010)
 						(if (!= downRoomNo -1)
-							(|= gElevatorState $0040)
+							(|= global109 $0040)
 							(= global110 12)
 							(self cue:)
 						else
-							(localproc_0 {pull})
+							(UpOrDown {pull})
 						)
 					else
-						(localproc_1)
+						(EnterFirst)
 					)
 				)
-				((Said '(use,press,pull,move)/control,handle')
-					(Print 201 8) ; "Which direction? Up or down."
+				((Said '(use,press,drag,move)/control,handle')
+					(Print 201 8)
 				)
 				((Said 'latch/elevator,lift,control')
-					(if (& gElevatorState $0010)
-						(if (gEgo has: 18) ; brass_key
-							(if (& gElevatorState $0008)
-								(Print 201 9) ; "A faint click is heard as you turn the key in the lock."
-								(&= gElevatorState $fff7)
+					(if (& global109 $0010)
+						(if (ego has: iBrassKey)
+							(if (& global109 $0008)
+								(Print 201 9)
+								(&= global109 $fff7)
 							else
-								(Print 201 10) ; "The control is locked."
+								(Print 201 10)
 							)
 						else
-							(Print 201 11) ; "You don't have the key for this lock."
+							(Print 201 11)
 						)
 					else
-						(localproc_1)
+						(EnterFirst)
 					)
 				)
 				(
@@ -421,103 +442,51 @@
 						(Said 'unbar[<use<key]/elevator,lift,control')
 						(Said 'attach/key/keyhole,eyehole,control')
 					)
-					(if (& gElevatorState $0010)
-						(if (gEgo has: 18) ; brass_key
-							(if (& gElevatorState $0008)
-								(Print 201 12) ; "The control is already unlocked."
+					(if (& global109 $0010)
+						(if (ego has: iBrassKey)
+							(if (& global109 $0008)
+								(Print 201 12)
 							else
-								(Print 201 9) ; "A faint click is heard as you turn the key in the lock."
-								(|= gElevatorState $0008)
+								(Print 201 9)
+								(|= global109 $0008)
 							)
 						else
-							(Print 201 11) ; "You don't have the key for this lock."
+							(Print 201 11)
 						)
 					else
-						(localproc_1)
+						(EnterFirst)
 					)
 				)
 				((Said 'attach/key')
-					(Print 201 13) ; "Please be more specific."
+					(Print 201 13)
 				)
 			)
 		)
 	)
-
-	(method (elevatorFunc)
-		(cond
-			((& gElevatorState gateStMask)
-				(AlreadyOpen) ; "It is already open."
-			)
-			((& (gEgo onControl: 1) $0008)
-				(if (!= gCurRoomNum global111)
-					(self gateFunc: 1 3)
-				else
-					(|= gElevatorState $0040)
-					(= global110 5)
-					(self cue:)
-				)
-			)
-			((& (gEgo onControl: 1) $0020)
-				(self gateFunc: 1 2)
-			)
-			((& gElevatorState $0010)
-				(|= gElevatorState $0040)
-				(= global110 1)
-				(self cue:)
-			)
-			(else
-				(NotClose) ; "You're not close enough."
-			)
-		)
-	)
-
-	(method (gateFunc param1 param2)
-		(HandsOff)
-		(self startUpd:)
-		(if (== param1 1)
-			(gConMusic number: 81)
-			(self setCycle: End self)
-			(|= gElevatorState gateStMask)
-		else
-			(gConMusic number: 79)
-			(self setCycle: Beg self)
-			(&= gElevatorState (~ gateStMask))
-		)
-		(gConMusic loop: 1 play:)
-		(if (and (== gCurRoomNum 32) (!= gCurRoomNum global111))
-			(elevatorID cel: param1 forceUpd:)
-			(if (and (& (gEgo onControl: 1) $0020) (== param1 0))
-				(= global110 17)
-			)
-		)
-		(if (!= param2 -1)
-			(gEgo loop: param2)
-		)
-	)
-
+	
 	(method (cue)
 		(switch (++ global110)
 			(0
 				(self stopUpd:)
-				(&= gElevatorState $ffbf)
-				(if (!= gCurRoomNum global111)
+				(&= global109 $ffbf)
+				(if (!= curRoomNum global111)
 					(= global110 -1)
 				)
 				(HandsOn)
 			)
 			(1
-				(gConMusic number: 80 loop: 1 play:)
+				(cSound number: 80 loop: 1 play:)
 				(chainID stopUpd:)
-				(elevatorID cycleSpeed: 2 setCycle: Beg self)
-				(if (and (== gCurRoomNum 42) (& gElevatorState $0008))
+				(elevatorID cycleSpeed: 2 setCycle: BegLoop self)
+				(if (and (== curRoomNum 42) (& global109 $0008))
 					(HandsOn)
 					(= global110 -1)
 				)
 			)
 			(2
-				(gConMusic fade:)
+				(cSound fade:)
 				(HandsOff)
-				(if (& gElevatorState gateStMask)
+				(if (& global109 gateStMask)
 					(self cue:)
 				else
 					(self gateFunc: 1 -1)
@@ -526,7 +495,7 @@
 			(3
 				(self stopUpd:)
 				(elevatorID loop: 0 cel: 0 stopUpd:)
-				(gEgo
+				(ego
 					view: 0
 					loop: 2
 					posn: (- elevX 1) (- elevY 3)
@@ -537,63 +506,61 @@
 					show:
 				)
 			)
-			(4
-				(self gateFunc: 0 3)
-			)
+			(4 (self gateFunc: 0 3))
 			(5
-				(if (& (gEgo onControl: 1) $0008)
-					(gEgo
+				(if (& (ego onControl: origin) cCYAN)
+					(ego
 						loop: 2
-						illegalBits: -32768
+						illegalBits: cWHITE
 						ignoreActors: 0
-						setMotion:
-							MoveTo
-							(gEgo x:)
-							(+ (gEgo y:) (gEgo yStep:))
-							self
+						setMotion: MoveTo (ego x?) (+ (ego y?) (ego yStep?)) self
 					)
 					(-- global110)
 				else
-					(if (and (IsFirstTimeInRoom) msgID)
+					(if (and (FirstEntry) msgID)
 						(Print msgID)
 					)
 					(HandsOn)
-					(&= gElevatorState $ffef)
+					(&= global109 $ffef)
 					(= global110 -1)
 					(self cue:)
 				)
 			)
 			(6
 				(HandsOff)
-				(|= gElevatorState $0010)
+				(|= global109 $0010)
 				(self gateFunc: 1 -1)
-				(gEgo
-					setMotion: MoveTo elevX (+ gateY (gEgo yStep:))
+				(ego
+					setMotion: MoveTo elevX (+ gateY (ego yStep?))
 					init:
 				)
 			)
 			(7
-				(gEgo
-					ignoreActors: 1
+				(ego
+					ignoreActors: TRUE
 					setMotion: MoveTo elevX (- elevY 2) self
 				)
 			)
 			(8
 				(HandsOn)
-				(gEgo hide:)
+				(ego hide:)
 				(elevatorID setLoop: 1 forceUpd:)
 				(self gateFunc: 0 -1)
 			)
 			(9
-				(gEgo posn: elevX (- elevY 2) illegalBits: 0 ignoreActors: 1)
+				(ego
+					posn: elevX (- elevY 2)
+					illegalBits: 0
+					ignoreActors: TRUE
+				)
 				(= global110 -1)
 				(self cue:)
 			)
 			(10
-				(gConMusic number: 66 prevSignal: 0 loop: 1 play:)
+				(cSound number: 66 prevSignal: 0 loop: 1 play:)
 				(= global111 (| upRoomNo $8000))
 				(HandsOff)
-				(elevatorID cycleSpeed: 2 setCycle: End self)
+				(elevatorID cycleSpeed: 2 setCycle: EndLoop self)
 			)
 			(11
 				(elevatorID
@@ -603,20 +570,18 @@
 					startUpd:
 				)
 			)
-			(12
-				(gCurRoom newRoom: upRoomNo)
-			)
+			(12 (curRoom newRoom: upRoomNo))
 			(13
-				(gConMusic number: 66 prevSignal: 0 loop: 1 play:)
+				(cSound number: 66 prevSignal: 0 loop: 1 play:)
 				(= global111 (| downRoomNo $8000))
 				(HandsOff)
-				(elevatorID cycleSpeed: 2 setCycle: End self)
+				(elevatorID cycleSpeed: 2 setCycle: EndLoop self)
 			)
 			(14
 				(chainID
 					view: 242
 					setLoop: 3
-					ignoreActors: 1
+					ignoreActors: TRUE
 					illegalBits: 0
 					posn: elevX chainY
 					setPri: 6
@@ -632,51 +597,46 @@
 				)
 			)
 			(15
-				(gCurRoom newRoom: downRoomNo)
+				(curRoom newRoom: downRoomNo)
 			)
 			(16
-				(cond
+				(cond 
 					(
 						(or
-							(and (== gCurRoomNum 75) (== global111 42))
-							(and (== gCurRoomNum 42) (== global111 32))
+							(and (== curRoomNum 75) (== global111 42))
+							(and (== curRoomNum 42) (== global111 32))
 						)
 						(self cue:)
 					)
-					((== gCurRoomNum 32)
-						(gEgo
-							view: 5
-							setCel: -1
-							posn: 297 125
-							setCycle: End self
-						)
+					((== curRoomNum 32)
+						(ego view: 5 setCel: -1 posn: 297 125 setCycle: EndLoop self)
 					)
-					((== gCurRoomNum 75)
-						(gCurRoom newRoom: 42)
+					((== curRoomNum 75)
+						(curRoom newRoom: 42)
 					)
 					(else
-						(gCurRoom newRoom: 32)
+						(curRoom newRoom: 32)
 					)
 				)
 			)
 			(17
-				(gConMusic number: 90 loop: 1 play:)
-				(ShakeScreen 10 5) ; ssUPDOWN | $0004
-				(= global128 5)
-				(= global129 4)
-				(= global130 (gEgo lastCel:))
-				(gEgo dispose:)
-				(EgoDead 201 14) ; "You really got the shaft this time!"
+				(cSound number: 90 loop: 1 play:)
+				(ShakeScreen 10 (| shakeSRight shakeSDiagonal))
+				(= cIcon 5)
+				(= deathLoop 4)
+				(= deathCel (ego lastCel:))
+				(ego dispose:)
+				(EgoDead 201 14)
 			)
 			(18
 				(HandsOff)
-				(gConMusic number: 89 loop: -1 play:)
-				(gEgo
+				(cSound number: 89 loop: -1 play:)
+				(ego
 					view: 5
 					setLoop: 4
 					setCel: 0
 					illegalBits: 0
-					ignoreActors: 1
+					ignoreActors: TRUE
 					posn: 297 125
 					setPri: 6
 					moveSpeed: 1
@@ -684,7 +644,7 @@
 				)
 				(elevatorID
 					setLoop: 1
-					posn: elevX (- (gEgo y:) 57)
+					posn: elevX (- (ego y?) 57)
 					startUpd:
 				)
 				(elevatorID
@@ -697,23 +657,74 @@
 					loop: 6
 					cel: 0
 					illegalBits: 0
-					ignoreActors: 1
+					ignoreActors: TRUE
 					posn: 295 126
 					priority: 8
 					cycleSpeed: 7
-					setCycle: End
+					setCycle: EndLoop
 					init:
 				)
 			)
 			(19
-				(gConMusic stop:)
-				(= global128 5)
-				(= global129 6)
-				(= global130 (chainID lastCel:))
-				(gEgo dispose:)
-				(EgoDead 201 15) ; "Way to go, Sherlock, you just invented the trash compactor!"
+				(cSound stop:)
+				(= cIcon 5)
+				(= deathLoop 6)
+				(= deathCel (chainID lastCel:))
+				(ego dispose:)
+				(EgoDead 201 15)
+			)
+		)
+	)
+	
+	(method (gateFunc param1 param2)
+		(HandsOff)
+		(self startUpd:)
+		(if (== param1 1)
+			(cSound number: 81)
+			(self setCycle: EndLoop self)
+			(|= global109 gateStMask)
+		else
+			(cSound number: 79)
+			(self setCycle: BegLoop self)
+			(|= global109 (~ gateStMask))
+		)
+		(cSound loop: 1 play:)
+		(if (and (== curRoomNum 32) (!= curRoomNum global111))
+			(elevatorID cel: param1 forceUpd:)
+			(if (and (& (ego onControl: origin) cMAGENTA) (== param1 0))
+				(= global110 17)
+			)
+		)
+		(if (!= param2 -1)
+			(ego loop: param2)
+		)
+	)
+	
+	(method (elevatorFunc)
+		(cond 
+			((& global109 gateStMask)
+				(AlreadyOpen)
+			)
+			((& (ego onControl: origin) cCYAN)
+				(if (!= curRoomNum global111)
+					(self gateFunc: 1 3)
+				else
+					(|= global109 $0040)
+					(= global110 5)
+					(self cue:)
+				)
+			)
+			((& (ego onControl: origin) cMAGENTA)
+				(self gateFunc: 1 2)
+			)
+			((& global109 $0010)
+				(|= global109 $0040)
+				(= global110 1)
+				(self cue:)
+			)
+			(else
+				(NotClose)
 			)
 		)
 	)
 )
-

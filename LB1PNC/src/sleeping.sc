@@ -1,9 +1,8 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-;;; Decompiled by sluicebox
 (script# 224)
-(include sci.sh)
+(include game.sh)
 (use Main)
-(use Interface)
+(use Intrface)
 (use Sound)
 (use Motion)
 (use Game)
@@ -12,94 +11,91 @@
 (public
 	sleeping 0
 )
-
 (synonyms
-	(gertie person woman)
+	(gertie person girl)
 )
 
 (local
-	local0
+	talkCount
 )
+(instance snoring of Sound)
 
-(instance snoring of Sound
-	(properties)
-)
-
-(instance sleeping of Rgn
-	(properties)
-
+(instance sleeping of Region
+	
 	(method (init)
 		(super init:)
 		(= global195 1)
-		(LoadMany rsFONT 41)
-		(LoadMany rsVIEW 642 900)
-		(LoadMany rsSOUND 29 94 95 96 114 115)
-		(LoadMany rsMESSAGE 406)
-		(Gertie setPri: 6 setCycle: Fwd init:)
+		(LoadMany FONT 41)
+		(LoadMany VIEW 642 900)
+		(LoadMany SOUND 29 94 95 96 114 115)
+		(LoadMany 143 406)
+		(Gertie setPri: 6 setCycle: Forward init:)
 		(snores setPri: 6 init:)
 	)
-
+	
 	(method (doit)
 		(super doit:)
-		(if (and global216 (not (& gMustDos $0004)))
-			(|= gMustDos $0004)
-			(self setScript: (ScriptID 406 0)) ; Clock
+		(if (and global216 (not (& global118 $0004)))
+			(|= global118 $0004)
+			(self setScript: (ScriptID 406 0))
 		)
-		(if (and (== (snoring prevSignal:) -1) (== (snoring number:) 114))
+		(if
+			(and
+				(== (snoring prevSignal?) -1)
+				(== (snoring number?) 114)
+			)
 			(snoring number: 115 loop: 1 prevSignal: 0 play:)
 		)
-		(if (== (Gertie cel:) 0)
+		(if (== (Gertie cel?) 0)
 			(snoring number: 114 loop: 1 play:)
-			(snores cel: 0 setCycle: End)
+			(snores cel: 0 setCycle: EndLoop)
 		)
 	)
-
+	
 	(method (dispose)
 		(super dispose:)
 	)
-
+	
 	(method (handleEvent event)
 		(super handleEvent: event)
-		(if (event claimed:)
-			(return)
-		)
-		(if (== (event type:) evSAID)
-			(= global213 1)
-			(cond
-				((Said 'give,show/*')
-					(if (and global219 global224)
-						(Print 224 0) ; "Zzzzzzzzzzzzzzz."
+		(if (event claimed?) (return))
+		(if (== (event type?) saidEvent)
+			(= theTalker talkGERTIE)
+			(cond 
+				((Said 'deliver,hold/*')
+					(if (and theInvItem haveInvItem)
+						(Print 224 0)
 					else
-						(DontHave) ; "You don't have it."
+						(DontHave)
 					)
 				)
-				((or (Said 'ask,tell//*<about') (Said 'talk'))
-					(switch local0
+				((or (Said 'ask,tell//*<about') (Said 'converse'))
+					(switch talkCount
 						(0
-							(Say 1 224 1) ; "I'm trying to rest! It's been a long...zzzzzzzzzzzzzzz."
-							(++ local0)
+							(Say 1 224 1)
+							(++ talkCount)
 						)
 						(1
-							(Print 224 0) ; "Zzzzzzzzzzzzzzz."
+							(Print 224 0)
 						)
 					)
-					(event claimed: 1)
+					(event claimed: TRUE)
 				)
 				((Said '/gertie>')
-					(cond
-						((Said 'look')
+					(cond 
+						((Said 'examine')
 							(if (& global207 $0001)
-								(Print 224 2) ; "Gertie looks awfully tired. Perhaps you shouldn't bother her."
+								(Print 224 2)
 							else
 								(|= global207 $0001)
-								(Say 0 224 3) ; "Gertrude Dijon is the Colonel's widowed sister-in-law. She obviously is behind the times, as she looks like she has just stepped out of the gay '90's! A bit of a snob, she walks around with her nose up in the air and has an annoying habit of constantly playing with her many strands of pearls."
+								(Say 0 224 3)
 							)
 						)
-						((Said 'listen')
-							(Print 224 4) ; "She's not talking."
+						((Said 'hear')
+							(Print 224 4)
 						)
 						((Said 'awaken,kill,embrace,kiss,get,hit,move')
-							(Print 224 5) ; "Gertie's tired. Leave her alone."
+							(Print 224 5)
 						)
 					)
 				)
@@ -115,14 +111,14 @@
 		view 344
 		cycleSpeed 16
 	)
-
+	
 	(method (handleEvent event)
-		(cond
-			((Said 'look[<at]/bed')
-				(Print 224 2) ; "Gertie looks awfully tired. Perhaps you shouldn't bother her."
+		(cond 
+			((Said 'examine[<at]/bed')
+				(Print 224 2)
 			)
-			((MousedOn self event 3)
-				(event claimed: 1)
+			((MousedOn self event shiftDown)
+				(event claimed: TRUE)
 				(DoLook {gertie})
 			)
 		)
@@ -138,4 +134,3 @@
 		cycleSpeed 1
 	)
 )
-

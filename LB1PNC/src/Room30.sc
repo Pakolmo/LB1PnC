@@ -1,9 +1,8 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-;;; Decompiled by sluicebox
 (script# 30)
-(include sci.sh)
+(include game.sh)
 (use Main)
-(use Interface)
+(use Intrface)
 (use DCIcon)
 (use Wander)
 (use RFeature)
@@ -20,24 +19,28 @@
 (local
 	local0
 )
-
-(instance Room30 of Rm
+(instance Room30 of Room
 	(properties
 		picture 30
 	)
-
+	
 	(method (init)
 		(= horizon 84)
 		(= west 29)
 		(= north 8)
 		(super init:)
-		(Load rsSOUND 82)
-		(self setRegions: 205 207 setFeatures: House) ; swampReg, fenceReg
-		(Load rsVIEW 35)
+		(Load SOUND 82)
+		(self setRegions: 205 207 setFeatures: House)
+		(Load VIEW 35)
 		(Thunder number: 17 loop: 0)
-		(if gDetailLevel
-			(reflect1 cycleSpeed: 1 setCycle: Fwd init:)
-			(reflect2 ignoreActors: 1 cycleSpeed: 1 setCycle: Fwd init:)
+		(if howFast
+			(reflect1 cycleSpeed: 1 setCycle: Forward init:)
+			(reflect2
+				ignoreActors: TRUE
+				cycleSpeed: 1
+				setCycle: Forward
+				init:
+			)
 			(light1 init: setScript: showers)
 			(light2 init:)
 			(light3 init:)
@@ -48,8 +51,8 @@
 				cel: 0
 				setStep: 3 3
 				observeBlocks: flyCage
-				ignoreHorizon: 1
-				setCycle: Fwd
+				ignoreHorizon: TRUE
+				setCycle: Forward
 				cycleSpeed: 2
 				setMotion: Wander 5
 				init:
@@ -59,8 +62,8 @@
 				cel: 1
 				setStep: 3 3
 				observeBlocks: flyCage
-				ignoreHorizon: 1
-				setCycle: Fwd
+				ignoreHorizon: TRUE
+				setCycle: Forward
 				cycleSpeed: 2
 				setMotion: Wander 5
 				init:
@@ -70,8 +73,8 @@
 				cel: 2
 				setStep: 3 3
 				observeBlocks: flyCage
-				ignoreHorizon: 1
-				setCycle: Fwd
+				ignoreHorizon: TRUE
+				setCycle: Forward
 				cycleSpeed: 2
 				setMotion: Wander 5
 				init:
@@ -81,8 +84,8 @@
 				cel: 3
 				setStep: 3 3
 				observeBlocks: flyCage
-				ignoreHorizon: 1
-				setCycle: Fwd
+				ignoreHorizon: TRUE
+				setCycle: Forward
 				cycleSpeed: 2
 				setMotion: Wander 5
 				init:
@@ -92,8 +95,8 @@
 				cel: 4
 				setStep: 3 3
 				observeBlocks: flyCage
-				ignoreHorizon: 1
-				setCycle: Fwd
+				ignoreHorizon: TRUE
+				setCycle: Forward
 				cycleSpeed: 2
 				setMotion: Wander 5
 				init:
@@ -102,86 +105,79 @@
 			(reflect1 addToPic:)
 			(reflect2 addToPic:)
 		)
-		(if (and (== gAct 3) (< gJeevesChoresState 5))
-			(self setRegions: 203) ; clarwand
+		(if (and (== currentAct 3) (< global115 5))
+			(self setRegions: 203)
 		)
-		(switch gPrevRoomNum
-			(24
-				(gEgo posn: 26 112)
-			)
-			(8
-				(gEgo posn: 122 112 loop: 2)
-			)
+		(switch prevRoomNum
+			(24 (ego posn: 26 112))
+			(8 (ego posn: 122 112 loop: 2))
 		)
-		(gEgo view: 0 init:)
+		(ego view: 0 init:)
 		(HandsOn)
 	)
-
-	(method (newRoom newRoomNumber)
-		(super newRoom: newRoomNumber)
-	)
-
+	
 	(method (doit)
-		(if (IsFirstTimeInRoom)
-			(Print 30 0) ; "You are at the southeast edge of the bayou island. The old road and fence have been taken over by the flooding swamp water."
+		(if (FirstEntry)
+			(Print 30 0)
 		)
-		(if (& (gEgo onControl: 0) $0008)
-			(gCurRoom newRoom: 24)
+		(if (& (ego onControl: 0) cCYAN)
+			(curRoom newRoom: 24)
 		)
-		(if (and (& (gEgo onControl: 1) $0002) (== local0 0))
+		(if (and (& (ego onControl: origin) cBLUE) (== local0 0))
 			(= local0 1)
 			(self setScript: sink)
 		)
-		(if (and (& (gEgo onControl: 0) $0004) (== local0 0))
-			(gCurRoom newRoom: 8)
+		(if (and (& (ego onControl: 0) cGREEN) (== local0 0))
+			(curRoom newRoom: 8)
 		)
 		(super doit:)
 	)
-
+	
 	(method (dispose)
-		(DisposeScript 976)
+		(DisposeScript WANDER)
 		(super dispose:)
 	)
-
+	
 	(method (handleEvent event)
-		(if (event claimed:)
-			(return 1)
-		)
-		(if
-			(and
-				(== (event type:) evSAID)
-				(Said 'look>')
-				(Said '[<around,at][/room][/!*]')
+		(if (event claimed?) (return TRUE))
+		(return
+			(if
+				(and
+					(== (event type?) saidEvent)
+					(Said 'examine>')
+					(Said '[<around,at][/room][/!*]')
+				)
+				(Print 30 0)
+			else
+				FALSE
 			)
-			(Print 30 0) ; "You are at the southeast edge of the bayou island. The old road and fence have been taken over by the flooding swamp water."
 		)
+	)
+	
+	(method (newRoom n)
+		(super newRoom: n)
 	)
 )
 
 (instance showers of Script
-	(properties)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
-			(0
-				(= seconds (= state 3))
-			)
+			(0 (= seconds (= state 3)))
 			(1
-				(light1 setCycle: Fwd)
-				(light2 setCycle: Fwd)
-				(light3 setCycle: Fwd)
-				(light4 setCycle: Fwd)
+				(light1 setCycle: Forward)
+				(light2 setCycle: Forward)
+				(light3 setCycle: Forward)
+				(light4 setCycle: Forward)
 				(= cycles 7)
 			)
 			(2
-				(light1 setCycle: End)
-				(light2 setCycle: End)
-				(light3 setCycle: End)
-				(light4 setCycle: End self)
+				(light1 setCycle: EndLoop)
+				(light2 setCycle: EndLoop)
+				(light3 setCycle: EndLoop)
+				(light4 setCycle: EndLoop self)
 			)
-			(3
-				(Thunder loop: 1 play: self)
-			)
+			(3 (Thunder loop: 1 play: self))
 			(4
 				(if (< (Random 1 100) 25)
 					(= state 0)
@@ -197,7 +193,6 @@
 )
 
 (instance sink of Script
-	(properties)
 
 	(method (changeState newState)
 		(switch (= state newState)
@@ -205,49 +200,37 @@
 				(Room30 south: 0 north: 0)
 				(HandsOff)
 				(myMusic number: 82 loop: 1 play:)
-				(gEgo
+				(ego
 					view: 35
 					cel: 0
 					xStep: 1
 					cycleSpeed: 3
 					setMotion:
 						MoveTo
-						(switch (gEgo loop:)
-							(0
-								(+ (gEgo x:) 10)
-							)
-							(1
-								(- (gEgo x:) 10)
-							)
-							(else
-								(gEgo x:)
-							)
+						(switch (ego loop?)
+							(0 (+ (ego x?) 10))
+							(1 (- (ego x?) 10))
+							(else  (ego x?))
 						)
-						(switch (gEgo loop:)
-							(2
-								(+ (gEgo y:) 3)
-							)
-							(3
-								(- (gEgo y:) 3)
-							)
-							(else
-								(gEgo y:)
-							)
+						(switch (ego loop?)
+							(2 (+ (ego y?) 3))
+							(3 (- (ego y?) 3))
+							(else  (ego y?))
 						)
 					cycleSpeed: 1
-					setCycle: End self
+					setCycle: EndLoop self
 				)
 			)
 			(1
-				(gEgo hide:)
+				(ego hide:)
 				(= seconds 3)
 			)
 			(2
-				(= global128 myIcon)
-				(= global129 5)
-				(= global130 0)
-				(= global132 1)
-				(EgoDead 30 1) ; "You've got that sinking feeling."
+				(= cIcon myIcon)
+				(= deathLoop 5)
+				(= deathCel 0)
+				(= cyclingIcon TRUE)
+				(EgoDead 30 1)
 			)
 		)
 	)
@@ -310,26 +293,22 @@
 	)
 )
 
-(instance Thunder of Sound
-	(properties)
-)
+(instance Thunder of Sound)
 
-(instance myMusic of Sound
-	(properties)
-)
+(instance myMusic of Sound)
 
 (instance myIcon of DCIcon
 	(properties
 		view 13
 		loop 5
 	)
-
+	
 	(method (init)
-		((= cycler (End new:)) init: self)
+		((= cycler (EndLoop new:)) init: self)
 	)
 )
 
-(instance Fly of Act
+(instance Fly of Actor
 	(properties
 		y 123
 		x 274
@@ -337,7 +316,7 @@
 	)
 )
 
-(instance Fly2 of Act
+(instance Fly2 of Actor
 	(properties
 		y 179
 		x 297
@@ -345,7 +324,7 @@
 	)
 )
 
-(instance Fly3 of Act
+(instance Fly3 of Actor
 	(properties
 		y 139
 		x 217
@@ -353,7 +332,7 @@
 	)
 )
 
-(instance Fly4 of Act
+(instance Fly4 of Actor
 	(properties
 		y 179
 		x 257
@@ -361,7 +340,7 @@
 	)
 )
 
-(instance Fly5 of Act
+(instance Fly5 of Actor
 	(properties
 		y 139
 		x 197
@@ -369,9 +348,7 @@
 	)
 )
 
-(instance flyCage of Cage
-	(properties)
-)
+(instance flyCage of Cage)
 
 (instance House of RFeature
 	(properties
@@ -379,12 +356,11 @@
 		nsBottom 79
 		nsRight 34
 	)
-
+	
 	(method (handleEvent event)
-		(if (or (MousedOn self event 3) (Said 'look/gazebo'))
-			(event claimed: 1)
-			(Print 30 2) ; "You notice a gazebo in the distance to the north."
+		(if (or (MousedOn self event shiftDown) (Said 'examine/gazebo'))
+			(event claimed: TRUE)
+			(Print 30 2)
 		)
 	)
 )
-

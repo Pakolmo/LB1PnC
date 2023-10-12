@@ -1,10 +1,9 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-;;; Decompiled by sluicebox
 (script# 380)
-(include sci.sh)
+(include game.sh)
 (use Main)
-(use Interface)
-(use Avoid)
+(use Intrface)
+(use Avoider)
 (use Motion)
 (use Game)
 (use Actor)
@@ -13,52 +12,46 @@
 (public
 	dustAct1 0
 )
-
 (synonyms
-	(fifi person woman)
+	(fifi person girl)
 )
 
 (local
-	local0
+	dustCount
 	[local1 2]
 )
-
-(instance dustAct1 of Rgn
-	(properties)
-
+(instance dustAct1 of Region
+	
 	(method (init)
 		(super init:)
 		(= global195 16)
-		(LoadMany rsVIEW 470 904)
+		(LoadMany VIEW 470 904)
 		(Fifi
 			view: 464
-			setAvoider: (Avoid new:)
-			illegalBits: -16378
+			setAvoider: (Avoider new:)
+			illegalBits: (| cYELLOW cWHITE)
 			init:
 			setScript: fifiActions
 		)
 	)
-
+	
 	(method (doit)
 		(super doit:)
 	)
-
+	
 	(method (dispose)
-		(DisposeScript 985)
+		(DisposeScript AVOIDER)
 		(super dispose:)
 	)
-
+	
 	(method (handleEvent event)
 		(super handleEvent: event)
-		(if (event claimed:)
-			(return 1)
-		)
+		(return (if (event claimed?) (return TRUE) else FALSE))
 	)
 )
 
 (instance fifiActions of Script
-	(properties)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
@@ -66,13 +59,13 @@
 					view: 464
 					setPri: -1
 					setCycle: Walk
-					illegalBits: -16378
+					illegalBits: (| cYELLOW cWHITE)
 					ignoreActors: 0
 				)
 				(Fifi
 					setMotion:
 						MoveTo
-						(switch local0
+						(switch dustCount
 							(0 225)
 							(1 62)
 							(2 106)
@@ -82,7 +75,7 @@
 							(6 196)
 							(7 209)
 						)
-						(switch local0
+						(switch dustCount
 							(0 153)
 							(1 167)
 							(2 115)
@@ -98,11 +91,11 @@
 			(1
 				(Fifi
 					view: 470
-					setPri: (if (== local0 1) 14 else -1)
+					setPri: (if (== dustCount 1) 14 else -1)
 					cel: 0
 					illegalBits: 0
 					loop:
-						(switch local0
+						(switch dustCount
 							(0 1)
 							(1 5)
 							(2 1)
@@ -112,13 +105,13 @@
 							(6 4)
 							(7 4)
 						)
-					setCycle: End self
+					setCycle: EndLoop self
 				)
 			)
 			(2
 				(Fifi
 					loop:
-						(switch local0
+						(switch dustCount
 							(0 3)
 							(1 7)
 							(2 3)
@@ -128,16 +121,16 @@
 							(6 6)
 							(7 6)
 						)
-					setCycle: Fwd
+					setCycle: Forward
 				)
 				(= seconds 4)
 			)
 			(3
-				(Fifi cel: 2 setCycle: Beg self)
-				(if (< local0 7)
-					(++ local0)
+				(Fifi cel: 2 setCycle: BegLoop self)
+				(if (< dustCount 7)
+					(++ dustCount)
 				else
-					(= local0 0)
+					(= dustCount 0)
 				)
 				(= state -1)
 			)
@@ -145,54 +138,54 @@
 	)
 )
 
-(instance Fifi of Act
+(instance Fifi of Actor
 	(properties
 		y 140
 		x 196
 	)
-
+	
 	(method (handleEvent event)
-		(cond
-			((Said 'give,show/*')
-				(if (and global219 global224)
-					(Print 380 0) ; "Fifi doesn't have time for idle chitchat. She's too busy cleaning the Colonel's study."
+		(cond 
+			((Said 'deliver,hold/*')
+				(if (and theInvItem haveInvItem)
+					(Print 380 0)
 				else
-					(DontHave) ; "You don't have it."
+					(DontHave)
 				)
 			)
 			((Said 'ask,tell//*<about')
-				(Print 380 0) ; "Fifi doesn't have time for idle chitchat. She's too busy cleaning the Colonel's study."
+				(Print 380 0)
 			)
-			((or (MousedOn self event 3) (Said 'look/fifi'))
-				(event claimed: 1)
+			(
+			(or (MousedOn self event shiftDown) (Said 'examine/fifi'))
+				(event claimed: TRUE)
 				(if (not (& global207 $0010))
 					(|= global207 $0010)
-					(= global213 5)
-					(Say 0 380 1) ; "Fifi is the Colonel's pretty French maid. You surmise that she is probably very apt in her duties...whatever THEY may be! Fifi is young, blonde, and sexy. Although she seems to have a vivacious personality, you can sense a certain cunning underneath it all."
+					(= theTalker talkFIFI)
+					(Say 0 380 1)
 				else
-					(Print 380 2) ; "Currently, Fifi looks to be busily cleaning the Colonel's study."
+					(Print 380 2)
 				)
 			)
 			((Said '/fifi>')
-				(cond
+				(cond 
 					((Said 'get')
-						(Print 380 3) ; "You can't get her!"
+						(Print 380 3)
 					)
 					((Said 'kill')
-						(Print 380 4) ; "There's no need for THAT sort of thing!"
+						(Print 380 4)
 					)
 					((Said 'kiss')
-						(Print 380 5) ; "You don't feel like kissing her."
+						(Print 380 5)
 					)
 					((Said 'embrace')
-						(Print 380 6) ; "You don't feel like hugging her."
+						(Print 380 6)
 					)
-					((Said 'talk')
-						(Print 380 0) ; "Fifi doesn't have time for idle chitchat. She's too busy cleaning the Colonel's study."
+					((Said 'converse')
+						(Print 380 0)
 					)
 				)
 			)
 		)
 	)
 )
-

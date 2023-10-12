@@ -1,9 +1,8 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-;;; Decompiled by sluicebox
 (script# 36)
-(include sci.sh)
+(include game.sh)
 (use Main)
-(use Interface)
+(use Intrface)
 (use RFeature)
 (use Sound)
 (use Motion)
@@ -23,30 +22,29 @@
 	local3
 	local4
 	local5
-	local6
-	local7
+	firstTime
+	userCanControl
 	local8
 )
-
-(instance Room36 of Rm
+(instance Room36 of Room
 	(properties
 		picture 36
 	)
-
+	
 	(method (init)
 		(super init:)
 		(= east 37)
-		(= local6 (IsFirstTimeInRoom))
-		(Load rsVIEW 16)
-		(LoadMany rsSOUND 43 44 74 75)
+		(= firstTime (FirstEntry))
+		(Load VIEW 16)
+		(LoadMany SOUND 43 44 74 75)
 		(= global120 0)
 		(if
 			(or
-				(and (== gAct 0) (== global199 2))
-				(and (!= gClarenceWilburState 4) (== gAct 1))
-				(== gAct 2)
+				(and (== currentAct 0) (== global199 2))
+				(and (!= global154 4) (== currentAct 1))
+				(== currentAct 2)
 			)
-			(LoadMany rsSOUND 200 201 202 203 204)
+			(LoadMany SOUND 200 201 202 203 204)
 		)
 		(self
 			setFeatures:
@@ -68,73 +66,83 @@
 				table2
 				portrait
 		)
-		(if gDetailLevel
-			(lamp1 setCycle: Fwd init:)
-			(lamp2 setCycle: Fwd init:)
+		(if howFast
+			(lamp1 setCycle: Forward init:)
+			(lamp2 setCycle: Forward init:)
 		else
 			(lamp1 init: stopUpd:)
 			(lamp2 init: stopUpd:)
 		)
-		(Fdoor cel: (if (== gPrevRoomNum 15) 2 else 0) init: stopUpd:)
-		(= global373 Fdoor)
-		(Bdoor cel: (if (== gPrevRoomNum 15) 2 else 0) init: stopUpd:)
-		(= global374 Bdoor)
-		(panel x: (if (== gPrevRoomNum 49) 146 else 141) init: stopUpd:)
+		(Fdoor
+			cel: (if (== prevRoomNum 15) 2 else 0)
+			init:
+			stopUpd:
+		)
+		(= gDoor Fdoor)
+		(Bdoor
+			cel: (if (== prevRoomNum 15) 2 else 0)
+			init:
+			stopUpd:
+		)
+		(= gMySound Bdoor)
+		(panel
+			x: (if (== prevRoomNum 49) 146 else 141)
+			init:
+			stopUpd:
+		)
 		(crank_ init: stopUpd:)
 		(keys init: hide:)
 		(roll init: stopUpd:)
-		(switch gAct
+		(switch currentAct
 			(0
-				(if (and (not (& gSpyFlags $0001)) (== [gCycleTimers 0] 1))
-					(= [gCycleTimers 0] 0)
-					(= [gCycleTimers 2] 1800)
-					(|= gSpyFlags $0001)
+				(if (and (not (& global173 $0001)) (== [global368 0] 1))
+					(= [global368 0] 0)
+					(= [global368 2] 1800)
+					(|= global173 $0001)
 					(= global199 1)
 				)
-				(if (and (== global199 1) (== [gCycleTimers 2] 1))
-					(= [gCycleTimers 2] 0)
+				(if (and (== global199 1) (== [global368 2] 1))
+					(= [global368 2] 0)
 					(= global199 2)
 				)
 				(switch global199
 					(0
 						(= local3 1)
-						(self setRegions: 232) ; grargue
+						(self setRegions: 232)
 					)
 					(2
 						(= local3 1)
 						(= local0 1)
-						(self setRegions: 233) ; glorplay
+						(self setRegions: 233)
 					)
 				)
 			)
 			(1
 				(= local3 1)
-				(if (or (== gClarenceWilburState 4) (== [gCycleTimers 0] 1))
-					(= gClarenceWilburState 4)
-					(= [gCycleTimers 0] 0)
-					(self setRegions: 245) ; billiard
+				(if (or (== global154 4) (== [global368 0] 1))
+					(= global154 4)
+					(= [global368 0] 0)
+					(self setRegions: 245)
 					(balls priority: 7)
 				else
 					(= local0 1)
 					(= global199 2)
-					(self setRegions: 233) ; glorplay
+					(self setRegions: 233)
 				)
 			)
 			(2
 				(= local3 1)
 				(= local0 1)
-				(self setRegions: 233) ; glorplay
+				(self setRegions: 233)
 			)
 			(3
 				(if (not (& global141 $0004))
-					(self setRegions: 382) ; sweeping
+					(self setRegions: 382)
 				)
 			)
-			(else
-				(= local3 0)
-			)
+			(else  (= local3 0))
 		)
-		(gAddToPics
+		(addToPics
 			add:
 				balls
 				phono
@@ -157,90 +165,94 @@
 			eachElementDo: #init
 			doit:
 		)
-		(if (!= gPrevRoomNum 49)
-			(if (== gPrevRoomNum 37)
-				(gEgo posn: 305 98)
+		(if (!= prevRoomNum 49)
+			(if (== prevRoomNum 37)
+				(ego posn: 305 98)
 			else
-				(gEgo posn: 60 119)
-				(if (not local6)
-					(gEgo setMotion: MoveTo 68 119)
+				(ego posn: 60 119)
+				(if (not firstTime)
+					(ego setMotion: MoveTo 68 119)
 					(= global202 2)
 				)
 			)
-			(gEgo view: 0 illegalBits: -32764 setPri: -1 init:)
+			(ego view: 0 illegalBits: (| cWHITE cGREEN) setPri: -1 init:)
 		else
-			(gEgo
+			(ego
 				view: 0
-				illegalBits: -32764
+				illegalBits: (| cWHITE cGREEN)
 				setPri: 2
 				loop: 2
 				posn: 126 79
 				init:
 			)
-			(gEgo posn: 138 79)
+			(ego posn: 138 79)
 			(self setScript: enterPanel)
 		)
 	)
-
+	
 	(method (doit)
-		(if (and (== gAct 3) (== global217 0))
-			(Print 36 0) ; "Things look suspicious here! You can see pieces of a broken record on the floor by the Victrola and a small pile of pink feathers near it."
+		(if (and (== currentAct 3) (== global217 0))
+			(Print 36 0)
 			(= global217 1)
 		)
-		(if (and (== gAct 3) (== global374 1))
+		(if (and (== currentAct 3) (== gMySound 1))
 			(= local3 1)
 		)
-		(if (and (== gAct 3) (== global374 0))
+		(if (and (== currentAct 3) (== gMySound 0))
 			(= local3 0)
 		)
-		(if local6
-			(Print 36 1) ; "You have found the Colonel's billiard room. Funny, he doesn't seem to be the kind of guy who would enjoy playing billiards, listening to records on the Victrola, or the player piano."
-			(if (== gPrevRoomNum 15)
-				(gEgo setMotion: MoveTo 68 119)
+		(if firstTime
+			(Print 36 1)
+			(if (== prevRoomNum 15)
+				(ego setMotion: MoveTo 68 119)
 				(= global202 2)
 			)
-			(= local6 0)
+			(= firstTime 0)
 		)
-		(if (and (or (== global202 1) (== global202 2)) (not (Fdoor script:)))
+		(if
+			(and
+				(or (== global202 1) (== global202 2))
+				(not (Fdoor script?))
+			)
 			(Fdoor setScript: DoorFunc)
 		)
 		(if (not script)
-			(cond
-				((& (gEgo onControl: 0) $0008)
-					(if (== (gEgo loop:) 1)
-						(gEgo setPri: 8)
+			(cond 
+				((& (ego onControl: 0) cCYAN)
+					(if (== (ego loop?) 1)
+						(ego setPri: 8)
 						(HandsOff)
 						(self setScript: myDoor)
 					)
 				)
-				((gEgo inRect: 46 120 55 131)
-					(gEgo setPri: 10)
+				((ego inRect: 46 120 55 131)
+					(ego setPri: 10)
 				)
 				((not local5)
-					(gEgo setPri: -1)
+					(ego setPri: -1)
 				)
 			)
 		)
-		(if (& (gEgo onControl: 1) $0004)
-			(gEgo illegalBits: -32768 ignoreActors: 0)
-			(gCurRoom newRoom: 15)
+		(if (& (ego onControl: origin) cGREEN)
+			(ego illegalBits: cWHITE ignoreActors: FALSE)
+			(curRoom newRoom: 15)
 		)
 		(if
 			(and
-				(& (gEgo onControl: 1) $0020)
+				(& (ego onControl: origin) cMAGENTA)
 				(== local3 0)
 				(== global204 0)
 			)
-			(gCurRoom newRoom: 49)
+			(curRoom newRoom: 49)
 		)
-		(if (< (gEgo x:) 190)
+		(if (< (ego x?) 190)
 			(= vertAngle 44)
 		else
 			(= vertAngle 10)
 		)
 		(super doit:)
 	)
-
+	
 	(method (dispose)
 		(if (< global160 4)
 			(++ global160)
@@ -250,26 +262,18 @@
 		(DisposeScript 204)
 		(super dispose:)
 	)
-
-	(method (newRoom newRoomNumber)
-		(cls)
-		(= global190 0)
-		(super newRoom: newRoomNumber)
-	)
-
+	
 	(method (handleEvent event)
 		(super handleEvent: event)
-		(if (event claimed:)
-			(return)
-		)
-		(if (== (event type:) evSAID)
-			(DisposeScript 990)
+		(if (event claimed?) (return))
+		(if (== (event type?) saidEvent)
+			(DisposeScript SAVE)
 			(if
 				(or
 					(Said 'play/game,billiard')
 					(Said 'ask/*/(game,billiard)<play<to')
 				)
-				(Print 36 2) ; "Although your father is an excellent billiards player, you never learned the game."
+				(Print 36 2)
 			)
 			(= local8
 				(if
@@ -280,12 +284,17 @@
 							(not (Said 'ask[/actress]/rudolph<about>'))
 						)
 					)
-					(or
-						(not (& global208 $0044))
-						(not (Said 'tell[/actress,attorney]/gertie<about>'))
-						(not (& gCorpseFlags $0001)) ; Gertie
+					(if
+						(or
+							(not (& global208 $0044))
+							(not (Said 'tell[/actress,attorney]/gertie<about>'))
+							(not (& deadGuests deadGERTRUDE))
+						)
+					else
 						(& global145 $0002)
 					)
+				else
+					0
 				)
 			)
 			(if
@@ -293,133 +302,136 @@
 					global208
 					local8
 					(Said
-						'ask,tell,show,give,look,get,kill,kiss,embrace,flirt>'
+						'ask,tell,hold,deliver,examine,get,kill,kiss,embrace,flirt>'
 					)
 				)
-				(self setScript: (ScriptID 243 0)) ; atsgl
-				((self script:) handleEvent: event)
-				(if (event claimed:)
-					(return)
-				)
+				(self setScript: (ScriptID 243 0))
+				((self script?) handleEvent: event)
+				(if (event claimed?) (return))
 			)
-			(cond
+			(cond 
 				((Said '/panel,(door<hidden)>')
-					(cond
+					(cond 
 						((and (& global175 $0004) (Said 'open,move'))
 							(if (not local3)
-								(if (& (gEgo onControl: 0) $0010)
+								(if (& (ego onControl: 0) cRED)
 									(HandsOff)
 									(self setScript: exiting)
 								else
-									(NotClose) ; "You're not close enough."
+									(NotClose)
 								)
 							else
-								(Print 36 3) ; "You better not while others are in the room."
+								(Print 36 3)
 							)
 						)
-						((Said 'look')
+						((Said 'examine')
 							(if (& global175 $0004)
-								(Print 36 4) ; "Even though you know where it is, you can't see it."
+								(Print 36 4)
 							else
-								(Print 36 5) ; "You don't see one."
+								(Print 36 5)
 							)
 						)
 					)
 				)
-				((Said 'look>')
-					(cond
+				((Said 'examine>')
+					(cond 
 						((Said '[<around,at][/room]')
-							(if (== gAct 3)
+							(if (== currentAct 3)
 								(if (not (& global141 $0004))
-									(if (gEgo has: 9) ; broken_record
-										(Print 36 6) ; "There is small pile of pink feathers on the floor along with some mud spots."
+									(if (ego has: iBrokenRecord)
+										(Print 36 6)
 									else
-										(Print 36 0) ; "Things look suspicious here! You can see pieces of a broken record on the floor by the Victrola and a small pile of pink feathers near it."
+										(Print 36 0)
 									)
 								else
-									(Print 36 1) ; "You have found the Colonel's billiard room. Funny, he doesn't seem to be the kind of guy who would enjoy playing billiards, listening to records on the Victrola, or the player piano."
+									(Print 36 1)
 								)
 							else
-								(Print 36 1) ; "You have found the Colonel's billiard room. Funny, he doesn't seem to be the kind of guy who would enjoy playing billiards, listening to records on the Victrola, or the player piano."
+								(Print 36 1)
 							)
 						)
 						((Said '/ball[<billiard]')
-							(Print 36 7) ; "You see three balls on the billiard table; two red and one white."
+							(Print 36 7)
 						)
 						((Said '/bench[<piano]')
-							(Print 36 8) ; "It's just a common piano bench."
+							(Print 36 8)
 						)
 						((or (Said '/dirt') (Said '<down'))
-							(if (== gAct 3)
-								(cond
-									((gEgo has: 9) ; broken_record
+							(if (== currentAct 3)
+								(cond 
+									((ego has: iBrokenRecord)
 										(if (not (& global141 $0004))
-											(Print 36 6) ; "There is small pile of pink feathers on the floor along with some mud spots."
+											(Print 36 6)
 										else
-											(event claimed: 0)
+											(event claimed: FALSE)
 										)
 									)
 									((not (& global141 $0004))
-										(Print 36 9) ; "There are pieces of a broken record, a small pile of pink feathers, and some mud spots on the floor."
+										(Print 36 9)
 									)
 									(else
-										(event claimed: 0)
+										(event claimed: FALSE)
 									)
 								)
 							else
-								(event claimed: 0)
+								(event claimed: FALSE)
 							)
 						)
 						((Said '/door')
-							(Print 36 10) ; "The French doors lead outside."
+							(Print 36 10)
 						)
 						((Said '/record')
-							(cond
-								((gEgo has: 9) ; broken_record
-									(event claimed: 0)
+							(cond 
+								((ego has: iBrokenRecord)
+									(event claimed: FALSE)
 								)
-								((< (gEgo distanceTo: phono) 20)
-									(Print 36 11) ; "Oh! One of your favorites!"
+								((< (ego distanceTo: phono) 20)
+									(Print 36 11)
 								)
 								(else
-									(NotClose) ; "You're not close enough."
+									(NotClose)
 								)
 							)
 						)
 					)
 				)
 				((Said 'get/ball')
-					(Print 36 12) ; "You don't need any billiard balls."
+					(Print 36 12)
 				)
 			)
 		)
 	)
+	
+	(method (newRoom n)
+		(cls)
+		(= saveDisabled FALSE)
+		(super newRoom: n)
+	)
 )
 
 (instance exiting of Script
-	(properties)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
 				(= local5 1)
 				(= global204 1)
 				(panel setMotion: MoveTo 170 83 self)
-				(gEgo illegalBits: -32768)
+				(ego illegalBits: cWHITE)
 				(soundFX number: 74 loop: 1 play:)
 			)
 			(1
-				(if (gEgo inRect: 137 87 139 89)
+				(if (ego inRect: 137 87 139 89)
 					(= cycles 1)
 				else
-					(gEgo illegalBits: -32768 setMotion: MoveTo 138 88 self)
+					(ego illegalBits: cWHITE setMotion: MoveTo 138 88 self)
 				)
 			)
 			(2
-				(gEgo setMotion: MoveTo 138 79 self)
+				(ego setMotion: MoveTo 138 79 self)
 			)
 			(3
-				(gEgo setPri: 2)
+				(ego setPri: 2)
 				(panel setMotion: MoveTo 141 83 self)
 				(soundFX number: 75 loop: 1 play:)
 			)
@@ -433,21 +445,20 @@
 )
 
 (instance playPiano of Script
-	(properties)
 
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
 				(= local1 1)
 				(HandsOff)
-				(gEgo ignoreControl: -32768)
+				(ego ignoreControl: cWHITE)
 				(= cycles 2)
 			)
 			(1
-				(gEgo setMotion: MoveTo 137 89 self)
+				(ego setMotion: MoveTo 137 89 self)
 			)
 			(2
-				(gEgo view: 16 loop: 1 cel: 0 setCycle: End self)
+				(ego view: 16 loop: 1 cel: 0 setCycle: EndLoop self)
 			)
 			(3
 				(crank_ hide:)
@@ -455,21 +466,24 @@
 					(= global120 1)
 				)
 				(windMusic loop: -1 play:)
-				(gEgo loop: 0 cel: 0 setCycle: Fwd)
+				(ego loop: 0 cel: 0 setCycle: Forward)
 				(= cycles 14)
 			)
 			(4
 				(windMusic stop:)
 				(crank_ show:)
-				(gEgo view: 16 loop: 1 cel: 0 setCycle: Beg self)
+				(ego view: 16 loop: 1 cel: 0 setCycle: BegLoop self)
 			)
 			(5
-				(gEgo view: 0 loop: 0 setCycle: Walk observeControl: -32768)
-				(HandsOn)
-				(if gDetailLevel
-					(keys show: setCycle: Fwd)
+				(ego
+					view: 0
+					loop: 0
+					setCycle: Walk
+					observeControl: cWHITE
 				)
-				(roll setCycle: Fwd)
+				(HandsOn)
+				(if howFast (keys show: setCycle: Forward))
+				(roll setCycle: Forward)
 				(myMusic number: (+ 200 global160) loop: 1 play: self)
 			)
 			(6
@@ -488,8 +502,7 @@
 )
 
 (instance enterPanel of Script
-	(properties)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
@@ -500,18 +513,16 @@
 				(soundFX number: 74 loop: 1 play:)
 			)
 			(1
-				(gEgo
-					setMotion: MoveTo (gEgo x:) (+ (gEgo y:) 15) self
-				)
+				(ego setMotion: MoveTo (ego x?) (+ (ego y?) 15) self)
 			)
 			(2
-				(gEgo setPri: -1 illegalBits: -32768)
+				(ego setPri: -1 illegalBits: cWHITE)
 				(panel setMotion: MoveTo 141 83 self)
 				(soundFX number: 75 loop: 1 play:)
 			)
 			(3
 				(HandsOn)
-				(Print 36 13) ; "The secret panel closes behind you and leaves no trace!"
+				(Print 36 13)
 				(= global204 0)
 				(= local5 0)
 				(client setScript: 0)
@@ -521,21 +532,25 @@
 )
 
 (instance DoorFunc of Script
-	(properties)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
-				(= local7 (User canControl:))
-				(User canControl: 0)
-				(Bdoor setCycle: (if (== global202 1) End else Beg))
-				(Fdoor setCycle: (if (== global202 1) End else Beg) self)
+				(= userCanControl (User canControl:))
+				(User canControl: FALSE)
+				(Bdoor setCycle: (if (== global202 1) EndLoop else BegLoop))
+				(Fdoor
+					setCycle: (if (== global202 1) EndLoop else BegLoop) self
+				)
 				(if (not local0)
-					(doorMusic number: (if (== global202 1) 43 else 44) play:)
+					(doorMusic
+						number: (if (== global202 1) 43 else 44)
+						play:
+					)
 				)
 			)
 			(1
-				(User canControl: local7)
+				(User canControl: userCanControl)
 				(Bdoor stopUpd:)
 				(Fdoor stopUpd:)
 				(= global202 3)
@@ -546,7 +561,6 @@
 )
 
 (instance myDoor of Script
-	(properties)
 
 	(method (doit)
 		(super doit:)
@@ -555,25 +569,23 @@
 			(= cycles 1)
 		)
 	)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
 				(= cycles 2)
-				(gEgo setMotion: 0 ignoreActors: 1 illegalBits: 0)
+				(ego setMotion: 0 ignoreActors: TRUE illegalBits: 0)
 			)
 			(1
-				(if (< (gEgo x:) 68)
-					(gEgo setMotion: MoveTo 80 119 self)
+				(if (< (ego x?) 68)
+					(ego setMotion: MoveTo 80 119 self)
 				else
 					(= cycles 1)
 				)
 			)
-			(2
-				(= global202 1)
-			)
+			(2 (= global202 1))
 			(3
-				(gEgo setMotion: MoveTo (- (gEgo x:) 50) (gEgo y:))
+				(ego setMotion: MoveTo (- (ego x?) 50) (ego y?))
 			)
 		)
 	)
@@ -587,7 +599,7 @@
 		loop 9
 		cel 5
 		priority 9
-		signal 16384
+		signal ignrAct
 	)
 )
 
@@ -600,47 +612,52 @@
 		cel 6
 		priority 5
 	)
-
+	
 	(method (handleEvent event)
-		(cond
+		(cond 
 			((Said 'get/record')
-				(Print 36 14) ; "The records don't belong to you."
+				(Print 36 14)
 			)
 			(
 				(or
 					(Said
 						'play,attach,control,rotate/handle,gramophone,music,record[/(gramophone,(player<record))<on]'
 					)
-					(Said '(rotate<on),(wind[<up])/gramophone,(player<record)')
+					(Said
+						'(rotate<on),(wind[<up])/gramophone,(player<record)'
+					)
 				)
 				(if (not local0)
-					(if (gEgo has: 9) ; broken_record
-						(Print 36 15) ; "You don't have a record that will work."
+					(if (ego has: iBrokenRecord)
+						(Print 36 15)
 					else
-						(Print 36 16) ; "You don't have a record."
+						(Print 36 16)
 					)
 				else
-					(Print 36 17) ; "There is already a record playing. Oh! One of your favorites."
+					(Print 36 17)
 				)
 			)
-			((Said 'open,(look<in)/gramophone,armoire,(player<record)')
-				(if (< (gEgo distanceTo: record) 30)
-					(Print 36 18) ; "You look inside the Victrola cabinet and see several records. But since they don't belong to you, you decide to leave them alone."
+			(
+				(Said
+					'open,(examine<in)/gramophone,armoire,(player<record)'
+				)
+				(if (< (ego distanceTo: record) 30)
+					(Print 36 18)
 				else
-					(NotClose) ; "You're not close enough."
+					(NotClose)
 				)
 			)
 			(
 				(or
-					(MousedOn self event 3)
-					(Said 'look/gramophone,armoire,(player<record)')
+					(MousedOn self event shiftDown)
+					(Said 'examine/gramophone,armoire,(player<record)')
 				)
-				(if (== gAct 3)
-					(Print 36 19) ; "You see an old-fashioned Victrola and cabinet in the corner of the room. However, the record that is playing on the phonograph is current."
+				(if (== currentAct 3)
+					(Print 36 19)
 				else
-					(Print 36 20) ; "You see an old-fashioned Victrola and cabinet in the corner of the room."
+					(Print 36 20)
 				)
-				(event claimed: 1)
+				(event claimed: TRUE)
 			)
 		)
 	)
@@ -654,10 +671,10 @@
 		loop 3
 		priority 12
 	)
-
+	
 	(method (handleEvent event)
-		(if (MousedOn self event 3)
-			(event claimed: 1)
+		(if (MousedOn self event shiftDown)
+			(event claimed: TRUE)
 			(DoLook {couch})
 		)
 	)
@@ -671,10 +688,10 @@
 		loop 3
 		priority 12
 	)
-
+	
 	(method (handleEvent event)
-		(if (MousedOn self event 3)
-			(event claimed: 1)
+		(if (MousedOn self event shiftDown)
+			(event claimed: TRUE)
 			(DoLook {couch})
 		)
 	)
@@ -689,10 +706,10 @@
 		cel 4
 		priority 12
 	)
-
+	
 	(method (handleEvent event)
-		(if (MousedOn self event 3)
-			(event claimed: 1)
+		(if (MousedOn self event shiftDown)
+			(event claimed: TRUE)
 			(DoLook {table})
 		)
 	)
@@ -707,10 +724,10 @@
 		cel 2
 		priority 5
 	)
-
+	
 	(method (handleEvent event)
-		(if (MousedOn self event 3)
-			(event claimed: 1)
+		(if (MousedOn self event shiftDown)
+			(event claimed: TRUE)
 			(DoLook {chair})
 		)
 	)
@@ -725,18 +742,18 @@
 		cel 4
 		priority 1
 	)
-
+	
 	(method (handleEvent event)
-		(cond
-			((or (MousedOn self event 3) (Said 'look/guitar'))
-				(event claimed: 1)
-				(Print 36 21) ; "You see several musical instruments hanging on the wall."
+		(cond 
+			((or (MousedOn self event shiftDown) (Said 'examine/guitar'))
+				(event claimed: TRUE)
+				(Print 36 21)
 			)
 			((Said 'get/guitar')
-				(Print 36 22) ; "You were never musically inclined."
+				(Print 36 22)
 			)
 			((Said 'play/guitar')
-				(Print 36 22) ; "You were never musically inclined."
+				(Print 36 22)
 			)
 		)
 	)
@@ -751,11 +768,11 @@
 		cel 5
 		priority 1
 	)
-
+	
 	(method (handleEvent event)
-		(if (MousedOn self event 3)
-			(event claimed: 1)
-			(Print 36 21) ; "You see several musical instruments hanging on the wall."
+		(if (MousedOn self event shiftDown)
+			(event claimed: TRUE)
+			(Print 36 21)
 		)
 	)
 )
@@ -769,11 +786,11 @@
 		cel 3
 		priority 1
 	)
-
+	
 	(method (handleEvent event)
-		(if (MousedOn self event 3)
-			(event claimed: 1)
-			(Print 36 21) ; "You see several musical instruments hanging on the wall."
+		(if (MousedOn self event shiftDown)
+			(event claimed: TRUE)
+			(Print 36 21)
 		)
 	)
 )
@@ -786,11 +803,11 @@
 		loop 1
 		priority 4
 	)
-
+	
 	(method (handleEvent event)
-		(if (MousedOn self event 3)
-			(event claimed: 1)
-			(Print 36 21) ; "You see several musical instruments hanging on the wall."
+		(if (MousedOn self event shiftDown)
+			(event claimed: TRUE)
+			(Print 36 21)
 		)
 	)
 )
@@ -803,17 +820,17 @@
 		loop 1
 		cel 8
 		priority 9
-		signal 16384
+		signal $4000
 	)
-
+	
 	(method (handleEvent event)
-		(cond
-			((or (MousedOn self event 3) (Said 'look/rack,cue'))
-				(event claimed: 1)
-				(Print 36 23) ; "There are billiard cues in the rack on the wall."
+		(cond 
+			((or (MousedOn self event shiftDown) (Said 'examine/rack,cue'))
+				(event claimed: TRUE)
+				(Print 36 23)
 			)
 			((Said 'get/cue[<billiard]')
-				(Print 36 24) ; "Since you don't play billiards, you don't need a billiard cue."
+				(Print 36 24)
 			)
 		)
 	)
@@ -828,11 +845,11 @@
 		cel 3
 		priority 7
 	)
-
+	
 	(method (handleEvent event)
-		(if (or (MousedOn self event 3) (Said 'look/bookcase'))
-			(event claimed: 1)
-			(Print 36 25) ; "The bookcases are crammed full of books."
+		(if (or (MousedOn self event shiftDown) (Said 'examine/bookcase'))
+			(event claimed: TRUE)
+			(Print 36 25)
 		)
 	)
 )
@@ -845,17 +862,17 @@
 		loop 1
 		cel 1
 		priority 12
-		signal 16384
+		signal $4000
 	)
-
+	
 	(method (handleEvent event)
-		(cond
-			((or (MousedOn self event 3) (Said 'look/boat'))
-				(event claimed: 1)
-				(Print 36 26) ; "You notice a model of an old ship on the table."
+		(cond 
+			((or (MousedOn self event shiftDown) (Said 'examine/boat'))
+				(event claimed: TRUE)
+				(Print 36 26)
 			)
 			((Said 'get/boat')
-				(Print 36 27) ; "It's not yours. There's nothing special about it."
+				(Print 36 27)
 			)
 		)
 	)
@@ -870,10 +887,10 @@
 		cel 2
 		priority 5
 	)
-
+	
 	(method (handleEvent event)
-		(if (MousedOn self event 3)
-			(event claimed: 1)
+		(if (MousedOn self event shiftDown)
+			(event claimed: TRUE)
 			(DoLook {chair})
 		)
 	)
@@ -887,23 +904,23 @@
 		loop 2
 		priority 5
 	)
-
+	
 	(method (handleEvent event)
-		(if (MousedOn self event 3)
-			(event claimed: 1)
+		(if (MousedOn self event shiftDown)
+			(event claimed: TRUE)
 			(DoLook {table})
 		)
 	)
 )
 
-(instance rim of PV
+(instance rim of PicView
 	(properties
 		y 111
 		x 155
 		view 136
 		loop 8
 		priority 9
-		signal 16384
+		signal ignrAct
 	)
 )
 
@@ -915,20 +932,20 @@
 		loop 3
 		cel 1
 		priority 8
-		signal 16384
+		signal ignrAct
 	)
-
+	
 	(method (handleEvent event)
 		(if
 			(or
-				(MousedOn self event 3)
-				(Said 'look/(nightstand<billiard),billiard')
+				(MousedOn self event shiftDown)
+				(Said 'examine/(nightstand<billiard),billiard')
 			)
-			(event claimed: 1)
-			(if (and (== gAct 1) (== gClarenceWilburState 4))
-				(Print 36 28) ; "Currently, Gloria and Clarence are playing a game of billiards."
+			(event claimed: TRUE)
+			(if (and (== currentAct 1) (== global154 4))
+				(Print 36 28)
 			else
-				(Print 36 29) ; "This is an old billiard table. As it's quite dirty and dusty, it doesn't appear as if billiards has been played much. Upon it, you see three balls; two red and one white."
+				(Print 36 29)
 			)
 		)
 	)
@@ -943,34 +960,36 @@
 		cel 7
 		priority 5
 	)
-
+	
 	(method (handleEvent event)
-		(cond
-			((Said 'look<behind,below/painting')
-				(Print 36 30) ; "You can't see anything behind the picture."
+		(cond 
+			((Said 'examine<behind,below/painting')
+				(Print 36 30)
 			)
 			((Said 'get/painting')
-				(Print 36 31) ; "The picture is firmly attached to the wall."
-			)
+				(Print 36 31))
 			((Said 'open/painting')
-				(Print 36 32) ; "It doesn't open."
+				(Print 36 32)
 			)
 			(
 				(or
-					(and (Said 'look/eye>') (Said 'look/actress,woman'))
-					(Said 'look/eye[<actress,woman,painting]')
-					(Said 'look/eye/actress,woman')
+					(and
+						(Said 'examine/eye>')
+						(Said 'examine/actress,girl')
+					)
+					(Said 'examine/eye[<actress,girl,painting]')
+					(Said 'examine/eye/actress,girl')
 				)
-				(Print 36 33) ; "The eyes of the picture have a haunted, hollow look to them."
+				(Print 36 33)
 			)
 			(
 				(or
-					(MousedOn self event 3)
-					(Said 'look/painting')
-					(Said 'look/actress,woman/painting')
+					(MousedOn self event shiftDown)
+					(Said 'examine/painting')
+					(Said 'examine/actress,girl/painting')
 				)
-				(event claimed: 1)
-				(Print 36 34) ; "You see a picture of a lovely dark-haired girl above the player piano. Strange...her eyes have a haunted, hollow look to them."
+				(event claimed: TRUE)
+				(Print 36 34)
 			)
 		)
 	)
@@ -981,13 +1000,13 @@
 		y 116
 		x 53
 		view 201
-		signal 16384
+		signal ignrAct
 		cycleSpeed 1
 	)
-
+	
 	(method (handleEvent event)
-		(if (MousedOn self event 3)
-			(event claimed: 1)
+		(if (MousedOn self event shiftDown)
+			(event claimed: TRUE)
 			(DoLook {door})
 		)
 	)
@@ -1000,13 +1019,13 @@
 		view 201
 		loop 2
 		priority 9
-		signal 16400
+		signal (| ignrAct fixPriOn)
 		cycleSpeed 1
 	)
-
+	
 	(method (handleEvent event)
-		(if (MousedOn self event 3)
-			(event claimed: 1)
+		(if (MousedOn self event shiftDown)
+			(event claimed: TRUE)
 			(DoLook {door})
 		)
 	)
@@ -1019,7 +1038,7 @@
 		view 136
 		loop 7
 		priority 5
-		signal 16
+		signal fixPriOn
 	)
 )
 
@@ -1030,7 +1049,7 @@
 		view 136
 		loop 6
 		priority 5
-		signal 16
+		signal fixPriOn
 	)
 )
 
@@ -1041,7 +1060,7 @@
 		view 136
 		loop 5
 		priority 6
-		signal 16
+		signal fixPriOn
 	)
 )
 
@@ -1053,35 +1072,37 @@
 		loop 2
 		cel 5
 		priority 5
-		signal 16
+		signal fixPriOn
 	)
-
+	
 	(method (handleEvent event)
-		(cond
+		(cond 
 			(
 				(or
-					(MousedOn self event 3)
-					(Said 'look/control,handle,mechanism[<winding][/piano]')
+					(MousedOn self event shiftDown)
+					(Said
+						'examine/control,handle,mechanism[<winding][/piano]'
+					)
 				)
-				(event claimed: 1)
-				(Print 36 35) ; "You can turn the winding mechanism to "wind up" the player piano."
+				(event claimed: TRUE)
+				(Print 36 35)
 			)
 			(
 				(Said
 					'(wind[<up]),control,rotate/piano,control,handle,mechanism[<winding][/piano]'
 				)
-				(if (& (gEgo onControl: 1) $0010)
+				(if (& (ego onControl: origin) cRED)
 					(if (== local0 0)
 						(if (== local1 0)
 							(keys setScript: playPiano)
 						else
-							(Print 36 36) ; "It is already playing ."
+							(Print 36 36)
 						)
 					else
-						(Print 36 37) ; "Not now. There is already music playing from a record on the Victrola."
+						(Print 36 37)
 					)
 				else
-					(NotClose) ; "You're not close enough."
+					(NotClose)
 				)
 			)
 		)
@@ -1095,12 +1116,12 @@
 		view 136
 		cel 1
 		priority 4
-		signal 16
+		signal fixPriOn
 	)
-
+	
 	(method (handleEvent event)
-		(if (MousedOn self event 3)
-			(event claimed: 1)
+		(if (MousedOn self event shiftDown)
+			(event claimed: TRUE)
 			(DoLook {lamp})
 		)
 	)
@@ -1112,12 +1133,12 @@
 		x 249
 		view 136
 		priority 1
-		signal 16
+		signal fixPriOn
 	)
-
+	
 	(method (handleEvent event)
-		(if (MousedOn self event 3)
-			(event claimed: 1)
+		(if (MousedOn self event shiftDown)
+			(event claimed: TRUE)
 			(DoLook {lamp})
 		)
 	)
@@ -1130,61 +1151,52 @@
 		nsBottom 78
 		nsRight 209
 	)
-
+	
 	(method (handleEvent event)
-		(cond
-			((Said 'open,(look<in)>')
-				(cond
+		(cond 
+			((Said 'open,(examine<in)>')
+				(cond 
 					((Said '/piano')
-						(Print 36 38) ; "There is nothing that would interest you in the player piano."
+						(Print 36 38)
 					)
 					((Said '/bench')
-						(Print 36 39) ; "The piano bench doesn't open."
+						(Print 36 39)
 					)
 				)
 			)
-			((or (MousedOn self event 3) (Said 'look/piano'))
-				(event claimed: 1)
-				(Print 36 40) ; "A lovely old player piano sits against the back wall."
+			((or (MousedOn self event shiftDown) (Said 'examine/piano'))
+				(event claimed: TRUE)
+				(Print 36 40)
 			)
 			((Said 'play/piano')
-				(Print 36 41) ; "You never learned to play the piano. But, there is a winding mechanism on the side of the player piano."
+				(Print 36 41)
 			)
 		)
 	)
 )
 
-(instance panel of Act
+(instance panel of Actor
 	(properties
 		y 83
 		view 136
 		loop 2
 		cel 6
 		priority 3
-		signal 6160
-		illegalBits 0
+		signal (| fixedLoop fixedCel fixPriOn)
+		illegalBits $0000
 	)
 )
 
-(instance myMusic of Sound
-	(properties)
-)
+(instance myMusic of Sound)
 
-(instance soundFX of Sound
-	(properties)
-)
+(instance soundFX of Sound)
 
-;;;(instance pianoMusic of Sound ; UNUSED
-;;;	(properties)
-;;;)
+(instance pianoMusic of Sound)
 
-(instance doorMusic of Sound
-	(properties)
-)
+(instance doorMusic of Sound)
 
 (instance windMusic of Sound
 	(properties
 		number 39
 	)
 )
-

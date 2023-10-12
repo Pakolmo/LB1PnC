@@ -1,175 +1,283 @@
+;;;;;; Sierra Script 1.0 - (do not remove this comment)
+;;;(script# MENU)
+;;;(include game.sh) (include menu.sh)
+;;;(use Main)
+;;;(use Intrface)
+;;;(use Sound)
+;;;(use Invent)
+;;;(use User)
+;;;
+;;;(public
+;;;	DebugTP 2
+;;;)
+;;;
+;;;(procedure (DebugTP theRoom &tmp n)
+;;;	(= n (GetNumber {Teleport to room:}))
+;;;	(theRoom newRoom: (if (< n 1) 1 else n))
+;;;)
+;;;
+;;;(procedure (ShowHelp)
+;;;	(Print MENU 7
+;;;		#font 4
+;;;		#width 275
+;;;	)
+;;;)
+;;;
+;;;(class TheMenuBar of MenuBar
+;;;	
+;;;	(method (init)
+;;;		(= menuBarInitialized TRUE)
+;;;		(AddMenu { \01_}
+;;;			{About Bequest:Help`#1}
+;;;		)
+;;;		(AddMenu { File_}
+;;;			{Save`#5:Restore`#7:-!:Restart`#9:Quit`^q}
+;;;		)
+;;;		(AddMenu { Action_}
+;;;			{Pause`^p:Inventory`^i:Retype`#3:Ask about...`^a:Tell about...`^t:Show...`^s:Give...`^g:Look at...`^l}
+;;;		)
+;;;		(AddMenu { Speed_}
+;;;			{Faster`+:Normal`=:Slower`-}
+;;;		)
+;;;		(AddMenu { Sound_}
+;;;			{Volume`^v:-!:Turn Off=1`#2}
+;;;		)
+;;;		(SetMenu soundI p_text
+;;;			(if (DoSound SoundOn) {Turn Off}
+;;;			else {Turn On}
+;;;			)
+;;;		)
+;;;		(SetMenu helpI p_said 'help[/game]')
+;;;		(SetMenu saveI p_said 'save[/game]')
+;;;		(SetMenu restoreI p_said 'restore[/game]')
+;;;		(SetMenu restartI p_said 'restart[/game]')
+;;;		(SetMenu quitI p_said 'quit[/game]')
+;;;		(SetMenu pauseI p_said 'pause[/game]')
+;;;		(SetMenu invI p_said 'inventory')
+;;;	)
+;;;	
+;;;	(method (handleEvent event &tmp evt i [temp2 3] oldPause [temp6 255])
+;;;		(= savedCursor ARROW_CURSOR)
+;;;		(theGame setCursor: ARROW_CURSOR TRUE)
+;;;		(switch (= evt (super handleEvent: event))
+;;;			(aboutI
+;;;				(= oldPause (Sound pause: TRUE))
+;;;				(Print MENU 0 #font smallFont #at 10 10 #width 290)
+;;;				(Sound pause: oldPause)
+;;;			)
+;;;			(helpI
+;;;				(= oldPause (Sound pause: TRUE))
+;;;				(ShowHelp)
+;;;				(Sound pause: oldPause)
+;;;			)
+;;;			(saveI
+;;;				(if saveDisabled
+;;;					(Print MENU 1)
+;;;				else
+;;;					(theGame save:)
+;;;				)
+;;;			)
+;;;			(restoreI
+;;;				(if saveDisabled
+;;;					(Print MENU 2)
+;;;				else
+;;;					(theGame restore:)
+;;;				)
+;;;			)
+;;;			(restartI
+;;;				(= oldPause (Sound pause: TRUE))
+;;;				(if
+;;;					(Print MENU 3
+;;;						#font SYSFONT
+;;;						#button {__Restart__} 1
+;;;						#button { Continue_} 0
+;;;					)
+;;;					(theGame restart:)
+;;;				)
+;;;				(Sound pause: oldPause)
+;;;			)
+;;;			(quitI
+;;;				(= oldPause (Sound pause: TRUE))
+;;;				(= quit
+;;;					(Print MENU 4
+;;;						#font SYSFONT
+;;;						#button {____Quit____} 1
+;;;						#button { Continue_} 0
+;;;					)
+;;;				)
+;;;				(Sound pause: oldPause)
+;;;			)
+;;;			(pauseI
+;;;				(= oldPause (Sound pause: 1))
+;;;				(Print MENU 5
+;;;					#font SYSFONT
+;;;					#button {__Continue__} 0
+;;;				)
+;;;				(Sound pause: oldPause)
+;;;			)
+;;;			(invI
+;;;				(if (not (HaveMem InvSize))
+;;;					(Print MENU 6)
+;;;				else
+;;;					(= oldPause (Sound pause: TRUE))
+;;;					(Inventory showSelf: ego)
+;;;					(Sound pause: oldPause)
+;;;				)
+;;;			)
+;;;			(repeatI
+;;;				(event claimed: FALSE type: keyDown message: (User echo?))
+;;;			)
+;;;			(askI
+;;;				(event claimed: FALSE type: keyDown message: (User echo?))
+;;;				(StrCpy (User inputLineAddr?) {Ask about_})
+;;;			)
+;;;			(tellI
+;;;				(event claimed: FALSE type: keyDown message: (User echo?))
+;;;				(StrCpy (User inputLineAddr?) {Tell about_})
+;;;			)
+;;;			(showI
+;;;				(event claimed: FALSE type: keyDown message: (User echo?))
+;;;				(StrCpy (User inputLineAddr?) {Show_})
+;;;			)
+;;;			(giveI
+;;;				(event claimed: FALSE type: keyDown message: (User echo?))
+;;;				(StrCpy (User inputLineAddr?) {Give_})
+;;;			)
+;;;			(lookI
+;;;				(event claimed: FALSE type: keyDown message: (User echo?))
+;;;				(StrCpy (User inputLineAddr?) {Look at_})
+;;;			)
+;;;			(fasterI
+;;;				(if (> speed 1)
+;;;					(theGame setSpeed: (-- speed))
+;;;				)
+;;;			)
+;;;			(normalI
+;;;				(theGame setSpeed: 6)
+;;;			)
+;;;			(slowerI
+;;;				(theGame setSpeed: (++ speed))
+;;;			)
+;;;			(volumeI
+;;;				(if
+;;;					(and
+;;;						(!= curRoomNum 74)
+;;;						(!= curRoomNum 64)
+;;;						(!=
+;;;							(= i
+;;;								(GetNumber {Volume (1 - 16)?} (+ 1 (DoSound ChangeVolume)))
+;;;							)
+;;;							-1
+;;;						)
+;;;					)
+;;;					(if (< (-- i) 0) (= i 0))
+;;;					(if (> i 15) (= i 15))
+;;;					(DoSound ChangeVolume i)
+;;;				)
+;;;			)
+;;;			(soundI
+;;;				(if (= i (DoSound SoundOn))
+;;;					(SetMenu soundI p_text {Turn On})
+;;;				else
+;;;					(SetMenu soundI p_text {Turn Off})
+;;;				)
+;;;				(DoSound SoundOn (not i))
+;;;			)
+;;;			(else 
+;;;				(if global392
+;;;					(global392 doit: evt)
+;;;				)
+;;;			)
+;;;		)
+;;;	)
+;;;)
+;;;
 ;;; Sierra Script 1.0 - (do not remove this comment)
-;;; Decompiled by sluicebox
-(script# 997)
-(include sci.sh)
+(script# MENU)
+(include game.sh) (include menu.sh)
 (use Main)
-(use Interface)
+(use Intrface)
+(use Gauge)
 (use Sound)
-(use Inventory)
 (use User)
 
 (public
-	proc997_2 2
+	ToggleSound 1
 )
 
-(procedure (proc997_2 param1 &tmp temp0) ; UNUSED
-	(= temp0 (GetNumber {Teleport to room:}))
-	(param1 newRoom: (if (< temp0 1) 1 else temp0))
+(local
+	oldPause
 )
-
-(procedure (localproc_0)
-	(Print 997 7 #font 4 #width 275) ; "Much useful information can be obtained by conversing with the other characters you encounter concerning:   Persons - either living or dead   Character pairings   The Colonel's pets   Objects you see or are carrying Examples:   Ask Lillian about Colonel Dijon.   Tell Ethel about Rudy and Gloria.   Ask Fifi about the dog.   Show the notebook to Clarence.   Give the notebook to Gertrude. Confine your conversation to the topics listed above. DON'T try to converse about general concepts such as:   The Spanish-American War   Real estate development"
+(procedure (ToggleSound &tmp i)
+	(= i (DoSound SoundOn))
+	(DoSound SoundOn (not i))
+	(if i
+;;;		(SetMenu soundI p_text {Turn On}) ;English
+		(SetMenu soundI p_text {Encender}) ;Spanish
+	else
+;;;		(SetMenu soundI p_text {Turn Off}) ;English
+		(SetMenu soundI p_text {Apagar}) ;Spanish
+	)
 )
 
 (class TheMenuBar of MenuBar
-	(properties)
-
-	(method (init)
-		(= global215 1)
-		(AddMenu { \01 } {About Bequest:Help`#1})
-		(AddMenu { File } {Save`#5:Restore`#7:-!:Restart`#9:Quit`^q})
-		(AddMenu
-			{ Action }
-			{Pause`^p:Inventory`^i:Retype`#3:Ask about...`^a:Tell about...`^t:Show...`^s:Give...`^g:Look at...`^l}
-		)
-		(AddMenu { Speed } {Faster`+:Normal`=:Slower`-})
-		(AddMenu { Sound } {Volume`^v:-!:Turn Off=1`#2})
-		(SetMenu 1283 110 (if (DoSound 4) {Turn Off} else {Turn On}))
-		(SetMenu 258 109 'help[/game]')
-		(SetMenu 513 109 'save[/game]')
-		(SetMenu 514 109 'restore[/game]')
-		(SetMenu 516 109 'restart[/game]')
-		(SetMenu 517 109 'quit[/game]')
-		(SetMenu 769 109 'pause[/game]')
-		(SetMenu 770 109 'inventory')
+	(properties
+		state 0
+		name "MenuBar"
 	)
-
-	(method (handleEvent event &tmp temp0 temp1 [temp2 3] temp5 [temp6 255])
-		(= global221 999)
-		(gGame setCursor: 999 1)
-		(switch (= temp0 (super handleEvent: event))
-			(257
-				(= temp5 (Sound pause: 1))
-				(Print 997 0 #font gSmallFont #at 10 10 #width 290) ; ""The Colonel's Bequest" is different than the so-called "normal" adventure game as it was designed around a story and characters rather than a series of puzzles. You may feel that there is a lack of a "quest." Well, in a way, you're right. There isn't a "quest," as such. Your goal is to get to know the story and the characters; to understand what's going on; and to survive the long night. We feel that "The Colonel's Bequest" is a true interactive STORY rather than a game and every effort was put into giving you the sensation that you are part of the story. "The Colonel's Bequest" will give back what you put into it. If you don't put much effort into playing it you may feel that there isn't much to the game. But you would be wrong! There is a lot to it--but you may have to dig a bit to find it--and to be very observant. "The Colonel's Bequest" will reward those who are determined; who will notice subtleties; who will ask questions; who will probe. Good luck! We truly hope you enjoy it!"
-				(Sound pause: temp5)
-			)
-			(258
-				(= temp5 (Sound pause: 1))
-				(localproc_0)
-				(Sound pause: temp5)
-			)
-			(513
-				(if global190
-					(Print 997 1) ; "You cannot save a game right now."
-				else
-					(gGame save:)
-				)
-			)
-			(514
-				(if global190
-					(Print 997 2) ; "You cannot restore a game right now."
-				else
-					(gGame restore:)
-				)
-			)
-			(516
-				(= temp5 (Sound pause: 1))
-				(if (Print 997 3 #font 0 #button {  Restart  } 1 #button { Continue } 0) ; "Do you wish to start over?"
-					(gGame restart:)
-				)
-				(Sound pause: temp5)
-			)
-			(517
-				(= temp5 (Sound pause: 1))
-				(= gQuit
-					(Print 997 4 #font 0 #button {    Quit    } 1 #button { Continue } 0) ; "Do you really want to quit?"
-				)
-				(Sound pause: temp5)
-			)
-			(769
-				(= temp5 (Sound pause: 1))
-				(Print 997 5 #font 0 #button {  Continue  } 0) ; "INTERMISSION"
-				(Sound pause: temp5)
-			)
-			(770
-				(if (not (HaveMem 2048))
-					(Print 997 6) ; "Inventory can not be displayed at this time."
-				else
-					(= temp5 (Sound pause: 1))
-					(Inv showSelf: 888)
-					(Sound pause: temp5)
-					(DoUseItem useInvItem event)
-				)
-			)
-			(771
-				(event claimed: 0 type: evKEYBOARD message: (User echo:))
-			)
-			(772
-				(event claimed: 0 type: evKEYBOARD message: (User echo:))
-				(StrCpy (User inputLineAddr:) {Ask about })
-			)
-			(773
-				(event claimed: 0 type: evKEYBOARD message: (User echo:))
-				(StrCpy (User inputLineAddr:) {Tell about })
-			)
-			(774
-				(event claimed: 0 type: evKEYBOARD message: (User echo:))
-				(StrCpy (User inputLineAddr:) {Show })
-			)
-			(775
-				(event claimed: 0 type: evKEYBOARD message: (User echo:))
-				(StrCpy (User inputLineAddr:) {Give })
-			)
-			(776
-				(event claimed: 0 type: evKEYBOARD message: (User echo:))
-				(StrCpy (User inputLineAddr:) {Look at })
-			)
-			(1025
-				(if (> gSpeed 1)
-					(gGame setSpeed: (-- gSpeed))
-				)
-			)
-			(1026
-				(gGame setSpeed: 6)
-			)
-			(1027
-				(gGame setSpeed: (++ gSpeed))
-			)
-			(1281
-				(if
-					(and
-						(!= gCurRoomNum 74)
-						(!= gCurRoomNum 64)
-						(!=
-							(= temp1
-								(GetNumber {Volume (1 - 16)?} (+ 1 (DoSound 8)))
-							)
-							-1
-						)
-					)
-					(if (< (-- temp1) 0)
-						(= temp1 0)
-					)
-					(if (> temp1 15)
-						(= temp1 15)
-					)
-					(DoSound 8 temp1)
-				)
-			)
-			(1283
-				(if (= temp1 (DoSound 4))
-					(SetMenu 1283 110 {Turn On})
-				else
-					(SetMenu 1283 110 {Turn Off})
-				)
-				(DoSound 4 (not temp1))
-			)
-			(else
-				(if global392
-					(global392 doit: temp0)
-				)
-			)
+	
+	(method (init)
+		(AddMenu
+			"The Colonel's Bequest -Point and Click- "
+				"About Template`^a:"
 		)
+		(if (== curRoomNum 44) ;ADD PnCMenu
+			(Print {TEST})
+			(curRoom setRegions: 950)
+		)
+;;;		(AddMenu { \01_}
+;;;			{About LSL3`^a:Help`#1}
+;;;		)
+;;;		(AddMenu { File_}
+;;;			{Save Game`#5:Restore Game`#7:Auto Save`#4:--! :Restart Game`#9:Quit`^q}
+;;;		)
+;;;		(AddMenu { Action_}
+;;;			{Pause Game`^p:Inventory`^I:Retype`#3:--! :Colors`^c:--! :Boss Key`^b :Expletive`^x}
+;;;		)
+;;;		(AddMenu { Speed_}
+;;;			{Change...`^s:--!:Faster`+:Normal`=:Slower`-}
+;;;		)
+;;;		(AddMenu { Sound_}
+;;;			{Volume...`^v:Turn Off`#2=1}
+;;;		)
+;;;		(SetMenu
+;;;			soundI p_text (if (DoSound SoundOn) {Turn Off} else {Turn On})
+;;;		)
+;;;		(if (< (Graph GDetect) 9)
+;;;			;if CGA, disable the colors option
+;;;			(SetMenu colorsI #state FALSE)
+;;;		else
+;;;			(SetMenu colorsI p_said '/color')
+;;;		)
+;;;		(SetMenu saveI p_said 'save[/game]')
+;;;		(SetMenu restoreI p_said 'restore[/game]')
+;;;		(SetMenu restartI p_said 'restart[/game]')
+;;;		(SetMenu quitI p_said 'done[/game]')
+;;;		(SetMenu pauseI p_said 'delay[/game]')
+;;;		(SetMenu invI p_said 'all')
+	)
+	
+	(method (handleEvent event &tmp temp0 i newTextColor newBackColor [str 220])
+		(super handleEvent: event)
+;;;		(switch event
+;;;			($101 ;MENU_ABOUT 
+;;;;;;				(Print "PnC Template Game" #title "About") ;ENGLISH
+;;;				(Print "PnC Template Game" #title "About") ;Spanish
+;;;			)
+;;;			(sierraM ;MENU_ABOUT 
+;;;;;;				(Print "PnC Template Game" #title "About") ;ENGLISH
+;;;				(Print "PnC Template Game" #title "About") ;Spanish
+;;;			)			
+;;;		)
 	)
 )
-

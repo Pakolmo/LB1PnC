@@ -1,9 +1,8 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-;;; Decompiled by sluicebox
 (script# 17)
-(include sci.sh)
+(include game.sh)
 (use Main)
-(use Interface)
+(use Intrface)
 (use RFeature)
 (use Sound)
 (use Motion)
@@ -21,190 +20,194 @@
 	local1
 	local2
 	local3
-	local4
+	firstTime
 )
-
-(instance Room17 of Rm
+(instance Room17 of Room
 	(properties
 		picture 17
 	)
-
+	
 	(method (init)
 		(super init:)
-		(= local4 (IsFirstTimeInRoom))
-		(self setRegions: 206 setFeatures: Window1 Window2 Window3 Window4) ; houseOReg
-		(LoadMany rsSOUND 43 44)
+		(= firstTime (FirstEntry))
+		(self
+			setRegions: 206
+			setFeatures: Window1 Window2 Window3 Window4
+		)
+		(LoadMany SOUTH 43 44)
 		(= south 22)
 		(= west 16)
 		(= north 12)
 		(= horizon 86)
 		(= local0 0)
 		(Door
-			cel: (if (== gPrevRoomNum 38) 3 else 0)
+			cel: (if (== prevRoomNum 38) 3 else 0)
 			setPri: 6
-			ignoreActors: 1
+			ignoreActors: TRUE
 			init:
 			stopUpd:
 		)
-		(if (== gAct 1)
-			(self setRegions: 381) ; walkabout
+		(if (== currentAct 1)
+			(self setRegions: 381)
 		)
-		(switch gPrevRoomNum
+		(switch prevRoomNum
 			(16
 				(if (== global102 1)
-					(gEgo posn: 1 147)
+					(ego posn: 1 147)
 				else
-					(gEgo posn: 1 186)
+					(ego posn: 1 186)
 				)
 			)
 			(38
-				(gEgo posn: 190 115)
-				(if (not (IsFirstTimeInRoom))
-					(gEgo setMotion: MoveTo 216 141)
+				(ego posn: 190 115)
+				(if (not (FirstEntry))
+					(ego setMotion: MoveTo 216 141)
 					(= local2 1)
-					(Door setCycle: Beg)
+					(Door setCycle: BegLoop)
 					(User canControl: 0)
 					(myMusic number: 44 loop: 1 priority: 5 play:)
 				)
 			)
-			(23
-				(gEgo posn: 310 188)
-			)
-			(12
-				(gEgo posn: 310 140)
-			)
+			(23 (ego posn: 310 188))
+			(12 (ego posn: 310 140))
 		)
-		(gEgo view: 0 illegalBits: -32766 init:)
+		(ego view: 0 illegalBits: (| cWHITE cBLUE) init:)
 	)
-
+	
 	(method (doit)
-		(if local4
-			(Print 17 0) ; "This is the southeast corner of the mansion right outside the parlor."
-			(if (== gPrevRoomNum 38)
-				(gEgo setMotion: MoveTo 216 141)
+		(if firstTime
+			(Print 17 0)
+			(if (== prevRoomNum 38)
+				(ego setMotion: MoveTo 216 141)
 				(= local2 1)
-				(Door setCycle: Beg)
-				(User canControl: 0)
+				(Door setCycle: BegLoop)
+				(User canControl: FALSE)
 				(myMusic number: 44 loop: 1 priority: 5 play:)
 			)
-			(= local4 0)
+			(= firstTime 0)
 		)
-		(if (and (not local3) (== gPrevRoomNum 38) (== (Door cel:) 0))
+		(if
+			(and
+				(not local3)
+				(== prevRoomNum 38)
+				(== (Door cel?) 0)
+			)
 			(= local3 1)
 			(Door stopUpd:)
 		)
-		(if (and local2 (& (gEgo onControl: 1) $0001))
-			(User canControl: 1)
-			(gEgo illegalBits: -32768)
+		(if (and local2 (& (ego onControl: origin) cBLACK))
+			(User canControl: TRUE)
+			(ego illegalBits: cWHITE)
 			(= local2 0)
 		)
 		(if
 			(or
-				(& (gEgo onControl: 0) $0002)
-				(& (gEgo onControl: 0) $0010)
+				(& (ego onControl: FALSE) cBLUE)
+				(& (ego onControl: FALSE) cRED)
 			)
-			(gEgo setPri: 7)
+			(ego setPri: 7)
 		else
-			(gEgo setPri: -1)
+			(ego setPri: -1)
 		)
-		(if (< (gEgo y:) 160)
+		(if (< (ego y?) 160)
 			(= global102 1)
 		else
 			(= global102 0)
 		)
-		(if (== (gEgo edgeHit:) EDGE_RIGHT)
-			(if (< (gEgo y:) 148)
-				(gCurRoom newRoom: 12)
+		(if (== (ego edgeHit?) 2)
+			(if (< (ego y?) 148)
+				(curRoom newRoom: 12)
 			else
-				(gCurRoom newRoom: 18)
+				(curRoom newRoom: 18)
 			)
 		)
-		(if (& (gEgo onControl: 1) $0002)
-			(gCurRoom newRoom: 38)
+		(if (& (ego onControl: origin) cBLUE)
+			(curRoom newRoom: 38)
 		)
 		(if
 			(and
-				(& (gEgo onControl: 1) $0008)
-				(or (== (gEgo loop:) 3) (== (gEgo loop:) 1))
+				(& (ego onControl: origin) cCYAN)
+				(or (== (ego loop?) 3) (== (ego loop?) 1))
 				(== local2 0)
 			)
 			(= local2 1)
-			(User canControl: 0)
-			(gEgo illegalBits: 0 setMotion: MoveTo 69 154)
+			(User canControl: FALSE)
+			(ego illegalBits: 0 setMotion: MoveTo 69 154)
 		)
 		(if
 			(and
-				(& (gEgo onControl: 1) $0004)
-				(or (== (gEgo loop:) 2) (== (gEgo loop:) 0))
+				(& (ego onControl: origin) cGREEN)
+				(or (== (ego loop?) 2) (== (ego loop?) 0))
 				(== local2 0)
 			)
 			(= local2 1)
-			(User canControl: 0)
-			(gEgo illegalBits: 0 setMotion: MoveTo 98 181)
+			(User canControl: FALSE)
+			(ego illegalBits: 0 setMotion: MoveTo 98 181)
 		)
 		(if
 			(and
-				(& (gEgo onControl: 0) $0010)
+				(& (ego onControl: FALSE) cRED)
 				(not local1)
-				(or (== (gEgo loop:) 1) (== (gEgo loop:) 3))
+				(or (== (ego loop?) 1) (== (ego loop?) 3))
 			)
 			(= local1 1)
 			(self setScript: myDoor2)
 		)
 		(super doit:)
 	)
-
+	
 	(method (dispose)
 		(DisposeScript 200)
 		(super dispose:)
 	)
-
-	(method (newRoom newRoomNumber)
-		(if (== newRoomNumber 38)
-			(gConMusic stop:)
-		)
-		(super newRoom: newRoomNumber)
-	)
-
+	
 	(method (handleEvent event &tmp temp0)
-		(if (event claimed:)
-			(return 1)
-		)
-		(if (and (== (event type:) evSAID) (Said 'look>'))
-			(cond
-				((Said '[<around,at][/room]')
-					(Print 17 0) ; "This is the southeast corner of the mansion right outside the parlor."
+		(if (event claimed?) (return TRUE))
+		(return
+			(if (and (== (event type?) saidEvent) (Said 'examine>'))
+				(cond 
+					((Said '[<around,at][/room]')
+						(Print 17 0)
+					)
+					((Said '/stair')
+						(Print 17 1)
+					)
+					((Said '/up')
+						(Print 17 2)
+					)
 				)
-				((Said '/stair')
-					(Print 17 1) ; "Stone steps lead up to the parlor door and to the front gallery."
-				)
-				((Said '/up')
-					(Print 17 2) ; "You look upwards at the second-story windows of Rudy and Clarence's guest room."
-				)
+			else
+				FALSE
 			)
 		)
+	)
+	
+	(method (newRoom n)
+		(if (== n 38)
+			(cSound stop:)
+		)
+		(super newRoom: n)
 	)
 )
 
 (instance myDoor2 of Script
-	(properties)
 
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
-				(User canControl: 0 canInput: 0)
-				(gEgo setMotion: MoveTo 199 128 self)
+				(User canControl: FALSE canInput: FALSE)
+				(ego setMotion: MoveTo 199 128 self)
 			)
 			(1
-				(gEgo setMotion: MoveTo 189 114 self)
+				(ego setMotion: MoveTo 189 114 self)
 			)
 			(2
-				(gEgo setMotion: 0 illegalBits: -32768)
-				(Door cycleSpeed: 1 ignoreActors: 1 setCycle: End self)
+				(ego setMotion: 0 illegalBits: cWHITE)
+				(Door cycleSpeed: 1 ignoreActors: TRUE setCycle: EndLoop self)
 				(myMusic number: 43 loop: 1 priority: 5 play:)
 			)
 			(3
-				(gEgo setMotion: MoveTo (- (gEgo x:) 50) (gEgo y:))
+				(ego setMotion: MoveTo (- (ego x?) 50) (ego y?))
 			)
 		)
 	)
@@ -216,10 +219,10 @@
 		x 172
 		view 117
 	)
-
+	
 	(method (handleEvent event)
-		(if (MousedOn self event 3)
-			(event claimed: 1)
+		(if (MousedOn self event shiftDown)
+			(event claimed: TRUE)
 			(DoLook {door})
 		)
 	)
@@ -232,10 +235,10 @@
 		nsBottom 139
 		nsRight 69
 	)
-
+	
 	(method (handleEvent event)
-		(if (MousedOn self event 3)
-			(event claimed: 1)
+		(if (MousedOn self event shiftDown)
+			(event claimed: TRUE)
 			(DoLook {window})
 		)
 	)
@@ -248,10 +251,10 @@
 		nsBottom 121
 		nsRight 142
 	)
-
+	
 	(method (handleEvent event)
-		(if (MousedOn self event 3)
-			(event claimed: 1)
+		(if (MousedOn self event shiftDown)
+			(event claimed: TRUE)
 			(DoLook {window})
 		)
 	)
@@ -264,10 +267,10 @@
 		nsBottom 89
 		nsRight 234
 	)
-
+	
 	(method (handleEvent event)
-		(if (MousedOn self event 3)
-			(event claimed: 1)
+		(if (MousedOn self event shiftDown)
+			(event claimed: TRUE)
 			(DoLook {window})
 		)
 	)
@@ -280,16 +283,13 @@
 		nsBottom 89
 		nsRight 302
 	)
-
+	
 	(method (handleEvent event)
-		(if (MousedOn self event 3)
-			(event claimed: 1)
+		(if (MousedOn self event shiftDown)
+			(event claimed: TRUE)
 			(DoLook {window})
 		)
 	)
 )
 
-(instance myMusic of Sound
-	(properties)
-)
-
+(instance myMusic of Sound)

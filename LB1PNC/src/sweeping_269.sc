@@ -24,7 +24,7 @@
 	local8
 )
 
-(instance sweeping of Rgn
+(instance sweeping of Region
 	(properties)
 
 	(method (init)
@@ -75,19 +75,19 @@
 			)
 			(1
 				(Jeeves setMotion: MoveTo 250 151 self)
-				(= global373 1)
+				(= gDoor 1)
 			)
 			(2
 				(|= global141 $0002)
-				(Jeeves view: 459 cel: 0 loop: 1 setCycle: End self)
+				(Jeeves view: 459 cel: 0 loop: 1 setCycle: EndLoop self)
 			)
 			(3
-				(Jeeves loop: 3 setCycle: Fwd)
+				(Jeeves loop: 3 setCycle: Forward)
 				(Feather dispose:)
 				(= seconds 4)
 			)
 			(4
-				(Jeeves cel: 2 loop: 1 setCycle: Beg self)
+				(Jeeves cel: 2 loop: 1 setCycle: BegLoop self)
 			)
 			(5
 				(Jeeves
@@ -101,14 +101,14 @@
 				)
 			)
 			(6
-				(Jeeves view: 459 cel: 0 loop: 0 setCycle: End self)
+				(Jeeves view: 459 cel: 0 loop: 0 setCycle: EndLoop self)
 			)
 			(7
-				(Jeeves loop: 2 setCycle: Fwd)
+				(Jeeves loop: 2 setCycle: Forward)
 				(= seconds 4)
 			)
 			(8
-				(Jeeves cel: 2 loop: 0 setCycle: Beg self)
+				(Jeeves cel: 2 loop: 0 setCycle: BegLoop self)
 			)
 			(9
 				(Jeeves view: 447 setCycle: Walk ignoreActors: 0)
@@ -122,14 +122,14 @@
 				(Jeeves setMotion: MoveTo 330 150 self)
 			)
 			(11
-				(= global373 0)
+				(= gDoor 0)
 				(Jeeves setScript: 0 dispose:)
 			)
 		)
 	)
 )
 
-(instance Jeeves of Act
+(instance Jeeves of Actor
 	(properties
 		y 140
 		x 196
@@ -142,7 +142,7 @@
 					(not (& global207 $0400))
 					(or (MousedOn self event 3) (Said 'look/butler'))
 				)
-				(= global213 11)
+				(= theTalker 11)
 				(|= global207 $0400)
 				(event claimed: 1)
 				(Say 0 269 1) ; "Jeeves is the Colonel's imposing butler. Though you find him somewhat good-looking, he nevertheless gives off a disconcerting feeling of secretiveness. You have noticed that Jeeves generally keeps to himself and seems to talk in little more than monosyllables. You wonder about him."
@@ -156,7 +156,7 @@
 				(Print 269 2) ; "You notice Jeeves carpet-sweeping the rug."
 			)
 			((Said 'ask,tell//*<about')
-				(= global213 11)
+				(= theTalker 11)
 				(switch (Random 1 7)
 					(1
 						(Say 1 269 3) ; "It's not my business to gossip with the house guests."
@@ -182,7 +182,7 @@
 				)
 			)
 			((Said 'give,show/*')
-				(if (and global219 global224)
+				(if (and theInvItem haveInvItem)
 					(switch (Random 1 5)
 						(1
 							(Print 269 10) ; "It doesn't appear that Jeeves is interested in it."
@@ -207,7 +207,7 @@
 			((Said '/butler>')
 				(cond
 					((Said 'talk')
-						(= global213 11)
+						(= theTalker 11)
 						(switch local7
 							(0
 								(Say 1 269 15) ; "I'm busy, Miss Bow. No time for conversation."

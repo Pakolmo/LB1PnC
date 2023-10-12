@@ -1,11 +1,10 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-;;; Decompiled by sluicebox
 (script# 65)
-(include sci.sh)
+(include game.sh)
 (use Main)
-(use Interface)
+(use Intrface)
 (use RFeature)
-(use Avoid)
+(use Avoider)
 (use Sound)
 (use Motion)
 (use Game)
@@ -15,7 +14,6 @@
 (public
 	Room65 0
 )
-
 (synonyms
 	(monument monument)
 	(room garden)
@@ -23,152 +21,163 @@
 
 (local
 	local0
-	local1
+	valveCued
 )
-
-(procedure (localproc_0)
-	(if (& (gEgo onControl: 0) $0004)
+(procedure (TurnValve)
+	(if (& (ego onControl: FALSE) cGREEN)
 		(= local0 1)
 		(Room65 setScript: bend)
 	else
-		(NotClose) ; "You're not close enough."
+		(NotClose)
 	)
 )
 
-(procedure (localproc_1)
-	(SetFlag 48)
+(procedure (localproc_13c8)
+	(Bset 48)
 	(= global146 1)
-	(Drop1 loop: 7 x: 161 y: 125 z: 2 setCycle: Fwd setScript: 0)
-	(if gDetailLevel
-		(water1 cycleSpeed: 1 setCycle: Fwd)
-		(water2 cycleSpeed: 1 setCycle: Fwd)
+	(Drop1
+		loop: 7
+		x: 161
+		y: 125
+		z: 2
+		setCycle: Forward
+		setScript: 0
+	)
+	(if howFast
+		(water1 cycleSpeed: 1 setCycle: Forward)
+		(water2 cycleSpeed: 1 setCycle: Forward)
 	)
 )
 
-(procedure (localproc_2)
-	(ClearFlag 48)
+(procedure (localproc_141b)
+	(Bclr 48)
 	(= global146 0)
 	(Drop1 loop: 9 cel: 0 x: 152 y: 125 z: 2)
-	(if gDetailLevel
+	(if howFast
 		(Drop1 cycleSpeed: 1 setScript: dripping)
 		(water1 setPri: 3 cycleSpeed: 4)
 		(water2 setPri: 3 cycleSpeed: 4)
 	)
 )
 
-(instance Room65 of Rm
+(instance Room65 of Room
 	(properties
 		picture 65
 	)
-
+	
 	(method (init)
 		(= south 18)
 		(super init:)
-		(gConMusic stop:)
-		(LoadMany rsSOUND 78 125)
+		(cSound stop:)
+		(LoadMany SOUND 78 125)
 		(fountain init: stopUpd:)
-		(gAddToPics add: urn urn1 eachElementDo: #init doit:)
+		(addToPics add: urn urn1 eachElementDo: #init doit:)
 		(self setFeatures: urn urn1)
 		(Splash1 ignoreActors: 1 init: hide:)
 		(Splash2 ignoreActors: 1 init: hide:)
 		(Drop1 init:)
 		(water1 init:)
 		(water2 init:)
-		(if (IsFlag 48)
-			(localproc_1)
+		(if (Btst 48)
+			(localproc_13c8)
 		else
-			(localproc_2)
+			(localproc_141b)
 		)
-		(Trap ignoreActors: 1 init:)
-		(if ((gInventory at: 13) ownedBy: 65) ; valve_handle
-			(shaft setPri: 8 ignoreActors: 1 init: stopUpd:)
+		(Trap ignoreActors: TRUE init:)
+		(if ((inventory at: 13) ownedBy: 65)
+			(shaft setPri: 8 ignoreActors: TRUE init: stopUpd:)
 		)
-		(statue setPri: 7 ignoreActors: 1 init: stopUpd:)
-		(gEgo view: 0 illegalBits: -32768 init:)
-		(if (== gPrevRoomNum 51)
-			(gEgo posn: 273 138)
+		(statue setPri: 7 ignoreActors: TRUE init: stopUpd:)
+		(ego view: 0 illegalBits: cWHITE init:)
+		(if (== prevRoomNum 51)
+			(ego posn: 273 138)
 		else
-			(gEgo posn: 50 186)
+			(ego posn: 50 186)
 		)
 		(if global147
 			(Trap cel: (- (NumCels Trap) 1) setPri: 9 stopUpd:)
 			(statue cel: 2)
-			(gEgo observeControl: 2 64)
+			(ego observeControl: cBLUE cBROWN)
 		else
 			(Trap setPri: 4)
 		)
-		(if (== gAct 7)
-			(self setRegions: 280) ; Dlill
-			(gEgo observeControl: 256)
+		(if (== currentAct 7)
+			(self setRegions: 280)
+			(ego observeControl: cGREY)
 		)
 	)
-
+	
 	(method (doit)
-		(if (IsFirstTimeInRoom)
-			(Print 65 0) ; "This hedge garden is very strange! In the center you see a small fountain while a nearby statue overlooks it. Perhaps, at one time, this was someone's place of quiet contemplation."
+		(if (FirstEntry)
+			(Print 65 0)
 		)
-		(if (and global147 (& (gEgo onControl: 1) $0008) (not script))
-			(gEgo ignoreControl: 64)
+		(if
+			(and
+				global147
+				(& (ego onControl: origin) cCYAN)
+				(not script)
+			)
+			(ego ignoreControl: cBROWN)
 			(self setScript: goDown)
 		)
 		(if
 			(and
-				(& (gEgo onControl: 1) $0010)
-				(!= (gEgo mover:) 0)
-				gDetailLevel
+				(& (ego onControl: origin) cRED)
+				(!= (ego mover?) 0)
+				howFast
 			)
-			(switch (gEgo loop:)
+			(switch (ego loop?)
 				(2
-					(if (== (gEgo cel:) 2)
+					(if (== (ego cel?) 2)
 						(Splash1
-							posn: (+ (gEgo x:) 5) (gEgo y:)
+							posn: (+ (ego x?) 5) (ego y?)
 							cel: 0
 							show:
-							setCycle: End
+							setCycle: EndLoop
 						)
 					)
-					(if (== (gEgo cel:) 5)
+					(if (== (ego cel?) 5)
 						(Splash2
-							posn: (+ (gEgo x:) 5) (gEgo y:)
+							posn: (+ (ego x?) 5) (ego y?)
 							cel: 0
 							show:
-							setCycle: End
+							setCycle: EndLoop
 						)
 					)
 				)
 				(3
-					(if (== (gEgo cel:) 2)
+					(if (== (ego cel?) 2)
 						(Splash1
-							posn: (+ (gEgo x:) 5) (gEgo y:)
+							posn: (+ (ego x?) 5) (ego y?)
 							cel: 0
 							show:
-							setCycle: End
+							setCycle: EndLoop
 						)
 					)
-					(if (== (gEgo cel:) 5)
+					(if (== (ego cel?) 5)
 						(Splash2
-							posn: (+ (gEgo x:) 5) (gEgo y:)
+							posn: (+ (ego x?) 5) (ego y?)
 							cel: 0
 							show:
-							setCycle: End
+							setCycle: EndLoop
 						)
 					)
 				)
-				(else
-					(if (== (gEgo cel:) 0)
+				(else 
+					(if (== (ego cel?) 0)
 						(Splash1
-							posn: (- (gEgo x:) 2) (gEgo y:)
+							posn: (- (ego x?) 2) (ego y?)
 							cel: 0
 							show:
-							setCycle: End
+							setCycle: EndLoop
 						)
 					)
-					(if (== (gEgo cel:) 4)
+					(if (== (ego cel?) 4)
 						(Splash2
-							posn: (- (gEgo x:) 2) (gEgo y:)
+							posn: (- (ego x?) 2) (ego y?)
 							cel: 0
 							show:
-							setCycle: End
+							setCycle: EndLoop
 						)
 					)
 				)
@@ -176,241 +185,249 @@
 		)
 		(super doit:)
 	)
-
+	
 	(method (dispose)
-		(DisposeScript 985)
+		(DisposeScript AVOIDER)
 		(super dispose:)
 	)
-
-	(method (newRoom newRoomNumber)
-		(if (== newRoomNumber 51)
-			(gConMusic stop:)
-		)
-		(super newRoom: newRoomNumber)
-	)
-
+	
 	(method (handleEvent event &tmp temp0)
-		(if (event claimed:)
-			(return 1)
-		)
-		(if (== (event type:) evSAID)
-			(cond
-				((Said 'look>')
-					(cond
-						((Said '[<around,at][/room]')
-							(Print 65 0) ; "This hedge garden is very strange! In the center you see a small fountain while a nearby statue overlooks it. Perhaps, at one time, this was someone's place of quiet contemplation."
-						)
-						((Said '/archway')
-							(Print 65 1) ; "The arched gateway leads outside."
-						)
-						((Said '/water')
-							(Print 65 2) ; "Dirty, green water fills the little fountain."
-						)
-						((Said '/bush,bush')
-							(Print 65 3) ; "A tall hedge completely surrounds this small garden area."
-						)
-						((Said '/stair')
-							(if global147
-								(Print 65 4) ; "The rickety stairs lead into total darkness."
-							else
-								(Print 65 5) ; "You don't see anything!"
+		(if (event claimed?) (return TRUE))
+		(return
+			(if (== (event type?) saidEvent)
+				(cond 
+					((Said 'examine>')
+						(cond 
+							((Said '[<around,at][/room]')
+								(Print 65 0)
 							)
-						)
-						((Said '/passage')
-							(if global147
-								(Print 65 6) ; "There might be a passage down there."
-							else
-								(Print 65 5) ; "You don't see anything!"
+							((Said '/archway')
+								(Print 65 1)
 							)
-						)
-						((Said '/shaft')
-							(if (gEgo inRect: 205 111 276 200)
-								(if (== (gInventory at: 13) 65) ; valve_handle
-									(Print 65 7) ; "There is a metal valve handle attached to the valve stem at the base of the statue."
+							((Said '/water')
+								(Print 65 2)
+							)
+							((Said '/bush,bush')
+								(Print 65 3)
+							)
+							((Said '/stair')
+								(if global147
+									(Print 65 4)
 								else
-									(Print 65 8) ; "The small, square shaft attracts your curiosity."
+									(Print 65 5)
 								)
-							else
-								(NotClose) ; "You're not close enough."
+							)
+							((Said '/passage')
+								(if global147
+									(Print 65 6)
+								else
+									(Print 65 5)
+								)
+							)
+							((Said '/shaft')
+								(if (ego inRect: 205 111 276 200)
+									(if (== (inventory at: iValveHandle) 65)
+										(Print 65 7)
+									else
+										(Print 65 8)
+									)
+								else
+									(NotClose)
+								)
 							)
 						)
 					)
-				)
-				((Said 'attach,attach,attach/control/shaft')
-					(if (gEgo has: 20) ; crank
-						(Print 65 9) ; "The crank doesn't fit on the shaft."
-					else
-						(DontHave) ; "You don't have it."
-					)
-				)
-				((Said 'attach,attach/valve,handle/shaft')
-					(if (gEgo has: 13) ; valve_handle
-						(if (& (gEgo onControl: 0) $0004)
-							(= local1 1)
-							(self setScript: bend)
-							((gInventory at: 13) moveTo: gCurRoomNum) ; valve_handle
+					((Said 'attach,attach,attach/control/shaft')
+						(if (ego has: iCrank)
+							(Print 65 9)
 						else
-							(NotClose) ; "You're not close enough."
+							(DontHave)
 						)
-					else
-						(DontHave) ; "You don't have it."
 					)
-				)
-				((Said 'attach,attach/control/shaft')
-					(if (gEgo has: 20) ; crank
-						(if (& (gEgo onControl: 0) $0004)
-							(Print 65 10) ; "The crank doesn't fit the shaft."
+					((Said 'attach,attach/valve,handle/shaft')
+						(if (ego has: iValveHandle)
+							(if (& (ego onControl: FALSE) cGREEN)
+								(= valveCued TRUE)
+								(self setScript: bend)
+								((inventory at: iValveHandle) moveTo: curRoomNum)
+							else
+								(NotClose)
+							)
 						else
-							(NotClose) ; "You're not close enough."
-						)
-					else
-						(DontHave) ; "You don't have it."
-					)
-				)
-				((and (gEgo has: 13) (Said 'rotate,rotate/valve,handle')) ; valve_handle
-					(Print 65 11) ; "Turning the valve handle in your hand you see the other side of it."
-				)
-				((Said 'rotate,rotate/valve,handle')
-					(if (== ((gInventory at: 13) owner:) 65) ; valve_handle
-						(localproc_0)
-					else
-						(DontHave) ; "You don't have it."
-					)
-				)
-				((or (Said 'rotate<on/fountain') (Said 'rotate/fountain<on'))
-					(cond
-						((IsFlag 48)
-							(Print 65 12) ; "It is already on!"
-						)
-						((== ((gInventory at: 13) owner:) 65) ; valve_handle
-							(localproc_0)
-						)
-						(else
-							(Print 65 13) ; "You don't know how."
+							(DontHave)
 						)
 					)
-				)
-				((or (Said 'rotate<off/fountain') (Said 'rotate/fountain<off'))
-					(cond
-						((not (IsFlag 48))
-							(Print 65 14) ; "It is already off!"
-						)
-						((== ((gInventory at: 13) owner:) 65) ; valve_handle
-							(localproc_0)
-						)
-						(else
-							(Print 65 13) ; "You don't know how."
+					((Said 'attach,attach/control/shaft')
+						(if (ego has: iCrank)
+							(if (& (ego onControl: FALSE) cGREEN)
+								(Print 65 10)
+							else
+								(NotClose)
+							)
+						else
+							(DontHave)
 						)
 					)
-				)
-				((Said 'feel,(attach<give)/fountain,water')
-					(if (gEgo inRect: 101 99 241 165)
-						(Print 65 15) ; "You reach into the fountain, but don't feel anything special."
-					else
-						(NotClose) ; "You're not close enough."
+					((and (ego has: iValveHandle) (Said 'rotate,rotate/valve,handle'))
+						(Print 65 11)
 					)
-				)
-				((Said 'move,press,pull,rotate/fountain')
-					(Print 65 16) ; "The fountain doesn't move."
-				)
-				((Said 'close/archway')
-					(Print 65 17) ; "There is no need to do that."
-				)
-				((Said 'open/archway')
-					(Print 65 18) ; "The gate is already open."
-				)
-				((Said 'enter,go,(get<in),wade,climb/water,fountain')
-					(Print 65 19) ; "There is no reason to get your feet wet!"
-				)
-				((Said 'get/water')
-					(Print 65 20) ; "You have no reason to carry water."
-				)
-				((Said 'get/shaft')
-					(if (& (gEgo onControl: 0) $0004)
-						(Print 65 21) ; "The metal shaft can't be taken."
-					else
-						(NotClose) ; "You're not close enough."
-					)
-				)
-				((Said 'press,move,pull/shaft,square')
-					(if (& (gEgo onControl: 0) $0004)
-						(Print 65 22) ; "The metal shaft doesn't move."
-					else
-						(NotClose) ; "You're not close enough."
-					)
-				)
-				((Said 'rotate,rotate,spin,rotate/shaft')
-					(if (& (gEgo onControl: 0) $0004)
-						(Print 65 23) ; "The metal shaft won't turn by itself."
-					else
-						(NotClose) ; "You're not close enough."
-					)
-				)
-				((Said 'get,detach/valve,handle')
-					(cond
-						((== ((gInventory at: 13) owner:) 65) ; valve_handle
-							(Print 65 24) ; "You don't need it anymore."
-						)
-						((gEgo has: 13) ; valve_handle
-							(Print 65 25) ; "You already have it."
-						)
-						(else
-							(Print 65 26) ; "What are you talking about?"
+					((Said 'rotate,rotate/valve,handle')
+						(if (== ((inventory at: iValveHandle) owner?) 65)
+							(TurnValve)
+						else
+							(DontHave)
 						)
 					)
-				)
-				((or (Said 'drink/water,fountain') (Said 'get/drink'))
-					(Print 65 27) ; "You're not thirsty."
-				)
-				((Said 'oil/shaft')
-					(if (gEgo has: 3) ; oilcan
-						(Print 65 28) ; "That won't help. It's not rusty."
-					else
-						(Print 65 29) ; "Using what? Rudy's hair tonic?!"
+					(
+						(or
+							(Said 'rotate<on/fountain')
+							(Said 'rotate/fountain<on')
+						)
+						(cond 
+							((Btst 48)
+								(Print 65 12)
+							)
+							((== ((inventory at: iValveHandle) owner?) 65)
+								(TurnValve)
+							)
+							(else
+								(Print 65 13)
+							)
+						)
+					)
+					(
+						(or
+							(Said 'rotate<off/fountain')
+							(Said 'rotate/fountain<off')
+						)
+						(cond 
+							((not (Btst 48))
+								(Print 65 14)
+							)
+							((== ((inventory at: iValveHandle) owner?) 65)
+								(TurnValve)
+							)
+							(else
+								(Print 65 13)
+							)
+						)
+					)
+					((Said 'feel,(attach<deliver)/fountain,water')
+						(if (ego inRect: 101 99 241 165)
+							(Print 65 15)
+						else
+							(NotClose)
+						)
+					)
+					((Said 'move,press,drag,rotate/fountain')
+						(Print 65 16)
+					)
+					((Said 'close/archway')
+						(Print 65 17)
+					)
+					((Said 'open/archway')
+						(Print 65 18)
+					)
+					((Said 'enter,go,(get<in),wade,climb/water,fountain')
+						(Print 65 19)
+					)
+					((Said 'get/water')
+						(Print 65 20)
+					)
+					((Said 'get/shaft')
+						(if (& (ego onControl: FALSE) cGREEN)
+							(Print 65 21)
+						else
+							(NotClose)
+						)
+					)
+					((Said 'press,move,drag/shaft,square')
+						(if (& (ego onControl: FALSE) cGREEN)
+							(Print 65 22)
+						else
+							(NotClose)
+						)
+					)
+					((Said 'rotate,rotate,spin,rotate/shaft')
+						(if (& (ego onControl: FALSE) cGREEN)
+							(Print 65 23)
+						else
+							(NotClose)
+						)
+					)
+					((Said 'get,detach/valve,handle')
+						(cond 
+							((== ((inventory at: iValveHandle) owner?) 65)
+								(Print 65 24)
+							)
+							((ego has: iValveHandle)
+								(Print 65 25)
+							)
+							(else
+								(Print 65 26)
+							)
+						)
+					)
+					((or (Said 'drink/water,fountain') (Said 'get/drink'))
+						(Print 65 27)
+					)
+					((Said 'oil/shaft')
+						(if (ego has: iOilcan)
+							(Print 65 28)
+						else
+							(Print 65 29)
+						)
+					)
+					((Said 'force/shaft')
+						(if (ego has: iCrowbar)
+							(Print 65 30)
+						else
+							(Print 65 31)
+						)
 					)
 				)
-				((Said 'force/shaft')
-					(if (gEgo has: 7) ; crowbar
-						(Print 65 30) ; "The shaft isn't loose."
-					else
-						(Print 65 31) ; "With your bare hands?"
-					)
-				)
+			else
+				FALSE
 			)
 		)
+	)
+	
+	(method (newRoom n)
+		(if (== n 51)
+			(cSound stop:)
+		)
+		(super newRoom: n)
 	)
 )
 
 (instance goDown of Script
-	(properties)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
 				(HandsOff)
-				(gEgo setMotion: MoveTo 260 133 self)
+				(ego setMotion: MoveTo 260 133 self)
 			)
 			(1
-				(gCurRoom newRoom: 51)
+				(curRoom newRoom: 51)
 			)
 		)
 	)
 )
 
 (instance dripping of Script
-	(properties)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
-				(Drop1 cel: 0 setCycle: End self)
+				(Drop1 cel: 0 setCycle: EndLoop self)
 			)
 			(1
-				(water1 cel: 0 setCycle: End)
-				(water2 cel: 0 setCycle: End self)
+				(water1 cel: 0 setCycle: EndLoop)
+				(water2 cel: 0 setCycle: EndLoop self)
 			)
 			(2
-				(if (not (IsFlag 48))
+				(if (not (Btst 48))
 					(= state -1)
 					(= seconds 2)
 				else
@@ -422,42 +439,41 @@
 )
 
 (instance bend of Script
-	(properties)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
 				(HandsOff)
-				(gEgo illegalBits: 0 setMotion: MoveTo 250 116 self)
+				(ego illegalBits: 0 setMotion: MoveTo 250 116 self)
 			)
 			(1
-				(gEgo view: 165 cel: 0 loop: 6)
+				(ego view: 165 cel: 0 loop: 6)
 				(= seconds 2)
 			)
 			(2
 				(if local0
 					(= local0 0)
 					(shaft hide:)
-					(gEgo setCycle: End self)
+					(ego setCycle: EndLoop self)
 					(myMusic number: 125 loop: 1 play:)
 					(if (not global146)
-						(Print 65 32) ; "Upon turning the valve handle, you hear a click and the fountain comes to life."
-						(localproc_1)
+						(Print 65 32)
+						(localproc_13c8)
 					else
-						(Print 65 33) ; "The fountain flow subsides when you turn the valve handle back."
-						(localproc_2)
+						(Print 65 33)
+						(localproc_141b)
 					)
 				)
-				(if local1
-					(Print 65 34) ; "The metal valve handle is now attached to the valve stem at the base of the statue."
-					(shaft setPri: 8 ignoreActors: 1 init: stopUpd:)
-					(= local1 0)
+				(if valveCued
+					(Print 65 34)
+					(shaft setPri: 8 ignoreActors: TRUE init: stopUpd:)
+					(= valveCued 0)
 					(= cycles 1)
 				)
 			)
 			(3
 				(shaft show:)
-				(gEgo view: 0 illegalBits: -32768 loop: 1 setCycle: Walk)
+				(ego view: 0 illegalBits: cWHITE loop: 1 setCycle: Walk)
 				(HandsOn)
 				(client setScript: 0)
 			)
@@ -466,34 +482,33 @@
 )
 
 (instance myDoor of Script
-	(properties)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
 				(HandsOff)
 				(if global147
-					(gEgo
+					(ego
 						illegalBits: 0
-						setAvoider: (Avoid new:)
+						setAvoider: (Avoider new:)
 						setMotion: MoveTo 237 91 self
 					)
 				else
-					(gEgo
+					(ego
 						illegalBits: 0
-						setAvoider: (Avoid new:)
+						setAvoider: (Avoider new:)
 						setMotion: MoveTo 202 90 self
 					)
 				)
 			)
 			(1
-				(gEgo loop: 2 hide:)
+				(ego loop: 2 hide:)
 				(if global147
-					(statue loop: 1 cel: 0 cycleSpeed: 1 setCycle: End self)
-					(Trap setPri: 9 cycleSpeed: 1 setCycle: End)
+					(statue loop: 1 cel: 0 cycleSpeed: 1 setCycle: EndLoop self)
+					(Trap setPri: 9 cycleSpeed: 1 setCycle: EndLoop)
 				else
-					(statue loop: 8 cel: 0 cycleSpeed: 1 setCycle: End self)
-					(Trap cycleSpeed: 1 setCycle: Beg)
+					(statue loop: 8 cel: 0 cycleSpeed: 1 setCycle: EndLoop self)
+					(Trap cycleSpeed: 1 setCycle: BegLoop)
 				)
 				(myMusic number: 78 loop: 1 play:)
 			)
@@ -503,35 +518,35 @@
 				else
 					(statue loop: 2 cel: 1 stopUpd:)
 				)
-				(gEgo
+				(ego
 					show:
 					view: 165
 					loop: 5
 					cel: 0
-					illegalBits: -32768
-					setCycle: End self
+					illegalBits: cWHITE
+					setCycle: EndLoop self
 				)
 			)
 			(3
 				(if global147
-					(Print 65 35) ; "You grab the statue and find it turns easily. As you turn it, you notice a hidden trapdoor in the ground opening simultaneously."
-					(gEgo
+					(Print 65 35)
+					(ego
 						view: 0
 						loop: 2
 						setCycle: Walk
 						setAvoider: 0
-						observeControl: 2 64
+						observeControl: cBLUE cBROWN
 					)
 					(= global147 1)
 				else
-					(gEgo
+					(ego
 						view: 0
 						loop: 2
 						setCycle: Walk
 						setAvoider: 0
-						ignoreControl: 2
+						ignoreControl: cBLUE
 					)
-					(Trap cel: 0 setPri: 4 ignoreActors: 1 init: stopUpd:)
+					(Trap cel: 0 setPri: 4 ignoreActors: TRUE init: stopUpd:)
 					(= global147 0)
 				)
 				(HandsOn)
@@ -548,47 +563,51 @@
 		view 165
 		cel 4
 	)
-
+	
 	(method (handleEvent event)
-		(cond
+		(cond 
 			((Said 'close/trapdoor')
 				(if global147
-					(Print 65 36) ; "Turn the statue to close it."
+					(Print 65 36)
 				else
-					(Print 65 37) ; "What?!"
+					(Print 65 37)
 				)
 			)
 			((Said 'open/trapdoor')
 				(if global147
-					(AlreadyOpen) ; "It is already open."
+					(AlreadyOpen)
 				else
-					(Print 65 37) ; "What?!"
+					(Print 65 37)
 				)
 			)
-			((Said 'look<(in,down)/trapdoor')
+			((Said 'examine<(in,down)/trapdoor')
 				(if global147
-					(if (< (gEgo distanceTo: Trap) 60)
-						(Print 65 38) ; "You see steep rickety stairs leading down into...darkness!"
+					(if (< (ego distanceTo: Trap) 60)
+						(Print 65 38)
 					else
-						(NotClose) ; "You're not close enough."
+						(NotClose)
 					)
 				else
-					(Print 65 5) ; "You don't see anything!"
+					(Print 65 5)
 				)
 			)
-			((Said 'look<down')
-				(if (and global147 (< (gEgo distanceTo: Trap) 60))
-					(Print 65 38) ; "You see steep rickety stairs leading down into...darkness!"
+			((Said 'examine<down')
+				(if (and global147 (< (ego distanceTo: Trap) 60))
+					(Print 65 38)
 				else
-					(event claimed: 0)
+					(event claimed: FALSE)
 				)
 			)
-			((or (Said 'look,find/trapdoor') (MousedOn self event 3))
-				(event claimed: 1)
+			(
+				(or
+					(Said 'examine,find/trapdoor')
+					(MousedOn self event shiftDown)
+				)
+				(event claimed: TRUE)
 				(if global147
-					(Print 65 39) ; "You see an open trapdoor in the ground."
+					(Print 65 39)
 				else
-					(Print 65 5) ; "You don't see anything!"
+					(Print 65 5)
 				)
 			)
 		)
@@ -603,14 +622,14 @@
 		loop 2
 		cel 1
 	)
-
+	
 	(method (handleEvent event)
-		(cond
+		(cond 
 			((Said 'lift,get/monument')
-				(Print 65 40) ; "You can't carry around a statue!"
+				(Print 65 40)
 			)
-			((Said 'move,press,pull,rotate,rotate/monument')
-				(if (& (gEgo onControl: 0) $0020)
+			((Said 'move,press,drag,rotate,rotate/monument')
+				(if (& (ego onControl: FALSE) cMAGENTA)
 					(if (== global146 1)
 						(if (not global147)
 							(= global147 1)
@@ -619,22 +638,26 @@
 						)
 						(statue setScript: myDoor)
 					else
-						(Print 65 41) ; "Despite your bulging muscles, you cannot move the statue."
+						(Print 65 41)
 					)
 				else
-					(NotClose) ; "You're not close enough."
+					(NotClose)
 				)
 			)
-			((or (MousedOn self event 3) (Said 'look/base,monument,monument'))
-				(event claimed: 1)
-				(if (gEgo inRect: 205 111 276 200)
-					(if (== ((gInventory at: 13) owner:) gCurRoomNum) ; valve_handle
-						(Printf 65 42 65 7) ; "A statue of a dancing nymph overlooks the fountain. %s"
+			(
+				(or
+					(MousedOn self event shiftDown)
+					(Said 'examine/base,monument,monument')
+				)
+				(event claimed: TRUE)
+				(if (ego inRect: 205 111 276 200)
+					(if (== ((inventory at: iCrank) owner?) curRoomNum)
+						(Printf 65 42 65 7)
 					else
-						(Printf 65 42 65 43) ; "A statue of a dancing nymph overlooks the fountain. %s"
+						(Printf 65 42 65 43)
 					)
 				else
-					(Printf 65 42 65 44) ; "A statue of a dancing nymph overlooks the fountain. %s"
+					(Printf 65 42 65 44)
 				)
 			)
 		)
@@ -649,31 +672,35 @@
 		loop 2
 		priority 3
 	)
-
+	
 	(method (handleEvent event)
-		(cond
+		(cond 
 			((Said 'get/urn')
-				(Print 65 45) ; "The urns are much too heavy to carry around."
+				(Print 65 45)
 			)
 			((Said 'move/urn')
-				(Print 65 46) ; "Even your bugling muscles couldn't move those heavy urns."
+				(Print 65 46)
 			)
-			((Said 'look<in/urn')
-				(cond
-					((< (gEgo distanceTo: urn) 30)
-						(Print 65 47) ; "The urn is empty."
+			((Said 'examine<in/urn')
+				(cond 
+					((< (ego distanceTo: urn) 30)
+						(Print 65 47)
 					)
-					((< (gEgo distanceTo: urn1) 25)
-						(Print 65 47) ; "The urn is empty."
+					((< (ego distanceTo: urn1) 25)
+						(Print 65 47)
 					)
 					(else
-						(NotClose) ; "You're not close enough."
+						(NotClose)
 					)
 				)
 			)
-			((or (MousedOn self event 3) (Said 'look/urn,pedestal'))
-				(event claimed: 1)
-				(Print 65 48) ; "You spy two marble urns in opposite corners of the garden."
+			(
+				(or
+					(MousedOn self event shiftDown)
+					(Said 'examine/urn,pedestal')
+				)
+				(event claimed: TRUE)
+				(Print 65 48)
 			)
 		)
 	)
@@ -686,13 +713,13 @@
 		view 165
 		loop 2
 		priority 14
-		signal 16384
+		signal ignrAct
 	)
-
+	
 	(method (handleEvent event)
-		(if (MousedOn self event 3)
-			(event claimed: 1)
-			(Print 65 48) ; "You spy two marble urns in opposite corners of the garden."
+		(if (MousedOn self event shiftDown)
+			(event claimed: TRUE)
+			(Print 65 48)
 		)
 	)
 )
@@ -705,19 +732,19 @@
 		loop 2
 		cel 4
 	)
-
+	
 	(method (handleEvent event)
-		(cond
-			((Said 'look<in/fountain,water')
-				(if (gEgo inRect: 75 89 251 166)
-					(Print 65 49) ; "You see nothing but dirty, green water in the fountain."
+		(cond 
+			((Said 'examine<in/fountain,water')
+				(if (ego inRect: 75 89 251 166)
+					(Print 65 49)
 				else
-					(NotClose) ; "You're not close enough."
+					(NotClose)
 				)
 			)
-			((or (MousedOn self event 3) (Said 'look/fountain'))
-				(Print 65 50) ; "The fountain sits forlornly in the center of the garden."
-				(event claimed: 1)
+			((or (MousedOn self event shiftDown) (Said 'examine/fountain'))
+				(Print 65 50)
+				(event claimed: TRUE)
 			)
 		)
 	)
@@ -775,7 +802,4 @@
 	)
 )
 
-(instance myMusic of Sound
-	(properties)
-)
-
+(instance myMusic of Sound)

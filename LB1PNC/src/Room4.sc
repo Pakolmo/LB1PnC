@@ -1,9 +1,8 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-;;; Decompiled by sluicebox
 (script# 4)
-(include sci.sh)
+(include game.sh)
 (use Main)
-(use Interface)
+(use Intrface)
 (use RFeature)
 (use Sound)
 (use Motion)
@@ -14,16 +13,15 @@
 (public
 	Room4 0
 )
-
 (synonyms
 	(rose blossom)
 )
 
-(instance Room4 of Rm
+(instance Room4 of Room
 	(properties
 		picture 4
 	)
-
+	
 	(method (init)
 		(= west 10)
 		(= east 12)
@@ -31,126 +29,124 @@
 		(= south 33)
 		(= horizon 118)
 		(super init:)
-		(Load rsFONT 4)
-		(Load rsSOUND 2)
-		(gAddToPics add: lBench rBench eachElementDo: #init doit:)
-		(self setRegions: 206 setFeatures: Column1 Column2 rBench lBench) ; houseOReg
-		(if (== gAct 1)
-			(self setRegions: 381) ; walkabout
+		(Load FONT 4)
+		(Load SOUND 2)
+		(addToPics add: lBench rBench eachElementDo: #init doit:)
+		(self
+			setRegions: 206
+			setFeatures: Column1 Column2 rBench lBench
 		)
-		(statue setPri: 12 ignoreActors: 1 init: stopUpd:)
-		(if gDetailLevel
-			(star1 cycleSpeed: 2 setCycle: Fwd init:)
+		(if (== currentAct 1)
+			(self setRegions: 381)
+		)
+		(statue setPri: 12 ignoreActors: TRUE init: stopUpd:)
+		(if howFast
+			(star1 cycleSpeed: 2 setCycle: Forward init:)
 			(star2 init: setScript: twinkle)
 			(if (== (Random 1 200) 95)
 				(Plane loop: 1 play:)
 				(airplane
-					setCycle: Fwd
+					setCycle: Forward
 					illegalBits: 0
 					setLoop: 3
-					ignoreHorizon: 1
+					ignoreHorizon: TRUE
 					xStep: 10
 					setMotion: MoveTo 380 68
 					init:
 				)
 			)
 		)
-		(if (and (>= gAct 2) (< gAct 4))
-			(self setRegions: 202) ; EthelDrunk
+		(if (and (>= currentAct 2) (< currentAct 4))
+			(self setRegions: 202)
 		)
-		(switch gPrevRoomNum
-			(12
-				(gEgo posn: 318 158)
-			)
-			(10
-				(gEgo posn: 1 158)
-			)
-			(5
-				(gEgo posn: 158 120)
-			)
+		(switch prevRoomNum
+			(12 (ego posn: 318 158))
+			(10 (ego posn: 1 158))
+			(5 (ego posn: 158 120))
 		)
-		(gEgo view: 0 illegalBits: -32768 init:)
+		(ego view: 0 illegalBits: cWHITE init:)
 	)
-
+	
 	(method (doit)
-		(if (IsFirstTimeInRoom)
-			(Print 4 0) ; "Out the back door, a garden path encircles a small statue, then continues on through a lovely rose arbor."
+		(if (FirstEntry)
+			(Print 4 0)
 		)
 		(super doit:)
 	)
-
+	
 	(method (dispose)
 		(super dispose:)
 	)
-
-	(method (newRoom newRoomNumber)
-		(if (and (& gCorpseFlags $0008) (!= newRoomNumber 5)) ; Ethel
-			(= gEthelState 101)
-		)
-		(if (== newRoomNumber 33)
-			(gConMusic stop:)
-		)
-		(super newRoom: newRoomNumber)
-	)
-
+	
 	(method (handleEvent event &tmp temp0)
-		(if (event claimed:)
-			(return 1)
-		)
-		(if (== (event type:) evSAID)
-			(cond
-				((Said 'look>')
-					(cond
-						((Said '[<around,at][/room]')
-							(Print 4 0) ; "Out the back door, a garden path encircles a small statue, then continues on through a lovely rose arbor."
-						)
-						((Said '/garden[<rose]')
-							(Print 4 1) ; "You see a lovely rose garden in the distance to the north."
-						)
-						((Said '/gallery')
-							(Print 4 2) ; "Grecian columns enclose the small back porch. From here, you can see a lovely rose arbor."
-						)
-						((Said '/field')
-							(Print 4 3) ; "Behind a weather-beaten fence, you see the old, unused sugar cane fields. The fields look as if they haven't been planted in years."
-						)
-						((Said '/path')
-							(Print 4 4) ; "The garden path circles a small statue, then goes through a lovely rose arbor."
-						)
-						((Said '/door')
-							(Print 4 5) ; "Here, you see the back door of the house."
-						)
-						((Said '/fence')
-							(Print 4 6) ; "An old, weather-beaten fence partitions off the remaining vestiges of the plantation's once-vast sugar cane fields. Now all that's left are long-ago plowed furrows and old dead stalks."
-						)
-						((Said '/archway')
-							(Print 4 7) ; "You don't see a gate here."
-						)
-						((Said '/rose,bush,foliage,arbor')
-							(Print 4 8) ; "Beautiful roses grow upon the rose arbor."
+		(if (event claimed?) (return TRUE))
+		(return
+			(if (== (event type?) saidEvent)
+				(cond 
+					((Said 'examine>')
+						(cond 
+							((Said '[<around,at][/room]')
+								(Print 4 0)
+							)
+							((Said '/garden[<rose]')
+								(Print 4 1)
+							)
+							((Said '/gallery')
+								(Print 4 2)
+							)
+							((Said '/field')
+								(Print 4 3)
+							)
+							((Said '/path')
+								(Print 4 4)
+							)
+							((Said '/door')
+								(Print 4 5)
+							)
+							((Said '/fence')
+								(Print 4 6)
+							)
+							((Said '/archway')
+								(Print 4 7)
+							)
+							((Said '/rose,bush,foliage,arbor')
+								(Print 4 8)
+							)
 						)
 					)
+					((Said 'get/rose')
+						(Print 4 9)
+					)
+					((Said 'climb/fence')
+						(Print 4 10)
+					)
+					((Said 'smell/rose')
+						(Print 4 11)
+					)
 				)
-				((Said 'get/rose')
-					(Print 4 9) ; "You see no need to carry around a rose."
-				)
-				((Said 'climb/fence')
-					(Print 4 10) ; "The fence is too difficult to climb. Besides, you don't care about those old fields."
-				)
-				((Said 'smell/rose')
-					(Print 4 11) ; "The roses smell wonderful in the night air."
-				)
+			else
+				FALSE
 			)
 		)
+	)
+	
+	(method (newRoom n)
+		(if (and (& deadGuests $0008) (!= n 5))
+			(= global200 101)
+		)
+		(if (== n 33)
+			(cSound stop:)
+		)
+		(super newRoom: n)
 	)
 )
 
 (instance twinkle of Script
-	(properties)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
-				(star2 setCycle: End self)
+				(star2 setCycle: EndLoop self)
 			)
 			(1
 				(if (< (Random 1 100) 35)
@@ -173,11 +169,11 @@
 		cel 1
 		priority 9
 	)
-
+	
 	(method (handleEvent event)
-		(if (MousedOn self event 3)
-			(event claimed: 1)
-			(Print 4 12) ; "There are two garden benches here."
+		(if (MousedOn self event shiftDown)
+			(event claimed: TRUE)
+			(Print 4 12)
 		)
 	)
 )
@@ -190,18 +186,18 @@
 		loop 1
 		priority 9
 	)
-
+	
 	(method (handleEvent event)
-		(cond
-			((Said 'look<below/bench')
-				(Print 4 13) ; "There is nothing but grass under the benches."
+		(cond 
+			((Said 'examine<below/bench')
+				(Print 4 13)
 			)
 			((Said 'sit/[<bench]')
-				(Print 4 14) ; "You don't feel like sitting around."
+				(Print 4 14)
 			)
-			((or (MousedOn self event 3) (Said 'look/bench'))
-				(event claimed: 1)
-				(Print 4 12) ; "There are two garden benches here."
+			((or (MousedOn self event shiftDown) (Said 'examine/bench'))
+				(event claimed: TRUE)
+				(Print 4 12)
 			)
 		)
 	)
@@ -213,18 +209,18 @@
 		x 160
 		view 104
 	)
-
+	
 	(method (handleEvent event)
-		(cond
-			((or (MousedOn self event 3) (Said 'look/monument'))
-				(event claimed: 1)
-				(Print 4 15) ; "This is an exquisite statue of a dancing satyr."
+		(cond 
+			((or (MousedOn self event shiftDown) (Said 'examine/monument'))
+				(event claimed: TRUE)
+				(Print 4 15)
 			)
 			((Said 'get/monument')
-				(Print 4 16) ; "The statue is firmly afixed to its pedestal."
+				(Print 4 16)
 			)
-			((Said 'press,pull,rotate,move/monument')
-				(Print 4 17) ; "The statue doesn't move."
+			((Said 'press,drag,rotate,move/monument')
+				(Print 4 17)
 			)
 		)
 	)
@@ -248,7 +244,7 @@
 	)
 )
 
-(instance airplane of Act
+(instance airplane of Actor
 	(properties
 		y 68
 		x -120
@@ -264,11 +260,11 @@
 		nsBottom 182
 		nsRight 75
 	)
-
+	
 	(method (handleEvent event)
-		(if (or (MousedOn self event 3) (Said 'look/column'))
-			(event claimed: 1)
-			(Print 4 18) ; "Grecian columns support the back porch."
+		(if (or (MousedOn self event shiftDown) (Said 'examine/column'))
+			(event claimed: TRUE)
+			(Print 4 18)
 		)
 	)
 )
@@ -280,11 +276,11 @@
 		nsBottom 181
 		nsRight 280
 	)
-
+	
 	(method (handleEvent event)
-		(if (or (MousedOn self event 3) (Said 'look/column'))
-			(event claimed: 1)
-			(Print 4 18) ; "Grecian columns support the back porch."
+		(if (or (MousedOn self event shiftDown) (Said 'examine/column'))
+			(event claimed: TRUE)
+			(Print 4 18)
 		)
 	)
 )
@@ -294,4 +290,3 @@
 		number 2
 	)
 )
-

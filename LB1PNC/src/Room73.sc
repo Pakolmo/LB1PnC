@@ -1,11 +1,10 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-;;; Decompiled by sluicebox
 (script# 73)
-(include sci.sh)
+(include game.sh)
 (use Main)
-(use Interface)
+(use Intrface)
 (use RFeature)
-(use Avoid)
+(use Avoider)
 (use Sound)
 (use Motion)
 (use Game)
@@ -15,58 +14,48 @@
 (public
 	Room73 0
 )
-
 (synonyms
-	(lil person woman)
-	(shower bath)
 	(room bathroom)
+	(lil person girl)
+	(shower bath)
 )
 
 (local
 	local0
 	local1
-	local2
+	firstTime
 	local3
-	local4
+	pickingUp
 )
-
-(instance Room73 of Rm
+(instance Room73 of Room
 	(properties
 		picture 73
 	)
-
+	
 	(method (init)
 		(= south 43)
 		(super init:)
-		(LoadMany rsVIEW 17 19 21 40 41 641 905)
-		(LoadMany rsSOUND 26 76)
-		(Load rsSCRIPT 985)
-		(gAddToPics
+		(LoadMany VIEW 17 19 21 40 41 641 905)
+		(LoadMany SOUND 26 76)
+		(Load SCRIPT AVOIDER)
+		(addToPics
 			add: sink toilet bathtub basket settie
 			eachElementDo: #init
 			doit:
 		)
 		(self
-			setFeatures:
-				basket
-				sink
-				toilet
-				bathtub
-				Cabinet
-				settie
-				Window1
-				Mirror
+			setFeatures: basket sink toilet bathtub Cabinet settie Window1 Mirror
 		)
 		(towel setPri: 9 init: stopUpd:)
 		(rope setPri: 13 init: stopUpd:)
 		(if (== global203 1)
-			(if (> [gCycleTimers 4] 1)
-				(LoadMany rsVIEW 500 505 905)
-				(LoadMany rsMESSAGE 243 226)
+			(if (> [global368 4] 1)
+				(LoadMany VIEW 500 505 905)
+				(LoadMany 143 243 226)
 				(= [global377 5] 226)
 				(|= global208 $0020)
 				(Lilian
-					setAvoider: ((Avoid new:) offScreenOK: 1)
+					setAvoider: ((Avoider new:) offScreenOK: TRUE)
 					init:
 					setScript: perfume
 				)
@@ -76,31 +65,31 @@
 		)
 		(if
 			(and
-				(>= gAct 6)
-				(not (& gCorpseFlags $0020)) ; Clarence
-				(not (& gCorpseFlags $0040)) ; Lillian
+				(>= currentAct 6)
+				(not (& deadGuests deadRUDY))
+				(not (& deadGuests deadLILLIAN))
 			)
-			(cond
-				((== global106 73)
-					(self setRegions: 278) ; Dclar
+			(cond 
+				((== gCurRoomNum_3 73)
+					(self setRegions: 278)
 					(= local3 1)
 				)
-				((not (== global106 41))
+				((not (== gCurRoomNum_3 41))
 					(switch (Random 1 2)
 						(1
-							(self setRegions: 278) ; Dclar
+							(self setRegions: 278)
 							(= local3 1)
 						)
 						(2
-							(= global106 41)
+							(= gCurRoomNum_3 41)
 						)
 					)
 				)
 			)
 		)
-		(gEgo view: 0 posn: 178 188 observeControl: 16384 init:)
+		(ego view: 0 posn: 178 188 observeControl: cYELLOW init:)
 		(if global153
-			(gEgo
+			(ego
 				view: 40
 				loop: 0
 				cel: 0
@@ -110,17 +99,17 @@
 			)
 		)
 	)
-
+	
 	(method (doit)
-		(if (IsFirstTimeInRoom)
-			(Print 73 0) ; "A modern bathroom has been installed in this old house."
-			(= local2 1)
+		(if (FirstEntry)
+			(Print 73 0)
+			(= firstTime TRUE)
 		)
-		(cond
-			((< (gEgo x:) 130)
+		(cond 
+			((< (ego x?) 130)
 				(= vertAngle 20)
 			)
-			((< (gEgo x:) 190)
+			((< (ego x?) 190)
 				(= vertAngle 0)
 			)
 			(else
@@ -129,247 +118,246 @@
 		)
 		(super doit:)
 	)
-
+	
 	(method (dispose)
-		(DisposeScript 985)
+		(DisposeScript AVOIDER)
 		(super dispose:)
 	)
-
-	(method (newRoom newRoomNumber)
-		(HandsOff)
-		(super newRoom: newRoomNumber)
-	)
-
+	
 	(method (handleEvent event &tmp temp0)
-		(if (event claimed:)
-			(return)
-		)
-		(if (== (event type:) evSAID)
-			(if (>= gAct 5)
-				(cond
+		(if (event claimed?) (return))
+		(if (== (event type?) saidEvent)
+			(if (>= currentAct 5)
+				(cond 
 					(
 						(or
-							(Said 'read,look/bottle,label/monocle')
-							(Said '(read,look)<use<monocle/bottle,label')
+							(Said 'read,examine/bottle,label/monocle')
+							(Said '(read,examine)<use<monocle/bottle,label')
 						)
-						(if (gEgo has: 1) ; monocle
-							(if (< (gEgo distanceTo: basket) 30)
-								(SetFlag 5)
-								(= local4 1)
+						(if (ego has: iMonocle)
+							(if (< (ego distanceTo: basket) 30)
+								(Bset fGotMonocle)
+								(= pickingUp 1)
 								(self setScript: pickUp)
 							else
-								(NotClose) ; "You're not close enough."
+								(NotClose)
 							)
 						else
-							(DontHave) ; "You don't have it."
+							(DontHave)
 						)
 					)
 					((Said '/bottle>')
-						(cond
+						(cond 
 							((Said 'read')
-								(Print 73 1) ; "You notice some very small writing at the bottom of the label on the empty sleeping powder bottle. You can't quite read it, though."
+								(Print 73 1)
 							)
-							((Said 'open,(look<in)')
-								(Print 73 2) ; "The sleeping powder bottle is empty."
+							((Said 'open,(examine<in)')
+								(Print 73 2)
 							)
-							((Said 'look')
-								(if (< (gEgo distanceTo: basket) 20)
-									(if (>= gAct 5)
-										(Print 73 3) ; "A small, empty bottle has been thrown into the wastebasket."
+							((Said 'examine')
+								(if (< (ego distanceTo: basket) 20)
+									(if (>= currentAct 5)
+										(Print 73 3)
 									else
-										(Print 73 4) ; "Currently, it is empty."
+										(Print 73 4)
 									)
 								else
-									(NotClose) ; "You're not close enough."
+									(NotClose)
 								)
 							)
 							((Said 'get')
-								(if (< (gEgo distanceTo: basket) 30)
+								(if (< (ego distanceTo: basket) 30)
 									(self setScript: pickUp)
 								else
-									(NotClose) ; "You're not close enough."
+									(NotClose)
 								)
 							)
 						)
 					)
-					((Said 'read,look/label,print')
-						(Print 73 1) ; "You notice some very small writing at the bottom of the label on the empty sleeping powder bottle. You can't quite read it, though."
+					((Said 'read,examine/label,print')
+						(Print 73 1)
 					)
-					((Said 'get,look,detach/powder')
-						(Print 73 2) ; "The sleeping powder bottle is empty."
+					((Said 'get,examine,detach/powder')
+						(Print 73 2)
 					)
 				)
 			)
-			(if (event claimed:)
-				(return)
-			)
-			(cond
-				((Said 'look>')
-					(cond
+			(if (event claimed?) (return))
+			(cond 
+				((Said 'examine>')
+					(cond 
 						((Said '[<around,at][/room]')
-							(Print 73 0) ; "A modern bathroom has been installed in this old house."
+							(Print 73 0)
 						)
 						((Said '/curtain<shower')
-							(Print 73 5) ; "The shower curtain is draped over the bathtub."
+							(Print 73 5)
 						)
 						((Said '/soap')
-							(Print 73 6) ; "You see a small sliver of soap."
+							(Print 73 6)
 						)
 						((Said '/chair,bench')
-							(Print 73 7) ; "You notice a lovely seat under the large windows."
+							(Print 73 7)
 						)
 						((Said '/door')
-							(Print 73 8) ; "That's the bathroom door."
+							(Print 73 8)
 						)
 					)
 				)
 				((Said 'get/mirror')
-					(Print 73 9) ; "The mirror is firmly attached to the wall."
+					(Print 73 9)
 				)
 				((Said 'get/soap')
-					(Print 73 10) ; "You don't need any soap...unless you're washing your hands."
+					(Print 73 10)
 				)
 				((Said 'get,(get<in)/shower,shower')
-					(cond
-						((gCast contains: Lilian)
-							(Print 73 11) ; "Why don't you wait until Lillian is gone."
+					(cond 
+						((cast contains: Lilian)
+							(Print 73 11)
 						)
 						(local3
-							(Print 73 12) ; "What a morbid thought!"
+							(Print 73 12)
 						)
-						((== gAct 7)
-							(Print 73 13) ; "You have no time to do that now."
+						((== currentAct 7)
+							(Print 73 13)
 						)
 						(else
-							(Print 73 14) ; "Yes, you DO feel a bit grimy. Perhaps a shower will make you feel better."
+							(Print 73 14)
 							(self setScript: shower)
 						)
 					)
 				)
-				((Said 'flush,pull/chain,toilet')
-					(if (gEgo inRect: 230 160 281 170)
-						(Print 73 15) ; "Okay."
+				((Said 'flush,drag/chain,toilet')
+					(if (ego inRect: 230 160 281 170)
+						(Print 73 15)
 						(= local1 1)
 						(self setScript: flushing)
 					else
-						(NotClose) ; "You're not close enough."
+						(NotClose)
 					)
 				)
 				((Said 'scrub/face')
-					(Print 73 16) ; "Your face isn't dirty."
+					(Print 73 16)
 				)
 				(
 					(or
 						(Said 'rotate<on/water')
-						(Said 'scrub/give')
+						(Said 'scrub/deliver')
 						(Said 'scrub[<!*]')
 					)
-					(cond
-						((gEgo inRect: 61 121 121 151)
-							(if (gCast contains: Lilian)
-								(Print 73 17) ; "You should wait your turn."
+					(cond 
+						((ego inRect: 61 121 121 151)
+							(if (cast contains: Lilian)
+								(Print 73 17)
 							else
-								(Print 73 15) ; "Okay."
+								(Print 73 15)
 								(self setScript: wash)
 							)
 						)
-						((gEgo inRect: 197 127 264 154)
-							(if (gCast contains: Lilian)
-								(Print 73 11) ; "Why don't you wait until Lillian is gone."
+						((ego inRect: 197 127 264 154)
+							(if (cast contains: Lilian)
+								(Print 73 11)
 							else
-								(Print 73 14) ; "Yes, you DO feel a bit grimy. Perhaps a shower will make you feel better."
+								(Print 73 14)
 								(self setScript: shower)
 							)
 						)
 						(else
-							(NotClose) ; "You're not close enough."
+							(NotClose)
 						)
 					)
 				)
 				((or (Said 'drink') (Said 'drink/water[<sink,shower]'))
-					(Print 73 18) ; "You're not thirsty."
+					(Print 73 18)
 				)
 				((Said 'sit,go,use/room,toilet')
-					(if (gCast contains: Lilian)
-						(Print 73 19) ; "Please! Lillian doesn't want to watch you!"
+					(if (cast contains: Lilian)
+						(Print 73 19)
 					else
-						(gEgo loop: 2)
-						(Print 73 20) ; "Excuse us."
+						(ego loop: 2)
+						(Print 73 20)
 						(= global153 1)
-						(gCurRoom newRoom: 43)
+						(curRoom newRoom: 43)
 					)
 				)
 			)
 		)
 	)
+	
+	(method (newRoom n)
+		(HandsOff)
+		(super newRoom: n)
+	)
 )
 
 (instance perfume of Script
-	(properties)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
-				(Lilian loop: 7 cel: 0 cycleSpeed: 1 setCycle: Fwd)
+				(Lilian loop: 7 cel: 0 cycleSpeed: 1 setCycle: Forward)
 				(mySound number: 76 loop: 1 play:)
 				(= cycles 2)
 			)
 			(1
-				(if local2
-					(= global213 6)
-					(Say 1 73 21) ; "Hi, Laura. I'm feeling better now. That ride through the bayou had me plumb frazzled. If you need to freshen up, too, I'll be done in just a bit."
+				(if firstTime
+					(= theTalker talkLILLIAN)
+					(Say 1 73 21)
 				)
 				(= cycles 20)
 			)
 			(2
 				(towel hide:)
 				(mySound stop:)
-				(Lilian loop: 4 cel: 0 setCycle: End self)
+				(Lilian loop: 4 cel: 0 setCycle: EndLoop self)
 			)
 			(3
-				(Lilian loop: 8 cel: 0 setCycle: End self)
+				(Lilian loop: 8 cel: 0 setCycle: EndLoop self)
 			)
 			(4
-				(Lilian loop: 9 setCycle: Fwd)
+				(Lilian loop: 9 setCycle: Forward)
 				(= cycles 30)
 			)
 			(5
-				(Lilian loop: 8 cel: (- (NumCels Lilian) 1) setCycle: Beg self)
+				(Lilian
+					loop: 8
+					cel: (- (NumCels Lilian) 1)
+					setCycle: BegLoop self
+				)
 			)
 			(6
-				(Lilian loop: 6 cel: 0 setCycle: End self)
+				(Lilian loop: 6 cel: 0 setCycle: EndLoop self)
 			)
 			(7
-				(Lilian loop: 6 setCycle: Beg self)
+				(Lilian loop: 6 setCycle: BegLoop self)
 			)
 			(8
-				(Lilian loop: 5 cel: 0 setCycle: End self)
+				(Lilian loop: 5 cel: 0 setCycle: EndLoop self)
 			)
 			(9
 				(towel show:)
-				(Lilian view: 505 loop: 0 cel: 0 setCycle: End self)
+				(Lilian view: 505 loop: 0 cel: 0 setCycle: EndLoop self)
 			)
 			(10
-				(Lilian loop: 1 cel: 0 setCycle: Fwd)
+				(Lilian loop: 1 cel: 0 setCycle: Forward)
 				(= cycles 30)
 			)
 			(11
-				(Lilian loop: 2 cel: 0 setCycle: End self)
+				(Lilian loop: 2 cel: 0 setCycle: EndLoop self)
 			)
 			(12
-				(Lilian loop: 3 cel: 0 setCycle: Fwd)
+				(Lilian loop: 3 cel: 0 setCycle: Forward)
 				(= cycles 30)
 			)
 			(13
-				(Lilian loop: 0 cel: 3 setCycle: Beg self)
+				(Lilian loop: 0 cel: 3 setCycle: BegLoop self)
 			)
 			(14
 				(HandsOff)
 				(Lilian view: 500 setCycle: Walk cycleSpeed: 0)
-				(if (gEgo inRect: 140 130 160 140)
+				(if (ego inRect: 140 130 160 140)
 					(Lilian setMotion: MoveTo 147 160 self)
 				else
-					(Lilian setMotion: MoveTo 147 (Lilian y:) self)
+					(Lilian setMotion: MoveTo 147 (Lilian y?) self)
 				)
 			)
 			(15
@@ -378,7 +366,7 @@
 			(16
 				(HandsOn)
 				(++ global203)
-				(= [gCycleTimers 4] 1)
+				(= [global368 4] 1)
 				(Lilian dispose:)
 				(= global125 1)
 				(client setScript: 0)
@@ -388,32 +376,31 @@
 )
 
 (instance shower of Script
-	(properties)
 
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
 				(HandsOff)
-				(gEgo
-					setAvoider: (Avoid new:)
+				(ego
+					setAvoider: (Avoider new:)
 					setMotion: MoveTo 205 148 self
 				)
 			)
 			(1
-				(gEgo view: 19 loop: 0 setCycle: End self)
+				(ego view: 19 loop: 0 setCycle: EndLoop self)
 			)
 			(2
-				(gEgo loop: 1 setCycle: End self)
+				(ego loop: 1 setCycle: EndLoop self)
 			)
 			(3
-				(gEgo loop: 2 setCycle: End self)
+				(ego loop: 2 setCycle: EndLoop self)
 			)
 			(4
-				(bra setCycle: End init:)
-				(gEgo view: 21 loop: 0 setCycle: End self)
+				(bra setCycle: EndLoop init:)
+				(ego view: 21 loop: 0 setCycle: EndLoop self)
 			)
 			(5
-				(gCurRoom newRoom: 215) ; showerReg
+				(curRoom newRoom: 215)
 				(client setScript: 0)
 			)
 		)
@@ -421,45 +408,42 @@
 )
 
 (instance flushing of Script
-	(properties)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
 				(HandsOff)
-				(gEgo illegalBits: 0 setMotion: MoveTo 261 165 self)
+				(ego illegalBits: 0 setMotion: MoveTo 261 165 self)
 			)
 			(1
 				(if (not local1)
 					(= global153 1)
-					(gEgo setScript: wash)
+					(ego setScript: wash)
 					(client setScript: 0)
 				else
 					(= cycles 1)
 				)
 			)
 			(2
-				(gEgo view: 40 loop: 2 setCycle: End self)
+				(ego view: 40 loop: 2 setCycle: EndLoop self)
 			)
 			(3
 				(rope hide:)
 				(mySound number: 26 loop: 1 play:)
-				(gEgo loop: 3 cel: 0 setCycle: End self)
+				(ego loop: 3 cel: 0 setCycle: EndLoop self)
 			)
-			(4
-				(gEgo setCycle: Beg self)
-			)
+			(4 (ego setCycle: BegLoop self))
 			(5
 				(rope show:)
-				(gEgo loop: 2 cel: 2 setCycle: Beg self)
+				(ego loop: 2 cel: 2 setCycle: BegLoop self)
 			)
 			(6
-				(gEgo
+				(ego
 					view: 0
 					loop: 0
 					setCycle: Walk
-					posn: (- (gEgo x:) 2) (gEgo y:)
-					illegalBits: -32768
+					posn: (- (ego x?) 2) (ego y?)
+					illegalBits: cWHITE
 					setScript: 0
 				)
 				(HandsOn)
@@ -469,14 +453,13 @@
 )
 
 (instance wash of Script
-	(properties)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
 				(HandsOff)
 				(if global153
-					(gEgo view: 40 loop: 0 setCycle: End self)
+					(ego view: 40 loop: 0 setCycle: EndLoop self)
 				else
 					(= cycles 1)
 				)
@@ -485,14 +468,14 @@
 				(if global153
 					(rope hide:)
 					(mySound number: 26 loop: 1 play:)
-					(gEgo loop: 1 cel: 0 setCycle: End self)
+					(ego loop: 1 cel: 0 setCycle: EndLoop self)
 				else
 					(= cycles 1)
 				)
 			)
 			(2
 				(if global153
-					(gEgo setCycle: Beg self)
+					(ego setCycle: BegLoop self)
 				else
 					(= cycles 1)
 				)
@@ -500,61 +483,61 @@
 			(3
 				(if global153
 					(rope show:)
-					(gEgo loop: 0 cel: 2 setCycle: Beg self)
+					(ego loop: 0 cel: 2 setCycle: BegLoop self)
 				else
 					(= cycles 1)
 				)
 			)
 			(4
-				(gEgo
+				(ego
 					view: 0
 					setCycle: Walk
-					setAvoider: (Avoid new:)
-					ignoreControl: 16384
+					setAvoider: (Avoider new:)
+					ignoreControl: cYELLOW
 					setMotion: MoveTo 100 134 self
 				)
 			)
 			(5
-				(gEgo setPri: 11 view: 41 loop: 5 setCycle: Fwd)
+				(ego setPri: 11 view: 41 loop: 5 setCycle: Forward)
 				(mySound number: 76 loop: -1 play:)
 				(= seconds 5)
 			)
 			(6
 				(mySound stop:)
 				(towel hide:)
-				(gEgo setPri: -1 loop: 0 cel: 0 setCycle: End self)
+				(ego setPri: -1 loop: 0 cel: 0 setCycle: EndLoop self)
 			)
 			(7
-				(gEgo loop: 2 cel: 0 setCycle: End self)
+				(ego loop: 2 cel: 0 setCycle: EndLoop self)
 			)
 			(8
-				(gEgo loop: 3 cel: 0 setCycle: End self)
+				(ego loop: 3 cel: 0 setCycle: EndLoop self)
 			)
 			(9
-				(gEgo loop: 3 cel: 0 setCycle: Beg self)
+				(ego loop: 3 cel: 0 setCycle: BegLoop self)
 			)
 			(10
-				(gEgo
+				(ego
 					loop: 2
-					cel: (- (NumCels gEgo) 1)
-					setCycle: Beg self
+					cel: (- (NumCels ego) 1)
+					setCycle: BegLoop self
 				)
 			)
 			(11
-				(gEgo loop: 4 cel: 0 setCycle: End self)
+				(ego loop: 4 cel: 0 setCycle: EndLoop self)
 			)
 			(12
-				(gEgo loop: 4 setCycle: Beg self)
+				(ego loop: 4 setCycle: BegLoop self)
 			)
 			(13
-				(gEgo loop: 1 cel: 0 setCycle: End self)
+				(ego loop: 1 cel: 0 setCycle: EndLoop self)
 			)
 			(14
 				(towel show:)
-				(gEgo
+				(ego
 					view: 0
-					illegalBits: -32768
-					observeControl: 16384
+					illegalBits: cWHITE
+					observeControl: cYELLOW
 					setAvoider: 0
 					setCycle: Walk
 				)
@@ -567,47 +550,40 @@
 )
 
 (instance pickUp of Script
-	(properties)
 
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
 				(HandsOff)
-				(gEgo setMotion: MoveTo 116 128 self)
+				(ego setMotion: MoveTo 116 128 self)
 			)
 			(1
-				(gEgo
+				(ego
 					view: 17
 					cel: 0
 					loop: 3
 					setMotion: 0
-					setCycle: End self
+					setCycle: EndLoop self
 				)
 			)
-			(2
-				(gEgo setCycle: Beg self)
-			)
+			(2 (ego setCycle: BegLoop self))
 			(3
-				(if local4
-					(= local4 0)
-					(Print 73 22 #icon 641 0 0) ; "You read the small print of the sleeping powder bottle through the monocle. It says "Can be fatal if taken in too large a dose." Oh, oh!"
+				(if pickingUp
+					(= pickingUp FALSE)
+					(Print 73 22 #icon 641 0 0)
 				else
-					(Print 73 23) ; "After retrieving the small bottle from the wastebasket you read its label."
-					(Print 73 24) ; "It says, "Dr. Milliken's Miracle-Sleep Powder... with Dr. Milliken's, you can be sure your dreams will be `sweet' tonight!""
-					(Print 73 25) ; "Upon further inspection of the label you notice some very small print at the bottom. Though you try to read the small print, you can't quite make it out."
-					(Print 73 26) ; "Giving up, you put the bottle back in the wastebasket."
+					(Print 73 23)
+					(Print 73 24)
+					(Print 73 25)
+					(Print 73 26)
 				)
 				(= cycles 2)
 			)
-			(4
-				(gEgo setCycle: End self)
-			)
-			(5
-				(gEgo setCycle: Beg self)
-			)
+			(4 (ego setCycle: EndLoop self))
+			(5 (ego setCycle: BegLoop self))
 			(6
 				(HandsOn)
-				(gEgo view: 0 loop: 3 setCycle: Walk)
+				(ego view: 0 loop: 3 setCycle: Walk)
 				(client setScript: 0)
 			)
 		)
@@ -620,17 +596,17 @@
 		x 81
 		view 173
 		priority 9
-		signal 16384
+		signal ignrAct
 	)
-
+	
 	(method (handleEvent event)
-		(cond
-			((Said 'look<in/sink')
-				(Print 73 27) ; "There is nothing in the sink."
+		(cond 
+			((Said 'examine<in/sink')
+				(Print 73 27)
 			)
-			((or (MousedOn self event 3) (Said 'look/sink'))
-				(event claimed: 1)
-				(Print 73 28) ; "It's a basic pedestal sink."
+			((or (MousedOn self event shiftDown) (Said 'examine/sink'))
+				(event claimed: TRUE)
+				(Print 73 28)
 			)
 		)
 	)
@@ -644,15 +620,15 @@
 		cel 2
 		priority 13
 	)
-
+	
 	(method (handleEvent event)
-		(cond
-			((Said 'open,(look<in)/toilet')
-				(Print 73 29) ; "You don't want to do that!"
+		(cond 
+			((Said 'open,(examine<in)/toilet')
+				(Print 73 29)
 			)
-			((or (MousedOn self event 3) (Said 'look/toilet'))
-				(event claimed: 1)
-				(Print 73 30) ; "It does the job required of it."
+			((or (MousedOn self event shiftDown) (Said 'examine/toilet'))
+				(event claimed: TRUE)
+				(Print 73 30)
 			)
 		)
 	)
@@ -665,24 +641,24 @@
 		view 173
 		cel 1
 		priority 10
-		signal 16384
+		signal ignrAct
 	)
-
+	
 	(method (handleEvent event)
-		(cond
-			((Said 'look<in/shower')
+		(cond 
+			((Said 'examine<in/shower')
 				(if local3
-					(Print 73 31) ; "Clarence is lying in the bathtub... dead!"
+					(Print 73 31)
 				else
-					(Print 73 32) ; "The bathtub is empty."
+					(Print 73 32)
 				)
 			)
-			((or (MousedOn self event 3) (Said 'look/shower'))
-				(event claimed: 1)
+			((or (MousedOn self event shiftDown) (Said 'examine/shower'))
+				(event claimed: TRUE)
 				(if local3
-					(Print 73 31) ; "Clarence is lying in the bathtub... dead!"
+					(Print 73 31)
 				else
-					(Print 73 33) ; "The claw-footed bathtub has a shower attached to it."
+					(Print 73 33)
 				)
 			)
 		)
@@ -697,15 +673,19 @@
 		cel 3
 		priority 9
 	)
-
+	
 	(method (handleEvent event)
-		(cond
-			((Said 'open,(look<in)/bench')
-				(Print 73 34) ; "The seat doesn't open."
+		(cond 
+			((Said 'open,(examine<in)/bench')
+				(Print 73 34)
 			)
-			((or (MousedOn self event 3) (Said 'look/chair,bench'))
-				(event claimed: 1)
-				(Print 73 7) ; "You notice a lovely seat under the large windows."
+			(
+				(or
+					(MousedOn self event shiftDown)
+					(Said 'examine/chair,bench')
+				)
+				(event claimed: TRUE)
+				(Print 73 7)
 			)
 		)
 	)
@@ -718,30 +698,33 @@
 		view 173
 		cel 6
 	)
-
+	
 	(method (handleEvent event)
-		(cond
+		(cond 
 			((Said 'get/(basket[<wastepaper,garbage]),(can[<garbage])')
-				(Print 73 35) ; "You can't get that."
+				(Print 73 35)
 			)
-			((Said 'look<in/(basket[<wastepaper,garbage]),(can[<garbage])')
-				(if (< (gEgo distanceTo: basket) 20)
-					(if (>= gAct 5)
-						(Print 73 3) ; "A small, empty bottle has been thrown into the wastebasket."
+			(
+				(Said
+					'examine<in/(basket[<wastepaper,garbage]),(can[<garbage])'
+				)
+				(if (< (ego distanceTo: basket) 20)
+					(if (>= currentAct 5)
+						(Print 73 3)
 					else
-						(Print 73 4) ; "Currently, it is empty."
+						(Print 73 4)
 					)
 				else
-					(NotClose) ; "You're not close enough."
+					(NotClose)
 				)
 			)
 			(
 				(or
-					(MousedOn self event 3)
-					(Said 'look/(basket[<wastepaper,garbage]),(can[<garbage])')
+					(MousedOn self event shiftDown)
+					(Said 'examine/(basket[<wastepaper,garbage]),(can[<garbage])')
 				)
-				(event claimed: 1)
-				(Print 73 36) ; "You see a wastepaper basket near the sink."
+				(event claimed: TRUE)
+				(Print 73 36)
 			)
 		)
 	)
@@ -763,15 +746,19 @@
 		view 173
 		cel 4
 	)
-
+	
 	(method (handleEvent event)
-		(cond
+		(cond 
 			((Said 'get/towel,(cloth<scrub)')
-				(Print 73 37) ; "You don't need a towel...unless you're washing your hands."
+				(Print 73 37)
 			)
-			((or (MousedOn self event 3) (Said 'look/towel,(cloth<scrub)'))
-				(event claimed: 1)
-				(Print 73 38) ; "A small hand towel hangs over the sink."
+			(
+				(or
+					(MousedOn self event shiftDown)
+					(Said 'examine/towel,(cloth<scrub)')
+				)
+				(event claimed: TRUE)
+				(Print 73 38)
 			)
 		)
 	)
@@ -786,31 +773,31 @@
 	)
 )
 
-(instance Lilian of Act
+(instance Lilian of Actor
 	(properties
 		y 134
 		x 97
 		view 505
 	)
-
+	
 	(method (handleEvent event)
-		(cond
-			((or (MousedOn self event 3) (Said 'look/lil'))
+		(cond 
+			((or (MousedOn self event shiftDown) (Said 'examine/lil'))
 				(if (not (& global207 $0020))
 					(|= global207 $0020)
-					(= global213 6)
-					(Say 0 73 39) ; "Your friend Lillian Prune, is a rebellious flapper. Like you, she is twenty years old, but unlike you, she has been known to hang out in speakeasies, smoke, and run around with several young men. She is assertive and out-going, to the point of obnoxiousness, but underneath it all you believe her to be a lonely, insecure girl."
+					(= theTalker talkLILLIAN)
+					(Say 0 73 39)
 				else
-					(Print 73 40) ; "Your friend is freshening up in the bathroom."
+					(Print 73 40)
 				)
-				(event claimed: 1)
+				(event claimed: TRUE)
 			)
-			((Said 'talk,ask,tell')
-				(Print 73 41) ; "Lillian seems intent upon tidying up. She's not listening to you."
+			((Said 'converse,ask,tell')
+				(Print 73 41)
 			)
-			((Said 'show,give,get,kill,kiss,embrace,flirt>')
-				(Room73 setScript: (ScriptID 243 0)) ; atsgl
-				((Room73 script:) handleEvent: event)
+			((Said 'hold,deliver,get,kill,kiss,embrace,flirt>')
+				(Room73 setScript: (ScriptID 243 0))
+				((Room73 script?) handleEvent: event)
 			)
 		)
 	)
@@ -823,22 +810,22 @@
 		nsBottom 152
 		nsRight 67
 	)
-
+	
 	(method (handleEvent event)
-		(cond
-			((Said 'open,(look<in)/armoire[<medicine,linen]')
-				(Print 73 42) ; "There is nothing you need inside the linen cabinet."
+		(cond 
+			((Said 'open,(examine<in)/armoire[<medicine,linen]')
+				(Print 73 42)
 			)
-			((Said 'look<behind/armoire[<medicine,linen]')
-				(Print 73 43) ; "There is nothihng there."
+			((Said 'examine<behind/armoire[<medicine,linen]')
+				(Print 73 43)
 			)
 			(
 				(or
-					(MousedOn self event 3)
-					(Said 'look/armoire[<medicine,linen]')
+					(MousedOn self event shiftDown)
+					(Said 'examine/armoire[<medicine,linen]')
 				)
-				(event claimed: 1)
-				(Print 73 44) ; "That's a linen cabinet."
+				(event claimed: TRUE)
+				(Print 73 44)
 			)
 		)
 	)
@@ -851,23 +838,27 @@
 		nsBottom 94
 		nsRight 84
 	)
-
+	
 	(method (handleEvent event)
-		(cond
-			((or (Said 'look<in/mirror') (Said 'look/reflection'))
-				(if (< (gEgo distanceTo: sink) 40)
-					(= global213 12)
-					(Say 0 73 45) ; "You gaze into the mirror and appraise your appearance. A bit disheveled, perhaps, but not bad...considering the circumstances."
+		(cond 
+			(
+				(or
+					(Said 'examine<in/mirror')
+					(Said 'examine/reflection')
+				)
+				(if (< (ego distanceTo: sink) 40)
+					(= theTalker talkLAURA)
+					(Say 0 73 45)
 				else
-					(NotClose) ; "You're not close enough."
+					(NotClose)
 				)
 			)
-			((Said 'look<(behind,below)/mirror')
-				(Print 73 46) ; "There is nothing of interest behind the mirror."
+			((Said 'examine<(behind,below)/mirror')
+				(Print 73 46)
 			)
-			((or (MousedOn self event 3) (Said 'look/mirror'))
-				(event claimed: 1)
-				(Print 73 47) ; "You see a dusty, old mirror hanging on the wall."
+			((or (MousedOn self event shiftDown) (Said 'examine/mirror'))
+				(event claimed: TRUE)
+				(Print 73 47)
 			)
 		)
 	)
@@ -880,16 +871,13 @@
 		nsBottom 97
 		nsRight 224
 	)
-
+	
 	(method (handleEvent event)
-		(if (MousedOn self event 3)
-			(event claimed: 1)
+		(if (MousedOn self event shiftDown)
+			(event claimed: TRUE)
 			(DoLook {window})
 		)
 	)
 )
 
-(instance mySound of Sound
-	(properties)
-)
-
+(instance mySound of Sound)

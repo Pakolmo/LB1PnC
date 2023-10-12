@@ -1,9 +1,8 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-;;; Decompiled by sluicebox
 (script# 63)
-(include sci.sh)
+(include game.sh)
 (use Main)
-(use Interface)
+(use Intrface)
 (use RFeature)
 (use Game)
 (use Actor)
@@ -11,89 +10,86 @@
 (public
 	Room63 0
 )
-
 (synonyms
 	(blackboard board)
 	(doll bear toy)
 )
 
-(instance Room63 of Rm
+(instance Room63 of Room
 	(properties
 		picture 63
 	)
-
+	
 	(method (init)
 		(super init:)
-		(if (>= gAct 6)
-			(gAddToPics add: Chalk)
+		(if (>= currentAct 6)
+			(addToPics add: Chalk)
 		)
 		(if
 			(and
-				(not (== gAct 2))
-				(not (== gAct 6))
-				(not (& gMustDos $0002))
+				(not (== currentAct 2))
+				(not (== currentAct 6))
+				(not (& global118 $0002))
 			)
-			(gAddToPics add: chair2)
+			(addToPics add: chair2)
 		)
-		(gAddToPics
+		(addToPics
 			add: table chair1 BigDoll SmallDoll MedDoll Bear Poster
 			eachElementDo: #init
 			doit:
 		)
 		(self setFeatures: BigDoll chair2 chair1 table)
-		(gEgo view: 0 loop: 1 posn: 200 153 illegalBits: -32768 init:)
-		(switch gAct
+		(ego
+			view: 0
+			loop: 1
+			posn: 200 153
+			illegalBits: cWHITE
+			init:
+		)
+		(switch currentAct
 			(2
-				(self setRegions: 257) ; lillRead
+				(self setRegions: 257)
 			)
 			(6
-				(if (not (& gMustDos $0002))
-					(self setRegions: 282) ; lillRead
+				(if (not (& global118 $0002))
+					(self setRegions: 282)
 				)
 			)
 		)
 	)
-
-	(method (newRoom newRoomNumber)
-		(super newRoom: newRoomNumber)
-	)
-
+	
 	(method (doit)
-		(if (IsFirstTimeInRoom)
-			(Print 63 0) ; "You are inside a leaky, old playhouse."
+		(if (FirstEntry)
+			(Print 63 0)
 		)
-		(if (& (gEgo onControl: 0) $0002)
-			(gCurRoom newRoom: 14)
+		(if (& (ego onControl: FALSE) cBLUE)
+			(curRoom newRoom: 14)
 		)
 		(super doit:)
 	)
-
+	
 	(method (dispose)
 		(super dispose:)
 	)
-
+	
 	(method (handleEvent event)
-		(if (event claimed:)
-			(return)
-		)
-		(if (== (event type:) evSAID)
+		(if (event claimed?) (return))
+		(if (== (event type?) saidEvent)
 			(if
 				(and
 					global208
 					(Said
-						'ask,tell,show,give,look,get,kill,kiss,embrace,flirt>'
+						'ask,tell,hold,deliver,examine,get,kill,kiss,embrace,flirt>'
 					)
 				)
-				(DisposeScript 990)
-				(self setScript: (ScriptID 243 0)) ; atsgl
-				((self script:) handleEvent: event)
-				(if (event claimed:)
-					(return)
-				)
+				(DisposeScript SAVE)
+				(self setScript: (ScriptID 243 0))
+				((self script?) handleEvent: event)
+				(if (event claimed?) (return))
 			)
-			(cond
-				((Said 'look>')
-					(cond
+			(cond 
+				((Said 'examine>')
+					(cond 
 						(
 							(or
 								(Said '[<around,at][/room,dock]')
@@ -101,35 +97,39 @@
 								(Said '/playhouse')
 								(Said '/cabin<play')
 							)
-							(Print 63 1) ; "You are inside a leaky old playhouse."
+							(Print 63 1)
 						)
 						((Said '/door')
-							(Print 63 2) ; "The little door leads outside."
+							(Print 63 2)
 						)
 						((Said '/window')
-							(Print 63 3) ; "Little round windows adorn the playhouse walls."
+							(Print 63 3)
 						)
 						((Said '/wall')
-							(if (>= gAct 5)
-								(Print 63 4) ; "You notice a chalkboard with seven tally marks on it."
+							(if (>= currentAct 5)
+								(Print 63 4)
 							else
-								(event claimed: 0)
+								(event claimed: FALSE)
 							)
 						)
 					)
 				)
 				((Said 'write,draw,erase/blackboard')
-					(if (>= gAct 5)
-						(Print 63 5) ; "You don't need to fool around with the chalkboard."
+					(if (>= currentAct 5)
+						(Print 63 5)
 					else
-						(event claimed: 0)
+						(event claimed: FALSE)
 					)
 				)
 				((Said 'open/window')
-					(Print 63 6) ; "There is no reason to open them."
+					(Print 63 6)
 				)
 			)
 		)
+	)
+	
+	(method (newRoom n)
+		(super newRoom: n)
 	)
 )
 
@@ -140,11 +140,11 @@
 		view 163
 		priority 2
 	)
-
+	
 	(method (handleEvent event)
-		(if (or (MousedOn self event 3) (Said 'look/nightstand'))
-			(Print 63 7) ; "A small, child-sized table sits in one corner of the playhouse."
-			(event claimed: 1)
+		(if (or (MousedOn self event shiftDown) (Said 'examine/nightstand'))
+			(Print 63 7)
+			(event claimed: TRUE)
 		)
 	)
 )
@@ -156,11 +156,11 @@
 		view 163
 		cel 2
 	)
-
+	
 	(method (handleEvent event)
-		(if (or (MousedOn self event 3) (Said 'look/chair'))
-			(Print 63 8) ; "Two little chairs accompany the small table."
-			(event claimed: 1)
+		(if (or (MousedOn self event shiftDown) (Said 'examine/chair'))
+			(Print 63 8)
+			(event claimed: TRUE)
 		)
 	)
 )
@@ -172,11 +172,11 @@
 		view 163
 		cel 3
 	)
-
+	
 	(method (handleEvent event)
-		(if (MousedOn self event 3)
-			(Print 63 9) ; "Two little chairs accompamy the small table."
-			(event claimed: 1)
+		(if (MousedOn self event shiftDown)
+			(Print 63 9)
+			(event claimed: TRUE)
 		)
 	)
 )
@@ -188,28 +188,28 @@
 		view 163
 		loop 1
 	)
-
+	
 	(method (handleEvent event)
-		(cond
+		(cond 
 			((Said 'play[/doll]')
-				(Print 63 10) ; "You have better things to do, Laura!"
-				(event claimed: 1)
+				(Print 63 10)
+				(event claimed: TRUE)
 			)
-			((Said 'look/doll')
-				(if (== gAct 2)
-					(event claimed: 1)
+			((Said 'examine/doll')
+				(if (== currentAct 2)
+					(event claimed: TRUE)
 				else
-					(Print 63 11) ; "The dolls look like they've been hanging around here for a long time! You wonder who they used to belong to."
+					(Print 63 11)
 				)
 			)
 			((Said 'get/doll')
-				(Print 63 12) ; "The dolls don't belong to you!"
+				(Print 63 12)
 			)
 		)
 	)
 )
 
-(instance SmallDoll of PV
+(instance SmallDoll of PicView
 	(properties
 		y 141
 		x 204
@@ -221,7 +221,7 @@
 	)
 )
 
-(instance MedDoll of PV
+(instance MedDoll of PicView
 	(properties
 		y 138
 		x 134
@@ -231,7 +231,7 @@
 	)
 )
 
-(instance Bear of PV
+(instance Bear of PicView
 	(properties
 		y 137
 		x 150
@@ -241,7 +241,7 @@
 	)
 )
 
-(instance Poster of PV
+(instance Poster of PicView
 	(properties
 		y 139
 		x 208
@@ -251,7 +251,7 @@
 	)
 )
 
-(instance Chalk of PV
+(instance Chalk of PicView
 	(properties
 		y 139
 		x 235
@@ -260,4 +260,3 @@
 		cel 1
 	)
 )
-

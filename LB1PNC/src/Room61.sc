@@ -1,9 +1,8 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-;;; Decompiled by sluicebox
 (script# 61)
-(include sci.sh)
+(include game.sh)
 (use Main)
-(use Interface)
+(use Intrface)
 (use RFeature)
 (use Sound)
 (use Motion)
@@ -14,149 +13,154 @@
 (public
 	Room61 0
 )
-
 (synonyms
 	(room cabin)
 )
 
 (local
-	local0
+	oilCanHere
 	local1
 )
-
-(instance Room61 of Rm
+(instance Room61 of Room
 	(properties
 		picture 61
 	)
-
+	
 	(method (init)
 		(super init:)
-		(if (= local0 (== ((gInventory at: 3) owner:) 61)) ; oilcan
+		(if (= oilCanHere (== ((inventory at: iOilcan) owner?) 61))
 			(OilCan init: stopUpd:)
 		)
-		(gAddToPics
+		(addToPics
 			add: anchor harness preserver minnow
 			eachElementDo: #init
 			doit:
 		)
-		(self setFeatures: harness anchor preserver Car Box Boat Table)
-		(Load rsVIEW 60)
-		(if (and (>= gAct 4) (not (& gCorpseFlags $0040)) (!= gEthelState 101)) ; Lillian
-			(cond
-				((== gEthelCorpseRoomNum 61)
-					(self setRegions: 268) ; Dethe
+		(self
+			setFeatures: harness anchor preserver Car Box Boat Table
+		)
+		(Load VIEW 60)
+		(if
+			(and
+				(>= currentAct 4)
+				(not (& deadGuests deadLILLIAN))
+				(!= global200 101)
+			)
+			(cond 
+				((== global170 61)
+					(self setRegions: 268)
 					(= local1 1)
 				)
-				((not (== gEthelCorpseRoomNum 5))
+				((not (== global170 5))
 					(switch (Random 1 2)
 						(1
 							(= local1 1)
-							(self setRegions: 268) ; Dethe
+							(self setRegions: 268)
 						)
-						(2
-							(= gEthelCorpseRoomNum 5)
-						)
+						(2 (= global170 5))
 					)
 				)
 			)
 		)
-		(gEgo view: 0 illegalBits: -32768 posn: 102 173 init:)
+		(ego view: 0 illegalBits: cWHITE posn: 102 173 init:)
 	)
-
+	
 	(method (doit)
-		(if (IsFirstTimeInRoom)
-			(Print 61 0) ; "You peer through the gloom of the old carriage house. Parts of a decrepit carriage lie in the right corner and a small rowboat, named MINNOW, rests in the left corner."
+		(if
+			(FirstEntry)
+			(Print 61 0)
 		)
-		(if (& (gEgo onControl: 1) $0002)
-			(gCurRoom newRoom: 20)
+		(if (& (ego onControl: origin) cBLUE)
+			(curRoom newRoom: 20)
 		)
 		(super doit:)
 	)
-
+	
 	(method (dispose)
 		(super dispose:)
 	)
-
-	(method (newRoom newRoomNumber)
-		(super newRoom: newRoomNumber)
-	)
-
+	
 	(method (handleEvent event &tmp temp0)
 		(super handleEvent: event)
-		(if (event claimed:)
-			(return 1)
-		)
-		(if (== (event type:) evSAID)
-			(cond
-				((Said 'look>')
-					(cond
-						((Said '[<around,at][/room]')
-							(Print 61 0) ; "You peer through the gloom of the old carriage house. Parts of a decrepit carriage lie in the right corner and a small rowboat, named MINNOW, rests in the left corner."
-						)
-						((or (Said '/dirt') (Said '<down'))
-							(Print 61 1) ; "The floor is very dusty."
-						)
-						((Said '/wall')
-							(Print 61 2) ; "You look carefully at the walls around you, but see nothing special about them."
-						)
-						((or (Said '/ceiling') (Said '<up'))
-							(Print 61 3) ; "You look up at the ceiling but see nothing of interest."
-						)
-						((Said '<(out,through)/window')
-							(Print 61 4) ; "You see nothing but darkness out the windows."
-						)
-						((Said '/window')
-							(Print 61 5) ; "The carriage house has many large windows."
-						)
-						((Said '/door')
-							(Print 61 6) ; "You see two, large carriage doors."
-						)
-						((Said '<below/nightstand')
-							(Print 61 7) ; "There is nothing of interest under the table."
+		(if (event claimed?) (return TRUE))
+		(return
+			(if (== (event type?) saidEvent)
+				(cond 
+					((Said 'examine>')
+						(cond 
+							((Said '[<around,at][/room]')
+								(Print 61 0)
+							)
+							((or (Said '/dirt') (Said '<down'))
+								(Print 61 1)
+							)
+							((Said '/wall')
+								(Print 61 2)
+							)
+							((or (Said '/ceiling') (Said '<up'))
+								(Print 61 3)
+							)
+							((Said '<(out,through)/window')
+								(Print 61 4)
+							)
+							((Said '/window')
+								(Print 61 5)
+							)
+							((Said '/door')
+								(Print 61 6)
+							)
+							((Said '<below/nightstand')
+								(Print 61 7)
+							)
 						)
 					)
-				)
-				((Said 'break/window')
-					(Print 61 8) ; "There is no reason to do that."
-				)
-				((Said 'open/window')
-					(Print 61 9) ; "The windows do not open."
-				)
-				((Said 'open/door')
-					(Print 61 10) ; "The door is already open."
-				)
-				((Said 'get/crowbar')
-					(if (& (gEgo onControl: 0) $0004)
-						(if (== ((gInventory at: 7) owner:) 61) ; crowbar
-							(self setScript: getBar)
+					((Said 'break/window')
+						(Print 61 8)
+					)
+					((Said 'open/window')
+						(Print 61 9)
+					)
+					((Said 'open/door')
+						(Print 61 10)
+					)
+					((Said 'get/crowbar')
+						(if (& (ego onControl: FALSE) cGREEN)
+							(if (== ((inventory at: iCrowbar) owner?) 61)
+								(self setScript: getBar)
+							else
+								(Print 61 11)
+							)
 						else
-							(Print 61 11) ; "You peek inside the old carriage but find it empty."
+							(NotClose)
 						)
-					else
-						(NotClose) ; "You're not close enough."
 					)
 				)
+			else
+				FALSE
 			)
 		)
+	)
+	
+	(method (newRoom n)
+		(super newRoom: n)
 	)
 )
 
 (instance getBar of Script
-	(properties)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
 				(HandsOff)
-				(gEgo illegalBits: 0 setMotion: MoveTo 173 129 self)
+				(ego illegalBits: 0 setMotion: MoveTo 173 129 self)
 			)
 			(1
-				(Print 61 12) ; "You look inside the decrepit carriage and find a crowbar. Thinking it might come in handy, you take it with you."
-				(gEgo get: 7 view: 60 cel: 0 setCycle: End self) ; crowbar
+				(Print 61 12)
+				(ego get: iCrowbar view: 60 cel: 0 setCycle: EndLoop self)
 			)
 			(2
-				(= global182 1)
-				(gEgo view: 0 loop: 0 setCycle: Walk illegalBits: -32768)
+				(= gotItem TRUE)
+				(ego view: 0 loop: 0 setCycle: Walk illegalBits: cWHITE)
 				(HandsOn)
 			)
 		)
@@ -170,15 +174,15 @@
 		view 161
 		priority 7
 	)
-
+	
 	(method (handleEvent event)
-		(cond
+		(cond 
 			((Said 'get/anchor')
-				(Print 61 13) ; "You have no use for an anchor."
+				(Print 61 13)
 			)
-			((or (MousedOn self event 3) (Said 'look/anchor'))
-				(event claimed: 1)
-				(Print 61 14) ; "An old anchor hangs on the wall."
+			((or (MousedOn self event shiftDown) (Said 'examine/anchor'))
+				(event claimed: TRUE)
+				(Print 61 14)
 			)
 		)
 	)
@@ -192,11 +196,11 @@
 		cel 1
 		priority 4
 	)
-
+	
 	(method (handleEvent event)
-		(if (or (MousedOn self event 3) (Said 'look/bit'))
-			(event claimed: 1)
-			(Print 61 15) ; "You see an old horse harness."
+		(if (or (MousedOn self event shiftDown) (Said 'examine/bit'))
+			(event claimed: TRUE)
+			(Print 61 15)
 		)
 	)
 )
@@ -209,21 +213,25 @@
 		cel 2
 		priority 4
 	)
-
+	
 	(method (handleEvent event)
-		(cond
+		(cond 
 			((Said 'get/preserver[<life]')
-				(Print 61 16) ; "You have no use for a life preserver."
+				(Print 61 16)
 			)
-			((or (MousedOn self event 3) (Said 'look/preserver[<life]'))
-				(event claimed: 1)
-				(Print 61 17) ; "You see a life preserver on the wall."
+			(
+				(or
+					(MousedOn self event shiftDown)
+					(Said 'examine/preserver[<life]')
+				)
+				(event claimed: TRUE)
+				(Print 61 17)
 			)
 		)
 	)
 )
 
-(instance minnow of PV
+(instance minnow of PicView
 	(properties
 		y 141
 		x 69
@@ -239,32 +247,36 @@
 		nsBottom 156
 		nsRight 88
 	)
-
+	
 	(method (handleEvent event)
-		(cond
-			((or (Said '(sit,go,climb,get)<in/boat') (Said 'enter/boat'))
-				(Print 61 18) ; "There is no reason to climb into a dirty old boat."
+		(cond 
+			(
+				(or
+					(Said '(sit,go,climb,get)<in/boat')
+					(Said 'enter/boat')
+				)
+				(Print 61 18)
 			)
 			((Said 'get/boat')
-				(Print 61 19) ; "There is no way for you to take the boat."
+				(Print 61 19)
 			)
-			((Said 'look<below/boat,buggy')
-				(Print 61 20) ; "You see nothing there."
+			((Said 'examine<below/boat,buggy')
+				(Print 61 20)
 			)
-			((Said 'search,(look<in)/boat')
-				(if (& (gEgo onControl: 0) $0008)
+			((Said 'search,(examine<in)/boat')
+				(if (& (ego onControl: FALSE) cCYAN)
 					(if local1
-						(Print 61 21) ; "You see poor Ethel lying in the boat."
+						(Print 61 21)
 					else
-						(Print 61 22) ; "You look in the small rowboat but do not see anything of interest."
+						(Print 61 22)
 					)
 				else
-					(NotClose) ; "You're not close enough."
+					(NotClose)
 				)
 			)
-			((or (MousedOn self event 3) (Said 'look/boat'))
-				(event claimed: 1)
-				(Print 61 23) ; "There is a small rowboat, named MINNOW, in the left corner."
+			((or (MousedOn self event shiftDown) (Said 'examine/boat'))
+				(event claimed: TRUE)
+				(Print 61 23)
 			)
 		)
 	)
@@ -277,24 +289,24 @@
 		nsBottom 142
 		nsRight 308
 	)
-
+	
 	(method (handleEvent event)
-		(cond
-			((Said 'look,get/oar')
-				(Print 61 24) ; "You can't see any oars."
+		(cond 
+			((Said 'examine,get/oar')
+				(Print 61 24)
 			)
 			((Said 'open/box,box')
-				(Print 61 25) ; "There is nothing you would want in any of the boxes."
+				(Print 61 25)
 			)
 			((Said 'get,move/box,box')
-				(Print 61 26) ; "The crates are too big and heavy to carry."
+				(Print 61 26)
 			)
-			((Said 'look<in/box')
-				(Print 61 25) ; "There is nothing you would want in any of the boxes."
+			((Said 'examine<in/box')
+				(Print 61 25)
 			)
-			((or (MousedOn self event 3) (Said 'look/box'))
-				(event claimed: 1)
-				(Print 61 27) ; "You see old boxes here and there."
+			((or (MousedOn self event shiftDown) (Said 'examine/box'))
+				(event claimed: TRUE)
+				(Print 61 27)
 			)
 		)
 	)
@@ -307,29 +319,33 @@
 		nsBottom 120
 		nsRight 227
 	)
-
+	
 	(method (handleEvent event)
-		(cond
-			((or (Said '(go,sit,climb,get)<in/buggy') (Said 'enter/buggy'))
-				(Print 61 28) ; "You have no reason to get into the old carriage."
+		(cond 
+			(
+				(or
+					(Said '(go,sit,climb,get)<in/buggy')
+					(Said 'enter/buggy')
+				)
+				(Print 61 28)
 			)
 			((Said 'get/buggy')
-				(Print 61 29) ; "There is no way for you to take the old carriage."
+				(Print 61 29)
 			)
-			((Said 'search,(look<in)/buggy')
-				(if (& (gEgo onControl: 0) $0004)
-					(if (== ((gInventory at: 7) owner:) 61) ; crowbar
+			((Said 'search,(examine<in)/buggy')
+				(if (& (ego onControl: FALSE) cGREEN)
+					(if (== ((inventory at: iCrowbar) owner?) 61)
 						(Room61 setScript: getBar)
 					else
-						(Print 61 11) ; "You peek inside the old carriage but find it empty."
+						(Print 61 11)
 					)
 				else
-					(NotClose) ; "You're not close enough."
+					(NotClose)
 				)
 			)
-			((or (MousedOn self event 3) (Said 'look/buggy'))
-				(event claimed: 1)
-				(Print 61 30) ; "You see parts of an old carriage in the right corner."
+			((or (MousedOn self event shiftDown) (Said 'examine/buggy'))
+				(event claimed: TRUE)
+				(Print 61 30)
 			)
 		)
 	)
@@ -342,31 +358,29 @@
 		view 161
 		cel 4
 	)
-
+	
 	(method (handleEvent event)
-		(cond
-			((or (MousedOn self event 3) (Said 'look/can'))
-				(event claimed: 1)
-				(Print 61 31) ; "You see an old oilcan sitting on the workbench."
+		(cond 
+			((or (MousedOn self event shiftDown) (Said 'examine/can'))
+				(event claimed: TRUE)
+				(Print 61 31)
 			)
 			((Said 'get/can')
-				(if (& (gEgo onControl: 1) $0010)
-					(Ok) ; "Okay."
-					(gEgo get: 3) ; oilcan
-					(= local0 0)
-					(= global182 1)
+				(if (& (ego onControl: origin) cRED)
+					(Ok)
+					(ego get: iOilcan)
+					(= oilCanHere FALSE)
+					(= gotItem TRUE)
 					(OilCan dispose:)
 				else
-					(NotClose) ; "You're not close enough."
+					(NotClose)
 				)
 			)
 		)
 	)
 )
 
-;;;(instance myMusic of Sound ; UNUSED
-;;;	(properties)
-;;;)
+(instance myMusic of Sound)
 
 (instance Table of RFeature
 	(properties
@@ -375,16 +389,15 @@
 		nsBottom 103
 		nsRight 134
 	)
-
+	
 	(method (handleEvent event)
-		(if (or (MousedOn self event 3) (Said 'look/nightstand'))
-			(if local0
-				(Print 61 32) ; "There is an oilcan on the table."
+		(if (or (MousedOn self event shiftDown) (Said 'examine/nightstand'))
+			(if oilCanHere
+				(Print 61 32)
 			else
-				(Print 61 33) ; "There is only dust on the table."
+				(Print 61 33)
 			)
-			(event claimed: 1)
+			(event claimed: TRUE)
 		)
 	)
 )
-

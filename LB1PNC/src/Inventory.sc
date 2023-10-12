@@ -10,6 +10,7 @@
 	yesI
 	useMonocleI
 	useToggle
+	useI
 )
 
 (class InvI of Obj
@@ -124,6 +125,13 @@
 			moveTo: (- nsRight (+ 4 (yesI nsRight:))) nsBottom
 		)
 		(yesI move: (- (yesI nsLeft:) (yesI nsRight:)) 0)
+		(= useI (DButton new:))
+		(useI 
+			text: "Use_", ;English
+			setSize:,
+			moveTo: (- nsRight (+ 40 (useI nsRight:))) nsBottom
+		)	
+		(useI move: (- (useI nsLeft:) (useI nsRight:)) 0)		
 		(if
 			(and
 				(gEgo has: 1) ; has monocle
@@ -136,6 +144,17 @@
 				moveTo: (- nsRight (+ 4 (useMonocleI nsRight:))) (+ nsBottom 14)
 			)
 			;(useMonocleI move: (- (useMonocleI nsLeft:) (useMonocleI nsRight:)) 0)
+		(= useI (DButton new:))
+		(useI 
+			text: "Use_", ;English
+			setSize:,
+			moveTo: 
+				moveTo: (- nsRight (+ 4 (useI nsRight:))) nsBottom
+		)			
+			(useI move: (- (useI nsLeft:) (useI nsRight:)) 0)
+			(self add: useI setSize: center:)			
+			
+			
 			(= yesI (DButton new:))
 			(yesI
 				text: {OK}
@@ -145,14 +164,24 @@
 			(yesI move: (- (yesI nsLeft:) (yesI nsRight:)) 0)
 			(self add: yesI useMonocleI setSize: center:)
 		else
-			(= yesI (DButton new:))
+		(= useI (DButton new:))
+		(useI 
+			text: "Use_", ;English
+			setSize:,
+			moveTo: 
+				moveTo: (- nsRight (+ 4 (useI nsRight:))) nsBottom
+		)		
+		
+			(useI move: (- (useI nsLeft:) (useI nsRight:)) 0)
+;;;			(self add: useI setSize: center:)		
+			(= useI (DButton new:))
 			(yesI
 				text: {OK}
 				setSize:
 				moveTo: (- nsRight (+ 4 (yesI nsRight:))) nsBottom
 			)
 			(yesI move: (- (yesI nsLeft:) (yesI nsRight:)) 0)
-			(self add: yesI setSize: center:)
+			(self add: yesI useI setSize: center:)
 		)
 		(return temp3)
 	)
@@ -175,7 +204,7 @@
 				(= useToggle 0)
 			)
 		)
-		(gEgo get: 0 1 2 3 4 5 6 18)
+		(gEgo get: 0 2 3 4 5 6 18)
 		(if (not (self init: param1))
 			(Print (gInventory empty:))
 			(return)

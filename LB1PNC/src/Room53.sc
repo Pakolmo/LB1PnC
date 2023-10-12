@@ -1,9 +1,8 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-;;; Decompiled by sluicebox
 (script# 53)
-(include sci.sh)
+(include game.sh)
 (use Main)
-(use Interface)
+(use Intrface)
 (use RFeature)
 (use Motion)
 (use Game)
@@ -13,7 +12,6 @@
 (public
 	Room53 0
 )
-
 (synonyms
 	(cracker box)
 	(room bedroom)
@@ -22,119 +20,120 @@
 (local
 	[local0 2]
 	local2
-	local3
+	talkCount
 )
-
-(instance Room53 of Rm
+(instance Room53 of Room
 	(properties
 		picture 53
 	)
-
+	
 	(method (init)
 		(= horizon 60)
 		(= north 12)
 		(super init:)
-		(Load rsVIEW 910)
-		(gAddToPics
+		(Load VIEW 910)
+		(addToPics
 			add: bed chair sofa chest dresser1 sink toilet
 			eachElementDo: #init
 			doit:
 		)
 		(self
-			setRegions: 246 ; jeevroom
+			setRegions: 246
 			setFeatures: bed chest sink toilet sofa chair dresser1
 		)
-		(if gDetailLevel
-			(lamp1 setCycle: Fwd init:)
+		(if howFast
+			(lamp1 setCycle: Forward init:)
 		else
 			(lamp1 init: stopUpd:)
 		)
 		(door1 init: stopUpd:)
 		(door2 init: stopUpd:)
-		(if (not (gEgo has: 11)) ; crackers
+		(if (not (ego has: 11))
 			(crackerBox setPri: 10 init: stopUpd:)
 		)
-		(gEgo view: 0 illegalBits: -32768 posn: 155 64 init:)
+		(ego view: 0 illegalBits: cWHITE posn: 155 64 init:)
 		(self setScript: stairWell)
 	)
-
-	(method (newRoom newRoomNumber)
-		(super newRoom: newRoomNumber)
-	)
-
+	
 	(method (doit)
-		(if (IsFirstTimeInRoom)
-			(Print 53 0) ; "This must be the butler's room. Actually, it's not too bad considering it's down in the cellar."
+		(if (FirstEntry)
+			(Print 53 0)
 		)
 		(super doit:)
 		(if
 			(and
-				(& (gEgo onControl:) $0002)
-				(== (gEgo loop:) 0)
+				(& (ego onControl:) cBLUE)
+				(== (ego loop?) 0)
 				(== local2 0)
 			)
 			(= local2 1)
 			(self setScript: stairWell)
 		)
 	)
-
+	
 	(method (dispose)
 		(super dispose:)
 	)
-
+	
 	(method (handleEvent event)
 		(super handleEvent: event)
-		(if (event claimed:)
-			(return 1)
-		)
-		(if (== (event type:) evSAID)
-			(cond
-				((Said 'look>')
-					(cond
-						((Said '[<around,at][/room]')
-							(Print 53 0) ; "This must be the butler's room. Actually, it's not too bad considering it's down in the cellar."
-						)
-						((Said '/brick')
-							(Print 53 1) ; "Yep. That's a brick wall, all right."
-						)
-						((Said '/stair,upstair')
-							(Print 53 2) ; "The stairs lead to the outside."
-						)
-						((Said '/wall')
-							(Print 53 3) ; "A portion of the back wall looks different than the rest. It appears to have been bricked up."
-						)
-						((Said '<in/closet')
-							(Print 53 4) ; "You really are a snoop, Laura. There's nothing here for you."
-						)
-						((Said '/closet')
-							(Print 53 5) ; "You see a large closet under the stairs."
-						)
-					)
-				)
-				((Said 'open>')
-					(cond
-						((Said '/dresser')
-							(Print 53 6) ; "There is nothing of interest in the dresser."
-						)
-						((Said '/closet')
-							(Print 53 4) ; "You really are a snoop, Laura. There's nothing here for you."
+		(if (event claimed?) (return TRUE))
+		(return
+			(if (== (event type?) saidEvent)
+				(cond 
+					((Said 'examine>')
+						(cond 
+							((Said '[<around,at][/room]')
+								(Print 53 0)
+							)
+							((Said '/brick')
+								(Print 53 1)
+							)
+							((Said '/stair,upstair')
+								(Print 53 2)
+							)
+							((Said '/wall')
+								(Print 53 3)
+							)
+							((Said '<in/closet')
+								(Print 53 4)
+							)
+							((Said '/closet')
+								(Print 53 5)
+							)
 						)
 					)
+					((Said 'open>')
+						(cond 
+							((Said '/dresser')
+								(Print 53 6)
+							)
+							((Said '/closet')
+								(Print 53 4)
+							)
+						)
+					)
+					((Said 'get/brick')
+						(Print 53 7)
+					)
+					((Said 'get/drink')
+						(Print 53 8)
+					)
+					((Said 'get,move/carpet')
+						(Print 53 9)
+					)
+					((Said 'sit,go,use/bathroom,toilet')
+						(Print 53 10)
+					)
 				)
-				((Said 'get/brick')
-					(Print 53 7) ; "None of the bricks are loose. This wall is solidly built."
-				)
-				((Said 'get/drink')
-					(Print 53 8) ; "You're not thirsty."
-				)
-				((Said 'get,move/carpet')
-					(Print 53 9) ; "There is nothing but dust under the rug."
-				)
-				((Said 'sit,go,use/bathroom,toilet')
-					(Print 53 10) ; "That is Jeeves'. Use the one upstairs."
-				)
+			else
+				FALSE
 			)
 		)
+	)
+	
+	(method (newRoom n)
+		(super newRoom: n)
 	)
 )
 
@@ -147,11 +146,11 @@
 		cel 2
 		priority 9
 	)
-
+	
 	(method (handleEvent event)
-		(if (MousedOn self event 3)
-			(event claimed: 1)
-			(Print 53 11) ; "You see a small dresser here."
+		(if (MousedOn self event shiftDown)
+			(event claimed: TRUE)
+			(Print 53 11)
 		)
 	)
 )
@@ -164,21 +163,21 @@
 		loop 1
 		priority 12
 	)
-
+	
 	(method (handleEvent event)
-		(if (or (MousedOn self event 3) (Said 'look[<at]/bed'))
-			(cond
-				((== gAct 4)
-					(Print 53 12) ; "There is a beautiful bouquet of flowers on Jeeves' bed."
+		(if (or (MousedOn self event shiftDown) (Said 'examine[<at]/bed'))
+			(cond 
+				((== currentAct 4)
+					(Print 53 12)
 				)
-				((== gAct 4)
-					(Print 53 13) ; "Jeeves is lying on his bed. He must be trying to take a nap."
+				((== currentAct 4)
+					(Print 53 13)
 				)
 				(else
-					(Print 53 14) ; "The beds are old and lumpy. Oh, well. You're not going to be doing much sleeping tonight, anyway."
+					(Print 53 14)
 				)
 			)
-			(event claimed: 1)
+			(event claimed: TRUE)
 		)
 	)
 )
@@ -192,11 +191,11 @@
 		cel 3
 		priority 8
 	)
-
+	
 	(method (handleEvent event)
-		(if (or (MousedOn self event 3) (Said 'look/chair'))
-			(event claimed: 1)
-			(Print 53 15) ; "The chair looks pretty old!"
+		(if (or (MousedOn self event shiftDown) (Said 'examine/chair'))
+			(event claimed: TRUE)
+			(Print 53 15)
 		)
 	)
 )
@@ -210,11 +209,11 @@
 		cel 4
 		priority 12
 	)
-
+	
 	(method (handleEvent event)
-		(if (or (MousedOn self event 3) (Said 'look/couch'))
-			(event claimed: 1)
-			(Print 53 16) ; "The sofa looks very old, dusty, and uncomfortable."
+		(if (or (MousedOn self event shiftDown) (Said 'examine/couch'))
+			(event claimed: TRUE)
+			(Print 53 16)
 		)
 	)
 )
@@ -228,25 +227,25 @@
 		cel 1
 		priority 6
 	)
-
+	
 	(method (handleEvent event)
-		(cond
-			((Said 'open,(look<in)/nightstand')
-				(Print 53 17) ; "The nightstand doesn't open."
+		(cond 
+			((Said 'open,(examine<in)/nightstand')
+				(Print 53 17)
 			)
-			((Said 'look/nightstand')
-				(if (gEgo has: 11) ; crackers
-					(Print 53 18) ; "You see a little nightstand by Jeeves' bed."
+			((Said 'examine/nightstand')
+				(if (ego has: iCrackers)
+					(Print 53 18)
 				else
-					(event claimed: 0)
+					(event claimed: FALSE)
 				)
 			)
-			((Said 'look<in/dresser')
-				(Print 53 6) ; "There is nothing of interest in the dresser."
+			((Said 'examine<in/dresser')
+				(Print 53 6)
 			)
-			((or (MousedOn self event 3) (Said 'look/dresser'))
-				(event claimed: 1)
-				(Print 53 11) ; "You see a small dresser here."
+			((or (MousedOn self event shiftDown) (Said 'examine/dresser'))
+				(event claimed: TRUE)
+				(Print 53 11)
 			)
 		)
 	)
@@ -260,18 +259,18 @@
 		cel 4
 		priority 15
 	)
-
+	
 	(method (handleEvent event)
-		(cond
-			((or (Said 'scrub,rotate/give,water') (Said 'scrub'))
-				(Print 53 19) ; "Go upstairs if you want to do that."
+		(cond 
+			((or (Said 'scrub,rotate/deliver,water') (Said 'scrub'))
+				(Print 53 19)
 			)
-			((Said 'look<in/sink')
-				(Print 53 20) ; "There is nothing in the sink."
+			((Said 'examine<in/sink')
+				(Print 53 20)
 			)
-			((or (MousedOn self event 3) (Said 'look/sink'))
-				(event claimed: 1)
-				(Print 53 21) ; "It appears that Jeeves has a sink here, too."
+			((or (MousedOn self event shiftDown) (Said 'examine/sink'))
+				(event claimed: TRUE)
+				(Print 53 21)
 			)
 		)
 	)
@@ -285,26 +284,30 @@
 		cel 5
 		priority 7
 	)
-
+	
 	(method (handleEvent event)
-		(cond
-			((Said 'look/bathroom')
-				(Print 53 22) ; "Jeeves has a small bathroom tucked away in an alcove."
-			)
-			((or (Said 'flush,use/toilet,bathroom') (Said 'pull/chain,handle'))
-				(Print 53 23) ; "That's Jeeves' toilet. If you need to use one, go upstairs."
-			)
-			((Said 'open,(look<in)/toilet')
-				(Print 53 24) ; "Puhleeeese, Laura!"
+		(cond 
+			((Said 'examine/bathroom')
+				(Print 53 22)
 			)
 			(
 				(or
-					(MousedOn self event 3)
-					(Said 'look/toilet')
+					(Said 'flush,use/toilet,bathroom')
+					(Said 'drag/chain,handle')
+				)
+				(Print 53 23)
+			)
+			((Said 'open,(examine<in)/toilet')
+				(Print 53 24)
+			)
+			(
+				(or
+					(MousedOn self event shiftDown)
+					(Said 'examine/toilet')
 					(Said 'sit/toilet')
 				)
-				(event claimed: 1)
-				(Print 53 23) ; "That's Jeeves' toilet. If you need to use one, go upstairs."
+				(event claimed: TRUE)
+				(Print 53 23)
 			)
 		)
 	)
@@ -337,11 +340,11 @@
 		view 153
 		loop 5
 	)
-
+	
 	(method (handleEvent event)
-		(if (or (MousedOn self event 3) (Said 'look/lamp'))
-			(event claimed: 1)
-			(Print 53 25) ; "All you see are kerosene lamps. Seems as if the Colonel's too cheap to put in electric lights!"
+		(if (or (MousedOn self event shiftDown) (Said 'examine/lamp'))
+			(event claimed: TRUE)
+			(Print 53 25)
 		)
 	)
 )
@@ -353,55 +356,54 @@
 		view 153
 		loop 3
 	)
-
+	
 	(method (handleEvent event)
-		(cond
-			((not (gEgo has: 11)) ; crackers
-				(cond
-					((or (MousedOn self event 3) (Said 'look/cracker'))
-						(event claimed: 1)
-						(Print 53 26) ; "A box of crackers is sitting on the nightstand next to Jeeves' bed."
+		(cond 
+			((not (ego has: iCrackers))
+				(cond 
+					((or (MousedOn self event shiftDown) (Said 'examine/cracker'))
+						(event claimed: TRUE)
+						(Print 53 26)
 					)
 					((Said 'ask/butler/cracker<for')
-						(= global213 11)
-						(Say 1 53 27) ; "Go ahead. I don't want them. They're stale, anyway."
-						(++ local3)
+						(= theTalker talkJEEVES)
+						(Say 1 53 27)
+						(++ talkCount)
 					)
 					((Said 'get/cracker')
-						(if (< (gEgo distanceTo: crackerBox) 30)
-							(if (not local3)
-								(Print 53 28) ; "You ask Jeeves if you can have the crackers. He nods his head in approval."
+						(if (< (ego distanceTo: crackerBox) 30)
+							(if (not talkCount)
+								(Print 53 28)
 							)
-							(= global182 1)
-							(gEgo get: 11) ; crackers
+							(= gotItem TRUE)
+							(ego get: iCrackers)
 							(crackerBox dispose:)
 						else
-							(NotClose) ; "You're not close enough."
+							(NotClose)
 						)
 					)
-					((Said 'look/nightstand')
-						(Print 53 29) ; "You see a box of crackers on the nightstand next to Jeeves' bed."
+					((Said 'examine/nightstand')
+						(Print 53 29)
 					)
 				)
 			)
 			((Said 'get/cracker')
-				(Print 53 30) ; "You already have the box of crackers."
+				(Print 53 30)
 			)
 		)
 	)
 )
 
 (instance stairWell of Script
-	(properties)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
 				(HandsOff)
 				(if local2
-					(gEgo illegalBits: 0 setMotion: MoveTo 187 37 self)
+					(ego illegalBits: 0 setMotion: MoveTo 187 37 self)
 				else
-					(gEgo setMotion: MoveTo 121 82 self)
+					(ego setMotion: MoveTo 121 82 self)
 				)
 			)
 			(1
@@ -411,4 +413,3 @@
 		)
 	)
 )
-

@@ -1,9 +1,8 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-;;; Decompiled by sluicebox
 (script# 781)
-(include sci.sh)
+(include game.sh)
 (use Main)
-(use Interface)
+(use Intrface)
 (use Wander)
 (use Motion)
 (use Game)
@@ -15,22 +14,21 @@
 )
 
 (local
-	local0
-	local1
+	saveBits
+	saveBits2
 	[local2 2]
 )
-
-(instance dock of Rm
+(instance dock of Room
 	(properties
 		picture 1
 	)
-
+	
 	(method (init)
 		(= horizon 84)
-		(= global161 0)
+		(= talkTimer 0)
 		(super init:)
 		(HandsOff)
-		(Load rsFONT 4)
+		(Load FONT 4)
 		(skiff
 			view: 202
 			loop: 0
@@ -41,10 +39,33 @@
 			init:
 		)
 		(skiff cel: (- (NumCels skiff) 1))
-		(Lillian view: 202 loop: 3 x: 95 y: 115 init: hide: stopUpd:)
-		(Laura view: 202 loop: 4 x: 106 y: 118 init: hide: stopUpd:)
-		(if gDetailLevel
-			(ripple view: 202 loop: 1 cel: 0 setCycle: Fwd setStep: 1 1 init:)
+		(Lillian
+			view: 202
+			loop: 3
+			x: 95
+			y: 115
+			init:
+			hide:
+			stopUpd:
+		)
+		(Laura
+			view: 202
+			loop: 4
+			x: 106
+			y: 118
+			init:
+			hide:
+			stopUpd:
+		)
+		(if howFast
+			(ripple
+				view: 202
+				loop: 1
+				cel: 0
+				setCycle: Forward
+				setStep: 1 1
+				init:
+			)
 			(Turtle
 				view: 101
 				loop: 2
@@ -73,10 +94,10 @@
 				posn: (Random 60 260) (Random 40 150)
 				setStep: 3 3
 				observeBlocks: flyCage
-				ignoreActors: 1
-				ignoreHorizon: 1
+				ignoreActors: TRUE
+				ignoreHorizon: TRUE
 				setMotion: Wander 5
-				setCycle: Fwd
+				setCycle: Forward
 				cycleSpeed: 2
 				setPri: 14
 				init:
@@ -88,11 +109,11 @@
 				posn: (Random 60 260) (Random 40 150)
 				setStep: 3 3
 				observeBlocks: flyCage
-				ignoreActors: 1
-				ignoreHorizon: 1
+				ignoreActors: TRUE
+				ignoreHorizon: TRUE
 				setMotion: Wander 5
 				cycleSpeed: 2
-				setCycle: Fwd
+				setCycle: Forward
 				setPri: 14
 				init:
 			)
@@ -103,11 +124,11 @@
 				posn: (Random 60 260) (Random 40 150)
 				setStep: 3 3
 				observeBlocks: flyCage
-				ignoreActors: 1
-				ignoreHorizon: 1
+				ignoreActors: TRUE
+				ignoreHorizon: TRUE
 				setMotion: Wander 5
 				cycleSpeed: 2
-				setCycle: Fwd
+				setCycle: Forward
 				setPri: 14
 				init:
 			)
@@ -118,11 +139,11 @@
 				posn: (Random 60 260) (Random 40 150)
 				setStep: 3 3
 				observeBlocks: flyCage
-				ignoreActors: 1
-				ignoreHorizon: 1
+				ignoreActors: TRUE
+				ignoreHorizon: TRUE
 				setMotion: Wander 5
 				cycleSpeed: 2
-				setCycle: Fwd
+				setCycle: Forward
 				setPri: 14
 				init:
 			)
@@ -133,11 +154,11 @@
 				posn: (Random 60 260) (Random 40 150)
 				setStep: 3 3
 				observeBlocks: flyCage
-				ignoreActors: 1
-				ignoreHorizon: 1
+				ignoreActors: TRUE
+				ignoreHorizon: TRUE
 				setMotion: Wander 5
 				cycleSpeed: 2
-				setCycle: Fwd
+				setCycle: Forward
 				setPri: 14
 				init:
 			)
@@ -148,11 +169,11 @@
 				posn: (Random 60 260) (Random 40 150)
 				setStep: 3 3
 				observeBlocks: flyCage
-				ignoreActors: 1
-				ignoreHorizon: 1
+				ignoreActors: TRUE
+				ignoreHorizon: TRUE
 				setMotion: Wander 5
 				cycleSpeed: 2
-				setCycle: Fwd
+				setCycle: Forward
 				setPri: 14
 				init:
 			)
@@ -161,9 +182,9 @@
 				loop: 0
 				cel: 0
 				posn: 261 123
-				ignoreActors: 1
+				ignoreActors: TRUE
 				cycleSpeed: 2
-				setCycle: Fwd
+				setCycle: Forward
 				setPri: 2
 				init:
 			)
@@ -173,85 +194,112 @@
 				cel: 2
 				posn: 260 186
 				priority: 14
-				ignoreActors: 1
+				ignoreActors: TRUE
 				cycleSpeed: 2
-				setCycle: Fwd
+				setCycle: Forward
 				setPri: 2
 				init:
 			)
 		)
-		(= local0 (Display 781 0 dsCOORD 11 12 dsWIDTH 240 dsCOLOR 0 dsBACKGROUND -1 dsFONT 41 dsSAVEPIXELS)) ; "Creative Designer   Jacqueline Austin"
-		(= local1 (Display 781 0 dsCOORD 10 10 dsWIDTH 240 dsCOLOR 15 dsBACKGROUND -1 dsFONT 41 dsSAVEPIXELS)) ; "Creative Designer   Jacqueline Austin"
+		(= saveBits
+			(Display 781 0
+				p_at 11 12
+				p_width 240
+				p_color vBLACK
+				p_back -1
+				p_font 41
+				p_save
+			)
+		)
+		(= saveBits2
+			(Display 781 0
+				p_at 10 10
+				p_width 240
+				p_color vWHITE
+				p_back -1
+				p_font 41
+				p_save
+			)
+		)
 	)
-
+	
 	(method (doit)
-		(if (== global161 1)
-			(gConMusic fade:)
-			(gCurRoom newRoom: 782) ; approach
+		(if (== talkTimer 1)
+			(cSound fade:)
+			(curRoom newRoom: 782)
 		)
-		(if (and (== (skiff x:) 30) (== (skiff y:) 147))
-			(Display 781 1 dsRESTOREPIXELS local1)
-			(Display 781 1 dsRESTOREPIXELS local0)
+		(if (and (== (skiff x?) 30) (== (skiff y?) 147))
+			(Display 781 1
+				p_restore saveBits2
+			)
+			(Display 781 1
+				p_restore saveBits
+			)
 		)
-		(ripple posn: (+ (skiff x:) 37) (+ (skiff y:) 1))
+		(ripple posn: (+ (skiff x?) 37) (+ (skiff y?) 1))
 	)
-
-	(method (newRoom newRoomNumber)
-		(super newRoom: newRoomNumber)
-	)
-
+	
 	(method (dispose)
-		(DisposeScript 976)
+		(DisposeScript WANDER)
 		(super dispose:)
 	)
-
+	
 	(method (handleEvent event)
-		(if (event claimed:)
-			(return)
-		)
-		(switch (event type:)
-			(evKEYBOARD
-				(cond
-					((or (== (event message:) KEY_S) (== (event message:) KEY_s))
-						(gConMusic stop:)
-						(event claimed: 1)
-						(gCurRoom newRoom: 782) ; approach
+		(if (event claimed?) (return))
+		(switch (event type?)
+			(keyDown
+				(cond 
+					(
+						(or
+							(== (event message?) `S)
+							(== (event message?) `s)
+						)
+						(cSound stop:)
+						(event claimed: TRUE)
+						(curRoom newRoom: 782)
 					)
-					((or (== (event message:) KEY_RETURN) (== (event message:) KEY_SPACE))
-						(SetFlag 50)
+					(
+						(or
+							(== (event message?) ENTER)
+							(== (event message?) SPACEBAR)
+						)
+						(Bset fSkippedIntro)
 					)
 				)
 			)
-			(evMOUSEBUTTON
-				(SetFlag 50)
+			(mouseDown
+				(Bset fSkippedIntro)
 			)
 		)
-		(if (IsFlag 50)
-			(gConMusic stop:)
-			(event claimed: 1)
-			(gCurRoom newRoom: 44)
+		(if (Btst fSkippedIntro)
+			(cSound stop:)
+			(event claimed: TRUE)
+			(curRoom newRoom: 44)
 		)
 	)
-
+	
 	(method (cue)
-		(ShakeScreen 5 ssLEFTRIGHT)
+		(ShakeScreen 5 shakeSRight)
 		(skiff loop: 2 stopUpd: setScript: Heads)
 		(ripple stopUpd: hide:)
 		(Lillian show:)
 		(Laura show:)
 	)
+	
+	(method (newRoom n)
+		(super newRoom: n)
+	)
 )
 
 (instance turtleScript of Script
-	(properties)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
 				(= seconds (Random 5 20))
 			)
 			(1
-				(Turtle setCycle: End self)
+				(Turtle setCycle: EndLoop self)
 			)
 			(2
 				(client setScript: 0)
@@ -261,7 +309,6 @@
 )
 
 (instance Polling of Script
-	(properties)
 
 	(method (changeState newState)
 		(switch (= state newState)
@@ -269,10 +316,10 @@
 				(= cycles (Random 45 65))
 			)
 			(1
-				(skiff setCycle: Beg self)
+				(skiff setCycle: BegLoop self)
 			)
 			(2
-				(skiff setCycle: End self)
+				(skiff setCycle: EndLoop self)
 				(client setScript: 0)
 			)
 		)
@@ -280,25 +327,29 @@
 )
 
 (instance frogScript of Script
-	(properties)
 
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
-				(Frog setCycle: End self)
+				(Frog setCycle: EndLoop self)
 			)
 			(1
 				(= seconds (Random 3 8))
 			)
 			(2
-				(Frog loop: 6 posn: 112 106 illegalBits: 1 setCycle: Beg self)
+				(Frog
+					loop: 6
+					posn: 112 106
+					illegalBits: cBLACK
+					setCycle: BegLoop self
+				)
 			)
 			(3
-				(Frog loop: 5 setCycle: Fwd)
+				(Frog loop: 5 setCycle: Forward)
 				(= seconds (Random 3 10))
 			)
 			(4
-				(Frog loop: 6 setCycle: End self)
+				(Frog loop: 6 setCycle: EndLoop self)
 			)
 			(5
 				(Frog hide:)
@@ -309,83 +360,58 @@
 )
 
 (instance Heads of Script
-	(properties)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
-				(Lillian cycleSpeed: 2 setCycle: End self)
+				(Lillian cycleSpeed: 2 setCycle: EndLoop self)
 			)
 			(1
-				(Print 781 2 #at 10 65 #font 4 #width 100 #mode 1 #draw #dispose) ; "We're here, Laura!"
+				(Print 781 2
+					#at 10 65
+					#font 4
+					#width 100
+					#mode teJustCenter
+					#draw
+					#dispose
+				)
 				(= cycles 1)
 			)
 			(2
-				(Laura cycleSpeed: 2 setCycle: End self)
-				(= global161 25)
+				(Laura cycleSpeed: 2 setCycle: EndLoop self)
+				(= talkTimer 25)
 				(client setScript: 0)
 			)
 		)
 	)
 )
 
-(instance wave1 of Prop
-	(properties)
-)
+(instance wave1 of Prop)
 
-(instance wave2 of Prop
-	(properties)
-)
+(instance wave2 of Prop)
 
-(instance Lillian of Prop
-	(properties)
-)
+(instance Lillian of Prop)
 
-(instance Laura of Prop
-	(properties)
-)
+(instance Laura of Prop)
 
-(instance Turtle of Prop
-	(properties)
-)
+(instance Turtle of Prop)
 
-(instance Frog of Act
-	(properties)
-)
+(instance Frog of Actor)
 
-(instance skiff of Act
-	(properties)
-)
+(instance skiff of Actor)
 
-(instance ripple of Act
-	(properties)
-)
+(instance ripple of Actor)
 
-(instance fly1 of Act
-	(properties)
-)
+(instance fly1 of Actor)
 
-(instance fly2 of Act
-	(properties)
-)
+(instance fly2 of Actor)
 
-(instance fly3 of Act
-	(properties)
-)
+(instance fly3 of Actor)
 
-(instance fly4 of Act
-	(properties)
-)
+(instance fly4 of Actor)
 
-(instance fly5 of Act
-	(properties)
-)
+(instance fly5 of Actor)
 
-(instance fly6 of Act
-	(properties)
-)
+(instance fly6 of Actor)
 
-(instance flyCage of Cage
-	(properties)
-)
-
+(instance flyCage of Cage)

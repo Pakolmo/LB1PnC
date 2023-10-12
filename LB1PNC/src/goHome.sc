@@ -1,9 +1,8 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-;;; Decompiled by sluicebox
 (script# 785)
-(include sci.sh)
+(include game.sh)
 (use Main)
-(use Interface)
+(use Intrface)
 (use Motion)
 (use Game)
 (use Actor)
@@ -16,19 +15,17 @@
 (local
 	local0
 )
-
-(instance goHome of Rm
-	(properties)
-
+(instance goHome of Room
+	
 	(method (init)
 		(super init:)
 		(HandsOff)
-		(Load rsFONT 41)
-		(LoadMany rsPIC 83 84)
-		(Load rsVIEW 183)
-		(Load rsSOUND 64)
+		(Load FONT 41)
+		(LoadMany PICTURE 83 84)
+		(Load VIEW 183)
+		(Load SOUND 64)
 		(self curPic: 79)
-		(DrawPic 79 4 1 1)
+		(DrawPic 79 WIPEUP TRUE 1)
 		(actor1
 			view: 204
 			setLoop: 0
@@ -44,37 +41,40 @@
 			loop: 1
 			cel: 0
 			setPri: 12
-			setCycle: Fwd
+			setCycle: Forward
 			setStep: 1 1
 			setScript: Polling
 			init:
 		)
-		(Display 785 0 dsCOORD 100 30 dsWIDTH 240 dsCOLOR 15 dsBACKGROUND -1 dsFONT 0) ; "The next morning..."
-		(gConMusic number: 5 loop: -1 play:)
-	)
-
-	(method (handleEvent event)
-		(if (event claimed:)
-			(return)
+		(Display 785 0
+			p_at 100 30
+			p_width 240
+			p_color vWHITE
+			p_back -1
+			p_font SYSFONT
 		)
+		(cSound number: 5 loop: -1 play:)
 	)
-
+	
 	(method (doit)
 		(super doit:)
 	)
-
+	
 	(method (dispose)
 		(super dispose:)
 	)
-
+	
+	(method (handleEvent event)
+		(if (event claimed?) (return))
+	)
+	
 	(method (cue)
 		(cls)
-		(gCurRoom newRoom: 781) ; dock
+		(curRoom newRoom: 781)
 	)
 )
 
 (instance Polling of Script
-	(properties)
 
 	(method (changeState newState)
 		(switch (= state newState)
@@ -85,14 +85,14 @@
 				(= cycles (Random 15 50))
 			)
 			(1
-				(if (actor1 cel:)
-					(actor1 setCycle: Beg self)
+				(if (actor1 cel?)
+					(actor1 setCycle: BegLoop self)
 				else
 					(= cycles 1)
 				)
 			)
 			(2
-				(actor1 setCycle: End self)
+				(actor1 setCycle: EndLoop self)
 				(= state -1)
 			)
 		)
@@ -100,21 +100,20 @@
 )
 
 (instance MainAction of Script
-	(properties)
-
+	
 	(method (doit)
 		(switch local0
 			(1
-				(actor2 posn: (- (actor1 x:) 37) (+ (actor1 y:) 1))
+				(actor2 posn: (- (actor1 x?) 37) (+ (actor1 y?) 1))
 			)
 			(3
-				(actor2 posn: (+ (actor1 x:) 10) (- (actor1 y:) 35))
-				(actor3 posn: (- (actor1 x:) 87) (+ (actor1 y:) 2))
+				(actor2 posn: (+ (actor1 x?) 10) (- (actor1 y?) 35))
+				(actor3 posn: (- (actor1 x?) 87) (+ (actor1 y?) 2))
 			)
 		)
 		(super doit:)
 	)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
@@ -123,9 +122,9 @@
 			)
 			(1
 				(= local0 2)
-				(gConMusic fade:)
+				(cSound fade:)
 				(goHome curPic: 83)
-				(DrawPic 83 7 1 0)
+				(DrawPic 83 IRISOUT TRUE 0)
 				(actor1 stopUpd:)
 				(actor2
 					view: 183
@@ -133,12 +132,18 @@
 					posn: 134 137
 					setPri: 14
 					cycleSpeed: 1
-					setCycle: End self
+					setCycle: EndLoop self
 				)
-				(Display 785 1 dsCOORD 90 30 dsWIDTH 240 dsCOLOR 15 dsBACKGROUND -1 dsFONT 0) ; "Later that same day..."
+				(Display 785 1
+					p_at 90 30
+					p_width 240
+					p_color vWHITE
+					p_back -1
+					p_font SYSFONT
+				)
 			)
 			(2
-				(gConMusic number: 64 loop: -1 play:)
+				(cSound number: 64 loop: -1 play:)
 				(actor2
 					setLoop: 3
 					setCel: (- (NumCels actor2) 1)
@@ -161,15 +166,21 @@
 					setLoop: 2
 					setPri: 12
 					cycleSpeed: 0
-					setCycle: Fwd
+					setCycle: Forward
 				)
-				(actor3 view: 183 setLoop: 1 setPri: 12 setCycle: Fwd init:)
+				(actor3
+					view: 183
+					setLoop: 1
+					setPri: 12
+					setCycle: Forward
+					init:
+				)
 			)
 			(4
 				(= local0 4)
 				(goHome curPic: 84)
-				(DrawPic 84 7 1 0)
-				(gAddToPics add: body hand eachElementDo: #init doit:)
+				(DrawPic 84 IRISOUT TRUE 0)
+				(addToPics add: body hand eachElementDo: #init doit:)
 				(actor1
 					view: 284
 					loop: 1
@@ -177,7 +188,7 @@
 					posn: 250 74
 					cycleSpeed: 1
 					startUpd:
-					setCycle: End
+					setCycle: EndLoop
 					setMotion: 0
 				)
 				(actor2
@@ -199,40 +210,50 @@
 					cycleSpeed: 0
 					setMotion: MoveTo 336 17
 				)
-				(Print 785 2 #at 17 135 #width 280 #dispose) ; "As you near the wharf at New Orleans, you consider last night's events. Was Rudy telling you the truth...or could there be more to the story?"
+				(Print 785 2 #at 17 135 #width 280 #dispose)
 				(= seconds 8)
 			)
-			(5
-				(actor2 setCycle: End self)
-			)
+			(5 (actor2 setCycle: EndLoop self))
 			(6
-				(actor2 loop: 3 cel: 0 setCycle: Fwd)
-				(Print 785 3 #at 17 135 #width 280 #dispose) ; "Oh, well. You'll probably never know. Best to forget it, and go on with your life; maybe the police will find the answers. Poor Lillian...poor everybody."
+				(actor2 loop: 3 cel: 0 setCycle: Forward)
+				(Print 785 3 #at 17 135 #width 280 #dispose)
 				(= seconds 8)
 			)
 			(7
 				(cls)
-				(actor2 setCycle: Beg self)
+				(actor2 setCycle: BegLoop self)
 			)
 			(8
-				(actor1 setCycle: Beg self)
+				(actor1 setCycle: BegLoop self)
 				(actor2 loop: 2)
-				(actor2 cel: (- (NumCels actor2) 1) setCycle: Beg)
+				(actor2 cel: (- (NumCels actor2) 1) setCycle: BegLoop)
 			)
 			(9
-				(gConMusic fade:)
-				(Display 785 4 dsCOORD 111 49 dsWIDTH 50 dsCOLOR 6 dsBACKGROUND -1 dsFONT 41) ; "The End"
-				(Display 785 4 dsCOORD 110 47 dsWIDTH 50 dsCOLOR 14 dsBACKGROUND -1 dsFONT 41) ; "The End"
+				(cSound fade:)
+				(Display 785 4
+					p_at 111 49
+					p_width 50
+					p_color vBROWN
+					p_back -1
+					p_font 41
+				)
+				(Display 785 4
+					p_at 110 47
+					p_width 50
+					p_color vYELLOW
+					p_back -1
+					p_font 41
+				)
 				(= seconds 6)
 			)
 			(10
-				(gCurRoom newRoom: 786) ; SlthOMtr
+				(curRoom newRoom: 786)
 			)
 		)
 	)
 )
 
-(instance body of PV
+(instance body of PicView
 	(properties
 		y 156
 		x 235
@@ -240,7 +261,7 @@
 	)
 )
 
-(instance hand of PV
+(instance hand of PicView
 	(properties
 		y 105
 		x 248
@@ -250,15 +271,8 @@
 	)
 )
 
-(instance actor1 of Act
-	(properties)
-)
+(instance actor1 of Actor)
 
-(instance actor2 of Act
-	(properties)
-)
+(instance actor2 of Actor)
 
-(instance actor3 of Act
-	(properties)
-)
-
+(instance actor3 of Actor)

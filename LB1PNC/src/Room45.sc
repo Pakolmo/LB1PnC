@@ -1,11 +1,10 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-;;; Decompiled by sluicebox
 (script# 45)
-(include sci.sh)
+(include game.sh)
 (use Main)
-(use Interface)
+(use Intrface)
 (use RFeature)
-(use Avoid)
+(use Avoider)
 (use Motion)
 (use Game)
 (use Actor)
@@ -14,31 +13,29 @@
 (public
 	Room45 0
 )
-
 (synonyms
 	(luggage case bag)
-	(toy bear)
-	(drawer chest dresser)
-	(armoire armoire closet)
-	(ethel person woman)
 	(room bedroom nursery)
+	(armoire armoire closet)
+	(toy bear)
+	(ethel person girl)
+	(drawer chest dresser)
 )
 
 (local
 	local0
-	local1
+	talkCount
 	local2
 )
-
-(instance Room45 of Rm
+(instance Room45 of Room
 	(properties
 		picture 45
 	)
-
+	
 	(method (init)
 		(= west 44)
 		(super init:)
-		(gAddToPics
+		(addToPics
 			add:
 				suit1
 				bed
@@ -72,144 +69,147 @@
 				shelf2
 				chest
 		)
-		(switch gAct
+		(switch currentAct
 			(0
-				(if (== [gCycleTimers 4] 0)
-					(= [gCycleTimers 4] 1800)
+				(if (== [global368 4] 0)
+					(= [global368 4] 1800)
 				)
-				(if (== gEthelState 0)
-					(LoadMany rsMESSAGE 243 221)
-					(LoadMany rsVIEW 325 903)
+				(if (== global200 0)
+					(LoadMany 143 243 221)
+					(LoadMany 128 325 903)
 					(= global208 8)
 					(= [global377 3] 221)
 					(Ethel
-						ignoreActors: 1
+						ignoreActors: TRUE
 						cycleSpeed: 1
 						init:
 						setScript: ethelActions
 					)
 					(eHead
-						ignoreActors: 1
+						ignoreActors: TRUE
 						cycleSpeed: 1
 						setPri: 6
 						cycleSpeed: 1
 						init:
 					)
-					(Mouth ignoreActors: 1 cycleSpeed: 1 setPri: 6 init: hide:)
+					(Mouth
+						ignoreActors: TRUE
+						cycleSpeed: 1
+						setPri: 6
+						init:
+						hide:
+					)
 				)
 			)
 		)
-		(gEgo view: 0 posn: 1 124 init:)
+		(ego view: 0 posn: 1 124 init:)
 	)
-
+	
 	(method (doit)
-		(if (IsFirstTimeInRoom)
-			(Print 45 0) ; "It looks as if this might have been a nursery at one time. Now it has been converted into a makeshift guest room with Ethel as its current guest."
+		(if (FirstEntry)
+			(Print 45 0)
 		)
-		(if (and (> (gEgo x:) 126) (< (gEgo y:) 104))
-			(gEgo setPri: 4)
+		(if (and (> (ego x?) 126) (< (ego y?) 104))
+			(ego setPri: 4)
 		else
-			(gEgo setPri: -1)
+			(ego setPri: -1)
 		)
-		(if (< (gEgo x:) 60)
+		(if (< (ego x?) 60)
 			(= vertAngle 0)
 		else
 			(= vertAngle 137)
 		)
 		(super doit:)
 	)
-
+	
 	(method (dispose)
-		(DisposeScript 985)
+		(DisposeScript AVOIDER)
 		(super dispose:)
 	)
-
-	(method (newRoom newRoomNumber)
-		(if (== [gCycleTimers 4] 1)
-			(= global125 1)
-		)
-		(super newRoom: newRoomNumber)
-	)
-
+	
 	(method (handleEvent event &tmp temp0)
-		(if (event claimed:)
-			(return)
-		)
-		(if (== (event type:) evSAID)
-			(if
-				(and
-					global208
-					(Said
-						'ask,tell,show,give,look,get,kill,kiss,embrace,flirt>'
+		(if (event claimed?) (return (event claimed?)))
+		(return
+			(if (== (event type?) saidEvent)
+				(if
+					(and
+						global208
+						(Said
+							'ask,tell,hold,deliver,examine,get,kill,kiss,embrace,flirt>'
+						)
+					)
+					(self setScript: (ScriptID 243 0))
+					((self script?) handleEvent: event)
+					(if (event claimed?) (return TRUE))
+				)
+				(cond 
+					((Said 'examine[<around,at][/room]')
+						(Print 45 0)
+					)
+					((Said 'examine/blind,curtain')
+						(Print 45 1)
+					)
+					((Said 'close,open/blind,curtain')
+						(CantDo)
 					)
 				)
-				(self setScript: (ScriptID 243 0)) ; atsgl
-				((self script:) handleEvent: event)
-				(if (event claimed:)
-					(return 1)
-				)
-			)
-			(cond
-				((Said 'look[<around,at][/room]')
-					(Print 45 0) ; "It looks as if this might have been a nursery at one time. Now it has been converted into a makeshift guest room with Ethel as its current guest."
-				)
-				((Said 'look/blind,curtain')
-					(Print 45 1) ; "Broken shutters mar the elegant French windows."
-				)
-				((Said 'close,open/blind,curtain')
-					(CantDo) ; "You can't do that."
-				)
+			else
+				FALSE
 			)
 		)
+	)
+	
+	(method (newRoom n)
+		(if (== [global368 4] 1)
+			(= global125 1)
+		)
+		(super newRoom: n)
 	)
 )
 
 (instance ethelActions of Script
-	(properties)
-
+	
 	(method (doit)
 		(super doit:)
-		(if (and (== [gCycleTimers 4] 1) (== local2 0))
+		(if (and (== [global368 4] 1) (== local2 0))
 			(= local2 1)
 			(= global203 2)
 			(= state 7)
 			(= seconds 1)
 		)
 	)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
-				(Ethel cel: 0 loop: 0 setCycle: End self)
+				(Ethel cel: 0 loop: 0 setCycle: EndLoop self)
 			)
 			(1
-				(Mouth show: setCycle: Fwd)
+				(Mouth show: setCycle: Forward)
 				(= seconds 3)
 			)
 			(2
 				(Mouth hide:)
-				(Ethel setCycle: Beg self)
+				(Ethel setCycle: BegLoop self)
 			)
 			(3
-				(if (< (Random 1 100) 60)
-					(= state -1)
-				)
+				(if (< (Random 1 100) 60) (= state -1))
 				(= seconds (Random 6 12))
 			)
 			(4
-				(eHead loop: (Random 1 2) setCycle: End)
+				(eHead loop: (Random 1 2) setCycle: EndLoop)
 				(= seconds (Random 6 12))
 			)
 			(5
-				(eHead setCycle: Beg)
+				(eHead setCycle: BegLoop)
 				(= seconds (Random 6 12))
 			)
 			(6
-				(Ethel loop: 4 cel: 0 setCycle: End)
+				(Ethel loop: 4 cel: 0 setCycle: EndLoop)
 				(= seconds (Random 6 12))
 			)
 			(7
-				(Ethel loop: 4 cel: 0 setCycle: Beg)
+				(Ethel loop: 4 cel: 0 setCycle: BegLoop)
 				(= state -1)
 				(= seconds (Random 6 12))
 			)
@@ -221,13 +221,13 @@
 					setLoop: 0
 					ignoreActors: 0
 					cycleSpeed: 0
-					setCycle: Fwd
-					setAvoider: ((Avoid new:) offScreenOK: 1)
+					setCycle: Forward
+					setAvoider: ((Avoider new:) offScreenOK: TRUE)
 					setMotion: MoveTo -10 124 self
 				)
 			)
 			(9
-				(++ gEthelState)
+				(++ global200)
 				(= global208 0)
 				(Ethel setAvoider: 0 dispose:)
 				(client setScript: 0)
@@ -243,10 +243,10 @@
 		view 145
 		priority 2
 	)
-
+	
 	(method (handleEvent event)
-		(if (MousedOn self event 3)
-			(event claimed: 1)
+		(if (MousedOn self event shiftDown)
+			(event claimed: TRUE)
 			(DoLook {lamp})
 		)
 	)
@@ -259,10 +259,10 @@
 		view 145
 		priority 3
 	)
-
+	
 	(method (handleEvent event)
-		(if (MousedOn self event 3)
-			(event claimed: 1)
+		(if (MousedOn self event shiftDown)
+			(event claimed: TRUE)
 			(DoLook {lamp})
 		)
 	)
@@ -275,20 +275,20 @@
 		view 145
 		cel 2
 		priority 3
-		signal 16384
+		signal ignrAct
 	)
-
+	
 	(method (handleEvent event)
-		(cond
+		(cond 
 			((Said 'move/armoire,dollhouse')
-				(Print 45 2) ; "It's much too heavy."
+				(Print 45 2)
 			)
-			((Said '(look<in),open/armoire,(door<armoire)')
-				(Print 45 3) ; "The armoire is empty."
+			((Said '(examine<in),open/armoire,(door<armoire)')
+				(Print 45 3)
 			)
-			((or (MousedOn self event 3) (Said 'look/armoire'))
-				(Print 45 4) ; "There is an antique armoire against the back wall."
-				(event claimed: 1)
+			((or (MousedOn self event shiftDown) (Said 'examine/armoire'))
+				(Print 45 4)
+				(event claimed: TRUE)
 			)
 		)
 	)
@@ -302,11 +302,15 @@
 		cel 3
 		priority 5
 	)
-
+	
 	(method (handleEvent event)
-		(if (or (MousedOn self event 3) (Said 'look[<at]/drawer'))
-			(Print 45 5) ; "You notice an old dresser in the corner."
-			(event claimed: 1)
+		(if
+			(or
+				(MousedOn self event shiftDown)
+				(Said 'examine[<at]/drawer')
+			)
+			(Print 45 5)
+			(event claimed: TRUE)
 		)
 	)
 )
@@ -318,12 +322,12 @@
 		view 145
 		cel 1
 		priority 5
-		signal 16384
+		signal ignrAct
 	)
-
+	
 	(method (handleEvent event)
-		(if (MousedOn self event 3)
-			(event claimed: 1)
+		(if (MousedOn self event shiftDown)
+			(event claimed: TRUE)
 			(DoLook {bed})
 		)
 	)
@@ -336,10 +340,10 @@
 		view 145
 		cel 5
 	)
-
+	
 	(method (handleEvent event)
-		(if (MousedOn self event 3)
-			(event claimed: 1)
+		(if (MousedOn self event shiftDown)
+			(event claimed: TRUE)
 			(DoLook {chair})
 		)
 	)
@@ -353,10 +357,10 @@
 		cel 4
 		priority 5
 	)
-
+	
 	(method (handleEvent event)
-		(if (MousedOn self event 3)
-			(event claimed: 1)
+		(if (MousedOn self event shiftDown)
+			(event claimed: TRUE)
 			(DoLook {table})
 		)
 	)
@@ -370,18 +374,18 @@
 		cel 7
 		priority 12
 	)
-
+	
 	(method (handleEvent event)
-		(cond
+		(cond 
 			((Said 'get/toy,animal')
-				(Print 45 6) ; "Some of these old toys are fragile. Better leave them alone."
+				(Print 45 6)
 			)
 			((Said 'play')
-				(Print 45 7) ; "You really have better things to do, Laura!"
+				(Print 45 7)
 			)
-			((or (MousedOn self event 3) (Said 'look/toy,animal'))
-				(Print 45 8) ; "There are some old toys left over from many years ago."
-				(event claimed: 1)
+			((or (MousedOn self event shiftDown) (Said 'examine/toy,animal'))
+				(Print 45 8)
+				(event claimed: TRUE)
 			)
 		)
 	)
@@ -394,17 +398,21 @@
 		view 145
 		cel 6
 		priority 10
-		signal 16384
+		signal ignrAct
 	)
-
+	
 	(method (handleEvent event)
-		(cond
-			((Said 'look<in/dollhouse,(cabin<doll)')
-				(Print 45 9) ; "The old dollhouse is empty."
+		(cond 
+			((Said 'examine<in/dollhouse,(cabin<doll)')
+				(Print 45 9)
 			)
-			((or (MousedOn self event 3) (Said 'look/(cabin<doll),dollhouse'))
-				(Print 45 10) ; "It's a wonderful old dollhouse. But you'd better leave it alone."
-				(event claimed: 1)
+			(
+				(or
+					(MousedOn self event shiftDown)
+					(Said 'examine/(cabin<doll),dollhouse')
+				)
+				(Print 45 10)
+				(event claimed: TRUE)
 			)
 		)
 	)
@@ -418,10 +426,10 @@
 		cel 9
 		priority 12
 	)
-
+	
 	(method (handleEvent event)
-		(if (MousedOn self event 3)
-			(event claimed: 1)
+		(if (MousedOn self event shiftDown)
+			(event claimed: TRUE)
 			(DoLook {couch})
 		)
 	)
@@ -435,11 +443,11 @@
 		cel 10
 		priority 12
 	)
-
+	
 	(method (handleEvent event)
-		(if (or (MousedOn self event 3) (Said 'look/shelf'))
-			(Print 45 11) ; "You see several old toys on the dusty shelves."
-			(event claimed: 1)
+		(if (or (MousedOn self event shiftDown) (Said 'examine/shelf'))
+			(Print 45 11)
+			(event claimed: TRUE)
 		)
 	)
 )
@@ -452,11 +460,11 @@
 		cel 8
 		priority 12
 	)
-
+	
 	(method (handleEvent event)
-		(if (MousedOn self event 3)
-			(Print 45 11) ; "You see several old toys on the dusty shelves."
-			(event claimed: 1)
+		(if (MousedOn self event shiftDown)
+			(Print 45 11)
+			(event claimed: TRUE)
 		)
 	)
 )
@@ -468,77 +476,75 @@
 		view 145
 		cel 11
 	)
-
+	
 	(method (handleEvent event)
-		(cond
-			((Said 'open,(look<in)/luggage')
-				(Print 45 12) ; "It's locked."
+		(cond 
+			((Said 'open,(examine<in)/luggage')
+				(Print 45 12)
 			)
 			((Said 'get/luggage')
-				(Print 45 13) ; "You'd look silly carrying around a suitcase!"
+				(Print 45 13)
 			)
-			((or (MousedOn self event 3) (Said 'look/luggage'))
-				(Print 45 14) ; "You notice a suitcase next to the bed. It must belong to Ethel."
-				(event claimed: 1)
+			((or (MousedOn self event shiftDown) (Said 'examine/luggage'))
+				(Print 45 14)
+				(event claimed: TRUE)
 			)
 		)
 	)
 )
 
-(instance Ethel of Act
+(instance Ethel of Actor
 	(properties
 		y 100
 		x 68
 		view 327
-		illegalBits 0
+		illegalBits $0000
 	)
-
+	
 	(method (handleEvent event)
-		(cond
-			((Said 'look<in/drink,glass')
-				(Print 45 15) ; "Ethel seems to be drinking a strong alcoholic drink."
-			)
-			((Said 'look/drink,glass,give,handkerchief')
-				(Print 45 16) ; "Ethel holds a drink and a white hanky in her hand."
-			)
-			((Said 'get>')
-				(cond
-					((Said '/drink,glass')
-						(Print 45 17) ; "That's Ethel's drink."
-					)
-					((Said '/handkerchief')
-						(Print 45 18) ; "It's hers!"
+		(return
+			(cond 
+				((Said 'examine<in/drink,glass')
+					(Print 45 15)
+				)
+				((Said 'examine/drink,glass,deliver,handkerchief')
+					(Print 45 16)
+				)
+				((Said 'get>')
+					(cond 
+						((Said '/drink,glass')
+							(Print 45 17)
+						)
+						((Said '/handkerchief')
+							(Print 45 18)
+						)
 					)
 				)
-			)
-			((and (MousedOn self event 3) (not (& global207 $0008)))
-				(event claimed: 1)
-				(DoLook {ethel})
-			)
-			(
-				(and
-					(& global207 $0008)
-					(or (MousedOn self event 3) (Said 'look/ethel'))
+				((and (MousedOn self event shiftDown) (not (& global207 $0008)))
+					(event claimed: TRUE)
+					(DoLook {ethel})
 				)
-				(event claimed: 1)
-				(Print 45 19) ; "Ethel is relaxing in her room after a long day."
-			)
-			((Said 'talk/ethel')
-				(= global213 4)
-				(switch local1
-					(0
-						(Say 1 45 20) ; "Where is Lillian, Laura? I'd like to speak with her."
-						(= global213 12)
-						(Say 1 45 21) ; "She went to freshen up in the bathroom. She'll be right back."
+				(
+					(and
+						(& global207 $0008)
+						(or (MousedOn self event shiftDown) (Said 'examine/ethel'))
 					)
-					(1
-						(Say 1 45 22) ; "Why don't you go find Lillian?"
-					)
-					(else
-						(Say 1 45 23) ; "Run along, Laura."
-					)
+					(event claimed: TRUE)
+					(Print 45 19)
 				)
-				(++ local1)
+				((Said 'converse/ethel')
+					(= theTalker talkETHEL)
+					(switch talkCount
+						(0
+							(Say 1 45 20)
+							(= theTalker talkLAURA)
+							(Say 1 45 21)
+						)
+						(1 (Say 1 45 22))
+						(else  (Say 1 45 23))
+					)
+					(++ talkCount)
+				)
 			)
 		)
 	)
@@ -561,4 +567,3 @@
 		loop 3
 	)
 )
-

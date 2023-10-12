@@ -1,9 +1,8 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-;;; Decompiled by sluicebox
 (script# 13)
-(include sci.sh)
+(include game.sh)
 (use Main)
-(use Interface)
+(use Intrface)
 (use RFeature)
 (use Sound)
 (use Motion)
@@ -14,7 +13,6 @@
 (public
 	Room13 0
 )
-
 (synonyms
 	(fence corral)
 	(room barn)
@@ -24,250 +22,245 @@
 	local0
 	local1
 )
-
-(instance Room13 of Rm
+(instance Room13 of Room
 	(properties
 		picture 13
 	)
-
+	
 	(method (init)
 		(= north 9)
 		(= horizon 100)
 		(super init:)
-		(LoadMany rsSOUND 107 108)
-		(if (== gAct 1)
-			(self setRegions: 381) ; walkabout
+		(LoadMany SOUND 107 108)
+		(if (== currentAct 1)
+			(self setRegions: 381)
 		)
 		(Door
-			cel: (if (== gPrevRoomNum 69) 3 else 0)
-			ignoreActors: 1
+			cel: (if (== prevRoomNum 69) 3 else 0)
+			ignoreActors: TRUE
 			init:
 			stopUpd:
 		)
-		(= global373 Door)
+		(= gDoor Door)
 		(mySound init:)
-		(= global374 mySound)
-		(if gDetailLevel
-			(Splash1 ignoreActors: 1 init: hide:)
-			(Splash2 ignoreActors: 1 init: hide:)
+		(= gMySound mySound)
+		(if howFast
+			(Splash1 ignoreActors: TRUE init: hide:)
+			(Splash2 ignoreActors: TRUE init: hide:)
 		)
 		(self setFeatures: Window1 Window2 Window3 Hay1 Hay2)
-		(gEgo illegalBits: -32766)
-		(if (and (>= gAct 2) (< gAct 4))
-			(self setRegions: 202) ; EthelDrunk
+		(ego illegalBits: (| cWHITE cBLUE))
+		(if (and (>= currentAct 2) (< currentAct 4))
+			(self setRegions: 202)
 		)
 		(if
 			(or
-				(and (== gAct 3) (!= global114 10))
-				(and (== gAct 6) (not (& gMustDos $0002)))
+				(and (== currentAct 3) (!= global114 10))
+				(and (== currentAct 6) (not (& global118 $0002)))
 			)
-			(self setRegions: 281) ; rudywand
+			(self setRegions: 281)
 		)
-		(switch gPrevRoomNum
-			(9
-				(gEgo posn: 276 101)
-			)
-			(14
-				(gEgo posn: 295 125)
-			)
-			(20
-				(gEgo loop: 3 posn: 297 187)
-			)
-			(21
-				(gEgo posn: 310 159)
-			)
-			(25
-				(gEgo posn: 178 188)
-			)
+		(switch prevRoomNum
+			(9 (ego posn: 276 101))
+			(14 (ego posn: 295 125))
+			(20 (ego loop: 3 posn: 297 187))
+			(21 (ego posn: 310 159))
+			(25 (ego posn: 178 188))
 			(69
-				(gEgo posn: 147 142)
+				(ego posn: 147 142)
 				(HandsOff)
 				(self setScript: exit)
 			)
 		)
-		(gEgo view: 0 init:)
+		(ego view: 0 init:)
 	)
-
+	
 	(method (doit)
-		(if (IsFirstTimeInRoom)
-			(Print 13 0) ; "On the west corner of the island, you see an old dilapidated stable surrounded by an empty corral."
+		(if (FirstEntry)
+			(Print 13 0)
 		)
 		(if
 			(and
-				(& (gEgo onControl: 0) $0010)
-				(or (== (gEgo loop:) 3) (== (gEgo loop:) 1))
+				(& (ego onControl: FALSE) cRED)
+				(or (== (ego loop?) 3) (== (ego loop?) 1))
 				(not local0)
-				(== (Door cel:) 0)
+				(== (Door cel?) 0)
 			)
 			(= local0 1)
-			(= global131 0)
+			(= gMyMusic 0)
 			(self setScript: myDoor)
 		)
-		(if (and (== gPrevRoomNum 69) (not local1) (== (Door cel:) 0))
+		(if
+			(and
+				(== prevRoomNum 69)
+				(not local1)
+				(== (Door cel?) 0)
+			)
 			(= local1 1)
 			(Door stopUpd:)
 		)
-		(if (& (gEgo onControl: 1) $0002)
-			(gCurRoom newRoom: 69)
+		(if (& (ego onControl: origin) cBLUE)
+			(curRoom newRoom: 69)
 		)
 		(if
 			(and
-				(& (gEgo onControl: 1) $4000)
-				(!= (gEgo mover:) 0)
-				gDetailLevel
+				(& (ego onControl: origin) cYELLOW)
+				(!= (ego mover?) 0)
+				howFast
 			)
-			(switch (gEgo loop:)
+			(switch (ego loop?)
 				(2
-					(if (== (gEgo cel:) 2)
+					(if (== (ego cel?) 2)
 						(Splash1
-							posn: (+ (gEgo x:) 5) (gEgo y:)
+							posn: (+ (ego x?) 5) (ego y?)
 							cel: 0
 							show:
-							setCycle: End
+							setCycle: EndLoop
 						)
 					)
-					(if (== (gEgo cel:) 5)
+					(if (== (ego cel?) 5)
 						(Splash2
-							posn: (+ (gEgo x:) 5) (gEgo y:)
+							posn: (+ (ego x?) 5) (ego y?)
 							cel: 0
 							show:
-							setCycle: End
+							setCycle: EndLoop
 						)
 					)
 				)
 				(3
-					(if (== (gEgo cel:) 2)
+					(if (== (ego cel?) 2)
 						(Splash1
-							posn: (+ (gEgo x:) 5) (gEgo y:)
+							posn: (+ (ego x?) 5) (ego y?)
 							cel: 0
 							show:
-							setCycle: End
+							setCycle: EndLoop
 						)
 					)
-					(if (== (gEgo cel:) 5)
+					(if (== (ego cel?) 5)
 						(Splash2
-							posn: (+ (gEgo x:) 5) (gEgo y:)
+							posn: (+ (ego x?) 5) (ego y?)
 							cel: 0
 							show:
-							setCycle: End
+							setCycle: EndLoop
 						)
 					)
 				)
-				(else
-					(if (== (gEgo cel:) 0)
+				(else 
+					(if (== (ego cel?) 0)
 						(Splash1
-							posn: (- (gEgo x:) 2) (+ (gEgo y:) 1)
+							posn: (- (ego x?) 2) (+ (ego y?) 1)
 							cel: 0
 							show:
-							setCycle: End
+							setCycle: EndLoop
 						)
 					)
-					(if (== (gEgo cel:) 4)
+					(if (== (ego cel?) 4)
 						(Splash2
-							posn: (- (gEgo x:) 2) (+ (gEgo y:) 1)
+							posn: (- (ego x?) 2) (+ (ego y?) 1)
 							cel: 0
 							show:
-							setCycle: End
+							setCycle: EndLoop
 						)
 					)
 				)
 			)
 		)
-		(switch (gEgo edgeHit:)
-			(EDGE_RIGHT
-				(if (< (gEgo y:) 135)
-					(gCurRoom newRoom: 14)
+		(switch (ego edgeHit?)
+			(EAST
+				(if (< (ego y?) 135)
+					(curRoom newRoom: 14)
 				else
-					(gCurRoom newRoom: 21)
+					(curRoom newRoom: 21)
 				)
 			)
-			(EDGE_BOTTOM
-				(if (> (gEgo x:) 188)
-					(gCurRoom newRoom: 20)
+			(SOUTH
+				(if (> (ego x?) 188)
+					(curRoom newRoom: 20)
 				else
-					(gCurRoom newRoom: 25)
+					(curRoom newRoom: 25)
 				)
 			)
 		)
 		(super doit:)
 	)
-
+	
 	(method (dispose)
 		(super dispose:)
 	)
-
-	(method (newRoom newRoomNumber)
-		(cond
-			((== newRoomNumber 69)
-				(gConMusic stop:)
+	
+	(method (handleEvent event &tmp temp0)
+		(if (event claimed?) (return TRUE))
+		(return
+			(if (== (event type?) saidEvent)
+				(cond 
+					((Said 'examine>')
+						(cond 
+							((Said '[<around,at][/room]')
+								(Print 13 0)
+							)
+							((Said '<in/room')
+								(Print 13 1)
+							)
+							((Said '/chapel')
+								(Print 13 2)
+							)
+							((Said '<(in,above)/fence')
+								(Print 13 3)
+							)
+							((Said '/fence')
+								(Print 13 4)
+							)
+						)
+					)
+					((Said '/archway')
+						(Print 13 5)
+					)
+					(
+						(or
+							(Said 'climb,hop/fence')
+							(Said 'enter,((go,get)<in)/fence')
+						)
+						(Print 13 6)
+					)
+				)
+			else
+				FALSE
+			)
+		)
+	)
+	
+	(method (newRoom n)
+		(cond 
+			((== n 69)
+				(cSound stop:)
 			)
 			((== global198 200)
 				(++ global198)
-				(|= gCorpseFlags $0002) ; Wilbur
+				(|= deadGuests deadWILBUR)
 			)
 		)
-		(super newRoom: newRoomNumber)
-	)
-
-	(method (handleEvent event &tmp temp0)
-		(if (event claimed:)
-			(return 1)
-		)
-		(if (== (event type:) evSAID)
-			(cond
-				((Said 'look>')
-					(cond
-						((Said '[<around,at][/room]')
-							(Print 13 0) ; "On the west corner of the island, you see an old dilapidated stable surrounded by an empty corral."
-						)
-						((Said '<in/room')
-							(Print 13 1) ; "You can't. The door is closed"
-						)
-						((Said '/chapel')
-							(Print 13 2) ; "You see the little chapel in the distance to the north."
-						)
-						((Said '<(in,above)/fence')
-							(Print 13 3) ; "There is nothing but weeds in the corral."
-						)
-						((Said '/fence')
-							(Print 13 4) ; "An empty corral surrounds the old stable."
-						)
-					)
-				)
-				((Said '/archway')
-					(Print 13 5) ; "You don't see a gate here."
-				)
-				(
-					(or
-						(Said 'climb,hop/fence')
-						(Said 'enter,((go,get)<in)/fence')
-					)
-					(Print 13 6) ; "There is nothing of interest in the corral."
-				)
-			)
-		)
+		(super newRoom: n)
 	)
 )
 
 (instance myDoor of Script
-	(properties)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
 				(HandsOff)
 				(mySound number: 107 loop: 1 play:)
-				(Door cycleSpeed: 3 setCycle: End self)
-				(if (not global131)
-					(gEgo ignoreControl: 2)
+				(Door cycleSpeed: 3 setCycle: EndLoop self)
+				(if (not gMyMusic)
+					(ego ignoreControl: cBLUE)
 				)
 			)
 			(1
 				(Door stopUpd:)
-				(if (not global131)
-					(gEgo setMotion: MoveTo 145 133)
+				(if (not gMyMusic)
+					(ego setMotion: MoveTo 145 133)
 				else
-					(= global131 2)
+					(= gMyMusic 2)
 					(= cycles 1)
 				)
 			)
@@ -280,12 +273,11 @@
 )
 
 (instance exit of Script
-	(properties)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
-				(Door setCycle: Beg self)
+				(Door setCycle: BegLoop self)
 				(mySound number: 108 loop: 1 play:)
 			)
 			(1
@@ -303,11 +295,11 @@
 		view 113
 		priority 3
 	)
-
+	
 	(method (handleEvent event)
-		(if (or (MousedOn self event 3) (Said 'look/door'))
-			(event claimed: 1)
-			(Print 13 7) ; "It's a wide, sliding door."
+		(if (or (MousedOn self event shiftDown) (Said 'examine/door'))
+			(event claimed: TRUE)
+			(Print 13 7)
 		)
 	)
 )
@@ -333,18 +325,18 @@
 		nsBottom 92
 		nsRight 44
 	)
-
+	
 	(method (handleEvent event)
-		(cond
-			((Said 'open,look<(in,through)/window,room')
-				(Print 13 8) ; "You can't get close enough."
+		(cond 
+			((Said 'open,examine<(in,through)/window,room')
+				(Print 13 8)
 			)
 			((Said 'break/window')
-				(Print 13 9) ; "There's no need for that!"
+				(Print 13 9)
 			)
-			((or (MousedOn self event 3) (Said 'look/window'))
-				(event claimed: 1)
-				(Print 13 10) ; "The stable seems to have plenty of windows."
+			((or (MousedOn self event shiftDown) (Said 'examine/window'))
+				(event claimed: TRUE)
+				(Print 13 10)
 			)
 		)
 	)
@@ -357,11 +349,11 @@
 		nsBottom 98
 		nsRight 90
 	)
-
+	
 	(method (handleEvent event)
-		(if (MousedOn self event 3)
-			(event claimed: 1)
-			(Print 13 10) ; "The stable seems to have plenty of windows."
+		(if (MousedOn self event shiftDown)
+			(event claimed: TRUE)
+			(Print 13 10)
 		)
 	)
 )
@@ -373,11 +365,11 @@
 		nsBottom 36
 		nsRight 175
 	)
-
+	
 	(method (handleEvent event)
-		(if (MousedOn self event 3)
-			(event claimed: 1)
-			(Print 13 10) ; "The stable seems to have plenty of windows."
+		(if (MousedOn self event shiftDown)
+			(event claimed: TRUE)
+			(Print 13 10)
 		)
 	)
 )
@@ -389,18 +381,18 @@
 		nsBottom 149
 		nsRight 130
 	)
-
+	
 	(method (handleEvent event)
-		(cond
+		(cond 
 			((Said 'move,press/bale')
-				(Print 13 11) ; "The soggy bales of hay are too heavy to move."
+				(Print 13 11)
 			)
 			((Said 'get/bale')
-				(Print 13 12) ; "You don't want to carry around soggy hay!"
+				(Print 13 12)
 			)
-			((or (MousedOn self event 3) (Said 'look/bale'))
-				(event claimed: 1)
-				(Print 13 13) ; "Soggy bales of hay lie outside the stable door."
+			((or (MousedOn self event shiftDown) (Said 'examine/bale'))
+				(event claimed: TRUE)
+				(Print 13 13)
 			)
 		)
 	)
@@ -413,11 +405,11 @@
 		nsBottom 123
 		nsRight 239
 	)
-
+	
 	(method (handleEvent event)
-		(if (MousedOn self event 3)
-			(event claimed: 1)
-			(Print 13 13) ; "Soggy bales of hay lie outside the stable door."
+		(if (MousedOn self event shiftDown)
+			(event claimed: TRUE)
+			(Print 13 13)
 		)
 	)
 )
@@ -427,4 +419,3 @@
 		number 107
 	)
 )
-

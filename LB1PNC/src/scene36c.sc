@@ -1,9 +1,8 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-;;; Decompiled by sluicebox
 (script# 324)
-(include sci.sh)
+(include game.sh)
 (use Main)
-(use Interface)
+(use Intrface)
 (use Sound)
 (use Motion)
 (use Game)
@@ -17,13 +16,12 @@
 (local
 	local0
 )
-
-(instance scene36c of Rm
+(instance scene36c of Room
 	(properties
 		picture 62
-		style 7
+		style IRISOUT
 	)
-
+	
 	(method (init)
 		(super init:)
 		(HandsOff)
@@ -31,9 +29,9 @@
 		(glorSmoke
 			setLoop: 4
 			posn: 148 89
-			setCycle: Fwd
+			setCycle: Forward
 			setPri: 2
-			ignoreActors: 1
+			ignoreActors: TRUE
 			init:
 		)
 		(glorEye setPri: 2 init: stopUpd: setScript: GlorsEyes)
@@ -44,27 +42,26 @@
 			setPri: 3
 			xStep: 5
 			yStep: 5
-			ignoreActors: 1
+			ignoreActors: TRUE
 			init:
 		)
 		(self setScript: twice)
 	)
-
+	
 	(method (doit)
 		(super doit:)
 	)
-
+	
 	(method (dispose)
 		(super dispose:)
 	)
-
+	
 	(method (handleEvent event)
 		(super handleEvent: event)
 	)
 )
 
 (instance GlorsEyes of Script
-	(properties)
 
 	(method (changeState newState)
 		(switch (= state newState)
@@ -73,7 +70,7 @@
 				(= seconds (Random 2 5))
 			)
 			(1
-				(glorEye startUpd: setCycle: Beg self)
+				(glorEye startUpd: setCycle: BegLoop self)
 				(= state -1)
 			)
 		)
@@ -81,28 +78,27 @@
 )
 
 (instance twice of Script
-	(properties)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
-				(cond
+				(cond 
 					((not global216)
 						(= state -1)
 					)
-					((not (& gMustDos $0008))
-						(|= gMustDos $0008)
-						(self setScript: (ScriptID 406 0)) ; Clock
+					((not (& global118 $0008))
+						(|= global118 $0008)
+						(self setScript: (ScriptID 406 0))
 						(= state -1)
 					)
-					((self script:)
+					((self script?)
 						(= state -1)
 					)
 				)
 				(= cycles 1)
 			)
 			(1
-				(Print 324 0 #dispose) ; "It's just Gloria listening to the Victrola."
+				(Print 324 0 #dispose)
 				(= seconds 4)
 			)
 			(2
@@ -110,7 +106,7 @@
 				(glorHand setMotion: MoveTo 186 111 self)
 			)
 			(3
-				(gCurRoom newRoom: gPrevRoomNum)
+				(curRoom newRoom: prevRoomNum)
 			)
 		)
 	)
@@ -124,7 +120,7 @@
 	)
 )
 
-(instance glorSmoke of Act
+(instance glorSmoke of Actor
 	(properties
 		y 89
 		x 148
@@ -143,7 +139,7 @@
 	)
 )
 
-(instance glorHand of Act
+(instance glorHand of Actor
 	(properties
 		y 111
 		x 167
@@ -151,7 +147,4 @@
 	)
 )
 
-(instance myMusic of Sound
-	(properties)
-)
-
+(instance myMusic of Sound)

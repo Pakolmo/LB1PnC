@@ -1,10 +1,10 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-;;; Decompiled by sluicebox
 (script# 214)
-(include sci.sh)
+(include game.sh)
 (use Main)
 (use Motion)
 (use Actor)
+
 
 (class HighLite of Prop
 	(properties
@@ -16,7 +16,7 @@
 		ignoreCast 0
 		eyesID 0
 	)
-
+	
 	(method (init)
 		(super init:)
 		(self HighLitePosn:)
@@ -26,74 +26,66 @@
 			cel: 0
 			setPri: 2
 			posn: highLiteX highLiteY
-			ignoreActors: 1
-			setCycle: Fwd
+			ignoreActors: TRUE
+			setCycle: Forward
 		)
-		(self leadingEdge: (/ (+ (- (self brRight:) (self brLeft:)) 1) 2))
+		(self
+			leadingEdge: (/ (+ (- (self brRight?) (self brLeft?)) 1) 2)
+		)
 	)
-
-	(method (doit &tmp temp0 temp1 temp2 temp3 temp4 temp5)
+	
+	(method (doit &tmp node nextNode obj theX theCel numCels)
 		(self HighLitePosn:)
 		(self posn: highLiteX highLiteY)
 		(if (not ignoreCast)
-			(for ((= temp0 (gCast first:))) temp0 ((= temp0 temp1))
-				(= temp1 (gCast next: temp0))
+			(= node (cast first:))
+			(while node
+				(= nextNode (cast next: node))
 				(if
 					(and
-						(IsObject (= temp2 (NodeValue temp0)))
-						(!= temp2 gEgo)
-						(!= temp2 self)
-						(!= temp2 eyesID)
+						(IsObject (= obj (NodeValue node)))
+						(!= obj ego)
+						(!= obj self)
+						(!= obj eyesID)
 					)
-					(= temp3 (- (temp2 x:) (self x:)))
-					(if (>= leadingEdge (Abs temp3))
-						(= temp5 (NumCels temp2))
+					(= theX (- (obj x?) (self x?)))
+					(if (>= leadingEdge (Abs theX))
+						(= numCels (NumCels obj))
 						(if
 							(<
-								(= temp4
+								(= theCel
 									(+
 										(/
-											(*
-												(+
-													(/
-														(* temp3 1000)
-														leadingEdge
-													)
-													5
-												)
-												(/ temp5 2)
-											)
+											(* (+ (/ (* theX 1000) leadingEdge) 5) (/ numCels 2))
 											1000
 										)
-										(/ temp5 2)
+										(/ numCels 2)
 									)
 								)
-								temp5
+								numCels
 							)
-							(temp2 show: cel: temp4 forceUpd:)
+							(obj show: cel: theCel forceUpd:)
 						)
 					else
-						(temp2 hide:)
+						(obj hide:)
 					)
 				)
+				(= node nextNode)
 			)
 		)
 		(super doit:)
 	)
-
+	
 	(method (handleEvent event)
-		(if (event claimed:)
-			(return)
-		)
+		(if (event claimed?) (return))
 	)
-
-	(method (HighLitePosn &tmp temp0)
-		(if (or (== (= temp0 (gEgo loop:)) 2) (== temp0 1))
-			(= highLiteX (- (gEgo x:) deltaX))
+	
+	(method (HighLitePosn &tmp egoLoop)
+		(if (or (== (= egoLoop (ego loop?)) 2) (== egoLoop 1))
+			(= highLiteX (- (ego x?) deltaX))
 		else
-			(= highLiteX (+ (gEgo x:) deltaX))
+			(= highLiteX (+ (ego x?) deltaX))
 		)
-		(= highLiteY (- (gEgo y:) deltaY))
+		(= highLiteY (- (ego y?) deltaY))
 	)
 )
-

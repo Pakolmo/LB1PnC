@@ -1,9 +1,8 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-;;; Decompiled by sluicebox
 (script# 20)
-(include sci.sh)
+(include game.sh)
 (use Main)
-(use Interface)
+(use Intrface)
 (use RFeature)
 (use Sound)
 (use Motion)
@@ -20,170 +19,163 @@
 	local1
 	local2
 )
-
-(instance Room20 of Rm
+(instance Room20 of Room
 	(properties
 		picture 20
 	)
-
+	
 	(method (init)
 		(= west 13)
 		(= east 21)
 		(= north 14)
 		(= horizon 96)
 		(super init:)
-		(LoadMany rsSOUND 43 44)
-		(if gDetailLevel
+		(LoadMany SOUND 43 44)
+		(if howFast
 			(Squirel init: setScript: runAway)
 		)
-		(Door cel: (if (== gPrevRoomNum 61) 3 else 0) init: stopUpd:)
+		(Door
+			cel: (if (== prevRoomNum 61) 3 else 0)
+			init:
+			stopUpd:
+		)
 		(self setFeatures: Window1 Window2 Window3 Window4 Box)
-		(if (and (>= gAct 2) (== global113 gCurRoomNum))
-			(self setRegions: 202) ; EthelDrunk
+		(if (and (>= currentAct 2) (== global113 curRoomNum))
+			(self setRegions: 202)
 		)
 		(if
 			(and
-				(== global114 gCurRoomNum)
+				(== global114 curRoomNum)
 				(or
-					(== gAct 3)
-					(and (== gAct 6) (not (& gMustDos $0002)))
+					(== currentAct 3)
+					(and (== currentAct 6) (not (& global118 $0002)))
 				)
 			)
-			(self setRegions: 281) ; rudywand
+			(self setRegions: 281)
 		)
-		(switch gPrevRoomNum
-			(25
-				(gEgo posn: 84 188)
-			)
-			(26
-				(gEgo posn: 297 188)
-			)
-			(14
-				(gEgo posn: 305 100)
-			)
+		(switch prevRoomNum
+			(25 (ego posn: 84 188))
+			(26 (ego posn: 297 188))
+			(14 (ego posn: 305 100))
 			(61
 				(= local1 1)
-				(gEgo loop: 2 posn: 82 166)
+				(ego loop: 2 posn: 82 166)
 				(self setScript: enterFrom61)
 			)
-			(13
-				(gEgo posn: 3 177)
-			)
+			(13 (ego posn: 3 177))
 		)
-		(gEgo view: 0 illegalBits: -32768 init:)
+		(ego view: 0 illegalBits: cWHITE init:)
 	)
-
+	
 	(method (doit)
-		(if (IsFirstTimeInRoom)
-			(Print 20 0) ; "You have come upon a run-down carriage house. Old crates have been piled before one of the doors. For obvious reasons, it has not been used as a carriage house for some time."
+		(if (FirstEntry)
+			(Print 20 0)
 		)
 		(if
 			(and
-				(& (gEgo onControl: 1) $0008)
-				(== (gEgo loop:) 3)
+				(& (ego onControl: origin) cCYAN)
+				(== (ego loop?) 3)
 				(not local0)
 			)
 			(= local0 1)
 			(self setScript: myDoor)
 		)
-		(if (& (gEgo onControl: 1) $0002)
-			(gCurRoom newRoom: 61)
+		(if (& (ego onControl: origin) cBLUE)
+			(curRoom newRoom: 61)
 		)
-		(if (== (gEgo edgeHit:) EDGE_BOTTOM)
-			(if (< (gEgo x:) 188)
-				(gCurRoom newRoom: 25)
+		(if (== (ego edgeHit?) SOUTH)
+			(if (< (ego x?) 188)
+				(curRoom newRoom: 25)
 			else
-				(gCurRoom newRoom: 26)
+				(curRoom newRoom: 26)
 			)
 		)
 		(super doit:)
 	)
-
+	
 	(method (dispose)
 		(super dispose:)
 	)
-
-	(method (newRoom newRoomNumber)
-		(if (and (& gCorpseFlags $0008) (!= newRoomNumber 61)) ; Ethel
-			(= gEthelState 101)
-		)
-		(if (== newRoomNumber 61)
-			(gConMusic stop:)
-		)
-		(super newRoom: newRoomNumber)
-	)
-
+	
 	(method (handleEvent event &tmp temp0)
-		(if (event claimed:)
-			(return 1)
-		)
-		(if (== (event type:) evSAID)
-			(cond
-				((Said 'look>')
-					(cond
-						(
-							(or
-								(Said '[<around,at][/room]')
-								(Said '/cabin[<buggy]')
+		(if (event claimed?) (return TRUE))
+		(return
+			(if (== (event type?) saidEvent)
+				(cond 
+					((Said 'examine>')
+						(cond 
+							(
+								(or
+									(Said '[<around,at][/room]')
+									(Said '/cabin[<buggy]')
+								)
+								(Print 20 0)
 							)
-							(Print 20 0) ; "You have come upon a run-down carriage house. Old crates have been piled before one of the doors. For obvious reasons, it has not been used as a carriage house for some time."
-						)
-						((Said '/drive,path')
-							(Print 20 1) ; "A small, dirt driveway leads to the old carriage house."
+							((Said '/drive,path')
+								(Print 20 1)
+							)
 						)
 					)
+					((Said 'open/box,box')
+						(Print 20 2)
+					)
+					((Said 'move,press,get/box,box')
+						(Print 20 3)
+					)
 				)
-				((Said 'open/box,box')
-					(Print 20 2) ; "They're just old crates. There's nothing of interest inside them."
-				)
-				((Said 'move,press,get/box,box')
-					(Print 20 3) ; "The crates are much too heavy for you to move."
-				)
+			else
+				FALSE
 			)
 		)
+	)
+	
+	(method (newRoom n)
+		(if (and (& deadGuests deadETHEL) (!= n 61))
+			(= global200 101)
+		)
+		(if (== n 61)
+			(cSound stop:)
+		)
+		(super newRoom: n)
 	)
 )
 
 (instance myDoor of Script
-	(properties)
 
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
 				(HandsOff)
-				(gEgo illegalBits: 0)
+				(ego illegalBits: 0)
 				(myMusic number: 43 loop: 1 play:)
-				(Door cycleSpeed: 3 setCycle: End self)
+				(Door cycleSpeed: 3 setCycle: EndLoop self)
 			)
 			(1
-				(Door ignoreActors: 1 stopUpd:)
-				(if (gEgo inRect: 80 0 84 200)
+				(Door ignoreActors: TRUE stopUpd:)
+				(if (ego inRect: 80 0 84 200)
 					(= cycles 1)
 				else
-					(gEgo setMotion: MoveTo 82 (gEgo y:) self)
+					(ego setMotion: MoveTo 82 (ego y?) self)
 				)
 			)
 			(2
-				(gEgo setMotion: MoveTo 82 158 self)
+				(ego setMotion: MoveTo 82 158 self)
 			)
-			(3
-				(client setScript: 0)
-			)
+			(3 (client setScript: 0))
 		)
 	)
 )
 
 (instance enterFrom61 of Script
-	(properties)
 
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
 				(HandsOff)
-				(gEgo setMotion: MoveTo 82 175 self)
+				(ego setMotion: MoveTo 82 175 self)
 			)
 			(1
-				(Door cycleSpeed: 1 setCycle: Beg self)
+				(Door cycleSpeed: 1 setCycle: BegLoop self)
 				(myMusic number: 44 loop: 1 play:)
 			)
 			(2
@@ -197,18 +189,13 @@
 )
 
 (instance runAway of Script
-	(properties)
 
 	(method (changeState newState)
 		(switch (= state newState)
-			(0
-				(= seconds (Random 3 8))
-			)
-			(1
-				(Squirel setCycle: End self)
-			)
+			(0 (= seconds (Random 3 8)))
+			(1 (Squirel setCycle: EndLoop self))
 			(2
-				(Squirel posn: 309 (Squirel y:) setCycle: End self)
+				(Squirel posn: 309 (Squirel y?) setCycle: EndLoop self)
 			)
 			(3
 				(Squirel dispose:)
@@ -224,15 +211,15 @@
 		x 286
 		view 206
 	)
-
+	
 	(method (handleEvent event)
-		(cond
+		(cond 
 			((Said 'get,capture/squirrel')
-				(Print 20 4) ; "They are very difficult to catch."
+				(Print 20 4)
 			)
-			((or (MousedOn self event 3) (Said 'look/squirrel'))
-				(event claimed: 1)
-				(Print 20 5) ; "You have frightened off a little squirrel."
+			((or (MousedOn self event shiftDown) (Said 'examine/squirrel'))
+				(event claimed: TRUE)
+				(Print 20 5)
 			)
 		)
 	)
@@ -244,11 +231,11 @@
 		x 73
 		view 120
 	)
-
+	
 	(method (handleEvent event)
-		(if (or (MousedOn self event 3) (Said 'look/door'))
-			(event claimed: 1)
-			(Print 20 6) ; "It's a large, carriage house door."
+		(if (or (MousedOn self event shiftDown) (Said 'examine/door'))
+			(event claimed: TRUE)
+			(Print 20 6)
 		)
 	)
 )
@@ -259,25 +246,25 @@
 		nsBottom 131
 		nsRight 31
 	)
-
+	
 	(method (handleEvent event)
-		(cond
+		(cond 
 			((Said 'open/window')
-				(Print 20 7) ; "The windows do not open."
+				(Print 20 7)
 			)
 			((Said 'break/window')
-				(Print 20 8) ; "Why do that? Just use the door!"
+				(Print 20 8)
 			)
-			((Said 'look<(in,through)/window,(cabin<buggy)')
-				(if (& (gEgo onControl: 0) $0040)
-					(Print 20 9) ; "You peek through the window, but can't make out any details."
+			((Said 'examine<(in,through)/window,(cabin<buggy)')
+				(if (& (ego onControl: FALSE) cBROWN)
+					(Print 20 9)
 				else
-					(NotClose) ; "You're not close enough."
+					(NotClose)
 				)
 			)
-			((or (MousedOn self event 3) (Said 'look/window'))
-				(event claimed: 1)
-				(Print 20 10) ; "You see some large windows in the carriage house."
+			((or (MousedOn self event shiftDown) (Said 'examine/window'))
+				(event claimed: TRUE)
+				(Print 20 10)
 			)
 		)
 	)
@@ -290,11 +277,11 @@
 		nsBottom 116
 		nsRight 209
 	)
-
+	
 	(method (handleEvent event)
-		(if (MousedOn self event 3)
-			(event claimed: 1)
-			(Print 20 10) ; "You see some large windows in the carriage house."
+		(if (MousedOn self event shiftDown)
+			(event claimed: TRUE)
+			(Print 20 10)
 		)
 	)
 )
@@ -306,11 +293,11 @@
 		nsBottom 72
 		nsRight 114
 	)
-
+	
 	(method (handleEvent event)
-		(if (MousedOn self event 3)
-			(event claimed: 1)
-			(Print 20 10) ; "You see some large windows in the carriage house."
+		(if (MousedOn self event shiftDown)
+			(event claimed: TRUE)
+			(Print 20 10)
 		)
 	)
 )
@@ -322,11 +309,11 @@
 		nsBottom 50
 		nsRight 273
 	)
-
+	
 	(method (handleEvent event)
-		(if (MousedOn self event 3)
-			(event claimed: 1)
-			(Print 20 10) ; "You see some large windows in the carriage house."
+		(if (MousedOn self event shiftDown)
+			(event claimed: TRUE)
+			(Print 20 10)
 		)
 	)
 )
@@ -338,21 +325,18 @@
 		nsBottom 143
 		nsRight 289
 	)
-
+	
 	(method (handleEvent event)
-		(cond
-			((Said 'look<in/box')
-				(Print 20 2) ; "They're just old crates. There's nothing of interest inside them."
+		(cond 
+			((Said 'examine<in/box')
+				(Print 20 2)
 			)
-			((or (MousedOn self event 3) (Said 'look/box'))
-				(event claimed: 1)
-				(Print 20 11) ; "A couple of old crates are piled in front of the carriage house."
+			((or (MousedOn self event shiftDown) (Said 'examine/box'))
+				(event claimed: TRUE)
+				(Print 20 11)
 			)
 		)
 	)
 )
 
-(instance myMusic of Sound
-	(properties)
-)
-
+(instance myMusic of Sound)

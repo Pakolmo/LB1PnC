@@ -1,7 +1,6 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-;;; Decompiled by sluicebox
 (script# 780)
-(include sci.sh)
+(include game.sh)
 (use Main)
 (use Wander)
 (use Motion)
@@ -14,20 +13,19 @@
 )
 
 (local
-	local0
+	creditShown
 )
-
-(instance boat of Rm
+(instance boat of Room
 	(properties
 		picture 79
-		style 7
+		style IRISOUT
 	)
-
+	
 	(method (init)
 		(super init:)
 		(HandsOff)
-		(Load rsVIEW 202)
-		(Load rsFONT 41)
+		(Load VIEW 202)
+		(Load FONT 41)
 		(skiff
 			view: 202
 			loop: 0
@@ -39,13 +37,13 @@
 			init:
 		)
 		(skiff cel: (- (NumCels skiff) 1))
-		(if gDetailLevel
+		(if howFast
 			(ripple
 				view: 202
 				loop: 1
 				cel: 0
 				setPri: 12
-				setCycle: Fwd
+				setCycle: Forward
 				setStep: 1 1
 				init:
 			)
@@ -53,9 +51,9 @@
 				view: 202
 				loop: 5
 				posn: 143 134
-				setCycle: Fwd
+				setCycle: Forward
 				cycleSpeed: 2
-				ignoreActors: 1
+				ignoreActors: TRUE
 				init:
 			)
 			(fly1
@@ -65,11 +63,11 @@
 				posn: (Random 60 260) (Random 40 150)
 				setStep: 3 3
 				observeBlocks: picWindow
-				ignoreActors: 1
-				ignoreHorizon: 1
+				ignoreActors: TRUE
+				ignoreHorizon: TRUE
 				setMotion: Wander 5
 				cycleSpeed: 2
-				setCycle: Fwd
+				setCycle: Forward
 				init:
 			)
 			(fly2
@@ -79,11 +77,11 @@
 				posn: (Random 60 260) (Random 40 150)
 				setStep: 3 3
 				observeBlocks: picWindow
-				ignoreActors: 1
-				ignoreHorizon: 1
+				ignoreActors: TRUE
+				ignoreHorizon: TRUE
 				setMotion: Wander 5
 				cycleSpeed: 2
-				setCycle: Fwd
+				setCycle: Forward
 				init:
 			)
 			(fly3
@@ -93,11 +91,11 @@
 				posn: (Random 60 260) (Random 40 150)
 				setStep: 3 3
 				observeBlocks: picWindow
-				ignoreActors: 1
-				ignoreHorizon: 1
+				ignoreActors: TRUE
+				ignoreHorizon: TRUE
 				setMotion: Wander 5
 				cycleSpeed: 2
-				setCycle: Fwd
+				setCycle: Forward
 				init:
 			)
 			(fly4
@@ -107,11 +105,11 @@
 				posn: (Random 60 260) (Random 40 150)
 				setStep: 3 3
 				observeBlocks: picWindow
-				ignoreActors: 1
-				ignoreHorizon: 1
+				ignoreActors: TRUE
+				ignoreHorizon: TRUE
 				setMotion: Wander 5
 				cycleSpeed: 2
-				setCycle: Fwd
+				setCycle: Forward
 				init:
 			)
 			(fly5
@@ -121,11 +119,11 @@
 				posn: (Random 60 260) (Random 40 150)
 				setStep: 3 3
 				observeBlocks: picWindow
-				ignoreActors: 1
-				ignoreHorizon: 1
+				ignoreActors: TRUE
+				ignoreHorizon: TRUE
 				setMotion: Wander 5
 				cycleSpeed: 2
-				setCycle: Fwd
+				setCycle: Forward
 				init:
 			)
 			(fly6
@@ -135,69 +133,94 @@
 				posn: (Random 60 260) (Random 40 150)
 				setStep: 3 3
 				observeBlocks: picWindow
-				ignoreActors: 1
-				ignoreHorizon: 1
+				ignoreActors: TRUE
+				ignoreHorizon: TRUE
 				setMotion: Wander 5
 				cycleSpeed: 2
-				setCycle: Fwd
+				setCycle: Forward
 				init:
 			)
 		)
 		(picWindow left: 60 right: 260 bottom: 150 top: 40 init:)
-		(Display 780 0 dsCOORD 100 30 dsWIDTH 240 dsCOLOR 15 dsBACKGROUND -1 dsFONT 0) ; "Two nights later..."
-		(gConMusic number: 5 loop: -1 play:)
-	)
-
-	(method (handleEvent event)
-		(if (event claimed:)
-			(return)
+		(Display 780 0
+			p_at 100 30
+			p_width 240
+			p_color vWHITE
+			p_back -1
+			p_font SYSFONT
 		)
-		(switch (event type:)
-			(evKEYBOARD
-				(cond
-					((or (== (event message:) KEY_S) (== (event message:) KEY_s))
+		(cSound number: 5 loop: -1 play:)
+	)
+	
+	(method (doit &tmp skiffX)
+		(ripple
+			posn: (+ (= skiffX (skiff x?)) 37) (+ (skiff y?) 1)
+		)
+		(if (and (not creditShown) (> skiffX 60))
+			(Display 780 1
+				p_at 61 44
+				p_width 240
+				p_color vBLACK
+				p_back -1
+				p_font 41
+			)
+			(Display 780 1
+				p_at 60 43
+				p_width 240
+				p_color vWHITE
+				p_back -1
+				p_font 41
+			)
+			(= creditShown TRUE)
+		)
+	)
+	
+	(method (dispose)
+		(DisposeScript WANDER)
+		(super dispose:)
+	)
+	
+	(method (handleEvent event)
+		(if (event claimed?) (return))
+		(switch (event type?)
+			(keyDown
+				(cond 
+					(
+						(or
+							(== (event message?) `S)
+							(== (event message?) `s)
+						)
 						(cls)
 						(event claimed: 1)
-						(gCurRoom newRoom: 781) ; dock
+						(curRoom newRoom: 781)
 					)
-					((or (== (event message:) KEY_RETURN) (== (event message:) KEY_SPACE))
-						(SetFlag 50)
+					(
+						(or
+							(== (event message?) ENTER)
+							(== (event message?) SPACEBAR)
+						)
+						(Bset fSkippedIntro)
 					)
 				)
 			)
-			(evMOUSEBUTTON
-				(SetFlag 50)
+			(mouseDown
+				(Bset fSkippedIntro)
 			)
 		)
-		(if (IsFlag 50)
+		(if (Btst fSkippedIntro)
 			(cls)
-			(event claimed: 1)
-			(gCurRoom newRoom: 44)
+			(event claimed: TRUE)
+			(curRoom newRoom: 44)
 		)
 	)
-
-	(method (doit &tmp temp0)
-		(ripple posn: (+ (= temp0 (skiff x:)) 37) (+ (skiff y:) 1))
-		(if (and (not local0) (> temp0 60))
-			(Display 780 1 dsCOORD 61 44 dsWIDTH 240 dsCOLOR 0 dsBACKGROUND -1 dsFONT 41) ; "Programmed by: Chris Hoyt & Chris Iden"
-			(Display 780 1 dsCOORD 60 43 dsWIDTH 240 dsCOLOR 15 dsBACKGROUND -1 dsFONT 41) ; "Programmed by: Chris Hoyt & Chris Iden"
-			(= local0 1)
-		)
-	)
-
-	(method (dispose)
-		(DisposeScript 976)
-		(super dispose:)
-	)
-
+	
 	(method (cue)
 		(cls)
-		(gCurRoom newRoom: 781) ; dock
+		(curRoom newRoom: 781)
 	)
 )
 
 (instance Polling of Script
-	(properties)
 
 	(method (changeState newState)
 		(switch (= state newState)
@@ -205,57 +228,36 @@
 				(= cycles (Random 15 50))
 			)
 			(1
-				(if (skiff cel:)
-					(skiff setCycle: Beg self)
+				(if (skiff cel?)
+					(skiff setCycle: BegLoop self)
 				else
 					(= cycles 1)
 				)
 			)
 			(2
-				(skiff setCycle: End self)
+				(skiff setCycle: EndLoop self)
 				(= state -1)
 			)
 		)
 	)
 )
 
-(instance reflection of Prop
-	(properties)
-)
+(instance reflection of Prop)
 
-(instance skiff of Act
-	(properties)
-)
+(instance skiff of Actor)
 
-(instance ripple of Act
-	(properties)
-)
+(instance ripple of Actor)
 
-(instance fly1 of Act
-	(properties)
-)
+(instance fly1 of Actor)
 
-(instance fly2 of Act
-	(properties)
-)
+(instance fly2 of Actor)
 
-(instance fly3 of Act
-	(properties)
-)
+(instance fly3 of Actor)
 
-(instance fly4 of Act
-	(properties)
-)
+(instance fly4 of Actor)
 
-(instance fly5 of Act
-	(properties)
-)
+(instance fly5 of Actor)
 
-(instance fly6 of Act
-	(properties)
-)
+(instance fly6 of Actor)
 
-(instance picWindow of Cage
-	(properties)
-)
-
+(instance picWindow of Cage)

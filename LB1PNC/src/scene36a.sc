@@ -1,9 +1,8 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-;;; Decompiled by sluicebox
 (script# 321)
-(include sci.sh)
+(include game.sh)
 (use Main)
-(use Interface)
+(use Intrface)
 (use Sound)
 (use Motion)
 (use Game)
@@ -17,59 +16,70 @@
 (local
 	local0
 	local1
-	local2
-	local3
-	local4
+	theCycles
+	mouthCued
+	saveBits
+)
+(procedure (Measure &tmp [str 500])
+	(GetFarText &rest @str)
+	(= theCycles (+ (/ (StrLen @str) 3) 1))
 )
 
-(procedure (localproc_0 &tmp [temp0 500])
-	(GetFarText &rest @temp0)
-	(= local2 (+ (/ (StrLen @temp0) 3) 1))
-)
-
-(procedure (localproc_1)
-	(puff cel: 0 setCycle: End show:)
-	(localproc_0 &rest)
-	(+= local2 (/ local2 4))
+(procedure (GlorPrint)
+	(puff cel: 0 setCycle: EndLoop show:)
+	(Measure &rest)
+	(= theCycles (+ theCycles (/ theCycles 4)))
 	(glorMouth setScript: cycleMouth)
-	(Print &rest #at 160 120 #font 4 #width 140 #mode 1 #dispose)
+	(Print &rest
+		#at 160 120
+		#font 4
+		#width 140
+		#mode teJustCenter
+		#dispose
+	)
 )
 
-(procedure (localproc_2)
+(procedure (RudyPrint)
 	(puff hide:)
-	(localproc_0 &rest)
+	(Measure &rest)
 	(rudyMouth setScript: cycleMouth)
-	(Print &rest #at 20 120 #font 4 #width 140 #mode 1 #dispose)
+	(Print &rest
+		#at 20 120
+		#font 4
+		#width 140
+		#mode teJustCenter
+		#dispose
+	)
 )
 
-(procedure (localproc_3)
-	(|= gSpyFlags $0001)
-	(= [gCycleTimers 0] 0)
-	(= [gCycleTimers 2] 1800)
-	(SetFlag 23)
-	(SetFlag 24)
+(procedure (localproc_00b2)
+	(|= global173 $0001)
+	(= [global368 0] 0)
+	(= [global368 2] 1800)
+	(Bset 23)
+	(Bset 24)
 )
 
-(instance scene36a of Rm
+(instance scene36a of Room
 	(properties
 		picture 62
-		style 7
+		style IRISOUT
 	)
-
+	
 	(method (init)
 		(super init:)
-		(Load rsFONT 4)
+		(Load FONT 4)
 		(HandsOff)
 		(myMusic number: 27 loop: -1 play:)
-		(if (not (& gSpyFlags $0001))
-			(if (== [gCycleTimers 0] 1)
-				(localproc_3)
+		(if (not (& global173 $0001))
+			(if (== [global368 0] 1)
+				(localproc_00b2)
 				(= global199 1)
 			else
-				(Load rsFONT 41)
-				(LoadMany rsMESSAGE 406)
-				(Load rsVIEW 642)
-				(LoadMany rsSOUND 29 94 95 96)
+				(Load FONT 41)
+				(LoadMany 143 406)
+				(Load VIEW 642)
+				(LoadMany SOUND 29 94 95 96)
 				(Rudy setPri: 1 init: stopUpd:)
 				(rudyMouth setPri: 2 init: hide:)
 				(rudyEye setPri: 2 init: stopUpd: setScript: RudysEyes)
@@ -79,34 +89,47 @@
 		(if (== global199 1)
 			(self setScript: noOne)
 		else
-			(Smoke setLoop: 4 setPri: 2 ignoreActors: 1 init: stopUpd: hide:)
+			(Smoke
+				setLoop: 4
+				setPri: 2
+				ignoreActors: TRUE
+				init:
+				stopUpd:
+				hide:
+			)
 			(glow init: stopUpd: hide:)
 			(glorMouth setPri: 2 init:)
 			(glorEye setPri: 2 init: stopUpd: setScript: GlorsEyes)
 			(Gloria setPri: 1 init:)
 			(puff setPri: 1 init: hide:)
-			(Hand setLoop: 1 setCel: 0 setPri: 3 ignoreActors: 1 init: stopUpd:)
-			(if (& gSpyFlags $0001)
+			(Hand
+				setLoop: 1
+				setCel: 0
+				setPri: 3
+				ignoreActors: TRUE
+				init:
+				stopUpd:
+			)
+			(if (& global173 $0001)
 				(self setScript: twice)
 			)
 		)
 	)
-
+	
 	(method (doit)
 		(super doit:)
 	)
-
+	
 	(method (dispose)
 		(super dispose:)
 	)
-
+	
 	(method (handleEvent event)
 		(super handleEvent: event)
 	)
 )
 
 (instance RudysEyes of Script
-	(properties)
 
 	(method (changeState newState)
 		(switch (= state newState)
@@ -131,7 +154,6 @@
 )
 
 (instance GlorsEyes of Script
-	(properties)
 
 	(method (changeState newState)
 		(switch (= state newState)
@@ -139,7 +161,7 @@
 				(= seconds (Random 2 5))
 			)
 			(1
-				(glorEye setCycle: Beg self)
+				(glorEye setCycle: BegLoop self)
 				(= state -1)
 			)
 		)
@@ -147,134 +169,114 @@
 )
 
 (instance speech36a of Script
-	(properties)
-
-	(method (handleEvent event &tmp temp0)
-		(super handleEvent: event)
-		(if
-			(and
-				(not (event claimed:))
-				(== evKEYBOARD (event type:))
-				(or (== (event message:) KEY_S) (== (event message:) KEY_s))
-			)
-			(cls)
-			(if (not (& gSpyFlags $0001))
-				(localproc_3)
-			)
-			(gCurRoom newRoom: gPrevRoomNum)
-		)
-		(if (== evMOUSEBUTTON (event type:))
-			(= temp0
-				(Print {Skip scene?}
-					#button {Yes} 1
-					#button {No} 0
-				)
-			)
-			(if (== temp0 1)
-				(cls)
-				(if (not (& gSpyFlags $0001))
-					(localproc_3)
-				)
-				(gCurRoom newRoom: gPrevRoomNum)
-			)
-		)
-	)
-
+	
 	(method (doit)
 		(super doit:)
 		(if (>= state 1)
-			(cond
+			(cond 
 				((and (== (mod state 2) 0) state (!= state 12))
 					(= local0 0)
 					(glorMouth loop: 3 cycleSpeed: 0)
 					(Hand setMotion: MoveTo 167 111)
 					(glow hide:)
-					(if (and (== (Hand x:) 167) (== (Hand y:) 111))
-						(Smoke posn: 148 89 show: setCycle: Fwd)
+					(if (and (== (Hand x?) 167) (== (Hand y?) 111))
+						(Smoke posn: 148 89 show: setCycle: Forward)
 					)
 				)
-				((and (== (Hand x:) 186) (== (Hand y:) 111) (== local0 0))
+				(
+					(and
+						(== (Hand x?) 186)
+						(== (Hand y?) 111)
+						(== local0 0)
+					)
 					(= local0 1)
 					(glow show:)
-					(glorMouth loop: 2 cycleSpeed: 3 setCycle: Fwd show:)
+					(glorMouth loop: 2 cycleSpeed: 3 setCycle: Forward show:)
 					(Smoke hide:)
 				)
 				((not local0)
 					(Hand setMotion: MoveTo 186 111)
 					(Smoke setMotion: MoveTo 169 89)
-					(glorMouth setCycle: End)
+					(glorMouth setCycle: EndLoop)
 				)
 			)
 		)
 	)
-
+	
 	(method (changeState newState)
-		(if (cycleMouth client:)
-			(= local3 1)
+		(if (cycleMouth client?)
+			(= mouthCued TRUE)
 			(= cycles 1)
 		else
 			(switch (= state newState)
 				(0
-					(cond
+					(cond 
 						((not global216)
 							(= state -1)
 						)
-						((not (& gMustDos $0001))
-							(|= gMustDos $0001)
-							(self setScript: (ScriptID 406 0)) ; Clock
+						((not (& global118 $0001))
+							(|= global118 $0001)
+							(self setScript: (ScriptID 406 0))
 							(= state -1)
 						)
-						((self script:)
+						((self script?)
 							(= state -1)
 						)
 					)
 					(= cycles 1)
 				)
 				(1
-					(= local4
-						(Display 321 0 dsCOORD 48 8 dsWIDTH 256 dsCOLOR 15 dsBACKGROUND -1 dsFONT 0 dsSAVEPIXELS) ; "Press the 'S' key to skip this scene."
+					(= saveBits
+						(Display 321 0
+							p_at 48 8
+							p_width 256
+							p_color vWHITE
+							p_back -1
+							p_font SYSFONT
+							p_save
+						)
 					)
-					(localproc_2 321 1) ; "What a skinflint Uncle Henri is. Man, what I could do with his dough!"
+					(RudyPrint 321 1)
 					(= seconds 10)
 				)
 				(2
-					(localproc_1 321 2) ; "How rich is he, dahling?"
+					(GlorPrint 321 2)
 					(= seconds 4)
 				)
 				(3
-					(localproc_2 321 3) ; "Don't know for sure. At least a couple mil."
+					(RudyPrint 321 3)
 					(= seconds 7)
 				)
 				(4
-					(localproc_1 321 4) ; "If he's so rich, why doesn't he keep this place up better? It's such a dump."
+					(GlorPrint 321 4)
 					(= seconds 10)
 				)
 				(5
-					(localproc_2 321 5) ; "The old miser wouldn't part with a penny if he could help it. I wonder if Fifi's getting any of his money, though."
+					(RudyPrint 321 5)
 					(= seconds 8)
 				)
 				(6
-					(localproc_1 321 6) ; "I bet she's trying to, anyway. Why, she practically has him wound around her little finger. Dahling, it's disgusting!"
+					(GlorPrint 321 6)
 					(= seconds 10)
 				)
 				(7
-					(localproc_2 321 7) ; "Speaking of disgusting, what are you going to do about Clarence?"
+					(RudyPrint 321 7)
 					(= seconds 8)
 				)
 				(8
-					(localproc_1 321 8) ; "Oh, HIM. I've decided to break up with Clarence. I have a new beau, a director, no less. He's such a doll!"
+					(GlorPrint 321 8)
 					(= seconds 10)
 				)
 				(9
-					(localproc_2 321 9) ; "Clarence isn't going to like it when you break it off. I don't trust him at all, the snake!"
+					(RudyPrint 321 9)
 					(= seconds 8)
 				)
 				(10
-					(localproc_1 321 10) ; "Oh, dahling, that reminds me! Remember that little medical problem I had? I don't trust Wilbur to keep it quiet. It could ruin my career if it got out! I've got to talk to him."
+					(GlorPrint 321 10)
 					(= seconds 10)
 				)
 				(11
-					(localproc_2 321 11) ; "You do that, my dear sister. As for me, I'm going to retire to my room for awhile. Kiss, kiss."
+					(RudyPrint 321 11)
 					(= seconds 8)
 				)
 				(12
@@ -282,33 +284,51 @@
 					(Rudy
 						setLoop: 1
 						setStep: 5 5
-						setMotion: MoveTo -40 (Rudy y:) self
+						setMotion: MoveTo -40 (Rudy y?) self
 					)
 					(rudyEye hide:)
 				)
 				(13
-					(localproc_3)
-					(gCurRoom newRoom: gPrevRoomNum)
+					(localproc_00b2)
+					(curRoom newRoom: prevRoomNum)
 				)
 			)
+		)
+	)
+	
+	(method (handleEvent event)
+		(super handleEvent: event)
+		(if
+			(and
+				(not (event claimed?))
+				(== keyDown (event type?))
+				(or
+					(== (event message?) `S)
+					(== (event message?) `s)
+				)
+			)
+			(cls)
+			(if (not (& global173 $0001))
+				(localproc_00b2)
+			)
+			(curRoom newRoom: prevRoomNum)
 		)
 	)
 )
 
 (instance twice of Script
-	(properties)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
-				(Smoke posn: 148 89 show: setCycle: Fwd)
+				(Smoke posn: 148 89 show: setCycle: Forward)
 				(= cycles 1)
 			)
 			(1
 				(if (== global199 2)
-					(Print 321 12 #dispose) ; "It's just Gloria listening to the Victrola."
+					(Print 321 12 #dispose)
 				else
-					(Print 321 13 #dispose) ; "Gloria is alone in the billiard room."
+					(Print 321 13 #dispose)
 				)
 				(= seconds 4)
 			)
@@ -318,44 +338,42 @@
 				(Hand setMotion: MoveTo 186 111 self)
 			)
 			(3
-				(gCurRoom newRoom: gPrevRoomNum)
+				(curRoom newRoom: prevRoomNum)
 			)
 		)
 	)
 )
 
 (instance noOne of Script
-	(properties)
 
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
-				(Print 321 14 #at 65 67 #dispose) ; "There is nothing of interest in the billiard room."
+				(Print 321 14 #at 65 67 #dispose)
 				(= seconds 5)
 			)
 			(1
-				(gCurRoom newRoom: gPrevRoomNum)
+				(curRoom newRoom: prevRoomNum)
 			)
 		)
 	)
 )
 
 (instance cycleMouth of Script
-	(properties)
-
+	
 	(method (doit)
 		(super doit:)
-		(if local3
-			(= local3 0)
+		(if mouthCued
+			(= mouthCued FALSE)
 			(= cycles 1)
 		)
 	)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
-				(client cel: 0 setCycle: Fwd show:)
-				(= cycles local2)
+				(client cel: 0 setCycle: Forward show:)
+				(= cycles theCycles)
 			)
 			(1
 				(client setScript: 0 hide:)
@@ -370,11 +388,11 @@
 		y 110
 		x 231
 		view 367
-		signal 16384
+		signal ignrAct
 	)
 )
 
-(instance Rudy of Act
+(instance Rudy of Actor
 	(properties
 		y 111
 		x 97
@@ -382,7 +400,7 @@
 	)
 )
 
-(instance Smoke of Act
+(instance Smoke of Actor
 	(properties
 		y 89
 		x 148
@@ -444,11 +462,11 @@
 		x 196
 		view 367
 		loop 8
-		signal 16384
+		signal $4000
 	)
 )
 
-(instance Hand of Act
+(instance Hand of Actor
 	(properties
 		y 111
 		x 167
@@ -458,7 +476,4 @@
 	)
 )
 
-(instance myMusic of Sound
-	(properties)
-)
-
+(instance myMusic of Sound)

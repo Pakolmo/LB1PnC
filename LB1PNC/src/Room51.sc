@@ -1,10 +1,9 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-;;; Decompiled by sluicebox
 (script# 51)
-(include sci.sh)
+(include game.sh)
 (use Main)
 (use HighLite)
-(use Interface)
+(use Intrface)
 (use RFeature)
 (use Sound)
 (use Motion)
@@ -15,7 +14,6 @@
 (public
 	Room51 0
 )
-
 (synonyms
 	(stair upstair)
 	(room room passage)
@@ -24,28 +22,25 @@
 (local
 	local0
 )
+(instance glow of HighLite)
 
-(instance glow of HighLite
-	(properties)
-)
-
-(instance Room51 of Rm
+(instance Room51 of Room
 	(properties
 		picture 51
 	)
-
+	
 	(method (init)
 		(= horizon 0)
 		(= west 55)
 		(= global189 51)
 		(super init:)
-		(self setRegions: 242 setFeatures: trapdoor) ; tunnelReg
-		(gAddToPics add: trapdoor eachElementDo: #init doit:)
-		(if global137
-			(if (== gPrevRoomNum 65)
+		(self setRegions: 242 setFeatures: trapdoor)
+		(addToPics add: trapdoor eachElementDo: #init doit:)
+		(if lanternIsLit
+			(if (== prevRoomNum 65)
 				(= local0 0)
 				(HandsOff)
-				(gEgo
+				(ego
 					loop: 1
 					posn: 222 91
 					illegalBits: 0
@@ -53,16 +48,16 @@
 				)
 			else
 				(= local0 1)
-				(gEgo loop: 0 y: 170)
+				(ego loop: 0 y: 170)
 			)
-			(gEgo view: 7 xStep: 3 init:)
+			(ego view: 7 xStep: 3 init:)
 			(glow deltaX: 8 deltaY: 8 ignoreCast: 1 init:)
 			(rat
 				view: 151
 				setLoop: 3
 				setStep: 5 5
 				illegalBits: 0
-				ignoreActors: 1
+				ignoreActors: TRUE
 				posn: 139 171
 				setCycle: Walk
 				init:
@@ -70,7 +65,7 @@
 			)
 		else
 			(HandsOff)
-			(gEgo
+			(ego
 				view: 49
 				loop: 1
 				posn: 222 91
@@ -80,118 +75,113 @@
 			)
 		)
 	)
-
+	
 	(method (doit)
-		(if (and (IsFirstTimeInRoom) global137)
-			(Print 51 0) ; "This looks like an underground passage of some sort. Boy, it sure is dark down here! The sudden sound of scurrying rats causes your heart to begin beating wildly."
+		(if (and (FirstEntry) lanternIsLit)
+			(Print 51 0)
 		)
-		(if (and (not local0) (< (gEgo x:) 117))
+		(if (and (not local0) (< (ego x?) 117))
 			(= local0 1)
 		)
-		(if (and local0 (& (gEgo onControl: 1) $0008))
+		(if (and local0 (& (ego onControl: origin) cCYAN))
 			(HandsOff)
-			(gEgo illegalBits: 0 setMotion: MoveTo 244 80)
+			(ego illegalBits: 0 setMotion: MoveTo 244 80)
 		)
-		(if (& (gEgo onControl: 1) $0002)
-			(gEgo illegalBits: -32768)
-			(gCurRoom newRoom: 65)
+		(if (& (ego onControl: origin) cBLUE)
+			(ego illegalBits: cWHITE)
+			(curRoom newRoom: 65)
 		)
 		(super doit:)
 	)
-
+	
 	(method (dispose)
 		(DisposeScript 214)
 		(super dispose:)
 	)
-
-	(method (newRoom newRoomNumber)
-		(super newRoom: newRoomNumber)
-	)
-
+	
 	(method (handleEvent event &tmp temp0)
-		(if (event claimed:)
-			(return)
-		)
-		(if (== (event type:) evSAID)
-			(cond
+		(if (event claimed?) (return))
+		(if (== (event type?) saidEvent)
+			(cond 
 				((Said '*/dinosaur')
-					(Print 51 1) ; "What dinosaur? You don't see a dinosaur!"
+					(Print 51 1)
 				)
 				((Said '*/bone')
-					(Print 51 2) ; "What bones? You don't see any bones!"
+					(Print 51 2)
 				)
-				((Said 'look>')
-					(cond
+				((Said 'examine>')
+					(cond 
 						((Said '[<around,at][/room]')
-							(Print 51 0) ; "This looks like an underground passage of some sort. Boy, it sure is dark down here! The sudden sound of scurrying rats causes your heart to begin beating wildly."
+							(Print 51 0)
 						)
 						((Said '/stair')
-							(Print 51 3) ; "The steep stairs lead upward to a trapdoor."
+							(Print 51 3)
 						)
 						((Said '/boulder')
-							(Print 51 4) ; "The slime-coated rocks glisten in the lantern's glow."
+							(Print 51 4)
 						)
 					)
 				)
 				((Said 'open/trapdoor')
-					(Print 51 5) ; "The trapdoor is already open."
+					(Print 51 5)
 				)
 				((Said 'close/trapdoor')
-					(Print 51 6) ; "It would be better not to."
+					(Print 51 6)
 				)
 				((Said 'climb/stair')
-					(Print 51 7) ; "Just do that yourself."
+					(Print 51 7)
 				)
 			)
 		)
 	)
-
+	
 	(method (cue)
 		(HandsOn)
-		(gEgo illegalBits: -32768)
+		(ego illegalBits: cWHITE)
+	)
+	
+	(method (newRoom n)
+		(super newRoom: n)
 	)
 )
 
 (instance tumble of Script
 	(properties)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
 				(Falling priority: 5 play:)
-				(gEgo setCycle: End self)
+				(ego setCycle: EndLoop self)
 			)
 			(1
-				(gEgo
+				(ego
 					setLoop: 3
-					setCycle: Fwd
+					setCycle: Forward
 					xStep: 8
 					yStep: 8
 					setMotion: MoveTo 100 158 self
 				)
 			)
 			(2
-				(gEgo posn: 103 171 setLoop: 5 cel: 0 setCycle: End self)
-				(ShakeScreen 5 5) ; ssUPDOWN | $0004
+				(ego posn: 103 171 setLoop: 5 cel: 0 setCycle: EndLoop self)
+				(ShakeScreen 5 5)
 			)
 			(3
-				(= global128 49)
-				(= global129 5)
-				(= global130 4)
-				(EgoDead 51 8) ; "It's too dark! You can't see!!"
+				(= cIcon 49)
+				(= deathLoop 5)
+				(= deathCel 4)
+				(EgoDead 51 8)
 			)
 		)
 	)
 )
 
 (instance Scurry of Script
-	(properties)
 
 	(method (changeState newState)
 		(switch (= state newState)
-			(0
-				(= seconds (Random 3 5))
-			)
+			(0 (= seconds (Random 3 5)))
 			(1
 				(rat setMotion: MoveTo -10 169 self)
 				(ratNoise play:)
@@ -204,39 +194,38 @@
 	)
 )
 
-(instance rat of Act
-	(properties)
-
+(instance rat of Actor
+	
 	(method (handleEvent event)
-		(cond
+		(cond 
 			((Said '/mouse>')
-				(cond
-					((Said 'look')
-						(if (rat mover:)
-							(Print 51 9) ; "Your skin crawls each time you see one of the small furry shapes scurry across the floor!"
+				(cond 
+					((Said 'examine')
+						(if (rat mover?)
+							(Print 51 9)
 						else
-							(NotHere) ; "You don't see it here."
+							(DontSee)
 						)
 					)
 					((Said 'get,capture')
-						(if (rat mover:)
-							(Print 51 10) ; "What a revolting thought!"
+						(if (rat mover?)
+							(Print 51 10)
 						else
-							(NotHere) ; "You don't see it here."
+							(DontSee)
 						)
 					)
 					((Said 'kill')
-						(if (rat mover:)
-							(Print 51 11) ; "Don't worry about the rats."
+						(if (rat mover?)
+							(Print 51 11)
 						else
-							(NotHere) ; "You don't see it here."
+							(DontSee)
 						)
 					)
 				)
 			)
-			((and (rat mover:) (MousedOn self event 3))
-				(event claimed: 1)
-				(Print 51 9) ; "Your skin crawls each time you see one of the small furry shapes scurry across the floor!"
+			((and (rat mover?) (MousedOn self event shiftDown))
+				(event claimed: TRUE)
+				(Print 51 9)
 			)
 		)
 	)
@@ -261,17 +250,16 @@
 		view 151
 		priority 3
 	)
-
+	
 	(method (handleEvent event)
 		(if
 			(or
-				(MousedOn self event 3)
-				(Said 'look/trapdoor')
-				(Said 'look<up')
+				(MousedOn self event shiftDown)
+				(Said 'examine/trapdoor')
+				(Said 'examine<up')
 			)
-			(event claimed: 1)
-			(Print 51 12) ; "The trapdoor leads into the hedge garden."
+			(event claimed: TRUE)
+			(Print 51 12)
 		)
 	)
 )
-

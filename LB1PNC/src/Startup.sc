@@ -1,9 +1,8 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-;;; Decompiled by sluicebox
 (script# 411)
-(include sci.sh)
+(include game.sh)
 (use Main)
-(use Interface)
+(use Intrface)
 (use Motion)
 (use Game)
 (use Menu)
@@ -14,79 +13,77 @@
 	Startup 0
 )
 
-(instance Startup of Rgn
-	(properties)
-
+(instance Startup of Region
+	
 	(method (init)
 		(super init:)
-		(Load rsFONT 41)
-		(Load rsVIEW 642)
-		(LoadMany rsSOUND 29 94 95 96)
-		(Load rsSCRIPT 406)
-		(if (or gPossibleScore (not (IsFlag 50)))
-			(gEgo loop: 2 posn: 211 109)
+		(Load FONT 41)
+		(Load VIEW 642)
+		(LoadMany SOUND 29 94 95 96)
+		(Load SCRIPT 406)
+		(if (or possibleScore (not (Btst fSkippedIntro)))
+			(ego loop: 2 posn: 211 109)
 		else
-			(TheMenuBar state: 1)
-			(gEgo loop: 1 posn: 90 134)
-			(global373 setCycle: Walk setPri: 10 show:)
+			(TheMenuBar state: TRUE)
+			(ego loop: 1 posn: 90 134)
+			(gDoor setCycle: Walk setPri: 10 show:)
 			(daddyBow setLoop: 2 setPri: 14 init: stopUpd: hide:)
 			(suitCase setPri: 7 init:)
 		)
 		(self setScript: beginning)
 	)
-
+	
 	(method (doit)
 		(super doit:)
 	)
-
+	
 	(method (dispose)
 		(super dispose:)
 	)
-
+	
 	(method (handleEvent event)
 		(super handleEvent: event)
 	)
 )
 
 (instance beginning of Script
-	(properties)
 
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
 				(HandsOff)
-				(cond
+				(cond 
 					((not global216)
 						(= state -1)
 					)
-					((self script:)
+					((self script?)
 						(= state -1)
 					)
-					((== gHour 6)
-						(self setScript: (ScriptID 406 0)) ; Clock
+					((== gameHours 6)
+						(self setScript: (ScriptID 406 0))
 						(= state -1)
 					)
 				)
 				(= cycles 1)
 			)
 			(1
-				(if (or gPossibleScore (not (IsFlag 50)))
-					(= gPossibleScore 0)
+				(if (or possibleScore (not (Btst fSkippedIntro)))
+					(= possibleScore 0)
 					(= state 10)
 				else
-					(Print 411 0) ; "This is the guest room you share with Lillian. Though a bit tired-looking, it seems comfortable enough."
-					(= global213 6)
-					(Say 1 411 1) ; "Laura, dear. Please excuse me. I'm going to go freshen up in the bathroom. Why don't you explore the estate a bit?"
+					(Print 411 0)
+					(= theTalker talkLILLIAN)
+					(Say 1 411 1)
 				)
 				(= cycles 1)
 			)
 			(2
-				(global373 setMotion: MoveTo -20 152 self)
-				(gEgo loop: 2 stopUpd:)
+				(gDoor setMotion: MoveTo -20 152 self)
+				(ego loop: 2 stopUpd:)
 			)
 			(3
-				(= global213 12)
-				(Say 0 411 2) ; "Hmmmm...something doesn't feel right. Everybody's acting too strange...even Lillian. What would Daddy do in a situation like this?"
+				(= theTalker talkLAURA)
+				(Say 0 411 2)
 				(= cycles 1)
 			)
 			(4
@@ -103,25 +100,25 @@
 			)
 			(6
 				(daddyBow hide: dispose: delete:)
-				(gEgo startUpd:)
+				(ego startUpd:)
 				(= cycles 2)
 			)
 			(7
-				(= global213 26)
-				(Say 1 411 3) ; "Honey, if things don't feel right, they probably AREN'T. Observe the situation closely, yet be unobtrusive. Explore your surroundings quietly and carefully. Try to question the others without raising suspicion. Notice small details. Take lots of notes. And above all, be careful."
-				(gEgo setMotion: MoveTo 211 109 self)
+				(= theTalker talkDADDY)
+				(Say 1 411 3)
+				(ego setMotion: MoveTo 211 109 self)
 			)
 			(8
-				(gEgo loop: 3)
-				(suitCase cycleSpeed: 1 setCycle: End self)
+				(ego loop: 3)
+				(suitCase cycleSpeed: 1 setCycle: EndLoop self)
 			)
 			(9
-				(Print 411 4) ; "Since you never go anywhere without your trusty notebook and pencil, you go to your suitcase, open it, and remove those two items. Yes...your father is right. Observing the situation and taking notes WOULD be a good idea."
-				(suitCase setCycle: Beg self)
+				(Print 411 4)
+				(suitCase setCycle: BegLoop self)
 			)
 			(10
-				(if (or (!= (global373 x:) -20) (!= (gEgo loop:) 2))
-					(gEgo loop: 2)
+				(if (or (!= (gDoor x?) -20) (!= (ego loop?) 2))
+					(ego loop: 2)
 					(= state 9)
 				else
 					(suitCase dispose:)
@@ -129,9 +126,9 @@
 				(= cycles 1)
 			)
 			(11
-				(gEgo get: 10) ; notebook_and_pencil
+				(ego get: iNotebook)
 				(++ global203)
-				(= [gCycleTimers 4] 1800)
+				(= [global368 4] 1800)
 				(HandsOn)
 				(client setScript: 0)
 			)
@@ -148,13 +145,12 @@
 	)
 )
 
-(instance daddyBow of Act
+(instance daddyBow of Actor
 	(properties
 		y 87
 		x 96
 		view 925
-		signal 16384
-		illegalBits 0
+		signal ignrAct
+		illegalBits $0000
 	)
 )
-

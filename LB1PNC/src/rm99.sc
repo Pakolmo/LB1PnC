@@ -1,7 +1,6 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-;;; Decompiled by sluicebox
 (script# 99)
-(include sci.sh)
+(include game.sh)
 (use Main)
 (use Motion)
 (use Game)
@@ -12,71 +11,70 @@
 )
 
 (local
-	local0
+	doneTime
 )
+(instance Speedy of Actor)
 
-(instance Speedy of Act
-	(properties)
-)
-
-(instance rm99 of Rm
+(instance rm99 of Room
 	(properties
 		picture 992
-		style 6
+		style IRISIN
 	)
-
+	
 	(method (init)
 		(HandsOff)
 		(super init:)
-		(= gDetailLevel -1)
-		(if (!= gPossibleScore 1)
-			(Load rsVIEW 899)
-			(LoadMany rsMESSAGE 409)
+		(= howFast -1)
+		(if (!= possibleScore 1)
+			(Load VIEW 899)
+			(LoadMany 143 409)
 		)
 		(Speedy
 			view: 991
 			posn: 20 99
 			setStep: 1 1
 			setMotion: MoveTo 300 100
-			setCycle: Fwd
+			setCycle: Forward
 			init:
 		)
-		(gGame setSpeed: 0)
+		(theGame setSpeed: 0)
 	)
-
+	
 	(method (doit)
 		(super doit:)
-		(if (== gDetailLevel -1)
-			(if (== (++ global222) 1)
-				(= local0 (+ 60 (GetTime)))
+		(if (== howFast -1)
+			(if (== (++ machineSpeed) 1)
+				(= doneTime (+ 60 (GetTime)))
 			)
-			(if (< local0 (GetTime))
-				(cond
-					((<= global222 40)
-						(= gDetailLevel 0)
+			(if (< doneTime (GetTime))
+				(cond 
+					((<= machineSpeed 40)
+						(= howFast slow)
 					)
-					((<= global222 70)
-						(= gDetailLevel 1)
+					((<= machineSpeed 70)
+						(= howFast medium)
 					)
 					(else
-						(= gDetailLevel 2)
+						(= howFast fast)
 					)
 				)
-				(gGame setSpeed: 6)
+				(theGame setSpeed: 6)
 				(HandsOn)
-				(if (and (not gPossibleScore) (not (StrCmp {zz} (+ gVersion 7))))
-					(self setScript: (ScriptID 409 0)) ; FirstTimeCk
+				(if
+					(and
+						(not possibleScore)
+						(not (StrCmp {zz} (+ version 7)))
+					)
+					(self setScript: (ScriptID 409 0))
 				else
-					(gCurRoom
-						newRoom:
-							(switch gPossibleScore
-								(1 44)
-								(else 414)
-							)
+					(curRoom newRoom:
+						(switch possibleScore
+							(1 44)
+							(else  414)
+						)
 					)
 				)
 			)
 		)
 	)
 )
-

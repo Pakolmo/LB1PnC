@@ -1,9 +1,8 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-;;; Decompiled by sluicebox
 (script# 47)
-(include sci.sh)
+(include game.sh)
 (use Main)
-(use Interface)
+(use Intrface)
 (use DCIcon)
 (use RFeature)
 (use Sound)
@@ -16,36 +15,34 @@
 (public
 	Room47 0
 )
-
 (synonyms
 	(stair downstair upstair)
+	(room hall)
 	(armoire armoire)
 	(balcony balcony banister)
-	(room hall)
 )
 
 (local
 	local0
-	local1
+	LdoorIsOpen
 	local2
 	local3
 	local4
 	local5
 	local6
 )
-
-(instance Room47 of Rm
+(instance Room47 of Room
 	(properties
 		picture 47
 	)
-
+	
 	(method (init)
 		(super init:)
-		(= global61 0)
+		(= currentPalette 0)
 		(= south 37)
 		(= north 43)
 		(= horizon 100)
-		(gAddToPics
+		(addToPics
 			add:
 				cabL
 				cabR
@@ -62,81 +59,74 @@
 			eachElementDo: #init
 			doit:
 		)
-		(self setRegions: 211 setFeatures: Stair table1 table2 wardL wardR Rail) ; stairReg
-		(LoadMany rsVIEW 9 38 651)
-		(LoadMany rsSOUND 38 43 44 47 57 87 109)
-		(if (and gGertieRoomState (not (IsFlag 0)))
-			(= local5 1)
-			(gEgo loop: 2)
-			(Load rsPIC 11)
-			(Load rsVIEW 507)
+		(self
+			setRegions: 211
+			setFeatures: Stair table1 table2 wardL wardR Rail
 		)
-		(if gDetailLevel
+		(LoadMany VIEW 9 38 651)
+		(LoadMany SOUND 38 43 44 47 57 87 109)
+		(if (and global177 (not (Btst fSawShadowyFigure)))
+			(= local5 1)
+			(ego loop: 2)
+			(Load PICTURE 11)
+			(Load VIEW 507)
+		)
+		(if howFast
 			(chand setPri: 15 init: stopUpd: setScript: jiggle)
-			(lampL setPri: 8 setCycle: Fwd init:)
-			(lampR setPri: 8 setCycle: Fwd init:)
-			(lamp3 setPri: 15 setCycle: Fwd ignoreActors: 1 init:)
-			(lamp4 setPri: 15 setCycle: Fwd ignoreActors: 1 init:)
+			(lampL setPri: 8 setCycle: Forward init:)
+			(lampR setPri: 8 setCycle: Forward init:)
+			(lamp3 setPri: 15 setCycle: Forward ignoreActors: TRUE init:)
+			(lamp4 setPri: 15 setCycle: Forward ignoreActors: TRUE init:)
 		else
 			(chand setPri: 15 init: stopUpd:)
 			(lampL setPri: 8 init: stopUpd:)
 			(lampR setPri: 8 init: stopUpd:)
-			(lamp3 setPri: 15 ignoreActors: 1 init: stopUpd:)
-			(lamp4 setPri: 15 ignoreActors: 1 init: stopUpd:)
+			(lamp3 setPri: 15 ignoreActors: TRUE init: stopUpd:)
+			(lamp4 setPri: 15 ignoreActors: TRUE init: stopUpd:)
 		)
 		(Ldoor init: stopUpd:)
-		(rail1 setPri: 11 ignoreActors: 1 init: stopUpd:)
-		(rail2 setPri: 11 ignoreActors: 1 init: stopUpd:)
-		(if (and (== gAct 1) (not (gEgo has: 23))) ; handkerchief
-			(Load rsVIEW 17)
+		(rail1 setPri: 11 ignoreActors: TRUE init: stopUpd:)
+		(rail2 setPri: 11 ignoreActors: TRUE init: stopUpd:)
+		(if (and (== currentAct 1) (not (ego has: iHandkerchief)))
+			(Load VIEW 17)
 			(hanky init:)
 		)
-		(switch gPrevRoomNum
-			(48
-				(gEgo posn: 228 106)
-			)
-			(46
-				(gEgo posn: 105 109)
-			)
+		(switch prevRoomNum
+			(48 (ego posn: 228 106))
+			(46 (ego posn: 105 109))
 			(43
-				(cond
-					((< (gEgo x:) 99)
-						(gEgo posn: 110 105)
-					)
-					((> (gEgo x:) 222)
-						(gEgo posn: 205 105)
-					)
-					(else
-						(gEgo posn: (gEgo x:) 105)
-					)
+				(cond 
+					((< (ego x?) 99) (ego posn: 110 105))
+					((> (ego x?) 222) (ego posn: 205 105))
+					(else (ego posn: (ego x?) 105))
 				)
 			)
 			(74
-				(gEgo setPri: 9 posn: 254 114 setMotion: MoveTo 258 131)
+				(ego setPri: 9 posn: 254 114 setMotion: MoveTo 258 131)
 			)
 			(37
 				(= local3 1)
-				(if (< (gEgo x:) 160)
-					(gEgo posn: 39 188 setMotion: MoveTo 60 139)
+				(if (< (ego x?) 160)
+					(ego posn: 39 188 setMotion: MoveTo 60 139)
 				else
-					(gEgo posn: 280 188 setMotion: MoveTo 261 136)
+					(ego posn: 280 188 setMotion: MoveTo 261 136)
 				)
 			)
 		)
-		(gEgo view: 0 illegalBits: -32768 init:)
+		(ego view: 0 illegalBits: cWHITE init:)
 	)
-
+	
 	(method (doit &tmp temp0)
-		(if (IsFirstTimeInRoom)
-			(Print 47 0) ; "This is the front upstairs hallway of the plantation house. A grand staircase leads down to the lower level."
+		(if (FirstEntry)
+			(Print 47 0)
 		)
 		(if (and global216 (== local5 1))
 			(= local5 2)
-			(self setScript: (ScriptID 408 0)) ; ShdwyFig
+			(self setScript: (ScriptID 408 0))
 		)
-		(if (and (== local5 2) (IsFlag 0))
+		(if (and (== local5 2) (Btst fSawShadowyFigure))
 			(= local5 0)
-			(gAddToPics
+			(addToPics
 				add:
 					cabL
 					cabR
@@ -154,42 +144,36 @@
 				doit:
 			)
 			(self setFeatures: Stair table1 table2 wardL wardR Rail)
-			(gCast eachElementDo: #show)
+			(cast eachElementDo: #show)
 		)
 		(if (not local4)
 			(if
 				(or
-					(& (gEgo onControl: 0) $0008)
-					(& (gEgo onControl: 0) $0010)
+					(& (ego onControl: FALSE) cCYAN)
+					(& (ego onControl: FALSE) cRED)
 				)
 				(= temp0 9)
 			else
 				(= temp0 -1)
 			)
-			(gEgo setPri: temp0)
+			(ego setPri: temp0)
 		)
-		(switch (gEgo onControl: 1)
-			(4
-				(gCurRoom newRoom: 46)
-			)
-			(2
-				(gCurRoom newRoom: 48)
-			)
-			(16
-				(if (== (gEgo loop:) 3)
-					(gCurRoom newRoom: 74)
-				)
+		(switch (ego onControl: origin)
+			(cGREEN (curRoom newRoom: 46))
+			(cBLUE (curRoom newRoom: 48))
+			(cRED
+				(if (== (ego loop?) 3) (curRoom newRoom: 74))
 			)
 			(2048
 				(if (not local3)
 					(= local3 1)
-					(gEgo setMotion: MoveTo 39 190)
+					(ego setMotion: MoveTo 39 190)
 				)
 			)
 			(4096
 				(if (not local3)
 					(= local3 1)
-					(gEgo setMotion: MoveTo 280 190)
+					(ego setMotion: MoveTo 280 190)
 				)
 			)
 			(1
@@ -201,12 +185,12 @@
 				(if
 					(and
 						(== local2 0)
-						(> (gEgo heading:) 134)
-						(< (gEgo heading:) 226)
+						(> (ego heading?) 134)
+						(< (ego heading?) 226)
 					)
 					(= local2 1)
 					(= north (= south 0))
-					(if (< (gEgo x:) 160)
+					(if (< (ego x?) 160)
 						(rail1 setScript: falling)
 					else
 						(rail2 setScript: falling)
@@ -214,217 +198,201 @@
 				)
 			)
 		)
-		(if (< (gEgo y:) 145)
-			(cond
-				((< (gEgo x:) 130)
-					(= vertAngle 15)
-				)
-				((< (gEgo x:) 190)
-					(= vertAngle 0)
-				)
-				(else
-					(= vertAngle 160)
-				)
+		(if (< (ego y?) 145)
+			(cond 
+				((< (ego x?) 130) (= vertAngle 15))
+				((< (ego x?) 190) (= vertAngle 0))
+				(else (= vertAngle 160))
 			)
 		else
 			(= vertAngle 0)
 		)
 		(super doit:)
 	)
-
+	
 	(method (dispose)
 		(super dispose:)
 	)
-
-	(method (newRoom newRoomNumber)
-		(if (and (!= newRoomNumber 46) (or (== gGertieRoomState 1) (== gGertieRoomState 3)))
-			(= gGertieRoomState 2)
-		)
-		(super newRoom: newRoomNumber)
-	)
-
+	
 	(method (handleEvent event &tmp temp0)
-		(switch (event type:)
-			(evSAID
-				(cond
-					((Said 'look<down[/!*]')
-						(Print 47 1) ; "It's a long way down. Be careful!"
-					)
-					((Said 'look>')
-						(cond
-							((Said '[<around,at,down][/room]')
-								(Print 47 0) ; "This is the front upstairs hallway of the plantation house. A grand staircase leads down to the lower level."
-							)
-							((Said '/door<hidden')
-								(Print 47 2) ; "You don't see anything!"
-							)
+		(switch (event type?)
+			(saidEvent
+				(cond 
+					((Said 'examine<down[/!*]') (Print 47 1))
+					((Said 'examine>')
+						(cond 
+							((Said '[<around,at,down][/room]') (Print 47 0))
+							((Said '/door<hidden') (Print 47 2))
 							((or (Said '/door<bathroom') (Said '/bathroom'))
-								(Print 47 3) ; "The bathroom is down the hall."
+								(Print 47 3)
 							)
-							((Said '/bird,post[<newel]')
-								(Print 47 4) ; "Finely carved eagles adorn the top of the stairway's newel posts."
-							)
-							((Said '/curtain')
-								(Print 47 5) ; "Two tiffiny shades cover the lamps on the tables."
-							)
+							((Said '/bird,post[<newel]') (Print 47 4))
+							((Said '/curtain') (Print 47 5))
 						)
 					)
-					((Said 'get,force,rotate,detach/bird,post[<newel]')
-						(Print 47 6) ; "The wooden eagles are firmly attached to the newel posts. They do not move."
-					)
-					((Said '*/armoire')
-						(NotClose) ; "You're not close enough."
-					)
+					(
+					(Said 'get,force,rotate,detach/bird,post[<newel]') (Print 47 6))
+					((Said '*/armoire') (NotClose))
 				)
 			)
-			(evMOUSEBUTTON
+			(mouseDown
 				(if
 					(or
-						(== (User controls:) 0)
-						(& (gEgo onControl: 0) $0001)
-						(& (gEgo onControl: 0) $0008)
-						(& (gEgo onControl: 0) $0080)
+						(== (User controls?) 0)
+						(& (ego onControl: 0) cBLACK)
+						(& (ego onControl: 0) cCYAN)
+						(& (ego onControl: 0) cLGREY)
 					)
 					(return)
 				)
-				(switch (gEgo onControl: 0)
-					(512
-						(gEgo
+				(switch (ego onControl: 0)
+					(cLBLUE
+						(ego
 							setMotion:
 								MoveTo
-								(cond
-									((< (event y:) (gEgo y:)) 60)
-									((> (event y:) (gEgo y:)) 39)
+								(cond 
+									((< (event y?) (ego y?)) 60)
+									((> (event y?) (ego y?)) 39)
 								)
-								(cond
-									((< (event y:) (gEgo y:)) 136)
-									((> (event y:) (gEgo y:)) 190)
+								(cond 
+									((< (event y?) (ego y?)) 136)
+									((> (event y?) (ego y?)) 190)
 								)
 						)
 					)
-					(1024
-						(gEgo
+					(cLGREEN
+						(ego
 							setMotion:
 								MoveTo
-								(cond
-									((< (event y:) (gEgo y:)) 261)
-									((> (event y:) (gEgo y:)) 280)
+								(cond 
+									((< (event y?) (ego y?)) 261)
+									((> (event y?) (ego y?)) 280)
 								)
-								(cond
-									((< (event y:) (gEgo y:)) 136)
-									((> (event y:) (gEgo y:)) 190)
+								(cond 
+									((< (event y?) (ego y?)) 136)
+									((> (event y?) (ego y?)) 190)
 								)
 						)
 					)
 				)
-				(event claimed: 1)
+				(event claimed: TRUE)
 			)
-			($0040 ; direction
+			(direction
 				(if
 					(or
-						(== (User controls:) 0)
-						(& (gEgo onControl: 0) $0001)
-						(& (gEgo onControl: 0) $0008)
-						(& (gEgo onControl: 0) $0020)
-						(& (gEgo onControl: 0) $0080)
+						(== (User controls?) 0)
+						(& (ego onControl: 0) cBLACK)
+						(& (ego onControl: 0) cCYAN)
+						(& (ego onControl: 0) cMAGENTA)
+						(& (ego onControl: 0) cLGREY)
 					)
 					(return)
 				)
-				(switch (event message:)
-					(JOY_UP
-						(switch (gEgo onControl: 0)
-							(512
-								(gEgo setMotion: MoveTo 60 136)
+				(switch (event message?)
+					(dirN
+						(switch (ego onControl: 0)
+							(cLBLUE
+								(ego setMotion: MoveTo 60 136)
 							)
-							(1024
-								(gEgo setMotion: MoveTo 261 136)
-							)
-						)
-						(event claimed: 1)
-					)
-					(JOY_DOWN
-						(switch (gEgo onControl: 0)
-							(512
-								(gEgo setMotion: MoveTo 39 190)
-							)
-							(1024
-								(gEgo setMotion: MoveTo 280 190)
+							(cLGREEN
+								(ego setMotion: MoveTo 261 136)
 							)
 						)
-						(event claimed: 1)
+						(event claimed: TRUE)
 					)
-					(else
-						(event claimed: 1)
+					(dirS
+						(switch (ego onControl: 0)
+							(cLBLUE
+								(ego setMotion: MoveTo 39 190)
+							)
+							(cLGREEN
+								(ego setMotion: MoveTo 280 190)
+							)
+						)
+						(event claimed: TRUE)
+					)
+					(else 
+						(event claimed: TRUE)
 						(return)
 					)
 				)
 			)
 		)
 	)
+	
+	(method (newRoom n)
+		(if (and (!= n 46) (or (== global177 1) (== global177 3)))
+			(= global177 2)
+		)
+		(super newRoom: n)
+	)
 )
 
 (instance myDoor of Script
-	(properties)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
 				(HandsOff)
-				(if (and (== (gEgo x:) 86) (== (gEgo y:) 131))
+				(if (and (== (ego x?) 86) (== (ego y?) 131))
 					(= cycles 1)
 				else
-					(gEgo setMotion: MoveTo 86 131 self)
+					(ego setMotion: MoveTo 86 131 self)
 				)
 			)
 			(1
-				(LookAt gEgo Ldoor)
-				(Ldoor ignoreActors: 1 cycleSpeed: 2 setCycle: End self)
+				(Face ego Ldoor)
+				(Ldoor ignoreActors: TRUE cycleSpeed: 2 setCycle: EndLoop self)
 				(myMusic number: 43 loop: 1 play:)
 			)
 			(2
-				(gEgo setMotion: MoveTo 66 131 self)
+				(ego setMotion: MoveTo 66 131 self)
 			)
 			(3
-				(gEgo loop: 3)
-				(= local1 1)
-				(if (and (> gAct 0) (< gAct 7) (< (Random 1 100) 25))
+				(ego loop: 3)
+				(= LdoorIsOpen 1)
+				(if
+					(and
+						(> currentAct 0)
+						(< currentAct 7)
+						(< (Random 1 100) 25)
+					)
 					(= state 6)
 				)
 				(= seconds 2)
 			)
 			(4
-				(Print 47 7) ; "It's just an empty closet."
-				(gEgo setMotion: MoveTo 86 131 self)
+				(Print 47 7)
+				(ego setMotion: MoveTo 86 131 self)
 			)
 			(5
-				(gEgo loop: 1)
-				(Ldoor ignoreActors: 0 cycleSpeed: 2 setCycle: Beg self)
+				(ego loop: 1)
+				(Ldoor ignoreActors: 0 cycleSpeed: 2 setCycle: BegLoop self)
 				(myMusic number: 44 loop: 1 play:)
-				(= local1 0)
+				(= LdoorIsOpen 0)
 			)
 			(6
 				(HandsOn)
 				(client setScript: 0)
 			)
 			(7
-				(hand setCycle: End self init:)
+				(hand setCycle: EndLoop self init:)
 				(myMusic number: 87 loop: 1 play:)
-				(gEgo hide:)
+				(ego hide:)
 			)
 			(8
-				(myIcon view: 651 cycler: End)
-				(= global128 myIcon)
-				(= global129 0)
-				(= global130 0)
-				(= global132 1)
-				(EgoDead 47 8) ; "That's what you get for being such a snoop, Laura!"
+				(myIcon view: 651 cycler: EndLoop)
+				(= cIcon myIcon)
+				(= deathLoop 0)
+				(= deathCel 0)
+				(= cyclingIcon 1)
+				(EgoDead 47 8)
 			)
 		)
 	)
 )
 
 (instance jiggle of Script
-	(properties)
 
 	(method (changeState newState)
 		(switch (= state newState)
@@ -469,40 +437,39 @@
 )
 
 (instance falling of Script
-	(properties)
 
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
 				(HandsOff)
 				(= local4 1)
-				(Print 47 9) ; "Watch ooouuuuuuttttt!!!!"
-				(gEgo view: 9 setLoop: 0 setCycle: End self)
+				(Print 47 9)
+				(ego view: 9 setLoop: 0 setCycle: EndLoop self)
 			)
 			(1
 				(myMusic number: 38 loop: 1 play:)
-				(gEgo setLoop: 1 setCycle: Fwd)
-				(client view: 9 cel: 0 setLoop: 3 setCycle: End self)
+				(ego setLoop: 1 setCycle: Forward)
+				(client view: 9 cel: 0 setLoop: 3 setCycle: EndLoop self)
 			)
 			(2
 				(client
 					illegalBits: 0
 					setStep: 12 12
-					setMotion: MoveTo (client x:) 250
+					setMotion: MoveTo (client x?) 250
 				)
-				(gEgo
+				(ego
 					setLoop: 2
 					setPri: 15
-					setCycle: End self
+					setCycle: EndLoop self
 					illegalBits: 0
 				)
 			)
 			(3
-				(gEgo
+				(ego
 					setCel: 9
 					setCycle: 0
 					setStep: 10 10
-					setMotion: MoveTo (gEgo x:) 250 self
+					setMotion: MoveTo (ego x?) 250 self
 				)
 			)
 			(4
@@ -511,49 +478,47 @@
 				(= cycles 2)
 			)
 			(5
-				(ShakeScreen 10 5) ; ssUPDOWN | $0004
+				(ShakeScreen 10 5)
 				(= seconds 3)
 			)
 			(6
 				(myMusic number: 57 loop: 1 play: self)
-				(gEgo
+				(ego
 					view: 38
 					setCel: -1
 					setLoop: 0
 					setPri: 15
-					setCycle: Fwd
+					setCycle: Forward
 					setStep: 3 3
-					ignoreActors: 1
+					ignoreActors: TRUE
 					illegalBits: 0
-					ignoreHorizon: 1
-					setMotion: MoveTo (gEgo x:) -50 self
+					ignoreHorizon: TRUE
+					setMotion: MoveTo (ego x?) -50 self
 				)
 			)
 			(7
-				(= global128 myIcon)
-				(= global129 0)
-				(= global130 0)
-				(= global132 1)
+				(= cIcon myIcon)
+				(= deathLoop 0)
+				(= deathCel 0)
+				(= cyclingIcon 1)
 			)
-			(8
-				(EgoDead 47 10) ; "It's not a pretty sight."
-			)
+			(8 (EgoDead 47 10))
 		)
 	)
 )
 
-(instance post1 of PV
+(instance post1 of PicView
 	(properties
 		y 122
 		x 78
 		view 147
 		loop 2
 		priority 15
-		signal 16384
+		signal ignrAct
 	)
 )
 
-(instance post2 of PV
+(instance post2 of PicView
 	(properties
 		y 121
 		x 243
@@ -561,11 +526,11 @@
 		loop 2
 		cel 1
 		priority 15
-		signal 16384
+		signal ignrAct
 	)
 )
 
-(instance cabL of PV
+(instance cabL of PicView
 	(properties
 		y 53
 		x 124
@@ -576,7 +541,7 @@
 	)
 )
 
-(instance cabR of PV
+(instance cabR of PicView
 	(properties
 		y 53
 		x 199
@@ -587,7 +552,7 @@
 	)
 )
 
-(instance cat of PV
+(instance cat of PicView
 	(properties
 		y 53
 		x 143
@@ -598,7 +563,7 @@
 	)
 )
 
-(instance vase of PV
+(instance vase of PicView
 	(properties
 		y 52
 		x 177
@@ -618,11 +583,11 @@
 		cel 5
 		priority 4
 	)
-
+	
 	(method (handleEvent event)
-		(if (or (MousedOn self event 3) (Said 'look/armoire'))
-			(event claimed: 1)
-			(Print 47 11) ; "There are two armoires in the back hallway."
+		(if (or (MousedOn self event shiftDown) (Said 'examine/armoire'))
+			(event claimed: TRUE)
+			(Print 47 11)
 		)
 	)
 )
@@ -636,16 +601,16 @@
 		cel 4
 		priority 4
 	)
-
+	
 	(method (handleEvent event)
-		(if (or (MousedOn self event 3) (Said 'look/armoire'))
-			(event claimed: 1)
-			(Print 47 11) ; "There are two armoires in the back hallway."
+		(if (or (MousedOn self event shiftDown) (Said 'examine/armoire'))
+			(event claimed: TRUE)
+			(Print 47 11)
 		)
 	)
 )
 
-(instance chain2 of PV
+(instance chain2 of PicView
 	(properties
 		y 47
 		x 162
@@ -656,7 +621,7 @@
 	)
 )
 
-(instance chain3 of PV
+(instance chain3 of PicView
 	(properties
 		y 65
 		x 162
@@ -675,10 +640,10 @@
 		loop 2
 		cel 10
 	)
-
+	
 	(method (handleEvent event)
-		(if (MousedOn self event 3)
-			(event claimed: 1)
+		(if (MousedOn self event shiftDown)
+			(event claimed: TRUE)
 			(DoLook {table})
 		)
 	)
@@ -692,10 +657,10 @@
 		loop 2
 		cel 11
 	)
-
+	
 	(method (handleEvent event)
-		(if (MousedOn self event 3)
-			(event claimed: 1)
+		(if (MousedOn self event shiftDown)
+			(event claimed: TRUE)
 			(DoLook {table})
 		)
 	)
@@ -709,21 +674,21 @@
 		loop 2
 		cel 2
 	)
-
+	
 	(method (handleEvent event)
 		(if (not local5)
-			(cond
+			(cond 
 				((Said 'get/chandelier')
-					(Print 47 12) ; "You can't get that."
+					(Print 47 12)
 				)
 				(
 					(or
-						(MousedOn self event 3)
-						(Said 'look/chandelier,ceiling')
-						(Said 'look<up')
+						(MousedOn self event shiftDown)
+						(Said 'examine/chandelier,ceiling')
+						(Said 'examine<up')
 					)
-					(event claimed: 1)
-					(Print 47 13) ; "A huge, crystal chandelier hangs precariously above the downstairs foyer."
+					(event claimed: TRUE)
+					(Print 47 13)
 				)
 			)
 		)
@@ -737,43 +702,35 @@
 		view 147
 		loop 3
 	)
-
+	
 	(method (handleEvent event)
 		(if (not local5)
-			(cond
-				((Said 'close/door')
-					(AlreadyClosed) ; "It is already closed."
-				)
-				((Said 'bang/door,closet')
-					(Print 47 14) ; "Why would anyone be in the closet?"
-				)
-				((Said 'open,(look<in)/door,closet')
-					(cond
-						(local1
-							(AlreadyOpen) ; "It is already open."
-						)
-						((& (gEgo onControl: 0) $0020)
+			(cond 
+				((Said 'close/door') (AlreadyClosed))
+				((Said 'bang/door,closet') (Print 47 14))
+				((Said 'open,(examine<in)/door,closet')
+					(cond 
+						(LdoorIsOpen (AlreadyOpen))
+						((& (ego onControl: 0) cMAGENTA)
 							(self setScript: myDoor)
 						)
-						(else
-							(NotClose) ; "You're not close enough."
-						)
+						(else (NotClose))
 					)
 				)
 				(
 					(or
-						(MousedOn self event 3)
-						(Said 'look/closet,(door<closet),(door[<!*])')
+						(MousedOn self event shiftDown)
+						(Said 'examine/closet,(door<closet),(door[<!*])')
 					)
-					(event claimed: 1)
-					(Print 47 15) ; "You notice a closet at the top of the stairs."
+					(event claimed: TRUE)
+					(Print 47 15)
 				)
 			)
 		)
 	)
 )
 
-(instance rail1 of Act
+(instance rail1 of Actor
 	(properties
 		y 141
 		x 115
@@ -783,7 +740,7 @@
 	)
 )
 
-(instance rail2 of Act
+(instance rail2 of Actor
 	(properties
 		y 141
 		x 208
@@ -800,10 +757,10 @@
 		view 147
 		cel 1
 	)
-
+	
 	(method (handleEvent event)
-		(if (and (not local5) (MousedOn self event 3))
-			(event claimed: 1)
+		(if (and (not local5) (MousedOn self event shiftDown))
+			(event claimed: TRUE)
 			(DoLook {lamp})
 		)
 	)
@@ -816,10 +773,10 @@
 		view 147
 		loop 1
 	)
-
+	
 	(method (handleEvent event)
-		(if (and (not local5) (MousedOn self event 3))
-			(event claimed: 1)
+		(if (and (not local5) (MousedOn self event shiftDown))
+			(event claimed: TRUE)
 			(DoLook {lamp})
 		)
 	)
@@ -832,10 +789,10 @@
 		view 147
 		loop 1
 	)
-
+	
 	(method (handleEvent event)
-		(if (and (not local5) (MousedOn self event 3))
-			(event claimed: 1)
+		(if (and (not local5) (MousedOn self event shiftDown))
+			(event claimed: TRUE)
 			(DoLook {lamp})
 		)
 	)
@@ -848,10 +805,10 @@
 		view 147
 		cel 1
 	)
-
+	
 	(method (handleEvent event)
-		(if (and (not local5) (MousedOn self event 3))
-			(event claimed: 1)
+		(if (and (not local5) (MousedOn self event shiftDown))
+			(event claimed: TRUE)
 			(DoLook {lamp})
 		)
 	)
@@ -873,24 +830,24 @@
 		loop 2
 		cel 12
 	)
-
+	
 	(method (handleEvent event)
 		(if (not local5)
-			(cond
+			(cond 
 				(
 					(or
-						(MousedOn self event 3)
-						(Said 'look/handkerchief,dirt')
-						(and (< (gEgo y:) 128) (Said 'look<down[/!*]'))
+						(MousedOn self event shiftDown)
+						(Said 'examine/handkerchief,dirt')
+						(and (< (ego y?) 128) (Said 'examine<down[/!*]'))
 					)
-					(event claimed: 1)
-					(Print 47 16) ; "Looks like someone dropped a white handkerchief on the floor."
+					(event claimed: TRUE)
+					(Print 47 16)
 				)
 				((Said 'get/handkerchief[/dirt]')
-					(if (< (gEgo distanceTo: hanky) 20)
+					(if (< (ego distanceTo: hanky) 20)
 						(self setScript: pickUp)
 					else
-						(NotClose) ; "You're not close enough."
+						(NotClose)
 					)
 				)
 			)
@@ -899,31 +856,28 @@
 )
 
 (instance pickUp of Script
-	(properties)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
 				(HandsOff)
-				(LookAt gEgo hanky)
+				(Face ego hanky)
 				(= cycles 2)
 			)
 			(1
-				(gEgo view: 17 cel: 0 setMotion: 0 setCycle: End self)
+				(ego view: 17 cel: 0 setMotion: 0 setCycle: EndLoop self)
 			)
 			(2
-				(Ok) ; "Okay."
+				(Ok)
 				(hanky hide:)
-				(= global182 1)
-				(gEgo get: 23) ; handkerchief
+				(= gotItem 1)
+				(ego get: 23)
 				(= cycles 2)
 			)
-			(3
-				(gEgo setCycle: Beg self)
-			)
+			(3 (ego setCycle: BegLoop self))
 			(4
 				(HandsOn)
-				(gEgo view: 0 setCycle: Walk)
+				(ego view: 0 setCycle: Walk)
 				(client dispose: delete: setScript: 0)
 			)
 		)
@@ -937,11 +891,12 @@
 		nsBottom 143
 		nsRight 241
 	)
-
+	
 	(method (handleEvent event)
-		(if (or (MousedOn self event 3) (Said 'look/balcony'))
-			(Print 47 17) ; "The banister looks a bit rickety."
-			(event claimed: 1)
+		(if
+		(or (MousedOn self event 3) (Said 'examine/balcony'))
+			(Print 47 17)
+			(event claimed: TRUE)
 		)
 	)
 )
@@ -953,11 +908,11 @@
 		nsBottom 120
 		nsRight 269
 	)
-
+	
 	(method (handleEvent event)
 		(if (MousedOn self event 3)
-			(Print 47 18) ; "You see stairs leading up to a third level of the mansion."
-			(event claimed: 1)
+			(Print 47 18)
+			(event claimed: TRUE)
 		)
 	)
 )
@@ -970,9 +925,8 @@
 	(properties
 		view 653
 	)
-
+	
 	(method (init)
-		((= cycler (Fwd new:)) init: self)
+		((= cycler (Forward new:)) init: self)
 	)
 )
-

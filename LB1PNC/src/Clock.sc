@@ -1,9 +1,8 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-;;; Decompiled by sluicebox
 (script# 406)
-(include sci.sh)
+(include game.sh)
 (use Main)
-(use Interface)
+(use Intrface)
 (use Sound)
 (use Motion)
 (use User)
@@ -15,21 +14,19 @@
 )
 
 (local
-	[local0 16] = [406 0 406 1 406 2 406 3 406 4 406 5 406 6 406 7]
-	local16
-	local17
-	local18
+	actText = [406 0 406 1 406 2 406 3 406 4 406 5 406 6 406 7]
+	chimeDone
+	oldMins
+	oldSaveDisabled
 )
-
 (instance Clock of Script
-	(properties)
 
 	(method (doit)
 		(if (== state 2)
-			(if (== (clockChime prevSignal:) -1)
-				(if (== gMinute 0)
+			(if (== (clockChime prevSignal?) -1)
+				(if (== gameMinutes 0)
 					(clockChime prevSignal: 0)
-					(switch (clockChime number:)
+					(switch (clockChime number?)
 						(94
 							(clockChime number: 95 loop: 1 play:)
 						)
@@ -37,69 +34,52 @@
 							(clockChime number: 96 loop: 1 play:)
 						)
 						(96
-							(clockChime number: 29 loop: gHour play:)
+							(clockChime number: 29 loop: gameHours play:)
 						)
 						(else
-							(= local16 1)
+							(= chimeDone TRUE)
 						)
 					)
 				else
-					(= local16 1)
+					(= chimeDone TRUE)
 				)
 			)
-			(if local16
+			(if chimeDone
 				(clockChime stop: dispose:)
 				(= cycles 1)
 			)
 		)
-		(= local16 0)
+		(= chimeDone 0)
 		(super doit:)
 	)
-
-	(method (handleEvent event)
-		(if
-			(and
-				(not (event claimed:))
-				(or
-					(== (event type:) evMOUSEBUTTON)
-					(== (event type:) evKEYBOARD)
-					(== (event type:) $0040) ; direction
-				)
-			)
-			(if (!= (event type:) $0040) ; direction
-				(= local16 1)
-			)
-			(event claimed: 1)
-		)
-	)
-
+	
 	(method (dispose)
 		(super dispose:)
 		(DisposeScript 406)
-		(= global190 local18)
+		(= saveDisabled oldSaveDisabled)
 	)
-
-	(method (changeState newState &tmp temp0 [temp1 25])
+	
+	(method (changeState newState &tmp n [str 25])
 		(switch (= state newState)
 			(0
-				(if (== (User controls:) 1)
-					(gEgo setMotion: 0)
+				(if (== (User controls?) TRUE)
+					(ego setMotion: 0)
 				)
-				(= local18 global190)
-				(= global190 1)
-				(= local17 gMinute)
-				(if (> (++ gMinute) 3)
-					(if (< gHour 12)
-						(++ gHour)
+				(= oldSaveDisabled saveDisabled)
+				(= saveDisabled TRUE)
+				(= oldMins gameMinutes)
+				(if (> (++ gameMinutes) 3)
+					(if (< gameHours 12)
+						(++ gameHours)
 					else
-						(= gHour 1)
+						(= gameHours 1)
 					)
-					(= gMinute 0)
+					(= gameMinutes 0)
 				)
-				(if gDetailLevel
+				(if howFast
 					(clockFace
 						cel: (- (NumCels clockFace) 1)
-						setCycle: Beg self
+						setCycle: BegLoop self
 						init:
 					)
 				else
@@ -111,63 +91,56 @@
 			)
 			(1
 				(hourHand
-					loop: (if (and local17 (< local17 3)) 6 else 5)
-					cel: (if (== gHour 12) 0 else gHour)
+					loop: (if (and oldMins (< oldMins 3)) 6 else 5)
+					cel: (if (== gameHours 12) 0 else gameHours)
 					show:
 				)
-				(minuteHand
-					loop:
-						(switch local17
-							(0 1)
-							(1 3)
-							(2 4)
-							(3 2)
-						)
+				(minuteHand loop:
+					(switch oldMins
+						(0 1)
+						(1 3)
+						(2 4)
+						(3 2)
+					)
 				)
 				(minuteHand
-					cel:
-						(if (& local17 $0001)
-							(- (NumCels minuteHand) 1)
-						else
-							0
-						)
-					setCycle: (if (& local17 $0001) Beg else End) self
+					cel: (if (& oldMins $0001)
+						(- (NumCels minuteHand) 1)
+					else
+						0
+					)
+					setCycle: (if (& oldMins $0001) BegLoop else EndLoop) self
 					show:
 				)
 			)
 			(2
-				(if (== gMinute 0)
-					(if (< gHour 7)
-						(= temp0 1)
-					else
-						(= temp0 5)
-					)
-					(= temp0 (* (- gHour temp0) 2))
+				(if (== gameMinutes 0)
+					(if (< gameHours 7) (= n 1) else (= n 5))
+					(= n (* (- gameHours n) 2))
 					(Print
-						(Format @temp1 406 8 [local0 temp0] [local0 (++ temp0)]) ; "Act %s"
-						#at
-						108
-						120
-						#font
-						41
-						#width
-						100
-						#mode
-						1
+						(Format @str 406 8 [actText n] [actText (++ n)])
+						#at 108 120
+						#font 41
+						#width 100
+						#mode teJustCenter
 						#draw
 						#dispose
 					)
 					(clockChime number: 94 loop: 1 play:)
 				else
-					(clockChime number: (+ (- gMinute 1) 94) loop: 1 play:)
+					(clockChime
+						number: (+ (- gameMinutes 1) 94)
+						loop: 1
+						play:
+					)
 				)
 			)
 			(3
 				(cls)
 				(hourHand hide: dispose: delete:)
 				(minuteHand hide: dispose: delete:)
-				(if gDetailLevel
-					(clockFace setCycle: End self)
+				(if howFast
+					(clockFace setCycle: EndLoop self)
 				else
 					(clockFace cel: (clockFace lastCel:) forceUpd:)
 					(= cycles 2)
@@ -179,6 +152,23 @@
 			)
 		)
 	)
+	
+	(method (handleEvent event)
+		(if
+			(and
+				(not (event claimed?))
+				(or
+					(== (event type?) mouseDown)
+					(== (event type?) keyDown)
+					(== (event type?) direction)
+				)
+			)
+			(if (!= (event type?) direction)
+				(= chimeDone TRUE)
+			)
+			(event claimed: TRUE)
+		)
+	)
 )
 
 (instance clockFace of Prop
@@ -187,7 +177,7 @@
 		x 159
 		view 642
 		priority 15
-		signal 16400
+		signal (| ignrAct fixPriOn)
 		cycleSpeed 1
 	)
 )
@@ -198,7 +188,7 @@
 		x 159
 		view 642
 		priority 15
-		signal 16400
+		signal (| ignrAct fixPriOn)
 		cycleSpeed 1
 	)
 )
@@ -209,7 +199,7 @@
 		x 159
 		view 642
 		priority 15
-		signal 16400
+		signal (| ignrAct fixPriOn)
 		cycleSpeed 1
 	)
 )
@@ -219,4 +209,3 @@
 		priority 15
 	)
 )
-

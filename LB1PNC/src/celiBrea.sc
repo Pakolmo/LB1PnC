@@ -1,12 +1,11 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-;;; Decompiled by sluicebox
 (script# 236)
-(include sci.sh)
+(include game.sh)
 (use Main)
 (use atsgl)
-(use Interface)
+(use Intrface)
 (use Path)
-(use Avoid)
+(use Avoider)
 (use Motion)
 (use Game)
 (use User)
@@ -18,96 +17,126 @@
 )
 
 (local
-	local0
-	local1
+	celieTalkCount
+	lillTalkCount
 	local2
 	local3
 	local4
 	local5
 	local6
 	local7
-	[local8 11] = [190 154 186 154 105 154 24 123 -12 123 -32768]
-	[local19 7] = [105 154 186 154 190 154 -32768]
+	outPts = [
+		190 154
+		186 154
+		105 154
+		24 123
+		-12 123
+		PATHEND
+		]
+	inPts = [
+		105 154
+		186 154
+		190 154
+		PATHEND
+		]
 	local26
 )
-
-(procedure (localproc_0)
-	(Celie loop: 5 setCycle: Fwd)
-	(Lillian loop: 3 cel: 2 setCycle: Beg)
+(procedure (CeliePrint)
+	(Celie loop: 5 setCycle: Forward)
+	(Lillian loop: 3 cel: 2 setCycle: BegLoop)
 	(LHead cel: 0 stopUpd:)
-	(Print &rest #at 20 10 #font 4 #width 125 #mode 1 #dispose)
+	(Print &rest
+		#at 20 10
+		#font 4
+		#width 125
+		#mode teJustCenter
+		#dispose
+	)
 )
 
-(procedure (localproc_1)
-	(Lillian loop: 4 setCycle: Fwd)
-	(LHead loop: 2 setCycle: Fwd)
+(procedure (LillPrint)
+	(Lillian loop: 4 setCycle: Forward)
+	(LHead loop: 2 setCycle: Forward)
 	(Celie setCycle: 0)
-	(Print &rest #at 160 145 #font 4 #width 140 #mode 1 #dispose)
+	(Print &rest
+		#at 160 145
+		#font 4
+		#width 140
+		#mode teJustCenter
+		#dispose
+	)
 )
 
 (instance PathOut of Path
-	(properties)
-
-	(method (at param1)
-		(return [local8 param1])
+	
+	(method (at n)
+		(return [outPts n])
 	)
 )
 
 (instance PathIn of Path
-	(properties)
-
-	(method (at param1)
-		(return [local19 param1])
+	
+	(method (at n)
+		(return [inPts n])
 	)
 )
 
-(instance celiBrea of Rgn
-	(properties)
-
+(instance celiBrea of Region
+	
 	(method (init)
 		(super init:)
-		(if (not (& gMustDos $0004))
-			(LoadMany rsFONT 4 41)
-			(LoadMany rsSOUND 29 94 95 96)
-			(Load rsVIEW 642)
-			(Load rsSCRIPT 406)
+		(if (not (& global118 $0004))
+			(LoadMany FONT 4 41)
+			(LoadMany SOUND 29 94 95 96)
+			(Load VIEW 642)
+			(Load SCRIPT 406)
 		)
-		(LoadMany rsVIEW 480 499)
-		(LoadMany rsMESSAGE 243 254 251)
-		(LoadMany rsSYNC 2 6)
+		(LoadMany VIEW 480 499)
+		(LoadMany 143 243 254 251)
+		(LoadMany 142 2 6)
 		(= global208 34)
 		(= [global377 1] 254)
 		(= [global377 5] 251)
-		(roller ignoreActors: 1 setPri: 10 init: stopUpd: hide:)
-		(pot ignoreActors: 1 setPri: 10 init: stopUpd:)
-		(sprinkles ignoreActors: 1 setPri: 10 init: stopUpd: hide:)
+		(roller ignoreActors: TRUE setPri: 10 init: stopUpd: hide:)
+		(pot ignoreActors: TRUE setPri: 10 init: stopUpd:)
+		(sprinkles
+			ignoreActors: TRUE
+			setPri: 10
+			init:
+			stopUpd:
+			hide:
+		)
 		(Celie
 			illegalBits: 0
 			setPri: 10
-			ignoreActors: 1
-			setAvoider: (Avoid new:)
+			ignoreActors: TRUE
+			setAvoider: (Avoider new:)
 			init:
 		)
-		(Lillian setPri: 10 ignoreActors: 1 init: stopUpd:)
-		(LHead setPri: 10 ignoreActors: 1 init: stopUpd:)
-		(if (and (< gMinute 3) (== global155 0))
+		(Lillian setPri: 10 ignoreActors: TRUE init: stopUpd:)
+		(LHead setPri: 10 ignoreActors: TRUE init: stopUpd:)
+		(if (and (< gameMinutes 3) (== global155 0))
 			(HandsOff)
-			(Jeeves setAvoider: (Avoid new:) setScript: jeevActions init:)
+			(Jeeves
+				setAvoider: (Avoider new:)
+				setScript: jeevActions
+				init:
+			)
 		)
 		(self setScript: bread)
 	)
-
+	
 	(method (doit)
-		(cond
-			((gCast contains: Jeeves)
-				(User canInput: 0)
+		(cond 
+			((cast contains: Jeeves)
+				(User canInput: FALSE)
 			)
-			((and (not local26) (not (gEgo script:)))
-				(User canInput: 1)
+			((and (not local26) (not (ego script?)))
+				(User canInput: TRUE)
 			)
 		)
-		(DisposeScript 990)
-		(if (and (< local2 70) (< global180 5))
+		(DisposeScript SAVE)
+		(if (and (< local2 70) (< gCurRoomNum_4 5))
 			(++ local2)
 		)
 		(if (and local3 local4)
@@ -124,45 +153,42 @@
 		)
 		(super doit:)
 	)
-
+	
 	(method (dispose)
 		(super dispose:)
-		(DisposeScript 983)
-		(DisposeScript 985)
+		(DisposeScript PATH)
+		(DisposeScript AVOIDER)
 	)
-
+	
 	(method (handleEvent event)
 		(super handleEvent: event)
-		(if (event claimed:)
-			(return)
-		)
+		(if (event claimed?) (return))
 	)
 )
 
 (instance bread of Script
-	(properties)
 
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
 				(= local26 1)
-				(cond
+				(cond 
 					((not global216)
 						(= state -1)
 					)
-					((not (& gMustDos $0004))
-						(|= gMustDos $0004)
-						(self setScript: (ScriptID 406 0)) ; Clock
+					((not (& global118 $0004))
+						(|= global118 $0004)
+						(self setScript: (ScriptID 406 0))
 						(= state -1)
 					)
-					((self script:)
+					((self script?)
 						(= state -1)
 					)
 				)
 				(= cycles 1)
 			)
 			(1
-				(User canInput: 0)
+				(User canInput: FALSE)
 				(if (< global172 10)
 					(++ global172)
 				else
@@ -170,43 +196,43 @@
 				)
 				(switch global172
 					(1
-						(localproc_0 236 0) ; "Now, now, chile. It ain't no use gettin' yourself upset. Things have a way o' workin' themselves out."
+						(CeliePrint 236 0)
 						(= seconds 7)
 					)
 					(2
-						(localproc_1 236 1) ; "You know how they all are!"
+						(LillPrint 236 1)
 						(= seconds 3)
 					)
 					(3
-						(localproc_1 236 2) ; "Hi, Laura. Having fun?"
+						(LillPrint 236 2)
 						(= seconds 3)
 					)
 					(4
-						(localproc_0 236 3) ; "Mebbe your friend's hungry. She keep comin' in here."
+						(CeliePrint 236 3)
 						(= seconds 5)
 					)
 					(5
-						(localproc_1 236 4) ; "You always understand me, you know, Celie?"
+						(LillPrint 236 4)
 						(= seconds 5)
 					)
 					(6
-						(localproc_1 236 5) ; "Teach me that chant again, Celie."
+						(LillPrint 236 5)
 						(= seconds 4)
 					)
 					(7
-						(localproc_1 236 6) ; "What'cha up to, Laura?"
+						(LillPrint 236 6)
 						(= seconds 3)
 					)
 					(8
-						(localproc_0 236 7) ; "Don't make no fuss 'bout that, darlin'!"
+						(CeliePrint 236 7)
 						(= seconds 4)
 					)
 					(9
-						(localproc_0 236 8) ; "That ain't so bad, honey chile."
+						(CeliePrint 236 8)
 						(= seconds 3)
 					)
-					(else
-						(localproc_0 236 9) ; "There's your friend...Missy Laura."
+					(else 
+						(CeliePrint 236 9)
 						(= seconds 4)
 					)
 				)
@@ -218,30 +244,30 @@
 				(Celie stopUpd:)
 				(switch global172
 					(1
-						(localproc_1 236 10) ; "I know, Celie...but, it just doesn't seem right!"
+						(LillPrint 236 10)
 						(= seconds 5)
 					)
 					(2
-						(localproc_0 236 11) ; "It'll be fine, Missy Lillian! You see."
+						(CeliePrint 236 11)
 						(= seconds 5)
 					)
 					(5
-						(localproc_0 236 12) ; "I know, darlin'. You be all right."
+						(CeliePrint 236 12)
 						(= seconds 4)
 					)
 					(6
-						(localproc_0 236 13) ; "Later, chile."
+						(CeliePrint 236 13)
 						(= seconds 3)
 					)
 					(8
-						(localproc_1 236 14) ; "But, Celie...Oh, Laura."
+						(LillPrint 236 14)
 						(= seconds 3)
 					)
 					(9
-						(localproc_1 236 15) ; "Yes, it is!"
+						(LillPrint 236 15)
 						(= seconds 3)
 					)
-					(else
+					(else 
 						(= seconds 0)
 						(= cycles 1)
 					)
@@ -253,7 +279,7 @@
 				(LHead stopUpd:)
 				(Celie stopUpd:)
 				(if (== global172 1)
-					(localproc_1 236 16) ; "Oh...hi, Laura."
+					(LillPrint 236 16)
 					(= seconds 3)
 				else
 					(= cycles 1)
@@ -263,8 +289,8 @@
 				(cls)
 				(LHead stopUpd:)
 				(= local26 0)
-				(if (not (gEgo script:))
-					(User canInput: 1)
+				(if (not (ego script?))
+					(User canInput: TRUE)
 				)
 				(= local2 0)
 				(Lillian stopUpd: setScript: lillActions)
@@ -276,32 +302,31 @@
 )
 
 (instance lillActions of Script
-	(properties)
-
+	
 	(method (doit)
-		(if (and local5 (self client:))
+		(if (and local5 (self client?))
 			(client setScript: 0)
 			(= local4 0)
 		)
 		(super doit:)
 	)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
-				(Lillian ignoreActors: 1 loop: 5 setCycle: Fwd)
+				(Lillian ignoreActors: 1 loop: 5 setCycle: Forward)
 				(= seconds 5)
 			)
 			(1
-				(Lillian loop: 5 setCycle: Beg)
+				(Lillian loop: 5 setCycle: BegLoop)
 				(= seconds (Random 6 12))
 			)
 			(2
-				(Lillian loop: 6 setCycle: End)
+				(Lillian loop: 6 setCycle: EndLoop)
 				(= seconds (Random 6 12))
 			)
 			(3
-				(Lillian loop: 6 setCycle: Beg)
+				(Lillian loop: 6 setCycle: BegLoop)
 				(if (== local2 70)
 					(client setScript: 0)
 					(= local4 1)
@@ -314,38 +339,33 @@
 )
 
 (instance celieActions of Script
-	(properties)
-
+	
 	(method (doit)
 		(if (not local7)
 			(switch state
-				(2
-					(sprinkles show:)
-				)
-				(4
-					(roller show:)
-				)
+				(2 (sprinkles show:))
+				(4 (roller show:))
 			)
 		)
 		(super doit:)
 	)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
-				(Celie loop: 0 setCycle: Fwd)
+				(Celie loop: 0 setCycle: Forward)
 				(roller hide:)
 				(= seconds (Random 3 6))
 			)
 			(1
-				(Celie cel: 0 loop: 2 setCycle: End self)
+				(Celie cel: 0 loop: 2 setCycle: EndLoop self)
 			)
 			(2
-				(Celie cel: 0 loop: 3 setCycle: Fwd)
+				(Celie cel: 0 loop: 3 setCycle: Forward)
 				(if (not local7)
 					(sprinkles show:)
 				)
-				(sprinkles setCycle: Fwd)
+				(sprinkles setCycle: Forward)
 				(= cycles 14)
 			)
 			(3
@@ -366,9 +386,9 @@
 					setPri: -1
 					loop: 2
 					posn: 153 126
-					ignoreActors: 0
+					ignoreActors: FALSE
 					setCycle: Walk
-					illegalBits: -32764
+					illegalBits: (| cWHITE cGREEN)
 					setMotion: MoveTo 119 93 self
 				)
 				(if (not local7)
@@ -389,7 +409,7 @@
 					cel: 0
 					illegalBits: 0
 					posn: 146 113
-					ignoreActors: 1
+					ignoreActors: TRUE
 					setPri: 10
 				)
 				(= state -1)
@@ -400,41 +420,40 @@
 )
 
 (instance casTalk of Script
-	(properties)
-
+	
 	(method (doit)
 		(if local5
 			(client setScript: 0)
 		)
 		(super doit:)
 	)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
 				(= local26 1)
-				(User canInput: 0)
+				(User canInput: FALSE)
 				(= local4 0)
 				(= local3 0)
-				(switch (++ global180)
+				(switch (++ gCurRoomNum_4)
 					(1
-						(localproc_0 236 17) ; "How's your momma doin' these days, chile?"
+						(CeliePrint 236 17)
 						(= seconds 5)
 					)
 					(2
-						(localproc_1 236 18) ; "You make the best bread, Celie. I just love it!"
+						(LillPrint 236 18)
 						(= seconds 5)
 					)
 					(3
-						(localproc_1 236 19) ; "How's your son doing, Celie?"
+						(LillPrint 236 19)
 						(= seconds 4)
 					)
 					(4
-						(localproc_1 236 20) ; "Celie, could you make me up a new gris-gris for..."
+						(LillPrint 236 20)
 						(= seconds 5)
 					)
 					(5
-						(localproc_1 236 21) ; "Beauregard doesn't seem to have much energy anymore. All he does is lie around."
+						(LillPrint 236 21)
 						(= seconds 7)
 					)
 					(else
@@ -448,25 +467,25 @@
 				(Celie stopUpd:)
 				(LHead stopUpd:)
 				(Celie stopUpd:)
-				(switch global180
+				(switch gCurRoomNum_4
 					(1
-						(localproc_1 236 22) ; "Oh...you know Mother, Celie."
+						(LillPrint 236 22)
 						(= seconds 3)
 					)
 					(2
-						(localproc_0 236 23) ; "Well, it'll be pipin' hot tomorrow mornin'!"
+						(CeliePrint 236 23)
 						(= seconds 4)
 					)
 					(3
-						(localproc_0 236 24) ; "I'm so proud o' him, Missy Lillian! He's graduatin' from college, you know!"
+						(CeliePrint 236 24)
 						(= seconds 6)
 					)
 					(4
-						(localproc_0 236 25) ; "Hush on that, chile! Not now!"
+						(CeliePrint 236 25)
 						(= seconds 4)
 					)
 					(5
-						(localproc_0 236 26) ; "Why, he's 'most fifteen years ol', Missy Lillian. What do you 'spect?"
+						(CeliePrint 236 26)
 						(= seconds 7)
 					)
 					(else
@@ -483,7 +502,7 @@
 				(Lillian setScript: lillActions)
 				(Celie setScript: celieActions)
 				(= local26 0)
-				(User canInput: 1)
+				(User canInput: TRUE)
 				(= local2 0)
 				(client setScript: 0)
 			)
@@ -492,32 +511,31 @@
 )
 
 (instance jeevActions of Script
-	(properties)
 
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
-				(Jeeves loop: 4 setCycle: End self)
+				(Jeeves loop: 4 setCycle: EndLoop self)
 			)
 			(1
 				(Jeeves setCycle: Walk setMotion: MoveTo 221 119 self)
 			)
 			(2
-				(global373 setCycle: End)
-				(global374 setCycle: End self)
+				(gDoor setCycle: EndLoop)
+				(gMySound setCycle: EndLoop self)
 			)
 			(3
 				(Jeeves setCycle: Walk setMotion: MoveTo 251 119 self)
 			)
 			(4
-				(global373 setCycle: Beg)
-				(global374 setCycle: Beg self)
+				(gDoor setCycle: BegLoop)
+				(gMySound setCycle: BegLoop self)
 			)
 			(5
-				(global373 stopUpd:)
-				(global374 stopUpd:)
-				(User canControl: 1)
-				(= [gCycleTimers 2] 1800)
+				(gDoor stopUpd:)
+				(gMySound stopUpd:)
+				(User canControl: TRUE)
+				(= [global368 2] 1800)
 				(= global155 1)
 				(Jeeves setAvoider: 0 dispose:)
 			)
@@ -526,15 +544,14 @@
 )
 
 (instance goSee of Script
-	(properties)
 
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
-				(= global213 6)
-				(Say 1 236 27) ; "That can't be true, Laura, I'll go see!"
-				(if (gEgo inRect: 180 145 200 150)
-					(gEgo setMotion: MoveTo 212 160 self)
+				(= theTalker talkLILLIAN)
+				(Say 1 236 27)
+				(if (ego inRect: 180 145 200 150)
+					(ego setMotion: MoveTo 212 160 self)
 				else
 					(= cycles 1)
 				)
@@ -546,12 +563,12 @@
 					cel: 0
 					posn: 193 143
 					ignoreActors: 0
-					setAvoider: ((Avoid new:) offScreenOK: 1)
-					setCycle: End self
+					setAvoider: ((Avoider new:) offScreenOK: TRUE)
+					setCycle: EndLoop self
 				)
 				(LHead hide: dispose:)
-				(if (gEgo inRect: 0 120 24 125)
-					(gEgo setMotion: MoveTo (+ (gEgo x:) 40) (gEgo y:))
+				(if (ego inRect: 0 120 24 125)
+					(ego setMotion: MoveTo (+ (ego x?) 40) (ego y?))
 				)
 			)
 			(2
@@ -570,13 +587,13 @@
 				(= cycles 2)
 			)
 			(5
-				(Print 236 28 #dispose) ; "A short time later..."
+				(Print 236 28 #dispose)
 				(Lillian setMotion: MoveTo 24 123 self)
 			)
 			(6
 				(cls)
-				(= global213 6)
-				(Say 1 236 29) ; "Oh, you're just imagining things, Laura!"
+				(= theTalker talkLILLIAN)
+				(Say 1 236 29)
 				(Lillian setMotion: PathIn self)
 			)
 			(7
@@ -587,12 +604,12 @@
 				(Lillian
 					cel: (Lillian lastCel:)
 					setAvoider: 0
-					setCycle: Beg self
+					setCycle: BegLoop self
 				)
 			)
 			(9
 				(Lillian view: 515 posn: 201 132)
-				(LHead setPri: 10 ignoreActors: 1 init: stopUpd:)
+				(LHead setPri: 10 ignoreActors: TRUE init: stopUpd:)
 				(HandsOn)
 				(= local5 0)
 				(= local6 1)
@@ -609,14 +626,14 @@
 		view 485
 		loop 1
 	)
-
+	
 	(method (handleEvent)
-		(cond
+		(cond 
 			((Said 'get/pin<rolling')
-				(Print 236 30) ; "Celie won't let you."
+				(Print 236 30)
 			)
-			((Said 'look/pin<rolling')
-				(Print 236 31) ; "Looks like Celie is rolling out bread."
+			((Said 'examine/pin<rolling')
+				(Print 236 31)
 			)
 		)
 	)
@@ -642,80 +659,78 @@
 	)
 )
 
-(instance Celie of Act
+(instance Celie of Actor
 	(properties
 		y 113
 		x 146
 		view 485
 	)
-
+	
 	(method (handleEvent event)
-		(if (< (gEgo distanceTo: Celie) (gEgo distanceTo: Lillian))
+		(if (< (ego distanceTo: Celie) (ego distanceTo: Lillian))
 			(= global214 2)
 		else
 			(= global214 32)
 		)
-		(= global213 2)
-		(cond
-			((Said 'look/woman')
-				(event claimed: 1)
+		(= theTalker talkCELIE)
+		(cond 
+			((Said 'examine/girl')
+				(event claimed: TRUE)
 				(if (== global214 2)
 					(DoLook {celie})
 				else
 					(DoLook {lillian})
 				)
 			)
-			((and (MousedOn self event 3) (not (& global207 $0002)))
-				(event claimed: 1)
+			((and (MousedOn self event shiftDown) (not (& global207 $0002)))
+				(event claimed: TRUE)
 				(DoLook {celie})
 			)
 			(
 				(and
 					(& global207 $0002)
-					(or (MousedOn self event 3) (Said 'look/celie'))
+					(or (MousedOn self event shiftDown) (Said 'examine/celie'))
 				)
-				(event claimed: 1)
-				(Print 236 32) ; "Lillian and Celie seem to be having a discussion while Celie is making tomorrow's bread on the kitchen table."
+				(event claimed: TRUE)
+				(Print 236 32)
 			)
-			((or (Said 'talk/celie') (and (== global214 2) (Said 'talk/woman')))
-				(switch local0
-					(0
-						(Say 1 236 33) ; "I'm busy. Go on wid you now!"
-					)
-					(1
-						(Say 1 236 34) ; "Me and Missy Lillian got some talkin' to do. Don't be botherin' us."
-					)
-					(else
-						(Print 236 35) ; "Maybe Celie doesn't trust you? Anyway, she now refuses to answer you."
-					)
+			(
+				(or
+					(Said 'converse/celie')
+					(and (== global214 2) (Said 'converse/girl'))
 				)
-				(++ local0)
+				(switch celieTalkCount
+					(0 (Say 1 236 33))
+					(1 (Say 1 236 34))
+					(else  (Print 236 35))
+				)
+				(++ celieTalkCount)
 			)
 			((Said 'ask[/celie]/lil<about')
 				(= global212 1)
 				(= global209 event)
 				(proc243_1 15 236 36)
 			)
-			((Said 'listen/celie,lil')
-				(Print 236 37) ; "You shouldn't be such a snoop, Laura!"
+			((Said 'hear/celie,lil')
+				(Print 236 37)
 			)
-			((Said 'look/bread,dough')
-				(Print 236 38) ; "Celie is rolling out tomorrow's bread on the kitchen table."
+			((Said 'examine/bread,dough')
+				(Print 236 38)
 			)
 			((Said 'get,eat/bread,dough')
-				(Print 236 39) ; "Wait 'til tomorrow."
+				(Print 236 39)
 			)
-			((Said 'give,show/necklace')
-				(if (gEgo has: 0) ; necklace
-					(if (< (gEgo distanceTo: Celie) 60)
-						(Say 1 236 40) ; "My necklace! I wuz wunderin' where it got to! "Well, Missy Laura, thank you!"
-						(gEgo put: 0) ; necklace
+			((Said 'deliver,hold/necklace')
+				(if (ego has: iNecklace)
+					(if (< (ego distanceTo: Celie) 60)
+						(Say 1 236 40)
+						(ego put: iNecklace)
 						(= global135 1)
 					else
-						(NotClose) ; "You're not close enough."
+						(NotClose)
 					)
 				else
-					(DontHave) ; "You don't have it."
+					(DontHave)
 				)
 			)
 		)
@@ -731,50 +746,50 @@
 	)
 )
 
-(instance Lillian of Act
+(instance Lillian of Actor
 	(properties
 		y 132
 		x 201
 		view 515
 		loop 3
 	)
-
+	
 	(method (handleEvent event)
-		(= global213 6)
-		(cond
-			((Said 'look/people')
-				(Print 236 32) ; "Lillian and Celie seem to be having a discussion while Celie is making tomorrow's bread on the kitchen table."
+		(= theTalker talkLILLIAN)
+		(cond 
+			((Said 'examine/people')
+				(Print 236 32)
 			)
-			((and (not (& global207 $0020)) (MousedOn self event 3))
-				(event claimed: 1)
+			((and (not (& global207 $0020)) (MousedOn self event shiftDown))
+				(event claimed: TRUE)
 				(DoLook {lillian})
 			)
 			(
 				(and
 					(& global207 $0020)
-					(or (MousedOn self event 3) (Said 'look/lil,people'))
+					(or (MousedOn self event shiftDown) (Said 'examine/lil,people'))
 				)
-				(event claimed: 1)
-				(Print 236 32) ; "Lillian and Celie seem to be having a discussion while Celie is making tomorrow's bread on the kitchen table."
+				(event claimed: TRUE)
+				(Print 236 32)
 			)
-			((Said 'look,talk/person,woman')
-				(Print 236 41) ; "Which person are you referring to?"
+			((Said 'examine,converse/person,girl')
+				(Print 236 41)
 			)
-			((Said 'talk/people')
-				(Print 236 42) ; "You can only talk to one person at a time."
+			((Said 'converse/people')
+				(Print 236 42)
 			)
-			((and (IsFlag 51) (Said 'tell[/lil]/gertie<about'))
-				(= global213 6)
+			((and (Btst fSawDeadGuest) (Said 'tell[/lil]/gertie<about'))
+				(= theTalker talkLILLIAN)
 				(cls)
-				(if (& gCorpseFlags $0001) ; Gertie
+				(if (& deadGuests deadGERTRUDE)
 					(if (& global145 $0001)
-						(Say 1 236 43) ; "Like I said before, Laura, there's nothing there!"
+						(Say 1 236 43)
 					else
 						(HandsOff)
 						(|= global145 $0001)
 						(= local5 1)
-						(if (Lillian script:)
-							(((Lillian script:) client:) setScript: 0)
+						(if (Lillian script?)
+							(((Lillian script?) client?) setScript: 0)
 						)
 						(Lillian startUpd: setScript: goSee)
 					)
@@ -782,25 +797,15 @@
 					(event claimed: 0)
 				)
 			)
-			((Said 'talk/lil,woman')
-				(switch local1
-					(0
-						(Say 1 236 44) ; "What'cha want, Laura?"
-					)
-					(1
-						(Say 1 236 45) ; "Finding everything okay?"
-					)
-					(2
-						(Say 1 236 46) ; "Do you mind, Laura? I'd like to talk to Celie."
-					)
-					(3
-						(Say 1 236 47) ; "I haven't seen Celie in a long time. Can you leave us alone, Laura?!"
-					)
-					(else
-						(Print 236 48) ; "Your friend seems more intent upon talking with Celie than with you. Perhaps, you should leave."
-					)
+			((Said 'converse/lil,girl')
+				(switch lillTalkCount
+					(0 (Say 1 236 44))
+					(1 (Say 1 236 45))
+					(2 (Say 1 236 46))
+					(3 (Say 1 236 47))
+					(else  (Print 236 48))
 				)
-				(++ local1)
+				(++ lillTalkCount)
 			)
 			((Said 'ask[/lil]/celie<about')
 				(= global212 1)
@@ -811,30 +816,29 @@
 	)
 )
 
-(instance Jeeves of Act
+(instance Jeeves of Actor
 	(properties
 		y 144
 		x 157
 		view 451
 		loop 4
 	)
-
+	
 	(method (handleEvent event)
-		(= global213 11)
-		(cond
-			((and (not (& global207 $0400)) (MousedOn self event 3))
-				(event claimed: 1)
+		(= theTalker talkJEEVES)
+		(cond 
+			((and (not (& global207 $0400)) (MousedOn self event shiftDown))
+				(event claimed: TRUE)
 				(DoLook {jeeves})
 			)
 			(
 				(and
 					(& global207 $0400)
-					(or (MousedOn self event 3) (Said 'look/butler'))
+					(or (MousedOn self event shiftDown) (Said 'examine/butler'))
 				)
-				(event claimed: 1)
-				(Print 236 32) ; "Lillian and Celie seem to be having a discussion while Celie is making tomorrow's bread on the kitchen table."
+				(event claimed: TRUE)
+				(Print 236 32)
 			)
 		)
 	)
 )
-

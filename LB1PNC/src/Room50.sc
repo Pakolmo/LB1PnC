@@ -1,9 +1,8 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-;;; Decompiled by sluicebox
 (script# 50)
-(include sci.sh)
+(include game.sh)
 (use Main)
-(use Interface)
+(use Intrface)
 (use RFeature)
 (use Path)
 (use Sound)
@@ -15,95 +14,90 @@
 (public
 	Room50 0
 )
-
 (synonyms
 	(armoire closet)
 	(door panel)
 )
 
 (local
-	[local0 12] = [50 0 50 1 50 2 50 3 50 4 50 5]
+	roomGenList = [50 0 50 1 50 2 50 3 50 4 50 5]
 	local12
 	local13
-	[local14 5] = [105 100 121 99 -32768]
-	[local19 5] = [112 99 91 109 -32768]
-	[local24 5] = [156 106 133 99 -32768]
-	[local29 5] = [144 100 169 109 -32768]
+	leftUpPts = [105 100 121 99 PATHEND]
+	leftDwnPts = [112 99 91 109 PATHEND]
+	rightUpPts = [156 106 133 99 PATHEND]
+	rightDwnPts  = [144 100 169 109 PATHEND]
 	local34
 	local35
 	local36
 	local37
 )
-
-(procedure (localproc_0 &tmp temp0)
+(procedure (localproc_011c &tmp i)
 	(if (not local12)
 		(= local12 1)
-		(DrawPic 62 7)
-		(gCast eachElementDo: #hide)
+		(DrawPic 62 IRISOUT)
+		(cast eachElementDo: #hide)
 		(myMusic number: 27 loop: -1 play:)
-		(if local35
-			(= temp0 0)
-		else
-			(= temp0 4)
-		)
-		(if (== (gEgo loop:) 3)
-			(+= temp0 2)
-		)
-		(Print [local0 temp0] [local0 (++ temp0)] #at 65 67 #dispose)
+		(if local35 (= i 0) else (= i 4))
+		(if (== (ego loop?) 3) (+= i 2))
+		(Print [roomGenList i] [roomGenList (++ i)] 67 65 67 88)
 		(LookAround seconds: 4)
 	)
 )
 
-(procedure (localproc_1)
+(procedure (localproc_0192)
 	(if local12
 		(myMusic stop:)
 		(= local12 0)
-		(DrawPic 39 6)
-		(gAddToPics doit:)
-		(gCast eachElementDo: #show)
+		(DrawPic 39 IRISIN)
+		(addToPics doit:)
+		(cast eachElementDo: #show)
 		(eyes hide:)
 	)
 )
 
 (instance rightUpPath of Path
-	(properties)
 
-	(method (at param1)
-		(return [local24 param1])
+	(method (at n)
+		(return [rightUpPts n])
 	)
 )
 
 (instance leftUpPath of Path
 	(properties)
-
-	(method (at param1)
-		(return [local14 param1])
+	
+	(method (at n)
+		(return [leftUpPts n])
 	)
 )
 
 (instance rightDwnPath of Path
 	(properties)
-
-	(method (at param1)
-		(return [local29 param1])
+	
+	(method (at n)
+		(return [rightDwnPts n])
 	)
 )
 
 (instance leftDwnPath of Path
 	(properties)
-
-	(method (at param1)
-		(return [local19 param1])
+	
+	(method (at n)
+		(return [leftDwnPts n])
 	)
 )
 
-(instance Room50 of Rm
+(instance Room50 of Room
 	(properties
 		picture 39
 	)
-
+	
 	(method (init)
-		(if (or (< gPrevRoomNum 40) (and (> gPrevRoomNum 299) (< gPrevRoomNum 320))) ; scene32a
+		(if
+			(or
+				(< prevRoomNum 40)
+				(and (> prevRoomNum 299) (< prevRoomNum 320))
+			)
 			(= west 33)
 			(= north 34)
 			(= south 38)
@@ -114,97 +108,100 @@
 			(= south 48)
 		)
 		(super init:)
-		(Load rsPIC 62)
-		(LoadMany rsSOUND 74 27 75 106 87)
+		(Load PICTURE 62)
+		(LoadMany SOUTH 74 27 75 106 87)
 		(if (== south 38)
 			(protrait cel: 3)
 		else
 			(protrait cel: 2)
 		)
-		(gAddToPics add: protrait bprotrait doit:)
+		(addToPics add: protrait bprotrait doit:)
 		(self setFeatures: Platform)
-		(if (and (== gAct 6) (== (gCurRoom west:) 43))
+		(if
+		(and (== currentAct 6) (== (curRoom west?) 43))
 			(boot setPri: 3 ignoreActors: 1 init:)
-			(if (and (& gMustDos $0002) (not (IsFlag 36)))
-				(= [local0 6] [local0 10])
-				(= [local0 7] [local0 11])
+			(if (and (& global118 $0002) (not (Btst 36)))
+				(= [roomGenList 6] [roomGenList 10])
+				(= [roomGenList 7] [roomGenList 11])
 			)
 		)
 		(if
 			(and
-				(>= gAct 2)
-				(not (gEgo has: 21)) ; cane
-				(== gCaneLocation 0)
-				(< gPrevRoomNum 49)
+				(>= currentAct 2)
+				(not (ego has: 21))
+				(== global119 0)
+				(< prevRoomNum 49)
 			)
-			(= gCaneLocation (+ (Random 49 50) (gCurRoom west:)))
+			(= global119 (+ (Random 49 50) (curRoom west?)))
 		)
 		(if
 			(and
-				(>= gAct 2)
-				(not (gEgo has: 21)) ; cane
-				(== gCaneLocation 0)
-				(< gPrevRoomNum 49)
+				(>= currentAct 2)
+				(not (ego has: 21))
+				(== global119 0)
+				(< prevRoomNum 49)
 			)
-			(= gCaneLocation (+ (Random 49 50) (gCurRoom west:)))
+			(= global119 (+ (Random 49 50) (curRoom west?)))
 		)
 		(if
 			(and
-				(not (gEgo has: 21)) ; cane
-				(== gCurRoomNum (- gCaneLocation (gCurRoom west:)))
+				(not (ego has: 21))
+				(== curRoomNum (- global119 (curRoom west?)))
 			)
 			(cane init:)
 		)
 		(if
 			(and
-				(>= gAct 3)
-				(not (gEgo has: 8)) ; cigar_butt
-				(== gCigarButtLocation 0)
-				(< gPrevRoomNum 49)
-				(== (= gCigarButtLocation (+ (Random 49 50) (gCurRoom west:))) gCaneLocation)
+				(>= currentAct 3)
+				(not (ego has: 8))
+				(== global168 0)
+				(< prevRoomNum 49)
+				(==
+					(= global168 (+ (Random 49 50) (curRoom west?)))
+					global119
+				)
 			)
-			(if (> gCaneLocation 85)
-				(-= gCigarButtLocation 10)
+			(if (> global119 85)
+				(-= global168 10)
 			else
-				(+= gCigarButtLocation 10)
+				(+= global168 10)
 			)
 		)
 		(if
 			(and
-				(not (gEgo has: 8)) ; cigar_butt
-				(== gCurRoomNum (- gCigarButtLocation (gCurRoom west:)))
+				(not (ego has: iCigarButt))
+				(== curRoomNum (- global168 (curRoom west?)))
 			)
-			(cigar ignoreActors: 1 init:)
+			(cigar ignoreActors: TRUE init:)
 		)
 		(fpanel
 			setLoop: 5
 			setCel: 0
 			illegalBits: 0
-			ignoreActors: 1
+			ignoreActors: TRUE
 			priority: 7
 			init:
 			stopUpd:
 		)
-		(bpanel setLoop: 3 setCel: 0 illegalBits: 0 setPri: 4 init: stopUpd:)
+		(bpanel
+			setLoop: 3
+			setCel: 0
+			illegalBits: 0
+			setPri: 4
+			init:
+			stopUpd:
+		)
 		(eyes setPri: 10 init:)
 		(eyes hide:)
-		(self setRegions: 212) ; passReg
-		(switch gPrevRoomNum
-			(33
-				(gEgo posn: 16 110)
-			)
-			(43
-				(gEgo posn: 16 110)
-			)
-			(38
-				(gEgo posn: 193 115)
-			)
-			(48
-				(gEgo posn: 193 115)
-			)
+		(self setRegions: 212)
+		(switch prevRoomNum
+			(33 (ego posn: 16 110))
+			(43 (ego posn: 16 110))
+			(38 (ego posn: 193 115))
+			(48 (ego posn: 193 115))
 		)
-		(if (or (== gPrevRoomNum 34) (== gPrevRoomNum 44))
-			(gEgo
+		(if (or (== prevRoomNum 34) (== prevRoomNum 44))
+			(ego
 				loop: 2
 				illegalBits: 0
 				posn: 68 102
@@ -213,289 +210,277 @@
 				init:
 			)
 		else
-			(gEgo view: 0 setPri: 6 illegalBits: -32768 init:)
+			(ego view: 0 setPri: 6 illegalBits: cWHITE init:)
 		)
 	)
-
+	
 	(method (doit)
 		(if
 			(and
-				(gEgo inRect: 190 111 197 114)
+				(ego inRect: 190 111 197 114)
 				(not script)
-				(< gAct 7)
-				(> gAct 0)
-				(!= gAct 5)
+				(< currentAct 7)
+				(> currentAct 0)
+				(!= currentAct 5)
 				(< (Random 1 100) 35)
 			)
 			(self setScript: grabbed)
 		)
-		(if (and (== gPrevRoomNum 43) (== global144 0))
+		(if (and (== prevRoomNum 43) (== global144 0))
 			(= global144 1)
 			(mySound number: 106 loop: 1 play:)
-			(Print 50 6) ; "You have found a small hidden room in the house!"
+			(Print 50 6)
 		)
-		(if (and (== gPrevRoomNum 33) (== global140 0))
+		(if (and (== prevRoomNum 33) (== global140 0))
 			(= global140 1)
 			(mySound number: 106 loop: 1 play:)
-			(Print 50 6) ; "You have found a small hidden room in the house!"
+			(Print 50 6)
 		)
-		(if (and (== [gCycleTimers 1] 1) (not global107) (== gAct 4))
+		(if
+			(and
+				(== [global368 1] 1)
+				(not global107)
+				(== currentAct 4)
+			)
 			(= global107 1)
-			(Print 50 7) ; "You notice a faint aroma of perfume."
+			(Print 50 7)
 		)
-		(if (< (gEgo x:) 50)
+		(if (< (ego x?) 50)
 			(= vertAngle 0)
 		else
 			(= vertAngle 140)
 		)
-		(if (& (gEgo onControl: 1) $0002)
-			(gCurRoom newRoom: west)
+		(if (& (ego onControl: origin) cBLUE)
+			(curRoom newRoom: west)
 		)
 		(if (not local13)
-			(if (& (gEgo onControl:) $0020)
+			(if (& (ego onControl:) cMAGENTA)
 				(= local13 1)
 				(= vertAngle 0)
-				(gEgo illegalBits: 0)
+				(ego illegalBits: 0)
 				(HandsOff)
-				(if (< (gEgo heading:) 180)
-					(gEgo setLoop: 0 setMotion: leftUpPath self)
+				(if (< (ego heading?) 180)
+					(ego setLoop: 0 setMotion: leftUpPath self)
 				else
-					(gEgo setLoop: 1 setMotion: leftDwnPath self)
+					(ego setLoop: 1 setMotion: leftDwnPath self)
 				)
 			)
-			(if (& (gEgo onControl:) $0040)
+			(if (& (ego onControl:) cBROWN)
 				(= local13 1)
 				(= vertAngle 0)
-				(gEgo illegalBits: 0)
+				(ego illegalBits: 0)
 				(HandsOff)
-				(if (< (gEgo heading:) 180)
-					(gEgo setLoop: 0 setMotion: rightDwnPath self)
+				(if (< (ego heading?) 180)
+					(ego setLoop: 0 setMotion: rightDwnPath self)
 				else
-					(gEgo setLoop: 1 setMotion: rightUpPath self)
+					(ego setLoop: 1 setMotion: rightUpPath self)
 				)
 			)
 		)
 		(super doit:)
 	)
-
+	
 	(method (dispose)
-		(DisposeScript 983)
+		(DisposeScript PATH)
 		(super dispose:)
 	)
-
-	(method (newRoom newRoomNumber)
-		(gEgo setPri: -1)
-		(super newRoom: newRoomNumber)
-	)
-
+	
 	(method (handleEvent event &tmp temp0)
-		(if (event claimed:)
-			(return 1)
-		)
-		(if (== (event type:) evSAID)
-			(cond
-				((and (not global107) (Said 'smell'))
-					(Print 50 7) ; "You notice a faint aroma of perfume."
-				)
-				((Said 'look>')
-					(cond
-						((or (Said '/room<dining') (Said '/parlor'))
-							(if (== west 33)
-								(Print 50 8) ; "Just look through the holes."
-							else
-								(event claimed: 0)
-							)
-						)
-						((or (Said '/room<guest') (Said '/bedroom'))
-							(if (== west 43)
-								(Print 50 8) ; "Just look through the holes."
-							else
-								(event claimed: 0)
-							)
-						)
-						((Said '[<around,at][/room]')
-							(Print 50 6) ; "You have found a small hidden room in the house!"
-						)
-						((Said '/painting')
-							(Print 50 9) ; "What picture? You don't see any pictures!"
-						)
-						((Said '/mirror')
-							(if (== (gCurRoom west:) 33)
-								(Print 50 10) ; "You see the back of the mirror at the hidden room's entrance."
-							else
-								(Print 50 11) ; "What mirror?"
-							)
-						)
-						((Said '/armoire')
-							(if (== (gCurRoom west:) 43)
-								(Print 50 12) ; "You see the back of the armoire at the hidden room's entrance."
-							else
-								(Print 50 13) ; "What armoire?"
-							)
-						)
-						((Said '/parlor,room<dining')
-							(if (== (gCurRoom west:) 33)
-								(Print 50 14) ; "You can't see those rooms!"
-							else
-								(event claimed: 0)
-							)
-						)
-						((or (Said '/dirt') (Said '<down'))
-							(if (and (== gAct 6) (== (gCurRoom west:) 43))
-								(= local36 1)
-								(Print 50 15) ; "You notice a dusty bootprint on the floor."
-							)
-							(if
-								(and
-									(not (gEgo has: 21)) ; cane
-									(== gCurRoomNum (- gCaneLocation gPrevRoomNum))
-								)
-								(= local36 1)
-								(Print 50 16) ; "Someone has left an old cane behind."
-							)
-							(if
-								(and
-									(not (gEgo has: 8)) ; cigar_butt
-									(== gCurRoomNum (- gCigarButtLocation gPrevRoomNum))
-								)
-								(= local36 1)
-								(Print 50 17) ; "Someone dropped an old cigar butt on the floor."
-							)
-							(if (not local36)
-								(event claimed: 0)
-							)
-							(= local36 0)
-						)
-						((Said '[<through,in]/eyehole,eye')
-							(if (& (gEgo onControl: 1) $0010)
-								(if
-									(or
-										(== (gEgo loop:) 2)
-										(== (gEgo loop:) 3)
-									)
-									(eyes setScript: LookAround)
+		(if (event claimed?) (return TRUE))
+		(return
+			(if (== (event type?) saidEvent)
+				(cond 
+					((and (not global107) (Said 'smell'))
+						(Print 50 7)
+					)
+					((Said 'examine>')
+						(cond 
+							((or (Said '/room<dining') (Said '/parlor'))
+								(if (== west 33)
+									(Print 50 8)
 								else
-									(Print 50 18) ; "Try facing either set of holes."
+									(event claimed: FALSE)
 								)
-							else
-								(NotClose) ; "You're not close enough."
+							)
+							((or (Said '/room<guest') (Said '/bedroom'))
+								(if (== west 43)
+									(Print 50 8)
+								else
+									(event claimed: FALSE)
+								)
+							)
+							((Said '[<around,at][/room]')
+								(Print 50 6)
+							)
+							((Said '/painting')
+								(Print 50 9)
+							)
+							((Said '/mirror')
+								(if (== (curRoom west?) 33)
+									(Print 50 10)
+								else
+									(Print 50 11)
+								)
+							)
+							((Said '/armoire')
+								(if (== (curRoom west?) 43)
+									(Print 50 12)
+								else
+									(Print 50 13)
+								)
+							)
+							((Said '/parlor,room<dining')
+								(if (== (curRoom west?) 33)
+									(Print 50 14)
+								else
+									(event claimed: FALSE)
+								)
+							)
+							((or (Said '/dirt') (Said '<down'))
+								(if (and (== currentAct 6) (== (curRoom west?) 43))
+									(= local36 1)
+									(Print 50 15)
+								)
+								(if
+									(and
+										(not (ego has: iCane))
+										(== curRoomNum (- global119 prevRoomNum))
+									)
+									(= local36 1)
+									(Print 50 16)
+								)
+								(if
+									(and
+										(not (ego has: iCigarButt))
+										(== curRoomNum (- global168 prevRoomNum))
+									)
+									(= local36 1)
+									(Print 50 17)
+								)
+								(if (not local36)
+									(event claimed: FALSE)
+								)
+								(= local36 0)
+							)
+							((Said '[<through,in]/eyehole,eye')
+								(if (& (ego onControl: origin) cRED)
+									(if (or (== (ego loop?) 2) (== (ego loop?) 3))
+										(eyes setScript: LookAround)
+									else
+										(Print 50 18)
+									)
+								else
+									(NotClose)
+								)
 							)
 						)
 					)
-				)
-				((Said 'move,open/door')
-					(cond
-						((& (gEgo onControl: 1) $0008)
-							(switch (gCurRoom south:)
-								(38
-									(|= global175 $0008)
+					((Said 'move,open/door')
+						(cond 
+							((& (ego onControl: origin) cCYAN)
+								(switch (curRoom south?)
+									(38
+										(|= global175 $0008)
+									)
+									(48
+										(= global175 $0080)
+									)
 								)
-								(48
-									(|= global175 $0080)
-								)
+								(HandsOff)
+								(self setScript: Front)
 							)
-							(HandsOff)
-							(self setScript: Front)
-						)
-						((& (gEgo onControl: 1) $0004)
-							(switch (gCurRoom north:)
-								(34
-									(|= global175 $0002)
+							((& (ego onControl: origin) cGREEN)
+								(switch (curRoom north?)
+									(34
+										(|= global175 $0002)
+									)
+									(44
+										(|= global175 $0020)
+									)
 								)
-								(44
-									(|= global175 $0020)
-								)
+								(self setScript: Back)
 							)
-							(self setScript: Back)
+							(else
+								(NotClose)
+							)
 						)
-						(else
-							(NotClose) ; "You're not close enough."
+					)
+					((Said 'close/door')
+						(Print 50 19)
+					)
+					((Said 'get/painting')
+						(Print 50 9)
+					)
+					((Said 'close,drag,press,open,move/mirror')
+						(if (== (curRoom west?) 33)
+							(Print 50 20)
+						else
+							(Print 50 11)
+						)
+					)
+					((Said 'close,drag,press,open,move/armoire')
+						(if (== (curRoom west?) 43)
+							(Print 50 21)
+						else
+							(Print 50 13)
 						)
 					)
 				)
-				((Said 'close/door')
-					(Print 50 19) ; "The secret panels are already closed."
-				)
-				((Said 'get/painting')
-					(Print 50 9) ; "What picture? You don't see any pictures!"
-				)
-				((Said 'close,pull,press,open,move/mirror')
-					(if (== (gCurRoom west:) 33)
-						(Print 50 20) ; "You closed the mirror behind you. Walk to it to open it."
-					else
-						(Print 50 11) ; "What mirror?"
-					)
-				)
-				((Said 'close,pull,press,open,move/armoire')
-					(if (== (gCurRoom west:) 43)
-						(Print 50 21) ; "You closed the armoire behind you. Walk to it to open it."
-					else
-						(Print 50 13) ; "What armoire?"
-					)
-				)
+			else
+				FALSE
 			)
 		)
 	)
-
+	
 	(method (cue)
 		(HandsOn)
-		(gEgo illegalBits: -32768 setLoop: -1)
+		(ego illegalBits: cWHITE setLoop: -1)
 		(= local13 0)
+	)
+	
+	(method (newRoom n)
+		(ego setPri: -1)
+		(super newRoom: n)
 	)
 )
 
 (instance Front of Script
-	(properties)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
 				(= local34 0)
-				(gEgo illegalBits: 0)
+				(ego illegalBits: 0)
 				(= cycles 2)
 			)
 			(1
-				(gEgo setMotion: MoveTo 209 115 self)
+				(ego setMotion: MoveTo 209 115 self)
 			)
 			(2
 				(mySound number: 74 loop: 1 play:)
-				(gEgo loop: 2)
+				(ego loop: 2)
 				(fpanel setMotion: MoveTo 187 119 self)
 			)
 			(3
 				(= local34 0)
-				(switch (gCurRoom south:)
+				(switch (curRoom south?)
 					(48
-						(switch gAct
+						(switch currentAct
 							(0
-								(if (> global199 0)
-									(= local34 1)
-								)
+								(if (> global199 0) (= local34 1))
 							)
-							(1
-								(= local34 1)
-							)
-							(5
-								(= local34 1)
-							)
-							(2
-								(= local34 1)
-							)
+							(1 (= local34 1))
+							(5 (= local34 1))
+							(2 (= local34 1))
 						)
 					)
 					(38
-						(switch gAct
-							(0
-								(= local34 1)
-							)
-							(1
-								(= local34 1)
-							)
-							(4
-								(= local34 1)
-							)
+						(switch currentAct
+							(0 (= local34 1))
+							(1 (= local34 1))
+							(4 (= local34 1))
 							(3
-								(if (and (< gMinute 3) (< gFifiState 2))
+								(if (and (< gameMinutes 3) (< global192 2))
 									(= local34 1)
 								)
 							)
@@ -503,9 +488,9 @@
 					)
 				)
 				(if (not local34)
-					(gCurRoom newRoom: (gCurRoom south:))
+					(curRoom newRoom: (curRoom south?))
 				else
-					(Print 50 22 #at 130 10) ; "Oh, no! There is somebody in the room!"
+					(Print 50 22 #at 130 10)
 					(= cycles 1)
 				)
 			)
@@ -515,7 +500,7 @@
 			)
 			(5
 				(HandsOn)
-				(gEgo illegalBits: -32768)
+				(ego illegalBits: cWHITE)
 				(fpanel stopUpd:)
 				(client setScript: 0)
 			)
@@ -524,8 +509,7 @@
 )
 
 (instance Back of Script
-	(properties)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
@@ -536,13 +520,13 @@
 			)
 			(1
 				(= local34 0)
-				(switch (gCurRoom north:)
+				(switch (curRoom north?)
 					(34
 						(if
 							(or
-								(== gAct 4)
-								(and (== gAct 1) (== gClarenceWilburState 3))
-								(and (== gMinute 3) (> [gCycleTimers 2] 1))
+								(== currentAct 4)
+								(and (== currentAct 1) (== global154 3))
+								(and (== gameMinutes 3) (> [global368 2] 1))
 							)
 							(= local34 1)
 						)
@@ -550,20 +534,16 @@
 					(44
 						(if
 							(or
-								(== gAct 5)
+								(== currentAct 5)
 								(and
-									(== gAct 0)
-									(or
-										(< [gCycleTimers 4] 20)
-										(== global203 2)
-										global125
-									)
+									(== currentAct 0)
+									(or (< [global368 4] 20) (== global203 2) global125)
 								)
-								(and (== gAct 3) (& gMustDos $0002))
+								(and (== currentAct 3) (& global118 $0002))
 								(and
-									(== gAct 6)
-									(& gMustDos $0002)
-									(not (IsFlag 36))
+									(== currentAct 6)
+									(& global118 $0002)
+									(not (Btst 36))
 								)
 							)
 							(= local34 1)
@@ -571,7 +551,7 @@
 					)
 				)
 				(if local34
-					(Print 50 22 #at 10 10 #mode 1) ; "Oh, no! There is somebody in the room!"
+					(Print 50 22 #at 10 10 #mode teJustCenter)
 				else
 					(= state 3)
 				)
@@ -584,11 +564,11 @@
 			(3
 				(bpanel stopUpd:)
 				(HandsOn)
-				(gEgo setLoop: -1 illegalBits: -32768)
+				(ego setLoop: -1 illegalBits: cWHITE)
 				(client setScript: 0)
 			)
 			(4
-				(gEgo
+				(ego
 					illegalBits: 0
 					setLoop: 3
 					setMotion: MoveTo 64 105 self
@@ -598,7 +578,7 @@
 				(bpanel setMotion: MoveTo 98 103 self)
 			)
 			(6
-				(gEgo
+				(ego
 					setLoop: 3
 					setPri: 3
 					illegalBits: 0
@@ -610,16 +590,15 @@
 				(mySound number: 75 loop: 1 play:)
 			)
 			(8
-				(gEgo setLoop: -1 illegalBits: -32768)
-				(gCurRoom newRoom: (gCurRoom north:))
+				(ego setLoop: -1 illegalBits: cWHITE)
+				(curRoom newRoom: (curRoom north?))
 			)
 		)
 	)
 )
 
 (instance Entering of Script
-	(properties)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
@@ -628,7 +607,7 @@
 				(mySound number: 74 loop: 1 play:)
 			)
 			(1
-				(gEgo setPri: 6 setMotion: MoveTo 68 105 self)
+				(ego setPri: 6 setMotion: MoveTo 68 105 self)
 			)
 			(2
 				(bpanel setMotion: MoveTo 68 103 self)
@@ -636,62 +615,57 @@
 			)
 			(3
 				(HandsOn)
-				(gEgo illegalBits: -32768 setScript: 0)
+				(ego illegalBits: cWHITE setScript: 0)
 			)
 		)
 	)
 )
 
 (instance LookAround of Script
-	(properties)
-
+	
 	(method (changeState newState &tmp temp0)
 		(switch (= state newState)
 			(0
 				(HandsOff)
-				(gEgo yStep: 1)
-				(if (== (gEgo loop:) 2)
-					(gEgo setMotion: MoveTo 131 104 self)
+				(ego yStep: 1)
+				(if (== (ego loop?) 2)
+					(ego setMotion: MoveTo 131 104 self)
 				else
-					(gEgo setMotion: MoveTo 121 97 self)
+					(ego setMotion: MoveTo 121 97 self)
 				)
 			)
 			(1
-				(gEgo yStep: 2 cel: 2)
-				(if (> (gEgo y:) 100)
-					(gEgo loop: 2)
-					(eyes cycleSpeed: 3 setCycle: Fwd show:)
+				(ego yStep: 2 cel: 2)
+				(if (> (ego y?) 100)
+					(ego loop: 2)
+					(eyes cycleSpeed: 3 setCycle: Forward show:)
 					(= seconds 3)
 				else
-					(gEgo loop: 3)
+					(ego loop: 3)
 					(= cycles 3)
 				)
 			)
 			(2
 				(= temp0 0)
-				(switch gAct
+				(switch currentAct
 					(0
-						(cond
-							((== (gEgo loop:) 3)
+						(cond 
+							((== (ego loop?) 3)
 								(if
 									(and
-										(!= (gCurRoom west:) 33)
-										(or
-											(== [gCycleTimers 4] 1)
-											(== global203 2)
-											global125
-										)
+										(!= (curRoom west?) 33)
+										(or (== [global368 4] 1) (== global203 2) global125)
 									)
 									(= temp0 330)
 								)
 							)
-							((== (gCurRoom west:) 33)
+							((== (curRoom west?) 33)
 								(= temp0 301)
 							)
 							(
 								(and
-									(== (gCurRoom west:) 43)
-									(== (gEgo loop:) 2)
+									(== (curRoom west?) 43)
+									(== (ego loop?) 2)
 									(> global199 0)
 								)
 								(= temp0 332)
@@ -699,17 +673,13 @@
 						)
 					)
 					(1
-						(cond
-							((== (gEgo loop:) 3)
-								(if
-									(and
-										(== (gCurRoom west:) 33)
-										(== gClarenceWilburState 3)
-									)
+						(cond 
+							((== (ego loop?) 3)
+								(if (and (== (curRoom west?) 33) (== global154 3))
 									(= temp0 305)
 								)
 							)
-							((== (gCurRoom west:) 33)
+							((== (curRoom west?) 33)
 								(= temp0 302)
 							)
 							(else
@@ -718,68 +688,66 @@
 						)
 					)
 					(2
-						(if (and (== (gEgo loop:) 2) (== (gCurRoom west:) 43))
+						(if (and (== (ego loop?) 2) (== (curRoom west?) 43))
 							(= temp0 333)
 						)
 					)
 					(3
 						(if
 							(and
-								(== (gEgo loop:) 3)
-								(== (gCurRoom west:) 33)
-								(== gMinute 3)
+								(== (ego loop?) 3)
+								(== (curRoom west?) 33)
+								(== gameMinutes 3)
 							)
 							(= temp0 303)
 						)
 						(if
 							(and
-								(== (gEgo loop:) 3)
-								(== (gCurRoom west:) 43)
-								(& gMustDos $0002)
+								(== (ego loop?) 3)
+								(== (curRoom west?) 43)
+								(& global118 $0002)
 							)
 							(= temp0 335)
 						)
 						(if
 							(and
-								(== (gEgo loop:) 2)
-								(== (gCurRoom west:) 33)
-								(< gMinute 3)
-								(< gFifiState 2)
+								(== (ego loop?) 2)
+								(== (curRoom west?) 33)
+								(< gameMinutes 3)
+								(< global192 2)
 							)
 							(= temp0 307)
 						)
 					)
 					(4
-						(if (== (gCurRoom west:) 33)
+						(if (== (curRoom west?) 33)
 							(= temp0
-								(switch (== (gEgo loop:) 3)
+								(switch (== (ego loop?) 3)
 									(1 306)
 									(0 304)
-								)
-							)
+								))
 						)
 					)
-					(else
-						(if (and (== 5 gAct) (== (gCurRoom west:) 43))
+					(else 
+						(if (and (== 5 currentAct) (== (curRoom west?) 43))
 							(= temp0
-								(switch (== (gEgo loop:) 3)
+								(switch (== (ego loop?) 3)
 									(1 335)
 									(0 334)
-								)
-							)
+								))
 						)
 					)
 				)
 				(if temp0
-					(gCurRoom newRoom: temp0)
+					(curRoom newRoom: temp0)
 				else
-					(localproc_0)
+					(localproc_011c)
 				)
 			)
 			(3
 				(client setScript: 0)
 				(cls)
-				(localproc_1)
+				(localproc_0192)
 				(HandsOn)
 			)
 		)
@@ -787,37 +755,34 @@
 )
 
 (instance pickUp of Script
-	(properties)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
 				(HandsOff)
-				(LookAt gEgo client)
+				(Face ego client)
 				(= cycles 2)
 			)
 			(1
-				(gEgo view: 17 cel: 0 setMotion: 0 setCycle: End self)
+				(ego view: 17 cel: 0 setMotion: 0 setCycle: EndLoop self)
 			)
 			(2
 				(if (== local37 1)
-					(Ok) ; "Okay."
+					(Ok)
 					(cane hide:)
-					(gEgo get: 21) ; cane
+					(ego get: iCane)
 				else
-					(Print 50 23) ; "You bend over and pick up the small cigar butt."
+					(Print 50 23)
 					(cigar hide:)
-					(gEgo get: 8) ; cigar_butt
+					(ego get: iCigarButt)
 				)
-				(= global182 1)
+				(= gotItem TRUE)
 				(= cycles 2)
 			)
-			(3
-				(gEgo setCycle: Beg self)
-			)
+			(3 (ego setCycle: BegLoop self))
 			(4
 				(HandsOn)
-				(gEgo view: 0 setCycle: Walk)
+				(ego view: 0 setCycle: Walk)
 				(client dispose: setScript: 0)
 			)
 		)
@@ -825,54 +790,51 @@
 )
 
 (instance grabbed of Script
-	(properties)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
 				(HandsOff)
-				(gEgo view: 43 loop: 1 cel: 0 setCycle: End self)
+				(ego view: 43 loop: 1 cel: 0 setCycle: EndLoop self)
 				(mySound number: 87 loop: 1 play:)
 			)
-			(1
-				(= seconds 5)
-			)
+			(1 (= seconds 5))
 			(2
-				(= global128 43)
-				(= global129 2)
-				(= global130 0)
-				(EgoDead 50 24) ; "That's what you get for being such a snoop, Laura!"
+				(= cIcon 43)
+				(= deathLoop 2)
+				(= deathCel 0)
+				(EgoDead 50 24)
 			)
 		)
 	)
 )
 
-(instance fpanel of Act
+(instance fpanel of Actor
 	(properties
 		y 119
 		x 194
 		view 139
 	)
-
+	
 	(method (handleEvent event)
-		(if (or (MousedOn self event 3) (Said 'look/door'))
-			(Print 50 25) ; "You see two secret panels, one in each wall."
-			(event claimed: 1)
+		(if (or (MousedOn self event shiftDown) (Said 'examine/door'))
+			(Print 50 25)
+			(event claimed: TRUE)
 		)
 	)
 )
 
-(instance bpanel of Act
+(instance bpanel of Actor
 	(properties
 		y 103
 		x 68
 		view 139
 	)
-
+	
 	(method (handleEvent event)
-		(if (MousedOn self event 3)
-			(Print 50 25) ; "You see two secret panels, one in each wall."
-			(event claimed: 1)
+		(if (MousedOn self event shiftDown)
+			(Print 50 25)
+			(event claimed: TRUE)
 		)
 	)
 )
@@ -912,19 +874,19 @@
 		view 139
 		loop 7
 	)
-
+	
 	(method (handleEvent event)
-		(cond
-			((or (MousedOn self event 3) (Said 'look/butt'))
-				(event claimed: 1)
-				(Print 50 26) ; "A cigar butt lies on the floor."
+		(cond 
+			((or (MousedOn self event shiftDown) (Said 'examine/butt'))
+				(event claimed: TRUE)
+				(Print 50 26)
 			)
 			((Said 'get/butt')
-				(if (< (gEgo distanceTo: cigar) 10)
+				(if (< (ego distanceTo: cigar) 10)
 					(= local37 0)
 					(self setScript: pickUp)
 				else
-					(NotClose) ; "You're not close enough."
+					(NotClose)
 				)
 			)
 		)
@@ -938,19 +900,19 @@
 		view 139
 		loop 6
 	)
-
+	
 	(method (handleEvent event)
-		(cond
-			((or (MousedOn self event 3) (Said 'look/cane'))
-				(event claimed: 1)
-				(Print 50 27) ; "An old cane lies on the floor."
+		(cond 
+			((or (MousedOn self event shiftDown) (Said 'examine/cane'))
+				(event claimed: TRUE)
+				(Print 50 27)
 			)
 			((Said 'get/cane')
-				(if (< (gEgo distanceTo: cane) 25)
+				(if (< (ego distanceTo: cane) 25)
 					(= local37 1)
 					(self setScript: pickUp)
 				else
-					(NotClose) ; "You're not close enough."
+					(NotClose)
 				)
 			)
 		)
@@ -964,21 +926,21 @@
 		view 139
 		loop 8
 	)
-
+	
 	(method (handleEvent)
-		(cond
+		(cond 
 			((Said 'get/bootprint')
-				(Print 50 28) ; "You can't get a bootprint!"
+				(Print 50 28)
 			)
-			((Said 'look<use<monocle/bootprint')
-				(if (gEgo has: 1) ; monocle
-					(if (< (gEgo distanceTo: boot) 10)
-						(Print 50 29) ; "You examine it with the monocle, but don't see anything interesting."
+			((Said 'examine<use<monocle/bootprint')
+				(if (ego has: iMonocle)
+					(if (< (ego distanceTo: boot) 10)
+						(Print 50 29)
 					else
-						(NotClose) ; "You're not close enough."
+						(NotClose)
 					)
 				else
-					(DontHave) ; "You don't have it."
+					(DontHave)
 				)
 			)
 		)
@@ -992,20 +954,15 @@
 		nsBottom 115
 		nsRight 146
 	)
-
+	
 	(method (handleEvent event)
-		(if (MousedOn self event 3)
-			(event claimed: 1)
+		(if (MousedOn self event shiftDown)
+			(event claimed: TRUE)
 			(DoLook {platform})
 		)
 	)
 )
 
-(instance mySound of Sound
-	(properties)
-)
+(instance mySound of Sound)
 
-(instance myMusic of Sound
-	(properties)
-)
-
+(instance myMusic of Sound)

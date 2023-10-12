@@ -1,9 +1,8 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-;;; Decompiled by sluicebox
 (script# 354)
-(include sci.sh)
+(include game.sh)
 (use Main)
-(use Interface)
+(use Intrface)
 (use Sound)
 (use Motion)
 (use Game)
@@ -15,68 +14,71 @@
 )
 
 (local
-	local0
-	local1
-	local2
-	local3 = 1
+	theCycles
+	mouthCued
+	saveBits
+	local3 =  1
 )
-
-(procedure (localproc_0 &tmp [temp0 500])
+(procedure (Measure &tmp [temp0 500])
 	(GetFarText &rest @temp0)
-	(= local0 (+ (/ (StrLen @temp0) 3) 1))
+	(= theCycles (+ (/ (StrLen @temp0) 3) 1))
 )
 
-(procedure (localproc_1)
-	(localproc_0 &rest)
-	(+= local0 (/ local0 4))
+(procedure (LillPrint)
+	(Measure &rest)
+	(= theCycles (+ theCycles (/ theCycles 4)))
 	(lillMouth setScript: cycleMouth)
-	(Print &rest #at 160 115 #font 4 #width 140 #mode 1 #dispose)
+	(Print
+		&rest
+		#at
+		160
+		115
+		#font
+		4
+		#width
+		140
+		#mode
+		1
+		#dispose
+	)
 )
 
-(procedure (localproc_2)
-	(localproc_0 &rest)
-	(+= local0 (/ local0 2))
+(procedure (ColoPrint)
+	(Measure &rest)
+	(= theCycles (+ theCycles (/ theCycles 2)))
 	(coloMouth loop: 5 setScript: cycleMouth)
-	(Print &rest #at 20 115 #font 4 #width 140 #mode 1 #dispose)
+	(Print &rest
+		#at 20 115
+		#font 4
+		#width 140
+		#mode teJustCenter
+		#dispose
+	)
 )
 
-(instance Hand of Act
-	(properties)
-)
+(instance Hand of Actor)
 
-(instance Smoke of Act
-	(properties)
-)
+(instance Smoke of Actor)
 
-(instance Colonel of Prop
-	(properties)
-)
+(instance Colonel of Prop)
 
-(instance coloFace of Prop
-	(properties)
-)
+(instance coloFace of Prop)
 
-(instance coloMouth of Prop
-	(properties)
-)
+(instance coloMouth of Prop)
 
-(instance coloEyes of Prop
-	(properties)
-)
+(instance coloEyes of Prop)
 
-(instance myMusic of Sound
-	(properties)
-)
+(instance myMusic of Sound)
 
-(instance scene42e of Rm
+(instance scene42e of Room
 	(properties
 		picture 62
-		style 7
+		style IRISOUT
 	)
-
+	
 	(method (init)
 		(super init:)
-		(Load rsFONT 4)
+		(Load FONT 4)
 		(HandsOff)
 		(myMusic number: 27 loop: -1 play:)
 		(Colonel
@@ -99,7 +101,7 @@
 		)
 		(coloEyes
 			view: 311
-			posn: 114 (- (coloFace y:) 15)
+			posn: 114 (- (coloFace y?) 15)
 			loop: 2
 			cel: 0
 			setPri: 3
@@ -125,7 +127,7 @@
 			setPri: 3
 			moveSpeed: 1
 			illegalBits: 0
-			ignoreActors: 1
+			ignoreActors: TRUE
 			init:
 			hide:
 		)
@@ -139,135 +141,115 @@
 			init:
 			hide:
 		)
-		(if (and (not (& gSpyFlags $0040)) (!= [gCycleTimers 1] 1))
-			(= [gCycleTimers 1] 1)
-			(|= gSpyFlags $0040)
-			(Load rsFONT 41)
-			(LoadMany rsMESSAGE 406)
-			(Load rsVIEW 642)
-			(LoadMany rsSOUND 94 95 96 29)
+		(if (and (not (& global173 $0040)) (!= [global368 1] 1))
+			(= [global368 1] 1)
+			(|= global173 $0040)
+			(Load FONT 41)
+			(LoadMany 143 406)
+			(Load VIEW 642)
+			(LoadMany SOUND 94 95 96 29)
 			(Lillian setPri: 3 cycleSpeed: 2 init:)
 			(lillMouth cycleSpeed: 1 setPri: 4 init: hide:)
 			(lillEye setPri: 4 init: setScript: LillEyes)
-			(SetFlag 38)
+			(Bset 38)
 			(self setScript: speech42e)
 		else
 			(self setScript: twice)
 		)
 	)
-
+	
 	(method (doit)
 		(super doit:)
 	)
-
+	
 	(method (dispose)
 		(super dispose:)
 	)
-
+	
 	(method (handleEvent event)
 		(super handleEvent: event)
 	)
 )
 
 (instance speech42e of Script
-	(properties)
-
-	(method (handleEvent event &tmp temp0)
-		(super handleEvent: event)
-		(if
-			(and
-				(not (event claimed:))
-				(not script)
-				(== evKEYBOARD (event type:))
-				(or (== (event message:) KEY_S) (== (event message:) KEY_s))
-			)
-			(cls)
-			(gCurRoom newRoom: gPrevRoomNum)
-		)
-		(if (== evMOUSEBUTTON (event type:))
-			(= temp0
-				(Print {Skip scene?}
-					#button {Yes} 1
-					#button {No} 0
-				)
-			)
-			(if (== temp0 1)
-				(cls)
-				(gCurRoom newRoom: gPrevRoomNum)
-			)
-		)
-	)
-
+	
 	(method (doit)
 		(super doit:)
 	)
-
+	
 	(method (changeState newState)
-		(if (cycleMouth client:)
-			(= local1 1)
+		(if (cycleMouth client?)
+			(= mouthCued 1)
 			(= cycles 1)
 		else
 			(switch (= state newState)
 				(0
-					(cond
+					(cond 
 						((not global216)
 							(= state -1)
 						)
-						((not (& gMustDos $0002))
-							(|= gMustDos $0002)
-							(self setScript: (ScriptID 406 0)) ; Clock
+						((not (& global118 $0002))
+							(|= global118 $0002)
+							(self setScript: (ScriptID 406 0))
 							(= state -1)
 						)
-						((self script:)
+						((self script?)
 							(= state -1)
 						)
 					)
 					(= cycles 1)
 				)
 				(1
-					(= local2
-						(Display 354 0 dsCOORD 48 8 dsWIDTH 256 dsCOLOR 15 dsBACKGROUND -1 dsFONT 0 dsSAVEPIXELS) ; "Press the 'S' key to skip this scene."
+					(= saveBits
+						(Display 354 0
+							p_at 48 8
+							p_width 256
+							p_color vWHITE
+							p_back -1
+							p_font SYSFONT
+							p_save
+						)
 					)
-					(localproc_1 354 1) ; "Why are you treating me this way, Uncle Henri? Don't you care how I feel? Don't I matter to you anymore?"
+					(LillPrint 354 1)
 					(= seconds 10)
 				)
 				(2
-					(localproc_2 354 2) ; "You matter to me the same way everyone else does. No more...and no less."
+					(ColoPrint 354 2)
 					(= seconds 8)
 				)
 				(3
 					(Colonel setScript: twice)
-					(localproc_1 354 3) ; "But I don't understand it! I thought I was special! I thought you cared for me more than for Gloria, or Rudy...or any of the others!"
+					(LillPrint 354 3)
 					(= seconds 10)
 				)
 				(4
-					(if (Colonel script:)
+					(if (Colonel script?)
 						(= state 3)
 						(= cycles 1)
 					else
-						(localproc_2 354 4) ; "You're right; YOU thought that. You were wrong."
+						(ColoPrint 354 4)
 						(= seconds 5)
 					)
 				)
 				(5
-					(localproc_1 354 5) ; "What about when I used to come and visit you? You were like a father to me! How can you be like this now?!"
+					(LillPrint 354 5)
 					(= seconds 8)
 				)
 				(6
-					(localproc_2 354 6) ; "I'm afraid you misunderstood a lot of things, Lillian. I was just trying to help my sister...that's all. To me you were just her insecure, whiny kid."
+					(ColoPrint 354 6)
 					(= seconds 10)
 				)
 				(7
 					(Colonel setScript: twice)
-					(localproc_1 354 7) ; "I won't hear any more of this!! You're lying to me, Uncle Henri! Somebody's behind this, I just know it! And I intend to find out who it is!!"
+					(LillPrint 354 7)
 					(= seconds 10)
 				)
 				(8
-					(if (Colonel script:)
+					(if (Colonel script?)
 						(= state 7)
 						(= cycles 1)
 					else
-						(localproc_1 354 8) ; "Au revoir...Uncle Henri!"
+						(LillPrint 354 8)
 						(= seconds 5)
 					)
 				)
@@ -275,34 +257,50 @@
 					(Lillian
 						setLoop: 4
 						setCycle: Walk
-						setMotion: MoveTo 300 (Lillian y:) self
+						setMotion: MoveTo 300 (Lillian y?) self
 					)
 					(lillEye dispose:)
 				)
 				(10
-					(gCurRoom newRoom: gPrevRoomNum)
+					(curRoom newRoom: prevRoomNum)
 				)
 			)
+		)
+	)
+	
+	(method (handleEvent event)
+		(super handleEvent: event)
+		(if
+			(and
+				(not (event claimed?))
+				(not script)
+				(== keyDown (event type?))
+				(or
+					(== (event message?) `S)
+					(== (event message?) `s)
+				)
+			)
+			(cls)
+			(curRoom newRoom: prevRoomNum)
 		)
 	)
 )
 
 (instance cycleMouth of Script
-	(properties)
-
+	
 	(method (doit)
 		(super doit:)
-		(if local1
-			(= local1 0)
+		(if mouthCued
+			(= mouthCued FALSE)
 			(= cycles 1)
 		)
 	)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
-				(client cel: 0 setCycle: Fwd show:)
-				(= cycles local0)
+				(client cel: 0 setCycle: Forward show:)
+				(= cycles theCycles)
 			)
 			(1
 				(client setScript: 0 hide:)
@@ -313,20 +311,21 @@
 )
 
 (instance ColoEyes of Script
-	(properties)
 
 	(method (changeState newState)
 		(switch (= state newState)
-			(0
-				(= cycles 7)
-			)
+			(0 (= cycles 7))
 			(1
 				(= state 0)
 				(if (^= local3 $0001)
 					(coloEyes hide:)
 					(= seconds (Random 2 3))
 				else
-					(coloEyes cel: (/ (Random 1 29999) 10000) forceUpd: show:)
+					(coloEyes
+						cel: (/ (Random 1 29999) 10000)
+						forceUpd:
+						show:
+					)
 					(= cycles 3)
 				)
 			)
@@ -335,7 +334,6 @@
 )
 
 (instance LillEyes of Script
-	(properties)
 
 	(method (changeState newState)
 		(switch (= state newState)
@@ -344,7 +342,7 @@
 			)
 			(1
 				(= state 0)
-				(lillEye loop: (Random 2 3) cel: 0 setCycle: Beg)
+				(lillEye loop: (Random 2 3) cel: 0 setCycle: BegLoop)
 				(= seconds (Random 3 8))
 			)
 		)
@@ -352,47 +350,55 @@
 )
 
 (instance twice of Script
-	(properties)
 
 	(method (doit)
 		(super doit:)
-		(if (and (== state 3) (== (Smoke cel:) (- (NumCels Smoke) 1)))
+		(if
+			(and
+				(== state 3)
+				(== (Smoke cel?) (- (NumCels Smoke) 1))
+			)
 			(Smoke hide:)
 		)
 	)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
 				(if (== client scene42e)
-					(Print 354 9 #dispose) ; "You see the Colonel sitting in his room."
+					(Print 354 9 #dispose)
 				)
 				(coloFace cel: 0 forceUpd:)
-				(coloEyes y: (- (coloFace y:) 15) forceUpd:)
+				(coloEyes y: (- (coloFace y?) 15) forceUpd:)
 				(Hand show: setMotion: MoveTo 116 116 self)
 			)
 			(1
 				(Hand stopUpd:)
-				(coloMouth show: loop: 4 setCycle: Fwd)
+				(coloMouth show: loop: 4 setCycle: Forward)
 				(= seconds 3)
 			)
 			(2
-				(coloMouth setCycle: End)
+				(coloMouth setCycle: EndLoop)
 				(Hand setMotion: MoveTo 128 136 self)
 			)
 			(3
 				(Hand hide:)
 				(coloFace cel: 1 forceUpd:)
 				(coloMouth hide:)
-				(coloEyes y: (- (coloFace y:) 16) forceUpd:)
-				(Smoke show: cel: 0 posn: 113 79 setMotion: MoveTo 128 101 self)
+				(coloEyes y: (- (coloFace y?) 16) forceUpd:)
+				(Smoke
+					show:
+					cel: 0
+					posn: 113 79
+					setMotion: MoveTo 128 101 self
+				)
 			)
 			(4
 				(if (== client scene42e)
-					(gCurRoom newRoom: gPrevRoomNum)
+					(curRoom newRoom: prevRoomNum)
 				else
 					(coloFace cel: 0 forceUpd:)
-					(coloEyes y: (- (coloFace y:) 15) forceUpd:)
+					(coloEyes y: (- (coloFace y?) 15) forceUpd:)
 					(client setScript: 0)
 					(self client: 0)
 				)
@@ -401,7 +407,7 @@
 	)
 )
 
-(instance Lillian of Act
+(instance Lillian of Actor
 	(properties
 		y 107
 		x 227
@@ -426,4 +432,3 @@
 		loop 2
 	)
 )
-

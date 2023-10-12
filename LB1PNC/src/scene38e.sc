@@ -1,9 +1,8 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-;;; Decompiled by sluicebox
 (script# 304)
-(include sci.sh)
+(include game.sh)
 (use Main)
-(use Interface)
+(use Intrface)
 (use Sound)
 (use Motion)
 (use Game)
@@ -17,53 +16,47 @@
 (local
 	local0
 )
+(instance Clarence of Prop)
 
-(instance Clarence of Prop
-	(properties)
-)
+(instance Torso of Prop)
 
-(instance Torso of Prop
-	(properties)
-)
+(instance Eyes of Prop)
 
-(instance Eyes of Prop
-	(properties)
-)
+(instance Mouth of Prop)
 
-(instance Mouth of Prop
-	(properties)
-)
+(instance Hand of Actor)
 
-(instance Hand of Act
-	(properties)
-)
+(instance myMusic of Sound)
 
-(instance myMusic of Sound
-	(properties)
-)
-
-(instance scene38e of Rm
+(instance scene38e of Room
 	(properties
 		picture 62
-		style 7
+		style IRISOUT
 	)
-
+	
 	(method (init)
 		(super init:)
-		(Load rsFONT 41)
-		(LoadMany rsMESSAGE 406)
-		(Load rsVIEW 642)
-		(LoadMany rsSOUND 29 94 95 96)
+		(Load FONT 41)
+		(LoadMany 143 406)
+		(Load VIEW 642)
+		(LoadMany SOUND 29 94 95 96)
 		(HandsOff)
 		(myMusic number: 27 loop: -1 play:)
-		(Clarence view: 415 loop: 0 cel: 0 posn: 103 86 setPri: 1 init:)
+		(Clarence
+			view: 415
+			loop: 0
+			cel: 0
+			posn: 103 86
+			setPri: 1
+			init:
+		)
 		(Torso
 			view: 415
 			loop: 1
 			cel: 0
 			posn: 103 107
 			setPri: 1
-			ignoreActors: 1
+			ignoreActors: TRUE
 			init:
 		)
 		(Eyes
@@ -75,7 +68,15 @@
 			setScript: ClarsEyes
 			init:
 		)
-		(Mouth view: 415 loop: 6 cel: 0 posn: 99 85 setPri: 2 init: hide:)
+		(Mouth
+			view: 415
+			loop: 6
+			cel: 0
+			posn: 99 85
+			setPri: 2
+			init:
+			hide:
+		)
 		(Hand
 			view: 415
 			setLoop: 7
@@ -88,59 +89,58 @@
 		)
 		(self setScript: twice)
 	)
-
+	
 	(method (doit)
 		(super doit:)
 	)
-
+	
 	(method (dispose)
 		(super dispose:)
 	)
-
+	
 	(method (handleEvent event)
 		(super handleEvent: event)
 	)
 )
 
 (instance twice of Script
-	(properties)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
-				(cond
+				(cond 
 					((not global216)
 						(= state -1)
 					)
-					((not (& gMustDos $0008))
-						(|= gMustDos $0008)
-						(self setScript: (ScriptID 406 0)) ; Clock
+					((not (& global118 $0008))
+						(|= global118 $0008)
+						(self setScript: (ScriptID 406 0))
 						(= state -1)
 					)
-					((self script:)
+					((self script?)
 						(= state -1)
 					)
 				)
 				(= cycles 1)
 			)
 			(1
-				(Print 304 0 #width 230 #dispose) ; "It's only Clarence sitting alone at the bar."
+				(Print 304 0 #width 230 #dispose)
 				(Hand show: setMotion: MoveTo 93 120 self)
 			)
 			(2
 				(Eyes hide:)
-				(Clarence startUpd: setCycle: End)
-				(Hand setCycle: End setMotion: MoveTo 95 108 self)
+				(Clarence startUpd: setCycle: EndLoop)
+				(Hand setCycle: EndLoop setMotion: MoveTo 95 108 self)
 			)
 			(3
 				(Hand stopUpd:)
-				(Mouth show: setCycle: Fwd)
+				(Mouth show: setCycle: Forward)
 				(= cycles 4)
 			)
 			(4
 				(Mouth hide:)
-				(Clarence setCycle: Beg)
-				(Hand setCycle: Beg setMotion: MoveTo 93 120 self)
+				(Clarence setCycle: BegLoop)
+				(Hand setCycle: BegLoop setMotion: MoveTo 93 120 self)
 			)
 			(5
 				(Eyes show:)
@@ -148,21 +148,20 @@
 				(Hand setMotion: MoveTo 71 142 self)
 			)
 			(6
-				(gCurRoom newRoom: gPrevRoomNum)
+				(curRoom newRoom: prevRoomNum)
 			)
 		)
 	)
 )
 
 (instance ClarsEyes of Script
-	(properties)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
-				(Eyes cel: (^ (Eyes cel:) $0001) forceUpd:)
+				(Eyes cel: (^ (Eyes cel?) 1) forceUpd:)
 				(= state -1)
-				(if (Eyes cel:)
+				(if (Eyes cel?)
 					(Eyes loop: (Random 2 5))
 					(= cycles 2)
 				else
@@ -172,4 +171,3 @@
 		)
 	)
 )
-

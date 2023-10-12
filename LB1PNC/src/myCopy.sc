@@ -1,9 +1,8 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-;;; Decompiled by sluicebox
 (script# 414)
-(include sci.sh)
+(include game.sh)
 (use Main)
-(use Interface)
+(use Intrface)
 (use Sound)
 (use Motion)
 (use Game)
@@ -16,279 +15,272 @@
 )
 
 (local
-	local0
-	local1
-	local2
-	local3
+	fingerCel
+	fingerLoop
+	saveBits
+	saveBits2
 	local4
-	[local5 48] = [0 36 40 52 0 62 59 85 0 89 37 107 0 116 54 137 0 129 65 161 34 164 107 182 129 164 204 182 219 164 298 182 250 31 303 53 250 60 303 84 250 90 303 118 250 126 303 154]
-	[local53 24] = [0 1 5 2 3 4 7 6 8 11 9 10 3 0 7 1 6 5 11 2 4 8 10 9]
-	[local77 24] = [10 39 10 68 10 94 10 120 10 143 62 168 159 168 255 168 266 39 266 67 266 97 266 133]
+	local5 = [0 36 40 52 0 62 59 85 0 89 37 107 0 116 54 137 0 129 65 161 34 164 107 182 129 164 204 182 219 164 298 182 250 31 303 53 250 60 303 84 250 90 303 118 250 126 303 154]
+	local53 = [0 1 5 2 3 4 7 6 8 11 9 10 3 0 7 1 6 5 11 2 4 8 10 9]
+	local77 = [10 39 10 68 10 94 10 120 10 143 62 168 159 168 255 168 266 39 266 67 266 97 266 133]
 	local101
 	local102
 	local103
 	local104
 )
-
-(procedure (localproc_0)
-	(SetCursor 1 1 [local77 (* local101 2)] [local77 (+ (* local101 2) 1)])
+(procedure (localproc_0136)
+	(SetCursor 1 1
+		[local77 (* local101 2)]
+		[local77 (+ (* local101 2) 1)]
+	)
 )
 
-(procedure (localproc_1 param1 param2 &tmp temp0)
-	(for ((= temp0 0)) (< temp0 12) ((++ temp0))
+(procedure (localproc_0150 param1 param2 &tmp i)
+	(for ((= i 0)) (< i 12) ((++ i))
 		(if
 			(and
-				(> param1 [local5 (* temp0 4)])
-				(> param2 [local5 (+ (* temp0 4) 1)])
-				(< param1 [local5 (+ (* temp0 4) 2)])
-				(< param2 [local5 (+ (* temp0 4) 3)])
+				(> param1 [local5 (* i 4)])
+				(> param2 [local5 (+ (* i 4) 1)])
+				(< param1 [local5 (+ (* i 4) 2)])
+				(< param2 [local5 (+ (* i 4) 3)])
 			)
-			(return temp0)
+			(return i)
 		)
 	)
 	(return 13)
 )
 
-(procedure (localproc_2)
-	(gCast eachElementDo: #hide)
-	(DrawPic 88 4 1 1)
+(procedure (ClearCP)
+	(cast eachElementDo: #hide)
+	(DrawPic 88 WIPEUP TRUE 1)
 )
 
-(procedure (localproc_3)
-	(localproc_2)
-	(Print 414 0 #mode 1) ; "Sorry, this performance is sold out. Please come back again."
-	(= gQuit 1)
+(procedure (WrongAnswer)
+	(ClearCP)
+	(Print 414 0
+		#mode teJustCenter
+	)
+	(= quit TRUE)
 )
 
-(instance Logo of Prop
-	(properties)
-)
+(instance Logo of Prop)
 
-(instance Finger of Prop
-	(properties)
-)
+(instance Finger of Prop)
 
-(instance Glass of Act
-	(properties)
-)
+(instance Glass of Actor)
 
-;;;(instance Mood of Sound ; UNUSED
-;;;	(properties)
-;;;)
+(instance Mood of Sound)
 
-(instance myCopy of Rm
+(instance myCopy of Room
 	(properties
 		picture 88
-		style 8
+		style DISSOLVE
 	)
-
+	
 	(method (init)
 		(super init:)
-		(TheMenuBar state: 0)
+		(TheMenuBar state: FALSE)
 		(= local102 1)
-		(gConMusic number: 52 loop: -1 play:)
-		(= local0 (/ (Random 0 600) 100))
-		(= local1 (/ (Random 1 1000) 250))
+		(cSound number: 52 loop: -1 play:)
+		(= fingerCel (/ (Random 0 600) 100))
+		(= fingerLoop (/ (Random 1 1000) 250))
 		(SetCursor 1 1 320 20)
-		(Logo view: 553 loop: 4 cel: 1 posn: 161 120 init: stopUpd:)
-		(Finger view: 553 loop: local1 cel: local0 posn: 161 110 init: hide:)
+		(Logo
+			view: 553
+			loop: 4
+			cel: 1
+			posn: 161 120
+			init:
+			stopUpd:
+		)
+		(Finger
+			view: 553
+			loop: fingerLoop
+			cel: fingerCel
+			posn: 161 110
+			init:
+			hide:
+		)
 		(Glass
 			view: 553
 			setLoop: 5
 			setCel: 0
 			setStep:
-				(switch gDetailLevel
-					(1 6)
-					(else 3)
-				)
-				3
+			(switch howFast
+				(1 6)
+				(else  3)
+			) 3
 			posn: 161 140
 			init:
 		)
 		(self setScript: identify)
 	)
-
-	(method (newRoom newRoomNumber)
-		(gConMusic stop:)
-		(super newRoom: newRoomNumber)
-	)
-
+	
 	(method (doit)
 		(super doit:)
 	)
-
+	
 	(method (dispose)
 		(super dispose:)
 	)
-
-	(method (handleEvent event &tmp temp0)
+	
+	(method (handleEvent event &tmp soundOn)
 		(if (not local104)
 			(if local102
-				(switch (event type:)
-					(evKEYBOARD
-						(cond
-							((== (event message:) KEY_RETURN)
+				(switch (event type?)
+					(keyDown
+						(cond 
+							((== (event message?) ENTER)
 								(Logo dispose:)
 								(Glass posn: 162 140 setMotion: 0 stopUpd:)
 								(Finger show: stopUpd:)
-								(identify state: 4 seconds: 0 cycles: 0)
+								(identify
+									state: 4
+									seconds: 0
+									cycles: 0
+								)
 								(self cue:)
 							)
-							((== (event message:) KEY_F2)
-								(= temp0 (DoSound 4))
-								(DoSound 4 (not temp0))
+							((== (event message?) `#2)
+								(= soundOn (DoSound SoundOn))
+								(DoSound SoundOn (not soundOn))
 							)
 						)
 					)
 				)
-				(event claimed: 1)
+				(event claimed: TRUE)
 				(return)
 			)
-			(switch (event type:)
-				(evJOYDOWN
+			(switch (event type?)
+				(joyDown
 					(= local104 1)
 					(= local102 1)
 					(if
 						(==
-							(= local4 (localproc_1 (event x:) (event y:)))
-							[local53 (+ (* local1 6) local0)]
+							(= local4 (localproc_0150 (event x?) (event y?)))
+							[local53 (+ (* fingerLoop 6) fingerCel)]
 						)
 						(self cue:)
 					else
-						;(localproc_3)
-						(self cue:)
+						(WrongAnswer)
 					)
-					(event claimed: 1)
+					(event claimed: TRUE)
 				)
-				(evMOUSEBUTTON
+				(mouseDown
 					(= local104 1)
 					(= local102 1)
 					(if
 						(==
-							(= local4 (localproc_1 (event x:) (event y:)))
-							[local53 (+ (* local1 6) local0)]
+							(= local4 (localproc_0150 (event x?) (event y?)))
+							[local53 (+ (* fingerLoop 6) fingerCel)]
 						)
 						(self cue:)
 					else
-						;(localproc_3)
-						(self cue:)
+						(WrongAnswer)
 					)
-					(event claimed: 1)
+					(event claimed: TRUE)
 				)
-				($0040 ; direction
-					(switch (event message:)
-						(JOY_UP
+				(direction
+					(switch (event message?)
+						(dirN
 							(if (and (!= local101 0) (!= local101 8))
-								(if (== local101 7)
-									(= local101 11)
-								else
-									(-- local101)
-								)
+								(if (== local101 7) (= local101 11) else (-- local101))
 							)
 						)
-						(JOY_DOWN
+						(dirS
 							(if (or (< local101 5) (> local101 7))
-								(if (== local101 11)
-									(= local101 7)
-								else
-									(++ local101)
-								)
+								(if (== local101 11) (= local101 7) else (++ local101))
 							)
 						)
-						(JOY_RIGHT
+						(dirE
 							(if (< local101 7)
-								(cond
-									((< local101 4)
-										(+= local101 8)
-									)
-									((> local101 4)
-										(++ local101)
-									)
-									(else
-										(= local101 11)
-									)
+								(cond 
+									((< local101 4) (= local101 (+ local101 8)))
+									((> local101 4) (++ local101))
+									(else (= local101 11))
 								)
 							)
 						)
-						(JOY_LEFT
+						(dirW
 							(if (> local101 5)
 								(if (> local101 7)
-									(-= local101 8)
+									(= local101 (- local101 8))
 								else
 									(-- local101)
 								)
 							)
 						)
 					)
-					(localproc_0)
-					(event claimed: 1)
+					(localproc_0136)
+					(event claimed: TRUE)
 				)
-				(evKEYBOARD
-					(cond
-						((== (event message:) KEY_RETURN)
+				(keyDown
+					(cond 
+						((== (event message?) ENTER)
 							(= local102 1)
 							(= local104 1)
 							(if
 								(==
-									(= local4
-										(localproc_1 (event x:) (event y:))
-									)
-									[local53 (+ (* local1 6) local0)]
+									(= local4 (localproc_0150 (event x?) (event y?)))
+									[local53 (+ (* fingerLoop 6) fingerCel)]
 								)
 								(self cue:)
 							else
-								;(localproc_3)
-								(self cue:)
+								(WrongAnswer)
 							)
 						)
-						((== (event message:) KEY_F2)
-							(= temp0 (DoSound 4))
-							(DoSound 4 (not temp0))
+						((== (event message?) `#2)
+							(= soundOn (DoSound SoundOn))
+							(DoSound SoundOn (not soundOn))
 						)
 					)
-					(localproc_0)
-					(event claimed: 1)
+					(localproc_0136)
+					(event claimed: TRUE)
 				)
 			)
 		)
 	)
+	
+	(method (newRoom n)
+		(cSound stop:)
+		(super newRoom: n)
+	)
 )
 
 (instance identify of Script
-	(properties)
-
-	(method (changeState newState &tmp [temp0 25])
+	
+	(method (changeState newState &tmp [str 25])
 		(switch (= state newState)
 			(0
-				(= local3
-					(Display 414 1 dsCOORD 90 16 dsWIDTH 256 dsCOLOR 15 dsBACKGROUND -1 dsFONT 0 dsSAVEPIXELS) ; "A SIERRA Production"
+				(= saveBits2
+					(Display 414 1
+						p_at 90 16
+						p_width 256
+						p_color vWHITE
+						p_back -1
+						p_font SYSFONT
+						p_save
+					)
 				)
 				(= cycles 20)
 			)
 			(1
-				(= local2
+				(= saveBits
 					(Display
-						(Format @temp0 414 2 gVersion) ; "Version %s \04 1989 Sierra On-Line, Inc."
-						dsALIGN
-						alCENTER
-						dsCOORD
-						35
-						155
-						dsWIDTH
-						250
-						dsCOLOR
-						15
-						dsBACKGROUND
-						-1
-						dsFONT
-						0
-						dsSAVEPIXELS
+						(Format @str 414 2 version)
+						p_mode teJustCenter
+						p_at 35 155
+						p_width 250
+						p_color vWHITE
+						p_back -1
+						p_font SYSFONT
+						p_save
 					)
 				)
 				(= seconds 4)
 			)
 			(2
-				(if gDetailLevel
+				(if howFast
 					(Glass setMotion: MoveTo 240 140 self)
 				else
 					(= cycles 1)
@@ -300,33 +292,86 @@
 			)
 			(4
 				(Finger show: stopUpd:)
-				(if gDetailLevel
+				(if howFast
 					(Glass setMotion: MoveTo 163 140 self)
 				else
 					(= cycles 1)
 				)
 			)
 			(5
-				(SetCursor 1 1 10 39)
-				(= local102 0)
-				(Display 414 3 dsRESTOREPIXELS local2)
-				(Display 414 3 dsRESTOREPIXELS local3)
-				(Display 414 4 dsCOORD 32 8 dsWIDTH 256 dsCOLOR 15 dsBACKGROUND -1 dsFONT 4 dsALIGN alCENTER dsSAVEPIXELS) ; "Using your magnifying glass and the back of the map enclosed in your "Colonel's Bequest" box, please identify the following fingerprint."
-				(Display 414 5 dsCOORD 5 40 dsWIDTH 101 dsCOLOR 15 dsBACKGROUND -1 dsFONT 4 dsSAVEPIXELS) ; "Celie  Rudy Dijon  Fifi  Dr. Feels Gertrude Dijon"
-				(Display 414 6 dsCOORD 40 170 dsWIDTH 320 dsCOLOR 15 dsBACKGROUND -1 dsFONT 4 dsSAVEPIXELS) ; "Lillian Prune"
-				(Display 414 7 dsCOORD 140 170 dsWIDTH 320 dsCOLOR 15 dsBACKGROUND -1 dsFONT 4 dsSAVEPIXELS) ; "Laura Bow"
-				(Display 414 8 dsCOORD 230 170 dsWIDTH 320 dsCOLOR 15 dsBACKGROUND -1 dsFONT 4 dsSAVEPIXELS) ; "Ethel Prune"
-				(Display 414 9 dsCOORD 255 40 dsWIDTH 101 dsCOLOR 15 dsBACKGROUND -1 dsFONT 4 dsSAVEPIXELS) ; "Jeeves  Col. Dijon  Gloria Swansong  Clarence Sparrow"
+				;we now skip the copy protection automatically
+				(self cue:)
+				
+				;this code will be left here for historical reference, but will not
+				; be executed
+;;;				(SetCursor 1 1 10 39)
+;;;				(= local102 0)
+;;;				(Display 414 3
+;;;					p_restore saveBits
+;;;				)
+;;;				(Display 414 3
+;;;					p_restore saveBits2
+;;;				)
+;;;				(Display 414 4
+;;;					p_at 32 8
+;;;					p_width 256
+;;;					p_color vWHITE
+;;;					p_back -1
+;;;					p_font 4
+;;;					p_mode teJustCenter
+;;;					p_save
+;;;				)
+;;;				(Display 414 5
+;;;					p_at 5 40
+;;;					p_width 101
+;;;					p_color vWHITE
+;;;					p_back -1
+;;;					p_font 4
+;;;					p_save
+;;;				)
+;;;				(Display 414 6
+;;;					p_at 40 170
+;;;					p_width 320
+;;;					p_color vWHITE
+;;;					p_back -1
+;;;					p_font 4
+;;;					p_save
+;;;				)
+;;;				(Display 414 7
+;;;					p_at 140 170
+;;;					p_width 320
+;;;					p_color vWHITE
+;;;					p_back -1
+;;;					p_font 4
+;;;					p_save
+;;;				)
+;;;				(Display 414 8
+;;;					p_at 230 170
+;;;					p_width 320
+;;;					p_color vWHITE
+;;;					p_back -1
+;;;					p_font 4
+;;;					p_save
+;;;				)
+;;;				(Display 414 9
+;;;					p_at 255 40
+;;;					p_width 101
+;;;					p_color vWHITE
+;;;					p_back -1
+;;;					p_font 4
+;;;					p_save
+;;;				)
 			)
 			(6
 				(= local104 1)
 				(= local102 1)
-				(localproc_2)
-				(Print 414 10 #mode 1) ; "The curtain is about to go up. Please be seated."
-				(SetCursor 997 1 300 0)
-				(self setScript: (ScriptID 409 0)) ; FirstTimeCk
+				(ClearCP)
+				(Print 414 10
+					#mode teJustCenter
+				)
+				(SetCursor HAND_CURSOR TRUE 300 0)
+				(self setScript: (ScriptID 409 0))
 			)
 		)
 	)
 )
-

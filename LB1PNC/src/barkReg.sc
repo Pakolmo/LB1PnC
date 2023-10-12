@@ -1,9 +1,8 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-;;; Decompiled by sluicebox
 (script# 400)
-(include sci.sh)
+(include game.sh)
 (use Main)
-(use Interface)
+(use Intrface)
 (use Sound)
 (use Game)
 (use System)
@@ -12,23 +11,21 @@
 	barkReg 0
 )
 
-(instance barkReg of Rgn
-	(properties)
-
+(instance barkReg of Region
+	
 	(method (init)
 		(super init:)
 		(self setScript: barking)
 	)
-
+	
 	(method (dispose)
 		(super dispose:)
 	)
 )
 
 (instance barking of Script
-	(properties)
 
-	(method (changeState newState &tmp temp0)
+	(method (changeState newState &tmp oldPause)
 		(switch (= state newState)
 			(0
 				(= seconds (Random 18 30))
@@ -37,13 +34,13 @@
 				(= cycles 1)
 			)
 			(2
-				(if (!= gCurRoomNum 16)
-					(if (== gCurRoomNum 23)
-						(= temp0 (Sound pause: 1))
+				(if (!= curRoomNum 16)
+					(if (== curRoomNum 23)
+						(= oldPause (Sound pause: TRUE))
 					)
-					(Print 400 0) ; "Is that Beauregard barking?"
-					(if (== gCurRoomNum 23)
-						(Sound pause: temp0)
+					(Print 400 0)
+					(if (== curRoomNum 23)
+						(Sound pause: oldPause)
 					)
 				)
 				(= state -1)
@@ -52,4 +49,3 @@
 		)
 	)
 )
-

@@ -1,9 +1,8 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-;;; Decompiled by sluicebox
 (script# 46)
-(include sci.sh)
+(include game.sh)
 (use Main)
-(use Interface)
+(use Intrface)
 (use RFeature)
 (use Sound)
 (use Motion)
@@ -14,11 +13,10 @@
 (public
 	Room46 0
 )
-
 (synonyms
+	(painting blaze)
 	(luggage case bag)
 	(drawer dresser)
-	(painting blaze)
 	(room bedroom)
 )
 
@@ -27,61 +25,67 @@
 	local1
 	local2
 )
+(instance myMusic of Sound)
 
-(instance myMusic of Sound
-	(properties)
-)
-
-(instance Room46 of Rm
+(instance Room46 of Room
 	(properties
 		picture 46
 	)
-
+	
 	(method (init)
 		(= east 47)
 		(super init:)
-		(gAddToPics
+		(addToPics
 			add: suit1 suit2 horse bed1 bed2 chest table2 sofa
 			eachElementDo: #init
 			doit:
 		)
-		(self setFeatures: suit1 suit2 horse table2 bed1 bed2 sofa chest)
+		(self
+			setFeatures: suit1 suit2 horse table2 bed1 bed2 sofa chest
+		)
 		(table
 			cel:
-				(switch gAct
-					(1 9)
-					(else 8)
-				)
+			(switch currentAct
+				(1 9)
+				(else  8)
+			)
 			setPri: 6
 			init:
 			stopUpd:
 		)
-		(if (== gGertieRoomState 2)
+		(if (== global177 2)
 			(table cel: 8)
 		)
-		(if (and (== gAct 1) (!= gGertieRoomState 2))
+		(if (and (== currentAct 1) (!= global177 2))
 			(plant setPri: 6 init: stopUpd:)
 		)
-		(if gDetailLevel
-			(lamp1 setPri: 6 setCycle: Fwd init:)
-			(lamp2 setPri: 6 setCycle: Fwd init:)
+		(if howFast
+			(lamp1 setPri: 6 setCycle: Forward init:)
+			(lamp2 setPri: 6 setCycle: Forward init:)
 		else
 			(lamp1 setPri: 6 init: stopUpd:)
 			(lamp2 setPri: 6 init: stopUpd:)
 		)
-		(Bwindow ignoreActors: 1 setPri: 7 init: stopUpd:)
-		(panel setLoop: 1 setCel: 11 illegalBits: 0 setPri: 4 init: stopUpd:)
-		(LoadMany rsSOUND 74 75)
-		(switch gAct
+		(Bwindow ignoreActors: TRUE setPri: 7 init: stopUpd:)
+		(panel
+			setLoop: 1
+			setCel: 11
+			illegalBits: 0
+			setPri: 4
+			init:
+			stopUpd:
+		)
+		(LoadMany SOUND 74 75)
+		(switch currentAct
 			(0
-				(if (& gSpyFlags $0002)
-					(self setRegions: 224) ; sleeping
+				(if (& global173 $0002)
+					(self setRegions: 224)
 					(= local0 1)
 				)
-				(= gGertieRoomState 0)
+				(= global177 0)
 			)
 			(1
-				(if (< gGertieRoomState 2)
+				(if (< global177 2)
 					(= local1 1)
 					(Bwindow
 						view: 246
@@ -90,125 +94,126 @@
 						cel: 0
 						posn: 37 127
 						cycleSpeed: 2
-						ignoreActors: 0
-						setCycle: Fwd
+						ignoreActors: FALSE
+						setCycle: Forward
 					)
 					(Twindow
 						cycleSpeed: 2
 						cel: (- (NumCels Bwindow) 2)
-						setCycle: Fwd
+						setCycle: Forward
 						init:
 					)
 					(myMusic number: 12 loop: -1 play:)
 				)
 			)
 		)
-		(if (!= gPrevRoomNum 49)
-			(gEgo view: 0 illegalBits: -32764 posn: 304 101 init:)
+		(if (!= prevRoomNum 49)
+			(ego view: 0 illegalBits: (| cWHITE cGREEN) posn: 304 101 init:)
 		else
-			(gEgo
+			(ego
 				view: 0
-				illegalBits: -32768
+				illegalBits: cWHITE
 				setPri: 2
 				loop: 2
 				posn: 152 79
 				init:
 			)
 			(if (== local0 0)
-				(gEgo posn: 152 79)
+				(ego posn: 152 79)
 				(self setScript: enterPanel)
 			)
 		)
 	)
-
+	
 	(method (doit)
-		(if (IsFirstTimeInRoom)
-			(Print 46 0) ; "This is a cozy guest room which Gloria and Gertie are sharing."
+		(if (FirstEntry)
+			(Print 46 0)
 		)
-		(if (and (== gAct 1) (== gGertieRoomState 0))
-			(Printf 46 1 46 2) ; "Did something happen in here?! %s"
-			(Print 46 3) ; "Is that cigar smoke you smell?"
-			(= gGertieRoomState 1)
+		(if (and (== currentAct 1) (== global177 0))
+			(Printf 46 1 46 2)
+			(Print 46 3)
+			(= global177 1)
 			(= local2 1)
 		)
 		(if
 			(or
-				(gEgo inRect: 60 80 116 104)
-				(gEgo inRect: 178 82 213 105)
+				(ego inRect: 60 80 116 104)
+				(ego inRect: 178 82 213 105)
 			)
-			(gEgo setPri: 5)
+			(ego setPri: 5)
 		else
-			(gEgo setPri: -1)
+			(ego setPri: -1)
 		)
 		(super doit:)
 	)
-
+	
 	(method (dispose)
 		(super dispose:)
 	)
-
-	(method (newRoom newRoomNumber)
-		(super newRoom: newRoomNumber)
-	)
-
+	
 	(method (handleEvent event &tmp temp0)
-		(if (event claimed:)
-			(return 1)
-		)
-		(if (== (event type:) evSAID)
-			(cond
-				((Said 'look,find/gertie,body')
-					(if (== gAct 0)
-						(event claimed: 0)
-					else
-						(Print 46 4) ; "She's not around here!"
+		(if (event claimed?) (return TRUE))
+		(return
+			(if (== (event type?) saidEvent)
+				(cond 
+					((Said 'examine,find/gertie,body')
+						(if (== currentAct 0)
+							(event claimed: 0)
+						else
+							(Print 46 4)
+						)
 					)
-				)
-				((Said '/panel,(door<hidden)>')
-					(cond
-						((and (& global175 $0040) (Said 'open,move'))
-							(if (not local0)
-								(if (& (gEgo onControl: 0) $0010)
-									(HandsOff)
-									(self setScript: exiting)
+					((Said '/panel,(door<hidden)>')
+						(cond 
+							((and (& global175 $0040) (Said 'open,move'))
+								(if (not local0)
+									(if (& (ego onControl: FALSE) cRED)
+										(HandsOff)
+										(self setScript: exiting)
+									else
+										(NotClose)
+									)
 								else
-									(NotClose) ; "You're not close enough."
+									(Print 46 5)
 								)
-							else
-								(Print 46 5) ; "You better not while others are in the room."
+							)
+							((Said 'examine')
+								(if (& global175 $0040)
+									(Print 46 6)
+								else
+									(Print 46 7)
+								)
 							)
 						)
-						((Said 'look')
-							(if (& global175 $0040)
-								(Print 46 6) ; "Even though you know where it is, you can't see it."
-							else
-								(Print 46 7) ; "You don't see one."
-							)
+					)
+					((Said 'examine[<around,at][/room]')
+						(if (and (== currentAct 1) local1)
+							(Printf 46 1 46 2)
+							(Print 46 3)
+						else
+							(Print 46 0)
+						)
+					)
+					((Said 'smell/smoke,butt')
+						(if (and (== currentAct 1) local2)
+							(Print 46 8)
+						else
+							(event claimed: FALSE)
 						)
 					)
 				)
-				((Said 'look[<around,at][/room]')
-					(if (and (== gAct 1) local1)
-						(Printf 46 1 46 2) ; "Did something happen in here?! %s"
-						(Print 46 3) ; "Is that cigar smoke you smell?"
-					else
-						(Print 46 0) ; "This is a cozy guest room which Gloria and Gertie are sharing."
-					)
-				)
-				((Said 'smell/smoke,butt')
-					(if (and (== gAct 1) local2)
-						(Print 46 8) ; "The distinctive odor of cigar smoke permeates the air."
-					else
-						(event claimed: 0)
-					)
-				)
+			else
+				FALSE
 			)
 		)
+	)
+	
+	(method (newRoom n)
+		(super newRoom: n)
 	)
 )
 
 (instance enterPanel of Script
-	(properties)
 
 	(method (changeState newState)
 		(switch (= state newState)
@@ -219,18 +224,16 @@
 				(myMusic number: 74 loop: 1 play:)
 			)
 			(1
-				(gEgo
-					setMotion: MoveTo (gEgo x:) (+ (gEgo y:) 15) self
-				)
+				(ego setMotion: MoveTo (ego x?) (+ (ego y?) 15) self)
 			)
 			(2
-				(gEgo setPri: -1 illegalBits: -32764)
+				(ego setPri: -1 illegalBits: (| cWHITE cGREEN))
 				(panel setMotion: MoveTo 155 84 self)
 				(myMusic number: 75 loop: 1 play:)
 			)
 			(3
 				(HandsOn)
-				(Print 46 9) ; "The secret panel closes behind you and leaves no trace!"
+				(Print 46 9)
 				(= global204 0)
 				(client setScript: 0)
 			)
@@ -239,8 +242,7 @@
 )
 
 (instance exiting of Script
-	(properties)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
@@ -249,24 +251,24 @@
 				(myMusic number: 74 loop: 1 play:)
 			)
 			(1
-				(if (gEgo inRect: 150 87 154 90)
+				(if (ego inRect: 150 87 154 90)
 					(= cycles 1)
 				else
-					(gEgo illegalBits: -32768 setMotion: MoveTo 152 85 self)
+					(ego illegalBits: cWHITE setMotion: MoveTo 152 85 self)
 				)
 			)
 			(2
-				(gEgo illegalBits: -32768 setMotion: MoveTo 154 79 self)
+				(ego illegalBits: cWHITE setMotion: MoveTo 154 79 self)
 			)
 			(3
-				(gEgo setPri: 2)
+				(ego setPri: 2)
 				(panel setMotion: MoveTo 155 84 self)
 				(myMusic number: 75 loop: 1 play:)
 			)
 			(4
 				(HandsOn)
 				(= global204 0)
-				(gCurRoom newRoom: 49)
+				(curRoom newRoom: 49)
 				(client setScript: 0)
 			)
 		)
@@ -274,30 +276,29 @@
 )
 
 (instance closeWindow of Script
-	(properties)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
 				(HandsOff)
-				(gEgo setMotion: MoveTo 75 120 self)
+				(ego setMotion: MoveTo 75 120 self)
 			)
 			(1
-				(gEgo loop: 1)
+				(ego loop: 1)
 				(Twindow hide:)
 				(Bwindow
 					posn: 37 127
 					loop: 0
 					cel: 3
 					setPri: 7
-					setCycle: Beg self
+					setCycle: BegLoop self
 				)
 			)
 			(2
 				(myMusic stop:)
-				(Bwindow ignoreActors: 1 setPri: 7 stopUpd:)
+				(Bwindow ignoreActors: TRUE setPri: 7 stopUpd:)
 				(= local1 0)
-				(= gGertieRoomState 3)
+				(= global177 3)
 				(HandsOn)
 				(client setScript: 0)
 			)
@@ -312,29 +313,29 @@
 		view 146
 		priority 5
 	)
-
+	
 	(method (handleEvent event)
-		(cond
-			((Said 'look<behind,below/painting')
-				(Print 46 10) ; "There is only the wall behind the picture."
+		(cond 
+			((Said 'examine<behind,below/painting')
+				(Print 46 10)
 			)
 			((Said 'get/painting')
-				(Print 46 11) ; "The picture is firmly attached to the wall."
+				(Print 46 11)
 			)
 			((Said 'open/painting')
-				(Print 46 12) ; "It doesn't open."
+				(Print 46 12)
 			)
-			((Said 'look/eye,(painting<eye)')
-				(Print 46 13) ; "The eyes of the horse have a strange, vacant stare."
+			((Said 'examine/eye,(painting<eye)')
+				(Print 46 13)
 			)
 			(
 				(or
-					(MousedOn self event 3)
-					(Said 'look/painting')
-					(Said 'look/painting/painting')
+					(MousedOn self event shiftDown)
+					(Said 'examine/painting')
+					(Said 'examine/painting/painting')
 				)
-				(event claimed: 1)
-				(Print 46 14) ; "You notice a portrait of a magnificent palomino on the wall. Could it be the Colonel's horse in better days? Funny, the horse seems to have a strange, vacant stare."
+				(event claimed: TRUE)
+				(Print 46 14)
 			)
 		)
 	)
@@ -347,13 +348,13 @@
 		view 146
 		cel 4
 		priority 6
-		signal 16384
+		signal $4000
 	)
-
+	
 	(method (handleEvent event)
-		(if (MousedOn self event 3)
-			(event claimed: 1)
-			(Print 46 15) ; "The beds are old and lumpy. Oh, well. You're not going to be doing much sleeping tonight, anyway."
+		(if (MousedOn self event shiftDown)
+			(event claimed: TRUE)
+			(Print 46 15)
 		)
 	)
 )
@@ -366,11 +367,15 @@
 		cel 1
 		priority 5
 	)
-
+	
 	(method (handleEvent event)
-		(if (or (MousedOn self event 3) (Said 'look[<!*]/drawer'))
-			(event claimed: 1)
-			(Print 46 16) ; "Between the beds, you notice an old dresser."
+		(if
+			(or
+				(MousedOn self event shiftDown)
+				(Said 'examine[<!*]/drawer')
+			)
+			(event claimed: TRUE)
+			(Print 46 16)
 		)
 	)
 )
@@ -382,12 +387,12 @@
 		view 146
 		cel 5
 		priority 6
-		signal 16384
+		signal ignrAct
 	)
-
+	
 	(method (handleEvent event)
-		(if (and (not local0) (MousedOn self event 3))
-			(event claimed: 1)
+		(if (and (not local0) (MousedOn self event shiftDown))
+			(event claimed: TRUE)
 			(DoLook {bed})
 		)
 	)
@@ -401,10 +406,10 @@
 		cel 2
 		priority 5
 	)
-
+	
 	(method (handleEvent event)
-		(if (MousedOn self event 3)
-			(event claimed: 1)
+		(if (MousedOn self event shiftDown)
+			(event claimed: TRUE)
 			(DoLook {table})
 		)
 	)
@@ -418,10 +423,10 @@
 		cel 7
 		priority 11
 	)
-
+	
 	(method (handleEvent event)
-		(if (MousedOn self event 3)
-			(event claimed: 1)
+		(if (MousedOn self event shiftDown)
+			(event claimed: TRUE)
 			(DoLook {couch})
 		)
 	)
@@ -434,18 +439,18 @@
 		view 146
 		cel 3
 	)
-
+	
 	(method (handleEvent event)
-		(cond
-			((Said 'open,(look<in)/luggage')
-				(Print 46 17) ; "They're locked."
+		(cond 
+			((Said 'open,(examine<in)/luggage')
+				(Print 46 17)
 			)
 			((Said 'get/luggage')
-				(Print 46 18) ; "You'd look silly carrying a suitcase around with you."
+				(Print 46 18)
 			)
-			((or (MousedOn self event 3) (Said 'look/luggage'))
-				(event claimed: 1)
-				(Print 46 19) ; "You notice several suitcases in the room. They must belong to Gloria and Gertie."
+			((or (MousedOn self event shiftDown) (Said 'examine/luggage'))
+				(event claimed: TRUE)
+				(Print 46 19)
 			)
 		)
 	)
@@ -459,11 +464,11 @@
 		cel 6
 		priority 7
 	)
-
+	
 	(method (handleEvent event)
-		(if (MousedOn self event 3)
-			(event claimed: 1)
-			(Print 46 19) ; "You notice several suitcases in the room. They must belong to Gloria and Gertie."
+		(if (MousedOn self event shiftDown)
+			(event claimed: TRUE)
+			(Print 46 19)
 		)
 	)
 )
@@ -483,70 +488,70 @@
 		x 37
 		view 246
 	)
-
+	
 	(method (handleEvent event)
-		(cond
-			((Said 'look/curtain')
+		(cond 
+			((Said 'examine/curtain')
 				(if local1
-					(Print 46 20) ; "The heavy drapes flap with the wind coming in through the open window."
+					(Print 46 20)
 				else
-					(event claimed: 0)
+					(event claimed: FALSE)
 				)
 			)
 			((Said '(go,climb,hop)<out/window')
 				(if local1
-					(Print 46 21) ; "What? Are you crazy?!"
+					(Print 46 21)
 				else
-					(Print 46 22) ; "The window isn't open."
+					(Print 46 22)
 				)
 			)
 			((Said 'open/window')
 				(if local1
-					(Print 46 23) ; "It's open."
+					(Print 46 23)
 				else
-					(Print 46 24) ; "There is no need to open the window."
+					(Print 46 24)
 				)
 			)
 			((Said 'close/window')
 				(if local1
-					(if (& (gEgo onControl: 0) $0008)
+					(if (& (ego onControl: FALSE) cCYAN)
 						(self setScript: closeWindow)
 					else
-						(NotClose) ; "You're not close enough."
+						(NotClose)
 					)
 				else
-					(Print 46 25) ; "It's closed."
+					(Print 46 25)
 				)
 			)
 			(
 				(or
-					(Said 'look[<down]/dirt')
-					(Said 'look<(down,out)')
-					(Said 'look<(out,through)/window')
+					(Said 'examine[<down]/dirt')
+					(Said 'examine<(down,out)')
+					(Said 'examine<(out,through)/window')
 				)
 				(if local1
-					(if (& (gEgo onControl: 0) $0008)
-						(Print 46 26) ; "Curiously, you peer through the open window into the darkness outside. Looking downward you think you see something, but can't make out any details."
+					(if (& (ego onControl: FALSE) cCYAN)
+						(Print 46 26)
 					else
-						(NotClose) ; "You're not close enough."
+						(NotClose)
 					)
 				else
-					(event claimed: 0)
+					(event claimed: FALSE)
 				)
 			)
-			((MousedOn self event 3)
-				(event claimed: 1)
+			((MousedOn self event shiftDown)
+				(event claimed: TRUE)
 				(if local1
-					(Print 46 27) ; "Who could have opened the window...and why?"
+					(Print 46 27)
 				else
 					(DoLook {window})
 				)
 			)
-			((Said 'look/window')
+			((Said 'examine/window')
 				(if local1
-					(Print 46 27) ; "Who could have opened the window...and why?"
+					(Print 46 27)
 				else
-					(event claimed: 0)
+					(event claimed: FALSE)
 				)
 			)
 		)
@@ -559,10 +564,10 @@
 		x 120
 		view 148
 	)
-
+	
 	(method (handleEvent event)
-		(if (MousedOn self event 3)
-			(event claimed: 1)
+		(if (MousedOn self event shiftDown)
+			(event claimed: TRUE)
 			(DoLook {lamp})
 		)
 	)
@@ -574,16 +579,16 @@
 		x 250
 		view 148
 	)
-
+	
 	(method (handleEvent event)
-		(if (MousedOn self event 3)
-			(event claimed: 1)
+		(if (MousedOn self event shiftDown)
+			(event claimed: TRUE)
 			(DoLook {lamp})
 		)
 	)
 )
 
-(instance panel of Act
+(instance panel of Actor
 	(properties
 		y 84
 		x 155
@@ -597,29 +602,29 @@
 		x 72
 		view 146
 	)
-
+	
 	(method (handleEvent event)
-		(cond
-			((and (== gAct 1) (!= gGertieRoomState 2))
-				(cond
-					((or (Said 'look/dirt') (Said 'look<down'))
-						(Print 46 28) ; "A small table has been knocked over spilling a potted plant on the floor."
+		(cond 
+			((and (== currentAct 1) (!= global177 2))
+				(cond 
+					((or (Said 'examine/dirt') (Said 'examine<down'))
+						(Print 46 28)
 					)
 					((Said 'get,straighten/nightstand,foliage')
-						(Print 46 29) ; "Don't worry about it. Fifi will get it."
+						(Print 46 29)
 					)
 					(
 						(or
-							(Said 'look/nightstand,foliage')
-							(MousedOn self event 3)
+							(Said 'examine/nightstand,foliage')
+							(MousedOn self event shiftDown)
 						)
-						(Print 46 30) ; "It appears that a small table has been knocked over, with the potted plant it supported lying crumpled on the floor."
-						(event claimed: 1)
+						(Print 46 30)
+						(event claimed: TRUE)
 					)
 				)
 			)
-			((or (Said 'look/foliage') (MousedOn self event 3))
-				(Print 46 31) ; "A potted plant graces the top of the small table."
+			((or (Said 'examine/foliage') (MousedOn self event shiftDown))
+				(Print 46 31)
 			)
 		)
 	)
@@ -632,12 +637,11 @@
 		view 146
 		cel 10
 	)
-
+	
 	(method (handleEvent event)
-		(if (or (MousedOn self event 3) (Said 'look/foliage'))
-			(event claimed: 1)
-			(Print 46 32) ; "The crumpled plant lies on the floor next to a small table that has been knocked over."
+		(if (or (MousedOn self event shiftDown) (Said 'examine/foliage'))
+			(event claimed: TRUE)
+			(Print 46 32)
 		)
 	)
 )
-

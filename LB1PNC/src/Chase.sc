@@ -1,55 +1,54 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-;;; Decompiled by sluicebox
-(script# 975)
-(include sci.sh)
+(script# CHASE)
 (use Motion)
 
-(class Chase of Motion
+(class Chase kindof Motion
+	;;; Try to catch a particular Actor.
+	
 	(properties
-		who 0
-		distance 0
+		who 0					;who to chase
+		distance 0			;how close to 'who' is considered a 'catch'
 	)
-
-	(method (init param1 param2 param3 param4)
-		(if (>= argc 1)
-			(= client param1)
-			(if (>= argc 2)
-				(= who param2)
-				(if (>= argc 3)
-					(= distance param3)
-					(if (>= argc 4)
-						(= caller param4)
+	
+	
+	(method (init actor whom howClose whoCares)
+		(if (>= argc 1)				(= client actor)
+			(if (>= argc 2)			(= who whom)
+				(if (>= argc 3)		(= distance howClose)
+					(if (>= argc 4)	(= caller whoCares)
 					)
 				)
 			)
 		)
-		(super init: client (who x:) (who y:) caller)
+		(super init: client (who x?) (who y?) caller)
+;		(super doit:)
 	)
-
+	
+	
 	(method (onTarget)
-		(return (<= (client distanceTo: who) distance))
+		(<= (client distanceTo: who) distance)
 	)
-
+	
 	(method (setTarget)
 		(cond
-			(argc
+			(argc	
 				(super setTarget: &rest)
 			)
 			((not (self onTarget:))
-				(super setTarget: (who x:) (who y:))
+				(super setTarget: (who x?) (who y?))
+				
 			)
 		)
 	)
-
+	
 	(method (doit)
-		(if (<= (client distanceTo: who) distance)
+		(if (self onTarget?)
 			(self moveDone:)
 		else
 			(super doit:)
 			(if (== b-moveCnt 0)
-				(super init: client (who x:) (who y:) caller)
+				(super init: client (who x?) (who y?) caller)
 			)
 		)
 	)
 )
-

@@ -1,9 +1,8 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-;;; Decompiled by sluicebox
 (script# 257)
-(include sci.sh)
+(include game.sh)
 (use Main)
-(use Interface)
+(use Intrface)
 (use Motion)
 (use Game)
 (use User)
@@ -13,34 +12,38 @@
 (public
 	lillRead 0
 )
-
 (synonyms
-	(lil person woman)
+	(lil person girl)
 )
 
 (local
-	local0
-	local1
+	talkCount
+	readCount
+)
+(procedure (LillPrint)
+	(Print &rest
+		#at 40 10
+		#font 4
+		#width 125
+		#mode teJustCenter
+		#draw
+		#dispose
+	)
 )
 
-(procedure (localproc_0)
-	(Print &rest #at 40 10 #font 4 #width 125 #mode 1 #draw #dispose)
-)
-
-(instance lillRead of Rgn
-	(properties)
-
+(instance lillRead of Region
+	
 	(method (init)
 		(super init:)
-		(if (not (& gMustDos $0001))
-			(LoadMany rsSOUND 29 94 95 96)
-			(Load rsFONT 41)
-			(Load rsSCRIPT 406)
-			(Load rsVIEW 642)
+		(if (not (& global118 $0001))
+			(LoadMany SOUND 29 94 95 96)
+			(Load FONT 41)
+			(Load SCRIPT 406)
+			(Load VIEW 642)
 		)
-		(Load rsFONT 4)
-		(LoadMany rsMESSAGE 406 243 288)
-		(Load rsVIEW 905)
+		(Load FONT 4)
+		(LoadMany 143 406 243 288)
+		(Load VIEW 905)
 		(= global208 32)
 		(= [global377 5] 288)
 		(Lillian init:)
@@ -48,150 +51,127 @@
 		(Book init: stopUpd:)
 		(self setScript: reading)
 	)
-
+	
 	(method (doit)
 		(super doit:)
 	)
-
+	
 	(method (dispose)
 		(super dispose:)
 	)
-
+	
 	(method (handleEvent event)
 		(super handleEvent: event)
-		(if (event claimed:)
-			(return 1)
-		)
-		(if (== (event type:) evSAID)
-			(cond
-				((Said 'look>')
-					(cond
-						((Said '/book')
-							(if (< (gEgo distanceTo: Lillian) 40)
-								(Print 257 0) ; "You glance at the book in Lillian's hand and see that it is an old fairy tale, entitled... "Bluebeard!""
-							else
-								(NotClose) ; "You're not close enough."
+		(if (event claimed?) (return TRUE))
+		(return
+			(if (== (event type?) saidEvent)
+				(cond 
+					((Said 'examine>')
+						(cond 
+							((Said '/book')
+								(if (< (ego distanceTo: Lillian) 40)
+									(Print 257 0)
+								else
+									(NotClose)
+								)
+							)
+							((Said '/doll')
+								(Print 257 1)
 							)
 						)
-						((Said '/doll')
-							(Print 257 1) ; "The dolls look like they've been here for a long time! You wonder who they used to belong to. The big question is: WHY is Lillian reading a book to them?!"
+					)
+					((Said 'get>')
+						(cond 
+							((Said '/book')
+								(Print 257 2)
+							)
+							((Said '/doll')
+								(Print 257 3)
+							)
+						)
+					)
+					((Said 'read/book')
+						(if (< (ego distanceTo: Lillian) 40)
+							(Print 257 0)
+						else
+							(NotClose)
 						)
 					)
 				)
-				((Said 'get>')
-					(cond
-						((Said '/book')
-							(Print 257 2) ; "Lillian has it!"
-						)
-						((Said '/doll')
-							(Print 257 3) ; "The dolls don't belong to you!"
-						)
-					)
-				)
-				((Said 'read/book')
-					(if (< (gEgo distanceTo: Lillian) 40)
-						(Print 257 0) ; "You glance at the book in Lillian's hand and see that it is an old fairy tale, entitled... "Bluebeard!""
-					else
-						(NotClose) ; "You're not close enough."
-					)
-				)
+			else
+				0
 			)
 		)
 	)
 )
 
 (instance reading of Script
-	(properties)
-
+	
 	(method (doit)
-		(if (and (== state 1) (== (Lillian cel:) 4))
+		(if (and (== state 1) (== (Lillian cel?) 4))
 			(Book hide:)
 		)
 		(super doit:)
 	)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
-				(cond
-					((not global216)
+				(cond 
+					((not global216) (= state -1))
+					((not (& global118 $0001))
+						(|= global118 $0001)
+						(self setScript: (ScriptID 406 0))
 						(= state -1)
 					)
-					((not (& gMustDos $0001))
-						(|= gMustDos $0001)
-						(self setScript: (ScriptID 406 0)) ; Clock
-						(= state -1)
-					)
-					((self script:)
+					((self script?)
 						(= state -1)
 					)
 				)
 				(= cycles 1)
 			)
 			(1
-				(Lillian loop: 6 setCycle: Beg self)
+				(Lillian loop: 6 setCycle: BegLoop self)
 			)
 			(2
-				(LHead loop: 5 setCycle: Fwd)
-				(User canInput: 0)
-				(switch local1
-					(0
-						(localproc_0 257 4) ; "And then he said..."
-					)
-					(1
-						(localproc_0 257 5) ; "So she stuck the key in the lock and..."
-					)
-					(2
-						(localproc_0 257 6) ; "She thought she was alone but..."
-					)
-					(3
-						(localproc_0 257 7) ; "And what happened then was..."
-					)
-					(4
-						(localproc_0 257 8) ; "As she quietly opened the door..."
-					)
-					(5
-						(localproc_0 257 9) ; "He roared with anger as..."
-					)
-					(6
-						(localproc_0 257 10) ; "The house was too quiet..."
-					)
-					(7
-						(localproc_0 257 11) ; "And she said to him..."
-					)
-					(8
-						(localproc_0 257 12) ; "She screamed when she saw..."
-					)
-					(else
-						(localproc_0 257 13) ; "So up the stairs she went..."
-					)
+				(LHead loop: 5 setCycle: Forward)
+				(User canInput: FALSE)
+				(switch readCount
+					(0 (LillPrint 257 4))
+					(1 (LillPrint 257 5))
+					(2 (LillPrint 257 6))
+					(3 (LillPrint 257 7))
+					(4 (LillPrint 257 8))
+					(5 (LillPrint 257 9))
+					(6 (LillPrint 257 10))
+					(7 (LillPrint 257 11))
+					(8 (LillPrint 257 12))
+					(else  (LillPrint 257 13))
 				)
-				(if (< local1 9)
-					(++ local1)
+				(if (< readCount 9)
+					(++ readCount)
 				else
-					(= local1 0)
+					(= readCount 0)
 				)
 				(= seconds 4)
 			)
 			(3
 				(LHead loop: 5 setCycle: 0)
 				(cls)
-				(User canInput: 1)
+				(User canInput: TRUE)
 				(= seconds 3)
 			)
 			(4
-				(Lillian loop: 2 setCycle: End)
-				(if (< (Random 1 100) 15)
-					(= state 3)
-				)
+				(Lillian loop: 2 setCycle: EndLoop)
+				(if (< (Random 1 100) 15) (= state 3))
 				(= seconds (Random 6 12))
 			)
 			(5
-				(LHead loop: 3 setCycle: End)
+				(LHead loop: 3 setCycle: EndLoop)
 				(= seconds (Random 3 8))
 			)
 			(6
-				(LHead setCycle: Beg)
+				(LHead setCycle: BegLoop)
 				(if (< (Random 1 100) 25)
 					(= state 3)
 				else
@@ -203,74 +183,66 @@
 	)
 )
 
-(instance Lillian of Act
+(instance Lillian of Actor
 	(properties
 		y 141
 		x 187
 		view 506
 		loop 6
 		cel 5
-		illegalBits 0
+		illegalBits $0000
 	)
-
+	
 	(method (handleEvent event)
-		(cond
-			((Said 'talk/lil')
-				(= global213 6)
-				(switch local0
-					(0
-						(Say 1 257 14) ; "Huh?! What're you doing here, Laura?!"
-					)
-					(1
-						(Say 1 257 15) ; "Uh, I'm kinda busy right now. I have to finish the story."
-					)
-					(2
-						(Say 1 257 16) ; "Hush, Laura! You're interrupting us!"
-					)
-					(else
-						(Print 257 17) ; "Lillian has retreated into her book again. She doesn't answer you."
-					)
+		(cond 
+			((Said 'converse/lil')
+				(= theTalker talkLILLIAN)
+				(switch talkCount
+					(0 (Say 1 257 14))
+					(1 (Say 1 257 15))
+					(2 (Say 1 257 16))
+					(else  (Print 257 17))
 				)
-				(++ local0)
+				(++ talkCount)
 			)
 			((Said 'tell,ask/lil')
-				(Print 257 18) ; "It would appear that Lillian is more interested in reading a book to some old dolls than talking to you! It would probably be best to leave her alone right now."
+				(Print 257 18)
 			)
-			((Said 'give,show/lil')
-				(Print 257 19) ; "Lillian doesn't notice it."
+			((Said 'deliver,hold/lil')
+				(Print 257 19)
 			)
-			((Said 'listen/lil')
-				(Print 257 20) ; "Lillian is reading a story to the dolls. It appears to be some sort of horrible fairy tale."
+			((Said 'hear/lil')
+				(Print 257 20)
 			)
 			((Said 'get/lil')
-				(Print 257 21) ; "You can't get her!"
+				(Print 257 21)
 			)
 			((Said 'kill/lil')
-				(Print 257 22) ; "There's no need for THAT sort of thing!"
+				(Print 257 22)
 			)
 			((Said 'kiss/lil')
-				(Print 257 23) ; "You don't feel like kissing her."
+				(Print 257 23)
 			)
 			((Said 'embrace/lil')
-				(Print 257 24) ; "You don't feel like hugging her."
+				(Print 257 24)
 			)
 			(
 				(and
 					(not (& global207 $0020))
-					(or (MousedOn self event 3) (Said 'look/lil'))
+					(or (MousedOn self event shiftDown) (Said 'examine/lil'))
 				)
 				(|= global207 $0020)
-				(= global213 6)
-				(event claimed: 1)
-				(Say 0 257 25) ; "Your friend Lillian Prune, is a rebellious flapper. Like you, she is twenty years old, but unlike you, she has been known to hang out in sleazy speakeasies, smoke, and run around with several young men. She is very assertive and out-going, to the point of obnoxiousness, but underneath it all you believe her to be a lonely, insecure girl."
+				(= theTalker talkLILLIAN)
+				(event claimed: TRUE)
+				(Say 0 257 25)
 			)
 			(
 				(and
 					(& global207 $0020)
-					(or (MousedOn self event 3) (Said 'look/lil'))
+					(or (MousedOn self event shiftDown) (Said 'examine/lil'))
 				)
-				(event claimed: 1)
-				(Print 257 26) ; "This is a bit odd! Your friend seems to be reading a book to those old dolls!"
+				(event claimed: TRUE)
+				(Print 257 26)
 			)
 		)
 	)
@@ -295,4 +267,3 @@
 		cel 2
 	)
 )
-

@@ -1,9 +1,8 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-;;; Decompiled by sluicebox
 (script# 335)
-(include sci.sh)
+(include game.sh)
 (use Main)
-(use Interface)
+(use Intrface)
 (use Sound)
 (use Motion)
 (use Game)
@@ -17,40 +16,29 @@
 (local
 	local0
 )
+(instance Lillian of Prop)
 
-(instance Lillian of Prop
-	(properties)
-)
+(instance Eyes of Prop)
 
-(instance Eyes of Prop
-	(properties)
-)
+(instance Head of Prop)
 
-(instance Head of Prop
-	(properties)
-)
+(instance Hand of Actor)
 
-(instance Hand of Act
-	(properties)
-)
+(instance myMusic of Sound)
 
-(instance myMusic of Sound
-	(properties)
-)
-
-(instance scene44f of Rm
+(instance scene44f of Room
 	(properties
 		picture 62
-		style 7
+		style IRISOUT
 	)
-
+	
 	(method (init)
 		(super init:)
 		(HandsOff)
-		(Load rsFONT 41)
-		(Load rsVIEW 642)
-		(LoadMany rsSOUND 29 94 95 96)
-		(LoadMany rsMESSAGE 406)
+		(Load FONT 41)
+		(Load VIEW 642)
+		(LoadMany SOUND 29 94 95 96)
+		(LoadMany 143 406)
 		(myMusic number: 27 loop: -1 play:)
 		(Lillian
 			view: 518
@@ -61,8 +49,16 @@
 			init:
 			stopUpd:
 		)
-		(Head view: 518 posn: 248 93 loop: 0 cel: 0 setPri: 1 init: stopUpd:)
-		(if (== gAct 5)
+		(Head
+			view: 518
+			posn: 248 93
+			loop: 0
+			cel: 0
+			setPri: 1
+			init:
+			stopUpd:
+		)
+		(if (== currentAct 5)
 			(Hand
 				view: 518
 				posn: 225 118
@@ -85,58 +81,56 @@
 		)
 		(self setScript: twice)
 	)
-
+	
 	(method (doit)
 		(super doit:)
 	)
-
+	
 	(method (dispose)
 		(super dispose:)
 	)
-
+	
 	(method (handleEvent event)
 		(super handleEvent: event)
 	)
 )
 
 (instance twice of Script
-	(properties)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
-				(cond
+				(cond 
 					((not global216)
 						(= state -1)
 					)
-					((not (& gMustDos $0002))
-						(|= gMustDos $0002)
-						(self setScript: (ScriptID 406 0)) ; Clock
+					((not (& global118 $0002))
+						(|= global118 $0002)
+						(self setScript: (ScriptID 406 0))
 						(= state -1)
 					)
-					((self script:)
+					((self script?)
 						(= state -1)
 					)
 				)
 				(= cycles 1)
 			)
 			(1
-				(if (== gAct 5)
-					(Print 335 0 #width 240 #dispose) ; "Lillian is writing in a book which she apparently keeps locked in her suitcase."
+				(if (== currentAct 5)
+					(Print 335 0 #width 240 #dispose)
 				else
-					(Print 335 1 #width 240 #dispose) ; "Lillian is apparently resting on her bed."
+					(Print 335 1 #width 240 #dispose)
 				)
 				(= seconds 8)
 			)
 			(2
-				(gCurRoom newRoom: gPrevRoomNum)
+				(curRoom newRoom: prevRoomNum)
 			)
 		)
 	)
 )
 
 (instance writing of Script
-	(properties)
 
 	(method (changeState newState)
 		(switch (= state newState)
@@ -148,7 +142,7 @@
 					(= state 0)
 					(Hand
 						setCel: -1
-						setCycle: Fwd
+						setCycle: Forward
 						posn: (- 225 (Random 0 3)) (- 118 (Random 0 3))
 					)
 					(= cycles 2)
@@ -157,7 +151,11 @@
 				)
 			)
 			(2
-				(Hand setCel: 0 setCycle: 0 setMotion: MoveTo 228 115 self)
+				(Hand
+					setCel: 0
+					setCycle: 0
+					setMotion: MoveTo 228 115 self
+				)
 			)
 			(3
 				(= state -1)
@@ -168,18 +166,21 @@
 )
 
 (instance movements of Script
-	(properties)
-
-	(method (changeState newState &tmp temp0)
+	
+	(method (changeState newState &tmp headCel)
 		(switch (= state newState)
 			(0
-				(= temp0 (Head cel:))
+				(= headCel (Head cel?))
 				(if (== (Random 1 7) 1)
-					(Head cel: (^= temp0 $0001))
+					(Head cel: (^= headCel $0001))
 				)
-				(Eyes cel: (^ (Eyes cel:) $0001) y: (+ 73 temp0) forceUpd:)
+				(Eyes
+					cel: (^ (Eyes cel?) $0001)
+					y: (+ 73 headCel)
+					forceUpd:
+				)
 				(= state -1)
-				(if (Eyes cel:)
+				(if (Eyes cel?)
 					(Eyes loop: (Random 2 4))
 					(= cycles 2)
 				else
@@ -189,4 +190,3 @@
 		)
 	)
 )
-

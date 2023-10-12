@@ -1,13 +1,12 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-;;; Decompiled by sluicebox
 (script# 37)
-(include sci.sh)
+(include game.sh)
 (use Main)
-(use Interface)
+(use Intrface)
 (use DCIcon)
 (use RFeature)
 (use Path)
-(use Avoid)
+(use Avoider)
 (use Sound)
 (use Motion)
 (use Game)
@@ -18,7 +17,6 @@
 (public
 	Room37 0
 )
-
 (synonyms
 	(stair upstair)
 	(helmet head mask)
@@ -28,13 +26,13 @@
 )
 
 (local
-	local0
-	local1 = 150
-	[local2 25] = [65 173 91 171 96 156 82 175 122 210 104 163 157 145 92 142 128 145 154 171 174 162 179 174 157]
-	[local27 7] = [103 178 56 150 30 148 -32768]
-	[local34 7] = [218 177 269 148 290 148 -32768]
-	[local41 5] = [263 152 205 183 -32768]
-	[local46 5] = [57 153 117 182 -32768]
+	saveBits
+	local1 =  150
+	local2 = [65 173 91 171 96 156 82 175 122 210 104 163 157 145 92 142 128 145 154 171 174 162 179 174 157]
+	leftBotPts = [103 178 56 150 30 148 PATHEND]
+	rightBotPts = [218 177 269 148 290 148 PATHEND]
+	leftTopPts = [263 152 205 183 PATHEND]
+	rightTopPts = [57 153 117 182 PATHEND]
 	local51
 	local52
 	local53
@@ -43,42 +41,55 @@
 	local56
 	local57
 	local58
-	local59
+	theCSound
 	local60
 )
-
-(procedure (localproc_0)
-	(Print &rest #at 160 150 #font 4 #width 140 #mode 1 #draw #dispose)
+(procedure (RoomPrint)
+	(Print &rest
+		#at 160 150
+		#font 4
+		#width 140
+		#mode teJustCenter
+		#draw
+		#dispose
+	)
 )
 
-(procedure (localproc_1)
+(procedure (localproc_002d)
 	(if (not local53)
 		(= local53 1)
-		(User canControl: 0)
-		(Room37 drawPic: 49 7)
-		(gCast eachElementDo: #hide)
+		(User canControl: FALSE)
+		(Room37 drawPic: 49 IRISOUT)
+		(cast eachElementDo: #hide)
 		(Visor show:)
 		(note show:)
-		(if (not (gEgo has: 13)) ; valve_handle
+		(if (not (ego has: iValveHandle))
 			(valve setPri: 1 init:)
 		)
 		(if local57
-			(= local0 (Display 37 0 dsCOORD 48 8 dsWIDTH 256 dsCOLOR 15 dsBACKGROUND -1 dsFONT 0 dsSAVEPIXELS)) ; "Press the 'E' key to exit."
+			(= saveBits
+				(Display 37 0
+					p_at 48 8
+					p_width 256
+					p_color vWHITE
+					p_back -1
+					p_font SYSFONT
+					p_save
+				)
+			)
 		)
 	)
 )
 
-(procedure (localproc_2)
+(procedure (localproc_00ab)
 	(if local53
 		(cls)
 		(= local53 0)
-		(User canControl: 1)
-		(if local57
-			(Display 37 1 dsRESTOREPIXELS local0)
-		)
-		(Room37 drawPic: gCurRoomNum 6)
-		(gCast eachElementDo: #show)
-		(gAddToPics
+		(User canControl: TRUE)
+		(if local57 (Display 37 1 p_restore saveBits))
+		(Room37 drawPic: curRoomNum 6)
+		(cast eachElementDo: #show)
+		(addToPics
 			add: postR postL phone lamp clock mirror
 			eachElementDo: #init
 			doit:
@@ -93,49 +104,49 @@
 	)
 )
 
-(instance Room37 of Rm
+(instance Room37 of Room
 	(properties
 		picture 37
 	)
-
+	
 	(method (init)
 		(= horizon 80)
 		(= south 16)
 		(= global102 0)
 		(super init:)
-		(Load rsFONT 4)
-		(Load rsPIC 49)
-		(LoadMany rsVIEW 10 12)
-		(LoadMany rsSOUND 9 36 83 73)
-		(Load rsSCRIPT 985)
+		(Load FONT 4)
+		(Load PICTURE 49)
+		(LoadMany VIEW 10 12)
+		(LoadMany SOUND 9 36 83 73)
+		(Load SCRIPT AVOIDER)
 		(if
 			(and
-				(or (not (IsFlag 41)) (not (IsFlag 42)) (not (IsFlag 43)))
-				(> gAct 0)
+				(or (not (Btst 41)) (not (Btst 42)) (not (Btst 43)))
+				(> currentAct 0)
 			)
-			(Load rsVIEW 925)
-			(LoadMany rsMESSAGE 412)
+			(Load VIEW 925)
+			(LoadMany 143 412)
 			(= local60 1)
 		)
-		(gAddToPics
+		(addToPics
 			add: postR postL phone lamp clock mirror
 			eachElementDo: #init
 			doit:
 		)
 		(self
-			setRegions: 211 ; stairReg
+			setRegions: 211
 			setFeatures: phone lamp clock mirror Armor Axe Carpet Couch
 		)
 		(note setPri: 1 init: hide:)
 		(lampL setPri: 7 init: stopUpd:)
 		(lampR setPri: 7 init: stopUpd:)
-		(if gDetailLevel
-			(lampR startUpd: setCycle: Fwd)
-			(lampL startUpd: setCycle: Fwd)
+		(if howFast
+			(lampR startUpd: setCycle: Forward)
+			(lampL startUpd: setCycle: Forward)
 		)
-		(Can setStep: 5 5 ignoreHorizon: 1 init: hide:)
+		(Can setStep: 5 5 ignoreHorizon: TRUE init: hide:)
 		(Visor setPri: 2 init: hide:)
-		(knight ignoreActors: 1 init: stopUpd:)
+		(knight ignoreActors: TRUE init: stopUpd:)
 		(chand
 			setLoop: 2
 			ignoreHorizon:
@@ -145,45 +156,41 @@
 			init:
 			stopUpd:
 		)
-		(= local59 gConMusic)
-		(if (!= gPrevRoomNum 33)
-			(local59 number: 28 loop: -1 play:)
+		(= theCSound cSound)
+		(if (!= prevRoomNum 33)
+			(theCSound number: 28 loop: -1 play:)
 		)
-		(switch gPrevRoomNum
+		(switch prevRoomNum
 			(36
-				(gEgo illegalBits: 16384 setPri: -1 posn: 92 88)
+				(ego illegalBits: cYELLOW setPri: -1 posn: 92 88)
 			)
 			(38
-				(gEgo illegalBits: 16384 setPri: -1 posn: 229 88)
+				(ego illegalBits: cYELLOW setPri: -1 posn: 229 88)
 			)
 			(47
 				(HandsOff)
 				(= local54 1)
-				(gEgo
-					illegalBits: 8192
+				(ego
+					illegalBits: cLMAGENTA
 					setPri: 14
-					setMotion: MoveTo (if (< (gEgo x:) 160) 30 else 290) 150
+					setMotion: MoveTo (if (< (ego x?) 160) 30 else 290) 150
 				)
 			)
 			(33
-				(if (< (gEgo x:) 99)
-					(gEgo posn: 110 (gEgo y:))
-				)
-				(if (> (gEgo x:) 222)
-					(gEgo posn: 205 (gEgo y:))
-				)
+				(if (< (ego x?) 99) (ego posn: 110 (ego y?)))
+				(if (> (ego x?) 222) (ego posn: 205 (ego y?)))
 			)
-			(else
-				(gEgo illegalBits: 16384 setPri: -1)
+			(else 
+				(ego illegalBits: cYELLOW setPri: -1)
 			)
 		)
-		(gEgo view: 0 init:)
+		(ego view: 0 init:)
 	)
-
+	
 	(method (doit)
-		(switch (gEgo onControl: 1)
+		(switch (ego onControl: 1)
 			(256
-				(if (and (== (gEgo loop:) 0) (not local54))
+				(if (and (== (ego loop?) 0) (not local54))
 					(= local54 1)
 					(= local56 0)
 					(= global101 1)
@@ -191,8 +198,8 @@
 					(= local58 1)
 					(= north 47)
 					(HandsOff)
-					(gEgo
-						ignoreActors: 1
+					(ego
+						ignoreActors: TRUE
 						illegalBits: 0
 						setPri: 14
 						setMotion: rightBotPath
@@ -200,16 +207,16 @@
 				)
 			)
 			(4096
-				(if (and (== (gEgo loop:) 1) (not local54))
+				(if (and (== (ego loop?) 1) (not local54))
 					(= local54 1)
 					(= local58 1)
 					(= local56 0)
 					(= horizon 50)
 					(= north 47)
 					(= global101 1)
-					(gEgo illegalBits: 0 setPri: 14)
+					(ego illegalBits: 0 setPri: 14)
 					(HandsOff)
-					(gEgo setMotion: leftBotPath)
+					(ego setMotion: leftBotPath)
 				)
 			)
 			(1
@@ -217,25 +224,21 @@
 					(= local56 1)
 					(HandsOn)
 					(= global101 0)
-					(gEgo illegalBits: 16384 setPri: -1)
+					(ego illegalBits: cYELLOW setPri: -1)
 					(= horizon 80)
 					(= north 33)
 					(= local54 0)
 				)
 			)
-			(4
-				(gCurRoom newRoom: 36)
-			)
-			(2
-				(gCurRoom newRoom: 38)
-			)
+			(4 (curRoom newRoom: 36))
+			(2 (curRoom newRoom: 38))
 			(32
 				(if (not local55)
 					(= local58 0)
 					(= global101 0)
 					(= local55 1)
 					(HandsOn)
-					(gEgo ignoreActors: 0 illegalBits: 8192)
+					(ego ignoreActors: 0 illegalBits: cLMAGENTA)
 				)
 			)
 			(64
@@ -244,21 +247,21 @@
 					(= local58 0)
 					(= global101 0)
 					(HandsOn)
-					(gEgo ignoreActors: 0 illegalBits: 8192)
+					(ego ignoreActors: 0 illegalBits: cLMAGENTA)
 				)
 			)
 			(128
 				(if local55
 					(HandsOff)
 					(= local55 0)
-					(gEgo illegalBits: 0 setMotion: MoveTo 52 33)
+					(ego illegalBits: 0 setMotion: MoveTo 52 33)
 				)
 			)
 			(1024
 				(if local55
 					(HandsOff)
 					(= local55 0)
-					(gEgo illegalBits: 0 setMotion: MoveTo 264 17)
+					(ego illegalBits: 0 setMotion: MoveTo 264 17)
 				)
 			)
 			(512
@@ -266,7 +269,7 @@
 					(= local55 0)
 					(= local58 1)
 					(HandsOff)
-					(gEgo setMotion: leftTopPath)
+					(ego setMotion: leftTopPath)
 				)
 			)
 			(8
@@ -274,7 +277,7 @@
 					(= local55 0)
 					(= local58 1)
 					(HandsOff)
-					(gEgo setMotion: rightTopPath)
+					(ego setMotion: rightTopPath)
 				)
 			)
 			(16384
@@ -282,544 +285,1247 @@
 				(= horizon 50)
 			)
 			(16
-				(if (and (== (gEgo loop:) 2) (== script 0))
+				(if (and (== (ego loop?) 2) (== script 0))
 					(self setScript: crush)
 				)
 			)
 		)
-		(cond
-			((< (gEgo x:) 130)
-				(= vertAngle 10)
-			)
-			((< (gEgo x:) 190)
-				(= vertAngle 0)
-			)
-			(else
-				(= vertAngle 170)
-			)
+		(cond 
+			((< (ego x?) 130) (= vertAngle 10))
+			((< (ego x?) 190) (= vertAngle 0))
+			(else (= vertAngle 170))
 		)
 		(super doit:)
-		(if (IsFirstTimeInRoom)
-			(Print 37 2) ; "This is the front downstairs hallway of the big house. A grand stairway leads upstairs."
+		(if (FirstEntry)
+			(Print 37 2)
 		)
-		(if (and local60 (& (gEgo onControl: 1) $0001))
+		(if (and local60 (& (ego onControl: origin) cBLACK))
 			(HandsOff)
 			(= local60 0)
-			(self setScript: (ScriptID 412 0)) ; Daddy
+			(self setScript: (ScriptID 412 0))
 		)
 	)
-
+	
 	(method (dispose)
-		(DisposeScript 983)
-		(DisposeScript 985)
+		(DisposeScript PATH)
+		(DisposeScript AVOIDER)
 		(super dispose:)
 	)
-
-	(method (newRoom newRoomNumber)
-		(if (and (== local59 gConMusic) (!= newRoomNumber 33))
-			(local59 stop:)
+	
+	(method (handleEvent event &tmp temp0)
+		(asm
+			pushi    #claimed
+			pushi    0
+			lap      event
+			send     4
+			bnt      code_06f9
+			ldi      1
+			ret     
+code_06f9:
+			lal      local57
+			bnt      code_0767
+			pushi    #message
+			pushi    0
+			lap      event
+			send     4
+			push    
+			ldi      69
+			eq?     
+			bt       code_071a
+			pushi    #message
+			pushi    0
+			lap      event
+			send     4
+			push    
+			ldi      101
+			eq?     
+			bnt      code_0767
+code_071a:
+			pushi    4
+			pushi    #type
+			pushi    0
+			lap      event
+			send     4
+			eq?     
+			bnt      code_0767
+			lsl      local53
+			ldi      1
+			eq?     
+			bnt      code_0767
+			pushi    #claimed
+			pushi    1
+			pushi    1
+			lap      event
+			send     6
+			lal      local53
+			bt       code_0741
+			lal      local57
+			bnt      code_0767
+code_0741:
+			pushi    #stop
+			pushi    0
+			lofsa    Crash
+			send     4
+			pushi    0
+			call     localproc_00ab,  0
+			lal      local57
+			bnt      code_0767
+			pushi    #setScript
+			pushi    1
+			pushi    0
+			self     6
+			pushi    #setAvoider
+			pushi    1
+			pushi    0
+			lag      ego
+			send     6
+			ldi      0
+			sal      local57
+code_0767:
+			pushi    #type
+			pushi    0
+			lap      event
+			send     4
+			push    
+			dup     
+			ldi      128
+			eq?     
+			bnt      code_0d3b
+			pushi    1
+			lofsa    'get,force,rotate,detach,rotate/bird,post[<newel]'
+			push    
+			callk    Said,  2
+			bnt      code_078e
+			pushi    2
+			pushi    37
+			pushi    3
+			calle    Print,  4
+			jmp      code_0d30
+code_078e:
+			pushi    1
+			lofsa    'get>'
+			push    
+			callk    Said,  2
+			bnt      code_07de
+			pushi    1
+			lofsa    '/armor,cloth'
+			push    
+			callk    Said,  2
+			bnt      code_07b0
+			pushi    2
+			pushi    37
+			pushi    4
+			calle    Print,  4
+			jmp      code_0d30
+code_07b0:
+			pushi    1
+			lofsa    '/ax[<battle]'
+			push    
+			callk    Said,  2
+			bnt      code_07c7
+			pushi    2
+			pushi    37
+			pushi    5
+			calle    Print,  4
+			jmp      code_0d30
+code_07c7:
+			pushi    1
+			lofsa    '/letter'
+			push    
+			callk    Said,  2
+			bnt      code_0d30
+			pushi    2
+			pushi    37
+			pushi    6
+			calle    Print,  4
+			jmp      code_0d30
+code_07de:
+			pushi    1
+			lofsa    'detach/ax[<battle]'
+			push    
+			callk    Said,  2
+			bnt      code_07f5
+			pushi    2
+			pushi    37
+			pushi    5
+			calle    Print,  4
+			jmp      code_0d30
+code_07f5:
+			pushi    1
+			lofsa    'lift,force,open,lift,(examine<in)/helmet'
+			push    
+			callk    Said,  2
+			bnt      code_0820
+			lsg      global142
+			ldi      2
+			and     
+			bnt      code_0814
+			pushi    #setScript
+			pushi    1
+			lofsa    openVisor
+			push    
+			self     6
+			jmp      code_0d30
+code_0814:
+			pushi    2
+			pushi    37
+			pushi    7
+			calle    Print,  4
+			jmp      code_0d30
+code_0820:
+			pushi    1
+			lofsa    '(press,move,rotate,open,lift,break,(examine<in))>'
+			push    
+			callk    Said,  2
+			bnt      code_09a5
+			ldi      0
+			sal      local52
+			pushi    1
+			lofsa    '/armor,cloth'
+			push    
+			callk    Said,  2
+			bnt      code_0846
+			pushi    2
+			pushi    37
+			pushi    7
+			calle    Print,  4
+			jmp      code_0980
+code_0846:
+			pushi    1
+			lofsa    '/neck'
+			push    
+			callk    Said,  2
+			bnt      code_0858
+			ldi      4
+			sal      local52
+			jmp      code_0980
+code_0858:
+			pushi    1
+			lofsa    '/body'
+			push    
+			callk    Said,  2
+			bnt      code_086a
+			ldi      3
+			sal      local52
+			jmp      code_0980
+code_086a:
+			pushi    1
+			lofsa    '/knee<right'
+			push    
+			callk    Said,  2
+			bnt      code_087c
+			ldi      12
+			sal      local52
+			jmp      code_0980
+code_087c:
+			pushi    1
+			lofsa    '/knee<left'
+			push    
+			callk    Said,  2
+			bnt      code_088e
+			ldi      11
+			sal      local52
+			jmp      code_0980
+code_088e:
+			pushi    1
+			lofsa    '/knee'
+			push    
+			callk    Said,  2
+			bnt      code_08a0
+			ldi      11
+			sal      local52
+			jmp      code_0980
+code_08a0:
+			pushi    1
+			lofsa    '/leg<right'
+			push    
+			callk    Said,  2
+			bnt      code_08b2
+			ldi      7
+			sal      local52
+			jmp      code_0980
+code_08b2:
+			pushi    1
+			lofsa    '/leg<left'
+			push    
+			callk    Said,  2
+			bnt      code_08c4
+			ldi      13
+			sal      local52
+			jmp      code_0980
+code_08c4:
+			pushi    1
+			lofsa    '/leg'
+			push    
+			callk    Said,  2
+			bnt      code_08d6
+			ldi      13
+			sal      local52
+			jmp      code_0980
+code_08d6:
+			pushi    1
+			lofsa    '/deliver<right'
+			push    
+			callk    Said,  2
+			bnt      code_08e8
+			ldi      10
+			sal      local52
+			jmp      code_0980
+code_08e8:
+			pushi    1
+			lofsa    '/deliver<left'
+			push    
+			callk    Said,  2
+			bt       code_08fe
+			pushi    1
+			lofsa    '/ax[<battle]'
+			push    
+			callk    Said,  2
+			bnt      code_0905
+code_08fe:
+			ldi      6
+			sal      local52
+			jmp      code_0980
+code_0905:
+			pushi    1
+			lofsa    '/deliver'
+			push    
+			callk    Said,  2
+			bnt      code_0917
+			ldi      6
+			sal      local52
+			jmp      code_0980
+code_0917:
+			pushi    1
+			lofsa    '/elbow<right'
+			push    
+			callk    Said,  2
+			bnt      code_0929
+			ldi      9
+			sal      local52
+			jmp      code_0980
+code_0929:
+			pushi    1
+			lofsa    '/elbow<left'
+			push    
+			callk    Said,  2
+			bnt      code_093b
+			ldi      5
+			sal      local52
+			jmp      code_0980
+code_093b:
+			pushi    1
+			lofsa    '/elbow'
+			push    
+			callk    Said,  2
+			bnt      code_094d
+			ldi      5
+			sal      local52
+			jmp      code_0980
+code_094d:
+			pushi    1
+			lofsa    '/arm<right'
+			push    
+			callk    Said,  2
+			bnt      code_095f
+			ldi      8
+			sal      local52
+			jmp      code_0980
+code_095f:
+			pushi    1
+			lofsa    '/arm<left'
+			push    
+			callk    Said,  2
+			bnt      code_0971
+			ldi      2
+			sal      local52
+			jmp      code_0980
+code_0971:
+			pushi    1
+			lofsa    '/arm'
+			push    
+			callk    Said,  2
+			bnt      code_0980
+			ldi      2
+			sal      local52
+code_0980:
+			lal      local52
+			bnt      code_0d30
+			lsg      global142
+			pushi    1
+			shl     
+			and     
+			bnt      code_0999
+			pushi    2
+			pushi    37
+			pushi    8
+			calle    Print,  4
+			jmp      code_0d30
+code_0999:
+			pushi    2
+			pushi    37
+			pushi    9
+			calle    Print,  4
+			jmp      code_0d30
+code_09a5:
+			pushi    1
+			lofsa    'examine>'
+			push    
+			callk    Said,  2
+			bnt      code_0ab1
+			pushi    1
+			lofsa    '[<around,at][/room]'
+			push    
+			callk    Said,  2
+			bnt      code_09c6
+			pushi    2
+			pushi    37
+			pushi    2
+			calle    Print,  4
+			jmp      code_0d30
+code_09c6:
+			pushi    1
+			lofsa    '/chandelier,ceiling'
+			push    
+			callk    Said,  2
+			bt       code_09dc
+			pushi    1
+			lofsa    '<up'
+			push    
+			callk    Said,  2
+			bnt      code_09e8
+code_09dc:
+			pushi    2
+			pushi    37
+			pushi    10
+			calle    Print,  4
+			jmp      code_0d30
+code_09e8:
+			pushi    1
+			lofsa    '/hidden<door'
+			push    
+			callk    Said,  2
+			bnt      code_09ff
+			pushi    2
+			pushi    37
+			pushi    11
+			calle    Print,  4
+			jmp      code_0d30
+code_09ff:
+			pushi    1
+			lofsa    '/door<back'
+			push    
+			callk    Said,  2
+			bnt      code_0a16
+			pushi    2
+			pushi    37
+			pushi    12
+			calle    Print,  4
+			jmp      code_0d30
+code_0a16:
+			pushi    1
+			lofsa    '<(in,behind)/clock'
+			push    
+			callk    Said,  2
+			bt       code_0a37
+			pushi    1
+			lofsa    '<(in,behind)/mirror'
+			push    
+			callk    Said,  2
+			bt       code_0a37
+			pushi    1
+			lofsa    '/time'
+			push    
+			callk    Said,  2
+			bnt      code_0a3e
+code_0a37:
+			pushi    0
+			callb    NotClose,  0
+			jmp      code_0d30
+code_0a3e:
+			pushi    1
+			lofsa    '/ax[<battle]'
+			push    
+			callk    Said,  2
+			bnt      code_0a55
+			pushi    2
+			pushi    37
+			pushi    13
+			calle    Print,  4
+			jmp      code_0d30
+code_0a55:
+			pushi    1
+			lofsa    '/door'
+			push    
+			callk    Said,  2
+			bnt      code_0a6c
+			pushi    2
+			pushi    37
+			pushi    14
+			calle    Print,  4
+			jmp      code_0d30
+code_0a6c:
+			pushi    1
+			lofsa    '/bird,post[<newel]'
+			push    
+			callk    Said,  2
+			bnt      code_0a83
+			pushi    2
+			pushi    37
+			pushi    15
+			calle    Print,  4
+			jmp      code_0d30
+code_0a83:
+			pushi    1
+			lofsa    '<below/stair'
+			push    
+			callk    Said,  2
+			bnt      code_0a9a
+			pushi    2
+			pushi    37
+			pushi    16
+			calle    Print,  4
+			jmp      code_0d30
+code_0a9a:
+			pushi    1
+			lofsa    '/downstair'
+			push    
+			callk    Said,  2
+			bnt      code_0d30
+			pushi    2
+			pushi    37
+			pushi    17
+			calle    Print,  4
+			jmp      code_0d30
+code_0ab1:
+			pushi    1
+			lofsa    'oil>'
+			push    
+			callk    Said,  2
+			bnt      code_0c82
+			pushi    #has
+			pushi    1
+			pushi    3
+			lag      ego
+			send     6
+			bnt      code_0c6b
+			pushi    #onControl
+			pushi    1
+			pushi    1
+			lag      ego
+			send     6
+			push    
+			ldi      1
+			and     
+			bnt      code_0c5c
+			ldi      0
+			sal      local52
+			pushi    1
+			lofsa    '/helmet,helmet'
+			push    
+			callk    Said,  2
+			bnt      code_0aef
+			ldi      1
+			sal      local52
+			jmp      code_0c44
+code_0aef:
+			pushi    1
+			lofsa    '/neck'
+			push    
+			callk    Said,  2
+			bnt      code_0b01
+			ldi      4
+			sal      local52
+			jmp      code_0c44
+code_0b01:
+			pushi    1
+			lofsa    '/body'
+			push    
+			callk    Said,  2
+			bnt      code_0b13
+			ldi      3
+			sal      local52
+			jmp      code_0c44
+code_0b13:
+			pushi    1
+			lofsa    '/knee<right'
+			push    
+			callk    Said,  2
+			bnt      code_0b25
+			ldi      12
+			sal      local52
+			jmp      code_0c44
+code_0b25:
+			pushi    1
+			lofsa    '/knee<left'
+			push    
+			callk    Said,  2
+			bnt      code_0b37
+			ldi      11
+			sal      local52
+			jmp      code_0c44
+code_0b37:
+			pushi    1
+			lofsa    '/knee'
+			push    
+			callk    Said,  2
+			bnt      code_0b49
+			ldi      11
+			sal      local52
+			jmp      code_0c44
+code_0b49:
+			pushi    1
+			lofsa    '/leg<right'
+			push    
+			callk    Said,  2
+			bnt      code_0b5b
+			ldi      7
+			sal      local52
+			jmp      code_0c44
+code_0b5b:
+			pushi    1
+			lofsa    '/leg<left'
+			push    
+			callk    Said,  2
+			bnt      code_0b6d
+			ldi      13
+			sal      local52
+			jmp      code_0c44
+code_0b6d:
+			pushi    1
+			lofsa    '/leg'
+			push    
+			callk    Said,  2
+			bnt      code_0b7f
+			ldi      13
+			sal      local52
+			jmp      code_0c44
+code_0b7f:
+			pushi    1
+			lofsa    '/deliver<right'
+			push    
+			callk    Said,  2
+			bnt      code_0b91
+			ldi      10
+			sal      local52
+			jmp      code_0c44
+code_0b91:
+			pushi    1
+			lofsa    '/deliver<left'
+			push    
+			callk    Said,  2
+			bt       code_0ba7
+			pushi    1
+			lofsa    '/ax[<battle]'
+			push    
+			callk    Said,  2
+			bnt      code_0bae
+code_0ba7:
+			ldi      6
+			sal      local52
+			jmp      code_0c44
+code_0bae:
+			pushi    1
+			lofsa    '/deliver'
+			push    
+			callk    Said,  2
+			bnt      code_0bc0
+			ldi      6
+			sal      local52
+			jmp      code_0c44
+code_0bc0:
+			pushi    1
+			lofsa    '/elbow<right'
+			push    
+			callk    Said,  2
+			bnt      code_0bd2
+			ldi      9
+			sal      local52
+			jmp      code_0c44
+code_0bd2:
+			pushi    1
+			lofsa    '/elbow<left'
+			push    
+			callk    Said,  2
+			bnt      code_0be4
+			ldi      5
+			sal      local52
+			jmp      code_0c44
+code_0be4:
+			pushi    1
+			lofsa    '/elbow'
+			push    
+			callk    Said,  2
+			bnt      code_0bf6
+			ldi      5
+			sal      local52
+			jmp      code_0c44
+code_0bf6:
+			pushi    1
+			lofsa    '/arm<right'
+			push    
+			callk    Said,  2
+			bnt      code_0c08
+			ldi      8
+			sal      local52
+			jmp      code_0c44
+code_0c08:
+			pushi    1
+			lofsa    '/arm<left'
+			push    
+			callk    Said,  2
+			bnt      code_0c1a
+			ldi      2
+			sal      local52
+			jmp      code_0c44
+code_0c1a:
+			pushi    1
+			lofsa    '/arm'
+			push    
+			callk    Said,  2
+			bnt      code_0c2c
+			ldi      2
+			sal      local52
+			jmp      code_0c44
+code_0c2c:
+			pushi    1
+			lofsa    '/armor,cloth'
+			push    
+			callk    Said,  2
+			bnt      code_0c44
+			pushi    2
+			pushi    37
+			pushi    18
+			calle    Print,  4
+			ldi      0
+			sal      local52
+code_0c44:
+			lal      local52
+			bnt      code_0d30
+			lsg      global142
+			pushi    1
+			shl     
+			or      
+			sag      global142
+			pushi    #setScript
+			pushi    1
+			lofsa    oiling
+			push    
+			self     6
+			jmp      code_0d30
+code_0c5c:
+			pushi    0
+			callb    NotClose,  0
+			pushi    #claimed
+			pushi    1
+			pushi    1
+			lap      event
+			send     6
+			jmp      code_0d30
+code_0c6b:
+			pushi    1
+			lofsa    '[<*][/*]'
+			push    
+			callk    Said,  2
+			bnt      code_0d30
+			pushi    2
+			pushi    37
+			pushi    19
+			calle    Print,  4
+			jmp      code_0d30
+code_0c82:
+			pushi    1
+			lofsa    'force>'
+			push    
+			callk    Said,  2
+			bnt      code_0cc6
+			pushi    1
+			lofsa    '/ax'
+			push    
+			callk    Said,  2
+			bnt      code_0ca4
+			pushi    2
+			pushi    37
+			pushi    6
+			calle    Print,  4
+			jmp      code_0d30
+code_0ca4:
+			pushi    1
+			lofsa    '/arm,leg,helmet,helmet'
+			push    
+			callk    Said,  2
+			bt       code_0cba
+			pushi    1
+			lofsa    '/armor,cloth'
+			push    
+			callk    Said,  2
+			bnt      code_0d30
+code_0cba:
+			pushi    2
+			pushi    37
+			pushi    7
+			calle    Print,  4
+			jmp      code_0d30
+code_0cc6:
+			pushi    1
+			lofsa    'wear,attach<on>'
+			push    
+			callk    Said,  2
+			bnt      code_0cf3
+			pushi    1
+			lofsa    '/arm,leg,helmet,helmet'
+			push    
+			callk    Said,  2
+			bt       code_0ce7
+			pushi    1
+			lofsa    '/armor,cloth'
+			push    
+			callk    Said,  2
+			bnt      code_0d30
+code_0ce7:
+			pushi    2
+			pushi    37
+			pushi    20
+			calle    Print,  4
+			jmp      code_0d30
+code_0cf3:
+			pushi    1
+			lofsa    'climb[<up]/stair'
+			push    
+			callk    Said,  2
+			bnt      code_0d0a
+			pushi    2
+			pushi    37
+			pushi    21
+			calle    Print,  4
+			jmp      code_0d30
+code_0d0a:
+			pushi    1
+			lofsa    'clock,time'
+			push    
+			callk    Said,  2
+			bnt      code_0d1c
+			pushi    0
+			callb    NotClose,  0
+			jmp      code_0d30
+code_0d1c:
+			pushi    1
+			lofsa    'hear/clock'
+			push    
+			callk    Said,  2
+			bnt      code_0d30
+			pushi    2
+			pushi    37
+			pushi    22
+			calle    Print,  4
+code_0d30:
+			pushi    #handleEvent
+			pushi    1
+			lsp      event
+			super    Room,  6
+			jmp      code_0f17
+code_0d3b:
+			dup     
+			ldi      1
+			bt       code_0d43
+			ldi      2
+code_0d43:
+			eq?     
+			bnt      code_0e55
+			lal      local58
+			bt       code_0d52
+			lal      local54
+			not     
+			bnt      code_0d53
+code_0d52:
+			ret     
+code_0d53:
+			pushi    #onControl
+			pushi    1
+			pushi    1
+			lag      ego
+			send     6
+			push    
+			ldi      16384
+			and     
+			bnt      code_0f17
+			pushi    #x
+			pushi    0
+			lag      ego
+			send     4
+			push    
+			ldi      160
+			lt?     
+			bnt      code_0ddf
+			pushi    211
+			pushi    3
+			class    MoveTo
+			push    
+			pushi    #y
+			pushi    0
+			lap      event
+			send     4
+			push    
+			pushi    #y
+			pushi    0
+			lag      ego
+			send     4
+			lt?     
+			bnt      code_0d93
+			ldi      52
+			jmp      code_0da8
+code_0d93:
+			pushi    #y
+			pushi    0
+			lap      event
+			send     4
+			push    
+			pushi    #y
+			pushi    0
+			lag      ego
+			send     4
+			gt?     
+			bnt      code_0da8
+			ldi      30
+code_0da8:
+			push    
+			pushi    #y
+			pushi    0
+			lap      event
+			send     4
+			push    
+			pushi    #y
+			pushi    0
+			lag      ego
+			send     4
+			gt?     
+			bnt      code_0dc2
+			ldi      148
+			jmp      code_0dd7
+code_0dc2:
+			pushi    #y
+			pushi    0
+			lap      event
+			send     4
+			push    
+			pushi    #y
+			pushi    0
+			lag      ego
+			send     4
+			lt?     
+			bnt      code_0dd7
+			ldi      33
+code_0dd7:
+			push    
+			lag      ego
+			send     10
+			jmp      code_0e4a
+code_0ddf:
+			pushi    211
+			pushi    3
+			class    MoveTo
+			push    
+			pushi    #y
+			pushi    0
+			lap      event
+			send     4
+			push    
+			pushi    #y
+			pushi    0
+			lag      ego
+			send     4
+			lt?     
+			bnt      code_0e00
+			ldi      261
+			jmp      code_0e16
+code_0e00:
+			pushi    #y
+			pushi    0
+			lap      event
+			send     4
+			push    
+			pushi    #y
+			pushi    0
+			lag      ego
+			send     4
+			gt?     
+			bnt      code_0e16
+			ldi      290
+code_0e16:
+			push    
+			pushi    #y
+			pushi    0
+			lap      event
+			send     4
+			push    
+			pushi    #y
+			pushi    0
+			lag      ego
+			send     4
+			lt?     
+			bnt      code_0e2f
+			ldi      17
+			jmp      code_0e45
+code_0e2f:
+			pushi    #y
+			pushi    0
+			lap      event
+			send     4
+			push    
+			pushi    #y
+			pushi    0
+			lag      ego
+			send     4
+			gt?     
+			bnt      code_0e45
+			ldi      148
+code_0e45:
+			push    
+			lag      ego
+			send     10
+code_0e4a:
+			pushi    #claimed
+			pushi    1
+			pushi    1
+			lap      event
+			send     6
+			jmp      code_0f17
+code_0e55:
+			dup     
+			ldi      64
+			eq?     
+			bnt      code_0f17
+			lal      local54
+			not     
+			bt       code_0e67
+			lal      local58
+			bnt      code_0e68
+code_0e67:
+			ret     
+code_0e68:
+			pushi    #onControl
+			pushi    1
+			pushi    1
+			lag      ego
+			send     6
+			push    
+			ldi      16384
+			and     
+			bnt      code_0f17
+			pushi    #message
+			pushi    0
+			lap      event
+			send     4
+			push    
+			dup     
+			ldi      1
+			eq?     
+			bnt      code_0ec6
+			pushi    #x
+			pushi    0
+			lag      ego
+			send     4
+			push    
+			ldi      160
+			lt?     
+			bnt      code_0eaa
+			pushi    #setMotion
+			pushi    3
+			class    MoveTo
+			push    
+			pushi    52
+			pushi    33
+			lag      ego
+			send     10
+			jmp      code_0ebb
+code_0eaa:
+			pushi    #setMotion
+			pushi    3
+			class    MoveTo
+			push    
+			pushi    264
+			pushi    17
+			lag      ego
+			send     10
+code_0ebb:
+			pushi    #claimed
+			pushi    1
+			pushi    1
+			lap      event
+			send     6
+			jmp      code_0f16
+code_0ec6:
+			dup     
+			ldi      5
+			eq?     
+			bnt      code_0f0d
+			pushi    #x
+			pushi    0
+			lag      ego
+			send     4
+			push    
+			ldi      160
+			lt?     
+			bnt      code_0ef0
+			pushi    #setMotion
+			pushi    3
+			class    MoveTo
+			push    
+			pushi    30
+			pushi    148
+			lag      ego
+			send     10
+			jmp      code_0f02
+code_0ef0:
+			pushi    #setMotion
+			pushi    3
+			class    MoveTo
+			push    
+			pushi    290
+			pushi    148
+			lag      ego
+			send     10
+code_0f02:
+			pushi    #claimed
+			pushi    1
+			pushi    1
+			lap      event
+			send     6
+			jmp      code_0f16
+code_0f0d:
+			pushi    #claimed
+			pushi    1
+			pushi    1
+			lap      event
+			send     6
+			ret     
+code_0f16:
+			toss    
+code_0f17:
+			toss    
+			ret     
 		)
-		(super newRoom: newRoomNumber)
 	)
-
-	(method (handleEvent event &tmp temp0 temp1)
-		(if (event claimed:)
-			(return 1)
+	
+	(method (newRoom n)
+		(if (and (== theCSound cSound) (!= n 33))
+			(theCSound stop:)
 		)
-		(if
-			(and
-				local57
-				(or (== (event message:) KEY_E) (== (event message:) KEY_e))
-				(== evKEYBOARD (event type:))
-				(== local53 1)
-			)
-			(event claimed: 1)
-			(if (or local53 local57)
-				(Crash stop:)
-				(localproc_2)
-				(if local57
-					(self setScript: 0)
-					(gEgo setAvoider: 0)
-					(= local57 0)
-				)
-			)
-		)
-		(if
-			(and
-				local57
-				(== evMOUSEBUTTON (event type:))
-				(== local53 1)
-			)
-			(event claimed: 1)
-			(= temp1
-				(Print {Exit?}
-					#button {Yes} 1
-					#button {No} 0
-				)
-			)
-			(if (== temp1 1)
-				(if (or local53 local57)
-					(Crash stop:)
-					(localproc_2)
-					(if local57
-						(self setScript: 0)
-						(gEgo setAvoider: 0)
-						(= local57 0)
-					)
-				)
-			)
-		)
-		(switch (event type:)
-			(evSAID
-				(cond
-					((Said 'get,force,rotate,detach,rotate/bird,post[<newel]')
-						(Print 37 3) ; "The wooden eagles are firmly attached to the newel posts. They do not move."
-					)
-					((Said 'get>')
-						(cond
-							((Said '/armor,cloth')
-								(Print 37 4) ; "You couldn't even MOVE this heavy armor!"
-							)
-							((Said '/ax[<battle]')
-								(Print 37 5) ; "The battle-axe is firmly attached to the armor."
-							)
-							((Said '/letter')
-								(Print 37 6) ; "You try, but find it permanently attached to the armor."
-							)
-						)
-					)
-					((Said 'detach/ax[<battle]')
-						(Print 37 5) ; "The battle-axe is firmly attached to the armor."
-					)
-					((Said 'lift,force,open,lift,(look<in)/helmet')
-						(if (& global142 $0002)
-							(self setScript: openVisor)
-						else
-							(Print 37 7) ; "The joints of the armor are hopelessly rusted. You can't move any part of it."
-						)
-					)
-					((Said '(press,move,rotate,open,lift,break,(look<in))>')
-						(= local52 0)
-						(cond
-							((Said '/armor,cloth')
-								(Print 37 7) ; "The joints of the armor are hopelessly rusted. You can't move any part of it."
-							)
-							((Said '/neck')
-								(= local52 4)
-							)
-							((Said '/body')
-								(= local52 3)
-							)
-							((Said '/knee<right')
-								(= local52 12)
-							)
-							((Said '/knee<left')
-								(= local52 11)
-							)
-							((Said '/knee')
-								(= local52 11)
-							)
-							((Said '/leg<right')
-								(= local52 7)
-							)
-							((Said '/leg<left')
-								(= local52 13)
-							)
-							((Said '/leg')
-								(= local52 13)
-							)
-							((Said '/give<right')
-								(= local52 10)
-							)
-							((or (Said '/give<left') (Said '/ax[<battle]'))
-								(= local52 6)
-							)
-							((Said '/give')
-								(= local52 6)
-							)
-							((Said '/elbow<right')
-								(= local52 9)
-							)
-							((Said '/elbow<left')
-								(= local52 5)
-							)
-							((Said '/elbow')
-								(= local52 5)
-							)
-							((Said '/arm<right')
-								(= local52 8)
-							)
-							((Said '/arm<left')
-								(= local52 2)
-							)
-							((Said '/arm')
-								(= local52 2)
-							)
-						)
-						(if local52
-							(if (& global142 (<< $0001 local52))
-								(Print 37 8) ; "It moves a little bit, but it does you no good; there's nothing there."
-							else
-								(Print 37 9) ; "It is hopelessly rusted. You can't move it at all."
-							)
-						)
-					)
-					((Said 'look>')
-						(cond
-							((Said '[<around,at][/room]')
-								(Print 37 2) ; "This is the front downstairs hallway of the big house. A grand stairway leads upstairs."
-							)
-							((or (Said '/chandelier,ceiling') (Said '<up'))
-								(Print 37 10) ; "A huge, crystal chandelier hangs high above the downstairs foyer."
-							)
-							((Said '/hidden<door')
-								(Print 37 11) ; "You see an old, yellowed note pasted to the inside of the helmet."
-							)
-							((Said '/door<back')
-								(Print 37 12) ; "You see the back door further down the hall."
-							)
-							(
-								(or
-									(Said '<(in,behind)/clock')
-									(Said '<(in,behind)/mirror')
-									(Said '/time')
-								)
-								(NotClose) ; "You're not close enough."
-							)
-							((Said '/ax[<battle]')
-								(Print 37 13) ; "It's a fourteenth-century Swiss battle-axe, finely handcrafted by Doge Guiseppe Minelli of Venice on his 90th birthday for his daughter who was to wed Antonio Fermaccelli, the bologna merchant. Later it became a favorite piece of Anne Boleyn's. Of course, Lizzie had the most fun with it!"
-							)
-							((Said '/door')
-								(Print 37 14) ; "The front door leads outside."
-							)
-							((Said '/bird,post[<newel]')
-								(Print 37 15) ; "Finely carved eagles adorn the top of the stairway's newel posts."
-							)
-							((Said '<below/stair')
-								(Print 37 16) ; "You see nothing of interest under the stairs."
-							)
-							((Said '/downstair')
-								(Print 37 17) ; "The stairs lead down to the first level of the house."
-							)
-						)
-					)
-					((Said 'oil>')
-						(cond
-							((gEgo has: 3) ; oilcan
-								(if (& (gEgo onControl: 1) $0001)
-									(= local52 0)
-									(cond
-										((Said '/helmet,helmet')
-											(= local52 1)
-										)
-										((Said '/neck')
-											(= local52 4)
-										)
-										((Said '/body')
-											(= local52 3)
-										)
-										((Said '/knee<right')
-											(= local52 12)
-										)
-										((Said '/knee<left')
-											(= local52 11)
-										)
-										((Said '/knee')
-											(= local52 11)
-										)
-										((Said '/leg<right')
-											(= local52 7)
-										)
-										((Said '/leg<left')
-											(= local52 13)
-										)
-										((Said '/leg')
-											(= local52 13)
-										)
-										((Said '/give<right')
-											(= local52 10)
-										)
-										(
-											(or
-												(Said '/give<left')
-												(Said '/ax[<battle]')
-											)
-											(= local52 6)
-										)
-										((Said '/give')
-											(= local52 6)
-										)
-										((Said '/elbow<right')
-											(= local52 9)
-										)
-										((Said '/elbow<left')
-											(= local52 5)
-										)
-										((Said '/elbow')
-											(= local52 5)
-										)
-										((Said '/arm<right')
-											(= local52 8)
-										)
-										((Said '/arm<left')
-											(= local52 2)
-										)
-										((Said '/arm')
-											(= local52 2)
-										)
-										((Said '/armor,cloth')
-											(Print 37 18) ; "Which part of the armor would you like to oil?"
-											(= local52 0)
-										)
-									)
-									(if local52
-										(|= global142 (<< $0001 local52))
-										(self setScript: oiling)
-									)
-								else
-									(NotClose) ; "You're not close enough."
-									(event claimed: 1)
-								)
-							)
-							((Said '[<*][/*]')
-								(Print 37 19) ; "Using what? Rudy's hair tonic?!"
-							)
-						)
-					)
-					((Said 'force>')
-						(cond
-							((Said '/ax')
-								(Print 37 6) ; "You try, but find it permanently attached to the armor."
-							)
-							(
-								(or
-									(Said '/arm,leg,helmet,helmet')
-									(Said '/armor,cloth')
-								)
-								(Print 37 7) ; "The joints of the armor are hopelessly rusted. You can't move any part of it."
-							)
-						)
-					)
-					((Said 'wear,attach<on>')
-						(if
-							(or
-								(Said '/arm,leg,helmet,helmet')
-								(Said '/armor,cloth')
-							)
-							(Print 37 20) ; "It wouldn't become you"
-						)
-					)
-					((Said 'climb[<up]/stair')
-						(Print 37 21) ; "You must do that yourself."
-					)
-					((Said 'clock,time')
-						(NotClose) ; "You're not close enough."
-					)
-					((Said 'listen/clock')
-						(Print 37 22) ; "You hear the incessant ticking of the old grandfather clock."
-					)
-				)
-				(super handleEvent: event)
-			)
-			((or 1 2)
-				(if (or local58 (not local54))
-					(return)
-				)
-				(if (& (gEgo onControl: 1) $4000)
-					(if (< (gEgo x:) 160)
-						(gEgo
-							setMotion:
-								MoveTo
-								(cond
-									((< (event y:) (gEgo y:)) 52)
-									((> (event y:) (gEgo y:)) 30)
-								)
-								(cond
-									((> (event y:) (gEgo y:)) 148)
-									((< (event y:) (gEgo y:)) 33)
-								)
-						)
-					else
-						(gEgo
-							setMotion:
-								MoveTo
-								(cond
-									((< (event y:) (gEgo y:)) 261)
-									((> (event y:) (gEgo y:)) 290)
-								)
-								(cond
-									((< (event y:) (gEgo y:)) 17)
-									((> (event y:) (gEgo y:)) 148)
-								)
-						)
-					)
-					(event claimed: 1)
-				)
-			)
-			($0040 ; direction
-				(if (or (not local54) local58)
-					(return)
-				)
-				(if (& (gEgo onControl: 1) $4000)
-					(switch (event message:)
-						(JOY_UP
-							(if (< (gEgo x:) 160)
-								(gEgo setMotion: MoveTo 52 33)
-							else
-								(gEgo setMotion: MoveTo 264 17)
-							)
-							(event claimed: 1)
-						)
-						(JOY_DOWN
-							(if (< (gEgo x:) 160)
-								(gEgo setMotion: MoveTo 30 148)
-							else
-								(gEgo setMotion: MoveTo 290 148)
-							)
-							(event claimed: 1)
-						)
-						(else
-							(event claimed: 1)
-							(return)
-						)
-					)
-				)
-			)
-		)
+		(super newRoom: n)
 	)
 )
 
 (instance crush of Script
-	(properties)
-
+	
 	(method (doit)
 		(super doit:)
-		(if (and (< (gEgo distanceTo: chand) 80) (== local51 0) (== state 0))
+		(if
+			(and
+				(< (ego distanceTo: chand) 80)
+				(== local51 0)
+				(== state 0)
+			)
 			(= local51 1)
-			(gEgo view: 10 loop: 0 cel: 0 setCycle: End)
+			(ego view: 10 loop: 0 cel: 0 setCycle: EndLoop)
 		)
 	)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
 				(HandsOff)
 				(chand setMotion: MoveTo 158 102 self)
-				(local59 stop:)
+				(theCSound stop:)
 				(Fall priority: 2 play:)
 			)
 			(1
 				(Crash number: 36 play:)
 				(chand hide:)
-				(gEgo loop: 1 cel: 0 setCycle: End self)
+				(ego loop: 1 cel: 0 setCycle: EndLoop self)
 			)
 			(2
 				(Fall stop:)
-				(ShakeScreen 5 5) ; ssUPDOWN | $0004
+				(ShakeScreen 5 5)
 				(= seconds 3)
 			)
 			(3
 				(myIcon view: 10 loop: 3 cycleSpeed: 8)
-				(= global128 myIcon)
-				(= global129 3)
-				(= global130 0)
-				(= global132 1)
-				(EgoDead 37 23) ; "It will take awhile to get the splinters out!"
+				(= cIcon myIcon)
+				(= deathLoop 3)
+				(= deathCel 0)
+				(= cyclingIcon 1)
+				(EgoDead 37 23)
 			)
 		)
 	)
 )
 
 (instance openVisor of Script
-	(properties)
-
-	(method (handleEvent event)
-		(if (event claimed:)
-			(return 1)
-		)
-		(if (== (event type:) evSAID)
-			(cond
-				((Said '(look,read,get)/letter')
-					(if (== state 3)
-						(= cycles 1)
-					else
-						(Print 37 24) ; "Open the visor first."
-					)
-				)
-				((Said 'close/helmet')
-					(= state 6)
-					(= cycles 1)
-				)
-			)
-		)
-	)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
 				(HandsOff)
-				(if (gEgo inRect: 106 150 108 152)
+				(if (ego inRect: 106 150 108 152)
 					(= cycles 1)
 				else
-					(gEgo
-						setAvoider: (Avoid new:)
+					(ego
+						setAvoider: (Avoider new:)
 						setMotion: MoveTo 107 152 self
 					)
 				)
 			)
 			(1
-				(gEgo loop: 1)
+				(ego loop: 1)
 				(= cycles 3)
 			)
 			(2
-				(localproc_1)
+				(localproc_002d)
 				(= cycles 7)
 			)
 			(3
-				(Visor cycleSpeed: 3 setCycle: End self)
+				(Visor cycleSpeed: 3 setCycle: EndLoop self)
 			)
 			(4
-				(if (== ((gInventory at: 13) owner:) 37) ; valve_handle
-					(Print 37 25 #at 60 60) ; "You carefully open the armor's visor and peek inside..."
+				(if (== ((inventory at: iValveHandle) owner?) 37)
+					(Print 37 25 #at 60 60)
 				)
 				(= cycles 1)
 			)
 			(5
-				(if (== ((gInventory at: 13) owner:) 37) ; valve_handle
-					(Print 37 26 #at 60 60) ; "You see a small, metal valve handle hanging by a hook inside the armor's helmet. You grab the valve handle."
+				(if (== ((inventory at: iValveHandle) owner?) 37)
+					(Print 37 26 #at 60 60)
 					(valve dispose:)
 				)
 				(= cycles 1)
 			)
 			(6
-				(if (== ((gInventory at: 13) owner:) 37) ; valve_handle
-					(Print 37 27 #at 60 60) ; "You also see an old, yellowed note pasted to the inside of the helmet."
+				(if (== ((inventory at: iValveHandle) owner?) 37)
+					(Print 37 27 #at 60 60)
 				else
-					(Print 37 11 #at 60 60) ; "You see an old, yellowed note pasted to the inside of the helmet."
+					(Print 37 11 #at 60 60)
 				)
 				(= cycles 1)
 			)
 			(7
-				(User canInput: 0)
-				(if (== ((gInventory at: 13) owner:) 37) ; valve_handle
-					(Print 37 28 #at 60 90) ; "Curious about the old note, you read it. It says...."
-					(= global182 1)
-					(gEgo get: 13) ; valve_handle
+				(User canInput: FALSE)
+				(if (== ((inventory at: iValveHandle) owner?) 37)
+					(Print 37 28 #at 60 90)
+					(= gotItem TRUE)
+					(ego get: iValveHandle)
 				else
-					(Print 37 29 #at 70 90) ; "You read the note. It says...."
+					(Print 37 29 #at 70 90)
 				)
 				(= cycles 1)
 			)
 			(8
-				(Print 37 30) ; "Our dearest daughter, Sarah, We knew you would know to look in the armor. This war is terrible! We fear our end is near. In case you're not the only one to find this note, we won't give too much away. Use this valve handle with your favorite water nymph. Don't ever forget...we love you very much! Love forever, Papa and Mama"
+				(Print 37 30)
 				(= cycles 1)
 			)
-			(9
-				(Visor setCycle: Beg self)
-			)
+			(9 (Visor setCycle: BegLoop self))
 			(10
-				(localproc_2)
-				(gEgo setAvoider: 0)
+				(localproc_00ab)
+				(ego setAvoider: 0)
 				(= cycles 1)
 			)
 			(11
@@ -828,32 +1534,51 @@
 			)
 		)
 	)
+	
+	(method (handleEvent event)
+		(if (event claimed?) (return TRUE))
+		(return
+			(if (== (event type?) saidEvent)
+				(cond 
+					((Said '(examine,read,get)/letter')
+						(if (== state 3)
+							(= cycles 1)
+						else
+							(Print 37 24)
+						)
+					)
+					((Said 'close/helmet')
+						(= state 6)
+						(= cycles 1)
+					)
+				)
+			else
+				FALSE
+			)
+		)
+	)
 )
 
 (instance oiling of Script
-	(properties)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
 				(HandsOff)
 				(= local57 1)
-				(if (gEgo inRect: 104 148 111 154)
+				(if (ego inRect: 104 148 111 154)
 					(= cycles 1)
 				else
 					(= seconds (= cycles 0))
-					(gEgo
-						setAvoider: (Avoid new:)
+					(ego
+						setAvoider: (Avoider new:)
 						setMotion: MoveTo 107 152 self
 					)
 				)
 			)
-			(1
-				(gEgo loop: 1)
-				(= cycles 3)
-			)
+			(1 (ego loop: 1) (= cycles 3))
 			(2
-				(localproc_1)
+				(localproc_002d)
 				(Can posn: 225 100 show:)
 				(if local52
 					(Can
@@ -863,7 +1588,7 @@
 							[local2 (<< (- local52 1) $0001)]
 							self
 					)
-					(localproc_0 37 31) ; "Okay."
+					(RoomPrint 37 31)
 				else
 					(= state 5)
 					(= cycles 1)
@@ -871,9 +1596,7 @@
 			)
 			(3
 				(cls)
-				(if local52
-					(Can setLoop: 2 setCycle: Fwd)
-				)
+				(if local52 (Can setLoop: 2 setCycle: Forward))
 				(= cycles 1)
 			)
 			(4
@@ -894,21 +1617,21 @@
 				)
 			)
 			(6
-				(User canInput: 1)
+				(User canInput: TRUE)
 				(client setScript: 0)
 			)
 			(7
-				(localproc_2)
+				(localproc_00ab)
 				(HandsOff)
 				(= cycles 7)
 			)
 			(8
-				(gEgo setPri: 12)
-				(knight setCycle: End self)
+				(ego setPri: 12)
+				(knight setCycle: EndLoop self)
 				(Crash number: 83 loop: 1 play:)
 			)
 			(9
-				(gEgo
+				(ego
 					view: 12
 					loop: 2
 					cel: 0
@@ -916,23 +1639,23 @@
 					illegalBits: 0
 					posn: 104 153
 					cycleSpeed: 3
-					setCycle: End self
+					setCycle: EndLoop self
 				)
 			)
 			(10
 				(client setScript: 0)
 				(myIcon view: 653)
-				(= global128 myIcon)
-				(= global129 0)
-				(= global130 0)
-				(= global132 1)
-				(EgoDead 37 32) ; "Got a "splitting headache," Laura?"
+				(= cIcon myIcon)
+				(= deathLoop 0)
+				(= deathCel 0)
+				(= cyclingIcon 1)
+				(EgoDead 37 32)
 			)
 		)
 	)
 )
 
-(instance postR of PV
+(instance postR of PicView
 	(properties
 		y 142
 		x 219
@@ -942,7 +1665,7 @@
 	)
 )
 
-(instance postL of PV
+(instance postL of PicView
 	(properties
 		y 145
 		x 103
@@ -960,10 +1683,10 @@
 		cel 1
 		priority 3
 	)
-
+	
 	(method (handleEvent event)
-		(if (and (not local53) (MousedOn self event 3))
-			(event claimed: 1)
+		(if (and (not local53) (MousedOn self event shiftDown))
+			(event claimed: TRUE)
 			(DoLook {table})
 		)
 	)
@@ -977,10 +1700,10 @@
 		loop 1
 		priority 3
 	)
-
+	
 	(method (handleEvent event)
-		(if (and (not local53) (MousedOn self event 3))
-			(event claimed: 1)
+		(if (and (not local53) (MousedOn self event shiftDown))
+			(event claimed: TRUE)
 			(DoLook {table})
 		)
 	)
@@ -994,15 +1717,15 @@
 		loop 2
 		priority 3
 	)
-
-	(method (handleEvent event &tmp [temp0 250])
+	
+	(method (handleEvent event &tmp [str 250])
 		(if
 			(and
 				(not local53)
-				(or (MousedOn self event 3) (Said 'look[<at]/clock'))
+				(or (MousedOn self event shiftDown) (Said 'examine[<at]/clock'))
 			)
-			(event claimed: 1)
-			(Print (Format @temp0 37 33 37 34)) ; "You see a %s further down the hall."
+			(event claimed: TRUE)
+			(Print (Format @str 37 33 37 34))
 		)
 	)
 )
@@ -1016,27 +1739,30 @@
 		cel 1
 		priority 3
 	)
-
-	(method (handleEvent event &tmp [temp0 35])
-		(cond
+	
+	(method (handleEvent event &tmp [str 35])
+		(cond 
 			(
 				(or
 					(Said 'rotate,move/mirror,clock')
-					(Said '(pull,press)[<open,on]/clock')
-					(Said '(press,pull)[<open,on]/mirror')
+					(Said '(drag,press)[<open,on]/clock')
+					(Said '(press,drag)[<open,on]/mirror')
 				)
-				(NotClose) ; "You're not close enough."
+				(NotClose)
 			)
 			((Said 'rotate,rotate/mirror')
-				(NotClose) ; "You're not close enough."
+				(NotClose)
 			)
 			(
 				(and
 					(not local53)
-					(or (MousedOn self event 3) (Said 'look[<at]/mirror'))
+					(or
+						(MousedOn self event shiftDown)
+						(Said 'examine[<at]/mirror')
+					)
 				)
-				(event claimed: 1)
-				(Print (Format @temp0 37 33 37 35)) ; "You see a %s further down the hall."
+				(event claimed: TRUE)
+				(Print (Format @str 37 33 37 35))
 			)
 		)
 	)
@@ -1050,42 +1776,41 @@
 		loop 3
 		priority 11
 	)
-
+	
 	(method (handleEvent event)
-		(cond
+		(cond 
 			(
 				(Said
-					'enter,wear,((get,hide,go,climb)<in),(attach<on)/armor,cloth'
+					'enter,wear,((get,conceal,go,climb)<in),(attach<on)/armor,cloth'
 				)
-				(Print 37 36) ; "It wouldn't suit you."
+				(Print 37 36)
 			)
 			((Said 'get/letter')
-				(if (== ((gInventory at: 13) owner:) 37) ; valve_handle
-					(Print 37 37) ; "You don'see it here."
+				(if (== ((inventory at: iValveHandle) owner?) 37)
+					(Print 37 37)
 				else
-					(Print 37 38) ; "The note is permanently attached to the inside of the helmet."
+					(Print 37 38)
 				)
 			)
 			((Said 'get/valve,handle')
-				(if (== ((gInventory at: 13) owner:) 37) ; valve_handle
-					(Print 37 37) ; "You don'see it here."
+				(if (== ((inventory at: iValveHandle) owner?) 37)
+					(Print 37 37)
 				else
-					(AlreadyTook) ; "You already took it."
+					(AlreadyTook)
 				)
 			)
 			(
 				(or
-					(MousedOn self event 3)
-					(and (Said 'look/armor,cloth>') (not (Said 'look<in>')))
+					(MousedOn self event shiftDown)
+					(and
+						(Said 'examine/armor,cloth>')
+						(not (Said 'examine<in>'))
+					)
 				)
-				(event claimed: 1)
-				(if (not local53)
-					(localproc_1)
-				)
-				(Print 37 39 #at 110 110) ; "A very old suit of armor, with one gloved hand holding a battle-axe, stands beside the stairway. Although it's well-polished, all of its joints are completely rusted."
-				(if (not local57)
-					(localproc_2)
-				)
+				(event claimed: TRUE)
+				(if (not local53) (localproc_002d))
+				(Print 37 39 #at 110 110)
+				(if (not local57) (localproc_00ab))
 			)
 		)
 	)
@@ -1098,10 +1823,10 @@
 		view 237
 		loop 1
 	)
-
+	
 	(method (handleEvent event)
-		(if (and (not local53) (MousedOn self event 3))
-			(event claimed: 1)
+		(if (and (not local53) (MousedOn self event shiftDown))
+			(event claimed: TRUE)
 			(DoLook {lamp})
 		)
 	)
@@ -1114,10 +1839,10 @@
 		view 237
 		loop 2
 	)
-
+	
 	(method (handleEvent event)
-		(if (and (not local53) (MousedOn self event 3))
-			(event claimed: 1)
+		(if (and (not local53) (MousedOn self event shiftDown))
+			(event claimed: TRUE)
 			(DoLook {lamp})
 		)
 	)
@@ -1150,7 +1875,7 @@
 	)
 )
 
-(instance chand of Act
+(instance chand of Actor
 	(properties
 		y -1
 		x 158
@@ -1158,7 +1883,7 @@
 	)
 )
 
-(instance Can of Act
+(instance Can of Actor
 	(properties
 		y 100
 		x 225
@@ -1174,11 +1899,11 @@
 		nsBottom 189
 		nsRight 162
 	)
-
+	
 	(method (handleEvent event)
-		(if (and local53 (MousedOn self event 3))
-			(event claimed: 1)
-			(Print 37 39 #at 110 110) ; "A very old suit of armor, with one gloved hand holding a battle-axe, stands beside the stairway. Although it's well-polished, all of its joints are completely rusted."
+		(if (and local53 (MousedOn self event shiftDown))
+			(event claimed: TRUE)
+			(Print 37 39 #at 110 110)
 		)
 	)
 )
@@ -1190,15 +1915,15 @@
 		nsBottom 116
 		nsRight 215
 	)
-
+	
 	(method (handleEvent event)
 		(if
 			(or
-				(and local53 (MousedOn self event 3))
-				(Said 'look/ax[<battle]')
+				(and local53 (MousedOn self event shiftDown))
+				(Said 'examine/ax[<battle]')
 			)
-			(Print 37 13) ; "It's a fourteenth-century Swiss battle-axe, finely handcrafted by Doge Guiseppe Minelli of Venice on his 90th birthday for his daughter who was to wed Antonio Fermaccelli, the bologna merchant. Later it became a favorite piece of Anne Boleyn's. Of course, Lizzie had the most fun with it!"
-			(event claimed: 1)
+			(Print 37 13)
+			(event claimed: TRUE)
 		)
 	)
 )
@@ -1210,10 +1935,10 @@
 		nsBottom 148
 		nsRight 189
 	)
-
+	
 	(method (handleEvent event)
-		(if (MousedOn self event 3)
-			(event claimed: 1)
+		(if (MousedOn self event shiftDown)
+			(event claimed: TRUE)
 			(DoLook {carpet})
 		)
 	)
@@ -1226,44 +1951,40 @@
 		nsBottom 117
 		nsRight 261
 	)
-
+	
 	(method (handleEvent event)
-		(if (MousedOn self event 3)
-			(event claimed: 1)
+		(if (MousedOn self event shiftDown)
+			(event claimed: TRUE)
 			(DoLook {sofa})
 		)
 	)
 )
 
 (instance leftBotPath of Path
-	(properties)
 
-	(method (at param1)
-		(return [local27 param1])
+	(method (at n)
+		(return [leftBotPts n])
 	)
 )
 
 (instance rightBotPath of Path
-	(properties)
 
-	(method (at param1)
-		(return [local34 param1])
+	(method (at n)
+		(return [rightBotPts n])
 	)
 )
 
 (instance leftTopPath of Path
-	(properties)
 
-	(method (at param1)
-		(return [local41 param1])
+	(method (at n)
+		(return [leftTopPts n])
 	)
 )
 
 (instance rightTopPath of Path
-	(properties)
 
-	(method (at param1)
-		(return [local46 param1])
+	(method (at n)
+		(return [rightTopPts n])
 	)
 )
 
@@ -1281,7 +2002,4 @@
 	)
 )
 
-(instance myIcon of DCIcon
-	(properties)
-)
-
+(instance myIcon of DCIcon)

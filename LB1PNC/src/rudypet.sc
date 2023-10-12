@@ -1,9 +1,8 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-;;; Decompiled by sluicebox
 (script# 277)
-(include sci.sh)
+(include game.sh)
 (use Main)
-(use Interface)
+(use Intrface)
 (use Motion)
 (use Game)
 (use Actor)
@@ -12,17 +11,15 @@
 (public
 	rudypet 0
 )
-
 (synonyms
-	(rudolph person man)
+	(rudolph person fellow)
 )
 
 (local
-	local0
-	local1
-	local2
+	talkCount
+	askCount
+	tellCount
 )
-
 (instance Dog of Prop
 	(properties
 		y 147
@@ -30,60 +27,60 @@
 		view 520
 		loop 3
 	)
-
+	
 	(method (handleEvent event)
-		(cond
+		(cond 
 			(
 				(or
-					(Said 'feed,give/*/beauregard>')
-					(Said 'feed,give/*<beauregard>')
+					(Said 'feed,deliver/*/beauregard>')
+					(Said 'feed,deliver/*<beauregard>')
 				)
-				(cond
-					((and (gEgo has: 12) (Said '/bone')) ; soup_bone
-						(Print 277 0) ; "Beauregard isn't interested in the bone right now."
+				(cond 
+					((and (ego has: iSoupBone) (Said '/bone'))
+						(Print 277 0)
 					)
-					((and global219 global224)
-						(Print 277 1) ; "The dog doesn't seem to be hungry."
+					((and theInvItem haveInvItem)
+						(Print 277 1)
 					)
 					(else
-						(DontHave) ; "You don't have it."
+						(DontHave)
 					)
 				)
-				(event claimed: 1)
+				(event claimed: TRUE)
 			)
 			(
 				(or
-					(Said 'give,show/*/beauregard')
-					(Said 'give,show/*<beauregard')
+					(Said 'deliver,hold/*/beauregard')
+					(Said 'deliver,hold/*<beauregard')
 				)
-				(if (and global219 global224)
-					(Print 277 2) ; "Beauregard barely looks at it."
+				(if (and theInvItem haveInvItem)
+					(Print 277 2)
 				else
-					(DontHave) ; "You don't have it."
+					(DontHave)
 				)
 			)
 			((Said 'throw/bone')
-				(Print 277 3) ; "That wouldn't work. Beauregard's not interested in the bone right now."
+				(Print 277 3)
 			)
 			((Said '/beauregard>')
-				(cond
-					((Said 'look')
-						(Print 277 4) ; "Beauregard has joined Rudy as he sits on the steps outside Colonel Dijon's study."
+				(cond 
+					((Said 'examine')
+						(Print 277 4)
 					)
-					((Said 'get,move,pull,get')
-						(Print 277 5) ; "Beauregard's with Rudy right now!"
+					((Said 'get,move,drag,get')
+						(Print 277 5)
 					)
 					((Said 'pat')
-						(Print 277 6) ; "Rudy is already petting the dog."
+						(Print 277 6)
 					)
-					((Said 'talk')
-						(Print 277 7) ; "You speak to the dog who pricks up his ears only slightly."
+					((Said 'converse')
+						(Print 277 7)
 					)
 					((Said 'kill')
-						(Print 277 8) ; "That's not a nice thought, Laura!"
+						(Print 277 8)
 					)
 					((Said 'kiss')
-						(Print 277 9) ; "Don't kiss a dog!"
+						(Print 277 9)
 					)
 				)
 			)
@@ -91,93 +88,87 @@
 	)
 )
 
-(instance rudypet of Rgn
-	(properties)
-
+(instance rudypet of Region
+	
 	(method (init)
 		(super init:)
-		(Load rsFONT 4)
+		(Load FONT 4)
 		(= global195 256)
-		(if (not (& gMustDos $0004))
-			(Load rsFONT 41)
-			(Load rsVIEW 642)
-			(LoadMany rsSOUND 29 94 95 96)
-			(Load rsSCRIPT 406)
+		(if (not (& global118 $0004))
+			(Load FONT 41)
+			(Load VIEW 642)
+			(LoadMany SOUND 29 94 95 96)
+			(Load SCRIPT 406)
 		)
 		(Dog init:)
 		(Rudy init:)
 		(self setScript: petDog)
 	)
-
+	
 	(method (doit)
 		(super doit:)
 	)
-
+	
 	(method (dispose)
 		(super dispose:)
 	)
-
+	
 	(method (handleEvent event &tmp temp0)
 		(super handleEvent: event)
-		(if (event claimed:)
-			(return 1)
-		)
-		(if (== (event type:) evSAID)
-			(cond
-				((Said 'look/rudolph')
-					(Print 277 10) ; "Rudy sits sullenly on the steps outside the Colonel's study with old Beauregard accompanying him."
+		(if (event claimed?) (return TRUE))
+		(if (== (event type?) saidEvent)
+			(cond 
+				((Said 'examine/rudolph')
+					(Print 277 10)
 				)
 				((Said 'feed/food')
-					(Print 277 1) ; "The dog doesn't seem to be hungry."
+					(Print 277 1)
 				)
 			)
 		)
-		(super handleEvent: event)
+		(return (super handleEvent: event))
 	)
 )
 
 (instance petDog of Script
-	(properties)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
 				(if
 					(and
-						(== gPrevRoomNum 31)
-						(or (!= (gEgo x:) 118) (!= (gEgo y:) 144))
+						(== prevRoomNum 31)
+						(or (!= (ego x?) 118) (!= (ego y?) 144))
 					)
 					(= state -1)
 				)
 				(= cycles 1)
 			)
 			(1
-				(cond
-					((not global216)
+				(cond 
+					((not global216) (= state 0))
+					((not (& global118 $0004))
+						(|= global118 $0004)
+						(self setScript: (ScriptID 406 0))
 						(= state 0)
 					)
-					((not (& gMustDos $0004))
-						(|= gMustDos $0004)
-						(self setScript: (ScriptID 406 0)) ; Clock
-						(= state 0)
-					)
-					((self script:)
+					((self script?)
 						(= state 0)
 					)
 				)
 				(= cycles 1)
 			)
 			(2
-				(Rudy cycleSpeed: 1 loop: 1 cel: 2 setCycle: Beg self)
+				(Rudy cycleSpeed: 1 loop: 1 cel: 2 setCycle: BegLoop self)
 			)
 			(3
-				(Rudy loop: 0 setCycle: Fwd)
-				(Dog setCycle: Fwd)
+				(Rudy loop: 0 setCycle: Forward)
+				(Dog setCycle: Forward)
 				(= seconds (Random 3 5))
 			)
 			(4
 				(Dog setCycle: 0)
-				(Rudy loop: 1 cel: 0 setCycle: End)
+				(Rudy loop: 1 cel: 0 setCycle: EndLoop)
 				(= state 1)
 				(= seconds (Random 6 12))
 			)
@@ -192,92 +183,66 @@
 		view 390
 		loop 1
 	)
-
+	
 	(method (handleEvent event)
-		(= global213 9)
-		(cond
+		(= theTalker talkRUDY)
+		(cond 
 			((Said 'ask//*<about')
-				(switch local1
-					(0
-						(Say 1 277 11) ; "I don't wanna talk about nothin' right now. I got some thinkin' to do."
-						(++ local1)
-					)
-					(1
-						(Print 277 12) ; "You're getting on Rudy's nerves, Laura. You should probably go."
-					)
+				(switch askCount
+					(0 (Say 1 277 11) (++ askCount))
+					(1 (Print 277 12))
 				)
 			)
 			((Said 'tell//*<about')
-				(switch local2
-					(0
-						(Say 1 277 13) ; "I ain't interested!"
-						(++ local2)
-					)
-					(1
-						(Print 277 14) ; "Rudy doesn't care."
-					)
+				(switch tellCount
+					(0 (Say 1 277 13) (++ tellCount))
+					(1 (Print 277 14))
 				)
 			)
-			((or (Said 'give/*[/rudolph]') (Said 'give/*[<rudolph]'))
-				(event claimed: 1)
-				(if (and global219 global224)
-					(Print 277 15) ; "It's obvious that Rudy isn't interested in it."
+			(
+				(or
+					(Said 'deliver/*[/rudolph]')
+					(Said 'deliver/*[<rudolph]')
+				)
+				(event claimed: TRUE)
+				(if (and theInvItem haveInvItem)
+					(Print 277 15)
 				else
-					(DontHave) ; "You don't have it."
+					(DontHave)
 				)
 			)
-			((or (Said 'show/*/[rudolph]') (Said 'show/*[<rudolph]'))
-				(event claimed: 1)
-				(if (and global219 global224)
-					(Print 277 16) ; "Rudy doesn't even acknowledge it."
+			(
+			(or (Said 'hold/*/[rudolph]') (Said 'hold/*[<rudolph]'))
+				(event claimed: TRUE)
+				(if (and theInvItem haveInvItem)
+					(Print 277 16)
 				else
-					(DontHave) ; "You don't have it."
+					(DontHave)
 				)
 			)
 			((Said '/rudolph>')
-				(cond
-					((Said 'listen')
-						(Print 277 17) ; "He's not talking to you."
-					)
-					((Said 'get')
-						(Print 277 18) ; "You can't get Rudy!"
-					)
-					((Said 'kill')
-						(Print 277 19) ; "Now, now! There's no need for that!"
-					)
-					((Said 'kiss')
-						(Print 277 20) ; "Even though he IS attractive, you'll pass."
-					)
-					((Said 'embrace')
-						(Print 277 20) ; "Even though he IS attractive, you'll pass."
-					)
-					((Said 'talk')
-						(= global213 9)
-						(switch local0
-							(0
-								(Say 1 277 21) ; "Ah, it's you again, is it? You should be up sleepin' like everybody else."
-							)
-							(1
-								(Say 1 277 22) ; "I got a lot on my mind right now. I ain't in the mood to gab."
-							)
-							(2
-								(Say 1 277 23) ; "I said I don't wanna talk to you right now! Got it?!"
-							)
-							(3
-								(Say 1 277 24) ; "Did you hear me?! Bug off!!"
-							)
-							(else
-								(Print 277 25) ; "Angrily, Rudy refuses to answer you anymore. It might be best to leave him alone right now."
-							)
+				(cond 
+					((Said 'hear') (Print 277 17))
+					((Said 'get') (Print 277 18))
+					((Said 'kill') (Print 277 19))
+					((Said 'kiss') (Print 277 20))
+					((Said 'embrace') (Print 277 20))
+					((Said 'converse')
+						(= theTalker talkRUDY)
+						(switch talkCount
+							(0 (Say 1 277 21))
+							(1 (Say 1 277 22))
+							(2 (Say 1 277 23))
+							(3 (Say 1 277 24))
+							(else  (Print 277 25))
 						)
-						(++ local0)
+						(++ talkCount)
 					)
 				)
 			)
 			((Said 'flirt//rudolph')
-				(Print 277 26) ; "It's tempting, but it's not you."
+				(Print 277 26)
 			)
 		)
 	)
 )
-

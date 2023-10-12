@@ -1,7 +1,6 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-;;; Decompiled by sluicebox
 (script# 777)
-(include sci.sh)
+(include game.sh)
 (use Main)
 (use Path)
 (use Sound)
@@ -16,33 +15,64 @@
 )
 
 (local
-	[local0 61] = [204 154 204 159 211 162 210 152 218 159 215 152 223 160 217 151 221 160 224 155 228 155 229 152 234 153 232 150 240 154 238 144 247 154 244 143 252 145 251 150 255 145 258 147 259 144 263 152 260 149 262 141 265 145 266 141 272 144 340 144 -32768]
-	local61
+	penPts = [
+		204 154
+		204 159
+		211 162
+		210 152
+		218 159
+		215 152
+		223 160
+		217 151
+		221 160
+		224 155
+		228 155
+		229 152
+		234 153
+		232 150
+		240 154
+		238 144
+		247 154
+		244 143
+		252 145
+		251 150
+		255 145
+		258 147
+		259 144
+		263 152
+		260 149
+		262 141
+		265 145
+		266 141
+		272 144
+		340 144
+		PATHEND
+	]
+	bloodCel
 	local62
 )
-
 (instance squarePath of Path
 	(properties)
-
-	(method (at param1)
-		(return [local0 param1])
+	
+	(method (at n)
+		(return [penPts n])
 	)
 )
 
-(instance myWill of Rm
+(instance myWill of Room
 	(properties
 		picture 77
-		style 8
+		style DISSOLVE
 	)
-
+	
 	(method (init)
 		(super init:)
-		(if global215
+		(if menuBarInitialized
 			(TheMenuBar hide:)
 		)
 		(HandsOff)
-		(gConMusic stop:)
-		(LoadMany rsSOUND 20 130)
+		(cSound stop:)
+		(LoadMany SOUND 20 130)
 		(myMusic number: 20)
 		(Blood setPri: 3 init:)
 		(Drip1 setPri: 3 init: hide:)
@@ -56,70 +86,75 @@
 		(Glop2 init: hide:)
 		(self setScript: myStab)
 	)
-
-	(method (newRoom newRoomNumber)
-		(super newRoom: newRoomNumber)
-	)
-
+	
 	(method (doit)
 		(super doit:)
 	)
-
+	
 	(method (dispose)
-		(DisposeScript 983)
+		(DisposeScript PATH)
 		(super dispose:)
 	)
-
+	
 	(method (handleEvent event)
-		(if (event claimed:)
-			(return)
-		)
-		(switch (event type:)
-			(evKEYBOARD
-				(cond
-					((or (== (event message:) KEY_S) (== (event message:) KEY_s))
-						(event claimed: 1)
-						(gCurRoom newRoom: 778) ; characters
+		(if (event claimed?) (return))
+		(switch (event type?)
+			(keyDown
+				(cond 
+					(
+						(or
+							(== (event message?) `S)
+							(== (event message?) `s)
+						)
+						(event claimed: TRUE)
+						(curRoom newRoom: 778)
 					)
-					((or (== (event message:) KEY_RETURN) (== (event message:) KEY_SPACE))
-						(SetFlag 50)
+					(
+						(or
+							(== (event message?) ENTER)
+							(== (event message?) SPACEBAR)
+						)
+						(Bset fSkippedIntro)
 					)
 				)
 			)
-			(evMOUSEBUTTON
-				(SetFlag 50)
+			(mouseDown
+				(Bset fSkippedIntro)
 			)
 		)
-		(if (IsFlag 50)
-			(event claimed: 1)
-			(gCurRoom newRoom: 44)
+		(if (Btst fSkippedIntro)
+			(event claimed: TRUE)
+			(curRoom newRoom: 44)
 		)
+	)
+	
+	(method (newRoom n)
+		(super newRoom: n)
 	)
 )
 
 (instance myStab of Script
-	(properties)
-
+	
 	(method (doit)
 		(super doit:)
-		(switch local61
+		(switch bloodCel
 			(3
-				(if (not (Drip2 cycler:))
-					(Drip2 show: setCycle: Fwd)
+				(if (not (Drip2 cycler?))
+					(Drip2 show: setCycle: Forward)
 				)
 			)
 			(5
-				(if (not (Drip1 cycler:))
-					(Drip1 show: cycleSpeed: 1 setCycle: Fwd)
-					(Drip3 show: setCycle: Fwd)
+				(if (not (Drip1 cycler?))
+					(Drip1 show: cycleSpeed: 1 setCycle: Forward)
+					(Drip3 show: setCycle: Forward)
 				)
 			)
 		)
-		(if (and (== (myMusic prevSignal:) 10) (== state 5))
+		(if (and (== (myMusic prevSignal?) 10) (== state 5))
 			(= cycles 1)
 		)
 	)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
@@ -130,19 +165,19 @@
 				(Hand setMotion: MoveTo 203 153 self)
 			)
 			(2
-				(if gDetailLevel
+				(if howFast
 					(Hand setMotion: squarePath self)
-					(signature show: cycleSpeed: 5 setCycle: End)
+					(signature show: cycleSpeed: 5 setCycle: EndLoop)
 				else
 					(Hand setMotion: MoveTo 340 144 self)
-					(signature show: cycleSpeed: 0 setCycle: End)
+					(signature show: cycleSpeed: 0 setCycle: EndLoop)
 				)
 			)
 			(3
 				(Hand setMotion: MoveTo 392 189 self)
 			)
 			(4
-				(if (!= (myMusic prevSignal:) -1)
+				(if (!= (myMusic prevSignal?) -1)
 					(= state 3)
 				)
 				(= cycles 1)
@@ -155,45 +190,45 @@
 				(= cycles 1)
 			)
 			(7
-				(ShakeScreen 5 5) ; ssUPDOWN | $0004
+				(ShakeScreen 5 (| shakeSRight shakeSDiagonal))
 				(= seconds 2)
 			)
 			(8
-				(Pool show: cycleSpeed: 1 setCycle: End)
+				(Pool show: cycleSpeed: 1 setCycle: EndLoop)
 				(= cycles 7)
 			)
 			(9
-				(if (== (myMusic prevSignal:) -1)
+				(if (== (myMusic prevSignal?) -1)
 					(= state 10)
 					(= cycles 1)
 				)
-				(Glop1 show: setCycle: End self)
-				(Glop2 show: setCycle: End)
-				(if (== local61 0)
-					(gAddToPics add: Title eachElementDo: #init doit:)
+				(Glop1 show: setCycle: EndLoop self)
+				(Glop2 show: setCycle: EndLoop)
+				(if (== bloodCel 0)
+					(addToPics add: Title eachElementDo: #init doit:)
 				)
 			)
 			(10
 				(Glop2 cel: 0)
-				(cond
-					(gDetailLevel
-						(if (< local61 9)
-							(++ local61)
+				(cond 
+					(howFast
+						(if (< bloodCel 9)
+							(++ bloodCel)
 						else
-							(= local61 9)
+							(= bloodCel 9)
 						)
 					)
-					((< local61 7)
-						(++ local61)
-						(++ local61)
-						(++ local61)
+					((< bloodCel 7)
+						(++ bloodCel)
+						(++ bloodCel)
+						(++ bloodCel)
 					)
 					(else
-						(= local61 9)
+						(= bloodCel 9)
 					)
 				)
-				(Blood cel: local61)
-				(if (== (myMusic prevSignal:) -1)
+				(Blood cel: bloodCel)
+				(if (== (myMusic prevSignal?) -1)
 					(= cycles 1)
 				else
 					(= state 8)
@@ -204,19 +239,19 @@
 				(Blood cel: 9 stopUpd:)
 				(Glop1 hide:)
 				(Glop2 hide:)
-				(Drip1 setCycle: End)
-				(Drip2 setCycle: End)
-				(Drip3 setCycle: End self)
+				(Drip1 setCycle: EndLoop)
+				(Drip2 setCycle: EndLoop)
+				(Drip3 setCycle: EndLoop self)
 			)
 			(12
 				(client setScript: 0)
-				(gCurRoom newRoom: 778) ; characters
+				(curRoom newRoom: 778)
 			)
 		)
 	)
 )
 
-(instance Title of PV
+(instance Title of PicView
 	(properties
 		y 97
 		x 187
@@ -301,7 +336,7 @@
 	)
 )
 
-(instance Hand of Act
+(instance Hand of Actor
 	(properties
 		y 253
 		x 204
@@ -309,7 +344,4 @@
 	)
 )
 
-(instance myMusic of Sound
-	(properties)
-)
-
+(instance myMusic of Sound)

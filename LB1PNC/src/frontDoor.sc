@@ -1,9 +1,8 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-;;; Decompiled by sluicebox
 (script# 783)
-(include sci.sh)
+(include game.sh)
 (use Main)
-(use Interface)
+(use Intrface)
 (use Sound)
 (use Motion)
 (use Game)
@@ -15,45 +14,60 @@
 )
 
 (local
-	local0
-	local1
-	local2
-	local3
+	saveBits
+	saveBits2
+	theX
+	theY
 	local4
 	local5
 	local6
 )
-
-(procedure (localproc_0)
-	(= local0 (Display &rest 105 41 dsALIGN alCENTER dsCOORD local2 local3 dsWIDTH 300 dsCOLOR 15 dsSAVEPIXELS))
+(procedure (localproc_000c)
+	(= saveBits
+		(Display &rest
+			105 41
+			p_mode teJustCenter
+			p_at theX theY
+			p_width 300
+			p_color vWHITE
+			p_save
+		)
+	)
 )
 
-(procedure (localproc_1)
-	(Display 783 0 dsRESTOREPIXELS local0)
+(procedure (localproc_002e)
+	(Display 783 0 p_restore saveBits)
 )
 
-(procedure (localproc_2)
-	(= local1 (Display &rest 105 41 dsALIGN alCENTER dsCOORD local2 local3 dsWIDTH 300 dsCOLOR 0 dsSAVEPIXELS))
+(procedure (localproc_003c)
+	(= saveBits2
+		(Display &rest
+			105 41
+			p_mode teJustCenter
+			p_at theX theY
+			p_width 300
+			p_color vBLACK
+			p_save
+		)
+	)
 )
 
-(procedure (localproc_3)
-	(Display 783 0 dsRESTOREPIXELS local1)
+(procedure (localproc_005d)
+	(Display 783 0 p_restore saveBits2)
 )
 
-(instance Laura of Prop
-	(properties)
-)
+(instance Laura of Prop)
 
-(instance frontDoor of Rm
+(instance frontDoor of Room
 	(properties
 		picture 80
 	)
-
+	
 	(method (init)
 		(super init:)
-		(gAddToPics add: knocker eachElementDo: #init doit:)
-		(LoadMany rsSOUND 6 16 121)
-		(Load rsFONT 41)
+		(addToPics add: knocker eachElementDo: #init doit:)
+		(LoadMany SOUND 6 16 121)
+		(Load FONT 41)
 		(Door setPri: 14 init: stopUpd:)
 		(Jeeves setLoop: 0 init: stopUpd:)
 		(Eye setLoop: 3 setPri: 14)
@@ -64,7 +78,7 @@
 			loop: 0
 			cel: 0
 			setPri: 14
-			ignoreActors: 1
+			ignoreActors: TRUE
 			posn: 70 163
 			init:
 			stopUpd:
@@ -72,51 +86,57 @@
 		(Lillian setPri: 14 init: stopUpd:)
 		(self setScript: openning)
 	)
-
+	
 	(method (doit)
 		(super doit:)
 	)
-
+	
 	(method (dispose)
 		(super dispose:)
 	)
-
+	
 	(method (handleEvent event)
-		(if (event claimed:)
-			(return)
-		)
-		(switch (event type:)
-			(evKEYBOARD
-				(cond
-					((or (== (event message:) KEY_S) (== (event message:) KEY_s))
-						(event claimed: 1)
-						(gCurRoom newRoom: 209) ; Dinner
+		(if (event claimed?) (return))
+		(switch (event type?)
+			(keyDown
+				(cond 
+					(
+						(or
+							(== (event message?) `S)
+							(== (event message?) `s)
+						)
+						(event claimed: TRUE)
+						(curRoom newRoom: 209)
 					)
-					((or (== (event message:) KEY_RETURN) (== (event message:) KEY_SPACE))
-						(SetFlag 50)
+					(
+						(or
+							(== (event message?) ENTER)
+							(== (event message?) SPACEBAR)
+						)
+						(Bset fSkippedIntro)
 					)
 				)
 			)
-			(evMOUSEBUTTON
-				(SetFlag 50)
+			(mouseDown
+				(Bset fSkippedIntro)
 			)
 		)
-		(if (IsFlag 50)
-			(event claimed: 1)
-			(gCurRoom newRoom: 44)
+		(if (Btst fSkippedIntro)
+			(event claimed: TRUE)
+			(curRoom newRoom: 44)
 		)
 	)
 )
 
 (instance openning of Script
 	(properties)
-
+	
 	(method (doit)
-		(if (== (Jeeves x:) 167)
-			(Jeeves setCycle: End)
+		(if (== (Jeeves x?) 167)
+			(Jeeves setCycle: EndLoop)
 		)
 		(if (== state 4)
-			(cond
+			(cond 
 				((> local6 -1)
 					(if (== (mod local6 2) 1)
 						(Door cel: 0)
@@ -144,16 +164,16 @@
 		)
 		(if
 			(and
-				(== (Thunder number:) 16)
-				(== (Thunder prevSignal:) -1)
+				(== (Thunder number?) 16)
+				(== (Thunder prevSignal?) -1)
 				(== state 12)
 			)
 			(client setScript: 0)
-			(gCurRoom newRoom: 209) ; Dinner
+			(curRoom newRoom: 209)
 		)
 		(super doit:)
 	)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
@@ -161,19 +181,19 @@
 				(= cycles 7)
 			)
 			(1
-				(= local2 11)
+				(= theX 11)
 				(Thunder number: 6 loop: 1 play:)
-				(= local3 52)
-				(localproc_2 783 1) ; "Music and Sounds  by Ken Allen"
-				(= local2 10)
-				(= local3 50)
-				(localproc_0 783 1) ; "Music and Sounds  by Ken Allen"
+				(= theY 52)
+				(localproc_003c 783 1)
+				(= theX 10)
+				(= theY 50)
+				(localproc_000c 783 1)
 				(= seconds 5)
 			)
 			(2
-				(localproc_1)
-				(localproc_3)
-				(Door cycleSpeed: 2 setCycle: End self)
+				(localproc_002e)
+				(localproc_005d)
+				(Door cycleSpeed: 2 setCycle: EndLoop self)
 			)
 			(3
 				(Door
@@ -207,40 +227,69 @@
 				(Eye init: setScript: (Clone eyeball))
 				(LEye setPri: 15 init: setScript: (Clone eyeball))
 				(EEye setPri: 15 init: setScript: (Clone eyeball))
-				(Mouth show: setCycle: End)
-				(Print 783 2 #at 105 30 #mode 1 #draw #dispose) ; "Yeeesss?"
+				(Mouth show: setCycle: EndLoop)
+				(Print 783 2
+					#at 105 30
+					#mode teJustCenter
+					#draw
+					#dispose
+				)
 				(= seconds 4)
 			)
 			(7
 				(Mouth setCycle: 0 cel: 0)
 				(cls)
-				(Print 783 3 #at 105 140 #draw #dispose) ; "Jeeves! Don't you remember me? I'm Lillian!"
+				(Print 783 3
+					#at 105 140
+					#draw
+					#dispose
+				)
 				(= seconds 5)
 			)
 			(8
 				(cls)
-				(Print 783 4 #at 105 30 #mode 1 #draw #dispose) ; "Oh, yes."
+				(Print 783 4
+					#at 105 30
+					#mode teJustCenter
+					#draw
+					#dispose
+				)
 				(= local4 2)
 				(Mouth setScript: mouthCyc)
 				(= seconds 3)
 			)
 			(9
 				(cls)
-				(Print 783 5 #at 63 30 #mode 1 #draw #dispose) ; "Everyone else has already arrived."
+				(Print 783 5
+					#at 63 30
+					#mode teJustCenter
+					#draw
+					#dispose
+				)
 				(= local4 5)
 				(Mouth setScript: mouthCyc)
 				(= seconds 5)
 			)
 			(10
 				(cls)
-				(Print 783 6 #at 78 30 #mode 1 #draw #dispose) ; "They're just sitting down for dinner."
+				(Print 783 6
+					#at 78 30
+					#mode teJustCenter
+					#draw
+					#dispose
+				)
 				(= local4 6)
 				(Mouth setScript: mouthCyc)
 				(= seconds 5)
 			)
 			(11
 				(cls)
-				(Print 783 7 #at 75 30 #mode 1 #draw #dispose) ; "Please come in and join them."
+				(Print 783 7
+					#at 75 30
+					#mode teJustCenter
+					#draw
+					#dispose
+				)
 				(= local4 6)
 				(Mouth setScript: mouthCyc)
 				(= seconds 5)
@@ -252,19 +301,18 @@
 			)
 			(13
 				(client setScript: 0)
-				(gCurRoom newRoom: 209) ; Dinner
+				(curRoom newRoom: 209)
 			)
 		)
 	)
 )
 
 (instance eyeball of Script
-	(properties)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
-				(client setCycle: Beg)
+				(client setCycle: BegLoop)
 				(= seconds (Random 1 6))
 			)
 			(1
@@ -276,16 +324,14 @@
 )
 
 (instance mouthCyc of Script
-	(properties)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
-				(client setCycle: End self)
+				(client setCycle: EndLoop self)
 			)
 			(1
-				(++ local5)
-				(if (== local4 local5)
+				(if (== local4 (++ local5))
 					(= local5 0)
 					(client cel: 0 setScript: 0)
 				else
@@ -297,18 +343,18 @@
 	)
 )
 
-(instance knocker of PV
+(instance knocker of PicView
 	(properties
 		y 138
 		x 203
 		view 180
 		loop 1
 		priority 15
-		signal 16384
+		signal ignrAct
 	)
 )
 
-(instance Jeeves of Act
+(instance Jeeves of Actor
 	(properties
 		y 164
 		x 200
@@ -378,7 +424,4 @@
 	)
 )
 
-(instance Thunder of Sound
-	(properties)
-)
-
+(instance Thunder of Sound)

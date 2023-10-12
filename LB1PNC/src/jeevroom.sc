@@ -1,10 +1,9 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-;;; Decompiled by sluicebox
 (script# 246)
-(include sci.sh)
+(include game.sh)
 (use Main)
-(use Interface)
-(use Avoid)
+(use Intrface)
+(use Avoider)
 (use Sound)
 (use Motion)
 (use Game)
@@ -14,31 +13,28 @@
 (public
 	jeevroom 0
 )
-
 (synonyms
-	(butler person man)
+	(butler person fellow)
 )
 
 (local
-	local0
-	local1
-	local2
-	local3
+	talkCount
+	askCount
+	giveCount
+	primpCued
 )
-
-(instance jeevroom of Rgn
-	(properties)
-
+(instance jeevroom of Region
+	
 	(method (init)
 		(super init:)
 		(= global195 1024)
 		(medicine init: stopUpd:)
-		(Load rsSOUND 76)
-		(= global213 11)
+		(Load SOUND 76)
+		(= theTalker talkJEEVES)
 		(Water setPri: 15 init: hide:)
-		(switch gAct
+		(switch currentAct
 			(1
-				(if (or (== global155 17) (== [gCycleTimers 2] 1))
+				(if (or (== global155 17) (== [global368 2] 1))
 					(= global194 0)
 					(Jeeves
 						view: 457
@@ -46,7 +42,7 @@
 						posn: 257 145
 						setPri: 13
 						cycleSpeed: 12
-						setCycle: Fwd
+						setCycle: Forward
 						init:
 					)
 				)
@@ -54,11 +50,11 @@
 			(2
 				(if (== global194 0)
 					(++ global194)
-					(LoadMany rsVIEW 442 449 456)
+					(LoadMany VIEW 442 449 456)
 					(Jeeves
 						view: 458
 						illegalBits: 0
-						setAvoider: (Avoid new:)
+						setAvoider: (Avoider new:)
 						posn: 189 96
 						init:
 					)
@@ -69,11 +65,11 @@
 						setPri: 14
 						posn: 94 133
 						cel: 4
-						ignoreActors: 1
+						ignoreActors: TRUE
 						init:
 					)
 					(JHead
-						ignoreActors: 1
+						ignoreActors: TRUE
 						setPri: 14
 						init:
 						setScript: headActions
@@ -82,10 +78,10 @@
 				)
 			)
 			(4
-				(= global213 28)
+				(= theTalker 28)
 				(flowers setPri: 14 init:)
-				(LoadMany rsVIEW 454 927)
-				(JButt ignoreActors: 1 setPri: 14 init: stopUpd:)
+				(LoadMany VIEW 454 927)
+				(JButt ignoreActors: TRUE setPri: 14 init: stopUpd:)
 				(Jeeves
 					view: 454
 					loop: 0
@@ -99,203 +95,158 @@
 			)
 		)
 	)
-
+	
 	(method (doit)
 		(super doit:)
 	)
-
+	
 	(method (dispose)
-		(DisposeScript 985)
+		(DisposeScript AVOIDER)
 		(super dispose:)
 	)
-
+	
 	(method (handleEvent event)
 		(super handleEvent: event)
-		(if (event claimed:)
-			(return 1)
-		)
-		(if (== (event type:) evSAID)
-			(cond
-				((Said 'talk/butler')
-					(= global213 11)
-					(switch gAct
-						(1
-							(switch local0
-								(0
-									(Say 1 246 0) ; "I deserve a little peace and quiet in my own room!"
-								)
-								(1
-									(Say 1 246 1) ; "This is highly irregular, Miss Bow!"
-								)
-								(else
-									(Print 246 2) ; "Exasperated, Jeeves closes his eyes and tries to ignore your constant jabber."
-								)
-							)
-							(++ local0)
-						)
-						(2
-							(switch local0
-								(0
-									(Say 1 246 3) ; "Can't a person have a little privacy around here?!"
-								)
-								(1
-									(Say 1 246 4) ; "Would you mind leaving, Miss Bow?!"
-								)
-								(2
-									(Say 1 246 5) ; "You shouldn't be down here, Miss Bow!"
-								)
-								(else
-									(Print 246 6) ; "Jeeves refuses to indulge himself further in your idle conversation."
-								)
-							)
-							(++ local0)
-						)
-						(4
-							(= global213 28)
-							(switch local0
-								(0
-									(Say 1 246 7) ; "Not you again!"
-								)
-								(1
-									(Say 1 246 8) ; "Miss Bow! This is highly inappropriate!"
-								)
-								(2
-									(Say 1 246 9) ; "Can't you see I'm busy!"
-								)
-								(3
-									(Say 1 246 10) ; "Please give me my privacy, Miss Bow!"
-								)
-								(else
-									(Print 246 11) ; "Frustrated, Jeeves hopes that by ignoring you, you might go away."
-								)
-							)
-							(++ local0)
-						)
-					)
-				)
-				((Said 'ask,tell//*<about')
-					(if (== gAct 4)
-						(= global213 28)
-					else
-						(= global213 11)
-					)
-					(switch local1
-						(0
-							(Say 1 246 12) ; "Kindly leave my room."
-						)
-						(1
-							(Say 1 246 13) ; "Please leave."
-						)
-						(2
-							(Say 1 246 14) ; "I'm tired. I don't want to converse."
-						)
-						(3
-							(Print 246 15) ; "It appears that Jeeves is in no mood to talk."
-						)
-						(4
-							(Say 1 246 16) ; "PLEASE, Miss Bow!"
-						)
-						(5
-							(Print 246 17) ; "Jeeves isn't listening to you."
-						)
-						(6
-							(if (== gAct 1)
-								(Print 246 18) ; "Jeeves is trying to rest."
-							else
-								(Print 246 19) ; "Jeeves must be the strong silent type, he doesn't respond."
-							)
-						)
-						(7
-							(Say 1 246 20) ; "I don't feel like talking!"
-						)
-					)
-					(if (< local1 7)
-						(++ local1)
-					else
-						(= local1 0)
-					)
-				)
-				((Said 'give,show/*')
-					(if (and global219 global224)
-						(switch local2
-							(0
-								(Print 246 21) ; "It doesn't appear that Jeeves is interested in it."
-							)
+		(if (event claimed?) (return TRUE))
+		(return
+			(if (== (event type?) saidEvent)
+				(cond 
+					((Said 'converse/butler')
+						(= theTalker talkJEEVES)
+						(switch currentAct
 							(1
-								(Print 246 22) ; "Obviously, he doesn't want it."
+								(switch talkCount
+									(0 (Say 1 246 0))
+									(1 (Say 1 246 1))
+									(else  (Print 246 2))
+								)
+								(++ talkCount)
 							)
 							(2
-								(Print 246 23) ; "Jeeves must not care about it."
+								(switch talkCount
+									(0 (Say 1 246 3))
+									(1 (Say 1 246 4))
+									(2 (Say 1 246 5))
+									(else  (Print 246 6))
+								)
+								(++ talkCount)
 							)
-							(3
-								(Print 246 24) ; "Jeeves shows no interest in it."
+							(4
+								(= theTalker 28)
+								(switch talkCount
+									(0 (Say 1 246 7))
+									(1 (Say 1 246 8))
+									(2 (Say 1 246 9))
+									(3 (Say 1 246 10))
+									(else  (Print 246 11))
+								)
+								(++ talkCount)
 							)
-							(else
-								(Print 246 25) ; "Jeeves doesn't even acknowledge it."
-							)
-						)
-						(++ local2)
-					else
-						(DontHave) ; "You don't have it."
-					)
-				)
-				((Said '/butler>')
-					(cond
-						((Said 'listen/butler')
-							(Print 246 26) ; "Jeeves isn't talking to you."
-						)
-						((Said 'get/butler')
-							(Print 246 27) ; "You wouldn't want him!!"
-						)
-						((Said 'kill/butler')
-							(Print 246 28) ; "Now, now! There's no need for that!"
-						)
-						((Said 'kiss/butler')
-							(Print 246 29) ; "He's too strange."
-						)
-						((Said 'embrace/butler')
-							(Print 246 30) ; "He doesn't appeal to you."
 						)
 					)
-				)
-				((Said 'flirt//butler<with')
-					(Print 246 31) ; "He's not your type!"
-				)
-				((or (Said 'sleep,lay') (Said 'go/bed,sleep'))
-					(if (== gAct 1)
-						(Print 246 32) ; "The bed is already occupied."
-					else
-						(event claimed: 0)
+					((Said 'ask,tell//*<about')
+						(if (== currentAct 4)
+							(= theTalker 28)
+						else
+							(= theTalker talkJEEVES)
+						)
+						(switch askCount
+							(0 (Say 1 246 12))
+							(1 (Say 1 246 13))
+							(2 (Say 1 246 14))
+							(3 (Print 246 15))
+							(4 (Say 1 246 16))
+							(5 (Print 246 17))
+							(6
+								(if (== currentAct 1)
+									(Print 246 18)
+								else
+									(Print 246 19)
+								)
+							)
+							(7 (Say 1 246 20))
+						)
+						(if (< askCount 7)
+							(++ askCount)
+						else
+							(= askCount 0)
+						)
+					)
+					((Said 'deliver,hold/*')
+						(if (and theInvItem haveInvItem)
+							(switch giveCount
+								(0 (Print 246 21))
+								(1 (Print 246 22))
+								(2 (Print 246 23))
+								(3 (Print 246 24))
+								(else
+									(Print 246 25)
+								)
+							)
+							(++ giveCount)
+						else
+							(DontHave)
+						)
+					)
+					((Said '/butler>')
+						(cond 
+							((Said 'hear/butler')
+								(Print 246 26)
+							)
+							((Said 'get/butler')
+								(Print 246 27)
+							)
+							((Said 'kill/butler')
+								(Print 246 28)
+							)
+							((Said 'kiss/butler')
+								(Print 246 29)
+							)
+							((Said 'embrace/butler')
+								(Print 246 30)
+							)
+						)
+					)
+					((Said 'flirt//butler<with')
+						(Print 246 31)
+					)
+					((or (Said 'sleep,lay') (Said 'go/bed,sleep'))
+						(if (== currentAct 1)
+							(Print 246 32)
+						else
+							(event claimed: FALSE)
+						)
 					)
 				)
+			else
+				FALSE
 			)
 		)
 	)
 )
 
 (instance hideAway of Script
-	(properties)
 
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
-				(Jeeves cycleSpeed: 1 setCycle: End self)
+				(Jeeves cycleSpeed: 1 setCycle: EndLoop self)
 			)
 			(1
-				(Jeeves cycleSpeed: 1 setCycle: Beg self)
+				(Jeeves cycleSpeed: 1 setCycle: BegLoop self)
 			)
 			(2
 				(Jeeves
 					view: 456
 					loop: 0
 					cycleSpeed: 0
-					illegalBits: -32768
+					illegalBits: cWHITE
 					setCycle: Walk
 					setMotion: MoveTo 38 156 self
 				)
 			)
 			(3
-				(gEgo observeControl: 16384)
+				(ego observeControl: cYELLOW)
 				(Jeeves
 					view: 449
 					illegalBits: 0
@@ -304,35 +255,34 @@
 					cel: 0
 					setScript: Primp
 				)
-				(JButt setPri: 14 ignoreActors: 1 init: stopUpd:)
+				(JButt setPri: 14 ignoreActors: TRUE init: stopUpd:)
 			)
 		)
 	)
 )
 
 (instance Ocab of Script
-	(properties)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
-				(gEgo observeControl: 16384)
-				(Jeeves loop: 9 cel: 0 setCycle: End self)
+				(ego observeControl: cYELLOW)
+				(Jeeves loop: 9 cel: 0 setCycle: EndLoop self)
 				(JButt hide:)
 			)
 			(1
-				(medicine setPri: 14 setCycle: End)
+				(medicine setPri: 14 setCycle: EndLoop)
 				(= seconds 3)
 			)
 			(2
-				(Jeeves setCycle: Beg self)
+				(Jeeves setCycle: BegLoop self)
 			)
 			(3
-				(medicine setPri: -1 setCycle: Beg self)
+				(medicine setPri: -1 setCycle: BegLoop self)
 				(JButt setPri: 14 show:)
 			)
 			(4
-				(= local3 1)
+				(= primpCued 1)
 				(client setScript: 0)
 			)
 		)
@@ -340,77 +290,81 @@
 )
 
 (instance Primp of Script
-	(properties)
-
+	
 	(method (doit)
 		(super doit:)
-		(if local3
-			(= local3 0)
+		(if primpCued
+			(= primpCued FALSE)
 			(= cycles 1)
 		)
 	)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
-				(gEgo observeControl: 16384)
-				(Jeeves cycleSpeed: 1 cel: 2 setPri: 14 setCycle: End self)
+				(ego observeControl: cYELLOW)
+				(Jeeves
+					cycleSpeed: 1
+					cel: 2
+					setPri: 14
+					setCycle: EndLoop self
+				)
 			)
 			(1
 				(self setScript: Ocab)
 			)
 			(2
-				(Jeeves loop: 1 setCycle: End self)
+				(Jeeves loop: 1 setCycle: EndLoop self)
 			)
 			(3
-				(Jeeves loop: 2 setCycle: Fwd)
+				(Jeeves loop: 2 setCycle: Forward)
 				(= seconds 4)
 			)
 			(4
-				(Jeeves loop: 3 cel: 0 setCycle: End self)
+				(Jeeves loop: 3 cel: 0 setCycle: EndLoop self)
 			)
 			(5
-				(Jeeves loop: 4 setCycle: Fwd)
+				(Jeeves loop: 4 setCycle: Forward)
 				(= seconds 4)
 			)
 			(6
-				(Jeeves loop: 3 cel: 2 setCycle: Beg self)
+				(Jeeves loop: 3 cel: 2 setCycle: BegLoop self)
 			)
 			(7
-				(Jeeves loop: 1 cel: 2 setCycle: Beg self)
+				(Jeeves loop: 1 cel: 2 setCycle: BegLoop self)
 			)
 			(8
 				(self setScript: Ocab)
 			)
 			(9
-				(Jeeves loop: 5 cel: 0 setCycle: End self)
+				(Jeeves loop: 5 cel: 0 setCycle: EndLoop self)
 			)
 			(10
-				(Jeeves loop: 6 cel: 0 setCycle: Fwd)
+				(Jeeves loop: 6 cel: 0 setCycle: Forward)
 				(= seconds 6)
 			)
 			(11
-				(Jeeves loop: 5 cel: 2 setCycle: Beg self)
+				(Jeeves loop: 5 cel: 2 setCycle: BegLoop self)
 			)
 			(12
 				(self setScript: Ocab)
 			)
 			(13
-				(Jeeves loop: 7 cel: 0 setCycle: End self)
+				(Jeeves loop: 7 cel: 0 setCycle: EndLoop self)
 			)
 			(14
-				(Jeeves loop: 8 cel: 0 setCycle: Fwd)
-				(Water show: setCycle: Fwd)
+				(Jeeves loop: 8 cel: 0 setCycle: Forward)
+				(Water show: setCycle: Forward)
 				(mySound number: 76 loop: -1 play:)
 				(= seconds 6)
 			)
 			(15
 				(Water hide:)
 				(mySound stop:)
-				(Jeeves loop: 7 cel: 2 setCycle: Beg self)
+				(Jeeves loop: 7 cel: 2 setCycle: BegLoop self)
 			)
 			(16
-				(if (== gAct 4)
+				(if (== currentAct 4)
 					(= state 0)
 					(= seconds (Random 3 8))
 				else
@@ -418,7 +372,7 @@
 				)
 			)
 			(17
-				(gEgo ignoreControl: 16384)
+				(ego ignoreControl: cYELLOW)
 				(Jeeves
 					view: 456
 					setPri: -1
@@ -435,8 +389,8 @@
 					cel: 0
 					loop: 0
 					cycleSpeed: 1
-					setCycle: End self
-					ignoreActors: 1
+					setCycle: EndLoop self
+					ignoreActors: TRUE
 				)
 			)
 			(19
@@ -444,10 +398,15 @@
 					setPri: 14
 					loop: 1
 					posn: 94 133
-					ignoreActors: 1
+					ignoreActors: TRUE
 					setScript: sitting
 				)
-				(JHead ignoreActors: 1 setPri: 14 init: setScript: headActions)
+				(JHead
+					ignoreActors: TRUE
+					setPri: 14
+					init:
+					setScript: headActions
+				)
 				(client setScript: 0)
 			)
 		)
@@ -455,20 +414,19 @@
 )
 
 (instance sitting of Script
-	(properties)
 
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
-				(Jeeves loop: 1 cel: 0 setCycle: End)
+				(Jeeves loop: 1 cel: 0 setCycle: EndLoop)
 				(= seconds (Random 6 12))
 			)
 			(1
-				(Jeeves loop: 2 cel: 0 setCycle: Fwd)
+				(Jeeves loop: 2 cel: 0 setCycle: Forward)
 				(= seconds (Random 6 12))
 			)
 			(2
-				(Jeeves loop: 1 cel: 3 setCycle: Beg)
+				(Jeeves loop: 1 cel: 3 setCycle: BegLoop)
 				(= seconds (Random 6 12))
 				(= state -1)
 			)
@@ -477,24 +435,23 @@
 )
 
 (instance headActions of Script
-	(properties)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
-				(JHead loop: 3 cel: 0 setCycle: End)
+				(JHead loop: 3 cel: 0 setCycle: EndLoop)
 				(= seconds (Random 10 15))
 			)
 			(1
-				(JHead loop: 3 setCycle: Beg)
+				(JHead loop: 3 setCycle: BegLoop)
 				(= seconds (Random 10 15))
 			)
 			(2
-				(JHead loop: 4 setCycle: End)
+				(JHead loop: 4 setCycle: EndLoop)
 				(= seconds (Random 10 15))
 			)
 			(3
-				(JHead loop: 4 setCycle: Beg)
+				(JHead loop: 4 setCycle: BegLoop)
 				(= seconds (Random 10 15))
 				(= state -1)
 			)
@@ -511,41 +468,35 @@
 	)
 )
 
-(instance Jeeves of Act
+(instance Jeeves of Actor
 	(properties
 		y 104
 		x 216
 		view 458
 		loop 2
 	)
-
+	
 	(method (handleEvent event)
-		(cond
-			((and (== gAct 1) (Said 'look[<at]/bed'))
-				(Print 246 33) ; "Jeeves is lying on his bed. He must be trying to take a nap."
+		(cond 
+			((and (== currentAct 1) (Said 'examine[<at]/bed'))
+				(Print 246 33)
 			)
-			((or (MousedOn self event 3) (Said 'look/butler'))
-				(if (== gAct 4)
-					(= global213 28)
+			((or (MousedOn self event shiftDown) (Said 'examine/butler'))
+				(if (== currentAct 4)
+					(= theTalker 28)
 				else
-					(= global213 11)
+					(= theTalker talkJEEVES)
 				)
-				(event claimed: 1)
+				(event claimed: TRUE)
 				(if (& global207 $0400)
-					(switch gAct
-						(1
-							(Print 246 33) ; "Jeeves is lying on his bed. He must be trying to take a nap."
-						)
-						(2
-							(Print 246 34) ; "Jeeves is trying to enjoy the privacy of his own room!"
-						)
-						(4
-							(Print 246 35) ; "Jeeves must be getting ready to see someone special as he's taking great pains with his appearance while standing at his sink."
-						)
+					(switch currentAct
+						(1 (Print 246 33))
+						(2 (Print 246 34))
+						(4 (Print 246 35))
 					)
 				else
 					(|= global207 $0400)
-					(Say 0 246 36) ; "Jeeves is the Colonel's imposing butler. Though you find him somewhat good-looking, he nevertheless gives off a disconcerting feeling of secretiveness. You have noticed that Jeeves generally keeps to himself and seems to talk in little more than monosyllables. You wonder about him."
+					(Say 0 246 36)
 				)
 			)
 		)
@@ -560,15 +511,15 @@
 		cel 1
 		priority 13
 	)
-
+	
 	(method (handleEvent event)
-		(cond
+		(cond 
 			((Said 'get/blossom')
-				(Print 246 37) ; "These flowers don't belong to you!"
+				(Print 246 37)
 			)
-			((or (MousedOn self event 3) (Said 'look/blossom'))
-				(event claimed: 1)
-				(Print 246 38) ; "You notice a lovely bouquet of flowers on Jeeves' bed. You have a feeling you know who will be the recipient of these flowers!"
+			((or (MousedOn self event shiftDown) (Said 'examine/blossom'))
+				(event claimed: TRUE)
+				(Print 246 38)
 			)
 		)
 	)
@@ -581,23 +532,31 @@
 		view 153
 		loop 4
 	)
-
+	
 	(method (handleEvent event)
-		(cond
-			((or (Said 'look<in/mirror') (Said 'look/reflection'))
-				(if (< (gEgo distanceTo: medicine) 40)
-					(= global213 12)
-					(Say 0 246 39) ; "You gaze into the mirror and appraise your appearance. A bit disheveled, perhaps, but not bad...considering the circumstances."
+		(cond 
+			(
+				(or
+					(Said 'examine<in/mirror')
+					(Said 'examine/reflection')
+				)
+				(if (< (ego distanceTo: medicine) 40)
+					(= theTalker talkLAURA)
+					(Say 0 246 39)
 				else
-					(NotClose) ; "You're not close enough."
+					(NotClose)
 				)
 			)
-			((Said '(look<in),open/armoire')
-				(Print 246 40) ; "There is nothing you need in Jeeves' medicine cabinet."
+			((Said '(examine<in),open/armoire')
+				(Print 246 40)
 			)
-			((or (MousedOn self event 3) (Said 'look/armoire,mirror'))
-				(event claimed: 1)
-				(Print 246 41) ; "There is a mirrored medicine cabinet on the wall next to the sink."
+			(
+				(or
+					(MousedOn self event shiftDown)
+					(Said 'examine/armoire,mirror')
+				)
+				(event claimed: TRUE)
+				(Print 246 41)
 			)
 		)
 	)
@@ -611,9 +570,7 @@
 	)
 )
 
-(instance mySound of Sound
-	(properties)
-)
+(instance mySound of Sound)
 
 (instance Water of Prop
 	(properties
@@ -623,4 +580,3 @@
 		loop 2
 	)
 )
-

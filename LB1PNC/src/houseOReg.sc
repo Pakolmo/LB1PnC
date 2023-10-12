@@ -1,163 +1,172 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-;;; Decompiled by sluicebox
 (script# 206)
-(include sci.sh)
+(include game.sh)
 (use Main)
-(use Interface)
+(use Intrface)
 (use Game)
 
 (public
 	houseOReg 0
 )
 
-(instance houseOReg of Rgn
-	(properties)
-
-	(method (dispose)
-		(super dispose:)
-	)
-
+(instance houseOReg of Region
+	
 	(method (doit)
 		(super doit:)
 		(if
 			(and
-				(== gAct 0)
-				(not (IsFlag 39))
-				(< gCurRoomNum 18)
-				(& (gEgo onControl: 1) $0001)
+				(== currentAct 0)
+				(not (Btst 39))
+				(< curRoomNum 18)
+				(& (ego onControl: origin) cBLACK)
 			)
-			(Print 206 0) ; "It's real creepy and dark out here! You shiver at the thought of venturing outside alone. Perhaps you ought to go back inside."
-			(SetFlag 39)
+			(Print 206 0)
+			(Bset 39)
 		)
 	)
-
+	
+	(method (dispose)
+		(super dispose:)
+	)
+	
 	(method (handleEvent event)
-		(if (event claimed:)
-			(return 1)
-		)
-		(if (== (event type:) evSAID)
-			(cond
-				((and (== gCurRoomNum 10) (Said 'look[<in]/read,colonel[/read]'))
-					(if (& (gEgo onControl: 0) $0040)
-						(Print 206 1) ; "You attempt to peer in, but can make out no details."
-					else
-						(NotClose) ; "You're not close enough."
-					)
-				)
-				((and (== gCurRoomNum 12) (Said 'look[<in]/kitchen'))
-					(if (& (gEgo onControl: 0) $0040)
-						(Print 206 1) ; "You attempt to peer in, but can make out no details."
-					else
-						(NotClose) ; "You're not close enough."
-					)
-				)
-				((and (== gCurRoomNum 15) (Said 'look[<in]/room<billiard'))
-					(if (& (gEgo onControl: 0) $0040)
-						(Print 206 1) ; "You attempt to peer in, but can make out no details."
-					else
-						(NotClose) ; "You're not close enough."
-					)
-				)
-				(
-					(and
-						(== gCurRoomNum 16)
-						(or
-							(Said 'look[<in]/(hall,hall)[<entry]')
-							(Said 'look[<in]/room<billiard')
-							(Said 'look[<in]/parlor')
+		(if (event claimed?) (return TRUE))
+		(return
+			(if (== (event type?) saidEvent)
+				(cond 
+					(
+						(and
+							(== curRoomNum 10)
+							(Said 'examine[<in]/read,colonel[/read]')
+						)
+						(if (& (ego onControl: FALSE) cBROWN)
+							(Print 206 1)
+						else
+							(NotClose)
 						)
 					)
-					(if (& (gEgo onControl: 0) $0040)
-						(Print 206 1) ; "You attempt to peer in, but can make out no details."
-					else
-						(NotClose) ; "You're not close enough."
+					(
+					(and (== curRoomNum 12) (Said 'examine[<in]/kitchen'))
+						(if (& (ego onControl: FALSE) cBROWN)
+							(Print 206 1)
+						else
+							(NotClose)
+						)
 					)
-				)
-				((and (== gCurRoomNum 17) (Said 'look[<in]/parlor'))
-					(if (& (gEgo onControl: 0) $0040)
-						(Print 206 1) ; "You attempt to peer in, but can make out no details."
-					else
-						(NotClose) ; "You're not close enough."
+					(
+						(and
+							(== curRoomNum 15)
+							(Said 'examine[<in]/room<billiard')
+						)
+						(if (& (ego onControl: FALSE) cBROWN)
+							(Print 206 1)
+						else
+							(NotClose)
+						)
 					)
-				)
-				((Said 'look>')
-					(cond
-						((Said '<(in,through)/window,cabin')
-							(if (< gCurRoomNum 20)
-								(if (& (gEgo onControl: 0) $0040)
-									(Print 206 1) ; "You attempt to peer in, but can make out no details."
+					(
+						(and
+							(== curRoomNum 16)
+							(or
+								(Said 'examine[<in]/(hall,hall)[<entry]')
+								(Said 'examine[<in]/room<billiard')
+								(Said 'examine[<in]/parlor')
+							)
+						)
+						(if (& (ego onControl: FALSE) cBROWN)
+							(Print 206 1)
+						else
+							(NotClose)
+						)
+					)
+					(
+					(and (== curRoomNum 17) (Said 'examine[<in]/parlor'))
+						(if (& (ego onControl: FALSE) cBROWN)
+							(Print 206 1)
+						else
+							(NotClose)
+						)
+					)
+					((Said 'examine>')
+						(cond 
+							((Said '<(in,through)/window,cabin')
+								(if (< curRoomNum 20)
+									(if (& (ego onControl: FALSE) cBROWN)
+										(Print 206 1)
+									else
+										(NotClose)
+									)
 								else
-									(NotClose) ; "You're not close enough."
+									(NotClose)
 								)
-							else
-								(NotClose) ; "You're not close enough."
+							)
+							((Said '/cabin,mansion')
+								(Print 206 2)
+							)
+							((Said '/window')
+								(Print 206 3)
+							)
+							((Said '/door')
+								(if (< curRoomNum 20)
+									(Print 206 4)
+								else
+									(Print 206 5)
+								)
+							)
+							((Said '/column')
+								(Print 206 6)
+							)
+							((Said '/gallery')
+								(Print 206 7)
 							)
 						)
-						((Said '/cabin,mansion')
-							(Print 206 2) ; "A once-grand plantation house sits in the center of this lonely bayou island. You can imagine the family that once lived here: the parties, the farming, the hustle and the bustle of a thriving plantation, but now, no more. Now the estate has been reduced to a mere fragment of itself while the big house and outbuildings have been allowed to deteriorate."
-						)
-						((Said '/window')
-							(Print 206 3) ; "Many elegant French windows grace the old mansion."
-						)
-						((Said '/door')
-							(if (< gCurRoomNum 20)
-								(Print 206 4) ; "You may enter the house through several French doors."
-							else
-								(Print 206 5) ; "The front door of the house is well lit by porch lights."
-							)
-						)
-						((Said '/column')
-							(Print 206 6) ; "Beautiful grecian columns add splendor to the old mansion. You imagine how wonderful it must have looked in its hey-day."
-						)
-						((Said '/gallery')
-							(Print 206 7) ; "A wide, two-level veranda fronts the house."
+					)
+					((Said 'open/window')
+						(if (< curRoomNum 20)
+							(Print 206 8)
+						else
+							(NotClose)
 						)
 					)
-				)
-				((Said 'open/window')
-					(if (< gCurRoomNum 20)
-						(Print 206 8) ; "The windows don't open. Why not try a door?"
-					else
-						(NotClose) ; "You're not close enough."
+					((Said 'open/door')
+						(if (< curRoomNum 20)
+							(Print 206 9)
+						else
+							(NotClose)
+						)
+					)
+					((Said 'break/window')
+						(if (< curRoomNum 20)
+							(Print 206 10)
+						else
+							(NotClose)
+						)
+					)
+					((Said 'climb/column')
+						(if (< curRoomNum 20)
+							(Print 206 11)
+						else
+							(NotClose)
+						)
+					)
+					((Said 'bang[/door]')
+						(if (< curRoomNum 20)
+							(Print 206 12)
+						else
+							(NotClose)
+						)
+					)
+					((Said 'rotate<on/ignite')
+						(if (< curRoomNum 20)
+							(Print 206 13)
+						else
+							(NotClose)
+						)
 					)
 				)
-				((Said 'open/door')
-					(if (< gCurRoomNum 20)
-						(Print 206 9) ; "Just do that yourself."
-					else
-						(NotClose) ; "You're not close enough."
-					)
-				)
-				((Said 'break/window')
-					(if (< gCurRoomNum 20)
-						(Print 206 10) ; "There's no reason to do that. If you wish to enter the house, use a door."
-					else
-						(NotClose) ; "You're not close enough."
-					)
-				)
-				((Said 'climb/column')
-					(if (< gCurRoomNum 20)
-						(Print 206 11) ; "You're NOT that agile!"
-					else
-						(NotClose) ; "You're not close enough."
-					)
-				)
-				((Said 'bang[/door]')
-					(if (< gCurRoomNum 20)
-						(Print 206 12) ; "There's no need to knock. Just go in the house."
-					else
-						(NotClose) ; "You're not close enough."
-					)
-				)
-				((Said 'rotate<on/ignite')
-					(if (< gCurRoomNum 20)
-						(Print 206 13) ; "The lights are already on."
-					else
-						(NotClose) ; "You're not close enough."
-					)
-				)
+			else
+				FALSE
 			)
 		)
 	)
 )
-

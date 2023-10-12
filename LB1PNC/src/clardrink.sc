@@ -1,9 +1,8 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-;;; Decompiled by sluicebox
 (script# 272)
-(include sci.sh)
+(include game.sh)
 (use Main)
-(use Interface)
+(use Intrface)
 (use Motion)
 (use Game)
 (use Actor)
@@ -12,27 +11,24 @@
 (public
 	clardrink 0
 )
-
 (synonyms
-	(attorney person man)
+	(attorney person fellow)
 )
 
 (local
-	local0
+	talkCount
 	local1
 	local2
 )
-
-(instance clardrink of Rgn
-	(properties)
-
+(instance clardrink of Region
+	
 	(method (init)
 		(super init:)
-		(Load rsFONT 41)
-		(Load rsVIEW 642)
-		(LoadMany rsSOUND 29 94 95 96)
-		(LoadMany rsMESSAGE 243 297 406)
-		(LoadMany rsSYNC 7 12)
+		(Load FONT 41)
+		(Load VIEW 642)
+		(LoadMany SOUND 29 94 95 96)
+		(LoadMany 143 243 297 406)
+		(LoadMany 142 7 12)
 		(= global208 64)
 		(= [global377 6] 297)
 		(ClarAss init: stopUpd:)
@@ -40,43 +36,42 @@
 		(Smoke setPri: 6 init: hide:)
 		(self setScript: clarActions)
 	)
-
+	
 	(method (doit)
 		(super doit:)
 	)
-
+	
 	(method (dispose)
 		(super dispose:)
 	)
-
+	
 	(method (handleEvent event)
 		(super handleEvent: event)
 	)
 )
 
 (instance clarActions of Script
-	(properties)
 
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
-				(cond
+				(cond 
 					((not global216)
 						(= state -1)
 					)
-					((not (& gMustDos $0008))
-						(|= gMustDos $0008)
-						(self setScript: (ScriptID 406 0)) ; Clock
+					((not (& global118 $0008))
+						(|= global118 $0008)
+						(self setScript: (ScriptID 406 0))
 						(= state -1)
 					)
-					((self script:)
+					((self script?)
 						(= state -1)
 					)
 				)
 				(= cycles 1)
 			)
 			(1
-				(Clarence setLoop: 1 cel: 0 setCycle: End self)
+				(Clarence setLoop: 1 cel: 0 setCycle: EndLoop self)
 				(= local1 (Random 1 3))
 				(= local2 0)
 			)
@@ -88,7 +83,7 @@
 				(= cycles 1)
 			)
 			(4
-				(Smoke cel: 0 setCycle: End self show:)
+				(Smoke cel: 0 setCycle: EndLoop self show:)
 			)
 			(5
 				(if (< local2 local1)
@@ -101,7 +96,7 @@
 					(Clarence
 						cel: (- (NumCels Clarence) 3)
 						cycleSpeed: 2
-						setCycle: Beg
+						setCycle: BegLoop
 					)
 					(= seconds (Random 3 6))
 				)
@@ -112,28 +107,23 @@
 				(= cycles 1)
 			)
 			(7
-				(Clarence setCycle: Beg)
+				(Clarence setCycle: BegLoop)
 				(switch (Random 1 4)
-					(1
-						(= state 0)
-					)
-					(3
-						(= state 8)
-					)
+					(1 (= state 0))
+					(3 (= state 8))
 				)
 				(= seconds (Random 3 6))
 			)
 			(8
-				(Clarence setCycle: End)
-				(= state 6)
-				(= seconds (Random 3 6))
+				(Clarence setCycle: EndLoop)
+				(= seconds (Random 3 (= state 6)))
 			)
 			(9
-				(Clarence setLoop: 9 cel: 0 setCycle: End)
+				(Clarence setLoop: 9 cel: 0 setCycle: EndLoop)
 				(= seconds (Random 1 2))
 			)
 			(10
-				(Clarence setCycle: Beg)
+				(Clarence setCycle: BegLoop)
 				(= seconds (Random 3 6))
 				(if (< seconds 5)
 					(= state 0)
@@ -145,83 +135,84 @@
 	)
 )
 
-(instance Clarence of Act
+(instance Clarence of Actor
 	(properties
 		y 74
 		x 171
 		view 401
 		loop 1
 	)
-
+	
 	(method (handleEvent event)
-		(cond
-			((Said 'look/glass,drink')
-				(Print 272 0) ; "It's a glass of very fine, imported cognac."
+		(cond 
+			((Said 'examine/glass,drink')
+				(Print 272 0)
 			)
 			((Said 'get/drink,glass,alcohol')
-				(Print 272 1) ; "He wouldn't like that!"
+				(Print 272 1)
 			)
-			((Said 'look/butt')
-				(Print 272 2) ; "That's a big cigar!"
+			((Said 'examine/cigar')
+				(Print 272 2)
 			)
-			((Said 'get/butt')
-				(Print 272 3) ; "He wouldn't give it to you!"
+			((Said 'get/cigar')
+				(Print 272 3)
 			)
 			((Said 'drink/alcohol')
-				(Print 272 4) ; "You don't like liquor...remember?"
+				(Print 272 4)
 			)
-			((and (MousedOn self event 3) (not (& global207 $0040)))
-				(event claimed: 1)
+			((and (MousedOn self event shiftDown) (not (& global207 $0040)))
+				(event claimed: TRUE)
 				(DoLook {clarence})
 			)
 			(
 				(and
 					(& global207 $0040)
-					(or (MousedOn self event 3) (Said 'look/attorney'))
+					(or (MousedOn self event shiftDown) (Said 'examine/attorney'))
 				)
-				(event claimed: 1)
-				(Print 272 5) ; "Clarence looks forlorn as he sits alone at the bar, having a drink."
+				(event claimed: TRUE)
+				(Print 272 5)
 			)
-			((and (== (event type:) evSAID) (Said '*/attorney>'))
-				(cond
-					((Said 'talk')
-						(= global213 7)
-						(switch local0
+			(
+			(and (== (event type?) saidEvent) (Said '*/attorney>'))
+				(cond 
+					((Said 'converse')
+						(= theTalker talkCLARENCE)
+						(switch talkCount
 							(0
-								(Say 1 272 6) ; "Oh...hello, young lady, 'er, Laura."
+								(Say 1 272 6)
 							)
 							(1
-								(Say 1 272 7) ; "Would you like to sit down and have a drink with me?"
-								(= global213 12)
-								(Say 1 272 8) ; "I'm sorry. I don't drink."
+								(Say 1 272 7)
+								(= theTalker talkLAURA)
+								(Say 1 272 8)
 							)
 							(2
-								(Say 1 272 9) ; "Everything's falling apart, Laura. I don't know what to do. I feel like I'm backed up against a wall and there's no way out!"
+								(Say 1 272 9)
 							)
 							(3
-								(Say 1 272 10) ; "I don't understand why you're here...why you would want to get involved with this mess?"
-								(= global213 12)
-								(Say 1 272 11) ; "I'm beginning to wonder that myself."
+								(Say 1 272 10)
+								(= theTalker talkLAURA)
+								(Say 1 272 11)
 							)
 							(4
-								(Say 1 272 12) ; "Well, things can't go on like this much longer. I've got to do something about it!"
+								(Say 1 272 12)
 							)
 							(5
-								(Say 1 272 13) ; "You're sure you don't want a drink?"
-								(= global213 12)
-								(Say 1 272 14) ; "No, thanks."
+								(Say 1 272 13)
+								(= theTalker talkLAURA)
+								(Say 1 272 14)
 							)
 							(6
-								(Say 1 272 15) ; "I've got a lot of thinking to do, Laura. Why don't you go on up to bed?"
+								(Say 1 272 15)
 							)
 							(else
-								(Print 272 16) ; "Clarence seems deep in thought as he slowly sips his drink. It might be best to leave him alone right now."
+								(Print 272 16)
 							)
 						)
-						(++ local0)
+						(++ talkCount)
 					)
-					((Said 'listen')
-						(Print 272 17) ; "He's waiting for you to say something."
+					((Said 'hear')
+						(Print 272 17)
 					)
 				)
 			)
@@ -246,4 +237,3 @@
 		loop 6
 	)
 )
-

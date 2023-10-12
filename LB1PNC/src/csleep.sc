@@ -1,9 +1,8 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-;;; Decompiled by sluicebox
 (script# 260)
-(include sci.sh)
+(include game.sh)
 (use Main)
-(use Interface)
+(use Intrface)
 (use Sound)
 (use Motion)
 (use Game)
@@ -12,80 +11,83 @@
 (public
 	csleep 0
 )
-
 (synonyms
-	(attorney person man)
+	(attorney person fellow)
 )
 
 (local
 	[local0 2]
 )
-
 (instance Clarence of Prop
 	(properties
 		y 92
 		x 242
 		view 413
 	)
-
+	
 	(method (handleEvent event)
 		(if
 			(or
-				(Said 'look/attorney')
-				(Said 'look[<at]/bed')
-				(MousedOn self event 3)
+				(Said 'examine/attorney')
+				(Said 'examine[<at]/bed')
+				(MousedOn self event shiftDown)
 			)
-			(event claimed: 1)
-			(Print 260 0) ; "Clarence seems to be resting in his bed."
+			(event claimed: TRUE)
+			(Print 260 0)
 		)
 	)
 )
 
-(instance csleep of Rgn
-	(properties)
-
+(instance csleep of Region
+	
 	(method (init)
 		(super init:)
 		(= global195 64)
-		(Clarence setPri: 6 cycleSpeed: 4 setCycle: Fwd init:)
+		(Clarence setPri: 6 cycleSpeed: 4 setCycle: Forward init:)
 		(snores setPri: 6 init:)
-		(LoadMany rsSOUND 114 115)
+		(LoadMany SOUND 114 115)
 	)
-
+	
 	(method (doit)
-		(if (and (== (snoring prevSignal:) -1) (== (snoring number:) 114))
+		(if
+			(and
+				(== (snoring prevSignal?) -1)
+				(== (snoring number?) 114)
+			)
 			(snoring number: 115 loop: 1 prevSignal: 0 play:)
 		)
-		(if (== (Clarence cel:) 0)
+		(if (== (Clarence cel?) 0)
 			(snoring number: 114 loop: 1 play:)
-			(snores cel: 0 setCycle: End)
+			(snores cel: 0 setCycle: EndLoop)
 		)
 		(super doit:)
 	)
-
+	
 	(method (dispose)
 		(super dispose:)
 	)
-
+	
 	(method (handleEvent event)
-		(if (event claimed:)
-			(return 1)
-		)
-		(if (== (event type:) evSAID)
-			(cond
-				((Said 'give,show/*')
-					(if (and global219 global224)
-						(Print 260 1) ; "Clarence must be tired. Perhaps you ought to tiptoe out and leave him alone."
-					else
-						(DontHave) ; "You don't have it."
+		(if (event claimed?) (return TRUE))
+		(return
+			(if (== (event type?) saidEvent)
+				(cond 
+					((Said 'deliver,hold/*')
+						(if (and theInvItem haveInvItem)
+							(Print 260 1)
+						else
+							(DontHave)
+						)
+					)
+					((Said 'ask,tell//*<about')
+						(Print 260 1)
+					)
+					((and (Said '(*,!*)>') (Said '/attorney'))
+						(Print 260 1)
 					)
 				)
-				((Said 'ask,tell//*<about')
-					(Print 260 1) ; "Clarence must be tired. Perhaps you ought to tiptoe out and leave him alone."
-				)
-				((and (Said '(*,!*)>') (Said '/attorney'))
-					(Print 260 1) ; "Clarence must be tired. Perhaps you ought to tiptoe out and leave him alone."
-				)
+			else
+				FALSE
 			)
 		)
 	)
@@ -101,7 +103,4 @@
 	)
 )
 
-(instance snoring of Sound
-	(properties)
-)
-
+(instance snoring of Sound)

@@ -1,9 +1,8 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-;;; Decompiled by sluicebox
 (script# 235)
-(include sci.sh)
+(include game.sh)
 (use Main)
-(use Interface)
+(use Intrface)
 (use FndBody)
 (use Sound)
 (use Motion)
@@ -14,14 +13,11 @@
 (public
 	Dgert 0
 )
-
 (synonyms
-	(gertie gertie body woman)
+	(gertie gertie body girl)
 )
 
-(instance Body of Prop
-	(properties)
-)
+(instance Body of Prop)
 
 (instance myMusic of Sound
 	(properties
@@ -30,92 +26,92 @@
 	)
 )
 
-(instance Dgert of Rgn
-	(properties)
-
+(instance Dgert of Region
+	
 	(method (init)
 		(proc415_1 1)
 		(Body view: 343 cel: 0 posn: 55 126 init:)
-		(|= gCorpseFlags $0001) ; Gertie
+		(|= deadGuests deadGERTRUDE)
 		(= global195 1)
 		(self setScript: showCloseup)
 	)
-
+	
 	(method (doit)
-		(gEgo observeControl: 256)
+		(ego observeControl: cGREY)
 		(super doit:)
 	)
-
+	
 	(method (dispose)
 		(super dispose:)
 	)
-
+	
 	(method (handleEvent event)
-		(if (event claimed:)
-			(return 1)
-		)
-		(if (== (event type:) evSAID)
-			(cond
-				((Said '(look<in),search/cloth')
-					(if (< (gEgo distanceTo: Body) 20)
-						(self setScript: pickUp)
-					else
-						(NotClose) ; "You're not close enough."
+		(if (event claimed?) (return TRUE))
+		(return
+			(if (== (event type?) saidEvent)
+				(cond 
+					((Said '(examine<in),search/cloth')
+						(if (< (ego distanceTo: Body) 20)
+							(self setScript: pickUp)
+						else
+							(NotClose)
+						)
 					)
-				)
-				((Said '/gertie>')
-					(cond
-						((Said 'kill')
-							(Print 235 0) ; "She's already dead!"
-						)
-						((Said 'kiss')
-							(Print 235 1) ; "Ugh!!"
-						)
-						((Said 'embrace')
-							(Print 235 2) ; "Yuck!!"
-						)
-						((Said 'get,pull,pull,press,move')
-							(Print 235 3) ; "Gertie's pretty heavy. Why don't you go tell someone about her?"
-						)
-						((Said '(look<in),search')
-							(if (< (gEgo distanceTo: Body) 20)
-								(self setScript: pickUp)
-							else
-								(NotClose) ; "You're not close enough."
+					((Said '/gertie>')
+						(cond 
+							((Said 'kill')
+								(Print 235 0)
+							)
+							((Said 'kiss')
+								(Print 235 1)
+							)
+							((Said 'embrace')
+								(Print 235 2)
+							)
+							((Said 'get,drag,drag,press,move')
+								(Print 235 3)
+							)
+							((Said '(examine<in),search')
+								(if (< (ego distanceTo: Body) 20)
+									(self setScript: pickUp)
+								else
+									(NotClose)
+								)
+							)
+							((Said 'examine,find')
+								(Print 235 4)
+							)
+							((Said 'help')
+								(Print 235 5)
+							)
+							((Said 'converse')
+								(Print 235 6)
 							)
 						)
-						((Said 'look,find')
-							(Print 235 4) ; "Gertie's dead, all right!"
-						)
-						((Said 'help')
-							(Print 235 5) ; "It's too late."
-						)
-						((Said 'talk')
-							(Print 235 6) ; "Gertie is dead."
-						)
+					)
+					((Said 'ask,hold,tell,deliver')
+						(Print 235 6)
+					)
+					((Said 'get/pearl,necklace')
+						(Print 235 7)
 					)
 				)
-				((Said 'ask,show,tell,give')
-					(Print 235 6) ; "Gertie is dead."
-				)
-				((Said 'get/pearl,necklace')
-					(Print 235 7) ; "The pearl necklace doesn't belong to you!"
-				)
+			else
+				FALSE
 			)
 		)
 	)
 )
 
 (instance showCloseup of Script
-	(properties)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
 				(= cycles 2)
 			)
 			(1
-				(if (not (& (gEgo onControl: 1) $0001))
+				(if (not (& (ego onControl: origin) cBLACK))
 					(= state 0)
 				)
 				(= cycles 1)
@@ -126,7 +122,11 @@
 			)
 			(3
 				(myMusic play:)
-				(Print 235 8 #at 10 75 #icon 343 1 0 #mode 1) ; "Oh, dear!! It looks as if Gertie has accidently fallen from her upstairs window and killed herself! Or...was it an accident?!"
+				(Print 235 8
+					#at 10 75
+					#icon 343 1 0
+					#mode teJustCenter
+				)
 				(= cycles 1)
 			)
 			(4
@@ -138,29 +138,27 @@
 )
 
 (instance pickUp of Script
-	(properties)
 
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
-				(LookAt gEgo Body)
+				(Face ego Body)
 				(= cycles 2)
 			)
 			(1
-				(gEgo view: 17 cel: 0 setMotion: 0 setCycle: End self)
+				(ego view: 17 cel: 0 setMotion: 0 setCycle: EndLoop self)
 			)
 			(2
-				(Print 235 9) ; "You quickly examine Gertie's body and see that she died of a broken neck. You can see no clues as to what might have happened."
+				(Print 235 9)
 				(= cycles 1)
 			)
 			(3
-				(gEgo setCycle: Beg self)
+				(ego setCycle: BegLoop self)
 			)
 			(4
-				(gEgo view: 0 setCycle: Walk)
+				(ego view: 0 setCycle: Walk)
 				(client setScript: 0)
 			)
 		)
 	)
 )
-

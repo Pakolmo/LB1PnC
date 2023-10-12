@@ -1,10 +1,9 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-;;; Decompiled by sluicebox
 (script# 232)
-(include sci.sh)
+(include game.sh)
 (use Main)
 (use atsgl)
-(use Interface)
+(use Intrface)
 (use Motion)
 (use Game)
 (use User)
@@ -14,44 +13,55 @@
 (public
 	grargue 0
 )
-
 (synonyms
-	(rudolph man)
-	(actress woman)
+	(rudolph fellow)
+	(actress girl)
 )
 
 (local
-	local0
-	local1
+	gloriaTalkCount
+	rudyTalkCount
 	local2
-	local3
+	argueCount
 	local4
 )
-
-(procedure (localproc_0)
-	(Gloria setCel: -1 loop: 1 setCycle: Fwd)
-	(Print &rest #at 40 140 #font 4 #width 125 #mode 1 #draw #dispose)
+(procedure (GloriaPrint)
+	(Gloria setCel: -1 loop: 1 setCycle: Forward)
+	(Print &rest
+		#at 40 140
+		#font 4
+		#width 125
+		#mode teJustCenter
+		#draw
+		#dispose
+	)
 )
 
-(procedure (localproc_1)
-	(rHead setCel: -1 setCycle: Fwd)
-	(Rudy setCycle: Fwd)
-	(Print &rest #at 171 140 #font 4 #width 125 #mode 1 #draw #dispose)
+(procedure (RudyPrint)
+	(rHead setCel: -1 setCycle: Forward)
+	(Rudy setCycle: Forward)
+	(Print &rest
+		#at 171 140
+		#font 4
+		#width 125
+		#mode teJustCenter
+		#draw
+		#dispose
+	)
 )
 
-(instance grargue of Rgn
-	(properties)
-
+(instance grargue of Region
+	
 	(method (init)
 		(super init:)
-		(if (not (& gMustDos $0001))
-			(LoadMany rsFONT 4 41)
-			(Load rsVIEW 642)
-			(LoadMany rsSOUND 29 94 95 96)
-			(Load rsSCRIPT 406)
+		(if (not (& global118 $0001))
+			(LoadMany FONT 4 41)
+			(Load VIEW 642)
+			(LoadMany SOUND 29 94 95 96)
+			(Load SCRIPT 406)
 		)
-		(LoadMany rsMESSAGE 243 223 222)
-		(LoadMany rsSYNC 3 9)
+		(LoadMany 143 243 223 222)
+		(LoadMany 142 3 9)
 		(= global208 260)
 		(= [global377 2] 223)
 		(= [global377 8] 222)
@@ -60,49 +70,47 @@
 		(rHead setPri: 9 init:)
 		(Smoke init: hide:)
 		(Ash init: hide:)
-		(if (!= gPrevRoomNum 49)
+		(if (!= prevRoomNum 49)
 			(self setScript: argue)
 		)
 	)
-
+	
 	(method (doit)
 		(super doit:)
 	)
-
+	
 	(method (dispose)
-		(if (and (not (& gSpyFlags $0001)) (== [gCycleTimers 0] 0))
-			(= [gCycleTimers 0] 1800)
+		(if (and (not (& global173 $0001)) (== [global368 0] 0))
+			(= [global368 0] 1800)
 		)
 		(super dispose:)
 	)
-
+	
 	(method (handleEvent event)
 		(super handleEvent: event)
-		(if (event claimed:)
-			(return)
-		)
-		(if (== (event type:) evSAID)
-			(cond
-				((Said 'look>')
-					(cond
+		(if (event claimed?) (return))
+		(if (== (event type?) saidEvent)
+			(cond 
+				((Said 'examine>')
+					(cond 
 						((Said '/cigarette')
-							(Print 232 0) ; "It appears that Gloria has acquired a bad habit."
+							(Print 232 0)
 						)
 						((Said '/boa')
-							(Print 232 1) ; "That's a beautiful feather boa Gloria is wearing."
+							(Print 232 1)
 						)
 					)
 				)
-				((Said 'listen/rudolph,actress')
-					(Print 232 2) ; "You're bothering them."
+				((Said 'hear/rudolph,actress')
+					(Print 232 2)
 				)
 				((Said 'get,smoke>')
-					(cond
+					(cond 
 						((Said '/cigarette')
-							(Print 232 3) ; "You don't want it!"
+							(Print 232 3)
 						)
 						((Said '/boa')
-							(Print 232 4) ; "It's not yours to take!"
+							(Print 232 4)
 						)
 					)
 				)
@@ -112,78 +120,57 @@
 )
 
 (instance argue of Script
-	(properties)
 
 	(method (doit)
 		(super doit:)
 		(if (== global120 3)
-			(User canInput: 0)
+			(User canInput: FALSE)
 			(= global120 4)
 			(= cycles 12)
 		)
 	)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
-				(cond
+				(cond 
 					((not global216)
 						(= state -1)
 					)
-					((not (& gMustDos $0001))
-						(|= gMustDos $0001)
-						(self setScript: (ScriptID 406 0)) ; Clock
+					((not (& global118 $0001))
+						(|= global118 $0001)
+						(self setScript: (ScriptID 406 0))
 						(= state -1)
 					)
-					((self script:)
+					((self script?)
 						(= state -1)
 					)
 				)
 				(= cycles 1)
 			)
 			(1
-				(User canInput: 0)
-				(if (== (= local3 (& global179 $7fff)) global179)
-					(if (< global179 6)
-						(++ global179)
+				(User canInput: FALSE)
+				(if (== (= argueCount (& gCurRoomNum_2 $7fff)) gCurRoomNum_2)
+					(if (< gCurRoomNum_2 6)
+						(++ gCurRoomNum_2)
 					else
-						(= global179 -32765)
+						(= gCurRoomNum_2 -32765)
 					)
 				else
-					(switch local3
-						(3
-							(= global179 -32764)
-						)
-						(4
-							(= global179 -32762)
-						)
-						(6
-							(= global179 -32765)
-						)
+					(switch argueCount
+						(3 (= gCurRoomNum_2 -32764))
+						(4 (= gCurRoomNum_2 -32762))
+						(6 (= gCurRoomNum_2 -32765))
 					)
 				)
-				(switch local3
-					(0
-						(localproc_0 232 5) ; "Uncle Henri's a strange old coot, he..."
-					)
-					(1
-						(localproc_0 232 6) ; "Also, this place is so creepy, I...well, here she is again."
-					)
-					(2
-						(localproc_1 232 7) ; "You know the situation as well as I do, Gloria. You'll just have to...oh, oh."
-					)
-					(3
-						(localproc_0 232 8) ; "We keep getting interrupted, dahling."
-					)
-					(4
-						(localproc_1 232 9) ; "Isn't there such a thing as privacy anymore?"
-					)
-					(5
-						(localproc_1 232 10) ; "I agree with you, he just doesn't..."
-					)
-					(6
-						(localproc_1 232 11) ; "This is getting very tedious."
-					)
+				(switch argueCount
+					(0 (GloriaPrint 232 5))
+					(1 (GloriaPrint 232 6))
+					(2 (RudyPrint 232 7))
+					(3 (GloriaPrint 232 8))
+					(4 (RudyPrint 232 9))
+					(5 (RudyPrint 232 10))
+					(6 (RudyPrint 232 11))
 				)
 				(= seconds 5)
 			)
@@ -196,35 +183,33 @@
 			)
 			(3
 				(cls)
-				(switch local3
+				(switch argueCount
 					(0
-						(localproc_1 232 12) ; "Quiet. We're not alone anymore."
+						(RudyPrint 232 12)
 						(= seconds 3)
 					)
 					(5
-						(localproc_1 232 13) ; "Ahem...interrupted again."
+						(RudyPrint 232 13)
 						(= seconds 3)
 					)
 					(26
-						(localproc_1 232 14) ; "I know what you mean, toots."
+						(RudyPrint 232 14)
 						(= seconds 3)
 					)
-					(else
-						(= cycles 1)
-					)
+					(else  (= cycles 1))
 				)
 			)
 			(4
-				(User canInput: 1)
+				(User canInput: TRUE)
 				(Rudy setCycle: 0)
 				(rHead setCel: 0 setScript: rudyActions)
 				(cls)
 				(Gloria setScript: gloriaActions)
 			)
 			(5
-				(localproc_0 232 15) ; "Some people are so rude, don't you think, dahling?"
+				(GloriaPrint 232 15)
 				(= state 1)
-				(= local3 26)
+				(= argueCount 26)
 				(= seconds 5)
 			)
 		)
@@ -232,47 +217,52 @@
 )
 
 (instance gloriaActions of Script
-	(properties)
-
+	
 	(method (doit)
 		(super doit:)
-		(if (and (< global120 4) (> global120 0) (client script:))
+		(if (and (< global120 4) (> global120 0) (client script?))
 			(++ global120)
 			(client setScript: 0)
 		)
 	)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
-			(0
-				(= seconds (Random 3 6))
-			)
+			(0 (= seconds (Random 3 6)))
 			(1
-				(Gloria cel: 0 loop: 0 cycleSpeed: 0 setCycle: End)
+				(Gloria cel: 0 loop: 0 cycleSpeed: 0 setCycle: EndLoop)
 				(= seconds 3)
 			)
 			(2
-				(Gloria cel: (- (NumCels Gloria) 1) loop: 0 setCycle: Beg)
+				(Gloria
+					cel: (- (NumCels Gloria) 1)
+					loop: 0
+					setCycle: BegLoop
+				)
 				(= seconds 2)
 			)
 			(3
-				(Smoke show: setPri: (CoordPri (Gloria y:)) setCycle: End self)
+				(Smoke
+					show:
+					setPri: (CoordPri (Gloria y?))
+					setCycle: EndLoop self
+				)
 			)
 			(4
 				(Smoke cel: 0 hide:)
 				(= seconds (Random 2 5))
 			)
 			(5
-				(Gloria cel: 0 loop: 4 setCycle: End self)
+				(Gloria cel: 0 loop: 4 setCycle: EndLoop self)
 			)
 			(6
-				(Gloria cel: 0 loop: 5 cycleSpeed: 1 setCycle: Fwd)
-				(Ash cel: 0 show: setCycle: End)
+				(Gloria cel: 0 loop: 5 cycleSpeed: 1 setCycle: Forward)
+				(Ash cel: 0 show: setCycle: EndLoop)
 				(= cycles 5)
 			)
 			(7
 				(Ash hide:)
-				(Gloria cel: 2 loop: 4 setCycle: Beg self)
+				(Gloria cel: 2 loop: 4 setCycle: BegLoop self)
 				(= state -1)
 			)
 		)
@@ -280,43 +270,42 @@
 )
 
 (instance rudyActions of Script
-	(properties)
 
 	(method (doit)
 		(super doit:)
-		(if (and (< global120 4) (> global120 0) (client script:))
+		(if (and (< global120 4) (> global120 0) (client script?))
 			(++ global120)
 			(client setScript: 0)
 		)
 	)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
 				(= seconds (Random 3 6))
 			)
 			(1
-				(rHead setCel: -1 loop: 5 setCycle: End self)
+				(rHead setCel: -1 loop: 5 setCycle: EndLoop self)
 				(= seconds (Random 3 5))
 			)
 			(2
-				(Rudy cel: 0 loop: 2 setCycle: End)
+				(Rudy cel: 0 loop: 2 setCycle: EndLoop)
 				(= seconds (Random 3 5))
 			)
 			(3
-				(rHead setCycle: Beg)
+				(rHead setCycle: BegLoop)
 				(= seconds (Random 3 5))
 			)
 			(4
-				(Rudy loop: 3 setCycle: End)
+				(Rudy loop: 3 setCycle: EndLoop)
 				(= seconds (Random 3 5))
 			)
 			(5
-				(rHead setCycle: End)
+				(rHead setCycle: EndLoop)
 				(= seconds (Random 5 8))
 			)
 			(6
-				(rHead setCycle: Beg self)
+				(rHead setCycle: BegLoop self)
 				(= state 4)
 			)
 		)
@@ -330,45 +319,39 @@
 		view 382
 		cycleSpeed 2
 	)
-
+	
 	(method (handleEvent event)
-		(= global213 9)
-		(if (< (gEgo distanceTo: Rudy) (gEgo distanceTo: Gloria))
+		(= theTalker talkRUDY)
+		(if (< (ego distanceTo: Rudy) (ego distanceTo: Gloria))
 			(= global214 256)
 		else
 			(= global214 4)
 		)
-		(cond
-			((Said 'talk/rudolph')
-				(switch local1
-					(0
-						(Say 1 232 16) ; "My sister and I are talking; do you mind?"
-					)
-					(1
-						(Say 1 232 17) ; "Hurry up and get on with it!"
-					)
-					(else
-						(Print 232 18) ; "Rudy looks at you impatiently."
-					)
+		(cond 
+			((Said 'converse/rudolph')
+				(switch rudyTalkCount
+					(0 (Say 1 232 16))
+					(1 (Say 1 232 17))
+					(else  (Print 232 18))
 				)
-				(++ local1)
+				(++ rudyTalkCount)
 			)
 			((Said 'ask[/rudolph]/actress<about')
 				(= global212 1)
 				(= global209 event)
 				(proc243_1 13 232 19)
 			)
-			((and (not (& global207 $0100)) (MousedOn self event 3))
-				(event claimed: 1)
+			((and (not (& global207 $0100)) (MousedOn self event shiftDown))
+				(event claimed: TRUE)
 				(DoLook {rudy})
 			)
 			(
 				(and
 					(& global207 $0100)
-					(or (MousedOn self event 3) (Said 'look/rudolph'))
+					(or (MousedOn self event shiftDown) (Said 'examine/rudolph'))
 				)
-				(event claimed: 1)
-				(Print 232 20) ; "It seems like Gloria and Rudy are having a private discussion."
+				(event claimed: TRUE)
+				(Print 232 20)
 			)
 		)
 	)
@@ -380,49 +363,46 @@
 		x 135
 		view 362
 	)
-
+	
 	(method (handleEvent event)
-		(= global213 3)
-		(cond
-			((Said 'talk/actress')
-				(switch local0
-					(0
-						(Say 1 232 21) ; "Please make it brief, dahling."
-					)
-					(1
-						(Say 1 232 22) ; "Listen, dahling, don't you have anything better to do?"
-					)
-					(else
-						(Print 232 23) ; "Gloria tries to ignore you."
-					)
+		(= theTalker talkGLORIA)
+		(cond 
+			((Said 'converse/actress')
+				(switch gloriaTalkCount
+					(0 (Say 1 232 21))
+					(1 (Say 1 232 22))
+					(else  (Print 232 23))
 				)
-				(++ local0)
+				(++ gloriaTalkCount)
 			)
 			((Said 'ask[/actress]/rudolph<about')
 				(= global212 1)
 				(= global209 event)
 				(proc243_1 21 232 24)
 			)
-			((Said 'look/people')
-				(Print 232 20) ; "It seems like Gloria and Rudy are having a private discussion."
+			((Said 'examine/people')
+				(Print 232 20)
 			)
-			((Said 'look,talk/person,men')
-				(Print 232 25) ; "Which person are you referring to?"
+			((Said 'examine,converse/person,men')
+				(Print 232 25)
 			)
-			((Said 'talk/people')
-				(Print 232 26) ; "You can only talk to one person at a time."
+			((Said 'converse/people')
+				(Print 232 26)
 			)
-			((and (not (& global207 $0004)) (MousedOn self event 3))
-				(event claimed: 1)
+			((and (not (& global207 $0004)) (MousedOn self event shiftDown))
+				(event claimed: TRUE)
 				(DoLook {gloria})
 			)
 			(
 				(and
 					(& global207 $0004)
-					(or (MousedOn self event 3) (Said 'look/actress[/!*]'))
+					(or
+						(MousedOn self event shiftDown)
+						(Said 'examine/actress[/!*]')
+					)
 				)
-				(event claimed: 1)
-				(Print 232 20) ; "It seems like Gloria and Rudy are having a private discussion."
+				(event claimed: TRUE)
+				(Print 232 20)
 			)
 		)
 	)
@@ -458,4 +438,3 @@
 		cycleSpeed 1
 	)
 )
-

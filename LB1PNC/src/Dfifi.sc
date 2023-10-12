@@ -1,9 +1,8 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-;;; Decompiled by sluicebox
 (script# 273)
-(include sci.sh)
+(include game.sh)
 (use Main)
-(use Interface)
+(use Intrface)
 (use FndBody)
 (use Sound)
 (use Motion)
@@ -14,16 +13,14 @@
 (public
 	Dfifi 0
 )
-
 (synonyms
-	(butler man)
-	(fifi body woman)
+	(butler fellow)
+	(fifi body girl)
 )
 
 (local
 	[local0 2]
 )
-
 (instance Body of Prop
 	(properties
 		y 90
@@ -31,11 +28,15 @@
 		view 443
 		loop 1
 	)
-
+	
 	(method (handleEvent event)
-		(if (or (MousedOn self event 3) (Said 'look/fifi,butler,people'))
-			(event claimed: 1)
-			(Print 273 0) ; "It's not readily apparent how Jeeves and Fifi died as there are no wound marks on their bodies."
+		(if
+			(or
+				(MousedOn self event shiftDown)
+				(Said 'examine/fifi,butler,people')
+			)
+			(event claimed: TRUE)
+			(Print 273 0)
 		)
 	)
 )
@@ -55,99 +56,99 @@
 	)
 )
 
-(instance Dfifi of Rgn
-	(properties)
-
+(instance Dfifi of Region
+	
 	(method (init)
 		(proc415_1 16)
-		(Body ignoreActors: 1 init: stopUpd:)
-		(= global376 mySound)
+		(Body ignoreActors: TRUE init: stopUpd:)
+		(= gDoor_2 mySound)
 		(= global195 1040)
 	)
-
+	
 	(method (doit)
-		(if (and (not script) (> (gEgo x:) 64))
+		(if (and (not script) (> (ego x?) 64))
 			(self setScript: showCloseup)
 		)
 		(super doit:)
 	)
-
+	
 	(method (dispose)
 		(super dispose:)
 	)
-
+	
 	(method (handleEvent event)
-		(if (event claimed:)
-			(return 1)
-		)
-		(if (== (event type:) evSAID)
-			(cond
-				((Said 'get,pull,pull,press,move/fifi,butler,fifi')
-					(Print 273 1) ; "It would be terribly hard for you to move Jeeves or Fifi. Leave them there for now."
-				)
-				((Said 'kill')
-					(Print 273 2) ; "They're already dead!"
-				)
-				((Said '(look<in),search/fifi,butler')
-					(if (& (gEgo onControl: 0) $0040)
-						(gEgo setScript: pickUp)
-					else
-						(NotClose) ; "You're not close enough."
+		(if (event claimed?) (return TRUE))
+		(return
+			(if (== (event type?) saidEvent)
+				(cond 
+					((Said 'get,drag,drag,press,move/fifi,butler,fifi')
+						(Print 273 1)
 					)
-				)
-				((Said 'look/glass,drink')
-					(Print 273 3) ; "It appears that Fifi and Jeeves were drinking cognac when they died."
-				)
-				((Said 'get/glass,drink')
-					(Print 273 4) ; "You shouldn't touch them!"
-				)
-				((Said '/fifi>')
-					(cond
-						((Said 'kiss')
-							(Print 273 5) ; "Yuck!!"
-						)
-						((Said 'embrace')
-							(Print 273 6) ; "That won't do any good, Laura!"
-						)
-						((Said 'help')
-							(Print 273 7) ; "She's beyond help now!"
-						)
-						((Said 'talk')
-							(Print 273 8) ; "Fifi is dead."
+					((Said 'kill')
+						(Print 273 2)
+					)
+					((Said '(examine<in),search/fifi,butler')
+						(if (& (ego onControl: FALSE) cBROWN)
+							(ego setScript: pickUp)
+						else
+							(NotClose)
 						)
 					)
-				)
-				((Said '/butler>')
-					(cond
-						((Said 'kiss')
-							(Print 273 9) ; "What an awful thought!!"
+					((Said 'examine/glass,drink')
+						(Print 273 3)
+					)
+					((Said 'get/glass,drink')
+						(Print 273 4)
+					)
+					((Said '/fifi>')
+						(cond 
+							((Said 'kiss')
+								(Print 273 5)
+							)
+							((Said 'embrace')
+								(Print 273 6)
+							)
+							((Said 'help')
+								(Print 273 7)
+							)
+							((Said 'converse')
+								(Print 273 8)
+							)
 						)
-						((Said 'embrace')
-							(Print 273 10) ; "Don't be strange, Laura!"
-						)
-						((Said 'help')
-							(Print 273 11) ; "You can't help him now!"
-						)
-						((Said 'talk')
-							(Print 273 12) ; "Jeeves is dead."
+					)
+					((Said '/butler>')
+						(cond 
+							((Said 'kiss')
+								(Print 273 9)
+							)
+							((Said 'embrace')
+								(Print 273 10)
+							)
+							((Said 'help')
+								(Print 273 11)
+							)
+							((Said 'converse')
+								(Print 273 12)
+							)
 						)
 					)
 				)
+			else
+				FALSE
 			)
 		)
 	)
 )
 
 (instance showCloseup of Script
-	(properties)
 
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
 				(mySound number: 99 loop: -1 play:)
-				(global373 setCycle: Fwd init:)
-				(|= gCorpseFlags $0010) ; Jeeves & Fifi
-				(SetFlag 22)
+				(gDoor setCycle: Forward init:)
+				(|= deadGuests deadFIFI)
+				(Bset fSawFifiJeevesTogether)
 				(HandsOff)
 				(= seconds 2)
 			)
@@ -156,11 +157,15 @@
 			)
 			(2
 				(myMusic play:)
-				(Print 273 13 #at 10 10 #icon 443 0 0 #mode 1) ; "What is happening around here!! You have discovered poor Fifi and Jeeves lying dead on the floor with their spilled drinks nearby. You don't like the looks of this at all!"
+				(Print 273 13
+					#at 10 10
+					#icon 443 0 0
+					#mode teJustCenter
+				)
 				(= cycles 1)
 			)
 			(3
-				(gEgo observeControl: 256)
+				(ego observeControl: cGREY)
 				(HandsOn)
 			)
 		)
@@ -168,29 +173,27 @@
 )
 
 (instance pickUp of Script
-	(properties)
 
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
-				(LookAt gEgo Body)
+				(Face ego Body)
 				(= cycles 2)
 			)
 			(1
-				(gEgo view: 17 cel: 0 setMotion: 0 setCycle: End self)
+				(ego view: 17 cel: 0 setMotion: 0 setCycle: EndLoop self)
 			)
 			(2
-				(Print 273 14) ; "You thoroughly examine Jeeves and Fifi's body but cannot see how they might have died. You are very puzzled."
+				(Print 273 14)
 				(= cycles 1)
 			)
 			(3
-				(gEgo setCycle: Beg self)
+				(ego setCycle: BegLoop self)
 			)
 			(4
-				(gEgo view: 0 setCycle: Walk)
+				(ego view: 0 setCycle: Walk)
 				(client setScript: 0)
 			)
 		)
 	)
 )
-

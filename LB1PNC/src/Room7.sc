@@ -1,9 +1,8 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-;;; Decompiled by sluicebox
 (script# 7)
-(include sci.sh)
+(include game.sh)
 (use Main)
-(use Interface)
+(use Intrface)
 (use DCIcon)
 (use Wander)
 (use RFeature)
@@ -18,35 +17,46 @@
 )
 
 (local
-	local0
+	dying
 )
-
-(instance Room7 of Rm
+(instance Room7 of Room
 	(properties
 		picture 7
 	)
-
+	
 	(method (init)
 		(= south 8)
 		(= west 6)
 		(= horizon 86)
 		(super init:)
-		(LoadMany rsVIEW 5 13 35)
-		(LoadMany rsSOUND 67 82 92)
-		(self setRegions: 205) ; swampReg
+		(LoadMany VIEW 5 13 35)
+		(LoadMany SOUND 67 82 92)
+		(self setRegions: 205)
 		(self setFeatures: Bridge)
-		(if gDetailLevel
-			(wave1 setPri: 1 cycleSpeed: 2 ignoreActors: 1 setCycle: Fwd init:)
-			(wave2 setPri: 1 cycleSpeed: 2 ignoreActors: 1 setCycle: Fwd init:)
+		(if howFast
+			(wave1
+				setPri: 1
+				cycleSpeed: 2
+				ignoreActors: TRUE
+				setCycle: Forward
+				init:
+			)
+			(wave2
+				setPri: 1
+				cycleSpeed: 2
+				ignoreActors: TRUE
+				setCycle: Forward
+				init:
+			)
 			(flyCage init:)
 			(Fly
 				setLoop: 5
 				cel: 0
 				setStep: 3 3
 				observeBlocks: flyCage
-				ignoreHorizon: 1
+				ignoreHorizon: TRUE
 				cycleSpeed: 2
-				setCycle: Fwd
+				setCycle: Forward
 				setMotion: Wander 5
 				init:
 			)
@@ -55,9 +65,9 @@
 				cel: 1
 				setStep: 3 3
 				observeBlocks: flyCage
-				ignoreHorizon: 1
+				ignoreHorizon: TRUE
 				cycleSpeed: 2
-				setCycle: Fwd
+				setCycle: Forward
 				setMotion: Wander 5
 				init:
 			)
@@ -66,9 +76,9 @@
 				cel: 2
 				setStep: 3 3
 				observeBlocks: flyCage
-				ignoreHorizon: 1
+				ignoreHorizon: TRUE
 				cycleSpeed: 2
-				setCycle: Fwd
+				setCycle: Forward
 				setMotion: Wander 5
 				init:
 			)
@@ -77,9 +87,9 @@
 				cel: 3
 				setStep: 3 3
 				observeBlocks: flyCage
-				ignoreHorizon: 1
+				ignoreHorizon: TRUE
 				cycleSpeed: 2
-				setCycle: Fwd
+				setCycle: Forward
 				setMotion: Wander 5
 				init:
 			)
@@ -88,101 +98,102 @@
 				cel: 4
 				setStep: 3 3
 				observeBlocks: flyCage
-				ignoreHorizon: 1
+				ignoreHorizon: TRUE
 				cycleSpeed: 2
-				setCycle: Fwd
+				setCycle: Forward
 				setMotion: Wander 5
 				init:
 			)
 		)
-		(if (and (== gAct 3) (< gJeevesChoresState 3))
-			(self setRegions: 203) ; clarwand
+		(if (and (== currentAct 3) (< global115 3))
+			(self setRegions: 203)
 		)
-		(if (== gPrevRoomNum 6)
-			(gEgo posn: 1 188)
+		(if (== prevRoomNum 6)
+			(ego posn: 1 188)
 		else
-			(gEgo posn: 35 188)
+			(ego posn: 35 188)
 		)
-		(gEgo view: 0 init:)
+		(ego view: 0 init:)
 	)
-
+	
 	(method (doit)
-		(if (IsFirstTimeInRoom)
-			(Print 7 0) ; "A broken, arched bridge crosses a large stream at the swamp's edge."
+		(if (FirstEntry)
+			(Print 7 0)
 		)
-		(if (and (& (gEgo onControl: 1) $0002) (== local0 0))
-			(= local0 1)
+		(if (and (& (ego onControl: origin) cBLUE) (== dying FALSE))
+			(= dying TRUE)
 			(self setScript: sink)
 		)
-		(if (and (& (gEgo onControl: 1) $0008) (== local0 0))
-			(= local0 1)
+		(if (and (& (ego onControl: origin) cCYAN) (== dying FALSE))
+			(= dying TRUE)
 			(myMusic number: 67 loop: 1 play:)
 			(self setScript: falling)
 		)
 		(super doit:)
 	)
-
+	
 	(method (dispose)
 		(DisposeScript 976)
 		(super dispose:)
 	)
-
-	(method (newRoom newRoomNumber)
-		(super newRoom: newRoomNumber)
-	)
-
+	
 	(method (handleEvent event)
 		(super handleEvent: event)
-		(if (event claimed:)
-			(return)
-		)
-		(if (== (event type:) evSAID)
-			(cond
-				((Said 'look>')
-					(cond
+		(if (event claimed?) (return))
+		(if (== (event type?) saidEvent)
+			(cond 
+				((Said 'examine>')
+					(cond 
 						((Said '<(below,below)/bridge')
-							(Print 7 1) ; "There is nothing but water under the bridge."
+							(Print 7 1)
 						)
 						((Said '<(across,on)/brook,water')
-							(Print 7 2) ; "There is only more swamp on the other side of the large stream."
+							(Print 7 2)
 						)
 						((Said '/brook,water')
-							(Print 7 3) ; "A broken bridge crosses the large stream."
+							(Print 7 3)
 						)
 						((Said '<down')
 							(DoLook {ground})
 						)
 						((Said '[/bridge,room,around]')
-							(Print 7 0) ; "A broken, arched bridge crosses a large stream at the swamp's edge."
+							(Print 7 0)
 						)
 					)
 				)
-				((or (Said 'cross/bridge') (Said 'go<(above,across)/bridge'))
-					(Print 7 4) ; "The bridge is broken. You can't cross it."
+				(
+					(or
+						(Said 'cross/bridge')
+						(Said 'go<(above,across)/bridge')
+					)
+					(Print 7 4)
 				)
 				((Said 'climb[<(across,above)]/oak,log')
-					(Print 7 5) ; "You can't quite reach it."
+					(Print 7 5)
 				)
 				((Said 'hop[<(across,above)][/bridge,brook]')
-					(Print 7 6) ; "You can't jump that far."
+					(Print 7 6)
 				)
 			)
 		)
 	)
+	
+	(method (newRoom n)
+		(super newRoom: n)
+	)
 )
 
 (instance falling of Script
-	(properties)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
 				(HandsOff)
-				(gEgo
+				(ego
 					view: 5
 					setLoop: 0
 					cel: 0
-					setCycle: End
+					setCycle: EndLoop
 					yStep: 5
 					illegalBits: 0
 					setMotion: MoveTo 115 130 self
@@ -190,55 +201,54 @@
 			)
 			(1
 				(myMusic number: 82 loop: 1 play:)
-				(gEgo loop: 2 posn: 116 149 cel: 0 setCycle: End self)
+				(ego loop: 2 posn: 116 149 cel: 0 setCycle: EndLoop self)
 			)
 			(2
-				(gEgo view: 13 loop: 0 posn: 92 157 setCycle: Fwd)
+				(ego view: 13 loop: 0 posn: 92 157 setCycle: Forward)
 				(= seconds 3)
 			)
 			(3
-				(gEgo view: 13 loop: 2 setCycle: End self)
+				(ego view: 13 loop: 2 setCycle: EndLoop self)
 			)
 			(4
 				(= seconds 3)
 			)
 			(5
-				(= global128 myIcon)
-				(= global129 5)
-				(= global130 0)
-				(= global132 1)
-				(EgoDead 7 7) ; "You've got that sinking feeling."
+				(= cIcon myIcon)
+				(= deathLoop 5)
+				(= deathCel 0)
+				(= cyclingIcon TRUE)
+				(EgoDead 7 7)
 			)
 		)
 	)
 )
 
 (instance sink of Script
-	(properties)
 
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
 				(HandsOff)
 				(myMusic number: 92 loop: 1 play:)
-				(gEgo
+				(ego
 					view: 35
 					cel: 0
 					cycleSpeed: 3
-					setMotion: MoveTo (+ (gEgo x:) 30) (gEgo y:)
-					setCycle: End self
+					setMotion: MoveTo (+ (ego x?) 30) (ego y?)
+					setCycle: EndLoop self
 				)
 			)
 			(1
-				(gEgo hide:)
+				(ego hide:)
 				(= seconds 3)
 			)
 			(2
-				(= global128 myIcon)
-				(= global129 5)
-				(= global130 0)
-				(= global132 1)
-				(EgoDead 7 7) ; "You've got that sinking feeling."
+				(= cIcon myIcon)
+				(= deathLoop 5)
+				(= deathCel 0)
+				(= cyclingIcon TRUE)
+				(EgoDead 7 7)
 			)
 		)
 	)
@@ -249,15 +259,13 @@
 		view 13
 		loop 5
 	)
-
+	
 	(method (init)
-		((= cycler (End new:)) init: self)
+		((= cycler (EndLoop new:)) init: self)
 	)
 )
 
-(instance myMusic of Sound
-	(properties)
-)
+(instance myMusic of Sound)
 
 (instance wave1 of Prop
 	(properties
@@ -276,7 +284,7 @@
 	)
 )
 
-(instance Fly of Act
+(instance Fly of Actor
 	(properties
 		y 123
 		x 274
@@ -285,7 +293,7 @@
 	)
 )
 
-(instance Fly2 of Act
+(instance Fly2 of Actor
 	(properties
 		y 179
 		x 297
@@ -294,7 +302,7 @@
 	)
 )
 
-(instance Fly3 of Act
+(instance Fly3 of Actor
 	(properties
 		y 139
 		x 207
@@ -302,7 +310,7 @@
 	)
 )
 
-(instance Fly4 of Act
+(instance Fly4 of Actor
 	(properties
 		y 179
 		x 197
@@ -310,7 +318,7 @@
 	)
 )
 
-(instance Fly5 of Act
+(instance Fly5 of Actor
 	(properties
 		y 139
 		x 217
@@ -334,12 +342,11 @@
 		nsBottom 180
 		nsRight 155
 	)
-
+	
 	(method (handleEvent event)
-		(if (or (MousedOn self event 3) (Said 'look/bridge'))
-			(event claimed: 1)
-			(Print 7 0) ; "A broken, arched bridge crosses a large stream at the swamp's edge."
+		(if(or (MousedOn self event shiftDown) (Said 'examine/bridge'))
+			(event claimed: TRUE)
+			(Print 7 0)
 		)
 	)
 )
-

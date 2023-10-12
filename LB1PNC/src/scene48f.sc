@@ -1,9 +1,8 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-;;; Decompiled by sluicebox
 (script# 334)
-(include sci.sh)
+(include game.sh)
 (use Main)
-(use Interface)
+(use Intrface)
 (use Sound)
 (use Motion)
 (use Game)
@@ -17,36 +16,27 @@
 (local
 	local0
 )
+(instance Clarence of Prop)
 
-(instance Clarence of Prop
-	(properties)
-)
+(instance Eye of Prop)
 
-(instance Eye of Prop
-	(properties)
-)
+(instance Hand of Actor)
 
-(instance Hand of Act
-	(properties)
-)
+(instance myMusic of Sound)
 
-(instance myMusic of Sound
-	(properties)
-)
-
-(instance scene48f of Rm
+(instance scene48f of Room
 	(properties
 		picture 62
-		style 7
+		style IRISOUT
 	)
-
+	
 	(method (init)
 		(super init:)
 		(HandsOff)
-		(Load rsFONT 41)
-		(Load rsVIEW 642)
-		(LoadMany rsSOUND 29 94 95 96)
-		(LoadMany rsMESSAGE 406)
+		(Load FONT 41)
+		(Load VIEW 642)
+		(LoadMany SOUND 29 94 95 96)
+		(LoadMany 143 406)
 		(myMusic number: 27 loop: -1 play:)
 		(Clarence
 			view: 411
@@ -54,7 +44,7 @@
 			loop: 2
 			cel: 0
 			setPri: 2
-			ignoreActors: 1
+			ignoreActors: TRUE
 			init:
 		)
 		(Hand
@@ -77,55 +67,53 @@
 		)
 		(self setScript: twice)
 	)
-
+	
 	(method (doit)
 		(super doit:)
 	)
-
+	
 	(method (dispose)
 		(super dispose:)
 	)
-
+	
 	(method (handleEvent event)
 		(super handleEvent: event)
 	)
 )
 
 (instance twice of Script
-	(properties)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
-				(cond
+				(cond 
 					((not global216)
 						(= state -1)
 					)
-					((not (& gMustDos $0008))
-						(|= gMustDos $0008)
-						(self setScript: (ScriptID 406 0)) ; Clock
+					((not (& global118 $0008))
+						(|= global118 $0008)
+						(self setScript: (ScriptID 406 0))
 						(= state -1)
 					)
-					((self script:)
+					((self script?)
 						(= state -1)
 					)
 				)
 				(= cycles 1)
 			)
 			(1
-				(Print 334 0 #dispose) ; "Clarence is writing at his desk."
+				(Print 334 0 #dispose)
 				(= seconds 8)
 			)
 			(2
-				(gCurRoom newRoom: gPrevRoomNum)
+				(curRoom newRoom: prevRoomNum)
 			)
 		)
 	)
 )
 
 (instance writing of Script
-	(properties)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
@@ -152,7 +140,6 @@
 )
 
 (instance movements of Script
-	(properties)
 
 	(method (changeState newState)
 		(switch (= state newState)
@@ -166,7 +153,7 @@
 				)
 			)
 			(1
-				(if (Clarence cel:)
+				(if (Clarence cel?)
 					(Clarence cel: 0)
 				)
 				(Eye show: cel: (Random 0 1))
@@ -176,4 +163,3 @@
 		)
 	)
 )
-

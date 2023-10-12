@@ -27,7 +27,7 @@
 	(Print &rest #at 40 10 #font 4 #width 125 #mode 1 #draw #dispose)
 )
 
-(instance lillRead of Rgn
+(instance lillRead of Region
 	(properties)
 
 	(method (init)
@@ -95,7 +95,7 @@
 				(= cycles 1)
 			)
 			(1
-				(Lillian loop: 8 cycleSpeed: 1 setCycle: Fwd)
+				(Lillian loop: 8 cycleSpeed: 1 setCycle: Forward)
 				(if (not local1)
 					(++ local1)
 					(Print 282 3 #dispose) ; "We have a visitor, darlings. Sit up straight now."
@@ -107,20 +107,20 @@
 			)
 			(2
 				(cls)
-				(Lillian loop: 1 setCycle: End)
+				(Lillian loop: 1 setCycle: EndLoop)
 				(if (< (Random 1 100) 51)
 					(= state 5)
 				)
 				(= seconds (Random 3 12))
 			)
 			(3
-				(Lillian loop: 0 setCycle: Fwd)
+				(Lillian loop: 0 setCycle: Forward)
 				(Print 282 4 #dispose) ; "Rock-a-bye, baby."
 				(= seconds (Random 3 12))
 			)
 			(4
 				(cls)
-				(Lillian loop: 1 cel: 2 setCycle: Beg)
+				(Lillian loop: 1 cel: 2 setCycle: BegLoop)
 				(cond
 					((< (= local2 (Random 1 100)) 31)
 						(= state 0)
@@ -133,7 +133,7 @@
 			)
 			(5
 				(cls)
-				(Lillian loop: 7 setCycle: Fwd)
+				(Lillian loop: 7 setCycle: Forward)
 				(if (< (Random 1 100) 51)
 					(= state 0)
 				else
@@ -142,7 +142,7 @@
 				(= seconds (Random 3 12))
 			)
 			(6
-				(Lillian loop: 4 setCycle: Fwd)
+				(Lillian loop: 4 setCycle: Forward)
 				(= state 3)
 				(= seconds (Random 3 12))
 			)
@@ -166,7 +166,7 @@
 					(or (MousedOn self event 3) (Said 'look/lil'))
 				)
 				(|= global207 $0020)
-				(= global213 6)
+				(= theTalker 6)
 				(event claimed: 1)
 				(Say 0 282 5) ; "Your friend Lillian Prune, is a rebellious flapper. Like you, she is twenty years old, but unlike you, she has been known to hang out in speakeasies, smoke, and run around with several young men. She is assertive and outgoing, to the point of obnoxiousness, but underneath it all you believe her to be a lonely, insecure girl."
 			)
@@ -182,7 +182,7 @@
 				(Print 282 7) ; "Lillian is caught up in some fantasy world with those dolls! She's not listening to you."
 			)
 			((Said 'give,show/*')
-				(if (and global219 global224)
+				(if (and theInvItem haveInvItem)
 					(Print 282 8) ; "Your friend is too involved with those dolls to really notice you."
 				else
 					(DontHave) ; "You don't have it."
@@ -191,7 +191,7 @@
 			((Said '/lil>')
 				(cond
 					((Said 'talk')
-						(= global213 6)
+						(= theTalker 6)
 						(switch local0
 							(0
 								(Say 1 282 9) ; "Our visitor is talking to us. Pay attention now."

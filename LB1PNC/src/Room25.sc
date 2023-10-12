@@ -1,9 +1,8 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-;;; Decompiled by sluicebox
 (script# 25)
-(include sci.sh)
+(include game.sh)
 (use Main)
-(use Interface)
+(use Intrface)
 (use DCIcon)
 (use Wander)
 (use RFeature)
@@ -16,7 +15,6 @@
 (public
 	Room25 0
 )
-
 (synonyms
 	(bird owl)
 )
@@ -27,19 +25,18 @@
 	local2
 	local3
 )
-
-(instance Room25 of Rm
+(instance Room25 of Room
 	(properties
 		picture 25
 	)
-
+	
 	(method (init)
 		(= horizon 84)
 		(= east 26)
 		(= north 13)
 		(super init:)
-		(Load rsSOUND 82)
-		(if gDetailLevel
+		(Load SOUND 82)
+		(if howFast
 			(owlHead setScript: owl init:)
 			(light1 setScript: showers init:)
 			(light2 init:)
@@ -50,8 +47,8 @@
 				cel: 0
 				setStep: 3 3
 				observeBlocks: flyCage
-				ignoreHorizon: 1
-				setCycle: Fwd
+				ignoreHorizon: TRUE
+				setCycle: Forward
 				cycleSpeed: 2
 				setMotion: Wander 5
 				init:
@@ -61,8 +58,8 @@
 				cel: 1
 				setStep: 3 3
 				observeBlocks: flyCage
-				ignoreHorizon: 1
-				setCycle: Fwd
+				ignoreHorizon: TRUE
+				setCycle: Forward
 				cycleSpeed: 2
 				setMotion: Wander 5
 				init:
@@ -72,8 +69,8 @@
 				cel: 2
 				setStep: 3 3
 				observeBlocks: flyCage
-				ignoreHorizon: 1
-				setCycle: Fwd
+				ignoreHorizon: TRUE
+				setCycle: Forward
 				cycleSpeed: 2
 				setMotion: Wander 5
 				init:
@@ -83,8 +80,8 @@
 				cel: 3
 				setStep: 3 3
 				observeBlocks: flyCage
-				ignoreHorizon: 1
-				setCycle: Fwd
+				ignoreHorizon: TRUE
+				setCycle: Forward
 				cycleSpeed: 2
 				setMotion: Wander 5
 				init:
@@ -92,106 +89,107 @@
 		else
 			(owlHead loop: 4 cel: 2 addToPic:)
 		)
-		(self setRegions: 205 207 setFeatures: owlBody Barn House) ; swampReg, fenceReg
-		(Load rsVIEW 35)
+		(self setRegions: 205 207 setFeatures: owlBody Barn House)
+		(Load VIEW 35)
 		(Thunder number: 17 loop: 0)
-		(gAddToPics add: owlBody eachElementDo: #init doit:)
-		(if (and (>= gAct 2) (< gAct 4))
-			(self setRegions: 202) ; EthelDrunk
+		(addToPics add: owlBody eachElementDo: #init doit:)
+		(if (and (>= currentAct 2) (< currentAct 4))
+			(self setRegions: 202)
 		)
 		(if
 			(or
-				(and (== gAct 3) (!= global114 10))
-				(and (== gAct 6) (not (& gMustDos $0002)))
+				(and (== currentAct 3) (!= global114 10))
+				(and (== currentAct 6) (not (& global118 $0002)))
 			)
-			(self setRegions: 281) ; rudywand
+			(self setRegions: 281)
 		)
-		(if (>= gAct 4)
+		(if (>= currentAct 4)
 			(Foot ignoreActors: 1 init: stopUpd:)
 		)
-		(if (and (>= gAct 4) (== ((gInventory at: 4) owner:) 25)) ; rolling_pin
+		(if
+			(and
+				(>= currentAct 4)
+				(== ((inventory at: iRollingPin) owner?) 25)
+			)
 			(Pin init: stopUpd:)
 		)
-		(switch gPrevRoomNum
-			(20
-				(gEgo posn: 305 119)
-			)
-			(13
-				(gEgo posn: 171 119)
-			)
+		(switch prevRoomNum
+			(20 (ego posn: 305 119))
+			(13 (ego posn: 171 119))
 		)
-		(gEgo view: 0 illegalBits: -32768 init:)
+		(ego view: 0 illegalBits: cWHITE init:)
 		(HandsOn)
 	)
-
-	(method (newRoom newRoomNumber)
-		(super newRoom: newRoomNumber)
-	)
-
+	
 	(method (doit)
-		(if (IsFirstTimeInRoom)
-			(Print 25 0) ; "You are at the southwest edge of the bayou island. The old road and fence have been overtaken by the rising swamp water."
+		(if (FirstEntry)
+			(Print 25 0)
 		)
-		(if (& (gEgo onControl: 0) $0002)
-			(gCurRoom newRoom: 20)
+		(if (& (ego onControl: 0) cBLUE)
+			(curRoom newRoom: 20)
 		)
-		(if (& (gEgo onControl: 0) $0004)
-			(gCurRoom newRoom: 13)
+		(if (& (ego onControl: 0) cGREEN)
+			(curRoom newRoom: 13)
 		)
-		(if (and (& (gEgo onControl: 1) $0008) (== local0 0))
+		(if (and (& (ego onControl: origin) cCYAN) (== local0 0))
 			(= local0 1)
 			(self setScript: sink)
 		)
 		(super doit:)
 	)
-
+	
 	(method (dispose)
-		(DisposeScript 976)
+		(DisposeScript WANDER)
 		(super dispose:)
 	)
-
+	
 	(method (handleEvent event)
-		(if (event claimed:)
-			(return 1)
-		)
-		(if (== (event type:) evSAID)
-			(DisposeScript 990)
-			(if (Said 'look>')
-				(cond
-					((Said '[<around,at][/room]')
-						(Print 25 0) ; "You are at the southwest edge of the bayou island. The old road and fence have been overtaken by the rising swamp water."
-					)
-					((Said '/drive')
-						(Print 25 1) ; "A dirt driveway leads from the carriage house to the old road."
-					)
-					((Said '/bootprint')
-						(if (== gAct 4)
-							(Print 25 2) ; "You closely examine the footprint and decide that it is the print of a boot."
-						else
-							(event claimed: 0)
+		(if (event claimed?) (return TRUE))
+		(return
+			(if (== (event type?) saidEvent)
+				(DisposeScript SAVE)
+				(if (Said 'examine>')
+					(cond 
+						((Said '[<around,at][/room]')
+							(Print 25 0)
 						)
-					)
-					((or (Said '/dirt') (Said '<down'))
-						(cond
-							((gCast contains: Pin)
-								(Print 25 3) ; "That's odd. There is a rolling pin lying on the ground."
+						((Said '/drive')
+							(Print 25 1)
+						)
+						((Said '/bootprint')
+							(if (== currentAct 4)
+								(Print 25 2)
+							else
+								(event claimed: FALSE)
 							)
-							((== gAct 4)
-								(Print 25 4) ; "You can see a footprint in the mud."
-							)
-							(else
-								(event claimed: 0)
+						)
+						((or (Said '/dirt') (Said '<down'))
+							(cond 
+								((cast contains: Pin)
+									(Print 25 3)
+								)
+								((== currentAct 4)
+									(Print 25 4)
+								)
+								(else
+									(event claimed: FALSE)
+								)
 							)
 						)
 					)
 				)
+			else
+				FALSE
 			)
 		)
+	)
+	
+	(method (newRoom n)
+		(super newRoom: n)
 	)
 )
 
 (instance showers of Script
-	(properties)
 
 	(method (changeState newState)
 		(switch (= state newState)
@@ -199,15 +197,15 @@
 				(= seconds (= state 3))
 			)
 			(1
-				(light1 setCycle: Fwd)
-				(light2 setCycle: Fwd)
-				(light3 setCycle: Fwd)
+				(light1 setCycle: Forward)
+				(light2 setCycle: Forward)
+				(light3 setCycle: Forward)
 				(= cycles 7)
 			)
 			(2
-				(light1 setCycle: End)
-				(light2 setCycle: End)
-				(light3 setCycle: End self)
+				(light1 setCycle: EndLoop)
+				(light2 setCycle: EndLoop)
+				(light3 setCycle: EndLoop self)
 			)
 			(3
 				(Thunder loop: 1 play: self)
@@ -227,74 +225,58 @@
 )
 
 (instance sink of Script
-	(properties)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
 				(HandsOff)
 				(myMusic number: 82 loop: 1 play:)
-				(gEgo
+				(ego
 					view: 35
 					cel: 0
 					xStep: 1
 					setMotion:
 						MoveTo
-						(switch (gEgo loop:)
-							(0
-								(+ (gEgo x:) 10)
-							)
-							(1
-								(- (gEgo x:) 10)
-							)
-							(else
-								(gEgo x:)
-							)
+						(switch (ego loop?)
+							(0 (+ (ego x?) 10))
+							(1 (- (ego x?) 10))
+							(else  (ego x?))
 						)
-						(switch (gEgo loop:)
-							(2
-								(+ (gEgo y:) 3)
-							)
-							(3
-								(- (gEgo y:) 3)
-							)
-							(else
-								(gEgo y:)
-							)
+						(switch (ego loop?)
+							(2 (+ (ego y?) 3))
+							(3 (- (ego y?) 3))
+							(else  (ego y?))
 						)
 					cycleSpeed: 2
-					setCycle: End self
+					setCycle: EndLoop self
 				)
 			)
 			(1
-				(gEgo hide:)
+				(ego hide:)
 				(= seconds 3)
 			)
 			(2
-				(= global128 myIcon)
-				(= global129 5)
-				(= global130 0)
-				(= global132 1)
-				(EgoDead 25 5) ; "Have you ever had that sinking feeling?"
+				(= cIcon myIcon)
+				(= deathLoop 5)
+				(= deathCel 0)
+				(= cyclingIcon TRUE)
+				(EgoDead 25 5)
 			)
 		)
 	)
 )
 
 (instance owl of Script
-	(properties)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
-			(0
-				(= seconds (Random 2 7))
-			)
+			(0 (= seconds (Random 2 7)))
 			(1
-				(if (== (owlHead cel:) 0)
-					(owlHead setCycle: End self)
+				(if (== (owlHead cel?) 0)
+					(owlHead setCycle: EndLoop self)
 					(= local2 (Random 0 3))
 				else
-					(owlHead setCycle: Beg self)
+					(owlHead setCycle: BegLoop self)
 					(= state -1)
 				)
 			)
@@ -331,27 +313,26 @@
 )
 
 (instance lookFoot of Script
-	(properties)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
-				(if (== (gEgo loop:) 3)
-					(gEgo view: 125 cel: 0 loop: 7 setCycle: End self)
+				(if (== (ego loop?) 3)
+					(ego view: 125 cel: 0 loop: 7 setCycle: EndLoop self)
 				else
-					(gEgo view: 125 cel: 0 loop: 6 setCycle: End self)
+					(ego view: 125 cel: 0 loop: 6 setCycle: EndLoop self)
 				)
 			)
 			(1
-				(Print 25 6 #icon 640 0 0) ; "Using Wilbur's monocle as a magnifying glass, you carefully examine the muddy impression and can see that it is definitely a bootprint. Aha! There on the sole is...an insignia of an eagle!"
-				(SetFlag 4)
+				(Print 25 6 #icon 640 0 0)
+				(Bset 4)
 				(= cycles 1)
 			)
 			(2
-				(gEgo setCycle: Beg self)
+				(ego setCycle: BegLoop self)
 			)
 			(3
-				(gEgo view: 0 setCycle: Walk)
+				(ego view: 0 setCycle: Walk)
 				(HandsOn)
 				(client setScript: 0)
 			)
@@ -360,35 +341,32 @@
 )
 
 (instance pickUp of Script
-	(properties)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
 				(HandsOff)
-				(LookAt gEgo Pin)
+				(Face ego Pin)
 				(= cycles 2)
 			)
 			(1
-				(if (== (gEgo loop:) 3)
-					(gEgo view: 125 cel: 0 loop: 7 setCycle: End self)
+				(if (== (ego loop?) 3)
+					(ego view: 125 cel: 0 loop: 7 setCycle: EndLoop self)
 				else
-					(gEgo view: 125 cel: 0 loop: 6 setCycle: End self)
+					(ego view: 125 cel: 0 loop: 6 setCycle: EndLoop self)
 				)
 			)
 			(2
-				(Print 25 7) ; "As you pick up the rolling pin you notice a muddy footprint nearby."
+				(Print 25 7)
 				(Pin hide:)
-				(= global182 1)
-				(gEgo get: 4) ; rolling_pin
+				(= gotItem TRUE)
+				(ego get: 4)
 				(= cycles 2)
 			)
-			(3
-				(gEgo setCycle: Beg self)
-			)
+			(3 (ego setCycle: BegLoop self))
 			(4
 				(HandsOn)
-				(gEgo view: 0 setCycle: Walk)
+				(ego view: 0 setCycle: Walk)
 				(client dispose: setScript: 0)
 			)
 		)
@@ -404,10 +382,10 @@
 		cel 1
 		priority 15
 	)
-
+	
 	(method (handleEvent event)
-		(if (MousedOn self event 3)
-			(event claimed: 1)
+		(if (MousedOn self event shiftDown)
+			(event claimed: TRUE)
 			(DoLook {owl})
 		)
 	)
@@ -449,35 +427,35 @@
 		view 125
 		loop 3
 		priority 15
-		signal 16
+		signal fixPriOn
 		cycleSpeed 2
 	)
-
+	
 	(method (handleEvent event)
-		(cond
-			((Said 'give,feed,show>')
+		(cond 
+			((Said 'deliver,feed,hold>')
 				(if (or (Said '/*<bird') (Said '/bird') (Said '/*/bird'))
-					(event claimed: 1)
-					(if global219
-						(if global224
-							(Print 25 8) ; "The owl prefers small varmints that scurry around in the darkness."
+					(event claimed: TRUE)
+					(if theInvItem
+						(if haveInvItem
+							(Print 25 8)
 						else
-							(DontHave) ; "You don't have it."
+							(DontHave)
 						)
 					else
-						(Print 25 8) ; "The owl prefers small varmints that scurry around in the darkness."
+						(Print 25 8)
 					)
 				)
 			)
-			((Said 'talk/bird')
-				(Print 25 9) ; "Hoo, hoo."
+			((Said 'converse/bird')
+				(Print 25 9)
 			)
 			((Said 'capture,get/bird')
-				(Print 25 10) ; "You couldn't get close enough to the owl to get it."
+				(Print 25 10)
 			)
-			((or (MousedOn self event 3) (Said 'look/bird'))
-				(event claimed: 1)
-				(Print 25 11) ; "The owl is on his nightly rodent patrol. He pays little attention to you."
+			((or (MousedOn self event shiftDown) (Said 'examine/bird'))
+				(event claimed: TRUE)
+				(Print 25 11)
 			)
 		)
 	)
@@ -490,33 +468,33 @@
 		view 125
 		loop 8
 	)
-
+	
 	(method (handleEvent event)
-		(cond
+		(cond 
 			(
 				(or
-					(Said 'look<use<monocle/bootprint')
-					(Said '(look<at),look/bootprint/monocle<with')
+					(Said 'examine<use<monocle/bootprint')
+					(Said '(examine<at),examine/bootprint/monocle<with')
 				)
-				(if (gEgo has: 1) ; monocle
-					(if (< (gEgo distanceTo: Foot) 10)
-						(if (>= gAct 4)
+				(if (ego has: iMonocle)
+					(if (< (ego distanceTo: Foot) 10)
+						(if (>= currentAct 4)
 							(HandsOff)
 							(= local3 1)
 							(self setScript: lookFoot)
 						else
-							(Print 25 12) ; "You see no footprints."
+							(Print 25 12)
 						)
 					else
-						(NotClose) ; "You're not close enough."
+						(NotClose)
 					)
 				else
-					(DontHave) ; "You don't have it."
+					(DontHave)
 				)
 			)
-			((or (MousedOn self event 3) (Said 'look/bootprint'))
-				(event claimed: 1)
-				(Print 25 4) ; "You can see a footprint in the mud."
+			((or (MousedOn self event shiftDown) (Said 'examine/bootprint'))
+				(event claimed: TRUE)
+				(Print 25 4)
 			)
 		)
 	)
@@ -529,44 +507,44 @@
 		view 125
 		loop 4
 	)
-
+	
 	(method (handleEvent event)
-		(cond
-			((or (MousedOn self event 3) (Said 'look/pin<rolling'))
-				(event claimed: 1)
-				(Print 25 13) ; "You see a rolling pin and some muddy footprints."
+		(cond 
+			(
+				(or
+					(MousedOn self event shiftDown)
+					(Said 'examine/pin<rolling')
+				)
+				(event claimed: TRUE)
+				(Print 25 13)
 			)
 			((Said 'get/pin<rolling')
-				(if (< (gEgo distanceTo: Pin) 20)
+				(if (< (ego distanceTo: Pin) 20)
 					(self setScript: pickUp)
 				else
-					(NotClose) ; "You're not close enough."
+					(NotClose)
 				)
 			)
 		)
 	)
 )
 
-(instance Thunder of Sound
-	(properties)
-)
+(instance Thunder of Sound)
 
-(instance myMusic of Sound
-	(properties)
-)
+(instance myMusic of Sound)
 
 (instance myIcon of DCIcon
 	(properties
 		view 13
 		loop 5
 	)
-
+	
 	(method (init)
-		((= cycler (End new:)) init: self)
+		((= cycler (EndLoop new:)) init: self)
 	)
 )
 
-(instance Fly of Act
+(instance Fly of Actor
 	(properties
 		y 123
 		x 74
@@ -574,7 +552,7 @@
 	)
 )
 
-(instance Fly2 of Act
+(instance Fly2 of Actor
 	(properties
 		y 150
 		x 37
@@ -582,7 +560,7 @@
 	)
 )
 
-(instance Fly3 of Act
+(instance Fly3 of Actor
 	(properties
 		y 139
 		x 17
@@ -590,7 +568,7 @@
 	)
 )
 
-(instance Fly4 of Act
+(instance Fly4 of Actor
 	(properties
 		y 130
 		x 67
@@ -598,9 +576,7 @@
 	)
 )
 
-(instance flyCage of Cage
-	(properties)
-)
+(instance flyCage of Cage)
 
 (instance Barn of RFeature
 	(properties
@@ -609,11 +585,11 @@
 		nsBottom 76
 		nsRight 144
 	)
-
+	
 	(method (handleEvent event)
-		(if (or (MousedOn self event 3) (Said 'look/barn'))
-			(event claimed: 1)
-			(Print 25 14) ; "You see the old stable in the distance to the north."
+		(if (or (MousedOn self event shiftDown) (Said 'examine/barn'))
+			(event claimed: TRUE)
+			(Print 25 14)
 		)
 	)
 )
@@ -625,12 +601,11 @@
 		nsBottom 93
 		nsRight 319
 	)
-
+	
 	(method (handleEvent event)
-		(if (or (MousedOn self event 3) (Said 'look/cabin'))
-			(event claimed: 1)
-			(Print 25 15) ; "You notice the carriage house in the distance to the north."
+		(if (or (MousedOn self event shiftDown) (Said 'examine/cabin'))
+			(event claimed: TRUE)
+			(Print 25 15)
 		)
 	)
 )
-

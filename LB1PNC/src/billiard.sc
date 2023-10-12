@@ -1,10 +1,9 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-;;; Decompiled by sluicebox
 (script# 245)
-(include sci.sh)
+(include game.sh)
 (use Main)
-(use Interface)
-(use Avoid)
+(use Intrface)
+(use Avoider)
 (use Motion)
 (use Game)
 (use User)
@@ -14,10 +13,9 @@
 (public
 	billiard 0
 )
-
 (synonyms
-	(attorney man)
-	(actress woman)
+	(attorney fellow)
+	(actress girl)
 )
 
 (local
@@ -28,39 +26,66 @@
 	local4
 	local5
 	[local6 2]
-	local8
-	local9
-	local10
-	local11
+	gloriaX
+	gloriaY
+	gloriaLoop
+	gloriaCel
 	local12
-	local13
-	local14 = -1
-	local15 = -1
-	local16 = -1
-	[local17 56] = [0 0 0 0 0 0 -32768 0 0 105 114 0 0 -32768 0 0 105 128 0 0 -32768 207 114 105 114 0 0 -32768 105 128 207 128 0 0 -32768 0 0 207 114 0 0 -32768 0 0 207 128 0 0 -32768 0 0 0 0 0 0 -32768]
-	[local73 30] = [0 0 85 123 -32768 105 114 145 109 -32768 105 128 162 143 -32768 0 0 230 123 -32768 207 114 145 109 -32768 207 128 162 143 -32768]
+	theState
+	local14 =  -1
+	local15 =  -1
+	local16 =  -1
+	local17 = [
+		0 0 0 0 0 0 PATHEND
+		0 0 105 114 0 0 PATHEND
+		0 0 105 128 0 0 PATHEND
+		207 114 105 114 0 0 PATHEND
+		105 128 207 128 0 0 PATHEND
+		0 0 207 114 0 0 PATHEND
+		0 0 207 128 0 0 PATHEND
+		0 0 0 0 0 0 PATHEND
+		]
+	local73 = [
+		0 0 85 123 PATHEND
+		105 114 145 109 PATHEND
+		105 128 162 143 PATHEND
+		0 0 230 123 PATHEND
+		207 114 145 109 PATHEND
+		207 128 162 143 PATHEND
+		]
 	local103
-	[local104 14] = [207 114 105 114 72 120 -32768 207 128 105 128 72 120 -32768]
-	local118
-	[local119 129] = [600 0 179 98 500 1 600 1 185 98 191 101 600 2 185 103 -32768 600 0 127 103 500 1 600 1 125 100 158 99 500 2 172 99 600 2 183 98 -32768 600 0 182 98 500 2 600 2 186 101 -32768 600 1 190 102 153 103 600 2 127 103 -32768 600 0 157 103 500 1 600 1 176 104 600 2 182 103 -32768 600 0 134 101 500 2 132 98 600 1 125 100 600 2 129 104 131 103 -32768 600 0 186 102 500 1 600 1 191 100 187 98 600 2 182 100 -32768 600 0 157 101 500 1 143 104 600 1 135 102 600 2 130 100 -32768 700]
-	[local248 87] = [600 0 191 101 145 105 600 1 140 104 500 2 600 2 124 103 -32768 600 0 122 103 124 104 144 98 600 1 154 104 600 2 160 102 -32768 600 0 175 98 600 1 188 101 500 2 600 2 190 103 -32768 600 0 191 103 180 104 600 1 165 101 500 2 600 2 163 98 154 100 -32768 600 0 151 98 146 100 500 2 600 1 154 104 168 102 600 2 183 99 -32768]
-	[local335 97] = [600 1 133 98 125 100 129 104 600 2 151 98 161 100 -32768 600 1 180 104 191 102 600 2 178 98 -32768 600 0 126 100 600 1 164 104 183 101 500 0 600 2 188 98 191 100 -32768 600 1 192 99 188 98 164 101 137 104 600 2 130 101 -32768 600 0 123 102 128 104 600 1 154 98 600 2 161 101 -32768 600 1 125 100 135 98 600 2 143 101 -32768 600 1 124 102 128 104 600 2 138 103 -32768]
+	goSeeXY = [
+		207 114
+		105 114
+		72 120
+		PATHEND
+		207 128
+		105 128
+		72 120
+		PATHEND
+		]
+	goSeeIndex
+	local119  = [600 0 179 98 500 1 600 1 185 98 191 101 600 2 185 103 -32768 600 0 127 103 500 1 600 1 125 100 158 99 500 2 172 99 600 2 183 98 -32768 600 0 182 98 500 2 600 2 186 101 -32768 600 1 190 102 153 103 600 2 127 103 -32768 600 0 157 103 500 1 600 1 176 104 600 2 182 103 -32768 600 0 134 101 500 2 132 98 600 1 125 100 600 2 129 104 131 103 -32768 600 0 186 102 500 1 600 1 191 100 187 98 600 2 182 100 -32768 600 0 157 101 500 1 143 104 600 1 135 102 600 2 130 100 -32768 700]
+	local248 = [600 0 191 101 145 105 600 1 140 104 500 2 600 2 124 103 -32768 600 0 122 103 124 104 144 98 600 1 154 104 600 2 160 102 -32768 600 0 175 98 600 1 188 101 500 2 600 2 190 103 -32768 600 0 191 103 180 104 600 1 165 101 500 2 600 2 163 98 154 100 -32768 600 0 151 98 146 100 500 2 600 1 154 104 168 102 600 2 183 99 -32768]
+	local335 = [600 1 133 98 125 100 129 104 600 2 151 98 161 100 -32768 600 1 180 104 191 102 600 2 178 98 -32768 600 0 126 100 600 1 164 104 183 101 500 0 600 2 188 98 191 100 -32768 600 1 192 99 188 98 164 101 137 104 600 2 130 101 -32768 600 0 123 102 128 104 600 1 154 98 600 2 161 101 -32768 600 1 125 100 135 98 600 2 143 101 -32768 600 1 124 102 128 104 600 2 138 103 -32768]
+)
+(procedure (localproc_000c param1 param2)
+	(param1
+		setStep: (- 5 param2) (- 4 param2)
+		moveSpeed: param2
+	)
 )
 
-(procedure (localproc_0 param1 param2)
-	(param1 setStep: (- 5 param2) (- 4 param2) moveSpeed: param2)
-)
-
-(procedure (localproc_1 param1 &tmp temp0 temp1 temp2)
+(procedure (localproc_0026 param1 &tmp temp0 temp1 temp2)
 	(= local103
-		(cond
-			((== (param1 x:) 85) 0)
-			((== (param1 y:) 109) 7)
-			((== (param1 y:) 143) 14)
-			((== (param1 x:) 230) 21)
+		(cond 
+			((== (param1 x?) 85) 0)
+			((== (param1 y?) 109) 7)
+			((== (param1 y?) 143) 14)
+			((== (param1 x?) 230) 21)
 		)
 	)
-	(if (> (CueBall x:) 154)
+	(if (> (CueBall x?) 154)
 		(+= local103 28)
 	)
 	(if (== param1 Clarence)
@@ -73,60 +98,59 @@
 		(= temp2 25)
 	)
 	(= [local17 (+ local103 4)]
-		(if (< (CueBall x:) 155)
-			(- (CueBall x:) temp0)
+		(if (< (CueBall x?) 155)
+			(- (CueBall x?) temp0)
 		else
-			(+ (CueBall x:) temp1)
+			(+ (CueBall x?) temp1)
 		)
 	)
-	(= [local17 (+ local103 5)] (+ (CueBall y:) temp2))
+	(= [local17 (+ local103 5)] (+ (CueBall y?) temp2))
 )
 
-(procedure (localproc_2 param1 param2 &tmp temp0 temp1)
+(procedure (localproc_00f8 param1 param2 &tmp theGloriaX theGloriaY)
 	(= local103
 		(*
 			(= local103
-				(cond
-					((< (param1 x:) 155)
-						(if (< (CueBall x:) 155)
+				(cond 
+					((< (param1 x?) 155)
+						(if (< (CueBall x?) 155)
 							(Random 1 2)
 						else
 							(Random 0 2)
 						)
 					)
-					((> (CueBall x:) 154)
-						(Random 4 5)
-					)
-					(else
-						(Random 3 5)
-					)
+					((> (CueBall x?) 154) (Random 4 5))
+					(else (Random 3 5))
 				)
 			)
 			5
 		)
 	)
-	(if (and local12 (!= local13 18))
-		(= temp0 local8)
-		(= temp1 local9)
+	(if (and local12 (!= theState 18))
+		(= theGloriaX gloriaX)
+		(= theGloriaY gloriaY)
 	else
-		(= temp0 (param2 x:))
-		(= temp1 (param2 y:))
+		(= theGloriaX (param2 x?))
+		(= theGloriaY (param2 y?))
 	)
 	(if
 		(and
-			(== [local73 (+ local103 2)] temp0)
-			(== [local73 (+ local103 3)] temp1)
-			(or (== (-= local103 5) 0) (== local103 15))
+			(== [local73 (+ local103 2)] theGloriaX)
+			(== [local73 (+ local103 3)] theGloriaY)
+			(or
+				(== (= local103 (- local103 5)) 0)
+				(== local103 15)
+			)
 		)
-		(+= local103 10)
+		(= local103 (+ local103 10))
 	)
 )
 
-(procedure (localproc_3 param1)
+(procedure (localproc_01b8 param1)
 	(param1
 		loop:
-			(= local10
-				(switch (param1 x:)
+			(= gloriaLoop
+				(switch (param1 x?)
 					(85 0)
 					(145 2)
 					(162 3)
@@ -136,52 +160,57 @@
 		cel: 0
 		forceUpd:
 	)
-	(if (and (== param1 Gloria) (<= local10 1))
-		(Gloria loop: (+= local10 4) forceUpd:)
+	(if (and (== param1 Gloria) (<= gloriaLoop 1))
+		(Gloria loop: (= gloriaLoop (+ gloriaLoop 4)) forceUpd:)
 	)
 )
 
-(procedure (localproc_4 param1 &tmp temp0)
-	(if (> (param1 x:) 159)
-		(= temp0 171)
+(procedure (localproc_0229 who &tmp theX)
+	(if (> (who x?) 159)
+		(= theX 171)
 	else
-		(= temp0 40)
+		(= theX 40)
 	)
-	(Print &rest #at temp0 140 #font 4 #width 125 #mode 1 #dispose)
+	(Print &rest
+		#at theX 140
+		#font 4
+		#width 125
+		#mode teJustCenter
+		#dispose
+	)
 )
 
-(procedure (localproc_5 param1 param2)
-	(param1 setCycle: Fwd)
-	(param2 setCycle: 0 cel: 0 stopUpd:)
-	(localproc_4 param1 &rest)
+(procedure (localproc_0263 actor1 actor2)
+	(actor1 setCycle: Forward)
+	(actor2 setCycle: 0 cel: 0 stopUpd:)
+	(localproc_0229 actor1 &rest)
 )
 
-(procedure (localproc_6)
-	(localproc_5 Gloria Clarence &rest)
+(procedure (localproc_0287)
+	(localproc_0263 Gloria Clarence &rest)
 )
 
-(procedure (localproc_7)
-	(localproc_5 Clarence Gloria &rest)
+(procedure (localproc_0297)
+	(localproc_0263 Clarence Gloria &rest)
 )
 
-(instance billiard of Rgn
-	(properties)
-
+(instance billiard of Region
+	
 	(method (init)
 		(super init:)
 		(CueBall setLoop: 9 setCel: 2 setPri: 8 init: stopUpd:)
 		(Ball1 setLoop: 9 setCel: 0 setPri: 8 init: stopUpd:)
 		(Ball2 setLoop: 9 setCel: 0 setPri: 8 init: stopUpd:)
-		(if (not (& gMustDos $0002))
-			(LoadMany rsFONT 4 41)
-			(LoadMany rsSOUND 29 94 95 96)
-			(Load rsSCRIPT 406)
-			(Load rsVIEW 642)
+		(if (not (& global118 $0002))
+			(LoadMany FONT 4 41)
+			(LoadMany SOUND 29 94 95 96)
+			(Load SCRIPT 406)
+			(Load VIEW 642)
 		)
-		(Load rsSCRIPT 985)
-		(LoadMany rsMESSAGE 243 249 248)
-		(LoadMany rsVIEW 405 407 365 364)
-		(LoadMany rsSYNC 7 3)
+		(Load SCRIPT AVOIDER)
+		(LoadMany 143 243 249 248)
+		(LoadMany VIEW 405 407 365 364)
+		(LoadMany 142 7 3)
 		(= global208 68)
 		(= [global377 6] 248)
 		(= [global377 2] 249)
@@ -189,21 +218,19 @@
 		(Gloria init: stopUpd:)
 		(self setScript: playGame)
 	)
-
+	
 	(method (handleEvent event)
 		(super handleEvent: event)
-		(if (event claimed:)
-			(return)
-		)
-		(if (== (event type:) evSAID)
-			(cond
-				((Said 'look/people')
-					(Print 245 0) ; "It appears that Clarence and Gloria are in the middle of a game of billiards."
+		(if (event claimed?) (return))
+		(if (== (event type?) saidEvent)
+			(cond 
+				((Said 'examine/people')
+					(Print 245 0)
 				)
-				((Said 'listen/attorney,actress')
-					(Print 245 1) ; "They're not saying anything of interest."
+				((Said 'hear/attorney,actress')
+					(Print 245 1)
 				)
-				((and (IsFlag 51) (Said 'tell//gertie<about'))
+				((and (Btst fSawDeadGuest) (Said 'tell//gertie<about'))
 					(|= global145 $0042)
 					(= local12 1)
 					(= global202 0)
@@ -215,124 +242,245 @@
 )
 
 (instance CBPath of Script
-	(properties)
 
 	(method (changeState)
-		(repeat
-			(if (!= [local119 (++ local14)] -32768)
-				(switch [local119 local14]
-					(500
-						(if (== [local119 (++ local14)] 1)
-							(Ball1 setScript: B1Path)
-						else
-							(Ball2 setScript: B2Path)
-						)
-					)
-					(600
-						(localproc_0 CueBall [local119 (++ local14)])
-					)
-					(else
-						(CueBall
-							setMotion:
-								MoveTo
-								[local119 local14]
-								[local119 (++ local14)]
-								self
-						)
-						(break)
-					)
-				)
-			else
-				(client setScript: 0)
-				(break)
-			)
+		(asm
+code_046a:
+			+al      local14
+			lsli     local119
+			ldi      32768
+			ne?     
+			bnt      code_04de
+			lal      local14
+			lsli     local119
+			dup     
+			ldi      500
+			eq?     
+			bnt      code_04a9
+			+al      local14
+			lsli     local119
+			ldi      1
+			eq?     
+			bnt      code_049a
+			pushi    #setScript
+			pushi    1
+			lofsa    B1Path
+			push    
+			lofsa    Ball1
+			send     6
+			jmp      code_04da
+code_049a:
+			pushi    #setScript
+			pushi    1
+			lofsa    B2Path
+			push    
+			lofsa    Ball2
+			send     6
+			jmp      code_04da
+code_04a9:
+			dup     
+			ldi      600
+			eq?     
+			bnt      code_04c1
+			pushi    2
+			lofsa    CueBall
+			push    
+			+al      local14
+			lsli     local119
+			call     localproc_000c,  4
+			jmp      code_04da
+code_04c1:
+			pushi    #setMotion
+			pushi    4
+			class    MoveTo
+			push    
+			lal      local14
+			lsli     local119
+			+al      local14
+			lsli     local119
+			pushSelf
+			lofsa    CueBall
+			send     12
+			jmp      code_04ec
+code_04da:
+			toss    
+			jmp      code_046a
+code_04de:
+			pushi    #setScript
+			pushi    1
+			pushi    0
+			pToa     client
+			send     6
+			jmp      code_04ec
+			jmp      code_046a
+code_04ec:
+			ret     
 		)
 	)
 )
 
 (instance B1Path of Script
-	(properties)
 
 	(method (changeState)
-		(repeat
-			(if (!= [local248 (++ local15)] -32768)
-				(switch [local248 local15]
-					(500
-						(if (== [local248 (++ local15)] 0)
-							(CueBall setScript: CBPath)
-						else
-							(Ball2 setScript: B2Path)
-						)
-					)
-					(600
-						(localproc_0 Ball1 [local248 (++ local15)])
-					)
-					(else
-						(Ball1
-							setMotion:
-								MoveTo
-								[local248 local15]
-								[local248 (++ local15)]
-								self
-						)
-						(break)
-					)
-				)
-			else
-				(client setScript: 0)
-				(break)
-			)
+		(asm
+code_0522:
+			+al      local15
+			lsli     local248
+			ldi      32768
+			ne?     
+			bnt      code_0596
+			lal      local15
+			lsli     local248
+			dup     
+			ldi      500
+			eq?     
+			bnt      code_0561
+			+al      local15
+			lsli     local248
+			ldi      0
+			eq?     
+			bnt      code_0552
+			pushi    #setScript
+			pushi    1
+			lofsa    CBPath
+			push    
+			lofsa    CueBall
+			send     6
+			jmp      code_0592
+code_0552:
+			pushi    #setScript
+			pushi    1
+			lofsa    B2Path
+			push    
+			lofsa    Ball2
+			send     6
+			jmp      code_0592
+code_0561:
+			dup     
+			ldi      600
+			eq?     
+			bnt      code_0579
+			pushi    2
+			lofsa    Ball1
+			push    
+			+al      local15
+			lsli     local248
+			call     localproc_000c,  4
+			jmp      code_0592
+code_0579:
+			pushi    #setMotion
+			pushi    4
+			class    MoveTo
+			push    
+			lal      local15
+			lsli     local248
+			+al      local15
+			lsli     local248
+			pushSelf
+			lofsa    Ball1
+			send     12
+			jmp      code_05a4
+code_0592:
+			toss    
+			jmp      code_0522
+code_0596:
+			pushi    #setScript
+			pushi    1
+			pushi    0
+			pToa     client
+			send     6
+			jmp      code_05a4
+			jmp      code_0522
+code_05a4:
+			ret     
 		)
 	)
 )
 
 (instance B2Path of Script
-	(properties)
 
 	(method (changeState)
-		(repeat
-			(if (!= [local335 (++ local16)] -32768)
-				(switch [local335 local16]
-					(500
-						(if (== [local335 (++ local16)] 0)
-							(CueBall setScript: CBPath)
-						else
-							(Ball1 setScript: B1Path)
-						)
-					)
-					(600
-						(localproc_0 Ball2 [local335 (++ local16)])
-					)
-					(else
-						(Ball2
-							setMotion:
-								MoveTo
-								[local335 local16]
-								[local335 (++ local16)]
-								self
-						)
-						(break)
-					)
-				)
-			else
-				(client setScript: 0)
-				(break)
-			)
+		(asm
+code_05da:
+			+al      local16
+			lsli     local335
+			ldi      32768
+			ne?     
+			bnt      code_0654
+			lal      local16
+			lsli     local335
+			dup     
+			ldi      500
+			eq?     
+			bnt      code_061c
+			+al      local16
+			lsli     local335
+			ldi      0
+			eq?     
+			bnt      code_060d
+			pushi    #setScript
+			pushi    1
+			lofsa    CBPath
+			push    
+			lofsa    CueBall
+			send     6
+			jmp      code_0650
+code_060d:
+			pushi    #setScript
+			pushi    1
+			lofsa    B1Path
+			push    
+			lofsa    Ball1
+			send     6
+			jmp      code_0650
+code_061c:
+			dup     
+			ldi      600
+			eq?     
+			bnt      code_0635
+			pushi    2
+			lofsa    Ball2
+			push    
+			+al      local16
+			lsli     local335
+			call     localproc_000c,  4
+			jmp      code_0650
+code_0635:
+			pushi    #setMotion
+			pushi    4
+			class    MoveTo
+			push    
+			lal      local16
+			lsli     local335
+			+al      local16
+			lsli     local335
+			pushSelf
+			lofsa    Ball2
+			send     12
+			jmp      code_0662
+code_0650:
+			toss    
+			jmp      code_05da
+code_0654:
+			pushi    #setScript
+			pushi    1
+			pushi    0
+			pToa     client
+			send     6
+			jmp      code_0662
+			jmp      code_05da
+code_0662:
+			ret     
 		)
 	)
 )
 
 (instance GoSeePath of Script
-	(properties)
 
 	(method (changeState)
-		(if (!= [local104 (++ local118)] -32768)
+		(if (!= [goSeeXY (++ goSeeIndex)] PATHEND)
 			(Gloria
-				setMotion:
-					MoveTo
-					[local104 local118]
-					[local104 (++ local118)]
-					self
+				setMotion: MoveTo [goSeeXY goSeeIndex] [goSeeXY (++ goSeeIndex)] self
 			)
 		else
 			(client setScript: 0)
@@ -341,28 +489,36 @@
 )
 
 (instance playGame of Script
-	(properties)
-
+	
 	(method (doit)
 		(super doit:)
-		(DisposeScript 990)
-		(if (and local0 (== (CueBall script:) (Ball1 script:) (Ball2 script:)))
+		(DisposeScript SAVE)
+		(if
+			(and
+				local0
+				(== (CueBall script?) (Ball1 script?))
+				(== (Ball1 script?) (Ball2 script?))
+			)
 			(if (== [local119 (+ local14 1)] 700)
 				(= local14 (= local15 (= local16 -1)))
 			)
 			(= local0 0)
 			(= cycles 14)
 		)
-		(cond
-			((and (not local12) (or (Clarence isBlocked:) (Gloria isBlocked:)))
+		(cond 
+			(
+				(and
+					(not local12)
+					(or (Clarence isBlocked:) (Gloria isBlocked:))
+				)
 				(if (not local5)
 					(if (Clarence isBlocked:)
-						(= global213 7)
+						(= theTalker talkCLARENCE)
 					else
-						(= global213 3)
+						(= theTalker talkGLORIA)
 					)
-					(Say 1 245 2) ; "Laura, will you please step aside?!"
-					(User canInput: 0)
+					(Say 1 245 2)
+					(User canInput: FALSE)
 					(= local5 1)
 				)
 			)
@@ -372,48 +528,34 @@
 			)
 		)
 	)
-
-	(method (handleEvent event)
-		(super handleEvent: event)
-	)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
-				(cond
+				(cond 
 					((not global216)
 						(= state -1)
 					)
-					((not (& gMustDos $0002))
-						(|= gMustDos $0002)
-						(self setScript: (ScriptID 406 0)) ; Clock
+					((not (& global118 $0002))
+						(|= global118 $0002)
+						(self setScript: (ScriptID 406 0))
 						(= state -1)
 					)
-					((self script:)
+					((self script?)
 						(= state -1)
 					)
 				)
 				(= cycles 1)
 			)
 			(1
-				(User canInput: 0)
+				(User canInput: FALSE)
 				(if (not local4)
 					(switch global178
-						(0
-							(localproc_7 245 3)
-						)
-						(1
-							(localproc_7 245 4)
-						)
-						(2
-							(localproc_7 245 5)
-						)
-						(3
-							(localproc_6 245 6)
-						)
-						(4
-							(localproc_7 245 7)
-						)
+						(0 (localproc_0297 245 3))
+						(1 (localproc_0297 245 4))
+						(2 (localproc_0297 245 5))
+						(3 (localproc_0287 245 6))
+						(4 (localproc_0297 245 7))
 					)
 				)
 				(= cycles 20)
@@ -421,21 +563,11 @@
 			(2
 				(if (not local4)
 					(switch global178
-						(0
-							(localproc_6 245 8)
-						)
-						(1
-							(localproc_6 245 9)
-						)
-						(2
-							(localproc_6 245 10)
-						)
-						(3
-							(localproc_7 245 11)
-						)
-						(4
-							(localproc_6 245 12)
-						)
+						(0 (localproc_0287 245 8))
+						(1 (localproc_0287 245 9))
+						(2 (localproc_0287 245 10))
+						(3 (localproc_0297 245 11))
+						(4 (localproc_0287 245 12))
 					)
 				)
 				(if (< global178 4)
@@ -448,11 +580,11 @@
 			)
 			(3
 				(cls)
-				(User canInput: 1)
+				(User canInput: TRUE)
 				(Gloria stopUpd:)
-				(localproc_3 Gloria)
+				(localproc_01b8 Gloria)
 				(Clarence setCycle: Walk)
-				(localproc_1 Clarence)
+				(localproc_0026 Clarence)
 				(= cycles 1)
 			)
 			(4
@@ -461,11 +593,7 @@
 				else
 					(if [local17 local103]
 						(Clarence
-							setMotion:
-								MoveTo
-								[local17 local103]
-								[local17 (+ local103 1)]
-								self
+							setMotion: MoveTo [local17 local103] [local17 (+ local103 1)] self
 						)
 					else
 						(= cycles 1)
@@ -478,33 +606,35 @@
 				(Clarence
 					view: 405
 					cel: 0
-					loop: (if (< (Clarence x:) 155) 0 else 2)
+					loop: (if (< (Clarence x?) 155) 0 else 2)
 					cycleSpeed: 1
-					setCycle: End self
+					setCycle: EndLoop self
 				)
 			)
 			(6
-				(Clarence cel: 0 loop: (+ (Clarence loop:) 1) setCycle: Fwd)
+				(Clarence
+					cel: 0
+					loop: (+ (Clarence loop?) 1)
+					setCycle: Forward
+				)
 				(= cycles 7)
 			)
 			(7
 				(CueBall setScript: CBPath)
-				(Clarence loop: (- (Clarence loop:) 1))
+				(Clarence loop: (- (Clarence loop?) 1))
 				(Clarence
 					cel: (Clarence lastCel:)
 					cycleSpeed: 1
-					setCycle: Beg self
+					setCycle: BegLoop self
 				)
 			)
-			(8
-				(= local0 1)
-			)
+			(8 (= local0 1))
 			(9
 				(if (< (Random 1 100) 25)
-					(localproc_4 Clarence 245 13) ; "Darn! Missed again."
+					(localproc_0229 Clarence 245 13)
 				)
 				(Clarence view: 407 cycleSpeed: 0 setCycle: Walk)
-				(localproc_2 Clarence Gloria)
+				(localproc_00f8 Clarence Gloria)
 				(= cycles 1)
 			)
 			(10
@@ -513,55 +643,41 @@
 				else
 					(if [local73 local103]
 						(Clarence
-							setMotion:
-								MoveTo
-								[local73 local103]
-								[local73 (+ local103 1)]
-								self
+							setMotion: MoveTo [local73 local103] [local73 (+ local103 1)] self
 						)
 					else
 						(= cycles 1)
 					)
-					(+= local103 2)
+					(= local103 (+ local103 2))
 					(= state 9)
 				)
 			)
 			(11
 				(cls)
 				(Clarence stopUpd:)
-				(localproc_3 Clarence)
+				(localproc_01b8 Clarence)
 				(if local12
 					(= state 19)
-					(= local13 10)
+					(= theState 10)
 				else
 					(Gloria view: 364 setCycle: Walk)
-					(localproc_1 Gloria)
+					(localproc_0026 Gloria)
 				)
 				(= cycles 1)
 			)
 			(12
-				(cond
-					(local12
-						(= state 19)
-						(= local13 11)
-						(= cycles 1)
-					)
-					((== [local17 local103] -32768)
-						(= cycles 1)
-					)
+				(cond 
+					(local12 (= state 19) (= theState 11) (= cycles 1))
+					((== [local17 local103] -32768) (= cycles 1))
 					(else
 						(if [local17 local103]
 							(Gloria
-								setMotion:
-									MoveTo
-									[local17 local103]
-									[local17 (+ local103 1)]
-									self
+								setMotion: MoveTo [local17 local103] [local17 (+ local103 1)] self
 							)
 						else
 							(= cycles 1)
 						)
-						(+= local103 2)
+						(= local103 (+ local103 2))
 						(= state 11)
 					)
 				)
@@ -569,46 +685,48 @@
 			(13
 				(if local12
 					(= state 19)
-					(= local13 12)
+					(= theState 12)
 					(= cycles 1)
 				else
 					(Gloria
 						view: 365
 						cel: 0
-						loop: (if (< (Gloria x:) 155) 0 else 2)
+						loop: (if (< (Gloria x?) 155) 0 else 2)
 						cycleSpeed: 1
-						setCycle: End self
+						setCycle: EndLoop self
 					)
 				)
 			)
 			(14
 				(if local12
 					(= state 19)
-					(= local13 12)
+					(= theState 12)
 				else
 					(Gloria
 						cel: 0
-						loop: (+ (Gloria loop:) 1)
+						loop: (+ (Gloria loop?) 1)
 						cycleSpeed: 0
-						setCycle: Fwd
+						setCycle: Forward
 					)
 				)
 				(= cycles 7)
 			)
 			(15
-				(if (not local12)
-					(CueBall setScript: CBPath)
+				(if (not local12) (CueBall setScript: CBPath))
+				(Gloria loop: (- (Gloria loop?) 1))
+				(Gloria
+					cel: (Gloria lastCel:)
+					cycleSpeed: 1
+					setCycle: BegLoop self
 				)
-				(Gloria loop: (- (Gloria loop:) 1))
-				(Gloria cel: (Gloria lastCel:) cycleSpeed: 1 setCycle: Beg self)
 			)
 			(16
 				(if local12
 					(= state 19)
-					(if (CueBall script:)
-						(= local13 18)
+					(if (CueBall script?)
+						(= theState 18)
 					else
-						(= local13 12)
+						(= theState 12)
 					)
 					(= cycles 1)
 				else
@@ -618,44 +736,34 @@
 			(17
 				(if local12
 					(= state 19)
-					(= local13 18)
+					(= theState 18)
 				else
 					(Gloria view: 364 cycleSpeed: 0 setCycle: Walk)
-					(localproc_2 Gloria Clarence)
+					(localproc_00f8 Gloria Clarence)
 					(if
 						(and
 							(!= local103 0)
 							(!= local103 15)
 							(< (Random 1 100) 50)
 						)
-						(localproc_4 Gloria 245 14) ; "If you keep playing like this, dahling. I'm going to win!"
+						(localproc_0229 Gloria 245 14)
 					)
 				)
 				(= cycles 1)
 			)
 			(18
-				(cond
-					(local12
-						(= state 19)
-						(= local13 18)
-						(= cycles 1)
-					)
-					((== [local73 local103] -32768)
-						(= cycles 1)
-					)
+				(cond 
+					(local12 (= state 19) (= theState 18) (= cycles 1))
+					((== [local73 local103] -32768) (= cycles 1))
 					(else
 						(if [local73 local103]
 							(Gloria
-								setMotion:
-									MoveTo
-									[local73 local103]
-									[local73 (+ local103 1)]
-									self
+								setMotion: MoveTo [local73 local103] [local73 (+ local103 1)] self
 							)
 						else
 							(= cycles 1)
 						)
-						(+= local103 2)
+						(= local103 (+ local103 2))
 						(= state 17)
 					)
 				)
@@ -663,89 +771,85 @@
 			(19
 				(if local12
 					(= state 19)
-					(= local13 18)
+					(= theState 18)
 				else
 					(cls)
 					(Gloria stopUpd:)
-					(localproc_3 Gloria)
+					(localproc_01b8 Gloria)
 					(= state 2)
 				)
 				(= cycles 1)
 			)
-			(20
-				(= cycles 1)
-			)
+			(20 (= cycles 1))
 			(21
-				(if local12
-					(= state 20)
-				else
-					(= state local13)
-				)
+				(if local12 (= state 20) else (= state theState))
 				(= cycles 1)
 			)
 		)
 	)
+	
+	(method (handleEvent event)
+		(super handleEvent: event)
+	)
 )
 
 (instance goSee of Script
-	(properties)
 
 	(method (doit)
 		(super doit:)
 		(if (== global202 3)
 			(= global202 0)
-			(if (not seconds)
-				(= cycles 1)
-			)
+			(if (not seconds) (= cycles 1))
 		)
 	)
-
-	(method (changeState newState &tmp temp0)
+	
+	(method (changeState newState &tmp gloriaX_2)
 		(switch (= state newState)
 			(0
-				(= global190 1)
+				(= saveDisabled TRUE)
 				(HandsOff)
 				(cls)
-				(if (and (> (playGame state:) 10) (< (playGame state:) 20))
+				(if
+					(and
+						(> (playGame state?) 10)
+						(< (playGame state?) 20)
+					)
 					(= state -1)
 				else
 					(cls)
-					(= global213 3)
-					(Say 1 245 15) ; "Mother??? Oh, no! It can't be!"
-					(= local8 (Gloria x:))
-					(= local9 (Gloria y:))
-					(= local10 (Gloria loop:))
-					(= local11 (Gloria cel:))
-					(if (not (& (gEgo onControl: 0) $0001))
-						(gEgo
-							setMotion:
-								MoveTo
-								(+ (gEgo x:) 20)
-								(+ (gEgo y:) 20)
+					(= theTalker talkGLORIA)
+					(Say 1 245 15)
+					(= gloriaX (Gloria x?))
+					(= gloriaY (Gloria y?))
+					(= gloriaLoop (Gloria loop?))
+					(= gloriaCel (Gloria cel?))
+					(if (not (& (ego onControl: FALSE) cBLACK))
+						(ego
+							setMotion: MoveTo (+ (ego x?) 20) (+ (ego y?) 20)
 						)
 					)
 					(Gloria
 						view: 364
 						illegalBits: 0
-						ignoreActors: 1
+						ignoreActors: TRUE
 						setCycle: Walk
 					)
-					(Clarence ignoreActors: 1)
-					(cond
-						((< local8 106)
-							(= local118 3)
+					(Clarence ignoreActors: TRUE)
+					(cond 
+						((< gloriaX 106)
+							(= goSeeIndex 3)
 						)
-						((< local9 115)
-							(= local118 1)
+						((< gloriaY 115)
+							(= goSeeIndex 1)
 						)
-						((> local9 127)
-							(= local118 8)
+						((> gloriaY 127)
+							(= goSeeIndex 8)
 						)
-						((> local9 123)
-							(= local118 6)
+						((> gloriaY 123)
+							(= goSeeIndex 6)
 						)
 						(else
-							(= local118 -1)
+							(= goSeeIndex -1)
 						)
 					)
 					(self setScript: GoSeePath)
@@ -754,7 +858,7 @@
 			)
 			(1
 				(cls)
-				(if (self script:)
+				(if (self script?)
 					(= state 0)
 					(= cycles 1)
 				else
@@ -769,7 +873,7 @@
 				(= seconds 5)
 			)
 			(4
-				(if (and (& (Clarence signal:) $0004) (not local0))
+				(if (and (& (Clarence signal?) $0004) (not local0))
 					(= global202 1)
 				else
 					(= state 3)
@@ -777,166 +881,167 @@
 				)
 			)
 			(5
-				(Clarence ignoreActors: 0)
+				(Clarence ignoreActors: FALSE)
 				(Gloria
 					loop: -1
-					illegalBits: -32768
+					illegalBits: cWHITE
 					ignoreActors: 0
-					setAvoider: (Avoid new:)
+					setAvoider: (Avoider new:)
 					setCycle: Walk
 					setMotion: MoveTo 72 125 self
 				)
 			)
 			(6
-				(Gloria illegalBits: -32764)
+				(Gloria illegalBits: (| cWHITE cGREEN))
 				(= global202 2)
 			)
 			(7
-				(= global213 3)
-				(Say 1 245 16) ; "You're very mean! There's NOTHING there!"
-				(if (== local13 18)
-					(= temp0 (Gloria x:))
-					(Gloria x: local8)
-					(localproc_2 Gloria Clarence)
+				(= theTalker talkGLORIA)
+				(Say 1 245 16)
+				(if (== theState 18)
+					(= gloriaX_2 (Gloria x?))
+					(Gloria x: gloriaX)
+					(localproc_00f8 Gloria Clarence)
 					(Gloria
-						x: temp0
-						setMotion:
-							MoveTo
-							[local73 (+ local103 2)]
-							[local73 (+ local103 3)]
-							self
+						x: gloriaX_2
+						setMotion: MoveTo [local73 (+ local103 2)] [local73 (+ local103 3)] self
 					)
 				else
-					(Gloria setMotion: MoveTo local8 local9 self)
+					(Gloria setMotion: MoveTo gloriaX gloriaY self)
 				)
 			)
 			(8
-				(if (!= local13 18)
-					(Gloria loop: local10 cel: local11)
+				(if (!= theState 18)
+					(Gloria loop: gloriaLoop cel: gloriaCel)
 				)
 				(HandsOn)
 				(Gloria illegalBits: 0 setAvoider: 0 setCycle: 0)
-				(DisposeScript 985)
-				(= local12 (= global190 0))
+				(DisposeScript AVOIDER)
+				(= local12 (= saveDisabled FALSE))
 				(client setScript: 0)
 			)
 		)
 	)
 )
 
-;;;(instance Mouth of Prop ; UNUSED
-;;;	(properties
-;;;		view 364
-;;;		loop 6
-;;;		signal 16384
-;;;	)
-;;;)
+(instance Mouth of Prop
+	(properties
+		view 364
+		loop 6
+		signal ignrAct
+	)
+)
 
-(instance CueBall of Act
+(instance CueBall of Actor
 	(properties
 		y 100
 		x 130
 		view 136
-		signal 16384
-		illegalBits 0
+		signal ignrAct
+		illegalBits $0000
 	)
 )
 
-(instance Ball1 of Act
+(instance Ball1 of Actor
 	(properties
 		y 99
 		x 183
 		view 136
-		signal 16384
-		illegalBits 0
+		signal ignrAct
+		illegalBits $0000
 	)
 )
 
-(instance Ball2 of Act
+(instance Ball2 of Actor
 	(properties
 		y 103
 		x 138
 		view 136
-		signal 16384
-		illegalBits 0
+		signal ignrAct
+		illegalBits $0000
 	)
 )
 
-(instance Gloria of Act
+(instance Gloria of Actor
 	(properties
 		y 123
 		x 230
 		view 364
 		loop 5
-		illegalBits 0
+		illegalBits $0000
 	)
-
+	
 	(method (handleEvent event)
-		(if (< (gEgo distanceTo: Clarence) (gEgo distanceTo: Gloria))
+		(if (< (ego distanceTo: Clarence) (ego distanceTo: Gloria))
 			(= global214 64)
 		else
 			(= global214 4)
 		)
-		(cond
-			((and (MousedOn self event 3) (not (& global207 $0004)))
-				(event claimed: 1)
+		(cond 
+			((and (MousedOn self event shiftDown) (not (& global207 $0004)))
+				(event claimed: TRUE)
 				(DoLook {gloria})
 			)
 			(
 				(and
 					(& global207 $0004)
-					(or (MousedOn self event 3) (Said 'look/actress[/!*]'))
+					(or
+						(MousedOn self event shiftDown)
+						(Said 'examine/actress[/!*]')
+					)
 				)
-				(event claimed: 1)
-				(Print 245 0) ; "It appears that Clarence and Gloria are in the middle of a game of billiards."
+				(event claimed: TRUE)
+				(Print 245 0)
 			)
-			((Said 'talk/actress')
-				(= global213 3)
-				(Say 1 245 17) ; "Please leave us alone, dahling."
+			((Said 'converse/actress')
+				(= theTalker talkGLORIA)
+				(Say 1 245 17)
 			)
 		)
 	)
 )
 
-(instance Clarence of Act
+(instance Clarence of Actor
 	(properties
 		y 123
 		x 85
 		view 407
 		loop 4
-		illegalBits 0
+		illegalBits $0000
 	)
-
+	
 	(method (handleEvent event)
 		(super handleEvent: event)
-		(cond
-			((Said 'look,talk/person,men')
-				(Print 245 18) ; "Which person are you referring to?"
+		(cond 
+			((Said 'examine,converse/person,men')
+				(Print 245 18)
 			)
-			((Said 'talk/people')
-				(Print 245 19) ; "You can only talk to one person at a time."
+			((Said 'converse/people')
+				(Print 245 19)
 			)
-			((and (MousedOn self event 3) (not (& global207 $0040)))
-				(event claimed: 1)
+			((and (MousedOn self event shiftDown) (not (& global207 $0040)))
+				(event claimed: TRUE)
 				(DoLook {clarence})
 			)
 			(
 				(and
 					(& global207 $0040)
-					(or (MousedOn self event 3) (Said 'look/attorney,people'))
+					(or
+						(MousedOn self event shiftDown)
+						(Said 'examine/attorney,people')
+					)
 				)
-				(event claimed: 1)
-				(Print 245 0) ; "It appears that Clarence and Gloria are in the middle of a game of billiards."
+				(event claimed: TRUE)
+				(Print 245 0)
 			)
-			((Said 'talk/attorney')
+			((Said 'converse/attorney')
 				(if (< (++ local2) 2)
-					(= global213 7)
-					(Say 1 245 20) ; "Beat it, kid!"
+					(= theTalker talkCLARENCE)
+					(Say 1 245 20)
 				else
-					(Print 245 21) ; "Clarence pointedly refuses to acknowledge you. You must have annoyed him at some time."
+					(Print 245 21)
 				)
 			)
 		)
 	)
 )
-

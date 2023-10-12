@@ -1,11 +1,10 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-;;; Decompiled by sluicebox
 (script# 237)
-(include sci.sh)
+(include game.sh)
 (use Main)
 (use atsgl)
-(use Interface)
-(use Avoid)
+(use Intrface)
+(use Avoider)
 (use Motion)
 (use Game)
 (use User)
@@ -15,59 +14,68 @@
 (public
 	wcargue 0
 )
-
 (synonyms
-	(men people)
 	(butt cigarette)
+	(men people)
 )
 
 (local
-	local0
-	local1
+	clarenceTalkCount
+	wilburTalkCount
 	local2
 	local3
 	local4
 	local5
 )
-
-(procedure (localproc_0)
-	(gCast eachElementDo: #hide)
-	(DrawPic 992 6 1 0)
+(procedure (localproc_000c)
+	(cast eachElementDo: #hide)
+	(DrawPic 992 IRISIN TRUE 0)
 )
 
-(procedure (localproc_1)
-	(DrawPic 34 7 1 0)
-	(gAddToPics doit:)
-	(gCast eachElementDo: #show)
+(procedure (localproc_0023)
+	(DrawPic 34 IRISOUT TRUE 0)
+	(addToPics doit:)
+	(cast eachElementDo: #show)
 	(WHead hide:)
 )
 
-(procedure (localproc_2)
-	(Wilbur loop: 3 setCycle: Fwd)
-	(WHead view: 404 loop: 5 setCycle: Fwd)
+(procedure (WilburPrint)
+	(Wilbur loop: 3 setCycle: Forward)
+	(WHead view: 404 loop: 5 setCycle: Forward)
 	(CHead view: 402 loop: 8 cel: 2 setCycle: 0)
-	(Print &rest #at 171 150 #font 4 #width 125 #mode 1 #dispose)
+	(Print &rest
+		#at 171 150
+		#font 4
+		#width 125
+		#mode teJustCenter
+		#dispose
+	)
 )
 
-(procedure (localproc_3)
-	(Clarence loop: 2 setCycle: Fwd)
-	(CHead view: 404 loop: 3 setCycle: Fwd)
+(procedure (ClarencePrint)
+	(Clarence loop: 2 setCycle: Forward)
+	(CHead view: 404 loop: 3 setCycle: Forward)
 	(WHead view: 425 loop: 5 cel: 0 setCycle: 0)
-	(Print &rest #at 40 150 #font 4 #width 125 #mode 1 #dispose)
+	(Print &rest
+		#at 40 150
+		#font 4
+		#width 125
+		#mode teJustCenter
+		#dispose
+	)
 )
 
-(instance wcargue of Rgn
-	(properties)
-
+(instance wcargue of Region
+	
 	(method (init)
 		(super init:)
-		(Load rsFONT 4)
-		(LoadMany rsSYNC 7 8)
-		(LoadMany rsMESSAGE 243 247 248)
+		(Load FONT 4)
+		(LoadMany 142 7 8)
+		(LoadMany 143 243 247 248)
 		(= global208 192)
 		(= [global377 6] 248)
 		(= [global377 7] 247)
-		(Load rsVIEW 404)
+		(Load VIEW 404)
 		(Clarence init:)
 		(CHead init:)
 		(Wilbur init:)
@@ -75,33 +83,28 @@
 		(Smoke init: hide:)
 		(self setScript: argue)
 	)
-
+	
 	(method (doit)
 		(if (and (== global172 100) (not local5))
 			(= local5 1)
 			(cls)
-			(localproc_2 237 0) ; "What was that?!"
+			(WilburPrint 237 0)
 		)
-		(if (== global172 110)
-			(cls)
-		)
+		(if (== global172 110) (cls))
 		(super doit:)
 	)
-
+	
 	(method (dispose)
-		(DisposeScript 985)
+		(DisposeScript AVOIDER)
 		(super dispose:)
 	)
-
+	
 	(method (handleEvent event)
-		(if (event claimed:)
-			(return 1)
-		)
+		(return (if (event claimed?) (return TRUE) else FALSE))
 	)
 )
 
 (instance argue of Script
-	(properties)
 
 	(method (changeState newState)
 		(switch (= state newState)
@@ -109,35 +112,35 @@
 				(= cycles 2)
 			)
 			(1
-				(User canInput: 0)
-				(if (< global179 6)
-					(++ global179)
+				(User canInput: FALSE)
+				(if (< gCurRoomNum_2 6)
+					(++ gCurRoomNum_2)
 				else
-					(= global179 3)
+					(= gCurRoomNum_2 3)
 				)
-				(switch global179
+				(switch gCurRoomNum_2
 					(1
-						(localproc_3 237 1) ; "I'm warning you, Wilbur! If you say anything to...!"
+						(ClarencePrint 237 1)
 						(= seconds 6)
 					)
 					(2
-						(localproc_2 237 2) ; "I don't know, Clarence. I don't feel..."
+						(WilburPrint 237 2)
 						(= seconds 6)
 					)
 					(3
-						(localproc_3 237 3) ; "You don't understand. It's not like that at all...!"
+						(ClarencePrint 237 3)
 						(= seconds 4)
 					)
 					(4
-						(localproc_2 237 4) ; "Well,...Laura!"
+						(WilburPrint 237 4)
 						(= seconds 3)
 					)
 					(5
+						(ClarencePrint 237 5)
 						(= seconds 5)
-						(localproc_3 237 5) ; "I can't stand interruptions!"
 					)
-					(else
-						(localproc_2 237 6) ; "She's back again."
+					(else 
+						(WilburPrint 237 6)
 						(= seconds 3)
 					)
 				)
@@ -146,7 +149,7 @@
 				(cls)
 				(CHead view: 402 loop: 8 cel: 2 setCycle: 0)
 				(WHead view: 425 loop: 5 cel: 0 setCycle: 0)
-				(switch global179
+				(switch gCurRoomNum_2
 					(1
 						(Clarence setCycle: 0)
 						(= seconds 1)
@@ -156,34 +159,32 @@
 						(= seconds 1)
 					)
 					(3
-						(Wilbur loop: 1 cel: 0 setCycle: End self)
-						(Clarence loop: 0 cel: 3 setCycle: Beg)
+						(Wilbur loop: 1 cel: 0 setCycle: EndLoop self)
+						(Clarence loop: 0 cel: 3 setCycle: BegLoop)
 					)
 					(4
-						(Wilbur loop: 1 cel: 0 setCycle: End self)
+						(Wilbur loop: 1 cel: 0 setCycle: EndLoop self)
 					)
-					(else
-						(Wilbur cel: 3 setCycle: Beg self)
+					(else 
+						(Wilbur cel: 3 setCycle: BegLoop self)
 					)
 				)
 			)
 			(3
-				(switch global179
+				(switch gCurRoomNum_2
 					(1
-						(localproc_3 237 7) ; "Young woman! Will you please leave us alone!"
+						(ClarencePrint 237 7)
 						(= seconds 4)
 					)
 					(2
-						(localproc_2 237 8) ; "Oh, Laura! Hello!"
+						(WilburPrint 237 8)
 						(= seconds 4)
 					)
 					(3
-						(localproc_2 237 9) ; "Shhhh."
+						(WilburPrint 237 9)
 						(= seconds 3)
 					)
-					(else
-						(= cycles 1)
-					)
+					(else  (= cycles 1))
 				)
 			)
 			(4
@@ -200,39 +201,38 @@
 )
 
 (instance wilActions of Script
-	(properties)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
-				(if (> (Wilbur loop:) 1)
-					(Wilbur loop: 1 cel: 3 setCycle: Beg self)
+				(if (> (Wilbur loop?) 1)
+					(Wilbur loop: 1 cel: 3 setCycle: BegLoop self)
 				else
 					(= cycles 1)
 				)
 			)
 			(1
-				(Wilbur loop: 9 cel: 0 cycleSpeed: 1 setCycle: End)
+				(Wilbur loop: 9 cel: 0 cycleSpeed: 1 setCycle: EndLoop)
 				(= seconds (Random 6 12))
 			)
 			(2
-				(Wilbur setCycle: Beg)
+				(Wilbur setCycle: BegLoop)
 				(= seconds (Random 6 12))
 			)
 			(3
-				(WHead view: 425 loop: 5 cycleSpeed: 1 setCycle: End)
+				(WHead view: 425 loop: 5 cycleSpeed: 1 setCycle: EndLoop)
 				(= seconds (Random 6 12))
 			)
 			(4
-				(WHead view: 425 setCycle: Beg)
+				(WHead view: 425 setCycle: BegLoop)
 				(= seconds (Random 6 12))
 			)
 			(5
-				(WHead view: 425 loop: 7 setCycle: End)
+				(WHead view: 425 loop: 7 setCycle: EndLoop)
 				(= seconds (Random 6 12))
 			)
 			(6
-				(WHead view: 425 setCycle: Beg)
+				(WHead view: 425 setCycle: BegLoop)
 				(= state 0)
 				(= seconds (Random 6 12))
 			)
@@ -241,28 +241,27 @@
 )
 
 (instance clarActions of Script
-	(properties)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
 				(if (== local3 1)
 					(= local3 2)
 					(cls)
-					(Wilbur loop: 1 setCycle: Beg)
+					(Wilbur loop: 1 setCycle: BegLoop)
 				)
-				(if (> (Clarence loop:) 1)
-					(Clarence loop: 0 cel: 3 setCycle: Beg self)
+				(if (> (Clarence loop?) 1)
+					(Clarence loop: 0 cel: 3 setCycle: BegLoop self)
 					(= state -1)
 				else
-					(Clarence loop: 4 cel: 9 cycleSpeed: 1 setCycle: End self)
+					(Clarence loop: 4 cel: 9 cycleSpeed: 1 setCycle: EndLoop self)
 				)
 			)
 			(1
-				(Clarence loop: 6 cel: 0 setCycle: End self)
+				(Clarence loop: 6 cel: 0 setCycle: EndLoop self)
 			)
 			(2
-				(Smoke show: setPri: 7 cycleSpeed: 1 setCycle: End self)
+				(Smoke show: setPri: 7 cycleSpeed: 1 setCycle: EndLoop self)
 			)
 			(3
 				(if (< local2 2)
@@ -275,10 +274,10 @@
 			)
 			(4
 				(= seconds (Random 6 12))
-				(cond
+				(cond 
 					((and (< (Random 1 100) 40) (== local3 0))
 						(= local3 1)
-						(localproc_2 237 10) ; "Quit blowing smoke in my face."
+						(WilburPrint 237 10)
 						(= seconds 4)
 					)
 					((< (Random 1 100) 60)
@@ -286,19 +285,19 @@
 					)
 				)
 				(Smoke hide:)
-				(Clarence setCycle: Beg)
+				(Clarence setCycle: BegLoop)
 			)
 			(5
 				(if (== local3 1)
 					(= local3 2)
 					(cls)
-					(Wilbur loop: 1 setCycle: Beg)
+					(Wilbur loop: 1 setCycle: BegLoop)
 				)
-				(CHead loop: 8 cycleSpeed: 1 setCycle: Beg)
+				(CHead loop: 8 cycleSpeed: 1 setCycle: BegLoop)
 				(= seconds (Random 6 12))
 			)
 			(6
-				(CHead setCycle: End)
+				(CHead setCycle: EndLoop)
 				(= state 0)
 				(= seconds (Random 6 12))
 			)
@@ -307,7 +306,6 @@
 )
 
 (instance goSee of Script
-	(properties)
 
 	(method (changeState newState)
 		(switch (= state newState)
@@ -320,29 +318,29 @@
 					setCycle: Walk
 					cycleSpeed: 0
 					setPri: -1
-					illegalBits: -32768
-					setAvoider: ((Avoid new:) offScreenOK: 1)
+					illegalBits: cWHITE
+					setAvoider: ((Avoider new:) offScreenOK: TRUE)
 					setMotion: MoveTo 300 120 self
 				)
 			)
 			(1
-				(= global190 1)
-				(localproc_0)
+				(= saveDisabled TRUE)
+				(localproc_000c)
 				(= seconds 5)
 			)
 			(2
-				(localproc_1)
-				(Print 237 11 #dispose) ; "A short time later..."
-				(if (gEgo inRect: 150 98 175 102)
-					(gEgo setMotion: MoveTo (+ (gEgo x:) 10) (gEgo y:))
+				(localproc_0023)
+				(Print 237 11 #dispose)
+				(if (ego inRect: 150 98 175 102)
+					(ego setMotion: MoveTo (+ (ego x?) 10) (ego y?))
 				)
 				(Wilbur setMotion: MoveTo 157 100 self)
-				(= global190 0)
+				(= saveDisabled FALSE)
 			)
 			(3
 				(cls)
-				(= global213 8)
-				(Say 1 237 12) ; "You're looney! There's NOTHING there!"
+				(= theTalker talkWILBUR)
+				(Say 1 237 12)
 				(HandsOn)
 				(Wilbur setAvoider: 0)
 				(Wilbur view: 425 loop: 1 setScript: wilActions)
@@ -370,71 +368,63 @@
 		x 114
 		view 402
 	)
-
+	
 	(method (handleEvent event)
 		(super handleEvent: event)
-		(if (< (gEgo distanceTo: Clarence) (gEgo distanceTo: Wilbur))
+		(if (< (ego distanceTo: Clarence) (ego distanceTo: Wilbur))
 			(= global214 64)
 		else
 			(= global214 128)
 		)
-		(= global213 7)
-		(cond
-			((Said 'look/butt')
-				(SetFlag 13)
-				(Print 237 13) ; "That's a big cigar!"
+		(= theTalker talkCLARENCE)
+		(cond 
+			((Said 'examine/butt')
+				(Bset fExaminedCigar)
+				(Print 237 13)
 			)
 			((Said 'get/butt')
-				(Print 237 14) ; "It belongs to the Clarence!"
+				(Print 237 14)
 			)
-			((Said 'look/man')
-				(event claimed: 1)
+			((Said 'examine/fellow')
+				(event claimed: TRUE)
 				(if (== global214 64)
 					(DoLook {clarence})
 				else
 					(DoLook {wilbur})
 				)
 			)
-			((and (MousedOn self event 3) (not (& global207 $0040)))
-				(event claimed: 1)
+			((and (MousedOn self event shiftDown) (not (& global207 $0040)))
+				(event claimed: TRUE)
 				(DoLook {clarence})
 			)
 			(
 				(and
 					(& global207 $0040)
-					(or (MousedOn self event 3) (Said 'look/attorney'))
+					(or (MousedOn self event shiftDown) (Said 'examine/attorney'))
 				)
-				(event claimed: 1)
-				(Print 237 15) ; "Clarence and Wilbur seem to be having a private discussion."
+				(event claimed: TRUE)
+				(Print 237 15)
 			)
 			(
 				(or
-					(Said 'talk/attorney')
-					(and (== global214 64) (Said 'talk/man'))
+					(Said 'converse/attorney')
+					(and (== global214 64) (Said 'converse/fellow'))
 				)
-				(switch local0
-					(0
-						(Say 1 237 16) ; "It would be best if you would leave, young lady!"
-					)
-					(1
-						(Say 1 237 17) ; "Why do you insist on being such a pest!"
-					)
-					(2
-						(Say 1 237 18) ; "This IS a private discussion!"
-					)
-					(else
-						(Print 237 19) ; "Angrily, Clarence ignores you."
-					)
+				(switch clarenceTalkCount
+					(0 (Say 1 237 16))
+					(1 (Say 1 237 17))
+					(2 (Say 1 237 18))
+					(else  (Print 237 19))
 				)
-				(++ local0)
+				(++ clarenceTalkCount)
 			)
 			((Said 'ask[/attorney]/c<about')
 				(= global212 1)
 				(= global209 event)
 				(proc243_1 19 237 20)
 			)
-			((Said 'listen/attorney,c')
-				(Print 237 21) ; "You're bothering them."
+			((Said 'hear/attorney,c')
+				(Print 237 21)
 			)
 		)
 	)
@@ -450,69 +440,61 @@
 	)
 )
 
-(instance Wilbur of Act
+(instance Wilbur of Actor
 	(properties
 		y 100
 		x 157
 		view 425
 		loop 1
 	)
-
+	
 	(method (handleEvent event)
-		(= global213 8)
-		(cond
-			((and (IsFlag 51) (Said 'tell[/c]/gertie<about'))
-				(= global213 8)
-				(if (& gCorpseFlags $0001) ; Gertie
+		(= theTalker talkWILBUR)
+		(cond 
+			((and (Btst fSawDeadGuest) (Said 'tell[/c]/gertie<about'))
+				(= theTalker talkWILBUR)
+				(if (& deadGuests deadGERTRUDE)
 					(if (& global145 $0004)
-						(Say 1 237 22) ; "I won't let you fool me again! Once was enough!"
+						(Say 1 237 22)
 					else
-						(Say 1 237 23) ; "No! You can't be serious!"
+						(Say 1 237 23)
 						(|= global145 $0004)
 						(Wilbur setScript: goSee)
 						(Clarence setScript: 0)
 					)
 				else
-					(event claimed: 0)
+					(event claimed: FALSE)
 				)
 			)
-			((Said 'look/men')
-				(Print 237 15) ; "Clarence and Wilbur seem to be having a private discussion."
+			((Said 'examine/men')
+				(Print 237 15)
 			)
-			((Said 'look,talk/person,men')
-				(Print 237 24) ; "Which person are you referring to?"
+			((Said 'examine,converse/person,men')
+				(Print 237 24)
 			)
-			((Said 'talk/men')
-				(Print 237 25) ; "You can only talk to one person at a time."
+			((Said 'converse/men')
+				(Print 237 25)
 			)
-			((and (not (& global207 $0080)) (MousedOn self event 3))
-				(event claimed: 1)
+			((and (not (& global207 $0080)) (MousedOn self event shiftDown))
+				(event claimed: TRUE)
 				(DoLook {wilbur})
 			)
 			(
 				(and
 					(& global207 $0080)
-					(or (MousedOn self event 3) (Said 'look/c,men'))
+					(or (MousedOn self event shiftDown) (Said 'examine/c,men'))
 				)
-				(event claimed: 1)
-				(Print 237 15) ; "Clarence and Wilbur seem to be having a private discussion."
+				(event claimed: TRUE)
+				(Print 237 15)
 			)
-			((Said 'talk/c,man')
-				(switch local1
-					(0
-						(Say 1 237 26) ; "Hey, Laura. How's tricks?"
-					)
-					(1
-						(Say 1 237 27) ; "You really ought to leave now, Laura. Clarence and I are talking privately."
-					)
-					(2
-						(Say 1 237 28) ; "Clarence is getting hot under the collar. You really should leave."
-					)
-					(else
-						(Say 1 237 29) ; "Go on out, Laura."
-					)
+			((Said 'converse/c,fellow')
+				(switch wilburTalkCount
+					(0 (Say 1 237 26))
+					(1 (Say 1 237 27))
+					(2 (Say 1 237 28))
+					(else  (Say 1 237 29))
 				)
-				(++ local1)
+				(++ wilburTalkCount)
 			)
 			((Said 'ask[/c]/attorney<about')
 				(= global212 1)
@@ -531,4 +513,3 @@
 		loop 9
 	)
 )
-

@@ -1,43 +1,52 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-;;; Decompiled by sluicebox
-(script# 976)
-(include sci.sh)
+(script# WANDER)
+(include game.sh)
 (use Motion)
 
-(class Wander of Motion
-	(properties
-		distance 30
-	)
 
-	(method (init param1 param2)
-		(if (>= argc 1)
-			(= client param1)
-			(if (>= argc 2)
-				(= distance param2)
+(class Wander kindof Motion
+	;;; Wander about the screen.  This motion never terminates.
+	
+	(properties
+		distance 30		;the max distance to move on any one leg of the wander
+	)
+	
+	(method (init theObj dist)
+		(if (>= argc 1)		(= client theObj)
+			(if (>= argc 2)	(= distance dist)
 			)
 		)
-		(self setTarget:)
+		(self	setTarget:)
 		(super init: client)
+;		(super doit:)
 	)
-
-	(method (setTarget &tmp temp0)
-		(= x (+ (client x:) (- distance (Random 0 (= temp0 (* distance 2))))))
-		(= y (+ (client y:) (- distance (Random 0 temp0))))
+	
+	
+	(method (setTarget &tmp diam)
+		
+		;Pick a random position to move to, constrained by 'distance'.
+		(= x (+ (client x?) (- distance (Random 0 (= diam (* distance 2))))))
+		(= y (+ (client y?) (- distance (Random 0 diam))))
 	)
-
+	
 	(method (onTarget)
-		(return 0)
+		(return FALSE)	;we're never done wandering
 	)
-
+	
 	(method (doit)
+		;Take the next step.
 		(super doit:)
+		
+		;;If the motion is complete or the client is blocked,
+		;;we're finished with this leg.
 		(if (client isStopped:)
 			(self moveDone:)
 		)
 	)
-
+	
 	(method (moveDone)
+		;;; When done with the current leg of wandering, re-init: the motion
+		;;; to continue wandering.
 		(self init:)
 	)
-)
-
+);Wander

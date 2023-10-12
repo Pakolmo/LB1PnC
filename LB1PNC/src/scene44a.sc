@@ -1,9 +1,8 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-;;; Decompiled by sluicebox
 (script# 330)
-(include sci.sh)
+(include game.sh)
 (use Main)
-(use Interface)
+(use Intrface)
 (use Sound)
 (use Motion)
 (use Game)
@@ -15,37 +14,50 @@
 )
 
 (local
-	local0
-	local1
-	local2
+	theCycles
+	mouthCued
+	saveBits
+)
+(procedure (Measure &tmp [str 500])
+	(GetFarText &rest @str)
+	(= theCycles (+ (/ (StrLen @str) 2) 1))
 )
 
-(procedure (localproc_0 &tmp [temp0 500])
-	(GetFarText &rest @temp0)
-	(= local0 (+ (/ (StrLen @temp0) 2) 1))
-)
-
-(procedure (localproc_1)
-	(localproc_0 &rest)
+(procedure (LilPrint)
+	(Measure &rest)
 	(LilMouth setScript: cycleMouth)
-	(Print &rest #at 20 115 #font 4 #width 140 #mode 1 #draw #dispose)
+	(Print &rest
+		#at 20 115
+		#font 4
+		#width 140
+		#mode teJustCenter
+		#draw
+		#dispose
+	)
 )
 
-(procedure (localproc_2)
-	(localproc_0 &rest)
+(procedure (EthPrint)
+	(Measure &rest)
 	(EthMouth setScript: cycleMouth)
-	(Print &rest #at 160 115 #font 4 #width 140 #mode 1 #draw #dispose)
+	(Print &rest
+		#at 160 115
+		#font 4
+		#width 140
+		#mode teJustCenter
+		#draw
+		#dispose
+	)
 )
 
-(instance scene44a of Rm
+(instance scene44a of Room
 	(properties
 		picture 62
-		style 7
+		style IRISOUT
 	)
-
+	
 	(method (init)
 		(super init:)
-		(Load rsFONT 4)
+		(Load FONT 4)
 		(HandsOff)
 		(myMusic number: 27 loop: -1 play:)
 		(Lillian setPri: 1 init:)
@@ -59,33 +71,38 @@
 		)
 		(Ethel setPri: 1 init:)
 		(EthMouth setPri: 2 init: hide:)
-		(EthArm setLoop: 2 setCel: 0 setPri: 3 ignoreActors: 1 init:)
-		(if (not (& gSpyFlags $0080))
+		(EthArm
+			setLoop: 2
+			setCel: 0
+			setPri: 3
+			ignoreActors: TRUE
+			init:
+		)
+		(if (not (& global173 $0080))
 			(self setScript: speech44a)
 		else
 			(EthArm setScript: TakeASip)
 			(LilEyes setScript: LillsEyes)
 		)
 	)
-
+	
 	(method (doit)
 		(super doit:)
 	)
-
+	
 	(method (dispose)
-		(if (and (not (& gSpyFlags $0080)) global125)
-			(|= gSpyFlags $0080)
+		(if (and (not (& global173 $0080)) global125)
+			(|= global173 $0080)
 		)
 		(super dispose:)
 	)
-
+	
 	(method (handleEvent event)
 		(super handleEvent: event)
 	)
 )
 
 (instance LillsEyes of Script
-	(properties)
 
 	(method (changeState newState)
 		(switch (= state newState)
@@ -94,7 +111,7 @@
 				(= seconds (Random 2 5))
 			)
 			(1
-				(LilEyes startUpd: setCycle: Beg self)
+				(LilEyes startUpd: setCycle: BegLoop self)
 				(= state -1)
 			)
 		)
@@ -102,36 +119,10 @@
 )
 
 (instance speech44a of Script
-	(properties)
-
-	(method (handleEvent event &tmp temp0)
-		(super handleEvent: event)
-		(if
-			(and
-				(not (event claimed:))
-				(== evKEYBOARD (event type:))
-				(or (== (event message:) KEY_S) (== (event message:) KEY_s))
-			)
-			(cls)
-			(gCurRoom newRoom: gPrevRoomNum)
-		)
-		(if (== evMOUSEBUTTON (event type:))
-			(= temp0
-				(Print {Skip scene?}
-					#button {Yes} 1
-					#button {No} 0
-				)
-			)
-			(if (== temp0 1)
-				(cls)
-				(gCurRoom newRoom: gPrevRoomNum)
-			)
-		)
-	)
 
 	(method (changeState newState)
-		(if (cycleMouth client:)
-			(= local1 1)
+		(if (cycleMouth client?)
+			(= mouthCued TRUE)
 			(= cycles 1)
 		else
 			(switch (= state newState)
@@ -139,37 +130,44 @@
 					(= cycles 7)
 				)
 				(1
-					(= local2
-						(Display 330 0 dsCOORD 48 8 dsWIDTH 256 dsCOLOR 15 dsBACKGROUND -1 dsFONT 0 dsSAVEPIXELS) ; "Press the 'S' key to skip this scene."
+					(= saveBits
+						(Display 330 0
+							p_at 48 8
+							p_width 256
+							p_color vWHITE
+							p_back -1
+							p_font SYSFONT
+							p_save
+						)
 					)
-					(localproc_2 330 1) ; "Gertie isn't deserving of any of Henri's money! Why, she's not even a blood relative!"
+					(EthPrint 330 1)
 					(= seconds 7)
 				)
 				(2
-					(localproc_1 330 2) ; "What are you going to DO about it, Mother?"
+					(LilPrint 330 2)
 					(EthArm setScript: TakeASip)
 					(= seconds 5)
 				)
 				(3
-					(if (and (EthArm script:) (< (TakeASip state:) 3))
+					(if (and (EthArm script?) (< (TakeASip state?) 3))
 						(-- state)
 						(= cycles 1)
 					else
-						(localproc_2 330 3) ; "Well, I can certainly talk to Henri about her and those two brats of hers!"
+						(EthPrint 330 3)
 						(= seconds 7)
 					)
 				)
 				(4
-					(localproc_1 330 4) ; "You never change, do you, Mother?"
+					(LilPrint 330 4)
 					(EthArm setScript: TakeASip)
 					(= seconds 5)
 				)
 				(5
-					(if (and (EthArm script:) (< (TakeASip state:) 3))
+					(if (and (EthArm script?) (< (TakeASip state?) 3))
 						(-- state)
 						(= cycles 1)
 					else
-						(localproc_2 330 5) ; "Never mind, Lillian. You and I will never agree on anything!"
+						(EthPrint 330 5)
 						(= seconds 7)
 					)
 				)
@@ -179,38 +177,53 @@
 					(= seconds 7)
 				)
 				(7
-					(if (and (EthArm script:) (< (TakeASip state:) 3))
+					(if (and (EthArm script?) (< (TakeASip state?) 3))
 						(-- state)
 						(= cycles 1)
 					else
-						(gCurRoom newRoom: gPrevRoomNum)
+						(curRoom newRoom: prevRoomNum)
 					)
 				)
 			)
 		)
 	)
+	
+	(method (handleEvent event)
+		(super handleEvent: event)
+		(if
+			(and
+				(not (event claimed?))
+				(== keyDown (event type?))
+				(or
+					(== (event message?) `S)
+					(== (event message?) `s)
+				)
+			)
+			(cls)
+			(curRoom newRoom: prevRoomNum)
+		)
+	)
 )
 
 (instance TakeASip of Script
-	(properties)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
-				(if (& gSpyFlags $0080)
-					(Print 330 6 #dispose) ; "As usual, Lillian and Ethel are having a disagreement."
+				(if (& global173 $0080)
+					(Print 330 6 #dispose)
 				)
 				(EthArm moveSpeed: 1 setMotion: MoveTo 191 113 self)
 			)
 			(1
-				(EthArm setCycle: End self)
+				(EthArm setCycle: EndLoop self)
 			)
 			(2
-				(EthMouth cel: 0 setCycle: Fwd show:)
+				(EthMouth cel: 0 setCycle: Forward show:)
 				(= seconds 2)
 			)
 			(3
-				(EthArm setCycle: Beg self)
+				(EthArm setCycle: BegLoop self)
 				(EthMouth cel: 0 setCycle: 0 hide:)
 			)
 			(4
@@ -218,8 +231,8 @@
 			)
 			(5
 				(client setScript: 0)
-				(if (& gSpyFlags $0080)
-					(gCurRoom newRoom: gPrevRoomNum)
+				(if (& global173 $0080)
+					(curRoom newRoom: prevRoomNum)
 				)
 			)
 		)
@@ -227,21 +240,20 @@
 )
 
 (instance cycleMouth of Script
-	(properties)
-
+	
 	(method (doit)
 		(super doit:)
-		(if local1
-			(= local1 0)
+		(if mouthCued
+			(= mouthCued FALSE)
 			(= cycles 1)
 		)
 	)
-
+	
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
-				(client cel: 0 setCycle: Fwd show:)
-				(= cycles local0)
+				(client cel: 0 setCycle: Forward show:)
+				(= cycles theCycles)
 			)
 			(1
 				(client setScript: 0 hide:)
@@ -297,17 +309,14 @@
 	)
 )
 
-(instance EthArm of Act
+(instance EthArm of Actor
 	(properties
 		y 136
 		x 165
 		yStep 5
 		view 324
-		illegalBits 0
+		illegalBits $0000
 	)
 )
 
-(instance myMusic of Sound
-	(properties)
-)
-
+(instance myMusic of Sound)
