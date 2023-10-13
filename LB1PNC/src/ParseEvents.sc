@@ -41,13 +41,13 @@
 			(*= temp0 2)
 			(if
 				(or
-					(and (== temp1 1) (& gCorpseFlags $0001)) ; Gertie
-					(and (== temp1 128) (& gCorpseFlags $0002)) ; Wilbur
-					(and (== temp1 4) (& gCorpseFlags $0004)) ; Gloria
-					(and (== temp1 8) (& gCorpseFlags $0008)) ; Ethel
-					(and (or (== temp1 16) (== temp1 1024)) (& gCorpseFlags $0010)) ; Jeeves & Fifi
-					(and (== temp1 64) (& gCorpseFlags $0020)) ; Clarence
-					(and (== temp1 32) (& gCorpseFlags $0040)) ; Lillian
+					(and (== temp1 1) (& deadGuests $0001)) ; Gertie
+					(and (== temp1 128) (& deadGuests $0002)) ; Wilbur
+					(and (== temp1 4) (& deadGuests $0004)) ; Gloria
+					(and (== temp1 8) (& deadGuests $0008)) ; Ethel
+					(and (or (== temp1 16) (== temp1 1024)) (& deadGuests $0010)) ; Jeeves & Fifi
+					(and (== temp1 64) (& deadGuests $0020)) ; Clarence
+					(and (== temp1 32) (& deadGuests $0040)) ; Lillian
 				)
 				(Print
 					(Format @temp2 413 13 [local11 temp0] [local11 (++ temp0)]) ; "You must be joking! %s is dead."
@@ -69,7 +69,7 @@
 
 	(method (handleEvent event &tmp temp0 temp1)
 		(= theInvItem (= haveInvItem 0))
-		(= global171 -1)
+		(= whichItem -1)
 		(cond
 			((or (Said '/dijon') (Said '//dijon'))
 				(Print 413 11) ; "Please don't be so formal. Just use first names."
@@ -84,33 +84,33 @@
 			((or (Said 'look//*<for') (Said 'find'))
 				(Print 413 12) ; "You will have to do that yourself."
 			)
-			((= theInvItem (gInventory saidMe:))
-				(= temp0 (gInventory first:))
+			((= theInvItem (inventory saidMe:))
+				(= temp0 (inventory first:))
 				(for
-					((= global171 0))
+					((= whichItem 0))
 					(!= theInvItem (NodeValue temp0))
-					((++ global171))
+					((++ whichItem))
 					
-					(= temp0 (gInventory next: temp0))
+					(= temp0 (inventory next: temp0))
 				)
-				(= global171 (gInventory indexOf: theInvItem))
+				(= whichItem (inventory indexOf: theInvItem))
 				(event claimed: 0)
 			)
 			(else
-				(for ((= global171 0)) (<= global171 23) ((++ global171))
+				(for ((= whichItem 0)) (<= whichItem 23) ((++ whichItem))
 					(if
 						(or
-							(Said [local66 global171])
-							(Said [local90 global171])
+							(Said [local66 whichItem])
+							(Said [local90 whichItem])
 						)
-						(= theInvItem (gInventory at: global171))
+						(= theInvItem (inventory at: whichItem))
 						(event claimed: 0)
 						(break)
 					)
 				)
 			)
 		)
-		(if (and theInvItem (== (theInvItem owner:) gEgo))
+		(if (and theInvItem (== (theInvItem owner:) ego))
 			(= haveInvItem 1)
 		)
 		(if (== local114 1)

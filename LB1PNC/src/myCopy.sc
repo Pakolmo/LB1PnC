@@ -128,6 +128,17 @@
 		(if (not local104)
 			(if local102
 				(switch (event type?)
+					(mouseDown
+						(Logo dispose:)
+						(Glass posn: 162 140 setMotion: 0 stopUpd:)
+						(Finger show: stopUpd:)
+						(identify
+							state: 4
+							seconds: 0
+							cycles: 0
+						)
+						(self cue:)
+					)
 					(keyDown
 						(cond 
 							((== (event message?) ENTER)

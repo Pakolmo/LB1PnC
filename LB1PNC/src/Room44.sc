@@ -765,21 +765,21 @@
 	(method (handleEvent event &tmp temp0 [str 200])
 		(cond
 			((Said 'get/cloth')
-				(if (gEgo inRect: 245 131 290 160)
+				(if (ego inRect: 245 131 290 160)
 					(Print 44 32) ; "They're not your clothes."
 				else
 					(Print 44 33) ; "The clothes you're wearing are fine."
 				)
 			)
 			((Said 'change,wear,(attach<on)/cloth')
-				(if (gEgo inRect: 245 131 290 160)
+				(if (ego inRect: 245 131 290 160)
 					(Print 44 34) ; "They're not your style."
 				else
 					(Print 44 33) ; "The clothes you're wearing are fine."
 				)
 			)
 			((Said '(look<through),search/cloth')
-				(if (gEgo inRect: 245 131 290 160)
+				(if (ego inRect: 245 131 290 160)
 					(Print 44 35) ; "There is nothing special about Lillian's clothes."
 				else
 					(Print 44 36) ; "The clothes are the same ones you packed."
@@ -789,12 +789,12 @@
 				(cond
 					((Said 'open,(look<in)')
 						(cond
-							((gEgo inRect: 245 131 290 140)
+							((ego inRect: 245 131 290 140)
 								(cond
-									((< gAct 5)
+									((< currentAct 5)
 										(Print 44 9) ; "Lillian's suitcase is locked."
 									)
-									((== gAct 5)
+									((== currentAct 5)
 										(Print 44 37) ; "Lillian isn't going to let you look in her suitcase!"
 									)
 									(else
@@ -807,12 +807,12 @@
 							)
 							(
 								(or
-									(gEgo inRect: 241 154 320 200)
-									(gEgo inRect: 178 0 320 98)
+									(ego inRect: 241 154 320 200)
+									(ego inRect: 178 0 320 98)
 								)
 								(Print 44 38) ; "You're on the wrong side of the bed to do that."
 							)
-							((< (gEgo distanceTo: suit1) 25)
+							((< (ego distanceTo: suit1) 25)
 								(= local1 1)
 								(= local2 0)
 								(HandsOff)
@@ -832,8 +832,8 @@
 					((Said 'get')
 						(if
 							(or
-								(gEgo inRect: 245 131 290 160)
-								(< (gEgo distanceTo: suit1) 25)
+								(ego inRect: 245 131 290 160)
+								(< (ego distanceTo: suit1) 25)
 							)
 							(Print 44 40) ; "You'd look silly carrying a suitcase around with you!"
 						else

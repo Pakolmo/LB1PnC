@@ -517,56 +517,56 @@
 ; added for point & click
 ;**********************************************************************
     	gLayout = 1             ;Where do you want your menu
-     		                    ;0 ever present on top, 1 peekaboo up top, 2 ever present on bottom
-    	gGameTitle
+;;;     		                    ;0 ever present on top, 1 peekaboo up top, 2 ever present on bottom
+;;;    	gGameTitle
     	yPosition = 22         ;where our peekaboo menu is at
     	movingButtons = 0    ;0 = not moving, 1 = moving down, 2 = moving up 
-          
+;;;          
 		gPreviousCursor=999         ;Used when leaving inventory screen empty handed	
 		itemIcon = 601        ;cursor number of inventory item last selected ;104 ;INITIAL MONEY ICON;
-    
+;;;    
 		canTab = TRUE           ;Allow the inventory room
  		doInventory = FALSE     ;Allows easy communication between scripts, go to inventory
-    
-    	goToroom
+;;;    
+;;;    	goToroom
 	    sGauge		;game speed guage name
 		vGauge		;volume guage name
 		pncSpeed	;speed set with guage
 		pncVolume = 16	;volume set with guage
-		audVOLUME
+;;;		audVOLUME
 		saveVolume ;add
 		programControl			;if TRUE, disable control on the next cycle
-		gPseudoMouse
-		gCursorNumber
-		gGCursorNumber
-		gGame
-		gUser
-		global21
-		gSounds
-		gEgo
-		gInv
-		gIconBar
-		deleteCastMember					;a member of the cast needs deleting
-		currentEgoView
-		yPositionInventory =26 
-		wearingEarProtectors
-		gPEventX
-		gPEventY
-		gWindow		
-
+;;;		gPseudoMouse
+;;;		gCursorNumber
+;;;		gGCursorNumber
+;;;		gGame
+;;;		gUser
+;;;		global21
+;;;		gSounds
+;;;		gEgo
+;;;		gInv
+;;;		gIconBar
+;;;		deleteCastMember					;a member of the cast needs deleting
+;;;		currentEgoView
+;;;		yPositionInventory =26 
+;;;		wearingEarProtectors
+;;;		gPEventX
+;;;		gPEventY
+;;;		gWindow		
+;;;
 	useInvItem ;for using inv items
 	useInvItem2 ;for inv on inv
 	DoShowToggle ;hack for look room rClick		
-	gLastEvent
-	gInventory
-	gSmallFont
-	gAct
-		gMMSaidsAnchor	
-		gCorpseFlags
-
-
-		global171
-		
+;;;	gLastEvent
+;;;	gInventory
+;;;	gSmallFont
+;;;	gAct
+;;;		gMMSaidsAnchor	
+;;;		gCorpseFlags
+;;;
+;;;
+;;;		global171
+;;;		
 		
 		
 )

@@ -55,7 +55,7 @@
 	)
 
 	(method (init)
-		(= gInventory self)
+		(= inventory self)
 	)
 
 	(method (saidMe)
@@ -78,9 +78,9 @@
 		(= temp2 (= temp0 (= temp1 4)))
 		(= temp3 0)
 		(for
-			((= temp5 (gInventory first:)))
+			((= temp5 (inventory first:)))
 			temp5
-			((= temp5 (gInventory next: temp5)))
+			((= temp5 (inventory next: temp5)))
 			
 			(= temp6 (NodeValue temp5))
 			(if (temp6 ownedBy: param1)
@@ -93,7 +93,7 @@
 							nsLeft: temp0
 							nsTop: temp1
 							state: 3
-							font: gSmallFont
+							font: smallFont
 							setSize:
 							yourself:
 						)
@@ -134,7 +134,7 @@
 		(useI move: (- (useI nsLeft:) (useI nsRight:)) 0)		
 		(if
 			(and
-				(gEgo has: 1) ; has monocle
+				(ego has: 1) ; has monocle
 				(not useToggle)
 			)
 			(= useMonocleI (DButton new:))
@@ -192,21 +192,21 @@
 				(= useToggle 1)
 				(= useInvItem 0)
 				(= useInvItem2 0)
-				(= param1 gEgo)
+				(= param1 ego)
 			)
 			((== param1 888) ;inv on inv from right-click ego
 				(= useToggle 0)
 				(= useInvItem 0)
 				(= useInvItem2 0)
-				(= param1 gEgo)
+				(= param1 ego)
 			)
 			(else
 				(= useToggle 0)
 			)
 		)
-		(gEgo get: 0 2 3 4 5 6 18)
+		(ego get: 0 2 3 4 5 6 18)
 		(if (not (self init: param1))
-			(Print (gInventory empty:))
+			(Print (inventory empty:))
 			(return)
 		)
 		(self open: 4 15)

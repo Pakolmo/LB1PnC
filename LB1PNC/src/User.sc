@@ -42,7 +42,7 @@
 
 	(method (handleEvent event &tmp evType dir)
 		(if (event type:)
-			(= gLastEvent event)
+			(= lastEvent event)
 			(= evType (event type:))
 			(if mapKeyToDir
 				(MapKeyToDir event)
@@ -52,16 +52,18 @@
 			)
 			(GlobalToLocal event)
 			(if (not (event claimed:))
-				(gGame handleEvent: event evType)
+				(theGame handleEvent: event evType)
 			)
-			(if
-				(and
-					controls
-					(not (event claimed:))
-					(gCast contains: alterEgo)
-				)
-				(alterEgo handleEvent: event evType)
-			)
+			;; This crashes for some unknown reason
+			;; specifically the (gCast contains: alterEgo) check seems to cause crash
+;;;			(if
+;;;				(and
+;;;					controls
+;;;					(not (event claimed:))
+;;;					(gCast contains: alterEgo)
+;;;				)
+;;;				(alterEgo handleEvent: event evType)
+;;;			)
 			(if
 				(and
 					canInput
@@ -77,9 +79,9 @@
 				(event type: evSAID)
 			)
 			(if (== (event type:) evSAID)
-				(if gMMSaidsAnchor
-					(gMMSaidsAnchor setScript: (ScriptID 413 0)) ; isInvItem
-					((gMMSaidsAnchor script:) handleEvent: event)
+				(if saidsAnchor
+					(saidsAnchor setScript: (ScriptID 413 0)) ; isInvItem
+					((saidsAnchor script:) handleEvent: event)
 				)
 				(if (not (event claimed:))
 					(self said: event)
@@ -87,7 +89,7 @@
 			)
 		)
 		(event dispose:)
-		(= gLastEvent 0)
+		(= lastEvent 0)
 	)
 
 	(method (getInput event &tmp temp0 temp1)
@@ -121,9 +123,9 @@
 		(if TheMenuBar
 			(sortedFeatures addToFront: TheMenuBar)
 		)
-		(sortedFeatures addToEnd: gGame handleEvent: event release:)
+		(sortedFeatures addToEnd: theGame handleEvent: event release:)
 		(if (and (== (event type:) 128) (not (event claimed:)))
-			(gGame pragmaFail: @inputLine)
+			(theGame pragmaFail: @inputLine)
 		)
 	)
 )
@@ -156,18 +158,18 @@
 
 	(method (get what &tmp i)
 		(for ((= i 0)) (< i argc) ((++ i))
-			((gInventory at: [what i]) moveTo: self)
+			((inventory at: [what i]) moveTo: self)
 		)
 	)
 
 	(method (put what recipient)
 		(if (self has: what)
-			((gInventory at: what) moveTo: (if (== argc 1) -1 else recipient))
+			((inventory at: what) moveTo: (if (== argc 1) -1 else recipient))
 		)
 	)
 
 	(method (has what &tmp theItem)
-		(if (= theItem (gInventory at: what))
+		(if (= theItem (inventory at: what))
 			(theItem ownedBy: self)
 		)
 	)
