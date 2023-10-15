@@ -12,6 +12,7 @@
 (use Actor)
 (use System)
 (use Inventory)
+(use PncMenu)
 
 (public
 	Room44 0
@@ -188,7 +189,7 @@
 		(super dispose:)
 	)
 	
-	(method (handleEvent event)
+	(method (handleEvent event haveMouse)
 		
 
 		
@@ -197,7 +198,7 @@
 		
 				
 		
-		(if (event claimed?) (return))
+;;;		(if (event claimed?) (return))
 		(if (== (event type?) saidEvent)
 			(DisposeScript 990)
 			(if
@@ -281,13 +282,12 @@
 			)
 		)
 		
-			
-												
+						(cond
+			(
 				(and
 					(== (event type?) evMOUSEBUTTON)
 					(not (& (event modifiers?) emRIGHT_BUTTON))
-
-
+				)
 
 
 				(if (ClickedOnObj chute (event x?) (event y?)) 
@@ -327,7 +327,9 @@
 													)
 													(User handleEvent: newEvent)
 													(newEvent dispose:)
-					
+													
+;;;													(event claimed: TRUE)
+													
 											)	
 						
 						
@@ -364,11 +366,11 @@
 													(newEvent dispose:)
 					
 											)
-											)
+											
 								
 
 
-						)
+						
 
 						(else
 						
@@ -376,16 +378,13 @@
 						)
 					)
 
-				
+						)
 
+				
 
 				)
 
-
-
-
-
-							
+				)	
 				(if (ClickedOnObj suit2 (event x?) (event y?)) ;Get diary
 					(event claimed: TRUE)
 					(switch theCursor	
@@ -418,9 +417,93 @@
 					)
 
 				)
+
+				(if (ClickedOnObj mirror (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor	
+						(996 		
+							
+							(cond 
+								(
+					
+									(if (< (ego distanceTo: mirror) 80)
+										(= theTalker talkLAURA)
+										(Say 0 44 23)
+									else
+										(NotClose)
+									)
+								)
+							)
+						)
+						(998 ;examine
+							(Print 44 26)
+						)
+						(995 ;get
+							(Print 44 25)
+
+	
+						)
+						(else
+						
+							(event claimed: FALSE)
+						)
+					)
+
+				)
+
+
+
 		
+				(if (ClickedOnObj chest1 (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998 		
+							
+								(event claimed: TRUE)
+								(Print 44 21)		
+						)
+						(else
+						
+							(event claimed: FALSE)
+						)
+					)
+
+				)
+				(if (ClickedOnObj chest2 (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998 		
+							
+								(event claimed: TRUE)
+								(Print 44 21)		
+						)
+						(else
+						
+							(event claimed: FALSE)
+						)
+					)
+
+				)				
+				(if (ClickedOnObj bed2 (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998 		
+							
+							(event claimed: TRUE)
+							(Print 44 22)		
+						)
+						(else
+						
+							(event claimed: FALSE)
+						)
+					)
+
+				)
+
+
+
 		
-				(if (ClickedOnObj bed1 (event x?) (event y?)) ;blab, jim, rambo
+				(if (ClickedOnObj bed1 (event x?) (event y?))
 					(event claimed: TRUE)
 					(switch theCursor	
 						(998 		
@@ -436,8 +519,8 @@
 
 				)
 				
-				)
-
+				)	
+			)
 	)
 	(method (newRoom n)
 		(cls)
@@ -464,16 +547,20 @@
 			(3
 				(Print 44 15)
 				(= chuteIsOpen 1)
+				(theGame setCursor: 998)
+				(User canControl: TRUE)
 			)
 			(4
 				(chute setMotion: MoveTo 19 127)
 				(= chuteIsOpen 0)
 				(myMusic number: 75 loop: 1 play:)
 				(ego setCycle: BegLoop self)
+				
 			)
 			(5
 				(ego view: 0 loop: 1 setCycle: Walk illegalBits: -32768)
 				(User canControl: TRUE)
+				
 			)
 			(6
 				(myMusic number: 9 loop: 1 play:)
@@ -1041,13 +1128,13 @@
 		cel 9
 	)
 	
-	(method (handleEvent event)
-		(super handleEvent: event)
-		(if (or (MousedOn self event shiftDown) (Said 'examine/door'))
-			(event claimed: TRUE)
-			(Print 44 6)
-		)
-	)
+;;;	(method (handleEvent event)
+;;;		(super handleEvent: event)
+;;;		(if (or (MousedOn self event shiftDown) (Said 'examine/door'))
+;;;			(event claimed: TRUE)
+;;;			(Print 44 6)
+;;;		)
+;;;	)
 )
 
 (instance Fireplace of RFeature
