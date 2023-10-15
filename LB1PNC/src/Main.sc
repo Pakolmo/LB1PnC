@@ -13,6 +13,7 @@
 (use Actor)
 (use System)
 
+
 (public
 	CB1 0
 	Say 1
@@ -506,7 +507,7 @@
 
 		gMyWindow
 		gUserFont
-		gCast
+		
 		gModelessDialog
 		sGauge2
 		currentStatus
@@ -567,7 +568,7 @@
 ;;;
 ;;;		global171
 ;;;		
-		
+		newEvent
 		
 )
 (procedure (Say whom &tmp theView [buffer 500])

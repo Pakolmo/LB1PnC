@@ -12,6 +12,7 @@
 (use Actor)
 (use System)
 (use Inventory)
+
 (public
 	Room44 0
 )
@@ -31,6 +32,8 @@
 	local5
 	local6
 	local7
+	chutes
+	
 )
 (instance Room44 of Room
 	(properties
@@ -283,8 +286,138 @@
 				(and
 					(== (event type?) evMOUSEBUTTON)
 					(not (& (event modifiers?) emRIGHT_BUTTON))
-							
 
+
+
+
+				(if (ClickedOnObj chute (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998		
+	
+							(if chuteIsOpen
+								(Print 44 10)
+							else
+								(Print 44 11)
+							)
+						)
+						(995
+								(= chutes
+												(Print
+;;;													{Chute Actions}
+;;;													#button {Open Door} 1
+;;;													#button {Enter Chute} 2
+;;;													#button {Close Door} 3		
+													{Rampa}
+													#button {Abrir Puerta} 1
+													#button {Entrar} 2								
+													#button {Cerrar Puerta} 3
+												)
+											)
+											(switch chutes
+												(1 ;Abrir Puerta
+	
+
+													(= newEvent (Event new:))
+													(newEvent
+													    type: evKEYBOARD
+													    message: {open chute}
+													    modifiers: 999
+													    claimed: 0
+													)
+													(User handleEvent: newEvent)
+													(newEvent dispose:)
+					
+											)	
+						
+						
+										
+
+												(2
+													
+
+					
+													(= newEvent (Event new:))
+													(newEvent
+													    type: evKEYBOARD
+													    message: {enter chute}
+													    modifiers: 999
+													    claimed: 0
+													)
+													(User handleEvent: newEvent)
+													(newEvent dispose:)
+					
+											)	
+												
+												(3
+								
+
+					
+													(= newEvent (Event new:))
+													(newEvent
+													    type: evKEYBOARD
+													    message: {close chute}
+													    modifiers: 999
+													    claimed: 0
+													)
+													(User handleEvent: newEvent)
+													(newEvent dispose:)
+					
+											)
+											)
+								
+
+
+						)
+
+						(else
+						
+							(event claimed: FALSE)
+						)
+					)
+
+				
+
+
+				)
+
+
+
+
+
+							
+				(if (ClickedOnObj suit2 (event x?) (event y?)) ;Get diary
+					(event claimed: TRUE)
+					(switch theCursor	
+						(995		
+							(cond 
+							((ego has: iDiary)
+								(AlreadyTook)
+							)
+							((< (ego distanceTo: suit2) 15)
+								(if (>= currentAct 6)
+									(HandsOff)
+									(= suitcaseIsClosed 1)
+									(= gotItem TRUE)
+									(ego get: iDiary)
+									(= local2 1)
+									(suit2 setScript: OpenSuit)
+								else
+									(Print 44 9)
+								)
+							)
+							(else
+								(NotClose)
+							)
+						)
+						)
+						(else
+						
+							(event claimed: FALSE)
+						)
+					)
+
+				)
 		
 		
 				(if (ClickedOnObj bed1 (event x?) (event y?)) ;blab, jim, rambo

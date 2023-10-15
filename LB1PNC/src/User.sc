@@ -8,7 +8,7 @@
 (use Menu)
 (use Actor)
 (use System)
-(use Inventory)
+(use Invent)
 (use Sound)
 
 (local
@@ -47,23 +47,34 @@
 			(if mapKeyToDir
 				(MapKeyToDir event)
 			)
-			(if MenuBar
-				(MenuBar handleEvent: event evType)
+			(if TheMenuBar
+				(TheMenuBar handleEvent: event evType)
 			)
 			(GlobalToLocal event)
 			(if (not (event claimed:))
 				(theGame handleEvent: event evType)
 			)
 			;; This crashes for some unknown reason
-			;; specifically the (gCast contains: alterEgo) check seems to cause crash
-;;;			(if
-;;;				(and
-;;;					controls
-;;;					(not (event claimed:))
-;;;					(gCast contains: alterEgo)
-;;;				)
-;;;				(alterEgo handleEvent: event evType)
-;;;			)
+		
+				;; specifically the (gCast contains: alterEgo) check seems to cause crash			
+			(if
+				(and
+					controls
+					(not (event claimed:))
+					(cast contains: alterEgo) ;not gCast
+				)
+				(alterEgo handleEvent: event evType)
+			)
+			
+			
+			
+			
+			
+			
+			
+	
+			
+			
 			(if
 				(and
 					canInput
@@ -87,8 +98,15 @@
 					(self said: event)
 				)
 			)
+			(if (== (event modifiers?) 999)
+        	(StrCpy @inputLine (event message?))
+			(if (Parse @inputLine event)
+				(event type:evSAID)
+				(self said:event)
+			)
+        )
 		)
-		(event dispose:)
+;;;		(event dispose:)
 		(= lastEvent 0)
 	)
 
@@ -116,9 +134,9 @@
 
 	(method (said event)
 		(if useSortedFeatures
-			(__proc984_0 alterEgo sortedFeatures gCast features)
+			(__proc984_0 alterEgo sortedFeatures cast features)
 		else
-			(sortedFeatures add: gCast features)
+			(sortedFeatures add: cast features)
 		)
 		(if TheMenuBar
 			(sortedFeatures addToFront: TheMenuBar)
@@ -175,6 +193,21 @@
 	)
 
 	(method (handleEvent event &tmp temp0 temp5)
+						
+					
+					
+					
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		(if (not (super handleEvent: event))
 			(switch (event type:)
 				(evMOUSEBUTTON
@@ -186,21 +219,34 @@
 						(self setMotion: MoveTo (event x:) (event y:))
 						(User prevDir: 0)
 						(event claimed: 1)
-					)
-					(if
-						(and
-							(& (event modifiers:) emSHIFT)
-							(User controls:)
-						)
-						(if (MousedOn self event emSHIFT)
+
+					
+					
+				(if (ClickedOnObj Ego (event x?) (event y?))
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998 		
+							
+							
 							(event claimed: 1)
 							(= temp5 (Sound pause: 1))
 							(Inv showSelf: 888)
 							(Sound pause: temp5)
 							(DoUseItem useInvItem event)
+							
+						)
+						(else
+						
+							(event claimed: FALSE)
 						)
 					)
+
 				)
+									
+				)	
+					
+				)
+				
 				($0040 ; direction
 					(if
 						(and
@@ -215,6 +261,35 @@
 				)
 			)
 		)
+		
+;;;		(and
+;;;					(== (event type?) evMOUSEBUTTON)
+;;;					(not (& (event modifiers?) emRIGHT_BUTTON))
+;;;							
+;;;
+;;;		
+;;;		
+;;;				(if (ClickedOnObj Ego (event x?) (event y?)) ;blab, jim, rambo
+;;;					(event claimed: TRUE)
+;;;					(switch theCursor	
+;;;						(998 		
+;;;							
+;;;							(event claimed: TRUE)
+;;;							(Print 44 22)		
+;;;						)
+;;;						(else
+;;;						
+;;;							(event claimed: FALSE)
+;;;						)
+;;;					)
+;;;
+;;;				)
+				
+									
+					
+		
+		
+		
 		(event claimed:)
 	)
 )
