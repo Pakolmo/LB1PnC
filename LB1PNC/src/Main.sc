@@ -505,7 +505,7 @@
 	getItemSound
 
 
-		gMyWindow
+		
 		gUserFont
 		
 		gModelessDialog
@@ -569,7 +569,7 @@
 ;;;		global171
 ;;;		
 		newEvent
-		
+		isHandsOff
 )
 (procedure (Say whom &tmp theView [buffer 500])
 	(if
@@ -609,10 +609,16 @@
 
 (procedure (HandsOff)
 	(manageHands FALSE)
+	(User canControl: FALSE canInput: FALSE)
+	(ego setMotion: 0)
+	(= isHandsOff TRUE)	
 )
 
 (procedure (HandsOn)
 	(manageHands TRUE)
+	(User canControl: TRUE canInput: FALSE)
+	(ego setMotion: 0)
+	(= isHandsOff FALSE)	
 )
 (procedure (localproc_2 param1 param2 &tmp temp0 temp1)
 	(= temp0 (/ param2 16))
@@ -783,6 +789,9 @@
 	(Parse (User inputLineAddr:) temp0)
 	(User said: temp0)
 	(temp0 dispose:)
+
+
+
 )
 
 (procedure (DoVerb param1 &tmp temp0)

@@ -3,14 +3,13 @@
 (script# 995)
 (include sci.sh)
 (use Main)
-(use Interface)
+(use Intrface)
 (use System)
 
 (local
 	yesI
 	useMonocleI
 	useToggle
-	useI
 )
 
 (class InvI of Object
@@ -116,7 +115,7 @@
 			(self dispose:)
 			(return 0)
 		)
-		(= window gMyWindow)
+		(= window systemWindow)
 		(self setSize:)
 		(= yesI (DButton new:))
 		(yesI
@@ -125,13 +124,6 @@
 			moveTo: (- nsRight (+ 4 (yesI nsRight:))) nsBottom
 		)
 		(yesI move: (- (yesI nsLeft:) (yesI nsRight:)) 0)
-		(= useI (DButton new:))
-		(useI 
-			text: "Use_", ;English
-			setSize:,
-			moveTo: (- nsRight (+ 40 (useI nsRight:))) nsBottom
-		)	
-		(useI move: (- (useI nsLeft:) (useI nsRight:)) 0)		
 		(if
 			(and
 				(ego has: 1) ; has monocle
@@ -144,17 +136,6 @@
 				moveTo: (- nsRight (+ 4 (useMonocleI nsRight:))) (+ nsBottom 14)
 			)
 			;(useMonocleI move: (- (useMonocleI nsLeft:) (useMonocleI nsRight:)) 0)
-		(= useI (DButton new:))
-		(useI 
-			text: "Use_", ;English
-			setSize:,
-			moveTo: 
-				moveTo: (- nsRight (+ 4 (useI nsRight:))) nsBottom
-		)			
-			(useI move: (- (useI nsLeft:) (useI nsRight:)) 0)
-			(self add: useI setSize: center:)			
-			
-			
 			(= yesI (DButton new:))
 			(yesI
 				text: {OK}
@@ -164,24 +145,14 @@
 			(yesI move: (- (yesI nsLeft:) (yesI nsRight:)) 0)
 			(self add: yesI useMonocleI setSize: center:)
 		else
-		(= useI (DButton new:))
-		(useI 
-			text: "Use_", ;English
-			setSize:,
-			moveTo: 
-				moveTo: (- nsRight (+ 4 (useI nsRight:))) nsBottom
-		)		
-		
-			(useI move: (- (useI nsLeft:) (useI nsRight:)) 0)
-;;;			(self add: useI setSize: center:)		
-			(= useI (DButton new:))
+			(= yesI (DButton new:))
 			(yesI
 				text: {OK}
 				setSize:
 				moveTo: (- nsRight (+ 4 (yesI nsRight:))) nsBottom
 			)
 			(yesI move: (- (yesI nsLeft:) (yesI nsRight:)) 0)
-			(self add: yesI useI setSize: center:)
+			(self add: yesI setSize: center:)
 		)
 		(return temp3)
 	)
@@ -204,7 +175,7 @@
 				(= useToggle 0)
 			)
 		)
-		(ego get: 0 2 3 4 5 6 18)
+		(ego get: 0 1 2 3 4 5 6 18)
 		(if (not (self init: param1))
 			(Print (inventory empty:))
 			(return)

@@ -33,7 +33,9 @@
 	local5
 	local6
 	local7
-	chutes
+	chutes = 0
+	girleyes
+	temp6
 	
 )
 (instance Room44 of Room
@@ -121,7 +123,7 @@
 			setPri: 2
 			ignoreActors: TRUE
 			init:
-			stopUpd:
+;;;			stopUpd:
 			setScript: chuteActions
 		)
 		(if (== currentAct 0)
@@ -189,7 +191,7 @@
 		(super dispose:)
 	)
 	
-	(method (handleEvent event haveMouse)
+	(method (handleEvent event)
 		
 
 		
@@ -281,6 +283,9 @@
 				)
 			)
 		)
+
+
+
 		
 						(cond
 			(
@@ -288,8 +293,48 @@
 					(== (event type?) evMOUSEBUTTON)
 					(not (& (event modifiers?) emRIGHT_BUTTON))
 				)
+				(if (ClickedOnObj suit1 (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor	
+						(995	
+				(event claimed: 1)
+				(DoLook {suitcase})
+				(= temp6
+					(Print
+						44 22 ; "There is a suitcase lying on each bed."
+						#button {Get suitcase} 1
+						#button {Open suitcase} 2
+						#button {Use Item} 3
+						#button {Show Item} 4
+					)
+				)
+				(switch temp6
+					(1
 
+						(DoVerb {get suitcase})
 
+					)
+					(2
+						(DoVerb {open suitcase})
+					)
+					(3
+						(Inv showSelf: 777) ;select inv item to use.
+						(DoUseItem name event) ;use selected inv item on suitcase
+					)
+					(4
+						(Inv showSelf: 777) ;select inv item to use.
+						(DoShowItem name event)
+					)
+				)
+						)
+						(else
+						
+							(event claimed: FALSE)
+						)
+					)
+
+						)
+						
 				(if (ClickedOnObj chute (event x?) (event y?)) 
 					(event claimed: TRUE)
 					(switch theCursor	
@@ -328,10 +373,10 @@
 													(User handleEvent: newEvent)
 													(newEvent dispose:)
 													
-;;;													(event claimed: TRUE)
+													(event claimed: FALSE)
 													
-											)	
-						
+												
+												)
 						
 										
 
@@ -450,9 +495,159 @@
 					)
 
 				)
+				(if (ClickedOnObj Fireplace (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998 		
+							(event claimed: TRUE)
+							(DoLook {Fireplace})	
+						)
+						(else
+						
+							(event claimed: FALSE)
+						)
+					)
+
+				)				
+				(if (ClickedOnObj table2 (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998 		
+							(event claimed: TRUE)
+							(DoLook {table})	
+						)
+						(else
+						
+							(event claimed: FALSE)
+						)
+					)
+
+				)
+				(if (ClickedOnObj lamp1 (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998 		
+							
+								(event claimed: TRUE)
+								(DoLook {lamp})
+								)
+						(else
+						
+							(event claimed: FALSE)
+						)
+					)
+
+				)
+				(if (ClickedOnObj lamp2 (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998 		
+							
+							(event claimed: TRUE)
+							(DoLook {lamp})	
+						)
+						(else
+						
+							(event claimed: FALSE)
+						)
+					)
+
+				)
+				(if (ClickedOnObj sofa (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998 		
+							
+							(event claimed: TRUE)
+							(DoLook {couch})	
+						)
+						(else
+						
+							(event claimed: FALSE)
+						)
+					)
+
+				)
+				(if (ClickedOnObj wingback (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998 		
+							
+							(event claimed: TRUE)
+							(DoLook {chair})		
+						)
+						(else
+						
+							(event claimed: FALSE)
+						)
+					)
+
+				)				
+				(if (ClickedOnObj item3 (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998 		
+							
+			(event claimed: TRUE)
+			(DoLook {table})		
+						)
+						(else
+						
+							(event claimed: FALSE)
+						)
+					)
+
+				)
+				(if (ClickedOnObj item4 (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor	
+						(995
+							(Print 44 29)
+						)
+						(998 		
+							
+								(= girleyes
+												(Print
+;;;													{Painting}
+;;;													#button {Colonel Eye} 1
+;;;													#button {Girl Eye} 2
+;;;													#button {below painting} 3		
+													{Cuadro}
+													#button {Ojo Coronel} 1
+													#button {Ojo Chica} 2								
+													#button {Tras Cuadro} 3
+												)
+											)
+											(switch girleyes
+												(1 
+													(Print 44 27)
+														
+												)
+						
+										
+
+												(2
+															(Print 44 28)
+													
+				
+												)
+												(3
+													(Print 44 30)												
+												)
+											)
+						)
+						(else
+						
+							(event claimed: FALSE)
+						)
+					)
+
+						)
+
+				
 
 
-
+		
 		
 				(if (ClickedOnObj chest1 (event x?) (event y?)) 
 					(event claimed: TRUE)
@@ -520,7 +715,8 @@
 				)
 				
 				)	
-			)
+
+						)
 	)
 	(method (newRoom n)
 		(cls)
@@ -703,6 +899,7 @@
 			(4
 				(HandsOn)
 				(client stopUpd: setScript: 0)
+				
 			)
 		)
 	)
@@ -1062,48 +1259,62 @@
 					)
 				)
 			)
-			(
-				(and
-					(MousedOn self event 3)
-					(== (event claimed?) FALSE)
-				)
-				(event claimed: 1)
-				;(DoLook {suitcase})
-				(= temp0
-					(Print
-						44 22 ; "There is a suitcase lying on each bed."
-						#button {Get suitcase} 1
-						#button {Open suitcase} 2
-						#button {Use Item} 3
-						#button {Show Item} 4
-					)
-				)
-				(switch temp0
-					(1
-						(if (MousedOn self event 1)
-							(== (event claimed?) FALSE)
-						
-						else
-						
-						(DoVerb {get suitcase})
-						)
-					)
-					(2
-						(DoVerb {open suitcase})
-					)
-					(3
-						(Inv showSelf: 777) ;select inv item to use.
-						(DoUseItem name event) ;use selected inv item on suitcase
-					)
-					(4
-						(Inv showSelf: 777) ;select inv item to use.
-						(DoShowItem name event)
-					)
-				)
-			)
 		)
-	)
-)
+	)		
+)	
+;;;
+;;;			(
+;;;				(and
+;;;					(== (event type?) evMOUSEBUTTON)
+;;;					(not (& (event modifiers?) emRIGHT_BUTTON))
+;;;				)
+;;;
+;;;
+;;;			
+;;;			
+;;;			
+;;;;;;			(
+;;;;;;				(and
+;;;;;;					(MousedOn self event 3)
+;;;;;;					(== (event claimed?) FALSE)
+;;;;;;				)
+;;;				(event claimed: 1)
+;;;				;(DoLook {suitcase})
+;;;				(= temp6
+;;;					(Print
+;;;						44 22 ; "There is a suitcase lying on each bed."
+;;;						#button {Get suitcase} 1
+;;;						#button {Open suitcase} 2
+;;;						#button {Use Item} 3
+;;;						#button {Show Item} 4
+;;;					)
+;;;				)
+;;;				(switch temp5
+;;;					(1
+;;;						(if (MousedOn self event 3)
+;;;							(== (event claimed?) FALSE)
+;;;						
+;;;						else
+;;;						
+;;;						(DoVerb {get suitcase})
+;;;						)
+;;;					)
+;;;					(2
+;;;						(DoVerb {open suitcase})
+;;;					)
+;;;					(3
+;;;						(Inv showSelf: 777) ;select inv item to use.
+;;;						(DoUseItem name event) ;use selected inv item on suitcase
+;;;					)
+;;;					(4
+;;;						(Inv showSelf: 777) ;select inv item to use.
+;;;						(DoShowItem name event)
+;;;					)
+;;;				)
+;;;			)
+;;;		)
+;;;	)
+;;;)
 (instance suit2 of Prop
 	(properties
 		y 133
@@ -1128,13 +1339,13 @@
 		cel 9
 	)
 	
-;;;	(method (handleEvent event)
-;;;		(super handleEvent: event)
-;;;		(if (or (MousedOn self event shiftDown) (Said 'examine/door'))
-;;;			(event claimed: TRUE)
-;;;			(Print 44 6)
-;;;		)
-;;;	)
+	(method (handleEvent event)
+		(super handleEvent: event)
+		(if (or (MousedOn self event shiftDown) (Said 'examine/door'))
+			(event claimed: TRUE)
+			(Print 44 6)
+		)
+	)
 )
 
 (instance Fireplace of RFeature

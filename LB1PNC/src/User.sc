@@ -220,7 +220,7 @@
 						(User prevDir: 0)
 						(event claimed: 1)
 
-					
+					)
 					
 				(if (ClickedOnObj Ego (event x?) (event y?))
 					(event claimed: TRUE)
@@ -243,7 +243,7 @@
 
 				)
 									
-				)	
+				
 					
 				)
 				
