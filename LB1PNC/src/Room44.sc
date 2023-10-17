@@ -298,7 +298,7 @@
 					(switch theCursor	
 						(995	
 				(event claimed: 1)
-				(DoLook {suitcase})
+;;;				(DoLook {suitcase})
 				(= temp6
 					(Print
 						44 22 ; "There is a suitcase lying on each bed."
@@ -311,7 +311,15 @@
 				(switch temp6
 					(1
 
-						(DoVerb {get suitcase})
+													(= newEvent (Event new:))
+													(newEvent
+													    type: evKEYBOARD
+													    message: {get suitcase}
+													    modifiers: 999
+													    claimed: 0
+													)
+													(User handleEvent: newEvent)
+													(newEvent dispose:)
 
 					)
 					(2

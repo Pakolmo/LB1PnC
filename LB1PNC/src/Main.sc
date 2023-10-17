@@ -607,6 +607,14 @@
 	)
 )
 
+(procedure (LookAt param1 param2)
+	(DirLoop param1 (GetAngle (param1 x:) (param1 y:) (param2 x:) (param2 y:)))
+	(if (== argc 3)
+		(LookAt param2 param1)
+	)
+)
+
+
 (procedure (HandsOff)
 	(manageHands FALSE)
 	(User canControl: FALSE canInput: FALSE)
@@ -789,6 +797,7 @@
 	(Parse (User inputLineAddr:) temp0)
 	(User said: temp0)
 	(temp0 dispose:)
+
 
 
 
