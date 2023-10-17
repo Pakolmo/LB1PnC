@@ -36,6 +36,8 @@
 	chutes = 0
 	girleyes
 	temp6
+	temp7
+	temp8
 	
 )
 (instance Room44 of Room
@@ -126,6 +128,20 @@
 ;;;			stopUpd:
 			setScript: chuteActions
 		)
+		(chutefake
+			setLoop: 6
+			setCel: 0
+			yStep: 5
+			illegalBits: 0
+			setPri: 2
+			ignoreActors: TRUE
+			init:
+;;;			stopUpd:
+			setScript: chuteActions
+		)		
+		
+		
+		
 		(if (== currentAct 0)
 			(if (> global203 1) (= local6 1))
 			(self setRegions: 230)
@@ -200,7 +216,7 @@
 		
 				
 		
-;;;		(if (event claimed?) (return))
+		(if (event claimed?) (return))
 		(if (== (event type?) saidEvent)
 			(DisposeScript 990)
 			(if
@@ -293,57 +309,117 @@
 					(== (event type?) evMOUSEBUTTON)
 					(not (& (event modifiers?) emRIGHT_BUTTON))
 				)
+				
+			
+;;;			((Said 'change,wear,(attach<on)/cloth') ;994
+;;;			((Said '(look<through),search/cloth') ;998	
+;;;			((Said 'get/cloth') ;995
+;;;			((Said '/(luggage,cloth)>') ;995
+;;;					((Said 'look') ;998	
+;;;					
+;;;					((Said 'open,(look<in)') ;995
+;;;					((Said 'close') ;995
+;;;					((Said 'get') ;995
+;;;					
+
+			
+				
+				
 				(if (ClickedOnObj suit1 (event x?) (event y?)) 
+					
 					(event claimed: TRUE)
 					(switch theCursor	
-						(995	
-				(event claimed: 1)
-;;;				(DoLook {suitcase})
-				(= temp6
-					(Print
-						44 22 ; "There is a suitcase lying on each bed."
-						#button {Get suitcase} 1
-						#button {Open suitcase} 2
-						#button {Use Item} 3
-						#button {Show Item} 4
-					)
-				)
-				(switch temp6
-					(1
-
-													(= newEvent (Event new:))
+						(994
+							(DoVerb {change cloth})
+						)
+						(998
+							(DoVerb {search cloth}) 
+						)
+						(995
+							
+							(= temp7
+							(Print
+								#button {Get} 1
+								#button {luggage} 2
+							)
+							)
+						(event claimed: TRUE)
+						(switch temp7
+							(1
+												(= newEvent (Event new:))
 													(newEvent
 													    type: evKEYBOARD
-													    message: {get suitcase}
+													    message: {get cloth}
 													    modifiers: 999
 													    claimed: 0
 													)
 													(User handleEvent: newEvent)
 													(newEvent dispose:)
+													
+													
+													
+							)
+							(2
+														(event claimed: TRUE)
+													    (DoVerb {luggage cloth})
 
-					)
-					(2
-						(DoVerb {open suitcase})
-					)
-					(3
-						(Inv showSelf: 777) ;select inv item to use.
-						(DoUseItem name event) ;use selected inv item on suitcase
-					)
-					(4
-						(Inv showSelf: 777) ;select inv item to use.
-						(DoShowItem name event)
-					)
-				)
+								
+								
+
+								(switch theCursor
+									(998
+										(event claimed: TRUE)
+										(DoVerb {look cloth})
+									)
+									(995
+										(= temp7
+									(Print	
+							
+										#button {Open} 1
+										#button {Close} 2
+										#button {Get} 3									
+									)
+										)
+									
+
+								(switch temp7
+									(1		
+										(event claimed: TRUE)		
+										(DoVerb {Open cloth})
+									)
+									(2
+										(event claimed: TRUE)
+										(DoVerb {Close cloth})
+									)
+									(3
+										(event claimed: TRUE)
+										(DoVerb {Get cloth})
+									)
+								)
+									)
+									(else
+										(event claimed: FALSE)
+									)
+										
 						)
-						(else
+						)
+						)
+							
+					)(else
 						
 							(event claimed: FALSE)
-						)
+				
 					)
-
-						)
+					
+					)	
+					
+			
+				)
+			
+				
 						
-				(if (ClickedOnObj chute (event x?) (event y?)) 
+				(if (and (ClickedOnObj chutefake (event x?) (event y?)) 
+						(== chuteIsOpen 1))
 					(event claimed: TRUE)
 					(switch theCursor	
 						(998		
@@ -351,7 +427,7 @@
 							(if chuteIsOpen
 								(Print 44 10)
 							else
-								(Print 44 11)
+								(DoLook {chute})
 							)
 						)
 						(995
@@ -381,7 +457,7 @@
 													(User handleEvent: newEvent)
 													(newEvent dispose:)
 													
-													(event claimed: FALSE)
+													
 													
 												
 												)
@@ -438,7 +514,106 @@
 				)
 
 				)	
-				(if (ClickedOnObj suit2 (event x?) (event y?)) ;Get diary
+				
+				
+				
+				(if (and (ClickedOnObj chutefake (event x?) (event y?)) 
+						(== chuteIsOpen 0))
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998		
+	
+							(if chuteIsOpen
+								(Print 44 10)
+							else
+								(DoLook {chute})
+							)
+						)
+						(995
+								(= chutes
+												(Print
+;;;													{Chute Actions}
+;;;													#button {Open Door} 1
+;;;													#button {Enter Chute} 2
+;;;													#button {Close Door} 3		
+													{Rampa}
+													#button {Abrir Puerta} 1
+													#button {Entrar} 2								
+													#button {Cerrar Puerta} 3
+												)
+											)
+											(switch chutes
+												(1 ;Abrir Puerta
+	
+
+													(= newEvent (Event new:))
+													(newEvent
+													    type: evKEYBOARD
+													    message: {open chute}
+													    modifiers: 999
+													    claimed: 0
+													)
+													(User handleEvent: newEvent)
+													(newEvent dispose:)
+													
+													
+													
+												
+												)
+						
+										
+
+												(2
+													
+
+					
+													(= newEvent (Event new:))
+													(newEvent
+													    type: evKEYBOARD
+													    message: {enter chute}
+													    modifiers: 999
+													    claimed: 0
+													)
+													(User handleEvent: newEvent)
+													(newEvent dispose:)
+					
+											)	
+												
+												(3
+								
+
+					
+													(= newEvent (Event new:))
+													(newEvent
+													    type: evKEYBOARD
+													    message: {close chute}
+													    modifiers: 999
+													    claimed: 0
+													)
+													(User handleEvent: newEvent)
+													(newEvent dispose:)
+					
+											)
+											
+								
+
+
+						
+
+						(else
+						
+							(event claimed: FALSE)
+						)
+					)
+
+						)
+
+				
+
+				)
+				)				
+				(if (and (ClickedOnObj suit2 (event x?) (event y?)) ;Get diary
+					(== (event claimed?) FALSE))
 					(event claimed: TRUE)
 					(switch theCursor	
 						(995		
@@ -470,8 +645,9 @@
 					)
 
 				)
-
-				(if (ClickedOnObj mirror (event x?) (event y?)) 
+				(if (and (ClickedInRect 280 293 80 114 event)
+;;;				(if (and (ClickedOnObj mirror (event x?) (event y?)) 
+					(== (event claimed?) FALSE))
 					(event claimed: TRUE)
 					(switch theCursor	
 						(996 		
@@ -561,7 +737,8 @@
 					)
 
 				)
-				(if (ClickedOnObj sofa (event x?) (event y?)) 
+				(if (and (ClickedOnObj sofa (event x?) (event y?)) 
+					(== (event claimed?) FALSE))
 					(event claimed: TRUE)
 					(switch theCursor	
 						(998 		
@@ -577,6 +754,7 @@
 
 				)
 				(if (ClickedOnObj wingback (event x?) (event y?)) 
+					
 					(event claimed: TRUE)
 					(switch theCursor	
 						(998 		
@@ -657,7 +835,8 @@
 
 		
 		
-				(if (ClickedOnObj chest1 (event x?) (event y?)) 
+				(if (and (ClickedOnObj chest1 (event x?) (event y?)) 
+					(== (event claimed?) FALSE))
 					(event claimed: TRUE)
 					(switch theCursor	
 						(998 		
@@ -673,6 +852,7 @@
 
 				)
 				(if (ClickedOnObj chest2 (event x?) (event y?)) 
+					
 					(event claimed: TRUE)
 					(switch theCursor	
 						(998 		
@@ -687,7 +867,8 @@
 					)
 
 				)				
-				(if (ClickedOnObj bed2 (event x?) (event y?)) 
+				(if (and (ClickedOnObj bed2 (event x?) (event y?)) 
+					(== (event claimed?) FALSE))
 					(event claimed: TRUE)
 					(switch theCursor	
 						(998 		
@@ -707,6 +888,7 @@
 
 		
 				(if (ClickedOnObj bed1 (event x?) (event y?))
+					
 					(event claimed: TRUE)
 					(switch theCursor	
 						(998 		
@@ -723,8 +905,8 @@
 				)
 				
 				)	
-
-						)
+				)
+						
 	)
 	(method (newRoom n)
 		(cls)
@@ -751,8 +933,9 @@
 			(3
 				(Print 44 15)
 				(= chuteIsOpen 1)
+;;;				(HandsOff)
 				(theGame setCursor: 998)
-				(User canControl: TRUE)
+;;;				(User canControl: TRUE)
 			)
 			(4
 				(chute setMotion: MoveTo 19 127)
@@ -764,9 +947,11 @@
 			(5
 				(ego view: 0 loop: 1 setCycle: Walk illegalBits: -32768)
 				(User canControl: TRUE)
+;;;				(User canControl: FALSE)
 				
 			)
 			(6
+				(theGame setCursor: 997)
 				(myMusic number: 9 loop: 1 play:)
 				(ego
 					setLoop: 2
@@ -796,6 +981,7 @@
 				(= cycles 21)
 			)
 			(9
+				(HandsOff)
 				(= global172 110)
 				(= local3 1)
 				(myMusic number: 57 loop: 1 play: self)
@@ -812,8 +998,9 @@
 				(= cIcon myIcon)
 				(= deathLoop 0)
 				(= cyclingIcon TRUE)
-			)
-			(11
+				(HandsOn)
+;;;			)
+;;;			(11
 				(EgoDead 44 17)
 			)
 		)
@@ -880,6 +1067,9 @@
 				(client setCycle: EndLoop self)
 			)
 			(1
+				(HandsOff)
+				
+				
 				(= seconds 2)
 			)
 			(2
@@ -1355,7 +1545,15 @@
 		)
 	)
 )
-
+(instance chutefake of Actor
+	(properties
+		y 125
+		x 21
+		view 950
+		cel 0
+		loop 6
+	)
+)
 (instance Fireplace of RFeature
 	(properties
 		nsTop 47

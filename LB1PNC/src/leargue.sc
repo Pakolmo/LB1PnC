@@ -24,6 +24,7 @@
 	local6
 	local7
 	local8
+	temp0
 )
 (procedure (EthelPrint)
 	(if (< global172 100)
@@ -159,9 +160,63 @@
 				)
 			)
 		)
+		
+		
+						(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)
+				
+				(if (ClickedOnObj Ethel (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998		
+							(DoLook {ethel})
+						)
+						(996
+							(DoVerb {Talk Ethel})	
+						)	
+						(else
+						
+							(event claimed: FALSE)
+						)
+					)
+
+				)
+				
+				(if (ClickedOnObj Lillian (event x?) (event y?)) 
+
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998
+							(DoLook {lillian})
+
+						)
+						(996	
+
+							(DoVerb {Talk Lillian})
+						)
+						(else
+						
+							(event claimed: FALSE)
+						)
+					)
+
+				)
+							
+		
+		
+		
+					)
+		
+
+		
 	)
 )
-
+)
 (instance talkActions of Script
 
 	(method (doit)

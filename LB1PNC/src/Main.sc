@@ -617,14 +617,14 @@
 
 (procedure (HandsOff)
 	(manageHands FALSE)
-	(User canControl: FALSE canInput: FALSE)
+	(User canControl: FALSE canInput: TRUE)
 	(ego setMotion: 0)
 	(= isHandsOff TRUE)	
 )
 
 (procedure (HandsOn)
 	(manageHands TRUE)
-	(User canControl: TRUE canInput: FALSE)
+	(User canControl: TRUE canInput: TRUE)
 	(ego setMotion: 0)
 	(= isHandsOff FALSE)	
 )
