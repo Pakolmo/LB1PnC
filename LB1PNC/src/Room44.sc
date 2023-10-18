@@ -315,16 +315,74 @@
 ;;;			((Said '(look<through),search/cloth') ;998	
 ;;;			((Said 'get/cloth') ;995
 ;;;			((Said '/(luggage,cloth)>') ;995
-;;;					((Said 'look') ;998	
-;;;					
 ;;;					((Said 'open,(look<in)') ;995
 ;;;					((Said 'close') ;995
 ;;;					((Said 'get') ;995
+
+;;;					
+
 ;;;					
 
 			
 				
 				
+;;;				(if (ClickedOnObj suit1 (event x?) (event y?)) 
+;;;					
+;;;					(event claimed: TRUE)
+;;;					(switch theCursor	
+;;;						(994
+;;;							(DoVerb {change cloth})
+;;;						)
+;;;						(998
+;;;							(DoVerb {search cloth}) 
+;;;						)
+;;;						(995
+;;;
+;;;							(= temp7
+;;;							(PrintSpecialSimple
+;;;								44 20
+;;;								#button {Get} 1
+;;;								#button {luggage} 2
+;;;								#button {Open} 3
+;;;								#button {Close} 4
+;;;							
+;;;							)
+;;;							)
+;;;;;;						(event claimed: TRUE)
+;;;						(switch temp7
+;;;							(1
+;;;
+;;;													    (DoVerb {get cloth})
+;;;
+;;;													
+;;;													
+;;;													
+;;;							)
+;;;							(2
+;;;														
+;;;													    (DoVerb {luggage cloth})
+;;;							)
+;;;							(3		
+;;;;;;										(event claimed: TRUE)		
+;;;										(DoVerb {Open cloth})
+;;;									)
+;;;							(4
+;;;;;;										(event claimed: TRUE)
+;;;										(DoVerb {Close cloth})
+;;;									)
+;;;
+;;;
+;;;								)
+;;;									)
+;;;									(else
+;;;										(event claimed: FALSE)
+;;;									)
+;;;										
+;;;					)
+;;;				)
+;;;			
+
+	
 				(if (ClickedOnObj suit1 (event x?) (event y?)) 
 					
 					(event claimed: TRUE)
@@ -336,45 +394,39 @@
 							(DoVerb {search cloth}) 
 						)
 						(995
+
 							
 							(= temp7
-							(Print
+							(PrintSpecial
+								44 22
 								#button {Get} 1
 								#button {luggage} 2
 							)
 							)
-						(event claimed: TRUE)
+
 						(switch temp7
 							(1
-												(= newEvent (Event new:))
-													(newEvent
-													    type: evKEYBOARD
-													    message: {get cloth}
-													    modifiers: 999
-													    claimed: 0
-													)
-													(User handleEvent: newEvent)
-													(newEvent dispose:)
-													
-													
+
+													    (DoVerb {get cloth})
+													   
 													
 							)
 							(2
-														(event claimed: TRUE)
-													    (DoVerb {luggage cloth})
+
+													    
 
 								
 								
 
 								(switch theCursor
 									(998
-										(event claimed: TRUE)
+
 										(DoVerb {look cloth})
 									)
 									(995
 										(= temp7
 									(Print	
-							
+										44 22
 										#button {Open} 1
 										#button {Close} 2
 										#button {Get} 3									
@@ -384,15 +436,15 @@
 
 								(switch temp7
 									(1		
-										(event claimed: TRUE)		
+		
 										(DoVerb {Open cloth})
 									)
 									(2
-										(event claimed: TRUE)
+
 										(DoVerb {Close cloth})
 									)
 									(3
-										(event claimed: TRUE)
+
 										(DoVerb {Get cloth})
 									)
 								)
@@ -406,17 +458,13 @@
 						)
 							
 					)(else
-						
-							(event claimed: FALSE)
+										(event claimed: FALSE)
+									)
 				
 					)
 					
-					)	
-					
-			
-				)
-			
-				
+				)	
+								
 						
 				(if (and (ClickedOnObj chutefake (event x?) (event y?)) 
 						(== chuteIsOpen 1))
@@ -906,8 +954,10 @@
 				
 				)	
 				)
-						
-	)
+					)
+					
+					
+
 	(method (newRoom n)
 		(cls)
 		(super newRoom: n)
