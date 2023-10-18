@@ -499,15 +499,18 @@
 							(999 (event type: 1 claimed: 0))
 							(998 ;look
 								(event type: 1 claimed: 1)
+								(DoVerb {look room})
 								
 							)
 							(996 ;talk 
 								(event type: 1 claimed: 1)
 ;;;								(Print 0 109 #at -1 144) ;"(There is no response.)"
+								
 							)
 							(995 ;hand
 								(event type: 1 claimed: 1)
 ;;;								(Print 0 158) ;"What do you want to take?"
+								
 							)
 							(997 ;wait sierra
 								(event type: 1 claimed: 1)
