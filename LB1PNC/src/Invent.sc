@@ -181,6 +181,7 @@
 ;;;			)
 ;;;		)
 		(ego get: 0 1 2 3 4 5 6 18)
+		(ego get: 24 25 26 27 28 29 30 31 32 33)
 		(if (not (self init: param1))
 			(Print (inventory empty:))
 			(return)

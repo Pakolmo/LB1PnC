@@ -1123,6 +1123,18 @@
 				cane_
 				pouch_
 				handkerchief_
+				Celie ;24
+				Rudolf_Dijon_
+				Fifi_
+				Wilbur_C_Feels
+				Gertrude_Dijon
+				Lillian_Prune
+				Ethel_Prune
+				Henri_Dijon
+				Gloria_Swansong
+				Clarence_Sparrow ;33
+				
+				
 		)
 		(= global181 1)
 		(= showStyle HSHUTTER)
@@ -1539,3 +1551,76 @@
 		name "handkerchief_"
 	)
 )
+
+				
+(instance Celie of InvI
+	(properties
+;;;		said '/Celie'
+		view 901
+		name "Celie"
+	)
+)
+(instance Fifi_ of InvI
+	(properties
+;;;		said '/Fifi'
+		view 904
+		name "Fifi"
+	)
+)	
+
+(instance Rudolf_Dijon_ of InvI
+	(properties
+;;;		said '/Rudy'
+		view 907
+		name "Rudy"
+	)
+)	
+(instance Wilbur_C_Feels of InvI
+	(properties
+;;;		said '/Feels'
+		view 907
+		name "Feels"
+	)
+)	
+(instance Gertrude_Dijon of InvI
+	(properties
+;;;		said '/Gertrude'
+		view 900
+		name "Gertrude"
+	)
+)	
+(instance Lillian_Prune of InvI
+	(properties
+;;;		said '/Lillian'
+		view 905
+		name "Lillian"
+	)
+)
+(instance Ethel_Prune of InvI
+	(properties
+;;;		said '/Ethel'
+		view 903
+		name "Ethel"
+	)
+)	
+(instance Henri_Dijon of InvI
+	(properties
+;;;		said '/Colonel'
+		view 909
+		name "Colonel"
+	)
+)	
+(instance Gloria_Swansong of InvI
+	(properties
+;;;		said '/Gloria'
+		view 902
+		name "Gloria"
+	)
+)	
+(instance Clarence_Sparrow of InvI
+	(properties
+;;;		said '/Clarence'
+		view 906
+		name "Clarence"
+	)
+)						
