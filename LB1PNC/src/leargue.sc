@@ -187,8 +187,8 @@
 
 				)
 				
-				(if (ClickedOnObj Lillian (event x?) (event y?)) 
-
+				(if (or (ClickedOnObj Lillian (event x?) (event y?)) 
+						(ClickedOnObj lHead (event x?) (event y?)) )
 					(event claimed: TRUE)
 					(switch theCursor	
 						(998

@@ -9,7 +9,9 @@
 (use Game)
 (use Actor)
 (use System)
-
+(use Inventory)
+(use PncMenu)
+(use DCIcon)
 (public
 	Room45 0
 )
@@ -26,6 +28,7 @@
 	local0
 	talkCount
 	local2
+	temp7
 )
 (instance Room45 of Room
 	(properties
@@ -33,6 +36,7 @@
 	)
 	
 	(method (init)
+		(curRoom setRegions: 950)
 		(= west 44)
 		(super init:)
 		(addToPics
@@ -128,6 +132,306 @@
 	)
 	
 	(method (handleEvent event &tmp temp0)
+
+
+
+		
+		(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)
+						
+		
+				(if (ClickedOnObj suit1 (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor	
+						(995
+							(= temp7
+							(PrintSpecial
+								{Suit}
+								#button {Open} 1
+								#button {get} 2
+							)
+							)
+
+						(switch temp7
+							(1
+
+								(DoVerb {open luggage})
+										
+							)
+							(2
+
+								(DoVerb {get luggage})	
+							)
+						)
+						)
+						(998				    
+							(Print 45 14)
+							(event claimed: TRUE)
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+
+
+		
+			(if (ClickedOnObj bed (event x?) (event y?)) 
+				(event claimed: TRUE)
+				(switch theCursor	
+					(998
+						(DoLook {bed})
+					)
+					(else
+							(event claimed: FALSE)
+						
+					)
+				)
+		
+			)	
+			
+			
+			(if (ClickedOnObj lamp1 (event x?) (event y?)) 
+				(event claimed: TRUE)
+				(switch theCursor	
+					(998
+						(DoLook {lamp})
+					)
+					(else
+							(event claimed: FALSE)
+						
+					)
+				)
+		
+			)
+			(if (ClickedOnObj lamp2 (event x?) (event y?)) 
+				(event claimed: TRUE)
+				(switch theCursor	
+					(998
+						(DoLook {lamp})
+					)
+					(else
+							(event claimed: FALSE)
+						
+					)
+				)
+		
+			)						
+			(if (ClickedOnObj wardrobe (event x?) (event y?)) 
+				(event claimed: TRUE)
+				(switch theCursor	
+					(998
+						(DoLook {wardrobe})
+					)
+					(else
+							(event claimed: FALSE)
+						
+					)
+				)
+		
+			)			
+			(if (ClickedOnObj chest (event x?) (event y?)) 
+				(event claimed: TRUE)
+				(switch theCursor	
+					(998
+						(DoLook {chest})
+					)
+					(else
+							(event claimed: FALSE)
+						
+					)
+				)
+		
+			)
+			(if (and (ClickedOnObj chair (event x?) (event y?)) 
+				(== (event claimed?) FALSE))
+				(event claimed: TRUE)
+				(switch theCursor	
+					(998
+						(DoLook {chair})
+					)
+					(else
+							(event claimed: FALSE)
+						
+					)
+				)
+		
+			)
+			(if (ClickedOnObj endtable (event x?) (event y?)) 
+				(event claimed: TRUE)
+				(switch theCursor	
+					(998
+						(DoLook {table})
+					)
+					(else
+							(event claimed: FALSE)
+						
+					)
+				)
+		
+			)
+			(if (ClickedOnObj bear (event x?) (event y?)) 
+				(event claimed: TRUE)
+				(switch theCursor	
+					(998
+						(DoLook {bear})
+					)
+					(else
+							(event claimed: FALSE)
+						
+					)
+				)
+		
+			)
+															
+			
+			
+			
+			(if (ClickedOnObj dollhouse (event x?) (event y?)) 
+				(event claimed: TRUE)
+				(switch theCursor	
+					(998
+						(DoLook {dollhouse})
+					)
+					(else
+							(event claimed: FALSE)
+						
+					)
+				)
+		
+			)
+															
+				
+			
+			
+				(if (ClickedOnObj shelf1 (event x?) (event y?)) 
+				(event claimed: TRUE)
+				(switch theCursor	
+					(998
+						(DoLook {shelf})
+					)
+					(else
+							(event claimed: FALSE)
+						
+					)
+				)
+		
+				)
+															
+				(if (ClickedOnObj shelf2 (event x?) (event y?)) 
+				(event claimed: TRUE)
+				(switch theCursor	
+					(998
+						(DoLook {shelf})
+					)
+					(else
+							(event claimed: FALSE)
+						
+					)
+				)
+		
+			)
+				
+			
+			
+					(if (or (ClickedOnObj eHead (event x?) (event y?)) 
+							(ClickedOnObj Ethel (event x?) (event y?)) )
+				(event claimed: TRUE)
+				(switch theCursor	
+					(998
+						(= temp7
+							(PrintSpecial
+								{Glass}
+								#button {Examine} 1
+								#button {handkerchief} 2
+								#button {Ethel} 3
+							)
+							)
+
+						(switch temp7
+							(1
+
+								(DoVerb {examine in glass})
+										
+							)
+							(2
+
+								(DoVerb {examine handkerchief})
+										
+							)						
+							(3
+
+								(DoVerb {look ethel})
+										
+							)						
+						)
+					)
+					(995
+						(= temp7
+							(PrintSpecial
+								{Glass}
+								#button {Get glass} 1
+								#button {Get handkerchief} 2
+
+							)
+							)
+
+						(switch temp7
+							(1
+
+								(DoVerb {get glass})
+										
+							)
+							(2
+
+								(DoVerb {get handkerchief})
+										
+							)						
+							(3
+
+								(DoVerb {look ethel})
+										
+							)						
+						)
+					)
+					(else
+							(event claimed: FALSE)
+						
+					)
+				)
+		
+			)
+					
+			
+		
+			
+			)
+			
+			
+			
+			
+			
+				
+			)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 		(if (event claimed?) (return (event claimed?)))
 		(return
 			(if (== (event type?) saidEvent)
@@ -157,6 +461,12 @@
 				FALSE
 			)
 		)
+		
+								
+
+		
+
+		
 	)
 	
 	(method (newRoom n)
@@ -479,13 +789,13 @@
 	
 	(method (handleEvent event)
 		(cond 
-			((Said 'open,(examine<in)/luggage')
+			((Said 'open,(examine<in)/luggage') ;995
 				(Print 45 12)
 			)
-			((Said 'get/luggage')
+			((Said 'get/luggage') ;995
 				(Print 45 13)
 			)
-			((or (MousedOn self event shiftDown) (Said 'examine/luggage'))
+			((or (MousedOn self event shiftDown) (Said 'examine/luggage')) ;998
 				(Print 45 14)
 				(event claimed: TRUE)
 			)

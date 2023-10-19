@@ -1214,9 +1214,9 @@
 		
 
 		(super startRoom: roomNum)
-;;;		(if (>= roomNum 44) ;ADD PnCMenu
-;;;			(curRoom setRegions: 950)
-;;;		)
+		(if (>= roomNum 44) ;ADD PnCMenu
+			(curRoom setRegions: 950)
+		)
 		
 		(Load VIEW 911)
 		(Load SCRIPT 413)
