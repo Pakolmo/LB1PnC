@@ -1571,7 +1571,7 @@
 (instance Rudolf_Dijon_ of InvI
 	(properties
 ;;;		said '/Rudy'
-		view 907
+		view 908
 		name "Rudy"
 	)
 )	
