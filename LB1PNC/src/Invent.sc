@@ -8,8 +8,12 @@
 
 (local
 	yesI
-	useMonocleI
-	useToggle
+	;useMonocleI
+	;useToggle
+	selI
+	lookI
+	useI
+	oldCur
 )
 
 (class InvI of Object
@@ -117,64 +121,65 @@
 		)
 		(= window systemWindow)
 		(self setSize:)
+		(= selI (DButton new:))
+		(selI 
+;;;			text: "Select", ;ENGLISH
+			text: "Elegir", ;SPANISH
+			setSize:,
+			moveTo: 
+				;(- nsRight (+ MARGIN (yesI nsRight?)))
+				(+ nsLeft (+ 4 (selI nsLeft?)))
+				nsBottom
+		)
+		(= lookI (DButton new:))
+		(lookI 
+;;;			text: "Look_", ;English
+			text: "Mirar", ;Spanish
+			setSize:,
+			moveTo: 
+				(+ nsLeft (+ 4 (selI nsRight?)))
+				nsBottom
+		)
+		(= useI (DButton new:))
+		(useI 
+;;;			text: "Use", ;ENGLISH
+			text: "Usar", ;SPANISH
+			setSize:,
+			moveTo: 
+				(+ nsLeft (+ 4 (lookI nsRight?)))
+				nsBottom
+		)
 		(= yesI (DButton new:))
-		(yesI
-			text: {OK}
-			setSize:
-			moveTo: (- nsRight (+ 4 (yesI nsRight:))) nsBottom
+		(yesI 
+			text: "OK", 
+			setSize:,
+			moveTo: 
+				(+ nsLeft (+ 4 (useI nsRight?) 5))
+				nsBottom
 		)
-		(yesI move: (- (yesI nsLeft:) (yesI nsRight:)) 0)
-		(if
-			(and
-				(ego has: 1) ; has monocle
-				(not useToggle)
-			)
-			(= useMonocleI (DButton new:))
-			(useMonocleI
-				text: {Use Monocle}
-				setSize:
-				moveTo: (- nsRight (+ 4 (useMonocleI nsRight:))) (+ nsBottom 14)
-			)
-			;(useMonocleI move: (- (useMonocleI nsLeft:) (useMonocleI nsRight:)) 0)
-			(= yesI (DButton new:))
-			(yesI
-				text: {OK}
-				setSize:
-				moveTo: (- (useMonocleI nsRight:) (yesI nsRight:)) nsBottom
-			)
-			(yesI move: (- (yesI nsLeft:) (yesI nsRight:)) 0)
-			(self add: yesI useMonocleI setSize: center:)
-		else
-			(= yesI (DButton new:))
-			(yesI
-				text: {OK}
-				setSize:
-				moveTo: (- nsRight (+ 4 (yesI nsRight:))) nsBottom
-			)
-			(yesI move: (- (yesI nsLeft:) (yesI nsRight:)) 0)
-			(self add: yesI setSize: center:)
-		)
+		
+		(self add: selI lookI useI yesI, setSize:, center:)
 		(return temp3)
 	)
 
 	(method (doit param1 &tmp temp0 [str 200])
-		(cond
-			((== param1 777) ;inv use hack
-				(= useToggle 1)
-				(= useInvItem 0)
-				(= useInvItem2 0)
-				(= param1 ego)
-			)
-			((== param1 888) ;inv on inv from right-click ego
-				(= useToggle 0)
-				(= useInvItem 0)
-				(= useInvItem2 0)
-				(= param1 ego)
-			)
-			(else
-				(= useToggle 0)
-			)
-		)
+;;;		(cond
+;;;			((== param1 777) ;inv use hack
+;;;				(= useToggle 1)
+;;;				(= useInvItem 0)
+;;;				(= useInvItem2 0)
+;;;				(= param1 ego)
+;;;			)
+;;;			((== param1 888) ;inv on inv from right-click ego
+;;;				(= useToggle 0)
+;;;				(= useInvItem 0)
+;;;				(= useInvItem2 0)
+;;;				(= param1 ego)
+;;;			)
+;;;			(else
+;;;				(= useToggle 0)
+;;;			)
+;;;		)
 		(ego get: 0 1 2 3 4 5 6 18)
 		(if (not (self init: param1))
 			(Print (inventory empty:))
@@ -182,34 +187,104 @@
 		)
 		(self open: 4 15)
 		(= temp0 yesI)
+;;;		(repeat
+;;;			(if
+;;;				(or
+;;;					(not (= temp0 (super doit: temp0)))
+;;;					(== temp0 -1)
+;;;					(== temp0 yesI)
+;;;				)
+;;;				(break)
+;;;			)
+;;;			(if (== useInvItem2 0)
+;;;				((temp0 value:) showSelf:)
+;;;			else
+;;;				(= useInvItem ((temp0 value:) name?))
+;;;				(break)
+;;;			)
+;;;		)
+;;;		(if (== temp0 yesI)
+;;;			(= useInvItem 0)
+;;;		)
+
+
+
+		(theGame setCursor: 993) ;start with select arrow
+		
 		(repeat
-			(if
-				(or
-					(not (= temp0 (super doit: temp0)))
-					(== temp0 -1)
-					(== temp0 yesI)
+			(= temp0 (super doit:temp0))
+
+			;These returns signal end of dialog
+			(if (or (not temp0) (== temp0 -1) (== temp0 yesI))
+				(if
+					(or
+						(== theCursor 998)
+						(== theCursor 993)
+					) 
+					(= theCursor oldCur)
+					(theGame setCursor: oldCur (HaveMouse))
 				)
 				(break)
 			)
-			(if useToggle
-				(= useInvItem ((temp0 value:) name?))
-				(break)
-			else
-				(if (== temp0 useMonocleI)
-					(= useInvItem2 {monocle })
-					(Print {Select item to examine.})
-				else
-					(if (== useInvItem2 0)
-						((temp0 value:) showSelf:)
-					else
-						(= useInvItem ((temp0 value:) name?))
-						(break)
-					)	
-				)	
+			
+			(if
+				(or
+					(== temp0 selI)
+					(== temp0 lookI)
+					(== temp0 useI)
+					(== temp0 yesI) 
+				)
+				(cond 
+					((== temp0 selI)
+						(if (!= theCursor 993)
+							(theGame setCursor: 993)
+						)
+					)
+					((== temp0 lookI)
+						(if (!= theCursor 998)
+							(theGame setCursor: 998)
+						)
+					)
+					((== temp0 useI)
+						(if (!= theCursor 995)
+							(theGame setCursor: 995)
+						)
+					)
+					(else
+						;do nothing
+					)
+				)
+			else	
+				(switch theCursor
+					(993 ;set cursor to selected item and print desc.
+						(= itemIcon ((temp0 value?) view?))
+						(theGame setCursor: ((temp0 value?) view?))
+					)
+					(995 ;use
+						(cond
+							((== ((temp0 value?) view?) 133) ;used bombinstructions
+									(Print 800 53 #font smallFont)		
+							)
+							(else
+;;;								(Print {You don't need to use that item.})
+								(Print {No es necesario utilizar ese objeto.})
+							)
+						)
+					)
+					(998 ;look at item	
+						((temp0 value?) showSelf:) ;display the inventory item normally.
+;;;						(if (== ((el value?) view?) 133) ;looked at bombInstructions
+;;;							(Print 800 53 #font smallFont)
+;;;						else
+;;;							((el value?) showSelf:)
+;;;						)
+					)
+					(else
+;;;						(Print {You can't use those items together.}) ;English
+						(Print {No puedes usar esos dos objetos juntos.}) ;Spanish
+					)
+				)
 			)
-		)
-		(if (== temp0 yesI)
-			(= useInvItem 0)
 		)
 		(self dispose:)
 	)

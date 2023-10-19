@@ -48,7 +48,7 @@
 				(MapKeyToDir event)
 			)
 			(if TheMenuBar
-				(TheMenuBar handleEvent: event evType)
+				;(TheMenuBar handleEvent: event evType)
 			)
 			(GlobalToLocal event)
 			(if (not (event claimed:))
