@@ -213,11 +213,10 @@
 			)
 		)
 		(if (!= itemIcon 601)
-			;(selectedItem view: itemIcon) ;inventory views == inventory item number
-			(selectedItem view: (+ itemIcon 601)); inv # + 900
+			(selectedItem view: itemIcon) ;inventory views == inventory item number
 		else
 			;(selectedItem cel: 0) ;inital state, no item chosen
-			(selectedItem view:601) ;fix crossbar
+			(selectedItem view: 601) ;fix crossbar
 		)
 	)
 	
