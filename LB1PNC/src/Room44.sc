@@ -801,8 +801,10 @@
 					)
 
 				)
-				(if (ClickedOnObj wingback (event x?) (event y?)) 
-					
+;;;				(if (and (ClickedOnObj wingback (event x?) (event y?)) 
+				(if (and (ClickedInRect 99 116  119 138 event)
+
+					(== (event claimed?) FALSE))
 					(event claimed: TRUE)
 					(switch theCursor	
 						(998 		
