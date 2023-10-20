@@ -173,6 +173,50 @@
 					
 					(event claimed: TRUE)
 					(switch theCursor	
+							(900  ;gertrude
+								(event type: 1 claimed: 1)
+								(DoVerb {ask about Gertrude})
+							)
+							(901 ;Celie
+								(event type: 1 claimed: 1)
+								(DoVerb {ask about Celie})
+							)	
+							(902 ;Gloria
+								(event type: 1 claimed: 1)
+								(DoVerb {ask about Gloria})
+							)													
+							(903 ;Ethel
+								(event type: 1 claimed: 1)
+								(DoVerb {ask about Ethel})
+							)	
+							(904 ;Fifi
+								(event type: 1 claimed: 1)
+								(DoVerb {ask about Fifi})
+							)	
+							(905 ;Lillian
+								(event type: 1 claimed: 1)
+								(DoVerb {ask about Lillian})
+							)																					
+							(906 ;Clarence
+								(event type: 1 claimed: 1)
+								(DoVerb {ask about Clarence})
+							)	
+							(907 ;Feels
+								(event type: 1 claimed: 1)
+								(DoVerb {ask about Feels})
+							)
+							(908 ;Rudy
+								(event type: 1 claimed: 1)
+								(DoVerb {ask about Rudy})
+							)	
+							(909 ;Colonel
+								(event type: 1 claimed: 1)
+								(DoVerb {ask about Colonel})
+							)
+							(910 ;Jules
+								(event type: 1 claimed: 1)
+								(DoVerb {ask about Jules})
+							)						
 						(998		
 							(DoLook {ethel})
 						)
@@ -191,6 +235,54 @@
 						(ClickedOnObj lHead (event x?) (event y?)) )
 					(event claimed: TRUE)
 					(switch theCursor	
+													(900  ;gertrude
+;;;								(event type: 1 claimed: 1)
+								(DoVerb {ask lil about Gertrude})
+							)
+							(901 ;Celie
+;;;								(event type: 1 claimed: 1)
+								(DoVerb {ask lil about Celie})
+							)	
+							(902 ;Gloria
+;;;								(event type: 1 claimed: 1)
+								(DoVerb {ask lil about Gloria})
+							)													
+							(903 ;Ethel
+;;;								(event type: 1 claimed: 1)
+								(DoVerb {ask lil about Ethel})
+							)	
+							(904 ;Fifi
+;;;								(event type: 1 claimed: 1)
+								(DoVerb {ask lil about Fifi})
+							)	
+							(905 ;Lillian
+;;;								(event type: 1 claimed: 1)
+								(DoVerb {ask lil about Lillian})
+							)																					
+							(906 ;Clarence
+;;;								(event type: 1 claimed: 1)
+								(DoVerb {ask lil about Clarence})
+							)	
+							(907 ;Feels
+;;;								(event type: 1 claimed: 1)
+								(DoVerb {ask lil about Feels})
+							)
+							(908 ;Rudy
+;;;								(event type: 1 claimed: 1)
+								(DoVerb {ask lil about Rudy})
+							)	
+							(909 ;Colonel
+;;;								(event type: 1 claimed: 1)
+								(DoVerb {ask lil about Colonel})
+							)
+							(910 ;Jules
+;;;								(event type: 1 claimed: 1)
+								(DoVerb {ask lil about Jules})
+							)
+						
+						
+						
+						
 						(998
 							(DoLook {lillian})
 

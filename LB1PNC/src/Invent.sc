@@ -78,6 +78,7 @@
 	(properties)
 
 	(method (init param1 &tmp temp0 temp1 temp2 temp3 temp4 temp5 temp6)
+		(= oldCur theCursor)
 		(= temp2 (= temp0 (= temp1 4)))
 		(= temp3 0)
 		(for

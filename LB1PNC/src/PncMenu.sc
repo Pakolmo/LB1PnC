@@ -46,7 +46,7 @@
 				(lookIcon setPri: 15 y: yPosition init:)
 				(handIcon setPri: 15 y: yPosition init:)
 				(talkIcon setPri: 15 y: yPosition init:)
-				(smellIcon setPri: 15 y: yPosition init:)
+;;;				(smellIcon setPri: 15 y: yPosition init:)
 				(invIcon setPri: 15 y: yPosition init:)
 				(blockIcon setPri: 15 y: yPosition init:) ;was setPri: 14
 				(levelsIcon setPri: 15 y: yPosition init:)
@@ -67,7 +67,7 @@
 				(lookIcon setPri: 15 y: yPosition init:)
 				(handIcon setPri: 15 y: yPosition init:)
 				(talkIcon setPri: 15 y: yPosition init:)				
-				(smellIcon setPri: 15 y: yPosition init:)
+;;;				(smellIcon setPri: 15 y: yPosition init:)
 
 				(invIcon setPri: 15 y: yPosition init:)
 				(blockIcon setPri: 15 y: yPosition init:) ;was setPri: 14
@@ -88,7 +88,7 @@
 				(lookIcon setPri: 15 y: yPosition init:)
 				(handIcon setPri: 15 y: yPosition init:)
 				(talkIcon setPri: 15 y: yPosition init:)
-				(smellIcon setPri: 15 y: yPosition init:)
+;;;				(smellIcon setPri: 15 y: yPosition init:)
 
 				(invIcon setPri: 15 y: yPosition init:)
 				(blockIcon setPri: 15 y: yPosition init:) ;was setPri: 14
@@ -169,7 +169,7 @@
 				(lookIcon loop: 0)
 				(handIcon loop: 0)
 				(talkIcon loop: 0)
-				(smellIcon loop: 0) ;add smell
+;;;				(smellIcon loop: 0) ;add smell
 			)
 			(998
 				(walkIcon loop: 0)
@@ -177,7 +177,7 @@
 				(lookIcon loop: 1)
 				(handIcon loop: 0)
 				(talkIcon loop: 0)
-				(smellIcon loop: 0) ;add smell
+;;;				(smellIcon loop: 0) ;add smell
 			)
 			(995
 				(walkIcon loop: 0)
@@ -185,7 +185,7 @@
 				(lookIcon loop: 0)
 				(handIcon loop: 1)
 				(talkIcon loop: 0)
-				(smellIcon loop: 0) ;add smell
+;;;				(smellIcon loop: 0) ;add smell
 			)
 			(996
 				(walkIcon loop: 0)
@@ -193,23 +193,23 @@
 				(lookIcon loop: 0)
 				(handIcon loop: 0)
 				(talkIcon loop: 1)
-				(smellIcon loop: 0) ;add smell
+;;;				(smellIcon loop: 0) ;add smell
 			)
-			(994 ;add smell
-				(walkIcon loop: 0)
-
-				(lookIcon loop: 0)
-				(handIcon loop: 0)
-				(talkIcon loop: 0)
-				(smellIcon loop: 1)
-			)
+;;;			(994 ;add smell
+;;;				(walkIcon loop: 0)
+;;;
+;;;				(lookIcon loop: 0)
+;;;				(handIcon loop: 0)
+;;;				(talkIcon loop: 0)
+;;;				(smellIcon loop: 1)
+;;;			)
 			(itemIcon
 				(walkIcon loop: 0)
 
 				(lookIcon loop: 0 init:)
 				(handIcon loop: 0)
 				(talkIcon loop: 0)
-				(smellIcon loop: 0) ;add smell
+;;;				(smellIcon loop: 0) ;add smell
 			)
 		)
 		(if (!= itemIcon 601)
@@ -241,16 +241,15 @@
 						(999
 							(theGame setCursor: 998 haveMouse)
 						)
-						(996
-							(theGame setCursor: 994 haveMouse)
+						(995
+							(theGame setCursor: 996 haveMouse)
 						)
 						(998
 							(theGame setCursor: 995 haveMouse)
 						)
-						(995
-							(theGame setCursor: 996 haveMouse)
-						)
-						(994 ;add smell 
+						(996
+;;;							(theGame setCursor: 995 haveMouse)
+						
 							(if (or 
 									(== itemIcon 601)
 									(== itemIcon 993)
@@ -331,18 +330,18 @@
 						(= menuTime 0)
 						(theGame setCursor: 995 haveMouse)
 					)
-					( ;add smell
-						(and
-							(> (event x?) (smellIcon nsLeft?))
-							(< (event x?) (smellIcon nsRight?))
-							(> (event y?) (smellIcon nsTop?))
-							(< (event y?) (smellIcon nsBottom?))
-						)
-						(event claimed: 1)
-						(if (== movingButtons 2) (= movingButtons 1) (= gShowMenu 1))
-						(= menuTime 0)
-						(theGame setCursor: 994 haveMouse)
-					)
+;;;					( ;add smell
+;;;						(and
+;;;							(> (event x?) (smellIcon nsLeft?))
+;;;							(< (event x?) (smellIcon nsRight?))
+;;;							(> (event y?) (smellIcon nsTop?))
+;;;							(< (event y?) (smellIcon nsBottom?))
+;;;						)
+;;;						(event claimed: 1)
+;;;						(if (== movingButtons 2) (= movingButtons 1) (= gShowMenu 1))
+;;;						(= menuTime 0)
+;;;						(theGame setCursor: 994 haveMouse)
+;;;					)
 					(
 						(and
 							(> (event x?) (invIcon nsLeft?))
@@ -501,6 +500,50 @@
 								(DoVerb {look room})
 								
 							)
+;;;							(900  ;gertrude
+;;;								(event type: 1 claimed: 1)
+;;;								(DoVerb {ask about Gertrude})
+;;;							)
+;;;							(901 ;Celie
+;;;								(event type: 1 claimed: 1)
+;;;								(DoVerb {ask about Celie})
+;;;							)	
+;;;							(902 ;Gloria
+;;;								(event type: 1 claimed: 1)
+;;;								(DoVerb {ask about Gloria})
+;;;							)													
+;;;							(903 ;Ethel
+;;;								(event type: 1 claimed: 1)
+;;;								(DoVerb {ask about Ethel})
+;;;							)	
+;;;							(904 ;Fifi
+;;;								(event type: 1 claimed: 1)
+;;;								(DoVerb {ask about Fifi})
+;;;							)	
+;;;							(905 ;Lillian
+;;;								(event type: 1 claimed: 1)
+;;;								(DoVerb {ask about Lillian})
+;;;							)																					
+;;;							(906 ;Clarence
+;;;								(event type: 1 claimed: 1)
+;;;								(DoVerb {ask about Clarence})
+;;;							)	
+;;;							(907 ;Feels
+;;;								(event type: 1 claimed: 1)
+;;;								(DoVerb {ask about Feels})
+;;;							)
+;;;							(908 ;Rudy
+;;;								(event type: 1 claimed: 1)
+;;;								(DoVerb {ask about Rudy})
+;;;							)	
+;;;							(909 ;Colonel
+;;;								(event type: 1 claimed: 1)
+;;;								(DoVerb {ask about Colonel})
+;;;							)
+;;;							(910 ;Jules
+;;;								(event type: 1 claimed: 1)
+;;;								(DoVerb {ask about Jules})
+;;;							)																																				
 							(996 ;talk 
 								(event type: 1 claimed: 1)
 ;;;								(Print 0 109 #at -1 144) ;"(There is no response.)"

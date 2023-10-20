@@ -1133,6 +1133,7 @@
 				Henri_Dijon
 				Gloria_Swansong
 				Clarence_Sparrow ;33
+				Jules_
 				
 				
 		)
@@ -1623,4 +1624,11 @@
 		view 906
 		name "Clarence"
 	)
-)						
+)
+(instance Jules_ of InvI
+	(properties
+;;;		said '/Jules'
+		view 910
+		name "Jules"
+	)
+)							
