@@ -343,6 +343,82 @@
 							(ClickedOnObj Ethel (event x?) (event y?)) )
 				(event claimed: TRUE)
 				(switch theCursor
+					
+					(602 ;necklace_
+						(DoVerb {tell ethel about handkerchief})						
+					)
+					(604 ;monocle
+						(DoVerb {tell ethel about monocle})						
+					)
+					
+					(613 ;lantern_
+						(DoVerb {tell ethel about lantern})						
+					)
+					(611 ;oilcan_
+						(DoVerb {tell ethel about oilcan})						
+					)
+					(626 ;rolling_pin_
+						(DoVerb {tell ethel about pin})						
+					)
+					(620 ;skeleton_key_
+						(DoVerb {tell ethel about skeleton key})						
+					)
+					(627 ;poker_
+						(DoVerb {tell ethel about poker})						
+					)															
+					(607 ;crowbar_
+						(DoVerb {tell ethel about crowbar})						
+					)
+					(628 ;cigar_butt_
+						(DoVerb {tell ethel about butt})						
+					)
+					(625 ;broken_record_
+						(DoVerb {tell ethel about broken record})						
+					)
+					(601 ;notebook___pencil_
+						(DoVerb {tell ethel about notebook})						
+					)
+					(603 ;_7_crackers________
+						(DoVerb {tell ethel about crackers})						
+					)
+					(605 ;soup_bone_
+						(DoVerb {tell ethel about soup bone})						
+					)
+					(606 ;valve_handle_
+						(DoVerb {tell ethel about valve})						
+					)
+					(618 ;bullet_
+						(DoVerb {tell ethel about bullet})						
+					)
+					(617 ;derringer__
+						(DoVerb {tell ethel about derringer})						
+					)
+					(614 ;matches_
+						(DoVerb {tell ethel about matches})						
+					)
+					(615 ;carrot_
+						(DoVerb {tell ethel about carrot})						
+					)
+					(619 ;brass_key_
+						(DoVerb {tell ethel about brass key})						
+					)
+					(616 ;diary_
+						(DoVerb {tell ethel about diary})						
+					)
+					(621 ;crank_
+						(DoVerb {tell ethel about crank})						
+					)
+					(612 ;cane_
+						(DoVerb {tell ethel about cane})						
+					)
+					(622 ;pouch_
+						(DoVerb {tell ethel about pouch})						
+					)																																																																																
+					(630 ;handkerchief_
+						(DoVerb {tell ethel about handkerchief})
+					)
+					
+					
 							(900  ;gertrude
 								(event type: 1 claimed: 1)
 								(DoVerb {ask about Gertrude})

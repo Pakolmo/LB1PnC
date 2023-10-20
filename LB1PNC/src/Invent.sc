@@ -2,6 +2,7 @@
 ;;; Decompiled by sluicebox
 (script# 995)
 (include sci.sh)
+(include game.sh)
 (use Main)
 (use Intrface)
 (use System)
@@ -181,7 +182,7 @@
 ;;;				(= useToggle 0)
 ;;;			)
 ;;;		)
-		(ego get: 0 1 2 3 4 5 6 18)
+		(ego get: 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23)
 		(ego get: 24 25 26 27 28 29 30 31 32 33)
 		(if (not (self init: param1))
 			(Print (inventory empty:))
@@ -264,8 +265,39 @@
 					)
 					(995 ;use
 						(cond
-							((== ((temp0 value?) view?) 133) ;used bombinstructions
-									(Print 800 53 #font smallFont)		
+							((== ((temp0 value?) view?) 616) ;selected use diary
+										(Print 410 26)
+										(Print 410 27)
+										(Print 410 28)
+										(Print 410 29)
+										(Bset fReadDiary)
+
+								
+							)
+							
+							((== ((temp0 value?) view?) 603) ;EAT crackers
+								(if (> numCrackers 0)
+									(Print 410 34)
+									(-- numCrackers)
+								else
+									(Print 410 35)
+								)
+
+								
+							)							
+							
+							((== ((temp0 value?) view?) 617) ;unload gun
+								(cond 
+									(gunIsLoaded
+										(Print 410 15)
+									)
+									((ego has: iDerringer)
+										(Print 410 16)
+									)
+									(else
+										(Print 410 14)
+									)
+								)	
 							)
 							(else
 ;;;								(Print {You don't need to use that item.})
@@ -275,12 +307,98 @@
 					)
 					(998 ;look at item	
 						((temp0 value?) showSelf:) ;display the inventory item normally.
-;;;						(if (== ((el value?) view?) 133) ;looked at bombInstructions
-;;;							(Print 800 53 #font smallFont)
-;;;						else
-;;;							((el value?) showSelf:)
-;;;						)
+
+		
+							
+							
+							
 					)
+					(614 ;matches
+						(if (== ((temp0 value?) view?) 613) ;selected matches with lantern
+
+								(if (ego has: iMatches) ;matches
+									(if lanternIsLit
+										(Print 410 42)
+									else
+										(Print 410 43)
+										(= lanternIsLit TRUE)
+									)
+								)
+
+					
+						)
+					)
+					(604 ;monocle
+						(if (== ((temp0 value?) view?) 630) ;selected monocle with iHandkerchief panuelo
+
+									(Print 410 6 #icon 634 0 0)
+									(Bset fExaminedHandkerchief)
+					
+						)
+						
+						(if (== ((temp0 value?) view?) 626) ;selected monocle with iRollingPin
+
+									(Print 410 7 #icon 639 0 0)
+									(Bset fExaminedRollingPin)
+					
+						)						
+						
+						
+						(if (== ((temp0 value?) view?) 627) ;selected monocle with iPoker
+
+									(Print 410 8 #icon 632 0 0)
+									(Bset fExaminedPoker)
+					
+						)						
+						
+						
+							(if (== ((temp0 value?) view?) 625) ;selected monocle with iBrokenRecord
+
+									(Print 410 9 #icon 636 0 0)
+									(Bset fExaminedRecord)
+					
+						)					
+						
+								(if (== ((temp0 value?) view?) 616) ;selected monocle with Diary
+
+									(Print 410 10 #icon 637 0 0)
+									(Bset fExaminedDiary)
+					
+						)		
+					)
+
+					
+					
+					
+					(618 ;bullet				
+								(if (== ((temp0 value?) view?) 617) ;selected bullet with gun
+
+									(cond 
+										(gunIsLoaded
+											(Print 410 12)
+										)
+										((ego has: iDerringer)
+											(if (ego has: iBullet)
+												(Ok)
+												(ego put: iBullet 99)
+												(= gunIsLoaded TRUE)
+											else
+												(Print 410 13)
+											)
+										)
+										(else
+											(Print 410 14)
+										)
+									)
+								)					
+												
+						
+						
+						
+					)					
+					
+					
+					
 					(else
 ;;;						(Print {You can't use those items together.}) ;English
 						(Print {No puedes usar esos dos objetos juntos.}) ;Spanish
