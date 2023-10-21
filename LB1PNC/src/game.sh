@@ -35,6 +35,9 @@
 ;Memory sizes
 (define InvSize 2048)
 
+(define SaveSize 1200)
+(define GaugeSize 2048)
+
 ;Regions
 (define ETHEL_DRUNK 202)
 (define OUTSIDE 208)
@@ -98,6 +101,8 @@
 (define fLookedAtDog	49)
 (define fSkippedIntro 50)
 (define fSawDeadGuest 51)
+(define fPnCVolumeFlag 52)
+(define fPnCSaveFlag 53)
 
 ;Murdered guests
 (define deadGERTRUDE	$0001)
@@ -107,6 +112,7 @@
 (define deadFIFI		$0010)
 (define deadRUDY		$0020)
 (define deadLILLIAN		$0040)
+
 
 ;howFast values
 (enum

@@ -511,8 +511,8 @@
 		gModelessDialog
 		sGauge2
 		currentStatus
-		setVolume
-		GaugeSize
+		;setVolume
+		;GaugeSize
 		
 ;**********************************************************************
 ; added for point & click
@@ -1196,6 +1196,14 @@
 				(= savedCursor ARROW_CURSOR)
 				(theGame setCursor: ARROW_CURSOR TRUE)
 			)
+		)
+		(if (Btst fPnCVolumeFlag)
+			(= volume pncVolume)
+			(DoSound 8 volume)
+		)
+		(if (Btst fPnCSaveFlag)
+			(Bclr fPnCSaveFlag)
+			(theGame save:)	
 		)
 		(super doit:)
 	)

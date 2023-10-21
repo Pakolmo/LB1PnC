@@ -459,12 +459,8 @@
 ;;;										(0 (Print 950 10)) ;print string 10 in 950.txt
 ;;;										(1 (Print 950 11)) ;print string 11 in 950.txt
 ;;;										(2 (Print 950 12)) ;print string 12 in 950.txt
-									
-										
-;;;									)
-								)
-
-							
+								
+							)
 							(996 ;talk
 								(event type: 1 claimed: 1)
 ;;;								(switch (Random 0 2)
@@ -482,23 +478,16 @@
 ;;;									(2 (Print 950 18))
 								
 ;;;								)
-							)
-							
-
-
-							
-							))
-							
-						
-					
+							)				
+						)
+					)
 					;Room defaults if nothing else is clicked on.
 					(else 
 						(switch theCursor
 							(999 (event type: 1 claimed: 0))
 							(998 ;look
 								(event type: 1 claimed: 1)
-								(DoVerb {look room})
-								
+								(DoVerb {look room})	
 							)
 ;;;							(900  ;gertrude
 ;;;								(event type: 1 claimed: 1)
@@ -567,7 +556,7 @@
 			)
 		)
 	)
-	)
+)
 
 (instance dothequit of Script
 	(properties)
@@ -623,32 +612,13 @@
 				(switch loadOrSave
 					(0
 						(= cycles 1)
-					)
-						
+					)	
 					(1
-							(= saveVolume (theGame setVolume: pncVolume))
-							(theGame setVolume: pncVolume)
-							(Bset 0) ;use un-use flag 0 for save hack
-
+						(Bset fPnCSaveFlag)
 						(= cycles 1)
 					)
 					(2
 						(theGame restore:)
-						(theGame setVolume: saveVolume)
-						(= cycles 1)
-					)
-					(else
-						(if (Btst 3)
-							(Print 997 8 ;(Print textNumber stringNumber)
-;;;								#title {Not now, I have a headache!} ;can't save right now ;ENGLISH
-								#title {Ahora no, ^me duele la cabeza!} ;can't save right now ;SPANISH
-							)
-						else
-						;	(theGame save:) ;open the save game window
-							(Bset 0) ;use un-use flag 0 for save hack
-
-
-						)
 						(= cycles 1)
 					)
 				)
@@ -672,7 +642,7 @@
 			)
 			(1
 				(if
-					(Print MENU 9
+					(Print MENU 3
 ;;;	 					#title {Restart} ;ENGLISH
 	 					#title {Reiniciar} ;SPANISH
 						#font bigFont
@@ -713,11 +683,10 @@
 ;;;						#button {\n_AUTOSAVE_\n_} 4 ;ENGLISH
 ;;;						#button {\n_ABOUT_\n_} 5 ;ENGLISH
 ;;;						#button {\n_TEXT COLOR_\n_} 6 ;ENGLISH
-						#button {\n_INSULTO_\n_} 3 ;SPANISH
-						#button {\n_AUTOSALVAR_\n_} 4 ;SPANISH
-						#button {\n__CREDITOS_\n_} 5 ;SPANISH
-						#button {\n_COLORES_\n_} 6 ;SPANISH
-
+						;#button {\n_INSULTO_\n_} 3 ;SPANISH
+						;#button {\n_AUTOSALVAR_\n_} 4 ;SPANISH
+						;#button {\n__CREDITOS_\n_} 5 ;SPANISH
+						;#button {\n_COLORES_\n_} 6 ;SPANISH
 					)
 				)
 				(switch sGauge2
@@ -729,19 +698,18 @@
 						(= vGauge 2)
 						(= state 19)
 					)
-					(3
-						(= state 29)
-					)
-					(4
-						(= state 39)
-					)
-					(5
-						(= state 49)
-					)
-					(6
-						(= state 59)
-					)
-
+;;;					(3
+;;;						(= state 29)
+;;;					)
+;;;					(4
+;;;						(= state 39)
+;;;					)
+;;;					(5
+;;;						(= state 49)
+;;;					)
+;;;					(6
+;;;						(= state 59)
+;;;					)
 				)
 				(= cycles 1)
 			)
@@ -772,8 +740,7 @@
 				(if (HaveMem GaugeSize)
 					(= pncVolume
 						((Gauge new:)
-							description:
-								(Format @str 950 35)
+							description: (Format @str 950 35)
 ;;;							text: {Sound Volume} ;ENGLISH
 							text: {Volumen} ;SPANISH
 							normal: 15
@@ -781,12 +748,12 @@
 ;;;							lower: {Softer} ;ENGLISH
 							higher: {Subir} ;SPANISH
 							lower: {Bajar} ;SPANISH
-							doit: (theGame setVolume: pncVolume)
+							doit: (DoSound 8 pncVolume) 
 							
 						)
 					)
-					(DoSound ChangeVolume pncVolume)
-					(theGame setVolume: pncVolume)
+					(DoSound 8 pncVolume)
+					(Bset fPnCVolumeFlag)
 					(DisposeScript GAUGE)
 					(= state 99)
 					(= cycles 1)
@@ -902,7 +869,7 @@
 (instance invIcon of Prop
 	(properties
 		y 189
-		x 152 ;move the rest of the icons down (x + 28)
+		x 126 ;152 ;move the rest of the icons down (x + 28)
 		view 950
 		cel 5
 		loop 0
@@ -912,7 +879,7 @@
 (instance blockIcon of Prop
 	(properties
 		y 189
-		x 186 ;228 ;188
+		x 173 ;186 ;228 ;188
 		view 950
 		loop 2
 		cel 0
@@ -972,7 +939,7 @@
 (instance selectedItem of Prop
 	(properties
 		y 189
-		x 186 ;
+		x 173 ;186 ;
 		view 0 ;950
 		loop 0; ;3
 		cel 0
