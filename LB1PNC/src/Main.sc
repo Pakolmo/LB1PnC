@@ -1565,14 +1565,14 @@
 (instance Celie of InvI
 	(properties
 ;;;		said '/Celie'
-		view 901
+		view 931
 		name "Celie"
 	)
 )
 (instance Fifi_ of InvI
 	(properties
 ;;;		said '/Fifi'
-		view 904
+		view 934
 		name "Fifi"
 	)
 )	
@@ -1580,63 +1580,63 @@
 (instance Rudolf_Dijon_ of InvI
 	(properties
 ;;;		said '/Rudy'
-		view 908
+		view 938
 		name "Rudy"
 	)
 )	
 (instance Wilbur_C_Feels of InvI
 	(properties
 ;;;		said '/Feels'
-		view 907
+		view 937
 		name "Feels"
 	)
 )	
 (instance Gertrude_Dijon of InvI
 	(properties
 ;;;		said '/Gertrude'
-		view 900
+		view 930
 		name "Gertrude"
 	)
 )	
 (instance Lillian_Prune of InvI
 	(properties
 ;;;		said '/Lillian'
-		view 905
+		view 935
 		name "Lillian"
 	)
 )
 (instance Ethel_Prune of InvI
 	(properties
 ;;;		said '/Ethel'
-		view 903
+		view 933
 		name "Ethel"
 	)
 )	
 (instance Henri_Dijon of InvI
 	(properties
 ;;;		said '/Colonel'
-		view 909
+		view 939
 		name "Colonel"
 	)
 )	
 (instance Gloria_Swansong of InvI
 	(properties
 ;;;		said '/Gloria'
-		view 902
+		view 932
 		name "Gloria"
 	)
 )	
 (instance Clarence_Sparrow of InvI
 	(properties
 ;;;		said '/Clarence'
-		view 906
+		view 936
 		name "Clarence"
 	)
 )
 (instance Jules_ of InvI
 	(properties
 ;;;		said '/Jules'
-		view 910
+		view 940
 		name "Jules"
 	)
 )							

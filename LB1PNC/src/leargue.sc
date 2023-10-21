@@ -253,47 +253,47 @@
 						
 						
 						
-							(900  ;gertrude
+							(930  ;gertrude
 								(event type: 1 claimed: 1)
 								(DoVerb {ask ethel about Gertrude})
 							)
-							(901 ;Celie
+							(931 ;Celie
 								(event type: 1 claimed: 1)
 								(DoVerb {ask ethel about Celie})
 							)	
-							(902 ;Gloria
+							(932 ;Gloria
 								(event type: 1 claimed: 1)
 								(DoVerb {ask ethel about Gloria})
 							)													
-							(903 ;Ethel
+							(933 ;Ethel
 								(event type: 1 claimed: 1)
 								(DoVerb {ask ethel about Ethel})
 							)	
-							(904 ;Fifi
+							(934 ;Fifi
 								(event type: 1 claimed: 1)
 								(DoVerb {ask ethel about Fifi})
 							)	
-							(905 ;Lillian
+							(935 ;Lillian
 								(event type: 1 claimed: 1)
 								(DoVerb {ask ethel about Lillian})
 							)																					
-							(906 ;Clarence
+							(936 ;Clarence
 								(event type: 1 claimed: 1)
 								(DoVerb {ask ethel about Clarence})
 							)	
-							(907 ;Feels
+							(937 ;Feels
 								(event type: 1 claimed: 1)
 								(DoVerb {ask ethel about Feels})
 							)
-							(908 ;Rudy
+							(938 ;Rudy
 								(event type: 1 claimed: 1)
 								(DoVerb {ask ethel about Rudy})
 							)	
-							(909 ;Colonel
+							(939 ;Colonel
 								(event type: 1 claimed: 1)
 								(DoVerb {ask ethel about Colonel})
 							)
-							(910 ;Jules
+							(940 ;Jules
 								(event type: 1 claimed: 1)
 								(DoVerb {ask ethel about Jules})
 							)						
@@ -395,47 +395,47 @@
 						
 						
 						
-													(900  ;gertrude
+													(930  ;gertrude
 ;;;								(event type: 1 claimed: 1)
 								(DoVerb {ask lil about Gertrude})
 							)
-							(901 ;Celie
+							(931 ;Celie
 ;;;								(event type: 1 claimed: 1)
 								(DoVerb {ask lil about Celie})
 							)	
-							(902 ;Gloria
+							(932 ;Gloria
 ;;;								(event type: 1 claimed: 1)
 								(DoVerb {ask lil about Gloria})
 							)													
-							(903 ;Ethel
+							(933 ;Ethel
 ;;;								(event type: 1 claimed: 1)
 								(DoVerb {ask lil about Ethel})
 							)	
-							(904 ;Fifi
+							(934 ;Fifi
 ;;;								(event type: 1 claimed: 1)
 								(DoVerb {ask lil about Fifi})
 							)	
-							(905 ;Lillian
+							(935 ;Lillian
 ;;;								(event type: 1 claimed: 1)
 								(DoVerb {ask lil about Lillian})
 							)																					
-							(906 ;Clarence
+							(936 ;Clarence
 ;;;								(event type: 1 claimed: 1)
 								(DoVerb {ask lil about Clarence})
 							)	
-							(907 ;Feels
+							(937 ;Feels
 ;;;								(event type: 1 claimed: 1)
 								(DoVerb {ask lil about Feels})
 							)
-							(908 ;Rudy
+							(938 ;Rudy
 ;;;								(event type: 1 claimed: 1)
 								(DoVerb {ask lil about Rudy})
 							)	
-							(909 ;Colonel
+							(939 ;Colonel
 ;;;								(event type: 1 claimed: 1)
 								(DoVerb {ask lil about Colonel})
 							)
-							(910 ;Jules
+							(940 ;Jules
 ;;;								(event type: 1 claimed: 1)
 								(DoVerb {ask lil about Jules})
 							)

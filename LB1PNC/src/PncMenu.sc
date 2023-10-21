@@ -489,47 +489,47 @@
 								(event type: 1 claimed: 1)
 								(DoVerb {look room})	
 							)
-;;;							(900  ;gertrude
+;;;							(930  ;gertrude
 ;;;								(event type: 1 claimed: 1)
 ;;;								(DoVerb {ask about Gertrude})
 ;;;							)
-;;;							(901 ;Celie
+;;;							(931 ;Celie
 ;;;								(event type: 1 claimed: 1)
 ;;;								(DoVerb {ask about Celie})
 ;;;							)	
-;;;							(902 ;Gloria
+;;;							(932 ;Gloria
 ;;;								(event type: 1 claimed: 1)
 ;;;								(DoVerb {ask about Gloria})
 ;;;							)													
-;;;							(903 ;Ethel
+;;;							(933 ;Ethel
 ;;;								(event type: 1 claimed: 1)
 ;;;								(DoVerb {ask about Ethel})
 ;;;							)	
-;;;							(904 ;Fifi
+;;;							(934 ;Fifi
 ;;;								(event type: 1 claimed: 1)
 ;;;								(DoVerb {ask about Fifi})
 ;;;							)	
-;;;							(905 ;Lillian
+;;;							(935 ;Lillian
 ;;;								(event type: 1 claimed: 1)
 ;;;								(DoVerb {ask about Lillian})
 ;;;							)																					
-;;;							(906 ;Clarence
+;;;							(936 ;Clarence
 ;;;								(event type: 1 claimed: 1)
 ;;;								(DoVerb {ask about Clarence})
 ;;;							)	
-;;;							(907 ;Feels
+;;;							(937 ;Feels
 ;;;								(event type: 1 claimed: 1)
 ;;;								(DoVerb {ask about Feels})
 ;;;							)
-;;;							(908 ;Rudy
+;;;							(938 ;Rudy
 ;;;								(event type: 1 claimed: 1)
 ;;;								(DoVerb {ask about Rudy})
 ;;;							)	
-;;;							(909 ;Colonel
+;;;							(939 ;Colonel
 ;;;								(event type: 1 claimed: 1)
 ;;;								(DoVerb {ask about Colonel})
 ;;;							)
-;;;							(910 ;Jules
+;;;							(940 ;Jules
 ;;;								(event type: 1 claimed: 1)
 ;;;								(DoVerb {ask about Jules})
 ;;;							)																																				
