@@ -25,6 +25,7 @@
 	local0
 	local1
 	local2
+	temp7
 )
 (instance Room43 of Room
 	(properties
@@ -146,6 +147,327 @@
 	)
 	
 	(method (handleEvent event &tmp temp0)
+		
+		
+		
+		
+
+		
+		
+		(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)
+				
+					(if (ClickedOnObj vase (event x?) (event y?)) 
+						(event claimed: TRUE)
+						(switch theCursor	
+							(995 ;get
+								(DoVerb {get vase})
+							)
+							(998 ;examine and examine in
+								(= temp7
+												(Print
+													{Vase}
+													#button {Examine} 1
+													#button {Examine in} 2								
+													
+												)
+											)
+											(switch temp7
+												(1 
+													(DoVerb {examine vase})
+												)
+												(2
+													(DoVerb {examine in vase})
+												)
+												(else
+													(event claimed: FALSE)
+												)
+											)
+							)
+							(else
+								(event claimed: FALSE)
+							)
+						)
+					)
+					(if (ClickedOnObj cat (event x?) (event y?)) 
+						(event claimed: TRUE)
+						(switch theCursor	
+							(995 ;get
+								(DoVerb {get cat})
+							)		
+							(998 ;look
+								(DoVerb {examine cat})
+							)
+							(else
+								(event claimed: FALSE)
+							)
+						)
+					)
+		
+	
+	
+						(if (ClickedOnObj statueL (event x?) (event y?)) 
+						(event claimed: TRUE)
+						(switch theCursor	
+							(995 ;get
+								(DoVerb {get monument})
+							)		
+							(998 ;look
+								(= temp7
+												(Print
+
+													{Statue}
+													#button {Look} 1
+													#button {Examine in} 2								
+													
+												)
+											)
+											(switch temp7
+												(1 
+													(DoVerb {examine monument})
+												)
+												(2
+													(DoVerb {examine below monument})
+												)
+												(else
+													(event claimed: FALSE)
+												)
+											)
+							)
+							(else
+								(event claimed: FALSE)
+							)
+						)
+					)
+
+	
+						(if (ClickedOnObj statueR (event x?) (event y?)) 
+						(event claimed: TRUE)
+						(switch theCursor	
+							(995 ;get
+								(DoVerb {get monument})
+							)		
+							(998 ;look
+								(= temp7
+												(Print
+;;;													{Painting}
+;;;													#button {Colonel Eye} 1
+;;;													#button {Girl Eye} 2
+;;;													#button {below painting} 3		
+													{Statue}
+													#button {Look} 1
+													#button {Examine in} 2								
+													
+												)
+											)
+											(switch temp7
+												(1 
+													(DoVerb {examine monument})
+												)
+												(2
+													(DoVerb {examine below monument})
+												)
+												(else
+													(event claimed: FALSE)
+												)
+											)
+							)
+							(else
+								(event claimed: FALSE)
+							)
+						)
+					)	
+		
+		
+		
+						(if (ClickedOnObj lamp (event x?) (event y?)) 
+						(event claimed: TRUE)
+						(switch theCursor	
+							(995 ;get
+								(DoVerb {get lamp})
+							)		
+							(998 ;look
+								(DoVerb {examine lamp})
+							)
+							(else
+								(event claimed: FALSE)
+							)
+						)
+					)	
+		
+		
+						(if (ClickedOnObj lampR (event x?) (event y?)) 
+						(event claimed: TRUE)
+						(switch theCursor	
+							(995 ;get
+								(DoVerb {get lamp})
+							)		
+							(998 ;look
+								(DoVerb {examine lamp})
+							)
+							(else
+								(event claimed: FALSE)
+							)
+						)
+					)	
+					
+					(if (ClickedOnObj lampL (event x?) (event y?)) 
+						(event claimed: TRUE)
+						(switch theCursor	
+							(995 ;get
+								(DoVerb {get lamp})
+							)		
+							(998 ;look
+								(DoVerb {examine lamp})
+							)
+							(else
+								(event claimed: FALSE)
+							)
+						)
+					)			
+		
+					(if (ClickedOnObj Door (event x?) (event y?)) 
+						(event claimed: TRUE)
+						(switch theCursor	
+							(998 ;look
+								(DoVerb {examine door})
+							)
+							(else
+								(event claimed: FALSE)
+							)
+						)
+					)			
+				
+		
+					(if (ClickedOnObj phone (event x?) (event y?))  ;phone is lamp
+						(event claimed: TRUE)
+						(switch theCursor	
+							(998 ;look
+								(DoVerb {examine lamp})
+							)
+							(else
+								(event claimed: FALSE)
+							)
+						)
+					)			
+					(if (ClickedOnObj Dresser1 (event x?) (event y?))  
+						(event claimed: TRUE)
+						(switch theCursor	
+							(995
+								(DoVerb {search drawer})
+							)
+							(998
+								(DoVerb {examine drawer})
+							)
+							(else
+								(event claimed: FALSE)
+							)
+						)
+					)					
+					(if (ClickedOnObj Dresser2 (event x?) (event y?))  
+						(event claimed: TRUE)
+						(switch theCursor	
+							(995
+								(DoVerb {search drawer})
+							)
+							(998
+								(DoVerb {examine drawer})
+							)
+							(else
+								(event claimed: FALSE)
+							)
+						)
+					)		
+		
+						(if (ClickedOnObj wardL (event x?) (event y?))  
+						(event claimed: TRUE)
+						(switch theCursor
+						(995
+							(DoVerb {move armoire})	
+						)
+							(998
+									(= temp7
+												(Print
+
+													{Wardrove}
+													#button {Look} 1
+													#button {Examine in} 2								
+													
+												)
+											)
+											(switch temp7
+												(1 
+													(DoVerb {examine armoire})
+												)
+												(2
+													(DoVerb {examine below armoire})
+												)
+												(else
+													(event claimed: FALSE)
+												)
+											)
+							)
+							(else
+								(event claimed: FALSE)
+							)
+						)
+					)	
+		
+						(if (ClickedOnObj wardR (event x?) (event y?))  
+						(event claimed: TRUE)
+						(switch theCursor
+						(995
+							(DoVerb {move armoire})	
+						)
+							(998
+									(= temp7
+												(Print
+
+													{Wardrove}
+													#button {Look} 1
+													#button {Examine in} 2								
+													
+												)
+											)
+											(switch temp7
+												(1 
+													(DoVerb {examine armoire})
+												)
+												(2
+													(DoVerb {examine below armoire})
+												)
+												(else
+													(event claimed: FALSE)
+												)
+											)
+							)
+							(else
+								(event claimed: FALSE)
+							)
+						)
+					)	
+		
+			
+;;;	Dresser1 Dresser2 wardR wardL 	
+;;;		
+;;;		
+;;;		
+;;;		
+;;;		
+		
+		
+		
+		
+		
+		
+		
+			)
+		)
+		
 		(if (event claimed?) (return TRUE))
 		(return
 			(if (and (== (event type?) saidEvent) (Said 'examine>'))

@@ -173,49 +173,129 @@
 					
 					(event claimed: TRUE)
 					(switch theCursor	
+						
+					
+					(602 ;necklace_
+						(DoVerb {tell ethel about handkerchief})						
+					)
+					(604 ;monocle
+						(DoVerb {tell ethel about monocle})						
+					)
+					
+					(613 ;lantern_
+						(DoVerb {tell ethel about lantern})						
+					)
+					(611 ;oilcan_
+						(DoVerb {tell ethel about oilcan})						
+					)
+					(626 ;rolling_pin_
+						(DoVerb {tell ethel about pin})						
+					)
+					(620 ;skeleton_key_
+						(DoVerb {tell ethel about skeleton key})						
+					)
+					(627 ;poker_
+						(DoVerb {tell ethel about poker})						
+					)															
+					(607 ;crowbar_
+						(DoVerb {tell ethel about crowbar})						
+					)
+					(628 ;cigar_butt_
+						(DoVerb {tell ethel about butt})						
+					)
+					(625 ;broken_record_
+						(DoVerb {tell ethel about broken record})						
+					)
+					(601 ;notebook___pencil_
+						(DoVerb {tell ethel about notebook})						
+					)
+					(603 ;_7_crackers________
+						(DoVerb {tell ethel about crackers})						
+					)
+					(605 ;soup_bone_
+						(DoVerb {tell ethel about soup bone})						
+					)
+					(606 ;valve_handle_
+						(DoVerb {tell ethel about valve})						
+					)
+					(618 ;bullet_
+						(DoVerb {tell ethel about bullet})						
+					)
+					(617 ;derringer__
+						(DoVerb {tell ethel about derringer})						
+					)
+					(614 ;matches_
+						(DoVerb {tell ethel about matches})						
+					)
+					(615 ;carrot_
+						(DoVerb {tell ethel about carrot})						
+					)
+					(619 ;brass_key_
+						(DoVerb {tell ethel about brass key})						
+					)
+					(616 ;diary_
+						(DoVerb {tell ethel about diary})						
+					)
+					(621 ;crank_
+						(DoVerb {tell ethel about crank})						
+					)
+					(612 ;cane_
+						(DoVerb {tell ethel about cane})						
+					)
+					(622 ;pouch_
+						(DoVerb {tell ethel about pouch})						
+					)																																																																																
+					(630 ;handkerchief_
+						(DoVerb {tell ethel about handkerchief})
+					)
+											
+						
+						
+						
+						
 							(900  ;gertrude
 								(event type: 1 claimed: 1)
-								(DoVerb {ask about Gertrude})
+								(DoVerb {ask ethel about Gertrude})
 							)
 							(901 ;Celie
 								(event type: 1 claimed: 1)
-								(DoVerb {ask about Celie})
+								(DoVerb {ask ethel about Celie})
 							)	
 							(902 ;Gloria
 								(event type: 1 claimed: 1)
-								(DoVerb {ask about Gloria})
+								(DoVerb {ask ethel about Gloria})
 							)													
 							(903 ;Ethel
 								(event type: 1 claimed: 1)
-								(DoVerb {ask about Ethel})
+								(DoVerb {ask ethel about Ethel})
 							)	
 							(904 ;Fifi
 								(event type: 1 claimed: 1)
-								(DoVerb {ask about Fifi})
+								(DoVerb {ask ethel about Fifi})
 							)	
 							(905 ;Lillian
 								(event type: 1 claimed: 1)
-								(DoVerb {ask about Lillian})
+								(DoVerb {ask ethel about Lillian})
 							)																					
 							(906 ;Clarence
 								(event type: 1 claimed: 1)
-								(DoVerb {ask about Clarence})
+								(DoVerb {ask ethel about Clarence})
 							)	
 							(907 ;Feels
 								(event type: 1 claimed: 1)
-								(DoVerb {ask about Feels})
+								(DoVerb {ask ethel about Feels})
 							)
 							(908 ;Rudy
 								(event type: 1 claimed: 1)
-								(DoVerb {ask about Rudy})
+								(DoVerb {ask ethel about Rudy})
 							)	
 							(909 ;Colonel
 								(event type: 1 claimed: 1)
-								(DoVerb {ask about Colonel})
+								(DoVerb {ask ethel about Colonel})
 							)
 							(910 ;Jules
 								(event type: 1 claimed: 1)
-								(DoVerb {ask about Jules})
+								(DoVerb {ask ethel about Jules})
 							)						
 						(998		
 							(DoLook {ethel})
@@ -235,6 +315,86 @@
 						(ClickedOnObj lHead (event x?) (event y?)) )
 					(event claimed: TRUE)
 					(switch theCursor	
+											
+					(602 ;necklace_
+						(DoVerb {tell lil about handkerchief})						
+					)
+					(604 ;monocle
+						(DoVerb {tell lil about monocle})						
+					)
+					
+					(613 ;lantern_
+						(DoVerb {tell lil about lantern})						
+					)
+					(611 ;oilcan_
+						(DoVerb {tell lil about oilcan})						
+					)
+					(626 ;rolling_pin_
+						(DoVerb {tell lil about pin})						
+					)
+					(620 ;skeleton_key_
+						(DoVerb {tell lil about skeleton key})						
+					)
+					(627 ;poker_
+						(DoVerb {tell lil about poker})						
+					)															
+					(607 ;crowbar_
+						(DoVerb {tell lil about crowbar})						
+					)
+					(628 ;cigar_butt_
+						(DoVerb {tell lil about butt})						
+					)
+					(625 ;broken_record_
+						(DoVerb {tell lil about broken record})						
+					)
+					(601 ;notebook___pencil_
+						(DoVerb {tell lil about notebook})						
+					)
+					(603 ;_7_crackers________
+						(DoVerb {tell lil about crackers})						
+					)
+					(605 ;soup_bone_
+						(DoVerb {tell lil about soup bone})						
+					)
+					(606 ;valve_handle_
+						(DoVerb {tell lil about valve})						
+					)
+					(618 ;bullet_
+						(DoVerb {tell lil about bullet})						
+					)
+					(617 ;derringer__
+						(DoVerb {tell lil about derringer})						
+					)
+					(614 ;matches_
+						(DoVerb {tell lil about matches})						
+					)
+					(615 ;carrot_
+						(DoVerb {tell lil about carrot})						
+					)
+					(619 ;brass_key_
+						(DoVerb {tell lil about brass key})						
+					)
+					(616 ;diary_
+						(DoVerb {tell lil about diary})						
+					)
+					(621 ;crank_
+						(DoVerb {tell lil about crank})						
+					)
+					(612 ;cane_
+						(DoVerb {tell lil about cane})						
+					)
+					(622 ;pouch_
+						(DoVerb {tell lil about pouch})						
+					)																																																																																
+					(630 ;handkerchief_
+						(DoVerb {tell lil about handkerchief})
+					)
+					
+						
+						
+						
+						
+						
 													(900  ;gertrude
 ;;;								(event type: 1 claimed: 1)
 								(DoVerb {ask lil about Gertrude})

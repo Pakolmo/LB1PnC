@@ -125,6 +125,326 @@
 	)
 	
 	(method (handleEvent event &tmp temp0)
+		
+		(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)
+						
+;;;basket sink toilet bathtub Cabinet settie Window1 Mirror		
+				(if (ClickedOnObj basket (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor	
+						(604 ;monocle
+							(DoVerb {examine basket with monocle})
+						)						
+						(998 ;examine
+							(DoVerb {examine in basket})
+						)
+						(995 ;get
+							(DoVerb {get basket})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+		
+				(if (ClickedOnObj sink (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor	
+						(604 ;monocle
+							(DoVerb {examine sink with monocle})
+						)						
+						(998 ;look
+							(DoVerb {examine sink})
+						)
+						(995 ;examine
+							(DoVerb {examine in sink})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+		
+				(if (ClickedOnObj toilet (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor	
+						(604 ;monocle
+							(DoVerb {examine toilet with monocle})
+						)						
+						(998 ;look
+							(DoVerb {examine toilet})
+						)
+						(995 ;examine
+							(DoVerb {examine in toilet})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+		
+						
+				(if (ClickedOnObj bathtub (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor	
+						(604 ;monocle
+							(DoVerb {examine shower with monocle})
+						)						
+						(998 ;examine shower
+							(DoVerb {examine in shower})
+						)
+						(995 ;get
+							(DoVerb {get shower})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)	
+		
+				(if (ClickedOnObj Cabinet (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(604 ;monocle
+							(DoVerb {examine armoire with monocle})
+						)	
+						(998 ;examine armoire
+							(DoVerb {examine in armoire})
+						)
+						(995 ;open
+							(DoVerb {open armoire})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)	
+		
+				
+				(if (ClickedOnObj settie (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor	
+						(604 ;monocle
+							(DoVerb {examine bench with monocle})
+						)
+						(998 ;examine bench
+							(DoVerb {examine bench})
+						)
+						(995 ;open
+							(DoVerb {open bench})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)	
+		
+					
+				(if (ClickedOnObj Window1 (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor	
+						(604 ;monocle
+							(DoVerb {examine window with monocle})
+						)
+						(998 ;examine window
+							(DoVerb {examine window})
+						)
+						(995 ;open
+							(DoVerb {open window})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)	
+		
+				(if (ClickedOnObj Mirror (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor	
+						(604 ;monocle
+							(DoVerb {examine mirror with monocle})
+						)
+						(998 ;examine window
+							(DoVerb {examine mirror})
+						)
+						(995 ;open
+							(DoVerb {examine behind mirror})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)	
+		
+				(if (ClickedOnObj Lilian (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor	
+						
+											
+					(602 ;necklace_
+						(DoVerb {tell lil about handkerchief})						
+					)
+					(604 ;monocle
+						(DoVerb {tell lil about monocle})						
+					)
+					
+					(613 ;lantern_
+						(DoVerb {tell lil about lantern})						
+					)
+					(611 ;oilcan_
+						(DoVerb {tell lil about oilcan})						
+					)
+					(626 ;rolling_pin_
+						(DoVerb {tell lil about pin})						
+					)
+					(620 ;skeleton_key_
+						(DoVerb {tell lil about skeleton key})						
+					)
+					(627 ;poker_
+						(DoVerb {tell lil about poker})						
+					)															
+					(607 ;crowbar_
+						(DoVerb {tell lil about crowbar})						
+					)
+					(628 ;cigar_butt_
+						(DoVerb {tell lil about butt})						
+					)
+					(625 ;broken_record_
+						(DoVerb {tell lil about broken record})						
+					)
+					(601 ;notebook___pencil_
+						(DoVerb {tell lil about notebook})						
+					)
+					(603 ;_7_crackers________
+						(DoVerb {tell lil about crackers})						
+					)
+					(605 ;soup_bone_
+						(DoVerb {tell lil about soup bone})						
+					)
+					(606 ;valve_handle_
+						(DoVerb {tell lil about valve})						
+					)
+					(618 ;bullet_
+						(DoVerb {tell lil about bullet})						
+					)
+					(617 ;derringer__
+						(DoVerb {tell lil about derringer})						
+					)
+					(614 ;matches_
+						(DoVerb {tell lil about matches})						
+					)
+					(615 ;carrot_
+						(DoVerb {tell lil about carrot})						
+					)
+					(619 ;brass_key_
+						(DoVerb {tell lil about brass key})						
+					)
+					(616 ;diary_
+						(DoVerb {tell lil about diary})						
+					)
+					(621 ;crank_
+						(DoVerb {tell lil about crank})						
+					)
+					(612 ;cane_
+						(DoVerb {tell lil about cane})						
+					)
+					(622 ;pouch_
+						(DoVerb {tell lil about pouch})						
+					)																																																																																
+					(630 ;handkerchief_
+						(DoVerb {tell lil about handkerchief})
+					)
+					
+						
+						
+						
+						
+						
+													(900  ;gertrude
+;;;								(event type: 1 claimed: 1)
+								(DoVerb {ask lil about Gertrude})
+							)
+							(901 ;Celie
+;;;								(event type: 1 claimed: 1)
+								(DoVerb {ask lil about Celie})
+							)	
+							(902 ;Gloria
+;;;								(event type: 1 claimed: 1)
+								(DoVerb {ask lil about Gloria})
+							)													
+							(903 ;Ethel
+;;;								(event type: 1 claimed: 1)
+								(DoVerb {ask lil about Ethel})
+							)	
+							(904 ;Fifi
+;;;								(event type: 1 claimed: 1)
+								(DoVerb {ask lil about Fifi})
+							)	
+							(905 ;Lillian
+;;;								(event type: 1 claimed: 1)
+								(DoVerb {ask lil about Lillian})
+							)																					
+							(906 ;Clarence
+;;;								(event type: 1 claimed: 1)
+								(DoVerb {ask lil about Clarence})
+							)	
+							(907 ;Feels
+;;;								(event type: 1 claimed: 1)
+								(DoVerb {ask lil about Feels})
+							)
+							(908 ;Rudy
+;;;								(event type: 1 claimed: 1)
+								(DoVerb {ask lil about Rudy})
+							)	
+							(909 ;Colonel
+;;;								(event type: 1 claimed: 1)
+								(DoVerb {ask lil about Colonel})
+							)
+							(910 ;Jules
+;;;								(event type: 1 claimed: 1)
+								(DoVerb {ask lil about Jules})
+							)
+						
+						
+											
+						
+						
+						(998 ;examine window
+							(DoVerb {examine lil})
+						)
+						(996 ;talk
+							(DoVerb {converse lil})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)											
+		
+		
+		
+		
+		
+		
+		
+		
+		
+			)
+		)
 		(if (event claimed?) (return))
 		(if (== (event type?) saidEvent)
 			(if (>= currentAct 5)
