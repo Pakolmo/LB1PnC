@@ -278,6 +278,121 @@
 	)
 	
 	(method (handleEvent event &tmp temp0)
+		
+		
+
+		
+		(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)
+		
+			(if (ClickedOnObj bpanel (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor	
+						(995
+							(DoVerb {open door})
+						)
+						(998
+							(DoLook {door})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+										
+					)
+			)
+;;;			
+			(if (or (ClickedOnPicView fprotrait (event x?) (event y?)) 
+				(ClickedOnPicView bprotrait (event x?) (event y?)) )
+					
+					(event claimed: TRUE)
+					(switch theCursor	
+						(995
+							(DoVerb {examine in eye})
+						)
+						(998
+							(Print 49 8)
+							(event claimed: TRUE)
+						)
+						(else
+							(event claimed: FALSE)
+						)
+										
+					)
+			)
+	
+		
+			(if (ClickedOnObj cane (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor	
+						(604
+							(DoVerb {examine cane with monocle})
+						)
+						(995
+							(DoVerb {get cane})
+						)
+						(998
+							(DoVerb {examine cane})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+										
+					)
+			)		
+		
+		
+		
+				(if (ClickedOnObj cigar (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor	
+						(604
+							(DoVerb {examine butt with monocle})
+						)						
+						(995
+							(DoVerb {get butt})
+						)						
+						(998
+							(DoVerb {examine butt})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+										
+					)
+			)	
+		
+		
+		
+;;;				(if (ClickedOnObj Platform (event x?) (event y?)) 
+;;;					
+;;;					(event claimed: TRUE)
+;;;					(switch theCursor	
+;;;						(998
+;;;							(DoVerb {look platform})
+;;;						)			
+;;;						(else
+;;;							(event claimed: FALSE)
+;;;						)
+;;;										
+;;;					)
+;;;				)	
+;;;		
+		
+		
+			)
+		
+		
+		)
+	
+		
+		
 		(if (event claimed?) (return TRUE))
 		(return
 			(if (== (event type?) saidEvent)

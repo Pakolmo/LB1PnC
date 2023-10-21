@@ -265,6 +265,9 @@
 					)
 					(995 ;use
 						(cond
+							
+							
+							
 							((== ((temp0 value?) view?) 616) ;selected use diary
 										(Print 410 26)
 										(Print 410 27)
@@ -311,7 +314,9 @@
 		
 							
 							
-							
+
+					
+												
 					)
 					(614 ;matches
 						(if (== ((temp0 value?) view?) 613) ;selected matches with lantern

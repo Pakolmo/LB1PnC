@@ -24,6 +24,8 @@
 (local
 	newPV
 	newPV_2
+	temp7
+	temp8
 )
 (procedure (ColPrint)
 	(= theTalker talkCOLONEL)
@@ -198,7 +200,363 @@
 	)
 	
 	(method (handleEvent event)
-		(super handleEvent: event)
+		(super handleEvent: event)		
+		
+		(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)
+		
+			(if (ClickedOnPicView bed (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998
+							(DoLook {bed})
+						)
+						(else
+
+						
+							(event claimed: FALSE)
+						)
+					)
+
+			)	
+		
+			(if (ClickedOnPicView table1 (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998
+							(DoLook {table})
+						)
+						(else
+					
+							(event claimed: FALSE)
+						)
+					)
+
+			)		
+		
+			(if (ClickedOnPicView table2 (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998
+							(DoLook {table})
+						)
+						(else
+					
+							(event claimed: FALSE)
+						)
+					)
+
+			)		
+		
+			(if (ClickedOnPicView table3 (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998
+							(DoLook {table})
+						)
+						(else
+					
+							(event claimed: FALSE)
+						)
+					)
+
+			)		
+				;Bug with colonel.		
+;;;				(if (ClickedOnPicView sofa (event x?) (event y?)) 
+;;;					
+;;;					(event claimed: TRUE)
+;;;					(switch theCursor	
+;;;						(998
+;;;							(DoLook {sofa})
+;;;						)
+;;;						(else
+;;;
+;;;						
+;;;							(event claimed: FALSE)
+;;;						)
+;;;					)
+;;;
+;;;			)	
+		
+			(if (ClickedOnPicView mirror (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998
+							(DoLook {mirror})
+						)
+						(else
+
+						
+							(event claimed: FALSE)
+						)
+					)
+
+			)		
+		
+				(if (ClickedOnPicView stand (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998
+							(DoLook {stand})
+						)
+						(else
+
+						
+							(event claimed: FALSE)
+						)
+					)
+
+			)	
+			(if (ClickedOnPicView vase (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998
+							(DoLook {vase})
+						)
+						(else
+
+						
+							(event claimed: FALSE)
+						)
+					)
+
+			)		
+		
+			(if (ClickedOnPicView flower (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998
+							(DoLook {vase}) ;vase
+						)
+						(else
+
+						
+							(event claimed: FALSE)
+						)
+					)
+
+			)		
+		
+			(if (ClickedOnPicView cannon (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor	
+						(619 ;key
+							(DoVerb {atatch key cannon})
+							(Print 42 30)
+						)
+						(998
+								(= temp7
+												(Print
+													{cannon}
+													#button {examine} 1
+													#button {look} 2								
+												)
+											)
+											(switch temp7
+												(1 ;get
+													(DoVerb {examine cannon})
+												)
+												(2
+													(DoVerb {look cannon})
+												)
+											)
+						)
+						(else
+
+						
+							(event claimed: FALSE)
+						)
+					)
+
+			)		
+
+			(if (ClickedOnObj Armoire (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998
+							(DoVerb {examine panel}) ;panel yes.
+						)
+						(995
+							(DoVerb {move panel})	
+						)
+						(else
+
+						
+							(event claimed: FALSE)
+						)
+					)
+
+			)		
+			
+			(if (ClickedOnObj SDress (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor	
+						(995
+							
+							(DoVerb {open drawer})	
+						)
+							
+						(998
+							(event claimed: TRUE)
+							(Print 42 37)
+						)
+						(else
+
+						
+							(event claimed: FALSE)
+						)
+					)
+
+			)				
+			
+		(if (ClickedOnObj Shaft (event x?) (event y?)) ;elevator
+					
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998
+							
+							(DoVerb {look elevator})	
+						)
+							
+						(995
+							(DoVerb {open elevator})
+						)
+						(else
+
+						
+							(event claimed: FALSE)
+						)
+					)
+
+			)				
+				
+			
+			
+		(if (ClickedOnObj Dbag (event x?) (event y?)) ;Dbag
+					
+					(event claimed: TRUE)
+					(switch theCursor	
+						(995
+							(= temp7
+												(Print
+													{Bag}
+													#button {Get} 1
+													#button {Open} 2								
+												)
+											)
+											(switch temp7
+												(1 ;get
+													(DoVerb {get bag})
+												)
+												(2
+													(DoVerb {open bag})
+												)
+											)
+						)
+						(998
+							(= temp8
+												(Print
+													{Bag}
+													#button {look} 1
+													#button {examine} 2								
+												)
+											)
+											(switch temp8
+												(1 ;get
+													(DoVerb {look bag})
+												)
+												(2
+													(DoVerb {examine in bag})
+												)
+											)
+						)	
+						(else
+
+							(event claimed: FALSE)
+						)
+										
+					)
+			)						
+	
+			
+
+					(if (ClickedOnObj logs (event x?) (event y?)) ;logs
+					
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998
+							(DoVerb {Examine log})
+						)
+						(else
+
+							(event claimed: FALSE)
+						)
+										
+					)
+					)			
+			
+					(if (ClickedOnObj lamp1 (event x?) (event y?)) 
+							
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998
+							(DoVerb {look lamp})
+						)
+						(else
+
+							(event claimed: FALSE)
+						)
+										
+					)
+					)	
+					
+					
+					(if (ClickedOnObj lamp2 (event x?) (event y?)) 
+							
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998
+							(DoVerb {look lamp})
+						)
+						(else
+
+							(event claimed: FALSE)
+						)
+										
+					)
+					)								
+						(if (ClickedOnPicView Chair (event x?) (event y?)) 
+							
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998
+							(DoVerb {look wheelchair})
+						)
+						(else
+
+							(event claimed: FALSE)
+						)
+										
+					)
+					)			
+			
+			)
+			)
+		
+		
+
 		(if (event claimed?) (return))
 		(if (== (event type?) saidEvent)
 			(DisposeScript SAVE)
@@ -562,7 +920,7 @@
 	)
 )
 
-(instance logs of Prop
+(instance logs of Actor ;Prop
 	(properties
 		y 86
 		x 189
@@ -580,7 +938,7 @@
 	)
 )
 
-(instance lamp1 of Prop
+(instance lamp1 of Actor ;Prop
 	(properties
 		y 44
 		x 80
@@ -595,7 +953,7 @@
 	)
 )
 
-(instance lamp2 of Prop
+(instance lamp2 of Actor ;Prop
 	(properties
 		y 76
 		x 15
@@ -611,7 +969,7 @@
 	)
 )
 
-(instance Dbag of Prop
+(instance Dbag of Actor ;Prop
 	(properties
 		y 120
 		x 220
@@ -670,6 +1028,8 @@
 		nsLeft 284
 		nsBottom 126
 		nsRight 311
+		y 65
+		x 284
 	)
 	
 	(method (handleEvent event)
