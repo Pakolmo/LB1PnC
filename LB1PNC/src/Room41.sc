@@ -21,6 +21,7 @@
 
 (local
 	local0
+	temp7
 )
 (instance Room41 of Room
 	(properties
@@ -96,6 +97,133 @@
 	)
 	
 	(method (handleEvent event &tmp temp0)
+		
+		(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)
+					
+				(if (ClickedOnObj wardrobe (event x?) (event y?)) 
+
+					(event claimed: TRUE)
+					(switch theCursor	
+						(995
+							(DoVerb {examine in armoire})
+						)
+						(998
+							(DoVerb {examine armoire})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+		
+					(if (ClickedOnObj chair1 (event x?) (event y?)) 
+							
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998
+							(DoVerb {look chair})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)	
+		
+					(if (ClickedOnObj chair2 (event x?) (event y?)) 
+							
+					(event claimed: TRUE)
+					(switch theCursor
+												(995
+							(DoVerb {examine in chair})
+						)
+						(998
+
+							(DoVerb {look chair})
+						
+						)(else
+							(event claimed: FALSE)
+						)
+					)
+					)
+			
+		
+				(if (ClickedOnObj Boxes (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor
+						(995
+							(DoVerb {examine in box})
+						)
+						(998
+
+							(DoVerb {examine box})
+						
+						)(else
+							(event claimed: FALSE)
+						)
+					)
+					)
+			
+			
+					(if (ClickedOnObj Bed (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor
+						(995
+							(DoVerb {examine below bed})
+						)
+						(998
+
+							(DoVerb {examine bed})
+						
+						)(else
+							(event claimed: FALSE)
+						)
+					)
+					)
+				
+					(if (ClickedOnObj bag (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor
+						(995
+							(DoVerb {examine in bag})
+						)
+						(998
+
+							(DoVerb {examine bag})
+						
+						)(else
+							(event claimed: FALSE)
+						)
+					)
+					)		
+					(if (or (ClickedOnObj lamp1 (event x?) (event y?)) 
+						(ClickedOnObj lamp2 (event x?) (event y?)) )
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+
+							(DoVerb {examine lamp})
+						
+						)(else
+							(event claimed: FALSE)
+						)
+					)
+					)		
+		
+				
+		
+		
+		
+		
+		
+		
+			)
+		)
+		
 		(if (event claimed?) (return TRUE))
 		(return
 			(if (== (event type?) saidEvent)

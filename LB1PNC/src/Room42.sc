@@ -355,22 +355,10 @@
 							(Print 42 30)
 						)
 						(998
-								(= temp7
-												(Print
-													{cannon}
-													#button {examine} 1
-													#button {look} 2								
-												)
-											)
-											(switch temp7
-												(1 ;get
+
 													(DoVerb {examine cannon})
 												)
-												(2
-													(DoVerb {look cannon})
-												)
-											)
-						)
+
 						(else
 
 						
@@ -385,10 +373,10 @@
 					(event claimed: TRUE)
 					(switch theCursor	
 						(998
-							(DoVerb {examine panel}) ;panel yes.
+							(DoVerb {examine panel door}) ;panel yes.
 						)
 						(995
-							(DoVerb {move panel})	
+							(DoVerb {move panel door})	
 						)
 						(else
 
