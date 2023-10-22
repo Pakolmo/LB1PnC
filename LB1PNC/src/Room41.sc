@@ -173,7 +173,30 @@
 					(event claimed: TRUE)
 					(switch theCursor
 						(995
-							(DoVerb {examine below bed})
+													(= temp7
+												(Print
+													{Bed}
+													#button {Open} 1
+													#button {Close} 2								
+													#button {Examine} 3
+
+												)
+											)
+											(switch temp7
+												(1 
+													(DoVerb {open bed})
+												)
+												(2
+													(DoVerb {close bed})
+												)
+												(3
+													(DoVerb {examine below bed})
+												)(else
+													(event claimed: FALSE)
+												)
+											)
+						
+												
 						)
 						(998
 
@@ -215,11 +238,36 @@
 					)		
 		
 				
+				(if (ClickedOnObj dresser (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+
+							(DoVerb {examine in drawer})
+						
+						)(else
+							(event claimed: FALSE)
+						)
+					)
+					)	
 		
-		
-		
-		
-		
+				(if (ClickedInRect 151 173 22 49 event) ;curtain
+					
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(995
+									(DoVerb {examine below curtain})
+						)
+						(998
+							(DoVerb {examine curtain})
+						
+						)	(else
+								(event claimed: FALSE)
+							)
+					)
+				
+				)
 		
 			)
 		)
