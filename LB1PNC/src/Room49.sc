@@ -368,7 +368,19 @@
 					)
 			)	
 		
-		
+			(if (ClickedInRect 300 319 105 117 event) ;exit room
+			(event claimed: TRUE)
+					(switch theCursor
+						(999
+							(ego setMotion: MoveTo 321 110)
+						)
+						(else
+								(event claimed: FALSE)
+						)
+					 )
+				
+				)
+						
 		
 ;;;				(if (ClickedOnObj Platform (event x?) (event y?)) 
 ;;;					

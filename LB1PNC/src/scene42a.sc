@@ -7,9 +7,13 @@
 (use Game)
 (use Actor)
 (use System)
+(use Intrface)
 
 (public
 	scene42a 0
+)
+(local
+	temp0
 )
 
 (procedure (FifiPrint)
@@ -91,5 +95,17 @@
 			(cls)
 			(curRoom newRoom: prevRoomNum)
 		)
+		(if (== evMOUSEBUTTON (event type:))
+			(= temp0
+				(Print {Skip scene?}
+					#button {Yes} 1
+					#button {No} 0
+				)
+			)
+			(if (== temp0 1)
+				(cls)
+				(curRoom newRoom: prevRoomNum)
+			)
+		)			
 	)
 )

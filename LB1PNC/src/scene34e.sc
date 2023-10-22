@@ -17,6 +17,7 @@
 	local0
 	eyesCued
 	theHand
+	temp0
 )
 (instance Hand of Actor
 	(properties
@@ -110,6 +111,18 @@
 			(cls)
 			(curRoom newRoom: prevRoomNum)
 		)
+		(if (== evMOUSEBUTTON (event type:))
+			(= temp0
+				(Print {Skip scene?}
+					#button {Yes} 1
+					#button {No} 0
+				)
+			)
+			(if (== temp0 1)
+				(cls)
+				(curRoom newRoom: prevRoomNum)
+			)
+		)		
 	)
 )
 

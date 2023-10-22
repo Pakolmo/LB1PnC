@@ -143,7 +143,19 @@
 					(not (& (event modifiers?) emRIGHT_BUTTON))
 				)
 						
-		
+			(if (ClickedInRect 0 11 111 126 event) ;exit room
+			(event claimed: TRUE)
+					(switch theCursor
+						(999
+							(ego setMotion: MoveTo -2 117)
+						)
+						(else
+								(event claimed: FALSE)
+						)
+					 )
+				
+				)
+						
 				(if (ClickedOnObj suit1 (event x?) (event y?)) 
 					
 					(event claimed: TRUE)

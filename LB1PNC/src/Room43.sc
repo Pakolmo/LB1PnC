@@ -459,7 +459,18 @@
 ;;;		
 ;;;		
 		
-		
+					(if (ClickedInRect 51 287 178 189 event) ;exit room
+			(event claimed: TRUE)
+					(switch theCursor
+						(999
+							(ego setMotion: MoveTo 160 191)
+						)
+						(else
+								(event claimed: FALSE)
+						)
+					 )
+				
+				)
 		
 		
 		

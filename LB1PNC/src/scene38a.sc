@@ -19,6 +19,7 @@
 	talkCycles
 	mouthCued
 	saveBits
+	temp0
 )
 (procedure (Measure &tmp [str 500])
 	(GetFarText &rest @str)
@@ -275,6 +276,21 @@
 			)
 			(curRoom newRoom: prevRoomNum)
 		)
+		(if (== evMOUSEBUTTON (event type:))
+			(= temp0
+				(Print {Skip scene?}
+					#button {Yes} 1
+					#button {No} 0
+				)
+			)
+			(if (== temp0 1)
+				(cls)
+				(if (not (& global173 $0002))
+					(EventDone)
+				)				
+				(curRoom newRoom: prevRoomNum)
+			)
+		)		
 	)
 )
 

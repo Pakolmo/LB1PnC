@@ -538,7 +538,34 @@
 						)
 										
 					)
-					)			
+					)		
+					
+				(if (ClickedInRect 312 319 137 155 event) ;exit room right
+			(event claimed: TRUE)
+					(switch theCursor
+						(999
+							(ego setMotion: MoveTo 321 147)
+						)
+						(else
+								(event claimed: FALSE)
+						)
+					 )
+				
+				)
+								
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+						
 			
 			)
 			)

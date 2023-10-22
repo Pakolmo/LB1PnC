@@ -435,7 +435,19 @@
 					)
 				)											
 		
-		
+					(if (ClickedInRect 129 201 176 189 event) ;exit room
+			(event claimed: TRUE)
+					(switch theCursor
+						(999
+							(ego setMotion: MoveTo 164 191)
+						)
+						(else
+								(event claimed: FALSE)
+						)
+					 )
+				
+				)
+				
 		
 		
 		
