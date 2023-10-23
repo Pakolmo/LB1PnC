@@ -22,6 +22,7 @@
 
 (local
 	local0
+	temp7
 )
 (instance mySound of Sound)
 
@@ -156,6 +157,452 @@
 	)
 	
 	(method (handleEvent event)
+		
+		
+		lady bed1 bed2 chest desk table1 table2 suit1 suit2 sofa chair
+		stain lamp1 lamp2 panel notebook
+		
+		
+	
+		
+						(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)	
+		
+				(if (ClickedOnObj lady (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+														(= temp7
+												(Print
+													{Cuadro}
+													#button {Eye} 1
+													#button {Behind} 2	
+													#button {examine} 3							
+
+												)
+											)
+											(switch temp7
+												(1 
+													(Print 48 12)
+														
+												)
+						
+										
+
+												(2
+													(Print 48 9)
+													
+				
+												)
+												(3
+													(Print 48 13)
+												)
+												(else
+						
+													(event claimed: FALSE)
+												)
+											)
+						)
+						
+						
+							
+						(995 							
+							(= temp7
+												(Print
+													{Cuadro}
+													#button {get} 1
+													#button {Open} 2								
+
+												)
+											)
+											(switch temp7
+												(1 
+													(Print 48 10)
+														
+												)
+						
+										
+
+												(2
+													(Print 48 11)
+													
+				
+												)
+												(else
+						
+													(event claimed: FALSE)
+												)
+											)
+						)
+						(else
+						
+							(event claimed: FALSE)
+						)
+					)
+
+						)
+
+		
+				(if (ClickedOnObj bed1 (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998 		
+							(DoLook {bed})		
+						)
+						(else
+						
+							(event claimed: FALSE)
+						)
+					)
+
+				)		
+				(if (ClickedOnObj chest (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor	
+						(995
+							(= temp7
+												(Print
+													{chest}
+													#button {drawer} 1
+													#button {luggage} 2								
+
+												)
+											)
+											(switch temp7
+												(1 
+													(DoVerb {examine at drawer})
+														
+												)
+						
+										
+
+												(2
+													(DoVerb {examine at luggage})
+													
+				
+												)
+												(else
+						
+													(event claimed: FALSE)
+												)
+											)
+						)
+						(998 
+							(= temp7
+												(Print
+													{chest}
+													#button {get} 1
+													#button {Open} 2								
+
+												)
+											)
+											(switch temp7
+												(1 
+													(DoVerb {get luggage})
+														
+												)
+						
+										
+
+												(2
+													(DoVerb {open luggage})
+													
+				
+												)
+												(else
+						
+													(event claimed: FALSE)
+												)
+											)
+						)
+						(else
+						
+							(event claimed: FALSE)
+						)
+					)
+
+						)
+		
+					(if (ClickedOnObj bed2 (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998 		
+							(event claimed: TRUE)
+							(DoLook {bed})	
+						)
+						(else
+						
+							(event claimed: FALSE)
+						)
+					)
+
+				)
+	
+					(if (ClickedOnObj desk (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor
+						(995		
+							(DoVerb {examine in desk})	
+						)							
+						(998 		
+							(DoVerb {examine desk})	
+						)
+						(else
+						
+							(event claimed: FALSE)
+						)
+					)
+
+				)
+		
+	
+					(if (ClickedOnObj table1 (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor
+						
+						(998 		
+							(event claimed: TRUE)
+							(Print 48 17)
+						)
+						(else
+						
+							(event claimed: FALSE)
+						)
+					)
+
+				)
+			
+	
+					(if (ClickedOnObj chair (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor
+						(995		
+							(DoVerb {get straighten})
+						)						
+						(998 		
+							(DoVerb {examine chair})
+						)
+						(else
+						
+							(event claimed: FALSE)
+						)
+					)
+
+				)
+					(if (ClickedOnObj sofa (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor
+						(998		
+							(DoVerb {look couch})
+						)	
+						(else
+						
+							(event claimed: FALSE)
+						)
+					)
+
+				)
+			
+					
+						(if (ClickedOnObj table2 (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+						
+							(DoLook {table})
+						)
+						
+						(995		
+							(DoVerb {examine nightstand})
+						)	
+						(else
+						
+							(event claimed: FALSE)
+						)
+					)
+
+				)
+			
+					
+						(if (ClickedOnObj suit1 (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+						
+										(Print 48 15)
+						)
+						
+					(else
+						
+							(event claimed: FALSE)
+						)
+					)
+
+				)
+					
+						(if (ClickedOnObj suit2 (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+						
+										(Print 48 15)
+						)
+						
+					(else
+						
+							(event claimed: FALSE)
+						)
+					)
+
+				)			
+									
+						(if (ClickedOnObj notebook (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+													(= temp7
+												(Print
+													{notebook}
+													#button {examine} 1
+													#button {Read} 2
+												)
+											)
+											(switch temp7
+												(1 
+													(DoVerb {examine desk})
+														
+												)
+						
+										
+
+												(2
+													(DoVerb {read notebook})
+													
+				
+												)
+												(3
+													(DoVerb {close notebook})
+													
+				
+												)												
+												(4
+													(DoVerb {get notebook})
+													
+				
+												)
+
+
+												(else
+						
+													(event claimed: FALSE)
+												)
+											)
+						)
+							
+							
+							
+							
+							
+						(995
+						
+						(= temp7
+												(Print
+													{notebook}
+													#button {Rotate} 1
+													#button {Open} 2	
+													#button {Close} 3								
+													#button {get} 4
+
+												)
+											)
+											(switch temp7
+												(1 
+													(DoVerb {rotate page})
+														
+												)
+						
+										
+
+												(2
+													(DoVerb {open notebook})
+													
+				
+												)
+												(3
+													(DoVerb {close notebook})
+													
+				
+												)												
+												(4
+													(DoVerb {get notebook})
+													
+				
+												)
+
+
+												(else
+						
+													(event claimed: FALSE)
+												)
+											)
+						)
+						(else
+						
+							(event claimed: FALSE)
+						)
+					)
+
+						)
+	
+		
+					(if (ClickedOnObj lamp1 (event x?) (event y?)) 
+						(event claimed: TRUE)
+						(switch theCursor	
+							(998 ;look
+								(DoVerb {examine lamp})
+							)
+							(else
+								(event claimed: FALSE)
+							)
+						)
+					)				
+
+
+		
+					(if (ClickedOnObj lamp2 (event x?) (event y?)) 
+						(event claimed: TRUE)
+						(switch theCursor	
+							(998 ;look
+								(DoVerb {examine lamp})
+							)
+							(else
+								(event claimed: FALSE)
+							)
+						)
+					)				
+
+					(if (ClickedInRect 0 7 92 104 event) ;exit room
+			(event claimed: TRUE)
+					(switch theCursor
+						(999
+							(ego setMotion: MoveTo -6 96)
+						)
+						(else
+								(event claimed: FALSE)
+						)
+					 )
+				
+				)
+
+
+		
+			)
+						)
+		
 		(super handleEvent: event)
 		(if (event claimed?)
 			(return (event claimed?))

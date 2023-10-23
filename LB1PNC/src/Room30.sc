@@ -139,6 +139,40 @@
 	)
 	
 	(method (handleEvent event)
+		
+		
+		
+		
+		(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)	
+		
+		
+		
+						(if (ClickedOnObj House (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(event claimed: TRUE)
+							(Print 30 2)
+						)
+						(else
+							(event claimed: FALSE)
+						)
+						)
+					)
+			
+		
+		
+		
+		
+			)
+		)
+		
+		
 		(if (event claimed?) (return TRUE))
 		(return
 			(if

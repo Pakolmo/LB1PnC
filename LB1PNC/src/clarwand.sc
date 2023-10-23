@@ -104,6 +104,81 @@
 	)
 	
 	(method (handleEvent event)
+		
+	
+		
+						(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)	
+		
+		
+		
+						(if (ClickedOnObj Clarence (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(cond
+								(
+								(not (& global207 $0040))
+								(event claimed: TRUE)
+								(DoLook {clarence})
+							)
+						)
+						)
+						(995 ;examine attorney
+							(cond
+								(
+								(not (& global207 $0040))
+								)
+								(else
+									(event claimed: TRUE)
+									(Print 203 1)
+								)
+							)
+
+						)
+						(996
+							
+;;;							(if
+;;;								(and
+;;;									(== (event type?) saidEvent)
+;;;									global208
+;;;									(Said
+;;;										'ask,tell,hold,deliver,examine,get,kill,kiss,embrace,flirt>'
+;;;									)
+;;;								)
+;;;								(Clarence setScript: (ScriptID 243 0))
+;;;								((Clarence script?) handleEvent: event)
+;;;							else
+;;;								0
+;;;							)
+							(DoVerb {ask clarence})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+						)
+					)
+			
+		
+		
+			)
+						)
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		(super handleEvent: event)
 		(if (event claimed?) (return 1))
 		(return

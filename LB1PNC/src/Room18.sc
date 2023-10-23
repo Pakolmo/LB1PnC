@@ -78,6 +78,43 @@
 	)
 	
 	(method (handleEvent event &tmp temp0)
+		
+			
+		
+		(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)	
+		
+				(if (== theCursor 998) ;look
+		
+				(if
+					(and
+						global208
+						(DoVerb {ask})
+						)
+					)
+					(self setScript: (ScriptID 243 0))
+					((self script?) handleEvent: event)
+					(if (event claimed?) (return (event claimed?)))
+				)
+				)
+		
+		)
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		(if (event claimed?) (return TRUE))
 		(return
 			(if (== (event type?) saidEvent)

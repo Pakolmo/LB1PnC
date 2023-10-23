@@ -30,6 +30,7 @@
 	local4
 	local5
 	local6
+	temp7
 )
 (instance Room47 of Room
 	(properties
@@ -215,6 +216,233 @@
 	)
 	
 	(method (handleEvent event &tmp temp0)
+		
+		
+						(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)	
+		
+		
+		
+						(if (ClickedOnPicView wardR (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(DoVerb {examine armoire})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+						)
+					)
+		
+						(if (ClickedOnPicView wardL (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(DoVerb {examine armoire})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+						)
+					)		
+		
+			
+						(if (ClickedOnPicView table1 (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(DoVerb {examine table})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+						)
+					)	
+		
+			
+						(if (ClickedOnPicView table2 (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(DoVerb {examine table})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+						)
+					)			
+						(if (ClickedOnObj chand (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(DoVerb {get chandelier})
+						)						
+						(995
+							(DoVerb {examine chandelier})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+						)
+					)			
+						(if (ClickedOnObj Ldoor (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor
+						(995
+							(DoVerb {examine closet})
+						
+						)
+						(998
+							(= temp7
+												(Print
+													{Door}
+													#button {close} 1
+													#button {open} 2								
+
+
+												)
+											)
+											(switch temp7
+												(1 
+													(DoVerb {close door})
+														
+												)
+						
+										
+												(2
+													(DoVerb {open door})
+													
+				
+												)
+												
+												(else
+						
+													(event claimed: FALSE)
+												)
+											)
+						)
+							(else
+									(event claimed: FALSE)
+							)
+					)
+						)
+		
+		
+						(if (ClickedOnObj lampL (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+									(if (not local5) 
+										(event claimed: TRUE)
+										(DoLook {lamp})
+									)	
+						)
+						(else
+							(event claimed: FALSE)
+						)
+						)
+					)		
+		
+						(if (ClickedOnObj lampR (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+									(if (not local5) 
+										(event claimed: TRUE)
+										(DoLook {lamp})
+									)	
+						)
+						(else
+							(event claimed: FALSE)
+						)
+						)
+					)			
+		
+							(if (ClickedOnObj lamp3 (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+									(if (not local5) 
+										(event claimed: TRUE)
+										(DoLook {lamp})
+									)	
+						)
+						(else
+							(event claimed: FALSE)
+						)
+						)
+					)			
+							(if (ClickedOnObj lamp4 (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+									(if (not local5) 
+										(event claimed: TRUE)
+										(DoLook {lamp})
+									)	
+						)
+						(else
+							(event claimed: FALSE)
+						)
+						)
+					)			
+						
+							(if (ClickedOnObj hanky (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(DoVerb {examine handkerchief})
+						)
+						(995
+							(DoVerb {get handkerchief})		
+						)
+						(else
+							(event claimed: FALSE)
+						)
+						)
+					)	
+					
+					
+				(if (ClickedOnObj Rail (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(DoVerb {examine balcony})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+						)
+					)	
+					
+					(if (ClickedOnObj Stair (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(Print 47 18)
+							(event claimed: TRUE)
+						)
+						(else
+							(event claimed: FALSE)
+						)
+						)
+					)	
+					
+									
+					
+					
+					
+					
+							
+						)
+			)
+		
+		
 		(switch (event type?)
 			(saidEvent
 				(cond 

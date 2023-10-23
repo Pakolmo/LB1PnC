@@ -24,6 +24,7 @@
 	local1
 	dying
 	local3
+	temp7
 )
 (instance Room8 of Room
 	(properties
@@ -172,6 +173,211 @@
 	)
 	
 	(method (handleEvent event)
+		
+			
+		
+		(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)	
+		
+		
+		
+						(if (ClickedOnObj Gator (event x?) (event y?)) ;alligator
+					(event claimed: TRUE)
+					(switch theCursor
+					(602 ;necklace_
+						(Print 8 9)						
+					)
+					(604 ;monocle
+						(Print 8 9)						
+					)
+					
+					(613 ;lantern_
+						(Print 8 9)						
+					)
+					(611 ;oilcan_
+						(Print 8 9)						
+					)
+					(626 ;rolling_pin_
+						(Print 8 9)						
+					)
+					(620 ;skeleton_key_
+						(Print 8 9)						
+					)
+					(627 ;poker_
+						(Print 8 9)						
+					)															
+					(607 ;crowbar_
+						(Print 8 9)						
+					)
+					(628 ;cigar_butt_
+						(Print 8 9)						
+					)
+					(625 ;broken_record_
+						(Print 8 9)						
+					)
+					(601 ;notebook___pencil_
+						(Print 8 9)					
+					)
+					(603 ;_7_crackers________
+						(Print 8 9)						
+					)
+					(605 ;soup_bone_
+						(DoVerb {tell lil about soup bone})						
+					)
+					(606 ;valve_handle_
+						(Print 8 9)						
+					)
+					(618 ;bullet_
+						(Print 8 9)						
+					)
+					(617 ;derringer__
+						(Print 8 9)						
+					)
+					(614 ;matches_
+						(Print 8 9)						
+					)
+					(615 ;carrot_
+						(Print 8 9)						
+					)
+					(619 ;brass_key_
+						(Print 8 9)						
+					)
+					(616 ;diary_
+						(Print 8 9)						
+					)
+					(621 ;crank_
+						(Print 8 9)					
+					)
+					(612 ;cane_
+						(Print 8 9)						
+					)
+					(622 ;pouch_
+						(Print 8 9)						
+					)																																																																																
+					(630 ;handkerchief_
+						(Print 8 9)
+					)
+					
+					
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						(996
+								(DoVerb {feed alligator})
+									(if theInvItem
+										(if haveInvItem
+											(Print 8 9)
+										else
+											(DontHave)
+										)
+									else
+										(Print 8 9)
+									)
+						)
+						
+						(998
+							(DoVerb {examine alligator})
+							(event claimed: TRUE)
+							(Print 8 3)
+						)
+						(995
+														(= temp7
+												(Print
+													{alligator}
+													#button {get} 1
+													#button {pat} 2								
+													#button {kill} 3	
+
+												)
+											)
+											(switch temp7
+												(1 
+													(DoVerb {capture alligator})
+														
+												)
+						
+										
+
+												(2
+													(DoVerb {pat alligator})
+													
+				
+												)
+
+												(3
+													(DoVerb {kill alligator})
+													
+				
+												)												
+												(else
+						
+													(event claimed: FALSE)
+												)
+											)
+						)
+						(else
+						
+							(event claimed: FALSE)
+						)
+					)
+
+						)
+						
+		
+		
+
+		
+						(if (ClickedOnObj gator1 (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(event claimed: TRUE)
+							(Print 8 3)
+						)
+						(else
+							(event claimed: FALSE)
+						)
+						)
+					)
+			
+		
+		
+		
+		
+			)
+		)
+		
+			
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		(if (event claimed?) (return TRUE))
 		(return
 			(if
