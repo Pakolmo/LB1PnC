@@ -1,5 +1,5 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-(script# 1)
+(script# 1) ;OK
 (include game.sh)
 (use Main)
 (use Intrface)
@@ -24,6 +24,7 @@
 	local16
 	local17
 	local18
+	temp7
 )
 (instance Room1 of Room
 	(properties
@@ -164,6 +165,314 @@
 	)
 	
 	(method (handleEvent event)
+		
+		(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)		
+	
+		
+			(if (ClickedOnObj Frog (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor
+						(996
+							
+							(= temp7
+												(Print
+													{Frog}
+													#button {converse} 1
+													#button {kiss} 2	
+						
+
+
+												)
+											)
+											(switch temp7
+												(1 
+													(DoVerb {converse frog})
+														
+												)
+						
+										
+												(2
+													(DoVerb {kiss frog})
+													
+				
+												)
+												(else
+						
+													(event claimed: FALSE)
+												)
+											)
+						)		
+						
+						(998	
+							(Print 1 6)
+						)
+						(995
+														(= temp7
+												(Print
+													{Frog}
+													#button {capture} 1
+													#button {kill} 2	
+													#button {pat} 3							
+
+
+												)
+											)
+											(switch temp7
+												(1 
+													(DoVerb {capture frog})
+														
+												)
+						
+										
+												(2
+													(DoVerb {kill frog})
+													
+				
+												)
+												(3
+													(DoVerb {pat frog})
+													)
+												
+												(else
+						
+													(event claimed: FALSE)
+												)
+											)
+						)	(else
+						
+													(event claimed: FALSE)
+												)
+											)		
+		
+		
+		
+			)
+		
+			(if (ClickedOnObj Turtle (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor
+						(996
+							
+							(= temp7
+												(Print
+													{Turtle}
+													#button {converse} 1
+													#button {kiss} 2	
+						
+
+
+												)
+											)
+											(switch temp7
+												(1 
+													(DoVerb {converse turtle})
+														
+												)
+						
+										
+												(2
+													(DoVerb {kiss turtle})
+													
+				
+												)
+												(else
+						
+													(event claimed: FALSE)
+												)
+											)
+						)		
+						
+						(998	
+							(Print 1 6)
+						)
+						(995
+														(= temp7
+												(Print
+													{turtle}
+													#button {capture} 1
+													#button {kill} 2	
+													#button {pat} 3							
+
+
+												)
+											)
+											(switch temp7
+												(1 
+													(DoVerb {capture turtle})
+														
+												)
+						
+										
+												(2
+													(DoVerb {kill turtle})
+													
+				
+												)
+												(3
+													(DoVerb {pat turtle})
+													)
+												
+												(else
+						
+													(event claimed: FALSE)
+												)
+											)
+						)	(else
+						
+													(event claimed: FALSE)
+												)
+											)		
+		
+		
+		
+			)
+
+
+
+
+			(if (ClickedOnObj Gator (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor
+												
+						
+						(995
+							(= temp7
+												(Print
+													{Gator}
+													#button {capture} 1
+													#button {pat} 2	
+													#button {kill}3
+
+												)
+											)
+											(switch temp7
+												(1 
+													(DoVerb {capture alligator})
+														
+												)
+						
+										
+												(2
+													(DoVerb {pat alligator})
+													
+				
+												)
+												(3
+													(DoVerb {kill alligator})
+													
+				
+												)
+												(else
+													
+													(event claimed: FALSE)
+												)
+											)
+												
+						
+						
+						)
+						(998
+							(DoVerb {examine alligator})
+						)
+						(996
+								(= temp7
+												(Print
+													{Gator}
+													#button {converse} 1
+													#button {kiss} 2	
+
+												)
+											)
+											(switch temp7
+												(1 
+													(DoVerb {converse alligator})
+														
+												)
+						
+										
+												(2
+													(DoVerb {kiss alligator})
+													
+				
+												)
+												(else
+													
+													(event claimed: FALSE)
+												)
+											)
+						)
+						(else
+													
+							(event claimed: FALSE)
+								)
+					)
+
+
+
+			)
+
+		
+					(if (ClickedInRect 211 315 116 148 event) ;Boxes
+					(event claimed: TRUE)
+					(switch theCursor
+												
+						
+						(998		
+							(DoVerb {examine box})
+						)
+						(995
+							(= temp7
+												(Print
+													{Box}
+													#button {move} 1
+													#button {Open} 2	
+
+												)
+											)
+											(switch temp7
+												(1 
+													(DoVerb {move box})
+														
+												)
+						
+										
+												(2
+													(DoVerb {open box})
+													
+				
+												)
+												(else
+													
+													(event claimed: FALSE)
+												)
+											)
+						)
+						(else
+													
+							(event claimed: FALSE)
+								)
+					)
+
+
+
+			)
+							
+		
+		
+		)
+		
+		
+		)
+		
+		
+
+		
+		
 		(if (event claimed?) (return))
 		(if (== (event type?) saidEvent)
 			(cond 

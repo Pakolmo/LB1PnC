@@ -13,6 +13,9 @@
 (public
 	Room18 0
 )
+(local
+	temp7
+)
 (synonyms
 	(garden bush)
 )
@@ -88,23 +91,89 @@
 					(not (& (event modifiers?) emRIGHT_BUTTON))
 				)	
 		
-				(if (== theCursor 998) ;look
+		;ignore, not sense.
+;;;				(if (== theCursor 998) ;look
+;;;				(DoVerb {examine})
+;;;				(if
+;;;
+;;;						(Said 'ask,tell,hold,deliver,examine,get,kill,kiss,embrace,flirt'
+;;;						)
+;;;					
+;;;					(Print {HOLASS})
+;;;					(self setScript: (ScriptID 243 0))
+;;;					((self script?) handleEvent: event)
+;;;					(if (event claimed?) (return (event claimed?)))
+;;;				)
+;;;				)
+;;;		
+			
 		
-				(if
-					(and
-						global208
-						(DoVerb {ask})
+	
+		
+						(if (ClickedOnObj House (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(event claimed: TRUE)
+							(Print 18 4)
+						)
+						(else
+							(event claimed: FALSE)
+						)
 						)
 					)
-					(self setScript: (ScriptID 243 0))
-					((self script?) handleEvent: event)
-					(if (event claimed?) (return (event claimed?)))
-				)
-				)
+			
 		
+		
+						(if (ClickedOnObj Gate (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+								(event claimed: TRUE)
+								(Print 18 7)		
+						)	
+						(995
+														(= temp7
+												(Print
+													{Door}
+													#button {close} 1
+													#button {open} 2								
+
+
+												)
+											)
+											(switch temp7
+												(1 
+													(DoVerb {close archway})
+														
+												)
+						
+										
+												(2
+													(DoVerb {open archway})
+													
+				
+												)
+												
+												(else
+						
+													(event claimed: FALSE)
+												)
+											)
+						)
+							(else
+									(event claimed: FALSE)
+							)
+					)
+						)
 		)
+	)
 		
 		
+		
+
+			
+			
 		
 		
 		

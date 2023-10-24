@@ -25,6 +25,7 @@
 	local2
 	theCSound
 	local4
+	temp7
 )
 (procedure (LookInMIrror)
 	(if (< (ego distanceTo: Mirror) 50)
@@ -173,6 +174,316 @@
 	)
 	
 	(method (handleEvent event &tmp temp0)
+		
+		
+			
+		
+		(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)	
+		
+		
+		
+		
+						(if (ClickedOnPicView lamp (event x?) (event y?)) ;lamp
+					(event claimed: TRUE)
+					(switch theCursor
+					(998
+							(event claimed: TRUE)
+							(DoLook {table})
+					)
+					(else
+							(event claimed: FALSE)
+						)
+						)
+						)
+		
+			
+						(if (ClickedOnPicView phone (event x?) (event y?)) ;phone/table
+					(event claimed: TRUE)
+					(switch theCursor
+					(998
+							(event claimed: TRUE)
+							(DoLook {table})
+					)
+					(else
+							(event claimed: FALSE)
+						)
+						)
+						)
+		
+		
+			
+						(if (ClickedOnObj Clock (event x?) (event y?)) ;Clock
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(= temp7
+												(Print
+													{Clock}
+													#button {examine behind} 1
+													#button {time} 2	
+
+												)
+											)
+											(switch temp7
+												(1 
+													(DoVerb {examine behind clock})
+													
+				
+												)
+
+												(2
+													(DoVerb {read time})
+													
+				
+												)
+												(3
+														(DoVerb {unbar armoire})
+												)
+											
+												(else
+						
+													(event claimed: FALSE)
+												)
+											)
+						)
+						
+						
+					(995
+								(= temp7
+												(Print
+													{Clock}
+													#button {open} 1
+													#button {move} 2
+													#button {close} 3
+						
+	
+
+												)
+											)
+											(switch temp7
+												(1 
+													(DoVerb {open clock})
+														
+												)
+						
+												(2 
+													(DoVerb {move clock})
+														
+												)
+												(3 
+													(DoVerb {close clock})
+														
+												)																						
+
+												(4
+													(DoVerb {examine behind clock})
+													
+				
+												)
+
+												(5
+													(DoVerb {read time})
+													
+				
+												)												
+												(else
+						
+													(event claimed: FALSE)
+												)
+											)
+						)
+						(else
+						
+							(event claimed: FALSE)
+						)
+					)
+
+						)
+
+		
+		
+							(if (ClickedOnObj Mirror (event x?) (event y?)) ;Clock
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(DoVerb {examine mirror})
+						)
+						
+						(995
+								(= temp7
+												(Print
+													{Mirror}
+													#button {open} 1
+													#button {behind} 2
+													#button {break} 3	
+													#button {reflection} 4	
+													#button {move} 5							
+								
+
+												)
+											)
+											(switch temp7
+												(1 
+													(DoVerb {open mirror})
+														
+												)
+						
+										
+
+												(2
+													(DoVerb {examine behind mirror})
+													
+				
+												)	
+												(3
+													(DoVerb {break mirror})
+												)
+												(4
+													(LookInMIrror)
+												)
+												(5
+													(DoVerb {move mirror})	
+													)
+													(else
+						
+													(event claimed: FALSE)
+												)
+											)
+						)
+						(else
+						
+							(event claimed: FALSE)
+						)
+					)
+
+						)
+		
+		
+					(if (ClickedOnObj rDoor (event x?) (event y?)) ;door
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(event claimed: TRUE)
+							(DoLook {door})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+					)
+		
+							(if (ClickedOnObj lDoor (event x?) (event y?)) ;door
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(event claimed: TRUE)
+							(DoLook {door})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+					)
+		
+							(if (ClickedOnObj lampL (event x?) (event y?)) ;door
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(event claimed: TRUE)
+							(DoLook {lamp})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+					)
+		
+		
+							(if (ClickedOnObj lampR (event x?) (event y?)) ;door
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(event claimed: TRUE)
+							(DoLook {lamp})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+					)
+					
+		
+				(if (ClickedOnObj Case1 (event x?) (event y?)) ;armoire
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(Print 33 21)
+							(event claimed: TRUE)
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+					)
+						
+				(if (ClickedOnObj Case2 (event x?) (event y?)) ;armoire
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+											(Print 33 21)
+											(event claimed: TRUE)
+						)
+						(995
+								(= temp7
+												(Print
+													{Armoire}
+													#button {open} 1
+													#button {move} 2								
+													#button {unbar} 3
+								
+
+												)
+											)
+											(switch temp7
+												(1 
+													(DoVerb {open armoire})
+														
+												)
+						
+										
+
+												(2
+													(DoVerb {move armoire})
+													
+				
+												)	
+												(3
+													(DoVerb {unbar armoire})
+												)
+													(else
+						
+													(event claimed: FALSE)
+												)
+											)
+						)
+						(else
+						
+							(event claimed: FALSE)
+						)
+					)
+
+						)
+		
+
+
+			)
+		)
+		
 		(if (event claimed?) (return TRUE))
 		(return
 			(if (== (event type?) saidEvent)
