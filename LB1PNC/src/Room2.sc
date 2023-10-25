@@ -212,8 +212,7 @@
 						)	
 						(998
 								(DoVerb {examine ghost})
-								(event claimed: TRUE)
-								(Print 2 26)
+
 																
 						)			
 						(else

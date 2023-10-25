@@ -19,6 +19,7 @@
 (local
 	local0
 	greetCued
+	temp7
 )
 (instance Room6 of Room
 	(properties
@@ -128,6 +129,436 @@
 	)
 	
 	(method (handleEvent event &tmp temp0)
+		
+
+	
+			(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)
+				
+				(if (ClickedOnPicView Door (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(995		
+		
+								(= temp7
+												(PrintSpecial
+		
+													{Door}
+													#button {Break} 1
+													#button {Open} 2	
+													#button {Bang} 3							
+													
+												)
+											)
+											(switch temp7
+												(1 
+													(DoVerb {break door})
+														
+												)
+												(2 
+													(DoVerb {open door})
+		
+														
+												)
+												(3 
+													(DoVerb {bang door})
+														
+												)
+												(else
+													(event claimed: FALSE)
+												)	
+											)											
+						)		
+								(else
+							(event claimed: FALSE)
+						)
+					)
+				)		
+		
+				(if (ClickedOnObj Chair (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(995
+								(= temp7
+												(Print
+		
+													{Chair}
+													#button {Get} 1
+													#button {Boulder} 2
+																										
+												)
+											)
+											(switch temp7
+												(1 
+													(DoVerb {get chair rocking})
+														
+												)
+												(2 
+													(DoVerb {sit chair})
+														
+												)
+																							
+												(else
+													(event claimed: FALSE)
+											)																	
+											)											
+						)
+						
+						(998
+							(DoVerb {examine chair rocking})
+							
+									)
+									(else
+							(event claimed: FALSE)
+						)																	
+						)
+					)	
+					
+		
+		
+						(if (ClickedOnObj chick1 (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+					(602 ;necklace_
+						(DoVerb {Use handkerchief chicken})						
+					)
+					(604 ;monocle
+						(DoVerb {Use monocle chicken})						
+					)
+					
+					(613 ;lantern_
+						(DoVerb {Use lantern chicken})						
+					)
+					(611 ;oilcan_
+						(DoVerb {Use oilcan chicken})						
+					)
+					(626 ;rolling_pin_
+						(DoVerb {Use pin chicken})						
+					)
+					(620 ;skeleton_key_
+						(DoVerb {Use skeleton key chicken})						
+					)
+					(627 ;poker_
+						(DoVerb {Use poker chicken})						
+					)															
+					(607 ;crowbar_
+						(DoVerb {Use crowbar chicken})						
+					)
+					(628 ;cigar_butt_
+						(DoVerb {Use butt chicken})						
+					)
+					(625 ;broken_record_
+						(DoVerb {Use broken record chicken})						
+					)
+					(601 ;notebook___pencil_
+						(DoVerb {Use notebook chicken})						
+					)
+					(603 ;_7_crackers________
+						(DoVerb {Use crackers chicken})						
+					)
+					(605 ;soup_bone_
+						(DoVerb {Use soup bone chicken})						
+					)
+					(606 ;valve_handle_
+						(DoVerb {Use valve chicken})						
+					)
+					(618 ;bullet_
+						(DoVerb {Use bullet chicken})						
+					)
+					(617 ;derringer__
+						(DoVerb {Use derringer chicken})						
+					)
+					(614 ;matches_
+						(DoVerb {Use matches chicken})						
+					)
+					(615 ;carrot_
+						(DoVerb {Use carrot chicken})						
+					)
+					(619 ;brass_key_
+						(DoVerb {Use brass key chicken})						
+					)
+					(616 ;diary_
+						(DoVerb {Use diary chicken})						
+					)
+					(621 ;crank_
+						(DoVerb {Use crank chicken})						
+					)
+
+					(622 ;pouch_
+						(DoVerb {Use pouch chicken})						
+					)																																																																																
+					(630 ;handkerchief_
+						(DoVerb {Use handkerchief chicken})
+					)
+											
+												
+						
+						
+						
+						
+						
+						
+						(612
+							(DoVerb {use cane chicken})	
+						)						
+						
+						
+						(996
+							(DoVerb {converse chicken})	
+						)
+						
+						(998
+							(DoVerb {examine chicken})
+							
+						)
+						(995
+								(= temp7
+												(Print
+		
+													{Chicken}
+													#button {feed} 1
+													#button {capture} 2								
+													
+												)
+											)
+											(switch temp7
+												(1 
+													(DoVerb {feed chicken})
+														
+												)
+												(2 
+													(DoVerb {capture chicken})
+														
+												)
+																							
+												(else
+													(event claimed: FALSE)
+											)																	
+											)											
+						)
+					
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+							
+		
+		
+		
+		(if (ClickedOnObj chick2 (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(Print 6 33)
+							(event claimed: TRUE)
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+		
+		
+					(if (ClickedOnPicView coop (event x?) (event y?))
+					(event claimed: TRUE)
+					(switch theCursor
+						(995	
+							(DoVerb {examine behind coop})
+							
+						)
+						(998
+							(DoVerb {examine coop})
+							
+						)
+						(else
+							(event claimed: FALSE)
+						)					
+					)
+					)
+					
+					
+			
+					
+				(if (ClickedOnObj Window1 (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(995
+												(= temp7
+												(Print
+		
+													{Window}
+													#button {Break} 1
+													#button {Examine in} 2								
+													#button {Open} 2	
+													
+												)
+											)
+											(switch temp7
+												(1 
+													(DoVerb {break window})
+													
+													
+														
+												)
+												(2 
+													(DoVerb {examine in window})
+																									
+																								
+												)
+												(3
+													(DoVerb {open window})
+													
+												)
+					
+												(else
+													(event claimed: FALSE)
+												)																	
+											)											
+										)
+					(998
+						(DoVerb {examine window})
+
+					)
+					(else
+						(event claimed: FALSE)
+					)																	
+				)											
+			)
+					
+					
+					(if (ClickedOnObj Window2 (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(998				
+								(event claimed: TRUE)
+								(Print 6 42)
+						)
+						(else
+							(event claimed: FALSE)
+						)																	
+					)											
+				)
+					
+					(if (ClickedOnObj Celie (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						
+	
+
+					(604 ;monocle
+						(DoVerb {hold monocle celie})						
+					)
+					
+					(613 ;lantern_
+						(DoVerb {hold lantern celie})						
+					)
+					(611 ;oilcan_
+						(DoVerb {hold oilcan celie})						
+					)
+					(626 ;rolling_pin_
+						(DoVerb {hold pin celie})						
+					)
+					(620 ;skeleton_key_
+						(DoVerb {hold skeleton key celie})						
+					)
+					(627 ;poker_
+						(DoVerb {hold poker celie})						
+					)															
+					(607 ;crowbar_
+						(DoVerb {hold crowbar celie})						
+					)
+					(628 ;cigar_butt_
+						(DoVerb {hold butt celie})						
+					)
+					(625 ;broken_record_
+						(DoVerb {hold broken record celie})						
+					)
+					(601 ;notebook___pencil_
+						(DoVerb {hold notebook celie})						
+					)
+					(603 ;_7_crackers________
+						(DoVerb {hold crackers celie})						
+					)
+					(605 ;soup_bone_
+						(DoVerb {hold soup bone celie})						
+					)
+					(606 ;valve_handle_
+						(DoVerb {hold valve celie})						
+					)
+					(618 ;bullet_
+						(DoVerb {hold bullet celie})						
+					)
+					(617 ;derringer__
+						(DoVerb {hold derringer celie})						
+					)
+					(614 ;matches_
+						(DoVerb {hold matches celie})						
+					)
+					(615 ;carrot_
+						(DoVerb {hold carrot celie})						
+					)
+					(619 ;brass_key_
+						(DoVerb {hold brass key celie})						
+					)
+					(616 ;diary_
+						(DoVerb {hold diary celie})						
+					)
+					(621 ;crank_
+						(DoVerb {hold crank celie})						
+					)
+
+					(622 ;pouch_
+						(DoVerb {hold pouch celie})						
+					)																																																																																
+					(630 ;handkerchief_
+						(DoVerb {hold handkerchief celie})
+					)
+											
+												
+						
+						
+						
+						
+						
+						
+						(612
+							(DoVerb {hold cane celie})	
+						)						
+						
+						(602
+							(DoVerb {hold necklace celie})
+						)
+						
+						(998				
+							(DoVerb {look celie})
+						)
+						(996
+							(DoVerb {converse celie})
+						)
+						(else
+							(event claimed: FALSE)
+						)																	
+					)											
+				)		
+					
+					
+			)
+			)
+		
+		
+		
 		(super handleEvent: event)
 		(if (event claimed?) (return))
 		(if (== (event type?) saidEvent)

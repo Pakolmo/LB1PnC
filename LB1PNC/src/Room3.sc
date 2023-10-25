@@ -127,7 +127,7 @@
 					(switch theCursor
 					
 					(602 ;necklace_
-						(DoVerb {Use handkerchief bell})						
+						(DoVerb {Use necklace bell})						
 					)
 					(604 ;monocle
 						(DoVerb {Use monocle bell})						

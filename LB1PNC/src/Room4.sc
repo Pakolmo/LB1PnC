@@ -13,6 +13,10 @@
 (public
 	Room4 0
 )
+(local
+	temp7
+)
+
 (synonyms
 	(rose blossom)
 )
@@ -79,6 +83,163 @@
 	)
 	
 	(method (handleEvent event &tmp temp0)
+		
+	
+			(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)
+				
+				(if (ClickedOnPicView lBench (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+					
+						(998
+							(event claimed: TRUE)
+							(Print 4 12)
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+		
+					(if (ClickedOnPicView rBench (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(995
+							
+							(DoVerb {sit bench})
+							
+						)
+						(998
+							(= temp7
+												(Print
+		
+													{Bench}
+													#button {examine} 1
+													#button {examine in} 2								
+													
+												)
+											)
+											(switch temp7
+												(1 
+													(DoVerb {examine bench})
+														
+												)
+												(2 
+													(DoVerb {examine below bench})
+														
+												)
+																							
+												(else
+													(event claimed: FALSE)
+											)																	
+											)											
+						)
+					
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+		
+		
+		
+		
+				(if (ClickedOnPicView statue (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(DoVerb {examine monument})
+						)
+						(995
+							
+							(= temp7
+												(Print
+		
+													{Statue}
+													#button {get} 1
+													#button {move} 2								
+													
+												)
+											)
+											(switch temp7
+												(1 
+													(DoVerb {get monument})
+														
+												)
+												(2 
+													(DoVerb {move monument})
+														
+												)
+																							
+												(else
+													(event claimed: FALSE)
+											)																	
+											)
+						)
+					
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)		
+		
+		
+		
+		
+				(if (ClickedOnObj Column1 (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+		
+							(DoVerb {examine column})
+
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)		
+		
+					(if (ClickedOnObj Column2 (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+		
+							(DoVerb {examine column})
+
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)		
+			
+		
+		
+		
+		
+		
+		
+			)
+			)
+		
+		
+		
+		
+		
+		
+		
+		
 		(if (event claimed?) (return TRUE))
 		(return
 			(if (== (event type?) saidEvent)
