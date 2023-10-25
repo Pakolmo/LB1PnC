@@ -23,6 +23,7 @@
 	local2
 	climbingUp
 	local4
+	temp7
 )
 (procedure (RoomPrint)
 	(Print &rest
@@ -111,6 +112,226 @@
 	)
 	
 	(method (handleEvent event &tmp temp0)
+		
+		
+			(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)
+				
+				(if (ClickedOnObj bell (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+					
+					(602 ;necklace_
+						(DoVerb {Use handkerchief bell})						
+					)
+					(604 ;monocle
+						(DoVerb {Use monocle bell})						
+					)
+					
+					(613 ;lantern_
+						(DoVerb {Use lantern bell})						
+					)
+					(611 ;oilcan_
+						(DoVerb {Use oilcan bell})						
+					)
+					(626 ;rolling_pin_
+						(DoVerb {Use pin bell})						
+					)
+					(620 ;skeleton_key_
+						(DoVerb {Use skeleton key bell})						
+					)
+					(627 ;poker_
+						(DoVerb {Use poker bell})						
+					)															
+					(607 ;crowbar_
+						(DoVerb {Use crowbar bell})						
+					)
+					(628 ;cigar_butt_
+						(DoVerb {Use butt bell})						
+					)
+					(625 ;broken_record_
+						(DoVerb {Use broken record bell})						
+					)
+					(601 ;notebook___pencil_
+						(DoVerb {Use notebook bell})						
+					)
+					(603 ;_7_crackers________
+						(DoVerb {Use crackers bell})						
+					)
+					(605 ;soup_bone_
+						(DoVerb {Use soup bone bell})						
+					)
+					(606 ;valve_handle_
+						(DoVerb {Use valve bell})						
+					)
+					(618 ;bullet_
+						(DoVerb {Use bullet bell})						
+					)
+					(617 ;derringer__
+						(DoVerb {Use derringer bell})						
+					)
+					(614 ;matches_
+						(DoVerb {Use matches bell})						
+					)
+					(615 ;carrot_
+						(DoVerb {Use carrot bell})						
+					)
+					(619 ;brass_key_
+						(DoVerb {Use brass key bell})						
+					)
+					(616 ;diary_
+						(DoVerb {Use diary bell})						
+					)
+					(621 ;crank_
+						(DoVerb {Use crank bell})						
+					)
+
+					(622 ;pouch_
+						(DoVerb {Use pouch bell})						
+					)																																																																																
+					(630 ;handkerchief_
+						(DoVerb {Use handkerchief bell})
+					)
+											
+												
+						
+						
+						
+						
+						
+						
+						(612
+							(DoVerb {use cane bell})	
+						)
+						(998
+								(= temp7
+												(Print
+		
+													{Bell}
+													#button {examine} 1
+													#button {examine in} 2								
+													
+												)
+											)
+											(switch temp7
+												(1 
+													(DoVerb {examine bell})
+														
+												)
+												(2 
+													(DoVerb {examine in bell})
+														
+												)
+																							
+												(else
+													(event claimed: FALSE)
+											)																	
+											)
+						)
+
+						(995
+							(= temp7
+												(PrintSpecial
+		
+													{Bell}
+													#button {get control} 1
+													#button {move} 2								
+													#button {get} 3
+													#button {ring} 4
+												)
+											)
+											(switch temp7
+												(1 
+													(DoVerb {get control})
+														
+												)
+												(2 
+													(DoVerb {move bell})
+														
+												)
+												(3 
+													(DoVerb {get bell})
+														
+												)	
+												(4 
+													(DoVerb {ring bell})
+														
+												)												
+												(else
+													(event claimed: FALSE)
+											)																	
+											)
+						)									
+		
+						(else
+							(event claimed: FALSE)
+						)																	
+						)
+					)						
+		
+		
+		
+		
+		
+		
+		
+		
+						(if (ClickedOnObj ring (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(DoVerb {examine ring})
+						)
+						(else
+							(event claimed: FALSE)
+						)																	
+						)
+					)	
+		
+				(if (ClickedOnObj bat (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(995
+							(DoVerb {capture bat})
+						)
+						(998
+							(DoVerb {examine bat})
+						)
+						(else
+							(event claimed: FALSE)
+						)																	
+						)
+					)	
+			
+				(if (ClickedOnObj Ladder (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(995
+							(DoVerb {climb ladder})
+						)
+						(998
+							(DoVerb {examine ladder})
+						)
+						(else
+							(event claimed: FALSE)
+						)																	
+						)
+					)	
+					
+		
+				)
+			)
+		
+		
+		
 		(DisposeScript SAVE)
 		(super handleEvent: event)
 		(if (event claimed?) (return TRUE))

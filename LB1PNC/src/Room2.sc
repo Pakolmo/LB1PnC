@@ -20,6 +20,7 @@
 (local
 	local0
 	local1
+	temp7
 )
 (instance Room2 of Room
 	(properties
@@ -92,6 +93,184 @@
 	)
 	
 	(method (handleEvent event &tmp temp0)
+		
+		(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)
+				
+
+				(if (ClickedOnObj door1 (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor	
+						(995
+										(= temp7
+												(Print
+		
+													{Crypt}
+													#button {open} 1
+													#button {Unbar} 2								
+													#button {Break} 3
+													#button {Bang} 4
+												)
+											)
+											(switch temp7
+												(1 
+													(DoVerb {open crypt})
+														
+												)
+												(2 
+													(DoVerb {unbar crypt})
+														
+												)
+												(3 
+													(DoVerb {break crypt})
+														
+												)	
+												(4 
+													(DoVerb {bang})
+														
+												)												
+												(else
+													(event claimed: FALSE)
+											)																	
+											)
+						)						
+						(998
+								(event claimed: TRUE)
+								(Print 2 25)								
+						)			
+						(else
+							(event claimed: FALSE)
+						)
+				
+					)
+					
+				)				
+		
+		
+				(if (ClickedOnObj door2 (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor	
+						(995
+										(= temp7
+												(Print
+		
+													{Crypt}
+													#button {open} 1
+													#button {Unbar} 2								
+													#button {Break} 3
+													#button {Bang} 4
+												)
+											)
+											(switch temp7
+												(1 
+													(DoVerb {open crypt})
+														
+												)
+												(2 
+													(DoVerb {unbar crypt})
+														
+												)
+												(3 
+													(DoVerb {break crypt})
+														
+												)	
+												(4 
+													(DoVerb {bang})
+														
+												)												
+												(else
+													(event claimed: FALSE)
+											)																	
+											)
+						)
+						(998
+								(event claimed: TRUE)
+								(Print 2 12)								
+						)			
+						(else
+							(event claimed: FALSE)
+						)
+				
+					)
+					
+				)				
+				(if (ClickedOnObj ghost (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(995
+							(DoVerb {capture ghost})
+						)
+						(996
+								(DoVerb {converse ghost})
+						)	
+						(998
+								(DoVerb {examine ghost})
+								(event claimed: TRUE)
+								(Print 2 26)
+																
+						)			
+						(else
+							(event claimed: FALSE)
+						)
+				
+					)
+					
+				)					
+		
+		
+					(if (ClickedOnObj Yard (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998
+							(event claimed: TRUE)
+							(Print 2 11)
+																
+						)			
+						(else
+							(event claimed: FALSE)
+						)
+				
+					)
+					
+				)					
+			
+				(if (or (ClickedInRect 29 47 149 168 event) ;tombs
+						(ClickedInRect 50 68 160 180 event)
+						(ClickedInRect 97 118 151 179 event)
+						(ClickedInRect 144 193 148 178 event)
+						(ClickedInRect 48 65 126 147 event)
+						(ClickedInRect 79 100 113 137 event)
+						(ClickedInRect 129 165 115 146 event)
+						(ClickedInRect 194 225 117 150 event)
+						(ClickedInRect 122 142 80 113 event)  )
+						(event claimed: TRUE)
+						(switch theCursor	
+							(995	
+								(DoVerb {move gravestone})
+							)
+							(998
+								(DoVerb {examine gravestone})
+							)
+							(else
+							(event claimed: FALSE)
+						)
+				
+					)
+					
+				)		
+													
+		
+			)
+		)
+		
 		(if (event claimed?) (return))
 		(if (== (event type?) saidEvent)
 			(if
