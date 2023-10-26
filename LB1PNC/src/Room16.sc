@@ -22,6 +22,7 @@
 	local0
 	local1
 	firstTime
+	temp7
 )
 (instance Room16 of Room
 	(properties
@@ -130,6 +131,213 @@
 	)
 	
 	(method (handleEvent event &tmp temp0)
+		
+		
+	
+			
+			(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)
+				
+				
+					(if (ClickedOnObj Lamp (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(DoVerb {examine ignite})
+						)	
+						(995
+							(DoVerb {get ignite})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+			
+					(if (ClickedOnObj Lamp2 (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(event claimed: TRUE)
+							(Print 16 6)
+						)	
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+			
+		
+				
+				(if (ClickedOnObj Door (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(DoVerb {examine door})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+				
+					(if (ClickedOnObj Note (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(DoVerb {read letter})
+						)
+						(995
+							(DoVerb {get letter})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+		
+		
+		(if (ClickedOnObj Rover (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(996
+							(DoVerb {converse beauregard})
+						)
+						
+						(998
+							(DoVerb {examine beauregard})
+						)
+						(995
+								(= temp7
+												(Print
+													{Rover}
+													#button {Pat} 1
+													#button {Feed} 2								
+												)
+											)
+											(switch temp7
+												(1 							
+													(DoVerb {pat beauregard})	
+												)
+												(2
+													(DoVerb {feed beauregard})
+												)
+														
+												(else
+													(event claimed: FALSE)
+												)
+											)
+						
+		
+						)(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+		
+		
+		
+		
+				(if (ClickedOnPicView Knocker (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(995
+							(DoVerb {bang doorknocker})	
+						)
+						(998
+							(DoVerb {examine doorknocker})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+		
+		
+		
+		
+		
+				
+						(if (or (ClickedOnObj Window1 (event x?) (event y?)) 
+							(ClickedOnObj Window2 (event x?) (event y?)) )
+							
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(event claimed: TRUE)
+							(DoLook {window})
+						)	
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+			
+		
+		
+		
+		
+							(if (ClickedOnObj Mat (event x?) (event y?)) 	
+							(event claimed: TRUE)
+								(switch theCursor
+									(998
+										(DoVerb {move doormat})
+									)
+									(995
+										(= temp7
+												(Print
+													{Mat}
+													#button {Examine} 1
+													#button {Examine below} 2								
+												)
+											)
+											(switch temp7
+												(1 							
+													(DoVerb {examine doormat})	
+												)
+												(2
+													(DoVerb {lift doormat})
+												)
+														
+												(else
+													(event claimed: FALSE)
+												)
+											)
+						
+		
+									)(else
+											(event claimed: FALSE)
+						)
+					)
+				)
+		
+		
+		
+		
+		
+							)
+			)
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		(if (event claimed?) (return TRUE))
 		(return
 			(if (== (event type?) saidEvent)

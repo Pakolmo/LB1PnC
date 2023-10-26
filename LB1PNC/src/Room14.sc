@@ -20,6 +20,7 @@
 	[local3 11]
 	local14
 	local15
+	temp7
 )
 (instance Room14 of Room
 	(properties
@@ -175,6 +176,296 @@
 	)
 	
 	(method (handleEvent event &tmp temp0)
+		
+		
+			(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)
+				
+				
+					(if (ClickedOnObj Squirel (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(995
+							(DoVerb {capture esquirrel})
+						)
+						
+						(998
+							(DoVerb {examine esquirrel})
+						)
+						
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+		
+				
+						(if (ClickedOnObj Chair (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(DoVerb {examine swing})
+						)
+						
+						(995	
+									(= temp7
+												(Print
+													{Chair}
+													#button {press} 1
+													#button {swing} 2								
+													#button {get} 3
+
+
+												)
+											)
+											(switch temp7
+												(1 							
+													(DoVerb {press swing})	
+												)
+												(2
+													(DoVerb {swing})
+												)
+												(3
+													(DoVerb {get swing})
+												)		
+												(else
+													(event claimed: FALSE)
+												)
+											)
+						
+		
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+		
+		
+		
+						
+						(if (ClickedOnObj Door (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(DoVerb {examine door})
+						)
+						
+						(995
+								(= temp7
+												(PrintSpecial
+													{Door}
+													#button {Break} 1
+													#button {Unbar} 2								
+													#button {Bang} 3
+													#button {Open} 4
+
+												)
+											)
+											(switch temp7
+												(1 							
+													(DoVerb {break door})	
+												)
+												(2
+													(DoVerb {unbar door})
+												)
+												(3
+													(DoVerb {bang door})
+												)	
+												(4
+													(DoVerb {open door})
+												)			
+												(else
+													(event claimed: FALSE)
+												)
+											)
+						
+		
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+		
+		
+						
+						(if (ClickedOnObj Window1 (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+															(= temp7
+												(PrintSpecial
+													{Window}
+													#button {Examine in} 1
+													#button {Examine} 2								
+
+
+												)
+											)
+											(switch temp7
+												(1 							
+													(DoVerb {examine in window})	
+												)
+												(2
+													(DoVerb {examine window})
+												)
+												(else
+													(event claimed: FALSE)
+												)
+											)
+						
+		
+						
+						)
+						
+						(995
+								(= temp7
+												(Print
+													{Window}
+													#button {Break} 1
+													#button {Open} 2								
+
+
+												)
+											)
+											(switch temp7
+												(1 							
+													(DoVerb {break window})	
+												)
+												(2
+													(DoVerb {open window})
+												)			
+												(else
+													(event claimed: FALSE)
+												)
+											)
+						
+		
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+		
+		
+		
+		
+								
+						(if (ClickedOnObj Window2 (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(event claimed: TRUE)
+							(Print 14 24)	
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+		
+			(if (ClickedOnObj Window3 (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(event claimed: TRUE)
+							(Print 14 24)	
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+		
+		
+		
+			(if (ClickedOnObj Window4 (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(event claimed: TRUE)
+							(Print 14 24)	
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+				
+		
+			(if (ClickedOnObj Tower (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(DoVerb {examine tower})	
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+						
+		
+			(if (ClickedOnObj Chapel (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(DoVerb {examine chapel})	
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+						
+		
+				(if (ClickedOnObj House (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(DoVerb {examine playhouse})	
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+						
+					
+		
+		
+		
+		
+		
+		
+		
+			
+		
+		
+			)
+			)
+		
+		
+		
+		
+		
+		
 		(if (event claimed?) (return TRUE))
 		(return
 			(if (== (event type?) saidEvent)

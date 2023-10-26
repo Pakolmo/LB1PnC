@@ -21,6 +21,7 @@
 (local
 	local0
 	local1
+	temp7
 )
 (instance Room13 of Room
 	(properties
@@ -189,6 +190,181 @@
 	)
 	
 	(method (handleEvent event &tmp temp0)
+		
+		
+		
+		(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)
+				
+				
+					(if (ClickedOnObj Door (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(DoVerb {examine door})
+						)
+						
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+		
+				
+					(if (ClickedOnObj Window1 (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(995
+							(= temp7
+												(Print
+													{Window}
+													#button {Open} 1
+													#button {Break} 2								
+
+
+												)
+											)
+											(switch temp7
+												(1 
+													(DoVerb {open window})
+												)
+												(2
+													(DoVerb {break window})
+												)
+												(else
+													(event claimed: FALSE)
+												)
+											)
+						
+		
+						
+						
+						)
+						(998
+							(DoVerb {examine window})
+						)
+						
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+			
+		
+		
+		
+		
+				(if (ClickedOnObj Window2 (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(event claimed: TRUE)
+							(Print 13 10)
+						)
+						
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+					
+		
+		
+				(if (ClickedOnObj Window3 (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(event claimed: TRUE)
+							(Print 13 10)
+						)
+						
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+						
+		
+		
+		
+		
+				(if (ClickedOnObj Hay1 (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(DoVerb {examine bale})
+						)
+						
+						(995
+								(= temp7
+												(Print
+													{Bale}
+													#button {Move} 1
+													#button {Get} 2								
+
+
+												)
+											)
+											(switch temp7
+												(1 
+													(DoVerb {move bale})
+												)
+												(2
+													(DoVerb {get bale})
+												)
+												(else
+													(event claimed: FALSE)
+												)
+											)
+						
+		
+						
+						
+						)
+		
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+		
+		
+		
+		
+						(if (ClickedOnObj Hay2 (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(event claimed: TRUE)
+							(Print 13 13)
+		
+						)
+		
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+		
+		
+		
+			)
+		)
+		
+		
+		
+		
+		
 		(if (event claimed?) (return TRUE))
 		(return
 			(if (== (event type?) saidEvent)

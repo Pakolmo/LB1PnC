@@ -226,6 +226,85 @@
 	)
 	
 	(method (handleEvent event &tmp temp0)
+		
+			
+			(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)
+				
+				
+					(if (ClickedOnObj Gertie (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(DoVerb {examine gertie})
+						)	
+						(995
+							(DoVerb {examine gertie})
+						)
+						(996
+							(DoVerb {converse gertie})
+						)		
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+		
+		
+		
+					(if (ClickedOnObj Door (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(event claimed: TRUE)
+							(DoLook {door})
+						)	
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+		
+				
+						(if (or (ClickedOnObj Window1 (event x?) (event y?)) 
+							(ClickedOnObj Window2 (event x?) (event y?)) 
+							(ClickedOnObj Window3 (event x?) (event y?))  )
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(event claimed: TRUE)
+							(DoLook {window})
+						)	
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+			
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+			)
+			)
+		
+		
+		
 		(if (event claimed?) (return TRUE))
 		(return
 			(if (== (event type?) saidEvent)
@@ -264,6 +343,7 @@
 		(super newRoom: n)
 	)
 )
+(instance Gertie of Actor)
 
 (instance myDoor of Script
 
