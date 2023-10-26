@@ -55,8 +55,7 @@
 				(theGame handleEvent: event evType)
 			)
 			;; This crashes for some unknown reason
-		
-				;; specifically the (gCast contains: alterEgo) check seems to cause crash			
+			;; specifically the (gCast contains: alterEgo) check seems to cause crash			
 			(if
 				(and
 					controls
@@ -65,15 +64,6 @@
 				)
 				(alterEgo handleEvent: event evType)
 			)
-			
-			
-			
-			
-			
-			
-			
-	
-			
 			
 			(if
 				(and
@@ -193,21 +183,6 @@
 	)
 
 	(method (handleEvent event &tmp temp0 temp5)
-						
-					
-					
-					
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 		(if (not (super handleEvent: event))
 			(switch (event type:)
 				(evMOUSEBUTTON
@@ -221,32 +196,28 @@
 						(event claimed: 1)
 
 					)
-					
-				(if (ClickedOnObj Ego (event x?) (event y?))
-					(event claimed: TRUE)
-					(switch theCursor	
-						(998 		
-							
-							
-							(event claimed: 1)
-							(= temp5 (Sound pause: 1))
-							(Inv showSelf: 888)
-							(Sound pause: temp5)
-							(DoUseItem useInvItem event)
-							
-						)
-						(else
-						
-							(event claimed: FALSE)
-						)
-					)
-
+					; click on ego handled in PNCmenu, script 950
+;;;					(if (ClickedOnObj Ego (event x?) (event y?))
+;;;						(event claimed: TRUE)
+;;;						(switch theCursor	
+;;;							(998 		
+;;;								(event claimed: 1)
+;;;								(= temp5 (Sound pause: 1))
+;;;								(Inv showSelf: 888)
+;;;								(Sound pause: temp5)
+;;;								(DoUseItem useInvItem event)	
+;;;							)
+;;;							(995
+;;;								(event claimed: 1)
+;;;								(DoVerb {Smell room})
+;;;							)
+;;;							(else
+;;;							
+;;;								(event claimed: FALSE)
+;;;							)
+;;;						)
+;;;					)
 				)
-									
-				
-					
-				)
-				
 				($0040 ; direction
 					(if
 						(and
@@ -261,35 +232,6 @@
 				)
 			)
 		)
-		
-;;;		(and
-;;;					(== (event type?) evMOUSEBUTTON)
-;;;					(not (& (event modifiers?) emRIGHT_BUTTON))
-;;;							
-;;;
-;;;		
-;;;		
-;;;				(if (ClickedOnObj Ego (event x?) (event y?)) ;blab, jim, rambo
-;;;					(event claimed: TRUE)
-;;;					(switch theCursor	
-;;;						(998 		
-;;;							
-;;;							(event claimed: TRUE)
-;;;							(Print 44 22)		
-;;;						)
-;;;						(else
-;;;						
-;;;							(event claimed: FALSE)
-;;;						)
-;;;					)
-;;;
-;;;				)
-				
-									
-					
-		
-		
-		
 		(event claimed:)
 	)
 )

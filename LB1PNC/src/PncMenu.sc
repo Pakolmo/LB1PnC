@@ -12,7 +12,7 @@
 (use user)
 (use Gauge)
 (use Invent) ;ADD
-
+(use Sound)
 
 (public
 	PnCMenu 0
@@ -220,7 +220,7 @@
 		)
 	)
 	
-	(method (handleEvent event &tmp haveMouse)
+	(method (handleEvent event &tmp haveMouse sndPause)
 		(super handleEvent: event)
 		(= haveMouse (HaveMouse)) ;fix rightclick crash in scummvm
 		(if (== (event type?) evMOUSEBUTTON)
@@ -249,7 +249,6 @@
 						)
 						(996
 ;;;							(theGame setCursor: 995 haveMouse)
-						
 							(if (or 
 									(== itemIcon 601)
 									(== itemIcon 993)
@@ -435,17 +434,8 @@
 						(= menuTime 0)
 						(quitIcon setScript: dothequit)
 					)
-					(
-						(and ;is the click on ego?
-							(> (event x?) (ego nsLeft?))
-							(< (event x?) (ego nsRight?))
-							(> (event y?) (ego nsTop?))
-							(< (event y?) (ego nsBottom?))
-						)
+					((MousedOn ego event 0) ; left click on ego
 						(switch theCursor ;what cursor?
-							(29 ;Bottle wine with water on patti
-
-							)
 							(999 ;walk
 								(event type: 1 claimed: 0) ;Don't claim event, let walk script take it
 							)
@@ -454,12 +444,10 @@
 							)
 							(998 ;look
 								(event type: 1 claimed: 1) ;claim event so other scripts don't use it
-
-;;;										(switch (Random 0 2) ;randomly select a sentance between 0-2
-;;;										(0 (Print 950 10)) ;print string 10 in 950.txt
-;;;										(1 (Print 950 11)) ;print string 11 in 950.txt
-;;;										(2 (Print 950 12)) ;print string 12 in 950.txt
-								
+								(= sndPause (Sound pause: 1))
+								(Inv showSelf: 888)
+								(Sound pause: sndPause)
+								(DoUseItem useInvItem event)
 							)
 							(996 ;talk
 								(event type: 1 claimed: 1)
@@ -472,12 +460,7 @@
 							)
 							(995 ;hand
 								(event type: 1 claimed: 1)
-;;;								(switch (Random 0 2)
-;;;									(0 (Print 950 16))
-;;;									(1 (Print 950 17))
-;;;									(2 (Print 950 18))
-								
-;;;								)
+								(DoVerb {Smell room})
 							)				
 						)
 					)
