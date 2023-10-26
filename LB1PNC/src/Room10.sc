@@ -201,6 +201,111 @@
 	)
 	
 	(method (handleEvent event &tmp temp0)
+		
+					(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)
+				
+				
+					(if (ClickedOnObj Door (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(DoVerb {examine door})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+						
+				
+					
+					(if (or (ClickedOnObj Window1 (event x?) (event y?)) 
+							(ClickedOnObj Window2 (event x?) (event y?)) 
+							(ClickedOnObj Window3 (event x?) (event y?)) )
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(DoVerb {examine window})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+						
+	
+		
+		
+					(if (ClickedInRect 33 83 47 91 event) ;fence
+					
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(DoVerb {examine fence})
+						)
+						(995
+							(DoVerb {climb fence})
+		
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+		
+		
+				(if (ClickedOnObj Wilbur (event x?) (event y?))
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(DoVerb {look Wilbur})
+		
+						)
+						(996
+							(DoVerb {converse Wilbur})
+		
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+							
+		
+					(if (ClickedOnObj Clarence (event x?) (event y?))
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(DoVerb {look Clarence})
+		
+						)
+						(996
+							(DoVerb {converse Clarence})
+		
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)	
+		
+		
+		
+		
+		
+			)
+					)
+		
+		
+		
+		
 		(super handleEvent: event)
 		(if (event claimed?) (return TRUE))
 		(return

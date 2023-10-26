@@ -25,6 +25,7 @@
 	local4
 	local5
 	firstTime
+	temp7
 )
 (instance Room12 of Room
 	(properties
@@ -223,6 +224,207 @@
 	)
 	
 	(method (handleEvent event &tmp temp0)
+		
+							(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)
+				
+				
+					(if (ClickedOnObj Door (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(DoVerb {examine door})
+						)
+						(995
+							(DoVerb {bang})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+		
+		
+		
+						(if (ClickedOnObj Cellar (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(= temp7
+												(Print
+													{basement}
+													#button {examine} 1
+													#button {examine in} 2								
+
+
+												)
+											)
+											(switch temp7
+												(1 
+													(DoVerb {examine basement})
+												)
+												(2
+													(DoVerb {examine in unbar})
+												)
+												(else
+													(event claimed: FALSE)
+												)
+											)
+						
+		
+						
+						)
+						(995
+							(= temp7
+												(Print
+													{door}
+													#button {unbar} 1
+													#button {open} 2								
+
+
+												)
+											)
+											(switch temp7
+												(1 							
+													(DoVerb {unbar door})	
+												)
+												(2
+													(DoVerb {open door})
+												)
+												(else
+													(event claimed: FALSE)
+												)
+											)
+						
+		
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+		
+		
+		
+							(if (ClickedOnObj Lamp (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(995	
+								(DoVerb {get ignite})
+						)
+						(998
+							(DoVerb {examine ignite})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+						
+		
+				(if (ClickedOnPicView dHouse (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(998	
+								(= temp7
+												(Print
+													{Doghouse}
+													#button {examine behind} 1
+													#button {search} 2								
+													#button {examine} 3
+
+												)
+											)
+											(switch temp7
+												(1 							
+													(DoVerb {examine behind doghouse})	
+												)
+												(2
+													(DoVerb {search doghouse})
+												)
+												(3
+													(DoVerb {examine doghouse})
+												)												
+												(else
+													(event claimed: FALSE)
+												)
+											)
+						
+		
+						)
+						
+						(995
+							(DoVerb {enter doghouse})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+						
+				(if (ClickedOnObj dHouse2 (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+								(event claimed: TRUE)
+								(Print 12 18)
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+						
+		
+		
+						(if (ClickedOnObj Window1 (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(998	
+							(DoLook {window})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+		
+			
+						(if (ClickedOnObj Dish (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(995
+							(DoVerb {get dish})
+						)
+						(998	
+							(DoLook {dish})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+		
+			
+					)
+						)
+		
+		
+		
+		
+		
+		
 		(if (event claimed?) (return TRUE))
 		(return
 			(if (== (event type?) saidEvent)

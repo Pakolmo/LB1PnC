@@ -274,15 +274,15 @@
 						
 						(996
 								(DoVerb {feed alligator})
-									(if theInvItem
-										(if haveInvItem
-											(Print 8 9)
-										else
-											(DontHave)
-										)
-									else
-										(Print 8 9)
-									)
+;;;									(if theInvItem
+;;;										(if haveInvItem
+;;;											(Print 8 9)
+;;;										else
+;;;											(DontHave)
+;;;										)
+;;;									else
+;;;										(Print 8 9)
+;;;									)
 						)
 						
 						(998

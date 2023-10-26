@@ -18,6 +18,7 @@
 
 (local
 	dying
+	temp7
 )
 (instance Room7 of Room
 	(properties
@@ -138,6 +139,133 @@
 	)
 	
 	(method (handleEvent event)
+					(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)
+				
+				(if (ClickedOnPicView Bridge (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(995
+								(= temp7
+												(PrintSpecial
+		
+													{Bridge}
+													#button {Cross} 1
+													#button {Climb} 2								
+													#button {Hop} 3
+												)
+											)
+											(switch temp7
+												(1 
+													(DoVerb {cross bridge})
+														
+												)
+												(2 
+													(DoVerb {climb across oak})
+														
+												)
+												(3 
+													(DoLook {hop across bridge})
+														
+												)	
+												(else
+													(event claimed: FALSE)
+											)							
+											)
+						
+							
+						)
+						(998
+									(= temp7
+												(PrintSpecial
+		
+													{Bridge}
+													#button {Examine} 1
+													#button {Examine Below} 2								
+													#button {Examine Down} 3
+												)
+											)
+											(switch temp7
+												(1 
+													(DoVerb {examine bridge})
+														
+												)
+												(2 
+													(DoVerb {examine below bridge})
+														
+												)
+												(3 
+													(DoLook {ground})
+														
+												)	
+																						
+												(else
+													(event claimed: FALSE)
+											)																	
+											)
+						)	
+
+						(else
+							(event claimed: FALSE)
+						)
+				
+					)
+					
+				)		
+		
+		
+		
+					(if (or (ClickedOnObj wave1 (event x?) (event y?)) 
+							(ClickedOnObj wave2 (event x?) (event y?)) )
+					(event claimed: TRUE)
+					(switch theCursor
+						(998	
+											(= temp7
+												(Print
+		
+													{water}
+													#button {Examine} 1
+													#button {Examine On} 2								
+												)
+											)
+											(switch temp7
+												(1 
+													(DoVerb {examine water})
+														
+												)
+												(2 
+													(DoVerb {examine on water})
+														
+												)
+																							
+												(else
+													(event claimed: FALSE)
+											)																	
+											)
+						)	
+						(else
+							(event claimed: FALSE)
+						)																	
+					)
+				)	
+		
+		
+		
+		
+		
+		
+		
+			)
+					)
+		
+		
+		
+		
 		(super handleEvent: event)
 		(if (event claimed?) (return))
 		(if (== (event type?) saidEvent)

@@ -23,6 +23,7 @@
 	local0
 	local1
 	local2
+	temp7
 )
 (instance Room9 of Room
 	(properties
@@ -147,6 +148,272 @@
 	)
 	
 	(method (handleEvent event &tmp temp0)
+;;;		(method (handleEvent event)
+			(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)
+				
+				(if (ClickedOnObj Door (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(995
+								(= temp7
+												(Print
+													{Door}
+													#button {Open} 1
+													#button {Close} 2								
+
+
+												)
+											)
+											(switch temp7
+												(1 
+													(DoVerb {open door})
+														
+												)
+						
+										
+
+												(2
+													(DoVerb {close door})
+													
+				
+												)
+												(else
+													(event claimed: FALSE)
+												)
+											)
+						
+
+													
+							
+						)
+				
+						(998
+							(DoVerb {examine door})	
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+						
+							
+		
+					(if (ClickedOnObj light1 (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(DoVerb {examine door})	;yes
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+						
+							
+					(if (ClickedOnObj Window1 (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(995
+									(= temp7
+												(Print
+													{Window}
+													#button {Examine} 1
+													#button {Examine In} 2								
+
+
+												)
+											)
+											(switch temp7
+												(1 
+													(DoVerb {examine window})
+														
+												)
+						
+										
+
+												(2
+													(DoVerb {examine in window})
+													
+				
+												)
+												(else
+													(event claimed: FALSE)
+												)
+											)
+						
+
+						)
+						(998
+								(= temp7
+												(Print
+													{Window}
+													#button {Examine} 1
+													#button {Examine In} 2								
+
+
+												)
+											)
+											(switch temp7
+												(1 
+													(DoVerb {examine window})
+														
+												)
+						
+										
+
+												(2
+													(DoVerb {examine in window})
+													
+				
+												)
+												(else
+													(event claimed: FALSE)
+												)
+											)
+						
+
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+						
+					
+		
+				(if (ClickedOnObj Window2 (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(DoVerb {examine window})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+		
+			(if (ClickedInRect 0 44 73 81 event) ;cementery
+					
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+									(DoVerb {examine cementery})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+				(if (ClickedInRect 36 69 76 110 event) ;archway/arco
+					
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(995
+									(= temp7
+												(Print
+													{Archway}
+													#button {Open} 1
+													#button {Close} 2								
+
+
+												)
+											)
+											(switch temp7
+												(1 
+													(DoVerb {open archway})
+														
+												)
+						
+										
+
+												(2
+													(DoVerb {close archway})
+													
+				
+												)
+												(else
+													(event claimed: FALSE)
+												)
+											)
+						
+
+													
+							
+						)
+						(998
+														(= temp7
+												(Print
+													{Archway}
+													#button {Examine} 1
+													#button {Examine grave} 2								
+
+
+												)
+											)
+											(switch temp7
+												(1 
+													(DoVerb {examine archway})
+														
+												)
+						
+										
+
+												(2
+													(DoVerb {examine grave})
+													
+				
+												)
+												(else
+													(event claimed: FALSE)
+												)
+											)
+						
+
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+		
+		
+						(if (ClickedInRect 1 42 81 121 event) ;fence
+					
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(995
+							(DoVerb {climb fence})
+						)
+						(998
+							(DoVerb {examine fence})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+		
+		
+		
+			)
+			)
+				
+		
+		
 		(if (event claimed?) (return))
 		(if (== (event type?) saidEvent)
 			(cond 
