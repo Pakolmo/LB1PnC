@@ -10,7 +10,7 @@
 (local
 	yesI
 	;useMonocleI
-	;useToggle
+	useToggle
 	selI
 	lookI
 	useI
@@ -165,23 +165,23 @@
 	)
 
 	(method (doit param1 &tmp temp0 [str 200])
-;;;		(cond
-;;;			((== param1 777) ;inv use hack
-;;;				(= useToggle 1)
-;;;				(= useInvItem 0)
-;;;				(= useInvItem2 0)
-;;;				(= param1 ego)
-;;;			)
-;;;			((== param1 888) ;inv on inv from right-click ego
-;;;				(= useToggle 0)
-;;;				(= useInvItem 0)
-;;;				(= useInvItem2 0)
-;;;				(= param1 ego)
-;;;			)
-;;;			(else
-;;;				(= useToggle 0)
-;;;			)
-;;;		)
+		(cond
+			((== param1 777) ;inv use hack
+				(= useToggle 1)
+				(= useInvItem 0)
+				(= useInvItem2 0)
+				(= param1 ego)
+			)
+			((== param1 888) ;inv on inv from right-click ego
+				(= useToggle 0)
+				(= useInvItem 0)
+				(= useInvItem2 0)
+				(= param1 ego)
+			)
+			(else
+				(= useToggle 0)
+			)
+		)
 ;;;		(ego get: 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23)
 		(ego get: 24 25 26 27 28 29 30 31 32 33) ;people
 		(if (not (self init: param1))

@@ -21,6 +21,7 @@
 (local
 	local0
 	local1
+	temp7
 )
 (procedure (LowPrint)
 	(Print &rest
@@ -165,6 +166,124 @@
 	)
 	
 	(method (handleEvent event &tmp temp0)
+		
+	
+			(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)
+					
+			(if (ClickedOnPicView statue (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(998	
+							(DoVerb {examine monument})
+						)
+						(995
+								(= temp7
+												(PrintSpecial
+													{Statue}
+													#button {Get} 1
+													#button {Move} 2								
+													#button {Rotate} 3
+
+
+												)
+											)
+											(switch temp7
+												(1 							
+													(DoVerb {get monument})	
+												)
+												(2
+													(DoVerb {move monument})
+												)
+												(3
+													(DoVerb {rotate monument})
+												)	
+		
+												(else
+													(event claimed: FALSE)
+												)
+											)
+						
+		
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+		
+		
+			
+					(if (ClickedOnObj House (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(DoVerb {look house})
+						)
+						
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+				(if (ClickedOnObj Clarence (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(996
+							(DoVerb {converse Clarence})
+						)
+						(998
+							(DoVerb {look Clarence})
+						)
+						
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+		
+					(if (ClickedOnObj Rudy (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(996
+							(DoVerb {converse Rudy})
+						)
+						(998
+							(DoVerb {look Rudy})
+						)
+						
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+		
+			
+		
+		
+		
+		
+		
+		
+		
+		
+			)
+			)
+		
+		
+		
+		
+		
+		
+		
 		(super handleEvent: event)
 		(if (event claimed?) (return TRUE))
 		(return

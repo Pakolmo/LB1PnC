@@ -279,10 +279,10 @@
 						(if (ClickedOnObj chand (event x?) (event y?)) 
 					(event claimed: TRUE)
 					(switch theCursor
-						(998
+						(995
 							(DoVerb {get chandelier})
 						)						
-						(995
+						(998
 							(DoVerb {examine chandelier})
 						)
 						(else
@@ -293,11 +293,17 @@
 						(if (ClickedOnObj Ldoor (event x?) (event y?)) 
 					(event claimed: TRUE)
 					(switch theCursor
-						(995
-							(DoVerb {examine closet})
-						
+						(999
+							(ego setMotion: MoveTo 65 130 self)
+;;;							(event claimed: FALSE)
 						)
 						(998
+							(if (not local5)
+							(DoVerb {examine closet})
+							)
+						
+						)
+						(995
 							(= temp7
 												(Print
 													{Door}
@@ -309,13 +315,17 @@
 											)
 											(switch temp7
 												(1 
+;;;													(if (not local5)
 													(DoVerb {close door})
+;;;													)
 														
 												)
 						
 										
 												(2
+;;;													(if (not local5)
 													(DoVerb {open door})
+;;;													)
 													
 				
 												)
@@ -326,6 +336,7 @@
 												)
 											)
 						)
+						
 							(else
 									(event claimed: FALSE)
 							)
@@ -439,8 +450,15 @@
 					
 					
 							
-						)
+						
 			)
+						)
+					
+			
+			
+			
+			
+		
 		
 		
 		(switch (event type?)
@@ -503,7 +521,7 @@
 						)
 					)
 				)
-				(event claimed: TRUE)
+;;;				(event claimed: TRUE) ;it fixs stairs/closed
 			)
 			(direction
 				(if
@@ -545,7 +563,32 @@
 					)
 				)
 			)
+			
 		)
+		
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+		
 	)
 	
 	(method (newRoom n)
@@ -570,7 +613,8 @@
 			)
 			(1
 				(Face ego Ldoor)
-				(Ldoor ignoreActors: TRUE cycleSpeed: 2 setCycle: EndLoop self)
+;;;				(Ldoor ignoreActors: TRUE cycleSpeed: 2 setCycle: EndLoop self)
+				(Ldoor ignoreActors: FALSE cycleSpeed: 2 setCycle: EndLoop self)				
 				(myMusic number: 43 loop: 1 play:)
 			)
 			(2

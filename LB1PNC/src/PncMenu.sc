@@ -518,12 +518,12 @@
 ;;;							)																																				
 							(996 ;talk 
 								(event type: 1 claimed: 1)
-;;;								(Print 0 109 #at -1 144) ;"(There is no response.)"
+								(Print {There is no response.} #at -1 144) ;"(There is no response.)"
 								
 							)
 							(995 ;hand
 								(event type: 1 claimed: 1)
-;;;								(Print 0 158) ;"What do you want to take?"
+								(Print {What do you want to take?}) ;"What do you want to take?"
 								
 							)
 							(997 ;wait sierra
@@ -531,7 +531,7 @@
 							)
 							(else ;inventory item
 								(event type: 1 claimed: 1)
-;;;								(Print 0 151) ;"no need to use that here"
+								(Print {No need to use that here}) ;"no need to use that here"
 							)
 						)
 					)

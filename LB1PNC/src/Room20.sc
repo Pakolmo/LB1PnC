@@ -18,6 +18,7 @@
 	local0
 	local1
 	local2
+	temp7
 )
 (instance Room20 of Room
 	(properties
@@ -98,6 +99,246 @@
 	)
 	
 	(method (handleEvent event &tmp temp0)
+		
+	
+		
+			(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)
+				
+				
+					(if (ClickedOnObj Squirel (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(995
+							(DoVerb {capture esquirrel})
+						)
+						
+						(998
+							(DoVerb {examine esquirrel})
+						)
+						
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+		
+					
+					(if (ClickedOnObj Door (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(DoVerb {examine door})
+						)
+						
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+		
+							
+				(if (ClickedOnObj Window1 (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+								(= temp7
+												(PrintSpecial
+													{Window}
+													#button {Examine in} 1
+													#button {Examine} 2								
+
+
+												)
+											)
+											(switch temp7
+												(1 							
+													(DoVerb {examine in window})	
+												)
+												(2
+													(DoVerb {examine window})
+												)
+												(else
+													(event claimed: FALSE)
+												)
+											)
+						
+		
+						
+						)
+						
+						(995
+								(= temp7
+												(Print
+													{Window}
+													#button {Break} 1
+													#button {Open} 2								
+
+
+												)
+											)
+											(switch temp7
+												(1 							
+													(DoVerb {break window})	
+												)
+												(2
+													(DoVerb {open window})
+												)			
+												(else
+													(event claimed: FALSE)
+												)
+											)
+						
+		
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+		
+		
+		
+		
+								
+						(if (ClickedOnObj Window2 (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(event claimed: TRUE)
+							(Print 20 10)	
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+		
+			(if (ClickedOnObj Window3 (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(event claimed: TRUE)
+							(Print 20 10)	
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+		
+		
+		
+			(if (ClickedOnObj Window4 (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(event claimed: TRUE)
+							(Print 20 10)	
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+				
+		
+				
+			(if (ClickedOnObj Box (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(995			
+															(= temp7
+												(Print
+													{Box}
+													#button {Break} 1
+													#button {Open} 2								
+
+
+												)
+											)
+											(switch temp7
+												(1 							
+													(DoVerb {break box})	
+												)
+												(2
+													(DoVerb {open box})
+												)			
+												(else
+													(event claimed: FALSE)
+												)
+											)
+						
+		
+							
+							
+							
+							
+						)			
+						(998
+									(= temp7
+												(PrintSpecial
+													{Box}
+													#button {Examine in} 1
+													#button {Examine} 2								
+
+
+												)
+											)
+											(switch temp7
+												(1 							
+													(DoVerb {examine in box})	
+												)
+												(2
+													(DoVerb {examine box})
+												)
+												(else
+													(event claimed: FALSE)
+												)
+											)
+						
+		
+						
+						
+						
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+				
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+			)
+			)
+		
+		
 		(if (event claimed?) (return TRUE))
 		(return
 			(if (== (event type?) saidEvent)

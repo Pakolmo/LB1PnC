@@ -94,6 +94,49 @@
 	)
 	
 	(method (handleEvent event &tmp temp0)
+		
+	
+		
+			(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)
+					
+			(if (ClickedOnPicView House (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(DoVerb {examine playhouse})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+		
+				(if (ClickedOnObj BHouse (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(DoVerb {look house})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+			
+		
+		
+			)
+		)
+		
+		
+		
 		(if (event claimed?) (return TRUE))
 		(return
 			(if (and (== (event type?) saidEvent) (Said 'examine>'))
