@@ -232,8 +232,8 @@
 					)
 				)		
 		
-					(if (ClickedOnObj bed1 (event x?) (event y?)) 
-					
+					(if (and (ClickedOnObj bed1 (event x?) (event y?)) 
+							(== (event claimed?) FALSE))
 					(event claimed: TRUE)
 					(switch theCursor	
 						(998 ;examine
@@ -245,8 +245,8 @@
 					)
 				)					
 			
-					(if (ClickedOnObj chest (event x?) (event y?)) 
-					
+					(if (and (ClickedOnObj chest (event x?) (event y?)) 
+					(== (event claimed?) FALSE))
 					(event claimed: TRUE)
 					(switch theCursor	
 						(998 ;examine
@@ -258,8 +258,8 @@
 					)
 				)			
 		
-					(if (ClickedOnObj bed2 (event x?) (event y?)) 
-					
+					(if (and (ClickedOnObj bed2 (event x?) (event y?)) 
+						(== (event claimed?) FALSE))
 					(event claimed: TRUE)
 					(switch theCursor	
 						(998 ;examine
@@ -298,7 +298,8 @@
 				)			
 		
 											
-						(if (ClickedOnObj suit1 (event x?) (event y?)) 
+						(if (and (ClickedOnObj suit1 (event x?) (event y?)) 
+								(== (event claimed?) FALSE)) 
 					
 					(event claimed: TRUE)
 					(switch theCursor	
@@ -334,8 +335,8 @@
 		
 		
 		
-							(if (ClickedOnObj suit2 (event x?) (event y?)) 
-					
+							(if (and (ClickedOnObj suit2 (event x?) (event y?)) 
+								(== (event claimed?) FALSE)) 
 					(event claimed: TRUE)
 					(switch theCursor	
 						(998 ;examine

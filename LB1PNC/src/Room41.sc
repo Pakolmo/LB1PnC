@@ -169,7 +169,9 @@
 					)
 			
 			
-					(if (ClickedOnObj Bed (event x?) (event y?)) 
+;;;					(if (and (ClickedOnObj Bed (event x?) (event y?)) 
+					(if (and (ClickedInRect 178 223 75 98 event)
+								(== (event claimed?) FALSE))
 					(event claimed: TRUE)
 					(switch theCursor
 						(995
@@ -209,6 +211,7 @@
 					)
 				
 					(if (ClickedOnObj bag (event x?) (event y?)) 
+							
 					(event claimed: TRUE)
 					(switch theCursor
 						(995

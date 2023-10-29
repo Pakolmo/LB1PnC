@@ -570,6 +570,7 @@
 ;;;		
 		newEvent
 		isHandsOff
+		yPositionInventory
 )
 (procedure (Say whom &tmp theView [buffer 500])
 	(if

@@ -659,9 +659,11 @@
 				
 
 				)
-				)				
-				(if (and (ClickedOnObj suit2 (event x?) (event y?)) ;Get diary
-					(== (event claimed?) FALSE))
+				)		
+				
+
+				(if (ClickedOnObj suit2 (event x?) (event y?)) ;Get diary
+					
 					(event claimed: TRUE)
 					(switch theCursor	
 						(995		
@@ -802,7 +804,7 @@
 
 				)
 ;;;				(if (and (ClickedOnObj wingback (event x?) (event y?)) 
-				(if (and (ClickedInRect 99 116  119 138 event)
+				(if (and (ClickedInRect 99 116 119 138 event)
 
 					(== (event claimed?) FALSE))
 					(event claimed: TRUE)
@@ -901,23 +903,25 @@
 					)
 
 				)
-				(if (ClickedOnObj chest2 (event x?) (event y?)) 
-					
-					(event claimed: TRUE)
-					(switch theCursor	
-						(998 		
-							
-								(event claimed: TRUE)
-								(Print 44 21)		
-						)
-						(else
-						
-							(event claimed: FALSE)
-						)
-					)
-
-				)				
-				(if (and (ClickedOnObj bed2 (event x?) (event y?)) 
+;;;				(if (ClickedOnObj chest2 (event x?) (event y?)) 
+;;;					
+;;;					(event claimed: TRUE)
+;;;					(switch theCursor	
+;;;						(998 		
+;;;							
+;;;								(event claimed: TRUE)
+;;;								(Print 44 21)		
+;;;						)
+;;;						(else
+;;;						
+;;;							(event claimed: FALSE)
+;;;						)
+;;;					)
+;;;
+;;;				)	
+				(if (and (ClickedInRect 225 308	137 153 event)	
+								
+;;;				(if (and (ClickedOnObj bed2 (event x?) (event y?)) 
 					(== (event claimed?) FALSE))
 					(event claimed: TRUE)
 					(switch theCursor	
@@ -936,8 +940,8 @@
 
 
 
-		
-				(if (ClickedOnObj bed1 (event x?) (event y?))
+				(if (ClickedInRect 170 230 87 106 event)
+;;;				(if (ClickedOnObj bed1 (event x?) (event y?))
 					
 					(event claimed: TRUE)
 					(switch theCursor	
