@@ -24,6 +24,7 @@
 	local1
 	local2
 	local3
+	temp7
 )
 (instance Room25 of Room
 	(properties
@@ -144,6 +145,145 @@
 	)
 	
 	(method (handleEvent event)
+		
+	
+			(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)
+					
+		
+			(if (ClickedOnPicView owlBody (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(998	
+							(DoVerb {look owl})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+		
+		
+			(if (ClickedOnObj owlHead (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(998	
+							(DoVerb {examine bird})
+						)
+						(996
+							(DoVerb {converse bird})
+						)
+						(995
+								(= temp7
+												(PrintSpecial
+													{Owl}
+													#button {Deliver} 1
+													#button {Feed} 2								
+													#button {Hold} 3
+													#button {Capture} 4
+
+												)
+											)
+											(switch temp7
+												(1 							
+													(DoVerb {deliver bird})	
+												)
+												(2
+													(DoVerb {feed bird})
+												)
+												(3
+													(DoVerb {hold bird})
+												)	
+												(4
+													(DoVerb {capture bird})
+												)			
+												(else
+													(event claimed: FALSE)
+												)
+											)
+						
+		
+						)	
+						
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+				
+		
+		
+			(if (ClickedOnObj Foot (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(998		
+							(DoVerb {examine bootprint})
+						)
+						(604 ;monocle
+							(DoVerb {examine monocle bootprint})
+						)	
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+		
+			(if (ClickedOnObj Pin (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(998		
+							(DoVerb {examine pin rolling})
+						)
+						(995		
+							(DoVerb {get pin rolling})
+						)					
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+		
+			(if (ClickedOnObj Barn (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(998			
+							(DoVerb {examine barn})
+						)					
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+		
+		
+		
+			(if (ClickedOnObj House (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(DoVerb {examine cabin})
+						)					
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+							
+			)
+			)
+		
+		
+		
 		(if (event claimed?) (return TRUE))
 		(return
 			(if (== (event type?) saidEvent)

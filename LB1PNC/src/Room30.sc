@@ -18,6 +18,7 @@
 
 (local
 	local0
+	
 )
 (instance Room30 of Room
 	(properties

@@ -5,6 +5,8 @@
 (use Motion)
 (use Game)
 (use Actor)
+(use Menu)
+(use User)
 
 (public
 	rm99 0
@@ -23,7 +25,12 @@
 	
 	(method (init)
 		(HandsOff)
+		(theGame setCursor: 997 (HaveMouse))
+		(TheMenuBar state: FALSE)
+;;;		(SetCursor 993)		
 		(super init:)
+		(User canControl: FALSE canInput: FALSE)
+		(theGame setCursor: 997 (HaveMouse))
 		(= howFast -1)
 		(if (!= possibleScore 1)
 			(Load VIEW 899)
@@ -60,6 +67,7 @@
 				)
 				(theGame setSpeed: 6)
 				(HandsOn)
+				(theGame setCursor: 997 (HaveMouse))					
 				(if
 					(and
 						(not possibleScore)

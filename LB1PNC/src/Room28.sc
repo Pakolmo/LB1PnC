@@ -75,6 +75,144 @@
 	)
 	
 	(method (handleEvent event)
+		
+	
+			(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)
+					
+					(if (and (ClickedInRect 0 319 182 189 event) ;water
+					(== (event claimed?) FALSE) )
+				
+					(event claimed: TRUE)
+					(switch theCursor
+						(995	
+							(DoVerb {bathe})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+				
+		
+		
+			
+					(if (ClickedOnPicView Sign (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(995
+							(DoVerb {get sign})
+						)
+						(998
+							(DoVerb {examine sign})
+						)
+						
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)		
+			
+					(if (ClickedOnPicView Bird1 (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(995
+							(DoVerb {get bird})
+						)
+						(998
+							(DoVerb {examine bird})
+						)
+						
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)		
+		
+					
+					(if (ClickedOnPicView Bird2 (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(995
+							(DoVerb {get bird})
+						)
+						(998
+							(event claimed: TRUE)
+							(Print 28 12)
+						)
+						
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)		
+
+
+				
+					(if (ClickedOnObj House (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(DoVerb {look house})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)	
+
+
+					(if (ClickedOnObj Statue (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(DoVerb {examine monument})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)	
+
+
+
+				
+			)
+			)		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		(if (event claimed?) (return TRUE))
 		(return
 			(if (== (event type?) saidEvent)

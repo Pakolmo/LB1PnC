@@ -236,6 +236,9 @@
 					
 					(event claimed: TRUE)
 					(switch theCursor
+						(994
+							(DoVerb {smell Clarence})
+						)
 						(996
 							(DoVerb {converse Clarence})
 						)

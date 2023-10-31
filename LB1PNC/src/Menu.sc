@@ -231,10 +231,10 @@
 			"The Colonel's Bequest -Point and Click- "
 				"About Template`^a:"
 		)
-		(if (== curRoomNum 44) ;ADD PnCMenu
-			(Print {TEST})
-			(curRoom setRegions: 950)
-		)
+;;;		(if (== curRoomNum 44) ;ADD PnCMenu
+;;;			(Print {TEST})
+;;;			(curRoom setRegions: 950)
+;;;		)
 ;;;		(AddMenu { \01_}
 ;;;			{About LSL3`^a:Help`#1}
 ;;;		)

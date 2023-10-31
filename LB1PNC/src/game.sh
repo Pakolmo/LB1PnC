@@ -103,7 +103,7 @@
 (define fSawDeadGuest 51)
 (define fPnCVolumeFlag 52)
 (define fPnCSaveFlag 53)
-
+(define fCursorHidden 54)
 ;Murdered guests
 (define deadGERTRUDE	$0001)
 (define deadWILBUR		$0002)

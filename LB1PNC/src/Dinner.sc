@@ -9,6 +9,7 @@
 (use Game)
 (use Actor)
 (use System)
+(use User)
 
 (public
 	Dinner 0
@@ -101,6 +102,7 @@
 	(method (init)
 		(super init:)
 		(HandsOff)
+		(User canInput: FALSE)
 		(addToPics
 			add:
 				tableTop
@@ -156,9 +158,37 @@
 	(method (dispose)
 		(DisposeScript PATH)
 		(super dispose:)
+		(theGame setCursor: 997)
 	)
 	
 	(method (handleEvent event)
+			(if (== (event type?) evMOUSE)
+				(theGame setCursor: 993 (HaveMouse))
+				(curRoom newRoom: 44)
+			)
+		
+		
+		(cond
+		((MousedOn Dinner event 0)
+		
+					(switch theCursor ;what cursor?
+							(999 ;walk
+								(theGame setCursor: 993 (HaveMouse))
+							)
+							(997 ;sierra wait
+								(theGame setCursor: 993 (HaveMouse))
+							)
+							(998 ;look
+								(theGame setCursor: 993 (HaveMouse))
+
+							)	
+					)
+		)	
+		)
+				
+		
+		
+		
 		(if (event claimed?) (return TRUE))
 		(switch (event type?)
 			(keyDown
@@ -168,6 +198,7 @@
 						(== (event message?) `s)
 						(== (event message?) ENTER)
 						(== (event message?) SPACEBAR)
+						(== (event message?) ESC)						
 					)
 					(Bset 50)
 				)
@@ -178,7 +209,8 @@
 		)
 		(return
 			(if (Btst fSkippedIntro)
-				(event claimed: TRUE)
+;;;				(event claimed: TRUE)
+				(theGame setCursor: 993 (HaveMouse))			
 				(curRoom newRoom: 44)
 			else
 				FALSE
@@ -188,6 +220,7 @@
 	
 	(method (newRoom n)
 		(super newRoom: n)
+		(theGame setCursor: 993 (HaveMouse))
 	)
 )
 

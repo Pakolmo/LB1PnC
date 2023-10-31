@@ -8,6 +8,7 @@
 (use Menu)
 (use Actor)
 (use System)
+(use User)
 
 (public
 	Startup 0
@@ -52,6 +53,8 @@
 		(switch (= state newState)
 			(0
 				(HandsOff)
+				(User canControl: FALSE)
+				(User canInput: FALSE)
 				(cond 
 					((not global216)
 						(= state -1)
@@ -67,6 +70,7 @@
 				(= cycles 1)
 			)
 			(1
+				(User canControl: FALSE canInput: FALSE)
 				(if (or possibleScore (not (Btst fSkippedIntro)))
 					(= possibleScore 0)
 					(= state 10)
@@ -78,15 +82,18 @@
 				(= cycles 1)
 			)
 			(2
+				(User canControl: FALSE canInput: FALSE)
 				(gDoor setMotion: MoveTo -20 152 self)
 				(ego loop: 2 stopUpd:)
 			)
 			(3
+				(User canControl: FALSE canInput: FALSE)
 				(= theTalker talkLAURA)
 				(Say 0 411 2)
 				(= cycles 1)
 			)
 			(4
+				(User canControl: FALSE canInput: FALSE)
 				(daddyBow
 					show:
 					cycleSpeed: 0
@@ -99,24 +106,30 @@
 				(= cycles 13)
 			)
 			(6
+				(User canControl: FALSE canInput: FALSE)
 				(daddyBow hide: dispose: delete:)
 				(ego startUpd:)
 				(= cycles 2)
 			)
 			(7
+				(User canControl: FALSE canInput: FALSE)
 				(= theTalker talkDADDY)
 				(Say 1 411 3)
 				(ego setMotion: MoveTo 211 109 self)
 			)
 			(8
+				(User canControl: FALSE canInput: FALSE)
 				(ego loop: 3)
 				(suitCase cycleSpeed: 1 setCycle: EndLoop self)
 			)
 			(9
+				(User canControl: FALSE canInput: FALSE)
 				(Print 411 4)
 				(suitCase setCycle: BegLoop self)
+				
 			)
 			(10
+				(User canControl: FALSE canInput: FALSE)
 				(if (or (!= (gDoor x?) -20) (!= (ego loop?) 2))
 					(ego loop: 2)
 					(= state 9)
@@ -126,10 +139,14 @@
 				(= cycles 1)
 			)
 			(11
+				(User canControl: FALSE canInput: FALSE)
 				(ego get: iNotebook)
 				(++ global203)
 				(= [global368 4] 1800)
 				(HandsOn)
+				(User canControl: TRUE)
+				(User canInput: FALSE)
+				(theGame setCursor: 999 (HaveMouse))
 				(client setScript: 0)
 			)
 		)

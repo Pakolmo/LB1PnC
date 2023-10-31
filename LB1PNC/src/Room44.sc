@@ -38,6 +38,7 @@
 	temp6
 	temp7
 	temp8
+	chutemoving
 	
 )
 (instance Room44 of Room
@@ -49,7 +50,10 @@
 		(= west 43)
 		(= saveDisabled FALSE)
 		(super init:)
-		(SetCursor HAND_CURSOR TRUE 300 0)
+		(SetCursor 993 TRUE 300 0) ;hand_cursor no, walk.
+		(HandsOff)
+		(theGame setCursor: 993 (HaveMouse))
+		(User canInput: FALSE)
 		(cSound stop:)
 		(Load FONT 4)
 		(LoadMany VIEW 22 653 38)
@@ -504,7 +508,7 @@
 													)
 													(User handleEvent: newEvent)
 													(newEvent dispose:)
-													
+													(User mapKeyToDir: FALSE)
 													
 													
 												
@@ -541,7 +545,7 @@
 													)
 													(User handleEvent: newEvent)
 													(newEvent dispose:)
-					
+													(User mapKeyToDir: TRUE)
 											)
 											
 								
@@ -603,7 +607,7 @@
 													)
 													(User handleEvent: newEvent)
 													(newEvent dispose:)
-													
+													(User mapKeyToDir: FALSE)
 													
 													
 												
@@ -640,7 +644,7 @@
 													)
 													(User handleEvent: newEvent)
 													(newEvent dispose:)
-					
+													(User mapKeyToDir: TRUE)
 											)
 											
 								
@@ -958,6 +962,24 @@
 
 				)
 				
+	
+			(if (== chutemoving 1)
+				(ego setMotion: 0)
+				(SetCursor 998)
+					(event claimed: TRUE)
+					(switch theCursor
+						(999
+;;;							(ego setMotion: 0)
+;;;							(theGame setCursor: 998 (HaveMouse))
+							(DoVerb {close chute})
+						)
+						(else
+								(event claimed: FALSE)
+						)
+					 )
+				
+			)
+	
 					
 			(if (ClickedInRect 0 5 139 154 event) ;exit room
 			(event claimed: TRUE)
@@ -996,7 +1018,7 @@
 				(cls)
 			)
 			(1
-				(User canControl: FALSE)
+;;;				(User canControl: FALSE)
 				(ego illegalBits: 0 setMotion: MoveTo 32 128 self)
 			)
 			(2
@@ -1008,24 +1030,34 @@
 				(Print 44 15)
 				(= chuteIsOpen 1)
 ;;;				(HandsOff)
-				(theGame setCursor: 998)
-;;;				(User canControl: TRUE)
+;;;				(User canControl: FALSE)
+				(ego setMotion: 0)
+				(User mapKeyToDir: FALSE)
+				(theGame setCursor: 998 (HaveMouse))
+				(= chutemoving 1)
+
 			)
 			(4
 				(chute setMotion: MoveTo 19 127)
 				(= chuteIsOpen 0)
 				(myMusic number: 75 loop: 1 play:)
-				(ego setCycle: BegLoop self)
+				(ego setMotion: 0 setCycle: BegLoop self)
+				(= chutemoving 0)
+				(User mapKeyToDir: FALSE)
 				
 			)
 			(5
 				(ego view: 0 loop: 1 setCycle: Walk illegalBits: -32768)
-				(User canControl: TRUE)
 ;;;				(User canControl: FALSE)
+;;;				(HandsOn)
+				(User mapKeyToDir: TRUE)
+				(theGame setCursor: 998 (HaveMouse))
+;;;				(User canControl: FALSE)
+;;;				(= chutemoving 0)
 				
 			)
 			(6
-				(theGame setCursor: 997)
+				(theGame setCursor: 998 (HaveMouse))
 				(myMusic number: 9 loop: 1 play:)
 				(ego
 					setLoop: 2

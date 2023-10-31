@@ -464,7 +464,7 @@
 							)	
 							(937 ;Feels
 								(event type: 1 claimed: 1)
-								(DoVerb {ask about Feels})
+								(DoVerb {ask about Wilbur})
 							)
 							(938 ;Rudy
 								(event type: 1 claimed: 1)

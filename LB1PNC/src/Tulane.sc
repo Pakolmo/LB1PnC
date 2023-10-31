@@ -10,6 +10,7 @@
 (use Game)
 (use Actor)
 (use System)
+(use User)
 
 (public
 	Tulane 0
@@ -174,6 +175,15 @@
 		(super init:)
 		(= talkTimer (= local3 0))
 		(HandsOff)
+		(User canControl: FALSE)
+		(User canInput: FALSE)
+		(theGame setCursor: 997)
+					(if (== theCursor 999)
+				(theGame setCursor: 997)
+			)
+			(if (== theCursor 998)
+				(theGame setCursor: 997)
+			)
 		(Load VIEW 278)
 		(Load VIEW 513)
 		(Load VIEW 524)
@@ -265,10 +275,47 @@
 		(DisposeScript WANDER)
 		(DisposeScript PATH)
 		(super dispose:)
+		(theGame setCursor: 997) ;GOOD
 	)
 	
 	(method (handleEvent event)
-		(if (event claimed?) (return))
+		
+			(if (== (event type?) evMOUSEBUTTON)
+				(theGame setCursor: 997)
+				(curRoom newRoom: 780)
+			)
+			(if (== theCursor 999)
+				(theGame setCursor: 997)
+			)
+			(if (== theCursor 998)
+				(theGame setCursor: 997)
+			)			
+		
+		(cond
+		((MousedOn Tulane event 0)
+		
+					(switch theCursor ;what cursor?
+							(999 ;walk
+								(event type: 1 claimed: 0) ;Don't claim event, let walk script take it
+							)
+							(997 ;sierra wait
+								(event type: 1 claimed: 0) ;Don't claim event, let walk script take it
+							)
+							(998 ;look
+								(event type: 1 claimed: 0) ;claim event so other scripts don't use it
+
+							)	
+					)
+		)	
+		)
+				
+		
+		
+		
+		
+		
+		
+;;;		(if (event claimed?) (return))
 		(switch (event type?)
 			(keyDown
 				(cond 
@@ -286,20 +333,29 @@
 						(or
 							(== (event message?) ENTER)
 							(== (event message?) SPACEBAR)
+							(== (event message?) ESC)
 						)
 						(Bset fSkippedIntro)
 					)
 				)
 			)
 			(mouseDown
-				(Bset fSkippedIntro)
+				;(Bset fSkippedIntro)
+				(LaurasHead setScript: 0)
+				(LaurasArms setScript: 0)
+				(Lillian setScript: 0)
+				(theGame setCursor: 997)
+				(curRoom newRoom: 780)
 			)
 		)
 		(if (Btst fSkippedIntro)
-			(event claimed: TRUE)
+;;;			(event claimed: TRUE)
 			(LaurasHead setScript: 0)
 			(LaurasArms setScript: 0)
 			(Lillian setScript: 0)
+
+			(HandsOff)
+			(theGame setCursor: 997)
 			(curRoom newRoom: 44)
 		)
 	)

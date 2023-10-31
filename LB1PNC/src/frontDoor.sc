@@ -8,6 +8,7 @@
 (use Game)
 (use Actor)
 (use System)
+(use User)
 
 (public
 	frontDoor 0
@@ -68,6 +69,14 @@
 		(addToPics add: knocker eachElementDo: #init doit:)
 		(LoadMany SOUND 6 16 121)
 		(Load FONT 41)
+		(User canInput: FALSE)
+		(theGame setCursor: 997 (HaveMouse))
+			(if (== theCursor 999)
+				(theGame setCursor: 997 (HaveMouse))
+			)
+			(if (== theCursor 998)
+				(theGame setCursor: 997 (HaveMouse))
+			)		
 		(Door setPri: 14 init: stopUpd:)
 		(Jeeves setLoop: 0 init: stopUpd:)
 		(Eye setLoop: 3 setPri: 14)
@@ -89,13 +98,49 @@
 	
 	(method (doit)
 		(super doit:)
+		(User canInput: FALSE)
 	)
 	
 	(method (dispose)
 		(super dispose:)
+		(theGame setCursor: 997)
 	)
 	
 	(method (handleEvent event)
+				(if (== (event type?) evMOUSEBUTTON)
+				(theGame setCursor: 997 (HaveMouse))
+				(curRoom newRoom: 209)
+			)
+			
+			(if (== theCursor 999)
+				(theGame setCursor: 997 (HaveMouse))
+			)
+			(if (== theCursor 998)
+				(theGame setCursor: 997 (HaveMouse))
+			)		
+		(cond
+		((MousedOn frontDoor event 0)
+		
+					(switch theCursor ;what cursor?
+							(999 ;walk
+								(event type: 1 claimed: 0) ;Don't claim event, let walk script take it
+							)
+							(997 ;sierra wait
+								(event type: 1 claimed: 0) ;Don't claim event, let walk script take it
+							)
+							(998 ;look
+								(event type: 1 claimed: 0) ;claim event so other scripts don't use it
+
+							)	
+					)
+		)	
+		)
+				
+		
+		
+		
+		
+		
 		(if (event claimed?) (return))
 		(switch (event type?)
 			(keyDown
@@ -105,24 +150,29 @@
 							(== (event message?) `S)
 							(== (event message?) `s)
 						)
-						(event claimed: TRUE)
+;;;						(event claimed: TRUE)
 						(curRoom newRoom: 209)
 					)
 					(
 						(or
 							(== (event message?) ENTER)
 							(== (event message?) SPACEBAR)
+							(== (event message?) ESC)							
 						)
 						(Bset fSkippedIntro)
 					)
 				)
 			)
 			(mouseDown
-				(Bset fSkippedIntro)
+;;;				(Bset fSkippedIntro)
+;;;				(event claimed: TRUE)
+				(SetCursor 997)
+				(curRoom newRoom: 209)
 			)
 		)
 		(if (Btst fSkippedIntro)
 			(event claimed: TRUE)
+			(SetCursor 997)
 			(curRoom newRoom: 44)
 		)
 	)

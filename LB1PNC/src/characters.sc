@@ -7,7 +7,8 @@
 (use Game)
 (use Actor)
 (use System)
-
+(use User)
+(use Intrface)
 (public
 	characters 0
 )
@@ -168,8 +169,22 @@
 	
 	(method (init)
 		(= currentPalette 1)
+		(theGame setCursor: 997)
 		(super init:)
 		(HandsOff)
+		(User canControl: FALSE)
+		(User canInput: FALSE)
+		(theGame setCursor: 997)
+		
+			(if (== theCursor 999)
+				(theGame setCursor: 997)
+			)
+			(if (== theCursor 998)
+				(theGame setCursor: 997)
+			)
+			(if (== theCursor 997)
+				(theGame setCursor: 997)
+			)					
 		(LoadMany FONT 4 8 41)
 		(Load SOUND 1)
 		(LoadMany VIEW
@@ -227,10 +242,49 @@
 	)
 	
 	(method (dispose)
+		(theGame setCursor: 997)
 		(super dispose:)
 	)
 	
 	(method (handleEvent event)
+			(if (== (event type?) evMOUSE)
+				(theGame setCursor: 997)
+				(curRoom newRoom: 779)
+			)
+			(if (== theCursor 999)
+				(theGame setCursor: 997 (HaveMouse))
+			)
+			(if (== theCursor 998)
+				(theGame setCursor: 997 (HaveMouse))
+			)		
+		
+			(if (== theCursor 997)
+				(theGame setCursor: 997 (HaveMouse))
+			)		
+		
+		(cond
+		((MousedOn characters event 0)
+		
+					(switch theCursor ;what cursor?
+							(999 ;walk
+								(event type: 1 claimed: 0) ;Don't claim event, let walk script take it
+								(theGame setCursor: 997)
+							)
+							(997 ;sierra wait
+								(event type: 1 claimed: 0) ;Don't claim event, let walk script take it
+								(theGame setCursor: 997)
+							)
+							(998 ;look
+								(event type: 1 claimed: 0) ;claim event so other scripts don't use it
+								(theGame setCursor: 997)
+
+							)	
+					)
+		)	
+		)
+				
+		
+		
 		(if (event claimed?) (return))
 		(switch (event type?)
 			(keyDown
@@ -246,23 +300,29 @@
 						(or
 							(== (event message?) ENTER)
 							(== (event message?) SPACEBAR)
+							(== (event message?) ESC)
 						)
 						(Bset fSkippedIntro)
 					)
 				)
 			)
 			(mouseDown
-				(Bset fSkippedIntro)
+				;(Bset fSkippedIntro)
+				(theGame setCursor: 997)
+				(curRoom newRoom: 779)
+				(theGame setCursor: 997)
 			)
 		)
 		(if (Btst fSkippedIntro)
-			(event claimed: TRUE)
+;;;			(event claimed: TRUE)
+			(theGame setCursor: 997 (HaveMouse))
 			(curRoom newRoom: 44)
 		)
 	)
 	
 	(method (newRoom n)
 		(= currentPalette 0)
+
 		(super newRoom: n)
 	)
 )

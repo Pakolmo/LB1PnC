@@ -21,6 +21,7 @@
 	local0
 	local1
 	local2
+	temp7
 )
 (instance Room24 of Room
 	(properties
@@ -111,6 +112,111 @@
 	)
 	
 	(method (handleEvent event &tmp temp0)
+		
+		
+	
+			(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)
+					
+		
+		
+		
+		
+		
+		
+					(if (ClickedOnObj Clarence (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(994
+							(DoVerb {smell Clarence})
+						)						
+						(996
+							(DoVerb {converse attorney})
+						)
+						(998
+							(DoVerb {examine attorney})
+						)
+						
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+			
+		
+				(if (ClickedOnObj Hedge (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(998		
+							(DoVerb {examine bush})
+		
+						)
+						
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+		
+		
+		
+			(if (ClickedOnObj Gazebo (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(998		
+								(= temp7
+												(PrintSpecial
+													{Gazebo}
+													#button {Examine} 1
+													#button {Examine in} 2								
+													#button {Examine below} 3
+
+
+												)
+											)
+											(switch temp7
+												(1 							
+													(DoVerb {Examine Gazebo})	
+												)
+												(2
+													(DoVerb {Examine in Gazebo})
+												)
+												(3
+													(DoVerb {Examine below Gazebo})
+												)	
+		
+												(else
+													(event claimed: FALSE)
+												)
+											)
+						
+		
+						
+		
+						)
+						
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+		
+		
+		
+		
+		
+			)
+			)
+		
+		
+		
 		(if (event claimed?) (return TRUE))
 		(if
 			(and

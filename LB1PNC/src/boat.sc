@@ -7,6 +7,8 @@
 (use Game)
 (use Actor)
 (use System)
+(use Intrface)
+(use User)
 
 (public
 	boat 0
@@ -24,6 +26,14 @@
 	(method (init)
 		(super init:)
 		(HandsOff)
+		(User canInput: FALSE)
+		(theGame setCursor: 997)
+			(if (== theCursor 999)
+				(theGame setCursor: 997 (HaveMouse))
+			)
+			(if (== theCursor 998)
+				(theGame setCursor: 997 (HaveMouse))
+			)
 		(Load VIEW 202)
 		(Load FONT 41)
 		(skiff
@@ -178,9 +188,46 @@
 	(method (dispose)
 		(DisposeScript WANDER)
 		(super dispose:)
+		(theGame setCursor: 997)
 	)
 	
 	(method (handleEvent event)
+		
+			(if (== (event type?) evMOUSEBUTTON)
+				(theGame setCursor: 997 (HaveMouse))
+				(curRoom newRoom: 781)
+			)
+			(if (== theCursor 999)
+				(theGame setCursor: 997 (HaveMouse))
+			)
+			(if (== theCursor 998)
+				(theGame setCursor: 997 (HaveMouse))
+			)				
+		
+		
+		(cond
+		((MousedOn boat event 0)
+		
+					(switch theCursor ;what cursor?
+							(999 ;walk
+								(event type: 1 claimed: 0) ;Don't claim event, let walk script take it
+							)
+							(997 ;sierra wait
+								(event type: 1 claimed: 0) ;Don't claim event, let walk script take it
+							)
+							(998 ;look
+								(event type: 1 claimed: 0) ;claim event so other scripts don't use it
+
+							)	
+					)
+		)	
+		)
+				
+		
+		
+		
+		
+		
 		(if (event claimed?) (return))
 		(switch (event type?)
 			(keyDown
@@ -191,25 +238,33 @@
 							(== (event message?) `s)
 						)
 						(cls)
-						(event claimed: 1)
+;;;						(event claimed: 1)
 						(curRoom newRoom: 781)
 					)
 					(
 						(or
 							(== (event message?) ENTER)
 							(== (event message?) SPACEBAR)
+							(== (event message?) ESC)
 						)
 						(Bset fSkippedIntro)
 					)
 				)
 			)
 			(mouseDown
-				(Bset fSkippedIntro)
+				;(Bset fSkippedIntro)
+				(cls)
+;;;				(event claimed: 1)
+				
+				(HandsOff)
+				(theGame setCursor: 997)
+				(curRoom newRoom: 781)
 			)
 		)
 		(if (Btst fSkippedIntro)
 			(cls)
-			(event claimed: TRUE)
+;;;			(event claimed: TRUE)
+			(theGame setCursor: 999 (HaveMouse))
 			(curRoom newRoom: 44)
 		)
 	)

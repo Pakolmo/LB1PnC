@@ -8,6 +8,7 @@
 (use Game)
 (use Actor)
 (use System)
+(use User)
 
 (public
 	approach 0
@@ -88,6 +89,14 @@
 		(super init:)
 		(LoadMany FONT 4 41)
 		(Load SOUND 18)
+		(User canInput: FALSE)
+		(theGame setCursor: 997 (HaveMouse))
+			(if (== theCursor 999)
+				(theGame setCursor: 997 (HaveMouse))
+			)
+			(if (== theCursor 998)
+				(theGame setCursor: 997 (HaveMouse))
+			)		
 		(addToPics add: Sign Bird1 Bird2 doit:)
 		(Thunder number: 18 loop: -1 play:)
 		(light1 view: 128 loop: 2 cel: 1 posn: 86 42 init:)
@@ -119,9 +128,39 @@
 	
 	(method (dispose)
 		(super dispose:)
+		(theGame setCursor: 997)
 	)
 	
 	(method (handleEvent event)
+			(if (== (event type?) evMOUSEBUTTON)
+				(theGame setCursor: 997 (HaveMouse))
+				(curRoom newRoom: 783)
+			)
+			(if (== theCursor 999)
+				(theGame setCursor: 997 (HaveMouse))
+			)
+			(if (== theCursor 998)
+				(theGame setCursor: 997 (HaveMouse))
+			)				
+		
+		(cond
+		((MousedOn approach event 0)
+		
+					(switch theCursor ;what cursor?
+							(999 ;walk
+								(event type: 1 claimed: 0) ;Don't claim event, let walk script take it
+							)
+							(997 ;sierra wait
+								(event type: 1 claimed: 0) ;Don't claim event, let walk script take it
+							)
+							(998 ;look
+								(event type: 1 claimed: 0) ;claim event so other scripts don't use it
+
+							)	
+					)
+		)	
+		)
+				
 		(if (event claimed?) (return))
 		(switch (event type?)
 			(keyDown
@@ -138,17 +177,22 @@
 						(or
 							(== (event message?) ENTER)
 							(== (event message?) SPACEBAR)
+							(== (event message?) ESC)
 						)
 						(Bset fSkippedIntro)
 					)
 				)
 			)
 			(mouseDown
-				(Bset fSkippedIntro)
+;;;				(Bset fSkippedIntro)
+;;;				(event claimed: TRUE)
+				(SetCursor 997)
+				(curRoom newRoom: 783)
 			)
 		)
 		(if (Btst fSkippedIntro)
 			(event claimed: TRUE)
+			(SetCursor 999)			
 			(curRoom newRoom: 44)
 		)
 	)
@@ -158,6 +202,7 @@
 	
 	(method (doit)
 		(super doit:)
+		(User canInput: FALSE)
 		(if
 			(or
 				(and (== (Thunder prevSignal?) 50) (== state 0))

@@ -14,6 +14,7 @@
 
 (local
 	local0
+	temp7
 )
 (instance Room29 of Room
 	(properties
@@ -65,6 +66,105 @@
 	)
 	
 	(method (handleEvent event)
+		
+		
+	
+			(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)
+							
+		
+			(if (ClickedOnObj owlHead (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(998	
+							(DoVerb {examine owl})
+						)
+						(996
+							(DoVerb {converse owl})
+						)
+						(995
+								(= temp7
+												(PrintSpecial
+													{Owl}
+													#button {Deliver} 1
+													#button {Feed} 2								
+													#button {Hold} 3
+													#button {Capture} 4
+
+												)
+											)
+											(switch temp7
+												(1 							
+													(DoVerb {deliver owl})	
+												)
+												(2
+													(DoVerb {feed owl})
+												)
+												(3
+													(DoVerb {hold owl})
+												)	
+												(4
+													(DoVerb {capture owl})
+												)			
+												(else
+													(event claimed: FALSE)
+												)
+											)
+						
+		
+						)	
+						
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+				
+		
+		
+				(if (ClickedOnPicView owlBody (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(998	
+							(Print 29 7)
+							(event claimed: TRUE)
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+			
+		
+		
+		
+		
+		
+		
+		
+		
+		
+			)
+			)
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		(if (event claimed?) (return TRUE))
 		(return
 			(if (and (== (event type?) saidEvent) (Said 'examine>'))

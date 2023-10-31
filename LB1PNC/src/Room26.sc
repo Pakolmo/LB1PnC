@@ -9,6 +9,9 @@
 (public
 	Room26 0
 )
+(local
+	temp7
+)
 
 (instance Room26 of Room
 	(properties
@@ -54,6 +57,112 @@
 	)
 	
 	(method (handleEvent event)
+		
+
+	
+			(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)		
+		
+
+		
+					(if (ClickedOnObj House (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(DoVerb {examine cabin})
+						)
+						
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+			
+				(if (and (ClickedInRect 142 236 106 160 event) ;door archway
+					(== (event claimed?) FALSE) )
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(DoVerb {examine archway})
+						)
+						(611
+							(DoVerb {oil archway})
+						)
+						(995
+														(= temp7
+												(PrintSpecial
+													{Door}
+													#button {Close} 1
+													#button {Open} 2
+													#button {Oil} 3								
+													
+
+
+												)
+											)
+											(switch temp7
+												(1 							
+													(DoVerb {close archway})	
+												)
+												(2
+													(DoVerb {open archway})
+												)
+												(3
+													(DoVerb {oil archway})
+												)		
+												(else
+													(event claimed: FALSE)
+												)
+											)
+													
+						
+							
+							
+						)
+						
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+			
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+			)
+			)
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		(if (event claimed?) (return TRUE))
 		(return
 			(if (== (event type?) saidEvent)

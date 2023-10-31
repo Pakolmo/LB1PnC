@@ -29,7 +29,7 @@
 	local104
 )
 (procedure (localproc_0136)
-	(SetCursor 1 1
+	(SetCursor 997 1  ;1 1
 		[local77 (* local101 2)]
 		[local77 (+ (* local101 2) 1)]
 	)
@@ -80,11 +80,13 @@
 	(method (init)
 		(super init:)
 		(TheMenuBar state: FALSE)
+		(TheMenuBar hide:)		
 		(= local102 1)
 		(cSound number: 52 loop: -1 play:)
 		(= fingerCel (/ (Random 0 600) 100))
 		(= fingerLoop (/ (Random 1 1000) 250))
-		(SetCursor 1 1 320 20)
+;;;		(SetCursor 997 1 320 20) ;1 1 320 20
+		(theGame setCursor: 997 (HaveMouse))
 		(Logo
 			view: 553
 			loop: 4
@@ -118,10 +120,14 @@
 	
 	(method (doit)
 		(super doit:)
+		(theGame setCursor: 997 (HaveMouse))
+		
 	)
 	
 	(method (dispose)
 		(super dispose:)
+		(theGame setCursor: 997 (HaveMouse))
+		
 	)
 	
 	(method (handleEvent event &tmp soundOn)
@@ -263,6 +269,7 @@
 	(method (changeState newState &tmp [str 25])
 		(switch (= state newState)
 			(0
+				(theGame setCursor: 997 (HaveMouse))
 				(= saveBits2
 					(Display 414 1
 						p_at 90 16
@@ -273,9 +280,11 @@
 						p_save
 					)
 				)
+				
 				(= cycles 20)
 			)
 			(1
+				(theGame setCursor: 997 (HaveMouse))
 				(= saveBits
 					(Display
 						(Format @str 414 2 version)
@@ -288,9 +297,24 @@
 						p_save
 					)
 				)
+				(= saveBits2
+					(Display {\n 2024 DoomLazer y Pakolmo}
+						p_at 65 158
+						p_width 210
+						p_color vWHITE
+						p_back -1
+						p_font SYSFONT
+						p_save
+					)
+				)
+				
+				
+				
+				
 				(= seconds 4)
 			)
 			(2
+				(theGame setCursor: 997 (HaveMouse))
 				(if howFast
 					(Glass setMotion: MoveTo 240 140 self)
 				else
@@ -311,6 +335,7 @@
 			)
 			(5
 				;we now skip the copy protection automatically
+				(theGame setCursor: 997 (HaveMouse))
 				(self cue:)
 				
 				;this code will be left here for historical reference, but will not
@@ -380,7 +405,7 @@
 				(Print 414 10
 					#mode teJustCenter
 				)
-				(SetCursor HAND_CURSOR TRUE 300 0)
+				(SetCursor 993 TRUE 300 0)
 				(self setScript: (ScriptID 409 0))
 			)
 		)

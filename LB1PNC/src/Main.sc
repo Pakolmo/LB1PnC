@@ -618,9 +618,11 @@
 
 (procedure (HandsOff)
 	(manageHands FALSE)
-	(User canControl: FALSE canInput: TRUE)
+	(User canControl: FALSE canInput: FALSE)
 	(ego setMotion: 0)
 	(= isHandsOff TRUE)	
+	(User mapKeyToDir: FALSE)
+;;;	(theGame setCursor: 997 (HaveMouse))
 )
 
 (procedure (HandsOn)
@@ -628,6 +630,8 @@
 	(User canControl: TRUE canInput: TRUE)
 	(ego setMotion: 0)
 	(= isHandsOff FALSE)	
+	(User mapKeyToDir: TRUE)
+;;;	(theGame setCursor: 999 (HaveMouse))
 )
 (procedure (localproc_2 param1 param2 &tmp temp0 temp1)
 	(= temp0 (/ param2 16))
@@ -936,11 +940,14 @@
 
 
 
-(procedure (manageHands tOrF)
-	(User canControl: tOrF canInput: tOrF)
+;;;(procedure (manageHands tOrF)
+;;;	(User canControl: tOrF canInput: tOrF)
+;;;	(ego setMotion: 0)
+;;;)
+(procedure (manageHands FALSE)
+	(User canControl: FALSE canInput: FALSE)
 	(ego setMotion: 0)
 )
-
 (procedure (localproc_0354 &tmp i)
 	(= global172
 		(= global178
@@ -1095,6 +1102,11 @@
 			(systemWindow color: vWHITE back: vBLACK)
 		)
 		(User alterEgo: (= ego egoObj))
+		(if (HaveMouse)
+			(theGame setCursor: normalCursor TRUE)
+		else
+			(theGame setCursor: normalCursor TRUE 304 174)
+		)		
 		(super init:)
 		((= mouseDownHandler mmMouseDownHandler) add:)
 		(= savedCursor ARROW_CURSOR)
@@ -1206,6 +1218,36 @@
 			(Bclr fPnCSaveFlag)
 			(theGame save:)	
 		)
+		(if programControl
+			(User canControl: FALSE canInput: FALSE)
+		)
+				(cond 
+			((Btst fCursorHidden)
+;;;				(self setCursor: 666 TRUE)
+				(self setCursor: 997 TRUE)
+			)
+			((== (User controls?) FALSE)
+				(if (User canInput?)
+					(self setCursor: 999 (HaveMouse))
+				else
+					(self setCursor: waitCursor (HaveMouse))
+				)
+			)
+			(else
+				(if (== theCursor waitCursor)
+					;(self setCursor: normalCursor (HaveMouse))
+					(self setCursor: normalCursor (HaveMouse))
+					
+				else
+					;(self setCursor: normalCursor (HaveMouse))
+					(self setCursor: theCursor (HaveMouse))
+				)
+			)
+		)
+
+		
+		
+		
 		(super doit:)
 	)
 	
@@ -1236,7 +1278,7 @@
 		
 
 		(super startRoom: roomNum)
-		(if (>= roomNum 44) ;ADD PnCMenu
+		(if (<= roomNum 76) ;ADD PnCMenu
 			(curRoom setRegions: 950)
 		)
 		
@@ -1250,7 +1292,7 @@
 				(curRoom setRegions: 950)
 				(if (and (& deadGuests $0040) (!= roomNum 16))
 					(curRoom setRegions: 400)
-					(curRoom setRegions: 950)
+;;;					(curRoom setRegions: 950)
 				)
 			)
 			(
@@ -1265,10 +1307,10 @@
 				)
 				(if (and (& deadGuests $0040) (!= curRoomNum 74))
 					(curRoom setRegions: 401)
-					(curRoom setRegions: 950)
+;;;					(curRoom setRegions: 950)
 				)
 				(curRoom setRegions: 210)
-				(curRoom setRegions: 950)
+;;;				(curRoom setRegions: 950)
 			)
 		)
 		(= global216 1)
@@ -1589,7 +1631,7 @@
 	(properties
 ;;;		said '/Feels'
 		view 937
-		name "Feels"
+		name "Wilbur"
 	)
 )	
 (instance Gertrude_Dijon of InvI

@@ -281,6 +281,9 @@
 						(995
 							(DoVerb {rotate handle})
 						)
+						(998
+							(Print {Es la manivela para recoger el cubo del pozo.})
+						)
 						
 						(else
 							(event claimed: FALSE)

@@ -8,6 +8,7 @@
 (use Game)
 (use Actor)
 (use System)
+(use User)
 
 (public
 	dock 0
@@ -28,6 +29,14 @@
 		(= talkTimer 0)
 		(super init:)
 		(HandsOff)
+		(User canInput: FALSE)
+		(theGame setCursor: 997 (HaveMouse))
+			(if (== theCursor 999)
+				(theGame setCursor: 997 (HaveMouse))
+			)
+			(if (== theCursor 998)
+				(theGame setCursor: 997 (HaveMouse))
+			)		
 		(Load FONT 4)
 		(skiff
 			view: 202
@@ -242,9 +251,39 @@
 	(method (dispose)
 		(DisposeScript WANDER)
 		(super dispose:)
+		(theGame setCursor: 997)
 	)
 	
 	(method (handleEvent event)
+			(if (== (event type?) evMOUSEBUTTON)
+				(theGame setCursor: 997 (HaveMouse))
+				(curRoom newRoom: 782)
+			)
+			(if (== theCursor 999)
+				(theGame setCursor: 997 (HaveMouse))
+			)
+			(if (== theCursor 998)
+				(theGame setCursor: 997 (HaveMouse))
+			)				
+		(cond
+		((MousedOn dock event 0)
+		
+					(switch theCursor ;what cursor?
+							(999 ;walk
+								(event type: 1 claimed: 0) ;Don't claim event, let walk script take it
+							)
+							(997 ;sierra wait
+								(event type: 1 claimed: 0) ;Don't claim event, let walk script take it
+							)
+							(998 ;look
+								(event type: 1 claimed: 0) ;claim event so other scripts don't use it
+
+							)	
+					)
+		)	
+		)
+				
+		
 		(if (event claimed?) (return))
 		(switch (event type?)
 			(keyDown
@@ -262,18 +301,24 @@
 						(or
 							(== (event message?) ENTER)
 							(== (event message?) SPACEBAR)
+							(== (event message?) ESC)
 						)
 						(Bset fSkippedIntro)
 					)
 				)
 			)
 			(mouseDown
-				(Bset fSkippedIntro)
+;;;				(Bset fSkippedIntro)
+						(cSound stop:)
+;;;						(event claimed: TRUE)
+						(SetCursor 997)
+						(curRoom newRoom: 782)				
 			)
 		)
 		(if (Btst fSkippedIntro)
 			(cSound stop:)
-			(event claimed: TRUE)
+;;;			(event claimed: TRUE)
+			(SetCursor 999)
 			(curRoom newRoom: 44)
 		)
 	)

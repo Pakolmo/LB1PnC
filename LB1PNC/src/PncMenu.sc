@@ -1493,7 +1493,7 @@
 								(event type: 1 claimed: 0) ;Don't claim event, let walk script take it
 							)
 							(998 ;look
-								(event type: 1 claimed: 0) ;claim event so other scripts don't use it
+								(event type: 1 claimed: 1) ;claim event so other scripts don't use it
 
 							)
 							(996 ;talk
@@ -1537,9 +1537,12 @@
 
 					;Room defaults if nothing else is clicked on.
 					(else 
+
 						(switch theCursor
 							(999 ;walk
-								(event type: 1 claimed: 0)
+
+									(event type: 1 claimed: 0)
+							
 							)
 
 							(998 ;look
@@ -1564,7 +1567,7 @@
 								(Print {(&Qu+ quieres oler?)}) ;"What do you want to take?"
 							)							
 							(997 ;wait sierra
-								(event type: 1 claimed: 1)
+								(event type: 1 claimed: 0)
 							)
 
 							(else ;inventory item
@@ -1572,6 +1575,7 @@
 ;;;								(Print {no need to use that here.}) ;"no need to use that here"
 								(Print {No hay ninguna necesidad de usar esto ah-.}) ;"no need to use that here"
 							)
+						
 						)
 					)
 				)

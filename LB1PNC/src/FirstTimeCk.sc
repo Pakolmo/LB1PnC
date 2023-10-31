@@ -18,8 +18,8 @@
 		(super doit:)
 		(DrawPic 992 IRISOUT)
 		(cast eachElementDo: #hide)
-		(= savedCursor ARROW_CURSOR)
-		(theGame setCursor: ARROW_CURSOR TRUE)
+		(= savedCursor 993) ;ARROW_CURSOR 
+		(theGame setCursor: 993 TRUE) ;ARROW_CURSOR
 		(cSound number: 17 loop: 1 play:)
 		(if
 			(Print 409 0
@@ -30,10 +30,15 @@
 				#button {_______No_______} 1
 			)
 			(cSound fade:)
+			(theGame setCursor: 997 (HaveMouse))
 			(curRoom newRoom: 777)
 		else
 			(cSound fade:)
-			(TheMenuBar state: TRUE)
+;;;			(TheMenuBar state: TRUE)
+		(if menuBarInitialized
+			(TheMenuBar hide:)
+		)
+			(theGame setCursor: 997 (HaveMouse))
 			(curRoom newRoom: 44)
 		)
 	)
