@@ -156,8 +156,8 @@
 				
 				)
 						
-				(if (ClickedOnObj suit1 (event x?) (event y?)) 
-					
+				(if (and (ClickedOnObj suit1 (event x?) (event y?)) 
+					(== (event claimed?) FALSE))
 					(event claimed: TRUE)
 					(switch theCursor	
 						(995
@@ -193,7 +193,8 @@
 
 
 		
-			(if (ClickedOnObj bed (event x?) (event y?)) 
+			(if (and (ClickedOnObj bed (event x?) (event y?)) 
+				(== (event claimed?) FALSE))
 				(event claimed: TRUE)
 				(switch theCursor	
 					(998
@@ -261,7 +262,9 @@
 		
 			)
 			(if (and (ClickedOnObj chair (event x?) (event y?)) 
-				(== (event claimed?) FALSE))
+				(== (event claimed?) FALSE)
+				(not (cast contains: Ethel))
+				)
 				(event claimed: TRUE)
 				(switch theCursor	
 					(998

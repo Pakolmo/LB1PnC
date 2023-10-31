@@ -241,9 +241,6 @@
 													
 				
 												)
-												(3
-														(DoVerb {unbar armoire})
-												)
 											
 												(else
 						
@@ -280,17 +277,7 @@
 														
 												)																						
 
-												(4
-													(DoVerb {examine behind clock})
-													
-				
-												)
-
-												(5
-													(DoVerb {read time})
-													
-				
-												)												
+											
 												(else
 						
 													(event claimed: FALSE)
@@ -316,7 +303,7 @@
 						
 						(995
 								(= temp7
-												(Print
+												(PrintSpecial
 													{Mirror}
 													#button {open} 1
 													#button {behind} 2
