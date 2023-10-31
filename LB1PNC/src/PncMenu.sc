@@ -1541,18 +1541,13 @@
 							(999 ;walk
 								(event type: 1 claimed: 0)
 							)
+
 							(998 ;look
 								(event type: 1 claimed: 1)
-								(switch (Random 42 44)
-;;;									(42 (Print {It's just as it appears.}))
-;;;									(43 (Print {It doesn't look interesting.}))
-;;;									(44 (Print {You see nothing special.}))
-
-									(42 (Print {Es lo que parece.}))
-									(43 (Print {No parece interesante.}))
-									(44 (Print {No tiene nada de especial.}))
-								)
+								(DoVerb {look room})	
 							)
+								
+							
 							(996 ;talk 
 								(event type: 1 claimed: 1)
 ;;;								(Print {(There is no response.)} #at -1 144) ;"(There is no response.)"
@@ -1575,7 +1570,7 @@
 							(else ;inventory item
 								(event type: 1 claimed: 1)
 ;;;								(Print {no need to use that here.}) ;"no need to use that here"
-								(Print {No hay ninguna necesidad de usar esto ah|.}) ;"no need to use that here"
+								(Print {No hay ninguna necesidad de usar esto ah-.}) ;"no need to use that here"
 							)
 						)
 					)

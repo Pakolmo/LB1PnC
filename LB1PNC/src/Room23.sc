@@ -12,6 +12,7 @@
 (use Game)
 (use Actor)
 (use System)
+(use User)
 
 (public
 	Room23 0
@@ -31,6 +32,7 @@
 	TopLPts = [222 130 186 137 210 147 PATHEND]
 	BotLPts = [222 149 201 147 PATHEND]
 	local29
+	temp7
 )
 (instance Room23 of Room
 	(properties
@@ -118,6 +120,277 @@
 	)
 	
 	(method (handleEvent event &tmp temp0)
+		
+
+	
+			(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)
+					
+;;;			(if (and (ClickedOnPicView Well (event x?) (event y?)) 
+			(if (and (ClickedInRect 206 240 125 135 event)
+					(== (event claimed?) FALSE) )
+					(event claimed: TRUE)
+					(switch theCursor
+						(995
+							(DoVerb {examine in well})
+							
+							
+						)
+						(998	
+
+										(= temp7
+												(PrintSpecial
+													{Well}
+													#button {Examine at} 1
+													#button {Enter} 2								
+										
+
+
+												)
+											)
+											(switch temp7
+												(1 							
+													(DoVerb {examine at well})	
+												)
+												(2
+													(DoVerb {enter well})
+												)
+		
+												(else
+													(event claimed: FALSE)
+												)
+											)
+													
+						)	
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+		
+		
+			
+			(if (ClickedOnObj Bucket (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(998	
+										(= temp7
+												(PrintSpecial
+													{Bucket}
+													#button {Examine Control} 1
+													#button {Examine In} 2								
+													#button {Examine} 3
+
+
+												)
+											)
+											(switch temp7
+												(1 							
+													(DoVerb {examine control})	
+												)
+												(2
+													(DoVerb {examine in bucket})
+												)
+												(3
+													(DoVerb {examine bucket})
+												)	
+		
+												(else
+													(event claimed: FALSE)
+												)
+											)
+						)
+						(995
+										(= temp7
+												(PrintSpecial
+													{Bucket}
+													#button {Lift} 1
+													#button {Lower} 2								
+													#button {Get} 3
+													#button {Drop} 4
+													#button {Untie} 5
+													#button {Enter} 6
+
+
+												)
+											)
+											(switch temp7
+												(1 							
+													(DoVerb {lift bucket})	
+												)
+												(2
+													(DoVerb {lower bucket})
+												)
+												(3
+													(DoVerb {get bucket})
+												)	
+		
+												(4
+													(DoVerb {drop bucket})
+												)
+												(5
+													(DoVerb {untie bucket})
+												)
+												(6
+													(DoVerb {enter bucket})
+												)																								
+												(else
+													(event claimed: FALSE)
+												)
+											)
+							
+		
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+		
+		
+		
+		
+			
+					(if (ClickedOnObj House (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(DoVerb {look house})
+						)
+						
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+		
+		
+		
+		
+			
+					(if (ClickedOnObj WHandle (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(995
+							(DoVerb {rotate handle})
+						)
+						
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+		
+			
+					(if (ClickedOnObj Ego (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(995
+							(and
+								local1
+								local2
+								(Said 'let,release/go,handle,control')
+							)
+							(DoVerb {control})
+						)
+						
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+				
+		
+					(if (ClickedOnObj Gloria (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(994
+							(DoVerb {smell body})
+						)
+						(996
+							(DoVerb {converse gloria})
+						)
+						(998
+								(DoVerb {search body})
+						)
+						(995
+
+										(= temp7
+												(PrintSpecial
+													{Body}
+													#button {Lift} 1
+													#button {Lower} 2								
+													#button {Search} 3
+
+
+												)
+											)
+											(switch temp7
+												(1 							
+													(DoVerb {lift boy})	
+												)
+												(2
+													(DoVerb {lower body})
+												)
+												(3
+													(DoVerb {search body})
+												)	
+		
+												(else
+													(event claimed: FALSE)
+												)
+											)
+						)							
+						
+						
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+						
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+			)
+			)
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		(if (event claimed?) (return TRUE))
 		(return
 			(if (== (event type?) saidEvent)
@@ -256,6 +529,7 @@
 		(super newRoom: n)
 	)
 )
+
 
 (instance raiseBucket of Script
 	
@@ -575,7 +849,8 @@
 		loop 3
 	)
 )
-
+(instance Gloria of Actor
+)
 (instance Bucket of Prop
 	(properties
 		y 113
