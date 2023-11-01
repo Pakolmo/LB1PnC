@@ -940,14 +940,11 @@
 
 
 
-;;;(procedure (manageHands tOrF)
-;;;	(User canControl: tOrF canInput: tOrF)
-;;;	(ego setMotion: 0)
-;;;)
-(procedure (manageHands FALSE)
-	(User canControl: FALSE canInput: FALSE)
+(procedure (manageHands tOrF)
+	(User canControl: tOrF canInput: tOrF)
 	(ego setMotion: 0)
 )
+
 (procedure (localproc_0354 &tmp i)
 	(= global172
 		(= global178

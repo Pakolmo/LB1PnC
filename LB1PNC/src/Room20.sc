@@ -259,32 +259,9 @@
 					(event claimed: TRUE)
 					(switch theCursor
 						(995			
-															(= temp7
-												(Print
-													{Box}
-													#button {Break} 1
-													#button {Open} 2								
-
-
-												)
-											)
-											(switch temp7
-												(1 							
-													(DoVerb {break box})	
-												)
-												(2
-													(DoVerb {open box})
-												)			
-												(else
-													(event claimed: FALSE)
-												)
-											)
-						
-		
-							
-							
-							
-							
+							(DoVerb {open box})
+												
+	
 						)			
 						(998
 									(= temp7

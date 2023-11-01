@@ -287,8 +287,8 @@
 						
 						(998
 							(DoVerb {examine alligator})
-							(event claimed: TRUE)
-							(Print 8 3)
+;;;							(event claimed: TRUE)
+;;;							(Print 8 3)
 						)
 						(995
 														(= temp7

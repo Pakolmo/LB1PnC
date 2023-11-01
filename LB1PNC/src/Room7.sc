@@ -146,7 +146,7 @@
 					(not (& (event modifiers?) emRIGHT_BUTTON))
 				)
 				
-				(if (ClickedOnPicView Bridge (event x?) (event y?)) 
+				(if (ClickedOnObj Bridge (event x?) (event y?)) 
 					
 					(event claimed: TRUE)
 					(switch theCursor

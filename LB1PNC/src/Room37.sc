@@ -1434,6 +1434,7 @@ code_0f17:
 		(switch (= state newState)
 			(0
 				(HandsOff)
+;;;				(User canControl: FALSE canInput: FALSE)
 				(chand setMotion: MoveTo 158 102 self)
 				(theCSound stop:)
 				(Fall priority: 2 play:)
@@ -1454,6 +1455,7 @@ code_0f17:
 				(= deathLoop 3)
 				(= deathCel 0)
 				(= cyclingIcon 1)
+				(HandsOn)
 				(EgoDead 37 23)
 			)
 		)
@@ -1877,7 +1879,7 @@ code_0f17:
 
 (instance chand of Actor
 	(properties
-		y -1
+		y 0 ;-1 fixed.
 		x 158
 		view 10
 	)

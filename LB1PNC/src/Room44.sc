@@ -51,7 +51,7 @@
 		(= saveDisabled FALSE)
 		(super init:)
 		(SetCursor 993 TRUE 300 0) ;hand_cursor no, walk.
-		(HandsOff)
+;;;		(HandsOff)
 		(theGame setCursor: 993 (HaveMouse))
 		(User canInput: FALSE)
 		(cSound stop:)
@@ -129,7 +129,7 @@
 			setPri: 2
 			ignoreActors: TRUE
 			init:
-;;;			stopUpd:
+			stopUpd:
 			setScript: chuteActions
 		)
 		(chutefake
@@ -140,7 +140,7 @@
 			setPri: 2
 			ignoreActors: TRUE
 			init:
-;;;			stopUpd:
+			stopUpd:
 			setScript: chuteActions
 		)		
 		
@@ -509,7 +509,7 @@
 													(User handleEvent: newEvent)
 													(newEvent dispose:)
 													(User mapKeyToDir: FALSE)
-													
+													(= chutemoving 1)
 													
 												
 												)
@@ -546,6 +546,7 @@
 													(User handleEvent: newEvent)
 													(newEvent dispose:)
 													(User mapKeyToDir: TRUE)
+													(= chutemoving 0)
 											)
 											
 								
@@ -608,6 +609,7 @@
 													(User handleEvent: newEvent)
 													(newEvent dispose:)
 													(User mapKeyToDir: FALSE)
+													(= chutemoving 1)
 													
 													
 												
@@ -645,6 +647,7 @@
 													(User handleEvent: newEvent)
 													(newEvent dispose:)
 													(User mapKeyToDir: TRUE)
+													(= chutemoving 0)
 											)
 											
 								
@@ -972,6 +975,7 @@
 ;;;							(ego setMotion: 0)
 ;;;							(theGame setCursor: 998 (HaveMouse))
 							(DoVerb {close chute})
+							(= chutemoving 0)
 						)
 						(else
 								(event claimed: FALSE)
@@ -1034,7 +1038,7 @@
 				(ego setMotion: 0)
 				(User mapKeyToDir: FALSE)
 				(theGame setCursor: 998 (HaveMouse))
-				(= chutemoving 1)
+;;;				(= chutemoving 1)
 
 			)
 			(4

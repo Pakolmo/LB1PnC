@@ -355,7 +355,7 @@
 					(switch theCursor	
 						(998 ;examine
 							(= temp7
-												(Print
+												(PrintSpecial
 													{Window}
 													#button {examine curtain} 1
 													#button {examine down} 2	
