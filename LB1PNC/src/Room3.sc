@@ -127,75 +127,75 @@
 					(switch theCursor
 					
 					(602 ;necklace_
-						(DoVerb {Use necklace bell})						
+						(DoVerb {Use necklace in bell})						
 					)
 					(604 ;monocle
-						(DoVerb {Use monocle bell})						
+						(DoVerb {Use monocle in bell})						
 					)
 					
 					(613 ;lantern_
-						(DoVerb {Use lantern bell})						
+						(DoVerb {Use lantern in bell})						
 					)
 					(611 ;oilcan_
-						(DoVerb {Use oilcan bell})						
+						(DoVerb {Use oilcan in bell})						
 					)
 					(626 ;rolling_pin_
-						(DoVerb {Use pin bell})						
+						(DoVerb {Use pin in bell})						
 					)
 					(620 ;skeleton_key_
-						(DoVerb {Use skeleton key bell})						
+						(DoVerb {Use skeleton key in bell})						
 					)
 					(627 ;poker_
-						(DoVerb {Use poker bell})						
+						(DoVerb {Use poker in bell})						
 					)															
 					(607 ;crowbar_
-						(DoVerb {Use crowbar bell})						
+						(DoVerb {Use crowbar in bell})						
 					)
 					(628 ;cigar_butt_
-						(DoVerb {Use butt bell})						
+						(DoVerb {Use butt in bell})						
 					)
 					(625 ;broken_record_
-						(DoVerb {Use broken record bell})						
+						(DoVerb {Use broken record in bell})						
 					)
 					(601 ;notebook___pencil_
-						(DoVerb {Use notebook bell})						
+						(DoVerb {Use notebook in bell})						
 					)
 					(603 ;_7_crackers________
-						(DoVerb {Use crackers bell})						
+						(DoVerb {Use crackers in bell})						
 					)
 					(605 ;soup_bone_
-						(DoVerb {Use soup bone bell})						
+						(DoVerb {Use soup bone in bell})						
 					)
 					(606 ;valve_handle_
-						(DoVerb {Use valve bell})						
+						(DoVerb {Use valve in bell})						
 					)
 					(618 ;bullet_
-						(DoVerb {Use bullet bell})						
+						(DoVerb {Use bullet in bell})						
 					)
 					(617 ;derringer__
-						(DoVerb {Use derringer bell})						
+						(DoVerb {Use derringer in bell})						
 					)
 					(614 ;matches_
-						(DoVerb {Use matches bell})						
+						(DoVerb {Use matches in bell})						
 					)
 					(615 ;carrot_
-						(DoVerb {Use carrot bell})						
+						(DoVerb {Use carrot in bell})						
 					)
 					(619 ;brass_key_
-						(DoVerb {Use brass key bell})						
+						(DoVerb {Use brass key in bell})						
 					)
 					(616 ;diary_
-						(DoVerb {Use diary bell})						
+						(DoVerb {Use diary in bell})						
 					)
 					(621 ;crank_
-						(DoVerb {Use crank bell})						
+						(DoVerb {Use crank in bell})						
 					)
 
 					(622 ;pouch_
-						(DoVerb {Use pouch bell})						
+						(DoVerb {Use pouch in bell})						
 					)																																																																																
 					(630 ;handkerchief_
-						(DoVerb {Use handkerchief bell})
+						(DoVerb {Use handkerchief in bell})
 					)
 											
 												
@@ -547,6 +547,7 @@
 			(7
 				(= nearLadder 1)
 				(User canInput: TRUE)
+				(HandsOn)
 				(client setScript: 0)
 			)
 		)

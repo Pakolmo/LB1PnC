@@ -222,80 +222,80 @@
 					
 		
 		
-						(if (ClickedOnObj chick1 (event x?) (event y?)) 
-					
+						(if (and (ClickedOnObj chick1 (event x?) (event y?)) 
+							(== (event claimed?) FALSE))
 					(event claimed: TRUE)
 					(switch theCursor
 					(602 ;necklace_
-						(DoVerb {Use handkerchief chicken})						
+						(DoVerb {Use handkerchief in chicken})						
 					)
 					(604 ;monocle
-						(DoVerb {Use monocle chicken})						
+						(DoVerb {Use monocle in chicken})						
 					)
 					
 					(613 ;lantern_
-						(DoVerb {Use lantern chicken})						
+						(DoVerb {Use lantern in chicken})						
 					)
 					(611 ;oilcan_
-						(DoVerb {Use oilcan chicken})						
+						(DoVerb {Use oilcan in chicken})						
 					)
 					(626 ;rolling_pin_
-						(DoVerb {Use pin chicken})						
+						(DoVerb {Use pin in chicken})						
 					)
 					(620 ;skeleton_key_
-						(DoVerb {Use skeleton key chicken})						
+						(DoVerb {Use skeleton key in chicken})						
 					)
 					(627 ;poker_
-						(DoVerb {Use poker chicken})						
+						(DoVerb {Use poker in chicken})						
 					)															
 					(607 ;crowbar_
-						(DoVerb {Use crowbar chicken})						
+						(DoVerb {Use crowbar in chicken})						
 					)
 					(628 ;cigar_butt_
-						(DoVerb {Use butt chicken})						
+						(DoVerb {Use butt in chicken})						
 					)
 					(625 ;broken_record_
-						(DoVerb {Use broken record chicken})						
+						(DoVerb {Use broken record in chicken})						
 					)
 					(601 ;notebook___pencil_
-						(DoVerb {Use notebook chicken})						
+						(DoVerb {Use notebook in chicken})						
 					)
 					(603 ;_7_crackers________
-						(DoVerb {Use crackers chicken})						
+						(DoVerb {Use crackers in chicken})						
 					)
 					(605 ;soup_bone_
-						(DoVerb {Use soup bone chicken})						
+						(DoVerb {Use soup bone in chicken})						
 					)
 					(606 ;valve_handle_
-						(DoVerb {Use valve chicken})						
+						(DoVerb {Use valve in chicken})						
 					)
 					(618 ;bullet_
-						(DoVerb {Use bullet chicken})						
+						(DoVerb {Use bullet in chicken})						
 					)
 					(617 ;derringer__
-						(DoVerb {Use derringer chicken})						
+						(DoVerb {Use derringer in chicken})						
 					)
 					(614 ;matches_
-						(DoVerb {Use matches chicken})						
+						(DoVerb {Use matches in chicken})						
 					)
 					(615 ;carrot_
-						(DoVerb {Use carrot chicken})						
+						(DoVerb {Use carrot in chicken})						
 					)
 					(619 ;brass_key_
-						(DoVerb {Use brass key chicken})						
+						(DoVerb {Use brass key in chicken})						
 					)
 					(616 ;diary_
-						(DoVerb {Use diary chicken})						
+						(DoVerb {Use diary in chicken})						
 					)
 					(621 ;crank_
-						(DoVerb {Use crank chicken})						
+						(DoVerb {Use crank in chicken})						
 					)
 
 					(622 ;pouch_
-						(DoVerb {Use pouch chicken})						
+						(DoVerb {Use pouch in chicken})						
 					)																																																																																
 					(630 ;handkerchief_
-						(DoVerb {Use handkerchief chicken})
+						(DoVerb {Use handkerchief in chicken})
 					)
 											
 												
@@ -306,7 +306,7 @@
 						
 						
 						(612
-							(DoVerb {use cane chicken})	
+							(DoVerb {use cane in chicken})	
 						)						
 						
 						
@@ -353,8 +353,8 @@
 		
 		
 		
-		(if (ClickedOnObj chick2 (event x?) (event y?)) 
-					
+		(if (and (ClickedOnObj chick2 (event x?) (event y?)) 
+					(== (event claimed?) FALSE))
 					(event claimed: TRUE)
 					(switch theCursor
 						(998
@@ -640,8 +640,9 @@
 			)
 			(2
 				(User canInput: TRUE)
+				(HandsOn)
 				(Print 6 12)
-				(= seconds 8)
+				(= seconds 12) ;8
 			)
 			(3
 				(HandsOff)

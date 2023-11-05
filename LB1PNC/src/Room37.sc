@@ -1434,7 +1434,6 @@ code_0f17:
 		(switch (= state newState)
 			(0
 				(HandsOff)
-;;;				(User canControl: FALSE canInput: FALSE)
 				(chand setMotion: MoveTo 158 102 self)
 				(theCSound stop:)
 				(Fall priority: 2 play:)

@@ -21,6 +21,7 @@
 
 (local
 	local0
+	temp7
 )
 (instance glow of HighLite)
 
@@ -100,6 +101,136 @@
 	)
 	
 	(method (handleEvent event &tmp temp0)
+			(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)
+		
+			(if (ClickedOnObj rat (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998
+							(DoVerb {examine rat})
+						)
+						(995
+							
+							
+							(= temp7
+							(Print
+								{Rata}
+								#button {Matar} 1
+								#button {Capturar} 2
+							)
+							)
+
+						(switch temp7
+							(1
+							    (DoVerb {kill rat})
+							   
+	
+							)
+							(2
+								(DoVerb {capture rat})
+							)
+							(else
+								(event claimed: FALSE)
+							)
+							
+						)
+						)
+						
+						(else
+							(event claimed: FALSE)
+						)
+										
+					)
+			)	
+
+
+
+			(if (ClickedOnPicView trapdoor (event x?) (event y?)) 
+				(event claimed: TRUE)
+					(switch theCursor	
+						(998
+							(DoVerb {examine trapdoor})
+						)
+						(995
+									
+							(= temp7
+							(Print
+								{Trampilla}
+								#button {Abrir} 1
+								#button {Cerrar} 2
+							)
+							)
+
+						(switch temp7
+							(1
+							    (DoVerb {Open trapdoor})
+							   
+	
+							)
+							(2
+								(DoVerb {Close trapdoor})
+							)
+							(else
+								(event claimed: FALSE)
+							)
+							
+						)
+						
+							
+						)
+							
+							
+							
+							
+							
+						(else
+							(event claimed: FALSE)
+						)
+										
+					)
+			)	
+		
+		
+		
+				(if (ClickedInRect 213 319 145 176 event) ;dino
+				(event claimed: TRUE)
+					(switch theCursor	
+						(998
+							(DoVerb {examine dinosaur})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+										
+					)
+			)	
+			
+		
+						(if (or (ClickedInRect 168 175 181 185 event) ;bones
+								(ClickedInRect 185 193 180 185 event)
+								(ClickedInRect 204 224 174 183 event)
+							)
+						(event claimed: TRUE)
+						(switch theCursor	
+							(998	
+								(DoVerb {examine bone})
+							)
+							(else
+								(event claimed: FALSE)
+						)
+										
+					)
+			)	
+		
+			)
+			)
+		
 		(if (event claimed?) (return))
 		(if (== (event type?) saidEvent)
 			(cond 

@@ -40,6 +40,7 @@
 	doorState
 	local20
 	local21
+	temp7
 )
 (instance Room52 of Room
 	(properties
@@ -252,6 +253,317 @@
 	)
 	
 	(method (handleEvent event &tmp temp0 [str 250])
+		
+	(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)
+		
+			(if (ClickedOnObj WallPlate (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998	
+							(DoVerb {examine nameplate})
+						)
+						(619 ;key
+							(DoVerb {use key})
+						)
+						(620 ;key2
+							(DoVerb {use key})
+						)	
+						(627 ;poker
+							(DoVerb {attach poker})
+						)
+						(607 ;crowbar
+							(DoVerb {attach crowbar})
+						)	
+						(else
+							(event claimed: FALSE)
+						)
+										
+					)
+			)	
+
+		
+				(if (ClickedOnObj Chute (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998	
+							(DoVerb {examine up})
+						)
+						(995
+							(DoVerb {enter in})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+										
+					)
+				)	
+		
+		
+					(if (and (ClickedOnObj Bricks1 (event x?) (event y?)) 
+						(== (event claimed?) FALSE))
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998	
+								(event claimed: TRUE)
+								(Print 52 11)
+						)
+						
+						(else
+							(event claimed: FALSE)
+						)
+										
+					)
+				)	
+			
+		
+		
+			
+					(if (and (ClickedOnObj Bricks2 (event x?) (event y?)) 
+						(== (event claimed?) FALSE))
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998	
+							(DoVerb {examine door})
+						)
+						
+						(else
+							(event claimed: FALSE)
+						)
+										
+					)
+				)	
+			
+					(if (and (ClickedOnObj Bricks3 (event x?) (event y?)) 
+						(== (event claimed?) FALSE))
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998	
+							(event claimed: TRUE)
+							(Print 52 11)
+						)
+						
+						(else
+							(event claimed: FALSE)
+						)
+										
+					)
+				)	
+			
+					(if (and (ClickedOnObj Bricks4 (event x?) (event y?)) 
+						(== (event claimed?) FALSE))
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998	
+							(event claimed: TRUE)
+							(Print 52 11)
+						)
+						
+						(else
+							(event claimed: FALSE)
+						)
+										
+					)
+				)							
+		
+					(if (and (ClickedOnObj Bricks5 (event x?) (event y?)) 
+							(== (event claimed?) FALSE))
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998	
+							(event claimed: TRUE)
+							(Print 52 11)
+						)
+						
+						(else
+							(event claimed: FALSE)
+						)
+										
+					)
+				)		
+					(if (and (ClickedOnObj Beams (event x?) (event y?)) 
+							(== (event claimed?) FALSE))
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998
+							(DoVerb {examine beam})
+						)
+						
+						(else
+							(event claimed: FALSE)
+						)
+										
+					)
+				)		
+		
+		
+					(if (and (ClickedOnObj Floor1 (event x?) (event y?)) 
+							(== (event claimed?) FALSE))
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998
+							(event claimed: TRUE)
+							(Print 52 31)	
+						)
+						
+						(else
+							(event claimed: FALSE)
+						)
+										
+					)
+				)		
+		
+
+					(if (and (ClickedOnObj Floor2 (event x?) (event y?)) 
+							(== (event claimed?) FALSE))
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998
+							(DoVerb {examine floor})
+						)
+						
+						(else
+							(event claimed: FALSE)
+						)
+										
+					)
+				)		
+				
+				(if (ClickedOnPicView rags (event x?) (event y?)) 
+				(event claimed: TRUE)
+					(switch theCursor	
+						(998
+							(event claimed: TRUE)
+							(DoLook {equipment})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+										
+					)
+				)		
+		
+		
+					(if (ClickedOnPicView tub (event x?) (event y?)) 
+				(event claimed: TRUE)
+					(switch theCursor	
+						(995
+
+							(DoVerb {examine bath})
+						)
+						(998
+								(event claimed: TRUE)
+								(DoLook {equipment})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+										
+					)
+				)		
+			
+						(if (and (ClickedOnObj bodies (event x?) (event y?)) 
+							(== (event claimed?) FALSE))
+					(event claimed: TRUE)
+					(switch theCursor	
+						(995
+							(DoVerb {search body})
+						)
+						(998
+							(DoVerb {examine at body})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+										
+					)
+				)		
+					
+		
+				(if (and (ClickedOnObj panelCrank (event x?) (event y?)) 
+					(== (event claimed?) FALSE))
+					(event claimed: TRUE)
+					(switch theCursor	
+						(621 ;crank
+							(DoVerb {control})
+						)
+						(995
+							(= temp7
+							(PrintSpecial
+								{Panel}
+								#button {Manejar} 1
+								#button {Girar} 2
+								#button {Abrir} 3
+								#button {Coger} 4								
+							)
+							)
+
+						(switch temp7
+							(1
+							    (DoVerb {control})
+							   
+	
+							)
+							(2
+								(DoVerb {rotate control})
+							)
+							(3
+							    (DoVerb {Open door})
+							   
+	
+							)
+							(4
+								(DoVerb {get control})
+							)							
+							(else
+								(event claimed: FALSE)
+							)
+						)
+						)
+						(998
+							(DoVerb {examine control})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+										
+					)
+				)		
+		
+		
+				(if (and (ClickedOnObj rat (event x?) (event y?)) 
+					(== (event claimed?) FALSE))
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998		
+							(DoVerb {examine rat})
+						)
+						(995
+							(switch (Random 1 2) ;randomly select a sentance between 0-2
+									(1 (DoVerb {kill rat})) 
+									(2 (DoVerb {get rat}))
+									
+							)
+						)
+						(else
+							(event claimed: FALSE)
+						)
+										
+					)
+				)		
+		
+	)
+)
+		
+		
+		
+		
 		(if (event claimed?) (return))
 		(if (== (event type?) saidEvent)
 			(cond 
