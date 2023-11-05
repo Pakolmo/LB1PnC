@@ -5,8 +5,11 @@
 (use Intrface)
 (use Motion)
 (use Actor)
+(use User)
 
-
+(local
+	temp7
+)
 (procedure (UpOrDown pushOrPull)
 	(Printf 201 16 pushOrPull)
 )
@@ -270,6 +273,168 @@
 	)
 	
 	(method (handleEvent event)
+		
+		
+		(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)
+				(if (== theCursor 619) ;brass key
+					(if (ClickedOnObj elevGate (event x?) (event y?)) 
+					(event claimed: TRUE)
+					
+					(= temp7
+							
+;;;							(PrintSpecial
+;;;								{Elevator}
+;;;								#button {Latch} 1
+;;;								#button {Unbar} 2							
+;;;							)							
+							
+							
+							
+							
+							(PrintSpecial
+								{Ascensor}
+								#button {Bloquear} 1
+								#button {Desbloquear} 2							
+							)
+							)
+
+						(switch temp7
+							(1
+							    (DoVerb {latch elevator})
+							   
+	
+							)
+							(2
+								(DoVerb {unbar elevator})
+							)
+						
+							(else
+								(event claimed: FALSE)
+							)
+						)
+					)
+				)				
+					
+				
+					
+					
+					
+					
+					
+				(if (== theCursor 999)
+					
+					(if (ClickedOnObj elevGate (event x?) (event y?)) 
+					(event claimed: TRUE)
+;;;					(switch theCursor	
+;;;						(999
+;;;						(= temp7
+;;;							(PrintSpecial
+;;;								{Elevator}
+;;;								#button {Enter} 1
+;;;								#button {Exit} 2							
+;;;							)		
+						(= temp7
+							(PrintSpecial
+								{Ascensor}
+								#button {Entrar} 1
+								#button {Salir} 2							
+							)
+							)
+
+						(switch temp7
+							(1
+							    (DoVerb {enter elevator})
+							   
+	
+							)
+							(2
+								(DoVerb {exit elevator})
+							)
+						
+							(else
+								(event claimed: FALSE)
+							)
+						)
+						)
+						)
+		
+		
+		
+					(if (== theCursor 995)
+						(if (ClickedOnObj elevGate (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(= temp7
+;;;							(PrintSpecial
+;;;								{Elevator}
+;;;								#button {Open} 1
+;;;								#button {Close} 2								
+;;;								#button {Press Up} 3
+;;;								#button {Press Down} 4
+
+;;;							)
+							(PrintSpecial
+								{Elevator}
+								#button {Open} 1
+								#button {Close} 2
+								#button {Arriba} 3
+								#button {Abajo} 4								
+
+							)							
+							
+							)
+
+						(switch temp7
+							(1
+							    (DoVerb {open elevator})
+							   
+	
+							)
+							(2
+								(DoVerb {close elevator})
+							)
+							(3
+							    (DoVerb {move up})
+							   
+	
+							)
+							(4
+								(DoVerb {move down})
+							)	
+													
+							(else
+								(event claimed: FALSE)
+							)
+						)
+					)
+		
+					)
+		
+		
+		
+		
+						)
+					)
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		(if (event claimed?) (return))
 		(if (== (event type?) saidEvent)
 			(cond 
@@ -675,6 +840,7 @@
 			)
 		)
 	)
+
 	
 	(method (gateFunc param1 param2)
 		(HandsOff)
@@ -726,5 +892,13 @@
 				(NotClose)
 			)
 		)
+	)
+)
+(instance elevGate of Prop ;add
+	(properties
+		y 125
+		x 283
+		view 242
+		loop 2
 	)
 )

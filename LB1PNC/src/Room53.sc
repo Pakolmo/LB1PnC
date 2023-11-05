@@ -21,6 +21,7 @@
 	[local0 2]
 	local2
 	talkCount
+	temp7
 )
 (instance Room53 of Room
 	(properties
@@ -76,6 +77,212 @@
 	)
 	
 	(method (handleEvent event)
+		
+			(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)
+					
+				(if (ClickedOnPicView dresser1 (event x?) (event y?)) 
+				(event claimed: TRUE)
+					(switch theCursor	
+						(998
+							(event claimed: TRUE)
+							(Print 53 11)
+						)
+						(995
+							(DoVerb {open dresser})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+										
+					)
+				)		
+		
+		
+					(if (ClickedOnPicView bed (event x?) (event y?)) 
+				(event claimed: TRUE)
+					(switch theCursor	
+						(998
+								(DoVerb {examine bed})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+										
+					)
+				)		
+		
+			
+						(if (ClickedOnPicView chair (event x?) (event y?)) 
+				(event claimed: TRUE)
+					(switch theCursor	
+						(998
+								(DoVerb {examine chair})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+										
+					)
+				)		
+			
+							(if (ClickedOnPicView sofa (event x?) (event y?)) 
+				(event claimed: TRUE)
+					(switch theCursor	
+						(998
+								(DoVerb {examine couch})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+										
+					)
+				)			
+		
+		
+							(if (ClickedOnPicView chest (event x?) (event y?)) 
+				(event claimed: TRUE)
+					(switch theCursor	
+						(995
+								(DoVerb {open nightstand})
+						)
+						(998
+								(DoVerb {examine nightstand})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+										
+					)
+				)			
+		
+		
+		
+		
+							(if (ClickedOnPicView sink (event x?) (event y?)) 
+				(event claimed: TRUE)
+					(switch theCursor	
+						(995
+
+								(DoVerb {scrub})
+						)
+						(998
+								(= temp7
+;;;							(PrintSpecial
+;;;								{Sink}
+;;;								#button {Examine in} 1
+;;;								#button {Examine} 2
+;;;								
+;;;							)
+							(PrintSpecial
+								{Lavamanos}
+								#button {Examinar} 1
+								#button {Mirar} 2
+								
+							)
+							)
+
+						(switch temp7
+							(1
+							    (DoVerb {examine in sink})
+							   
+	
+							)
+							(2
+								(DoVerb {examine sink})
+							)
+							
+						
+							(else
+								(event claimed: FALSE)
+							)
+						)
+						)
+						(else
+							(event claimed: FALSE)
+						)				
+					)
+				)			
+		
+							(if (ClickedOnPicView toilet (event x?) (event y?)) 
+				(event claimed: TRUE)
+					(switch theCursor	
+						(995
+
+								(DoVerb {examine toilet})
+						)
+						(998
+
+							    (DoVerb {open toilet})
+							   
+	
+						)
+
+						
+						(else
+							(event claimed: FALSE)
+						)				
+					)
+				)							
+		
+			(if (ClickedOnObj lamp1 (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998		
+							(DoVerb {examine lamp})
+						)
+						(else
+							(event claimed: FALSE)
+						)				
+					)
+				)			
+	
+	
+			(if (ClickedOnObj crackerBox (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998	
+							(DoVerb {examine cracker})
+						)
+						(995
+							(DoVerb {get cracker})
+						)
+						(else
+							(event claimed: FALSE)
+						)				
+					)
+				)		
+	
+			(if (ClickedOnObj Jeeves (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor	
+						(996	
+							(DoVerb {ask butler cracker for})
+						)
+						(998
+							(DoVerb {look jeeves})
+						)
+							
+						(else
+							(event claimed: FALSE)
+						)				
+					)
+				)		
+		
+			)
+			)
+		
+		
+		
+		
+		
 		(super handleEvent: event)
 		(if (event claimed?) (return TRUE))
 		(return
@@ -136,7 +343,7 @@
 		(super newRoom: n)
 	)
 )
-
+(instance Jeeves of Actor) ;add
 (instance dresser1 of RPicView
 	(properties
 		y 131

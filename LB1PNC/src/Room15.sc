@@ -236,24 +236,24 @@
 				)
 				
 				
-					(if (ClickedOnObj Gertie (event x?) (event y?)) 
-					
-					(event claimed: TRUE)
-					(switch theCursor
-						(998
-							(DoVerb {examine gertie})
-						)	
-						(995
-							(DoVerb {examine gertie})
-						)
-						(996
-							(DoVerb {converse gertie})
-						)		
-						(else
-							(event claimed: FALSE)
-						)
-					)
-				)
+;;;					(if (ClickedOnObj Gertie (event x?) (event y?)) ;Dgert script 235
+;;;					
+;;;					(event claimed: TRUE)
+;;;					(switch theCursor
+;;;						(998
+;;;							(DoVerb {examine gertie})
+;;;						)	
+;;;						(995
+;;;							(DoVerb {examine gertie})
+;;;						)
+;;;						(996
+;;;							(DoVerb {converse gertie})
+;;;						)		
+;;;						(else
+;;;							(event claimed: FALSE)
+;;;						)
+;;;					)
+;;;				)
 		
 		
 		
@@ -343,7 +343,7 @@
 		(super newRoom: n)
 	)
 )
-(instance Gertie of Actor)
+
 
 (instance myDoor of Script
 

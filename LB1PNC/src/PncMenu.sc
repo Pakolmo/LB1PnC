@@ -1507,10 +1507,10 @@
 							)
 							(995 ;hand
 													(event type: 1 claimed: 1)	
-													(= sndPause (Sound pause: 1))
-													(Inv showSelf: 888)
-													(Sound pause: sndPause)
-													(DoUseItem useInvItem event)
+;;;													(= sndPause (Sound pause: 1)) ;NO inventory on Laura.
+;;;													(Inv showSelf: 888)
+;;;													(Sound pause: sndPause)
+;;;													(DoUseItem useInvItem event)
 								
 								
 								

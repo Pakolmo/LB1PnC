@@ -46,6 +46,56 @@
 	)
 	
 	(method (handleEvent event)
+		
+		
+		
+			(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)
+				
+				
+					(if (ClickedOnObj Body (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(DoVerb {examine gertie})
+						)	
+						(995
+							(DoVerb {examine in gertie})
+						)
+						(996
+							(DoVerb {converse gertie})
+						)		
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+		
+				
+		
+		
+		
+		
+		
+			)
+			)
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		(if (event claimed?) (return TRUE))
 		(return
 			(if (== (event type?) saidEvent)

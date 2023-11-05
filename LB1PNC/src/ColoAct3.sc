@@ -1,5 +1,5 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-(script# 285)
+(script# 285) ;OK
 (include game.sh)
 (use Main)
 (use atsgl)
