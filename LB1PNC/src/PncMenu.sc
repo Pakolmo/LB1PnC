@@ -1185,6 +1185,9 @@
 				(talkIcon loop: 0)
 				(smellIcon loop: 0)
 				(invIcon loop: 0)
+				(levelsIcon loop: 0)
+				(saveIcon loop: 0)
+				(quitIcon loop: 0)
 			)
 			(998
 				(walkIcon loop: 0)
@@ -1193,6 +1196,9 @@
 				(talkIcon loop: 0)
 				(smellIcon loop: 0)
 				(invIcon loop: 0)
+				(levelsIcon loop: 0)
+				(saveIcon loop: 0)
+				(quitIcon loop: 0)
 			)
 			(995
 				(walkIcon loop: 0)
@@ -1201,6 +1207,9 @@
 				(talkIcon loop: 0)
 				(smellIcon loop: 0)
 				(invIcon loop: 0)
+				(levelsIcon loop: 0)
+				(saveIcon loop: 0)
+				(quitIcon loop: 0)
 			)
 			(996
 				(walkIcon loop: 0)
@@ -1209,6 +1218,9 @@
 				(talkIcon loop: 1)
 				(smellIcon loop: 0)
 				(invIcon loop: 0)
+				(levelsIcon loop: 0)
+				(saveIcon loop: 0)
+				(quitIcon loop: 0)
 			)
 			(994
 				(walkIcon loop: 0)
@@ -1217,6 +1229,9 @@
 				(talkIcon loop: 0)
 				(smellIcon loop: 1)
 				(invIcon loop: 0)
+				(levelsIcon loop: 0)
+				(saveIcon loop: 0)
+				(quitIcon loop: 0)
 			)
 			(itemIcon
 				(walkIcon loop: 0)
@@ -1225,6 +1240,9 @@
 				(talkIcon loop: 0)
 				(smellIcon loop: 0)
 				(invIcon loop: 1)
+				(levelsIcon loop: 0)
+				(saveIcon loop: 0)
+				(quitIcon loop: 0)
 			)
 		)
 		(if (!= itemIcon 601)
@@ -1409,7 +1427,11 @@
 ;;;						)
 ;;;						(= menuTime 0)
 						(if (== movingButtons 2) (= movingButtons 1) (= gShowMenu 1))
-						(= menuTime 0)
+						
+						(= movingButtons 2)
+						(= gShowMenu 0)
+						(= menuTime 51)
+						(= yPosition 0)
 						(invIcon setScript: dotheinv)
 					)
 					((ClickedOnObj selectedItem (event x?) (event y?))
@@ -1591,6 +1613,8 @@
 		(= state newState)
 		(switch state
 			(0
+				(= gPreviousCursor theCursor)
+				(theGame setCursor: 993 (HaveMouse)) ;switch to select
 				(quitIcon loop: 1)
 				(= cycles 3)
 			)
@@ -1608,6 +1632,7 @@
 					)
 					(= quit 1)
 				else
+					(theGame setCursor: gPreviousCursor (HaveMouse))
 					(quitIcon loop: 0)
 				)
 			)
@@ -1622,6 +1647,8 @@
 		(= state newState)
 		(switch state
 			(0
+				(= gPreviousCursor theCursor)
+				(theGame setCursor: 993 (HaveMouse)) ;switch to select
 				(saveIcon loop: 1) ;change to icon "clicked"
 				(= cycles 3) ;wait 3 cycles, then goto next state.
 			)
@@ -1650,6 +1677,7 @@
 				)
 			)
 			(2
+				(theGame setCursor: gPreviousCursor (HaveMouse))
 				(saveIcon loop: 0)
 			)
 		)
@@ -1694,6 +1722,8 @@
 		(= state newState)
 		(switch state
 			(0
+				(= gPreviousCursor theCursor)
+				(theGame setCursor: 993 (HaveMouse)) ;switch to select
 				(levelsIcon loop: 1)
 				(= cycles 3)
 			)
@@ -1804,12 +1834,11 @@
 					#at -1 30
 					#width 234
 				)
-
-
 			)
-			
-			
-			(100 (levelsIcon loop: 0))
+			(100
+				(theGame setCursor: gPreviousCursor (HaveMouse))
+				(levelsIcon loop: 0)
+			)
 		)
 	)
 )
