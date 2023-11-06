@@ -1014,6 +1014,7 @@
 					(MousedOn self event shiftDown)
 					(Said 'examine/parrot,birdstand,stand')
 				)
+				(ego get: 36) ;we meet the parrot. Add to inventory to talk.
 				(Print 38 44)
 				(event claimed: TRUE)
 			)

@@ -30,6 +30,7 @@
 		(= global208 2)
 		(= [global377 1] 228)
 		(Celie illegalBits: 0 init: setScript: wash)
+		(ego get: 35) ;dog to inventory.
 		(if (== ((inventory at: iSoupBone) owner?) 0)
 			(Rover
 				view: 522

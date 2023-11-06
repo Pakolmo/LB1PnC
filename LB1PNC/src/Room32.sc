@@ -30,6 +30,7 @@
 	local6
 	local7
 	msgID = [32 0 32 1]
+	temp7
 )
 (instance Room32 of Room
 	(properties
@@ -222,7 +223,349 @@
 	)
 	
 	(method (handleEvent event &tmp temp0)
+		
 		(super handleEvent: event)
+		
+		
+				(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)
+					(if (ClickedOnPicView mantle (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998
+							(event claimed: TRUE)
+							(DoLook {mantel})
+						)
+						(else
+
+						
+							(event claimed: FALSE)
+						)
+					)
+
+			)	
+		
+			(if (ClickedOnPicView books (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(995
+							(DoVerb {get book})
+						)	
+						(998
+							(DoVerb {examine book})
+						)
+						(else
+
+						
+							(event claimed: FALSE)
+						)
+					)
+
+			)		
+			(if (ClickedOnPicView chair1 (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor	
+						(995
+							(DoVerb {get chair})
+						)
+						(998
+							(DoVerb {look chair})
+						)
+						(else
+
+						
+							(event claimed: FALSE)
+						)
+					)
+
+			)				
+		
+		
+		
+		
+		
+		
+				(if (or (ClickedOnPicView chair2 (event x?) (event y?)) 
+						(ClickedOnPicView chair3 (event x?) (event y?)) 
+						(ClickedOnPicView chair4 (event x?) (event y?)) 
+						(ClickedOnPicView chair5 (event x?) (event y?)) 
+						(ClickedOnPicView chair6 (event x?) (event y?)) )
+						
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998
+							(DoVerb {look chair})
+						)
+						(else
+
+						
+							(event claimed: FALSE)
+						)
+					)
+
+			)				
+		
+		
+			
+					(if (or (ClickedOnPicView sofa1 (event x?) (event y?)) 
+						(ClickedOnPicView sofa1 (event x?) (event y?)) )
+					(event claimed: TRUE)
+					(switch theCursor	
+
+						(998
+							(DoVerb {look couch})
+						)
+						(else
+
+						
+							(event claimed: FALSE)
+						)
+					)
+
+			)				
+		
+		
+		
+					
+					(if (ClickedOnPicView table (event x?) (event y?)) 
+						
+					(event claimed: TRUE)
+					(switch theCursor	
+
+						(998
+								(event claimed: TRUE)
+								(Print 32 35)
+						)
+						(else
+
+						
+							(event claimed: FALSE)
+						)
+					)
+
+			)				
+		
+		
+						(if (ClickedOnObj fire (event x?) (event y?)) 
+						
+					(event claimed: TRUE)
+					(switch theCursor	
+						(995
+							(DoVerb {get log})
+						)
+						(998
+								(DoVerb {examine log})
+						)
+						(else
+
+						
+							(event claimed: FALSE)
+						)
+					)
+
+			)		
+		
+			
+						(if (ClickedOnObj poker (event x?) (event y?)) 
+						
+					(event claimed: TRUE)
+					(switch theCursor	
+						(995
+								(DoVerb {get poker})
+						)
+						(998
+									(event claimed: TRUE)
+									(Print 32 16)
+						)
+						(else
+
+						
+							(event claimed: FALSE)
+						)
+					)
+
+			)		
+		
+						(if (or (ClickedOnObj lamp1 (event x?) (event y?)) 
+						(ClickedOnObj lamp2 (event x?) (event y?)) )
+					(event claimed: TRUE)
+					(switch theCursor	
+
+						(998
+							(event claimed: TRUE)
+							(DoVerb {look lamp})
+						)
+						(else
+
+						
+							(event claimed: FALSE)
+						)
+					)
+
+			)	
+		
+		(if (ClickedOnObj Feather (event x?) (event y?)) 
+		(event claimed: TRUE)
+					(switch theCursor	
+						(998
+							(DoVerb {examine feather})
+						)
+
+						(995
+							
+							(DoVerb {get feather})
+						)
+						(else
+
+						
+							(event claimed: FALSE)
+						)
+					)
+
+			)	
+		
+	(if (ClickedOnObj Mag (event x?) (event y?)) 
+		(event claimed: TRUE)
+					(switch theCursor	
+						(995
+							(DoVerb {rotate page})
+						)
+
+						(998
+													(= temp7
+												(PrintSpecial
+													{Revista}
+													#button {Examinar} 1
+													#button {Leer} 2	
+								
+													
+												)
+											)
+											(switch temp7
+												(1 		
+													(DoVerb {examine magazine})
+												)
+												(2
+													(DoVerb {read magazine})
+												)
+												
+												(else
+													(event claimed: FALSE)
+												)
+											)
+						
+						)
+
+						(else
+
+						
+							(event claimed: FALSE)
+						)
+					)
+
+			)		
+			(if (ClickedOnObj Shaft (event x?) (event y?)) 
+			(event claimed: TRUE)
+					(switch theCursor	
+
+						(998
+							
+							(DoVerb {examine elevator})
+						)
+						(else
+
+						
+							(event claimed: FALSE)
+						)
+					)
+
+			)	
+					(if (ClickedOnObj Mirror (event x?) (event y?)) 
+			(event claimed: TRUE)
+					(switch theCursor	
+						(995
+							(DoVerb {get mirror})
+						)
+						(998
+;;;							(= temp7
+;;;												(PrintSpecial
+;;;													{Mirror}
+;;;													#button {Examine} 1
+;;;													#button {Examine Behind} 2	
+;;;								
+;;;													
+;;;												)
+						(= temp7
+												(PrintSpecial
+													{Espejo}
+													#button {Examinar} 1
+													#button {Mirar detr+s} 2	
+								
+													
+												)
+											)
+											(switch temp7
+												(1 		
+													(DoVerb {look cannon})
+												)
+												(2
+													(DoVerb {look in cannon})
+												)
+												
+												(else
+													(event claimed: FALSE)
+												)
+											)
+						
+						
+						)
+						(else
+
+						
+							(event claimed: FALSE)
+						)
+					)
+
+			)	
+		
+		
+				
+						(if (or (ClickedOnObj Case1 (event x?) (event y?)) 
+						(ClickedOnObj Case2 (event x?) (event y?)) )
+					(event claimed: TRUE)
+					(switch theCursor	
+
+						(998
+							(event claimed: TRUE)
+							(DoVerb {examine bookcase})
+						)
+						(else
+
+						
+							(event claimed: FALSE)
+						)
+					)
+
+			)	
+		
+		
+		
+			)
+				)
+		
+		
+		
+		
+		
+		
+		
 		(if (event claimed?) (return))
 		(if (== (event type?) saidEvent)
 			(DisposeScript SAVE)

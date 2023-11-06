@@ -98,6 +98,7 @@
 		else
 			(switch (= state newState)
 				(0
+					(ego get: 36) ;polly to inventory.
 					(= saveBits
 						(Display 302 0
 							p_at 48 8

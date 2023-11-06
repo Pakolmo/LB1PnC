@@ -372,13 +372,17 @@
 			(cls)
 			(curRoom newRoom: prevRoomNum)
 		)
-		(if (== evMOUSEBUTTON (event type:))
-			(= temp0
-				(Print {Skip scene?}
-					#button {Yes} 1
-					#button {No} 0
+		(if 
+			(and
+				(not (event claimed?))
+				(not script)
+				(== evMOUSEBUTTON (event type:)) )
+				(= temp0
+					(Print {Skip scene?}
+						#button {Yes} 1
+						#button {No} 0
+					)
 				)
-			)
 			(if (== temp0 1)
 				(cls)
 				(curRoom newRoom: prevRoomNum)

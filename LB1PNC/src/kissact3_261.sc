@@ -170,42 +170,52 @@
 				(Fifi loop: 1 posn: 114 113 cycleSpeed: 1 setCycle: EndLoop)
 			)
 			(5
+				
 				(cls)
+;;;				(modelessDialog dispose:) ;is cls
 				(Fifi view: 460 setPri: -1 setCycle: Walk ignoreActors: FALSE)
 				(Rudy loop: 2 cycleSpeed: 0 setCycle: Forward)
 				(Print 261 1
 					#at 90 25
 					#font 4
-					#width 80
+					#width 80 ;80
+;;;					#mode teJustCenter
 					#draw
 					#dispose
 				)
+				(= seconds 3)
 			)
 			(6
-				(cls)
+;;;				;(cls)
+;;;				(modelessDialog dispose:)
 				(Print 261 2
 					#at 125 25
 					#font 4
-					#width 80
+					#width 80 ;80
+;;;					#mode teJustCenter
 					#draw
 					#dispose
 				)
+				(= seconds 3)
 				(Rudy
 					view: 380
 					setCycle: Walk
 					setAvoider: (Avoider new:)
 					setMotion: MoveTo 44 121 self
 				)
+				
 			)
 			(7
 				(cls)
 				(Rudy setMotion: MoveTo 44 244 self)
+				(= seconds 3)
 			)
 			(8
 				(Rudy dispose:)
 				(Fifi setScript: lieDown)
 				(DisposeScript AVOIDER)
 				(client setScript: 0)
+				(HandsOn)
 			)
 		)
 	)

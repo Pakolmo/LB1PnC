@@ -208,6 +208,142 @@
 					(== (event type?) evMOUSEBUTTON)
 					(not (& (event modifiers?) emRIGHT_BUTTON))
 				)
+	
+				(if (and (ClickedOnObj Shaft (event x?) (event y?))
+;;;					(& (ego onControl: origin) ctlMAROON)) ;inside
+					((not (& (ego onControl: origin) (| cMAGENTA cCYAN))) )
+					(event claimed: TRUE)
+					(switch theCursor
+					(619
+					(= temp7
+							
+;;;							(PrintSpecial
+;;;								{Elevator}
+;;;								#button {Latch} 1
+;;;								#button {Unbar} 2							
+;;;							)							
+							
+							
+							
+							
+							(PrintSpecial
+								{Ascensor}
+								#button {Bloquear} 1
+								#button {Desbloquear} 2							
+							)
+							)
+
+						(switch temp7
+							(1
+							    (DoVerb {latch elevator})
+							   
+	
+							)
+							(2
+								(DoVerb {unbar elevator})
+							)
+						
+							(else
+								(event claimed: FALSE)
+							)
+						)
+					
+					)
+					
+					(999		
+					
+				
+					
+;;;						(= temp7
+;;;							(PrintSpecial
+;;;								{Elevator}
+;;;								#button {Enter} 1
+;;;								#button {Exit} 2							
+;;;							)		
+						(= temp7
+							(PrintSpecial
+								{Ascensor}
+								#button {Entrar} 1
+								#button {Salir} 2							
+							)
+							)
+
+						(switch temp7
+							(1
+							    (DoVerb {enter elevator})
+							   
+	
+							)
+							(2
+								(DoVerb {exit elevator})
+							)
+						
+							(else
+								(event claimed: FALSE)
+							)
+						)
+						
+					)
+					
+					(995
+		
+		 
+
+					(= temp7
+;;;							(PrintSpecial
+;;;								{Elevator}
+;;;								#button {Open} 1
+;;;								#button {Close} 2								
+;;;								#button {Press Up} 3
+;;;								#button {Press Down} 4
+
+;;;							)
+							(PrintSpecial
+								{Elevator}
+								#button {Open} 1
+								#button {Close} 2
+								#button {Arriba} 3
+								#button {Abajo} 4								
+
+							)							
+							
+							)
+
+						(switch temp7
+							(1
+							    (DoVerb {open elevator})
+							   
+	
+							)
+							(2
+								(DoVerb {close elevator})
+							)
+							(3
+							    (DoVerb {move up})
+							   
+	
+							)
+							(4
+								(DoVerb {move down})
+							)	
+													
+							(else
+								(event claimed: FALSE)
+							)
+						)
+					)
+					(else
+								(event claimed: FALSE)
+							)
+					
+					
+					
+					
+				)
+					)	
+	
+	
+	
 		
 			(if (ClickedOnPicView bed (event x?) (event y?)) 
 					
@@ -354,10 +490,36 @@
 							(DoVerb {atatch key cannon})
 							(Print 42 30)
 						)
+						(995
+							
+								(DoVerb {get key})
+							
+						)
 						(998
-
-													(DoVerb {examine cannon})
+							(= temp7
+												(Print
+													{Cannon}
+													#button {Mirar} 1
+													#button {Examinar} 2	
+								
+													
 												)
+											)
+											(switch temp7
+												(1 		
+													(DoVerb {look cannon})
+												)
+												(2
+													(DoVerb {look in cannon})
+												)
+												
+												(else
+													(event claimed: FALSE)
+												)
+											)
+						
+						)
+							
 
 						(else
 
@@ -409,28 +571,30 @@
 
 			)				
 			
-		(if (ClickedOnObj Shaft (event x?) (event y?)) ;elevator
-					
-					(event claimed: TRUE)
-					(switch theCursor	
-						(998
-							
-							(DoVerb {look elevator})	
-						)
-							
-						(995
-							(DoVerb {open elevator})
-						)
-						(else
-
-						
-							(event claimed: FALSE)
-						)
-					)
-
-			)				
-				
-			
+;;;		(if (and (ClickedOnObj Shaft (event x?) (event y?)) ;elevator
+;;;					
+;;;
+;;;					
+;;;					(event claimed: TRUE)
+;;;					(switch theCursor	
+;;;						(998
+;;;							
+;;;							(DoVerb {look elevator})	
+;;;						)
+;;;							
+;;;						(995
+;;;							(DoVerb {open elevator})
+;;;						)
+;;;						(else
+;;;
+;;;						
+;;;							(event claimed: FALSE)
+;;;						)
+;;;					)
+;;;
+;;;			)				
+;;;				
+;;;			
 			
 		(if (ClickedOnObj Dbag (event x?) (event y?)) ;Dbag
 					

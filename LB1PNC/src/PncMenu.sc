@@ -1048,48 +1048,48 @@
 		(self setScript: PnCMenuScript)
 		(switch gLayout
 			(0
-;;;				(= yPosition 22)
-;;;				(= yPositionInventory 18)
-;;;				(walkIcon setPri: 15 y: yPosition init:)
-;;;				(lookIcon setPri: 15 y: yPosition init:)
-;;;				(handIcon setPri: 15 y: yPosition init:)
-;;;				(talkIcon setPri: 15 y: yPosition init:)
-;;;				(gunIcon setPri: 15 y: yPosition init:)
-;;;				;(background setPri: 15 y: yPosition init:)
-;;;				;;(invIcon setPri: 15 y: yPosition init:)
-;;;				;;(blockIcon setPri: 14 y: yPositionInventory init:) ;was setPri: 14
-;;;				(levelsIcon setPri: 15 y: yPosition init:)
-;;;				;(restartIcon setPri: 15 y: yPosition init:)
-;;;				;(loadIcon setPri: 15 y: yPosition init:)
-;;;				(saveIcon setPri: 15 y: yPosition init:)
-;;;				(quitIcon setPri: 15 y: yPosition init:)
-;;;				(if (!= itemIcon 900) ;nothing
-;;;					(selectedItem setPri: 15 y: yPositionInventory cel: itemIcon init:)
-;;;				else
-;;;					(selectedItem setPri: 15 y: yPositionInventory cel: 0 init:)
-;;;				)
+				(= yPosition 22)
+				(= yPositionInventory 18)
+				(walkIcon setPri: 15 y: yPosition init:)
+				(lookIcon setPri: 15 y: yPosition init:)
+				(handIcon setPri: 15 y: yPosition init:)
+				(talkIcon setPri: 15 y: yPosition init:)
+
+				;(background setPri: 15 y: yPosition init:)
+				;;(invIcon setPri: 15 y: yPosition init:)
+				;;(blockIcon setPri: 14 y: yPositionInventory init:) ;was setPri: 14
+				(levelsIcon setPri: 15 y: yPosition init:)
+				;(restartIcon setPri: 15 y: yPosition init:)
+				;(loadIcon setPri: 15 y: yPosition init:)
+				(saveIcon setPri: 15 y: yPosition init:)
+				(quitIcon setPri: 15 y: yPosition init:)
+				(if (!= itemIcon 900) ;nothing
+					(selectedItem setPri: 15 y: yPositionInventory cel: itemIcon init:)
+				else
+					(selectedItem setPri: 15 y: yPositionInventory cel: 0 init:)
+				)
 			)
 			(2
-;;;				(= yPosition 189)
-;;;				(= yPositionInventory 18)
-;;;				(walkIcon setPri: 15 y: yPosition init:)
-;;;				(lookIcon setPri: 15 y: yPosition init:)
-;;;				(handIcon setPri: 15 y: yPosition init:)
-;;;				(talkIcon setPri: 15 y: yPosition init:)				
-;;;				(gunIcon setPri: 15 y: yPosition init:)
-;;;				;(background setPri: 15 y: yPosition init:)
-;;;				(invIcon setPri: 15 y: yPosition init:)
-;;;				(blockIcon setPri: 14 y: yPositionInventory init:) ;was setPri: 14
-;;;				(levelsIcon setPri: 15 y: yPosition init:)
-;;;				;(restartIcon setPri: 15 y: yPosition init:)
-;;;				;(loadIcon setPri: 15 y: yPosition init:)
-;;;				(saveIcon setPri: 15 y: yPosition init:)
-;;;				(quitIcon setPri: 15 y: yPosition init:)
-;;;				(if (!= itemIcon 900) ;nothing
-;;;					(selectedItem setPri: 15 y: yPositionInventory cel: itemIcon init:)
-;;;				else
-;;;					(selectedItem setPri: 15 y: yPositionInventory cel: 0 init:)
-;;;				)
+				(= yPosition 189)
+				(= yPositionInventory 18)
+				(walkIcon setPri: 15 y: yPosition init:)
+				(lookIcon setPri: 15 y: yPosition init:)
+				(handIcon setPri: 15 y: yPosition init:)
+				(talkIcon setPri: 15 y: yPosition init:)				
+
+				;(background setPri: 15 y: yPosition init:)
+				(invIcon setPri: 15 y: yPosition init:)
+				(blockIcon setPri: 14 y: yPositionInventory init:) ;was setPri: 14
+				(levelsIcon setPri: 15 y: yPosition init:)
+				;(restartIcon setPri: 15 y: yPosition init:)
+				;(loadIcon setPri: 15 y: yPosition init:)
+				(saveIcon setPri: 15 y: yPosition init:)
+				(quitIcon setPri: 15 y: yPosition init:)
+				(if (!= itemIcon 900) ;nothing
+					(selectedItem setPri: 15 y: yPositionInventory cel: itemIcon init:)
+				else
+					(selectedItem setPri: 15 y: yPositionInventory cel: 0 init:)
+				)
 			)
 			(else 
 				(walkIcon setPri: 15 y: yPosition init:)

@@ -1144,7 +1144,8 @@
 				Gloria_Swansong
 				Clarence_Sparrow ;33
 				Jules_
-				
+				Beauregard_
+				Polly_
 				
 		)
 		(= global181 1)
@@ -1679,4 +1680,18 @@
 		view 940
 		name "Jules"
 	)
-)							
+)	
+(instance Beauregard_ of InvI
+	(properties
+;;;		said '/Beauregard'
+		view 941
+		name "Beauregard"
+	)
+)
+(instance Polly_ of InvI
+	(properties
+;;;		said '/Polly'
+		view 942
+		name "Polly"
+	)
+)						

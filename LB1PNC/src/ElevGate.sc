@@ -281,10 +281,12 @@
 					(== (event type?) evMOUSEBUTTON)
 					(not (& (event modifiers?) emRIGHT_BUTTON))
 				)
-				(if (== theCursor 619) ;brass key
-					(if (ClickedOnObj elevGate (event x?) (event y?)) 
+;;;				(if (== theCursor 619) ;brass key
+				(if (and (ClickedOnObj ElevGate (event x?) (event y?))
+						((not (and (ego onControl: origin) (| cMAGENTA cCYAN)))))
 					(event claimed: TRUE)
-					
+					(switch theCursor
+					(619
 					(= temp7
 							
 ;;;							(PrintSpecial
@@ -305,33 +307,24 @@
 
 						(switch temp7
 							(1
-							    (DoVerb {latch elevator})
+							    (DoVerb {latch control})
 							   
 	
 							)
 							(2
-								(DoVerb {unbar elevator})
+								(DoVerb {unbar control})
 							)
 						
 							(else
 								(event claimed: FALSE)
 							)
 						)
+					
 					)
-				)				
+					(998
+						
+						
 					
-				
-					
-					
-					
-					
-					
-				(if (== theCursor 999)
-					
-					(if (ClickedOnObj elevGate (event x?) (event y?)) 
-					(event claimed: TRUE)
-;;;					(switch theCursor	
-;;;						(999
 ;;;						(= temp7
 ;;;							(PrintSpecial
 ;;;								{Elevator}
@@ -340,47 +333,86 @@
 ;;;							)		
 						(= temp7
 							(PrintSpecial
-								{Ascensor}
-								#button {Entrar} 1
-								#button {Salir} 2							
+								{ }
+								#button {Examine Control} 1
+								#button {Examine Keyhole} 2	
+								#button {Examine Shaft} 3						
 							)
 							)
 
 						(switch temp7
 							(1
-							    (DoVerb {enter elevator})
+							    (DoVerb {examine control})
 							   
 	
 							)
 							(2
-								(DoVerb {exit elevator})
+								(DoVerb {examine keyhole})
 							)
-						
+							(3
+								(DoVerb {examine shaft})
+							)						
 							(else
 								(event claimed: FALSE)
 							)
 						)
-						)
-						)
+						
+					
+					
+						
+					)
+;;;					(999		
+;;;					
+;;;				
+;;;					
+;;;;;;						(= temp7
+;;;;;;							(PrintSpecial
+;;;;;;								{Elevator}
+;;;;;;								#button {Enter} 1
+;;;;;;								#button {Exit} 2							
+;;;;;;							)		
+;;;						(= temp7
+;;;							(PrintSpecial
+;;;								{Ascensor}
+;;;								#button {Entrar} 1
+;;;								#button {Salir} 2							
+;;;							)
+;;;							)
+;;;
+;;;						(switch temp7
+;;;							(1
+;;;							    (DoVerb {enter elevator})
+;;;							   
+;;;	
+;;;							)
+;;;							(2
+;;;								(DoVerb {exit elevator})
+;;;							)
+;;;						
+;;;							(else
+;;;								(event claimed: FALSE)
+;;;							)
+;;;						)
+;;;						
+;;;					)
+					
+					(995
 		
 		
-		
-					(if (== theCursor 995)
-						(if (ClickedOnObj elevGate (event x?) (event y?)) 
-					(event claimed: TRUE)
+
 					(= temp7
 ;;;							(PrintSpecial
 ;;;								{Elevator}
-;;;								#button {Open} 1
-;;;								#button {Close} 2								
+;;;								#button {Enter} 1
+;;;								#button {Exit} 2								
 ;;;								#button {Press Up} 3
 ;;;								#button {Press Down} 4
 
 ;;;							)
 							(PrintSpecial
-								{Elevator}
-								#button {Open} 1
-								#button {Close} 2
+								{Ascensor}
+								#button {Entrar} 1
+								#button {Salir} 2
 								#button {Arriba} 3
 								#button {Abajo} 4								
 
@@ -390,12 +422,12 @@
 
 						(switch temp7
 							(1
-							    (DoVerb {open elevator})
+							    (DoVerb {open lift})
 							   
 	
 							)
 							(2
-								(DoVerb {close elevator})
+								(DoVerb {close lift})
 							)
 							(3
 							    (DoVerb {move up})
@@ -411,14 +443,18 @@
 							)
 						)
 					)
-		
+				)
 					)
+				)
+				)
+		
+
+	
 		
 		
+	
 		
 		
-						)
-					)
 		
 		
 		
@@ -443,7 +479,7 @@
 						(!= curRoomNum global111)
 						(or (Said '*/elevator,lift') (Said 'lift[<open][/*]'))
 					)
-					(Print 201 0)
+;;;					(Print 201 0)
 				)
 				((Said 'examine>')
 					(cond 
@@ -864,12 +900,13 @@
 		(if (!= param2 -1)
 			(ego loop: param2)
 		)
+		(HandsOn)
 	)
 	
 	(method (elevatorFunc)
 		(cond 
 			((& global109 gateStMask)
-				(AlreadyOpen)
+;;;				(AlreadyOpen)
 			)
 			((& (ego onControl: origin) cCYAN)
 				(if (!= curRoomNum global111)
@@ -894,11 +931,11 @@
 		)
 	)
 )
-(instance elevGate of Prop ;add
-	(properties
-		y 125
-		x 283
-		view 242
-		loop 2
-	)
-)
+;;;(instance elevGate of Prop ;add
+;;;	(properties
+;;;		y 125
+;;;		x 283
+;;;		view 242
+;;;		loop 2
+;;;	)
+;;;)
