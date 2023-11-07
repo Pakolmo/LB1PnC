@@ -22,6 +22,7 @@
 (local
 	local0
 	valveCued
+	temp7
 )
 (procedure (TurnValve)
 	(if (& (ego onControl: FALSE) cGREEN)
@@ -192,6 +193,325 @@
 	)
 	
 	(method (handleEvent event &tmp temp0)
+		
+						(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)
+					
+					(if (ClickedOnObj Trap (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor
+						(995
+			
+								(= temp7
+												(PrintSpecial
+;;;													{Trap}
+;;;													#button {Close} 1
+;;;													#button {Open} 2
+;;;													#button {Search} 3
+	
+													{Trampilla}
+													#button {Cerrar} 1
+													#button {Abrir} 2	
+													#button {Buscar} 3	
+												)
+											)
+											(switch temp7
+												(1 
+													(DoVerb {close tramp})
+													
+												)
+												(2 
+													(DoVerb {open tramp})
+													
+												)
+												(3 
+													(DoVerb {examine in tramp})
+													
+												)
+									
+												(else
+						
+													(event claimed: FALSE)
+												)
+										)
+						)
+						(998
+							
+								(= temp7
+												(PrintSpecial
+;;;													{Trap}
+;;;													#button {Examine down} 1
+;;;													#button {Examine} 2
+
+	
+													{Trampilla}
+													#button {Mirar Abajo} 1
+													#button {Examinar} 2	
+	
+												)
+											)
+											(switch temp7
+												(1 
+													(DoVerb {Examine down trapdoor})
+													
+												)
+												(2 
+													(DoVerb {Examine trapdoor})
+													
+												)
+												(else
+						
+													(event claimed: FALSE)
+												)
+										)
+							)
+								(else
+									(event claimed: FALSE)
+								)
+							)
+						)						
+		
+		
+		
+				(if (ClickedOnObj statue (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor
+						(995
+										(= temp7
+												(PrintSpecial
+;;;													{Statue}
+;;;													#button {Get} 1
+;;;													#button {Move} 2
+
+	
+													{Estatua}
+													#button {Coger} 1
+													#button {Mover} 2	
+	
+												)
+											)
+											(switch temp7
+												(1 
+													(DoVerb {Get monument})
+													
+												)
+												(2 
+													(DoVerb {move monument})
+													
+												)
+												(else
+						
+													(event claimed: FALSE)
+												)
+										)
+							)
+		
+					(998
+						(DoVerb {examine monument})
+					)
+					(else
+						(event claimed: FALSE)
+					)
+				)
+			)
+		
+					(if (ClickedOnObj urn (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor
+						(995
+										(= temp7
+												(PrintSpecial
+;;;													{Urn}
+;;;													#button {Get} 1
+;;;													#button {Move} 2
+;;;													#button {Search} 3
+	
+													{Urna}
+													#button {Coger} 1
+													#button {Mover} 2
+													#button {Buscar} 2	
+	
+												)
+											)
+											(switch temp7
+												(1 
+													(DoVerb {Get urn})
+													
+												)
+												(2 
+													(DoVerb {move urn})
+													
+												)
+												(3 
+													(DoVerb {examine in urn})
+													
+												)												
+												(else
+						
+													(event claimed: FALSE)
+												)
+										)
+							)
+		
+					(998
+						(DoVerb {examine urn})
+					)
+					(else
+						(event claimed: FALSE)
+					)
+				)
+			)	
+					(if (ClickedOnObj urn1 (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(event claimed: TRUE)
+							(Print 65 48)
+						)
+						(else
+							(event claimed: FALSE)
+					)
+				)
+			)	
+			
+					(if (ClickedOnObj fountain (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor
+						(995
+							(DoVerb {rotate valve handle})
+						)
+						(998
+							(= temp7
+												(PrintSpecial
+;;;													{Fountain}
+;;;													#button {Examine in} 1
+;;;													#button {Examine} 2
+;;;													#button {Rotate on} 3
+;;;													#button {Rotate off} 4
+	
+													{Fuente}
+													#button {Mirar dentro} 1
+													#button {Examinar} 2	
+													#button {Girar sobre} 3
+													#button {Girar} 4	
+												)
+											)
+											(switch temp7
+												(1 
+													(DoVerb {examine in fountain})
+													
+												)
+												(2 
+													(DoVerb {examine fountain})
+													
+												)
+												(3
+													(DoVerb {rotate on fountain})
+													
+												)
+												(4 
+													(DoVerb {rotate off fountain})
+													
+												)												
+												(else
+						
+													(event claimed: FALSE)
+												)
+										)
+							
+						)
+						(else
+							(event claimed: FALSE)
+					)
+				)
+			)			
+			
+			
+				(if (ClickedOnObj shaft (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor
+						(607 ;crowbar
+							
+							(DoVerb {force shaft})
+						)
+						(606 ;valve handle
+							(DoVerb {attach valve handleshaft})
+						)
+						(621 ;crank
+							(DoVerb {attach control shaft})
+						)
+						(998
+							(DoVerb {examine shaft})
+						)
+						(995
+																(= temp7
+												(PrintSpecial
+;;;													{Shaft}
+;;;													#button {Get} 1
+;;;													#button {Move} 2
+;;;													#button {Rotate} 3
+;;;													#button {Take valve handle} 4
+;;;													#button {Rotate valve handle} 5	
+													{Hueco}
+													#button {Coger} 1
+													#button {Mover} 2
+													#button {Rotar} 3	
+													#button {Coger V*lvula} 4
+													#button {Rotar V*vula} 4													
+												)
+											)
+											(switch temp7
+												(1 
+													(DoVerb {Get shaft})
+													
+												)
+												(2 
+													(DoVerb {move shaft})
+													
+												)
+												(3 
+													(DoVerb {rotate shaft})
+													
+												)
+												(4
+													(DoVerb {get valve handle})
+													
+												)																								
+												(5
+													(DoVerb {rotate valve handle})
+													
+												)
+												(else
+						
+													(event claimed: FALSE)
+												)
+										)
+								
+							
+							
+							
+						)
+						(else
+							(event claimed: FALSE)
+					)
+				)
+			)			
+						
+			
+					
+			)
+						)
+		
+		
+		
+		
+		
+		
+		
 		(if (event claimed?) (return TRUE))
 		(return
 			(if (== (event type?) saidEvent)

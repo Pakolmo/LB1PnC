@@ -21,6 +21,7 @@
 	pickUpState
 	lillHadGun
 	lillWasShot
+	temp7
 )
 (instance myMusic of Sound
 	(properties
@@ -118,6 +119,148 @@
 	
 	(method (handleEvent event)
 		(super handleEvent: event)
+		
+			(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)
+					
+							(if (ClickedOnObj Body (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(DoVerb {examine lil})
+						)	
+						(995
+									
+								(= temp7
+												(PrintSpecial
+;;;													{Lilian}
+;;;													#button {Search} 1
+;;;													#button {Get Derringer} 2
+;;;													#button {Get bullet} 3
+;;;													#button {Examine in Cape} 4		
+;;;													#button {Examine insignia} 5	
+													{Lilian}
+													#button {Buscar} 1
+													#button {Coger Arma} 2	
+													#button {Coger munici/n} 3								
+													#button {Examinar capa} 4
+													#button {Examinar insignia} 5
+												)
+											)
+											(switch temp7
+												(1 
+													(DoVerb {search lil})
+													
+												)
+												(2 
+													(DoVerb {get derringer})
+													
+												)
+												(3 
+													(DoVerb {get bullet})
+													
+												)
+												(4 
+													(DoVerb {examine in cape})
+													
+												)
+												(5 
+													(DoVerb {examine insignia})
+													
+												)
+												
+						(else
+						
+							(event claimed: FALSE)
+						)
+					)
+
+						
+
+							
+
+						)
+						(996
+							(DoVerb {converse lil})
+						)		
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+		
+	
+				(if (ClickedOnObj Shot (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(event claimed: TRUE)
+							(Print 280 2)
+						)	
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+	
+		
+				(if (ClickedOnObj Pistol (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(event claimed: TRUE)
+							(Print 280 2)
+						)	
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+		
+			)
+					)		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		(if (event claimed?) (return TRUE))
 		(return
 			(if (== (event type?) saidEvent)
