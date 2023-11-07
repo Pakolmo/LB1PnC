@@ -9,6 +9,7 @@
 (use Game)
 (use Actor)
 (use System)
+(use ElevGate);add
 
 (public
 	Room42 0
@@ -209,10 +210,16 @@
 					(not (& (event modifiers?) emRIGHT_BUTTON))
 				)
 	
-				(if (and (ClickedOnObj Shaft (event x?) (event y?))
-;;;					(& (ego onControl: origin) ctlMAROON)) ;inside
-					((not (& (ego onControl: origin) (| cMAGENTA cCYAN))) )
+;;;				(if (and (ClickedOnObj Shaft (event x?) (event y?))
+;;;				(if (and (ClickedOnObj Shaft (event x?) (event y?))
+;;;					(if (not (and (ego onControl: origin) (| cMAGENTA cCYAN cBLACK)))))
+;;;					(== global109 $0010))						
+						;;;					(& (ego onControl: origin) ctlMAROON)) ;inside
+;;;					(if (not (& (ego onControl: origin) (| cMAGENTA cCYAN))))
+			(if (and (ClickedOnObj ElevGate (event x?) (event y?))
+					(ego onControl: origin) (| ctlMAROON ctlTEAL))
 					(event claimed: TRUE)
+					(Print {test1})
 					(switch theCursor
 					(619
 					(= temp7
@@ -332,15 +339,16 @@
 							)
 						)
 					)
+					
 					(else
 								(event claimed: FALSE)
 							)
 					
 					
-					
+					)
 					
 				)
-					)	
+					
 	
 	
 	
@@ -831,7 +839,9 @@
 				)
 			)
 		)
-	)
+	
+			)
+		
 	
 	(method (newRoom n)
 		(if (and (!= n 41) (== global201 200))
@@ -1285,3 +1295,6 @@
 		)
 	)
 )
+
+
+;ASCENSOR ROOM201

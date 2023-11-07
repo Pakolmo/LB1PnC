@@ -268,26 +268,27 @@
 					)
 
 			)		
-			(if (ClickedOnPicView chair1 (event x?) (event y?)) 
-					
-					(event claimed: TRUE)
-					(switch theCursor	
-						(995
-							(DoVerb {get chair})
-						)
-						(998
-							(DoVerb {look chair})
-						)
-						(else
-
-						
-							(event claimed: FALSE)
-						)
-					)
-
-			)				
-		
-		
+;;;			(if (and (ClickedOnPicView chair1 (event x?) (event y?)) ;BUG with wilbur
+;;;				(not (cast contains: Wilbur)))
+;;;					
+;;;					(event claimed: TRUE)
+;;;					(switch theCursor	
+;;;						(995
+;;;							(DoVerb {get chair})
+;;;						)
+;;;						(998
+;;;							(DoVerb {look chair})
+;;;						)
+;;;						(else
+;;;
+;;;						
+;;;							(event claimed: FALSE)
+;;;						)
+;;;					)
+;;;
+;;;			)				
+;;;		
+;;;		
 		
 		
 		

@@ -769,6 +769,7 @@
 				)
 			)
 			(7
+				
 				(= cIcon myIcon)
 				(= deathLoop 0)
 				(= deathCel 0)

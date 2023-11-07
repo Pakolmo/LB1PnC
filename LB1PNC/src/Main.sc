@@ -1146,6 +1146,7 @@
 				Jules_
 				Beauregard_
 				Polly_
+				Blaze_
 				
 		)
 		(= global181 1)
@@ -1693,5 +1694,12 @@
 ;;;		said '/Polly'
 		view 942
 		name "Polly"
+	)
+)
+(instance Blaze_ of InvI
+	(properties
+;;;		said '/Blaze'
+		view 943
+		name "Blaze"
 	)
 )						

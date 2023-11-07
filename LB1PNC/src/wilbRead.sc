@@ -98,6 +98,188 @@
 	)
 	
 	(method (handleEvent event)
+		
+			(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)
+						
+					(if (or (ClickedOnObj Wilbur (event x?) (event y?))
+						(ClickedInRect 138 142 196 204 event))
+						
+						
+						
+					
+					(event claimed: TRUE)
+					(switch theCursor	
+					(998
+						(if (not (& global207 $0080))
+						(DoVerb {examine c})						
+						)
+						(if (& global207 $0080)
+							(event claimed: TRUE)
+							(Print 220 17)
+						)
+					)
+					(996
+						(DoVerb {converse wilbur})
+					)
+						
+					
+					(602 ;necklace_
+						(DoVerb {tell wilbur about handkerchief})						
+					)
+					(604 ;monocle
+						(DoVerb {tell wilbur about monocle})						
+					)
+					
+					(613 ;lantern_
+						(DoVerb {tell wilbur about lantern})						
+					)
+					(611 ;oilcan_
+						(DoVerb {tell wilbur about oilcan})						
+					)
+					(626 ;rolling_pin_
+						(DoVerb {tell wilbur about pin})						
+					)
+					(620 ;skeleton_key_
+						(DoVerb {tell wilbur about skeleton key})						
+					)
+					(627 ;poker_
+						(DoVerb {tell wilbur about poker})						
+					)															
+					(607 ;crowbar_
+						(DoVerb {tell wilbur about crowbar})						
+					)
+					(628 ;cigar_butt_
+						(DoVerb {tell wilbur about butt})						
+					)
+					(625 ;broken_record_
+						(DoVerb {tell wilbur about broken record})						
+					)
+					(601 ;notebook___pencil_
+						(DoVerb {tell wilbur about notebook})						
+					)
+					(603 ;_7_crackers________
+						(DoVerb {tell wilbur about crackers})						
+					)
+					(605 ;soup_bone_
+						(DoVerb {tell wilbur about soup bone})						
+					)
+					(606 ;valve_handle_
+						(DoVerb {tell wilbur about valve})						
+					)
+					(618 ;bullet_
+						(DoVerb {tell wilbur about bullet})						
+					)
+					(617 ;derringer__
+						(DoVerb {tell wilbur about derringer})						
+					)
+					(614 ;matches_
+						(DoVerb {tell wilbur about matches})						
+					)
+					(615 ;carrot_
+						(DoVerb {tell wilbur about carrot})						
+					)
+					(619 ;brass_key_
+						(DoVerb {tell wilbur about brass key})						
+					)
+					(616 ;diary_
+						(DoVerb {tell wilbur about diary})						
+					)
+					(621 ;crank_
+						(DoVerb {tell wilbur about crank})						
+					)
+					(612 ;cane_
+						(DoVerb {tell wilbur about cane})						
+					)
+					(622 ;pouch_
+						(DoVerb {tell wilbur about pouch})						
+					)																																																																																
+					(630 ;handkerchief_
+						(DoVerb {tell wilbur about handkerchief})
+					)
+											
+						
+						
+						
+						
+							(930  ;gertrude
+								(event type: 1 claimed: 1)
+								(DoVerb {ask wilbur about Gertrude})
+							)
+							(931 ;Celie
+								(event type: 1 claimed: 1)
+								(DoVerb {ask wilbur about Celie})
+							)	
+							(932 ;Gloria
+								(event type: 1 claimed: 1)
+								(DoVerb {ask wilbur about Gloria})
+							)													
+							(933 ;Ethel
+								(event type: 1 claimed: 1)
+								(DoVerb {ask wilbur about Ethel})
+							)	
+							(934 ;Fifi
+								(event type: 1 claimed: 1)
+								(DoVerb {ask wilbur about Fifi})
+							)	
+							(935 ;Lillian
+								(event type: 1 claimed: 1)
+								(DoVerb {ask wilbur about Lillian})
+							)																					
+							(936 ;Clarence
+								(event type: 1 claimed: 1)
+								(DoVerb {ask wilbur about Clarence})
+							)	
+							(937 ;Feels
+								(event type: 1 claimed: 1)
+								(DoVerb {ask wilbur about Wilbur})
+							)
+							(938 ;Rudy
+								(event type: 1 claimed: 1)
+								(DoVerb {ask wilbur about Rudy})
+							)	
+							(939 ;Colonel
+								(event type: 1 claimed: 1)
+								(DoVerb {ask wilbur about Colonel})
+							)
+							(940 ;Jules
+								(event type: 1 claimed: 1)
+								(DoVerb {ask wilbur about Jules})
+							)											
+							(941 ;Dog
+								(event type: 1 claimed: 1)
+								(DoVerb {ask wilbur about beauregard})
+							)													
+							(942 ;Parrot
+								(event type: 1 claimed: 1)
+								(DoVerb {ask wilbur about polly})
+							)							
+							(943 ;Horse
+								(event type: 1 claimed: 1)
+								(DoVerb {ask wilbur about blaze})
+							)							
+					(else
+						(event claimed: FALSE)
+						)																	
+						)
+					)		
+						
+
+		
+		
+			)
+			)
+		
+		
+		
+		
+		
+		
+		
 		(if (event claimed?) (return TRUE))
 		(return
 			(if (== (event type?) saidEvent)

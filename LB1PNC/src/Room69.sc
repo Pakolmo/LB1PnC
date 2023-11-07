@@ -34,6 +34,7 @@
 	
 	(method (init)
 		(super init:)
+		(ego get: 37); inventory blaze horse
 		(addToPics
 			add: saddle trough bridle
 			eachElementDo: #init

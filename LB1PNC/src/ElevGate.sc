@@ -281,10 +281,14 @@
 					(== (event type?) evMOUSEBUTTON)
 					(not (& (event modifiers?) emRIGHT_BUTTON))
 				)
-;;;				(if (== theCursor 619) ;brass key
-				(if (and (ClickedOnObj ElevGate (event x?) (event y?))
-						((not (and (ego onControl: origin) (| cMAGENTA cCYAN)))))
+				(if (ClickedOnObj ego (event x?) (event y?))
+					
+;;;				(if (and (ClickedOnObj ElevGate (event x?) (event y?))
+;;;						(if (not (and (ego onControl: origin) (| cMAGENTA cCYAN)))))
+;;;						(== global109 $0010)) ;inside
+
 					(event claimed: TRUE)
+					(Print {test2})
 					(switch theCursor
 					(619
 					(= temp7
@@ -327,9 +331,10 @@
 					
 ;;;						(= temp7
 ;;;							(PrintSpecial
-;;;								{Elevator}
-;;;								#button {Enter} 1
-;;;								#button {Exit} 2							
+;;;								{  }
+;;;								#button {Examine Control} 1
+;;;								#button {Examine Keyhole} 2	
+;;;								#button {Examine Shaft} 3						
 ;;;							)		
 						(= temp7
 							(PrintSpecial
@@ -361,40 +366,40 @@
 					
 						
 					)
-;;;					(999		
-;;;					
-;;;				
-;;;					
-;;;;;;						(= temp7
-;;;;;;							(PrintSpecial
-;;;;;;								{Elevator}
-;;;;;;								#button {Enter} 1
-;;;;;;								#button {Exit} 2							
-;;;;;;							)		
+					(999		
+					
+				
+					
 ;;;						(= temp7
 ;;;							(PrintSpecial
-;;;								{Ascensor}
-;;;								#button {Entrar} 1
-;;;								#button {Salir} 2							
-;;;							)
-;;;							)
-;;;
-;;;						(switch temp7
-;;;							(1
-;;;							    (DoVerb {enter elevator})
-;;;							   
-;;;	
-;;;							)
-;;;							(2
-;;;								(DoVerb {exit elevator})
-;;;							)
-;;;						
-;;;							(else
-;;;								(event claimed: FALSE)
-;;;							)
-;;;						)
-;;;						
-;;;					)
+;;;								{Elevator}
+;;;								#button {Enter} 1
+;;;								#button {Exit} 2							
+;;;							)		
+						(= temp7
+							(PrintSpecial
+								{Ascensor}
+								#button {Entrar} 1
+								#button {Salir} 2							
+							)
+							)
+
+						(switch temp7
+							(1
+							    (DoVerb {enter elevator})
+							   
+	
+							)
+							(2
+								(DoVerb {exit elevator})
+							)
+						
+							(else
+								(event claimed: FALSE)
+							)
+						)
+						
+					)
 					
 					(995
 		
@@ -407,7 +412,7 @@
 ;;;								#button {Exit} 2								
 ;;;								#button {Press Up} 3
 ;;;								#button {Press Down} 4
-
+;;;
 ;;;							)
 							(PrintSpecial
 								{Ascensor}
@@ -442,12 +447,17 @@
 								(event claimed: FALSE)
 							)
 						)
+					)(else
+								(event claimed: FALSE)
+							)
+					)
+					)
+					
+					
+					
+					
 					)
 				)
-					)
-				)
-				)
-		
 
 	
 		
@@ -939,3 +949,5 @@
 ;;;		loop 2
 ;;;	)
 ;;;)
+
+(instance lamp1 of Actor)

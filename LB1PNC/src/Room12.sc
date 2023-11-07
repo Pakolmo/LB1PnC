@@ -333,6 +333,9 @@
 					
 					(event claimed: TRUE)
 					(switch theCursor
+						(605 ;soup
+							(DoVerb {feed bone})
+						)
 						(998	
 								(= temp7
 												(Print
@@ -416,6 +419,117 @@
 					)
 				)
 		
+	
+	
+			
+		(if (ClickedOnObj Dog (event x?) (event y?)) 
+		
+			(event claimed: TRUE)
+			(switch theCursor	
+				(605
+					(DoVerb {hold bone beauregard})
+				)
+				(996
+													(= temp7
+												(Print
+;;;													{beauregard}
+;;;													#button {Call} 1
+;;;													#button {Converse} 2
+;;;													#button {Kiss} 3		
+													{Beauregard}
+													#button {Llamar} 1
+													#button {Hablar} 2								
+													#button {Besar} 3
+												)
+											)
+											(switch temp7
+												(1 
+													(DoVerb {call beauregard})
+												)
+												(2 
+													(DoVerb {converse beauregard})
+												)												
+												(3 
+													(DoVerb {kiss beauregard})
+												)	
+												(else
+						
+													(event claimed: FALSE)
+												)
+										)
+
+				
+				)
+				(998		
+					(DoVerb {examine beauregard})
+					(ego get: 35) ;inv dog.
+				)
+				(995
+								(= temp7
+												(Print
+;;;													{beauregard}
+;;;													#button {Get} 1
+;;;													#button {Pat} 2
+;;;													#button {Feed} 3		
+;;;													#button {Kill} 4
+													{Beauregard}
+													#button {Coger} 1
+													#button {Acariciar} 2								
+													#button {Alimentar} 3
+													#button {Matar} 4
+												)
+											)
+											(switch temp7
+												(1 
+													(DoVerb {get beauregard})
+												)
+												(2 
+													(DoVerb {pat beauregard})
+												)												
+												(3 
+													(DoVerb {feed beauregard})
+												)	
+												(4 
+													(DoVerb {kill beauregard})
+												)												
+												(else
+						
+													(event claimed: FALSE)
+												)
+										)
+
+						)
+						(else
+						
+							(event claimed: FALSE)
+						)
+		
+		)
+		)
+		
+			(if (ClickedOnObj Jeeves (event x?) (event y?)) 
+		
+			(event claimed: TRUE)
+			(switch theCursor	
+				(996
+					(DoVerb {converse jeeves})
+				)
+				(998
+					(DoVerb {examine butler})
+				)		
+				(else
+					(event claimed: FALSE)
+				)
+		
+			)
+			)
+		
+		
+	
+	
+	
+	
+	
 			
 					)
 						)
@@ -845,3 +959,5 @@
 		)
 	)
 )
+(instance Dog of Actor)
+(instance Jeeves of Actor)
