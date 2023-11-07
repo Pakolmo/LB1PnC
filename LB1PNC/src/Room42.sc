@@ -202,344 +202,246 @@
 	
 	(method (handleEvent event)
 		(super handleEvent: event)		
-		
 		(cond
 			(
 				(and
 					(== (event type?) evMOUSEBUTTON)
 					(not (& (event modifiers?) emRIGHT_BUTTON))
 				)
-	
 ;;;				(if (and (ClickedOnObj Shaft (event x?) (event y?))
 ;;;				(if (and (ClickedOnObj Shaft (event x?) (event y?))
 ;;;					(if (not (and (ego onControl: origin) (| cMAGENTA cCYAN cBLACK)))))
 ;;;					(== global109 $0010))						
 						;;;					(& (ego onControl: origin) ctlMAROON)) ;inside
 ;;;					(if (not (& (ego onControl: origin) (| cMAGENTA cCYAN))))
-			(if (and (ClickedOnObj ElevGate (event x?) (event y?))
-					(ego onControl: origin) (| ctlMAROON ctlTEAL))
+				(if (ClickedOnObj ElevGate (event x?) (event y?))
 					(event claimed: TRUE)
 					(Print {test1})
 					(switch theCursor
-					(619
-					(= temp7
-							
-;;;							(PrintSpecial
-;;;								{Elevator}
-;;;								#button {Latch} 1
-;;;								#button {Unbar} 2							
-;;;							)							
-							
-							
-							
-							
-							(PrintSpecial
-								{Ascensor}
-								#button {Bloquear} 1
-								#button {Desbloquear} 2							
-							)
-							)
-
-						(switch temp7
-							(1
-							    (DoVerb {latch elevator})
-							   
-	
-							)
-							(2
-								(DoVerb {unbar elevator})
-							)
-						
-							(else
-								(event claimed: FALSE)
+						(619 ;brass key
+							(if (& (ego onControl: origin) (| ctlMAROON ctlTEAL))
+								(= temp7
+									(PrintSpecial
+;;;										{Elevator}
+;;;										#button {Latch} 1
+;;;										#button {Unbar} 2
+										{Ascensor}
+										#button {Bloquear} 1
+										#button {Desbloquear} 2							
+									)
+								)
+								(switch temp7
+									(1
+							    		(DoVerb {latch elevator})
+									)
+									(2
+										(DoVerb {unbar elevator})
+									)	
+									(else
+										(event claimed: FALSE)
+									)
+								)
+							else
+								(NotClose)
 							)
 						)
-					
-					)
-					
-					(999		
-					
-				
-					
-;;;						(= temp7
-;;;							(PrintSpecial
-;;;								{Elevator}
-;;;								#button {Enter} 1
-;;;								#button {Exit} 2							
-;;;							)		
-						(= temp7
-							(PrintSpecial
-								{Ascensor}
-								#button {Entrar} 1
-								#button {Salir} 2							
+						(999 ;walk				
+							(= temp7
+								(PrintSpecial
+;;;									{Elevator}
+;;;									#button {Enter} 1
+;;;									#button {Exit} 2
+									{Ascensor}
+									#button {Entrar} 1
+									#button {Salir} 2							
+								)
 							)
-							)
-
-						(switch temp7
-							(1
-							    (DoVerb {enter elevator})
-							   
-	
-							)
-							(2
-								(DoVerb {exit elevator})
-							)
-						
-							(else
-								(event claimed: FALSE)
+							(switch temp7
+								(1
+								    (DoVerb {enter elevator})
+								)
+								(2
+									(DoVerb {exit elevator})
+								)
+								(else
+									(event claimed: FALSE)
+								)
 							)
 						)
-						
-					)
-					
-					(995
-		
-		 
-
-					(= temp7
-;;;							(PrintSpecial
-;;;								{Elevator}
-;;;								#button {Open} 1
-;;;								#button {Close} 2								
-;;;								#button {Press Up} 3
-;;;								#button {Press Down} 4
-
-;;;							)
-							(PrintSpecial
-								{Elevator}
-								#button {Open} 1
-								#button {Close} 2
-								#button {Arriba} 3
-								#button {Abajo} 4								
-
-							)							
-							
+						(995 ;hand
+							(= temp7
+								(PrintSpecial
+;;;									{Elevator}
+;;;									#button {Open} 1
+;;;									#button {Close} 2								
+;;;									#button {Press Up} 3
+;;;									#button {Press Down} 4
+									{Elevator}
+									#button {Open} 1
+									#button {Close} 2
+									#button {Arriba} 3
+									#button {Abajo} 4
+								)						
 							)
-
-						(switch temp7
-							(1
-							    (DoVerb {open elevator})
-							   
-	
-							)
-							(2
-								(DoVerb {close elevator})
-							)
-							(3
-							    (DoVerb {move up})
-							   
-	
-							)
-							(4
-								(DoVerb {move down})
-							)	
-													
-							(else
-								(event claimed: FALSE)
+							(switch temp7
+								(1
+								    (DoVerb {open elevator})
+								)
+								(2
+									(DoVerb {close elevator})
+								)
+								(3
+								    (DoVerb {move up}) 
+								)
+								(4
+									(DoVerb {move down})
+								)						
+								(else
+									(event claimed: FALSE)
+								)
 							)
 						)
+						(else
+							(event claimed: TRUE)
+						)
 					)
-					
-					(else
-								(event claimed: FALSE)
-							)
-					
-					
-					)
-					
 				)
-					
-	
-	
-	
-		
-			(if (ClickedOnPicView bed (event x?) (event y?)) 
-					
+				(if (ClickedOnPicView bed (event x?) (event y?))
 					(event claimed: TRUE)
 					(switch theCursor	
 						(998
 							(DoLook {bed})
 						)
 						(else
-
-						
 							(event claimed: FALSE)
 						)
 					)
-
-			)	
-		
-			(if (ClickedOnPicView table1 (event x?) (event y?)) 
+				)	
+				(if (ClickedOnPicView table1 (event x?) (event y?)) 
 					(event claimed: TRUE)
 					(switch theCursor	
 						(998
 							(DoLook {table})
 						)
 						(else
-					
 							(event claimed: FALSE)
 						)
 					)
-
-			)		
-		
-			(if (ClickedOnPicView table2 (event x?) (event y?)) 
+				)
+				(if (ClickedOnPicView table2 (event x?) (event y?)) 
 					(event claimed: TRUE)
 					(switch theCursor	
 						(998
 							(DoLook {table})
 						)
-						(else
-					
+						(else	
 							(event claimed: FALSE)
 						)
 					)
-
-			)		
-		
-			(if (ClickedOnPicView table3 (event x?) (event y?)) 
+				)
+				(if (ClickedOnPicView table3 (event x?) (event y?)) 
 					(event claimed: TRUE)
 					(switch theCursor	
 						(998
 							(DoLook {table})
 						)
-						(else
-					
+						(else			
 							(event claimed: FALSE)
 						)
 					)
-
-			)		
+				)		
 				;Bug with colonel.		
-;;;				(if (ClickedOnPicView sofa (event x?) (event y?)) 
-;;;					
+;;;				(if (ClickedOnPicView sofa (event x?) (event y?)) 	
 ;;;					(event claimed: TRUE)
 ;;;					(switch theCursor	
 ;;;						(998
 ;;;							(DoLook {sofa})
 ;;;						)
 ;;;						(else
-;;;
-;;;						
 ;;;							(event claimed: FALSE)
 ;;;						)
 ;;;					)
-;;;
-;;;			)	
-		
-			(if (ClickedOnPicView mirror (event x?) (event y?)) 
-					
+;;;				)
+				(if (ClickedOnPicView mirror (event x?) (event y?)) 	
 					(event claimed: TRUE)
 					(switch theCursor	
 						(998
 							(DoLook {mirror})
 						)
 						(else
-
-						
 							(event claimed: FALSE)
 						)
 					)
-
-			)		
-		
+				)		
 				(if (ClickedOnPicView stand (event x?) (event y?)) 
-					
 					(event claimed: TRUE)
 					(switch theCursor	
 						(998
 							(DoLook {stand})
 						)
-						(else
-
-						
+						(else						
 							(event claimed: FALSE)
 						)
 					)
-
-			)	
-			(if (ClickedOnPicView vase (event x?) (event y?)) 
-					
+				)	
+				(if (ClickedOnPicView vase (event x?) (event y?)) 		
 					(event claimed: TRUE)
 					(switch theCursor	
 						(998
 							(DoLook {vase})
 						)
 						(else
-
-						
 							(event claimed: FALSE)
 						)
 					)
-
-			)		
-		
-			(if (ClickedOnPicView flower (event x?) (event y?)) 
-					
+				)
+				(if (ClickedOnPicView flower (event x?) (event y?)) 				
 					(event claimed: TRUE)
 					(switch theCursor	
 						(998
-							(DoLook {vase}) ;vase
+							(DoLook {vase})
 						)
 						(else
-
-						
 							(event claimed: FALSE)
 						)
 					)
-
-			)		
-		
-			(if (ClickedOnPicView cannon (event x?) (event y?)) 
-					
+				)	
+				(if (ClickedOnPicView cannon (event x?) (event y?)) 	
 					(event claimed: TRUE)
 					(switch theCursor	
 						(619 ;key
-							(DoVerb {atatch key cannon})
+							(DoVerb {attach key cannon})
 							(Print 42 30)
 						)
 						(995
-							
-								(DoVerb {get key})
-							
+							(DoVerb {get key})		
 						)
 						(998
 							(= temp7
-												(Print
-													{Cannon}
-													#button {Mirar} 1
-													#button {Examinar} 2	
-								
-													
-												)
-											)
-											(switch temp7
-												(1 		
-													(DoVerb {look cannon})
-												)
-												(2
-													(DoVerb {look in cannon})
-												)
-												
-												(else
-													(event claimed: FALSE)
-												)
-											)
-						
+								(PrintSpecial
+									{Cannon}
+									#button {Mirar} 1
+									#button {Examinar} 2
+								)
+							)
+							(switch temp7
+								(1 		
+									(DoVerb {look cannon})
+								)
+								(2
+									(DoVerb {look in cannon})
+								)
+								(else
+									(event claimed: FALSE)
+								)
+							)
 						)
-							
-
 						(else
-
-						
 							(event claimed: FALSE)
 						)
 					)
-
-			)		
-
-			(if (ClickedOnObj Armoire (event x?) (event y?)) 
-					
+				)
+				(if (ClickedOnObj Armoire (event x?) (event y?)) 		
 					(event claimed: TRUE)
 					(switch theCursor	
 						(998
@@ -549,201 +451,138 @@
 							(DoVerb {move panel door})	
 						)
 						(else
-
-						
 							(event claimed: FALSE)
 						)
 					)
-
-			)		
-			
-			(if (ClickedOnObj SDress (event x?) (event y?)) 
-					
+				)
+				(if (ClickedOnObj SDress (event x?) (event y?))				
 					(event claimed: TRUE)
 					(switch theCursor	
 						(995
-							
 							(DoVerb {open drawer})	
 						)
-							
 						(998
 							(event claimed: TRUE)
 							(Print 42 37)
 						)
 						(else
-
-						
 							(event claimed: FALSE)
 						)
 					)
-
-			)				
-			
-;;;		(if (and (ClickedOnObj Shaft (event x?) (event y?)) ;elevator
-;;;					
-;;;
-;;;					
+				)	
+;;;				(if (and (ClickedOnObj Shaft (event x?) (event y?)) ;elevator
 ;;;					(event claimed: TRUE)
 ;;;					(switch theCursor	
 ;;;						(998
-;;;							
 ;;;							(DoVerb {look elevator})	
 ;;;						)
-;;;							
 ;;;						(995
 ;;;							(DoVerb {open elevator})
 ;;;						)
 ;;;						(else
-;;;
-;;;						
 ;;;							(event claimed: FALSE)
 ;;;						)
 ;;;					)
-;;;
-;;;			)				
-;;;				
-;;;			
-			
-		(if (ClickedOnObj Dbag (event x?) (event y?)) ;Dbag
-					
+;;;				)
+				(if (ClickedOnObj Dbag (event x?) (event y?)) ;Dbag			
 					(event claimed: TRUE)
 					(switch theCursor	
 						(995
 							(= temp7
-												(Print
-													{Bag}
-													#button {Get} 1
-													#button {Open} 2								
-												)
-											)
-											(switch temp7
-												(1 ;get
-													(DoVerb {get bag})
-												)
-												(2
-													(DoVerb {open bag})
-												)
-											)
+								(Print
+									{Bag}
+									#button {Get} 1
+									#button {Open} 2								
+								)
+							)
+							(switch temp7
+								(1
+									(DoVerb {get bag})
+								)
+								(2
+									(DoVerb {open bag})
+								)
+							)
 						)
 						(998
-							(= temp8
-												(Print
-													{Bag}
-													#button {look} 1
-													#button {examine} 2								
-												)
-											)
-											(switch temp8
-												(1 ;get
-													(DoVerb {look bag})
-												)
-												(2
-													(DoVerb {examine in bag})
-												)
-											)
+							(= temp7
+								(Print
+									{Bag}
+									#button {look} 1
+									#button {examine} 2								
+								)
+							)
+							(switch temp7
+								(1
+									(DoVerb {look bag})
+								)
+								(2
+									(DoVerb {examine in bag})
+								)
+							)
 						)	
 						(else
-
 							(event claimed: FALSE)
-						)
-										
+						)				
 					)
-			)						
-	
-			
-
-					(if (ClickedOnObj logs (event x?) (event y?)) ;logs
-					
+				)
+				(if (ClickedOnObj logs (event x?) (event y?)) ;logs	
 					(event claimed: TRUE)
 					(switch theCursor	
 						(998
 							(DoVerb {Examine log})
 						)
 						(else
-
 							(event claimed: FALSE)
-						)
-										
+						)						
 					)
-					)			
-			
-					(if (ClickedOnObj lamp1 (event x?) (event y?)) 
-							
+				)
+				(if (ClickedOnObj lamp1 (event x?) (event y?))			
 					(event claimed: TRUE)
 					(switch theCursor	
 						(998
 							(DoVerb {look lamp})
 						)
 						(else
-
 							(event claimed: FALSE)
-						)
-										
+						)			
 					)
-					)	
-					
-					
-					(if (ClickedOnObj lamp2 (event x?) (event y?)) 
-							
+				)	
+				(if (ClickedOnObj lamp2 (event x?) (event y?)) 			
 					(event claimed: TRUE)
 					(switch theCursor	
 						(998
 							(DoVerb {look lamp})
 						)
 						(else
-
 							(event claimed: FALSE)
-						)
-										
+						)			
 					)
-					)								
-						(if (ClickedOnPicView Chair (event x?) (event y?)) 
-							
+				)								
+				(if (ClickedOnPicView Chair (event x?) (event y?))			
 					(event claimed: TRUE)
 					(switch theCursor	
 						(998
 							(DoVerb {look wheelchair})
 						)
 						(else
-
 							(event claimed: FALSE)
-						)
-										
+						)			
 					)
-					)		
-					
+				)	
 				(if (ClickedInRect 312 319 137 155 event) ;exit room right
-			(event claimed: TRUE)
+					(event claimed: TRUE)
 					(switch theCursor
 						(999
 							(ego setMotion: MoveTo 321 147)
 						)
 						(else
-								(event claimed: FALSE)
+							(event claimed: FALSE)
 						)
-					 )
-				
+					)
 				)
-								
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-						
-			
 			)
-			)
-		
-		
-
+		)
 		(if (event claimed?) (return))
 		(if (== (event type?) saidEvent)
 			(DisposeScript SAVE)
