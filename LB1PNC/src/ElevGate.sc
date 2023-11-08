@@ -9,6 +9,7 @@
 
 (local
 	temp7
+	ascensor
 )
 (procedure (UpOrDown pushOrPull)
 	(Printf 201 16 pushOrPull)
@@ -42,6 +43,46 @@
 
 (class ElevGate of Prop
 	(properties
+;;;		chainID 0
+;;;		elevatorID 0
+;;;		downID 0
+;;;		upID 0
+;;;		msgID 0
+;;;		gateStMask 0
+;;;		gateX 283
+;;;		gateY 125
+;;;		elevX 296
+;;;		elevY 125
+;;;		chainY 0
+;;;		upRoomNo 0
+;;;		downRoomNo 0
+		y 0
+		x 0
+		z 0
+		heading 0
+		yStep 2
+		view 0
+		loop 0
+		cel 0
+		priority 0
+		underBits 0
+		signal $0000
+		nsTop 0
+		nsLeft 0
+		nsBottom 0
+		nsRight 0
+		lsTop 0
+		lsLeft 0
+		lsBottom 0
+		lsRight 0
+		brTop 0
+		brLeft 0
+		brBottom 0
+		brRight 0
+		cycleSpeed 0
+		script 0
+		cycler 0
+		timer 0
 		chainID 0
 		elevatorID 0
 		downID 0
@@ -54,7 +95,7 @@
 		elevY 125
 		chainY 0
 		upRoomNo 0
-		downRoomNo 0
+		downRoomNo 0		
 	)
 	
 	(method (init &tmp elevatorIDLastCel temp1)
@@ -65,12 +106,14 @@
 				(= gateStMask 1)
 				(= upRoomNo 42)
 				(= downRoomNo -1)
+				(= ascensor 32)
 			)
 			(42
 				(= gateStMask 2)
 				(= elevY (= gateY 126))
 				(= upRoomNo 75)
 				(= downRoomNo 32)
+				(= ascensor 42)
 			)
 			(75
 				(= gateStMask 4)
@@ -80,6 +123,7 @@
 				(= elevY 112)
 				(= upRoomNo -1)
 				(= downRoomNo 42)
+				(= ascensor 75)
 			)
 		)
 		(= chainY (- elevY 59))
@@ -93,7 +137,8 @@
 				)
 				(self lastCel:)
 			else
-				(&= global109 (~ gateStMask))
+;;;				(&= global109 (~ gateStMask))
+				(= global109 (& global109 (~ gateStMask)))
 				0
 			)
 		)
@@ -155,8 +200,10 @@
 				else
 					(= temp1 -52)
 				)
-				(&= global111 $7fff)
-				(&= global109 $0040)
+;;;				(&= global111 $7fff)
+;;;				(&= global109 $0040)
+				(= global111 (& global111 $7fff))
+				(= global109 (| global109 $0040))
 				(HandsOff)
 				(= global110 0)
 				(elevatorID
@@ -215,10 +262,16 @@
 				(not (& global109 $0020))
 			)
 			(cond 
+<<<<<<< HEAD
+;;;				((& (ego onControl: origin) cRED)
+				((& (ego onControl: 1) $0010)
+=======
 				((& (ego onControl: origin) cRED)
 					(Print "elevGate doit cRED")
+>>>>>>> d71845fe9e8aa1e9fb4ba83a67abe1f16c73e04b
 					(= global110 15)
-					(|= global109 $0020)
+;;;					(|= global109 $0020)
+					(= global109 (| global109 $0020))
 					(HandsOff)
 					(ego
 						view: 5
@@ -235,7 +288,8 @@
 				)
 				(
 					(and
-						(& (ego onControl: origin) cCYAN)
+;;;						(& (ego onControl: origin) cCYAN)
+						(& (ego onControl: 1) $0008)
 						(== curRoomNum global111)
 					)
 					;(Print "elevGate doit cCYAN")
@@ -285,12 +339,18 @@
 					(== (event type?) evMOUSEBUTTON)
 					(not (& (event modifiers?) emRIGHT_BUTTON))
 				)
+<<<<<<< HEAD
+				(if (and (ClickedOnObj ElevGate (event x?) (event y?))
+					(if (& global109 $0010)
+					
+=======
 				(if (== global109 $0010) ;inside
 					(event claimed: TRUE)
 					(Print {in elevation})
 				)	
 				
 				(if (ClickedOnObj ego (event x?) (event y?))
+>>>>>>> d71845fe9e8aa1e9fb4ba83a67abe1f16c73e04b
 ;;;				(if (and (ClickedOnObj ElevGate (event x?) (event y?))
 ;;;						(if (not (and (ego onControl: origin) (| cMAGENTA cCYAN)))))
 ;;;						(== global109 $0010)) ;inside
@@ -409,9 +469,42 @@
 							(event claimed: FALSE)
 						)
 					)
+<<<<<<< HEAD
+					)
+					)
+					
+					)
+					
+					)
+				)
+
+	
+		
+		
+	
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+=======
 				)	
 			)
 		)
+>>>>>>> d71845fe9e8aa1e9fb4ba83a67abe1f16c73e04b
 		(if (event claimed?) (return))
 		(if (== (event type?) saidEvent)
 			(cond 
@@ -611,7 +704,8 @@
 			(0
 				(Print {0})
 				(self stopUpd:)
-				(&= global109 $ffbf)
+;;;				(&= global109 $ffbf)
+				(= global109 (& global109 $ffbf))
 				(if (!= curRoomNum global111)
 					(= global110 -1)
 				)
@@ -654,11 +748,17 @@
 			)
 			(4 (Print {4}) (self gateFunc: 0 3))
 			(5
+<<<<<<< HEAD
+;;;				(if (& (ego onControl: origin) cCYAN)
+				(if (& (ego onControl: 1) $0008)
+=======
 				(Print {5})
 				(if (& (ego onControl: origin) cCYAN)
+>>>>>>> d71845fe9e8aa1e9fb4ba83a67abe1f16c73e04b
 					(ego
 						loop: 2
-						illegalBits: cWHITE
+;;;						illegalBits: cWHITE
+						illegalBits:-32768
 						ignoreActors: 0
 						setMotion: MoveTo (ego x?) (+ (ego y?) (ego yStep?)) self
 					)
@@ -844,11 +944,13 @@
 		(if (== param1 1)
 			(cSound number: 81)
 			(self setCycle: EndLoop self)
-			(|= global109 gateStMask)
+;;;			(|= global109 gateStMask)
+			(= global109 (| global109 gateStMask))
 		else
 			(cSound number: 79)
 			(self setCycle: BegLoop self)
-			(|= global109 (~ gateStMask))
+;;;			(|= global109 (~ gateStMask))
+			(= global109 (& global109 (~ gateStMask)))
 		)
 		(cSound loop: 1 play:)
 		(if (and (== curRoomNum 32) (!= curRoomNum global111))
@@ -863,39 +965,73 @@
 		(HandsOn)
 	)
 	
+;;;	(method (elevatorFunc)
+;;;		(cond 
+;;;			((& global109 gateStMask)
+;;;;;;				(AlreadyOpen)
+;;;			)
+;;;			((& (ego onControl: origin) cCYAN)
+;;;				(if (!= curRoomNum global111)
+;;;					(self gateFunc: 1 3)
+;;;				else
+;;;					(|= global109 $0040)
+;;;					(= global110 5)
+;;;					(self cue:)
+;;;				)
+;;;			)
+;;;			((& (ego onControl: origin) cMAGENTA)
+;;;				(self gateFunc: 1 2)
+;;;			)
+;;;			((& global109 $0010)
+;;;				(|= global109 $0040)
+;;;				(= global110 1)
+;;;				(self cue:)
+;;;			)
+;;;			(else
+;;;				(NotClose)
+;;;			)
+;;;		)
+;;;	)
+;;;)
+
 	(method (elevatorFunc)
 		(cond 
+<<<<<<< HEAD
+			((& global109 gateStMask) (AlreadyOpen))
+			((& (ego onControl: 1) $0008)
+=======
 			((& global109 gateStMask)
 				(Printf {global109: %d, gateStMAsk: %d} global109 gateStMask)
 				(= global109 0)
 				(AlreadyOpen)
 			)
 			((& (ego onControl: origin) cCYAN)
+>>>>>>> d71845fe9e8aa1e9fb4ba83a67abe1f16c73e04b
 				(if (!= curRoomNum global111)
 					(Print {gatefuck})
 					(self gateFunc: 1 3)
 				else
+<<<<<<< HEAD
+					(= global109 (| global109 $0040))
+=======
 					(Print {gateCue})
 					(|= global109 $0040)
+>>>>>>> d71845fe9e8aa1e9fb4ba83a67abe1f16c73e04b
 					(= global110 5)
 					(self cue:)
 				)
 			)
-			((& (ego onControl: origin) cMAGENTA)
-				(self gateFunc: 1 2)
-			)
+			((& (ego onControl: 1) $0020) (self gateFunc: 1 2))
 			((& global109 $0010)
-				(|= global109 $0040)
+				(= global109 (| global109 $0040))
 				(= global110 1)
 				(self cue:)
 			)
-			(else
-				(NotClose)
-			)
+			(else (NotClose))
 		)
 	)
 )
-;;;(instance elevGate of Prop ;add
+;;;;;;(instance elevGate of Prop ;add
 ;;;	(properties
 ;;;		y 125
 ;;;		x 283
