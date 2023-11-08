@@ -216,6 +216,7 @@
 			)
 			(cond 
 				((& (ego onControl: origin) cRED)
+					(Print "elevGate doit cRED")
 					(= global110 15)
 					(|= global109 $0020)
 					(HandsOff)
@@ -237,17 +238,21 @@
 						(& (ego onControl: origin) cCYAN)
 						(== curRoomNum global111)
 					)
+					;(Print "elevGate doit cCYAN")
 					(self elevatorFunc:)
 				)
 			)
 		)
 		(if (== (& global109 $0050) 16)
+			;(Printf {global109: %d} global109)
 			(cond 
 				((> (ego y?) (- gateY 2))
+					;(Print "elevGate doit 2A")
 					(ego posn: elevX (- elevY 2))
 					(self elevatorFunc:)
 				)
 				((!= (ego x?) elevX)
+					;(Print "elevGate doit 2B")
 					(ego posn: elevX (- elevY 2))
 				)
 			)
@@ -257,6 +262,7 @@
 				(== (cSound number?) 66)
 				(== (cSound prevSignal?) -1)
 			)
+			(Print "elevGate doit 3")
 			(cSound
 				prevSignal: 0
 				number: 103
@@ -273,214 +279,139 @@
 	)
 	
 	(method (handleEvent event)
-		
-		
 		(cond
 			(
 				(and
 					(== (event type?) evMOUSEBUTTON)
 					(not (& (event modifiers?) emRIGHT_BUTTON))
 				)
+				(if (== global109 $0010) ;inside
+					(event claimed: TRUE)
+					(Print {in elevation})
+				)	
+				
 				(if (ClickedOnObj ego (event x?) (event y?))
-					
 ;;;				(if (and (ClickedOnObj ElevGate (event x?) (event y?))
 ;;;						(if (not (and (ego onControl: origin) (| cMAGENTA cCYAN)))))
 ;;;						(== global109 $0010)) ;inside
-
 					(event claimed: TRUE)
 					(Print {test2})
 					(switch theCursor
-					(619
-					(= temp7
-							
-;;;							(PrintSpecial
-;;;								{Elevator}
-;;;								#button {Latch} 1
-;;;								#button {Unbar} 2							
-;;;							)							
-							
-							
-							
-							
-							(PrintSpecial
-								{Ascensor}
-								#button {Bloquear} 1
-								#button {Desbloquear} 2							
+						(619 ;elevator key
+							(= temp7						
+								(PrintSpecial
+									;{Elevator}
+									;#button {Latch} 1
+									;#button {Unbar} 2
+									{Ascensor}
+									#button {Bloquear} 1
+									#button {Desbloquear} 2							
+								)
 							)
-							)
-
-						(switch temp7
-							(1
-							    (DoVerb {latch control})
-							   
-	
-							)
-							(2
-								(DoVerb {unbar control})
-							)
-						
-							(else
-								(event claimed: FALSE)
+							(switch temp7
+								(1
+								    (DoVerb {latch control})
+								)
+								(2
+									(DoVerb {unbar control})
+								)
+								(else
+									(event claimed: FALSE)
+								)
 							)
 						)
-					
-					)
-					(998
-						
-						
-					
-;;;						(= temp7
-;;;							(PrintSpecial
-;;;								{  }
-;;;								#button {Examine Control} 1
-;;;								#button {Examine Keyhole} 2	
-;;;								#button {Examine Shaft} 3						
-;;;							)		
-						(= temp7
-							(PrintSpecial
-								{ }
-								#button {Examine Control} 1
-								#button {Examine Keyhole} 2	
-								#button {Examine Shaft} 3						
+						(998 ;look
+							(= temp7
+								(PrintSpecial
+									{ }
+;;;									#button {Examine Control} 1
+;;;									#button {Examine Keyhole} 2	
+;;;									#button {Examine Shaft} 3
+									#button {Examine Control} 1
+									#button {Examine Keyhole} 2	
+									#button {Examine Shaft} 3						
+								)
 							)
-							)
-
-						(switch temp7
-							(1
-							    (DoVerb {examine control})
-							   
-	
-							)
-							(2
-								(DoVerb {examine keyhole})
-							)
-							(3
-								(DoVerb {examine shaft})
-							)						
-							(else
-								(event claimed: FALSE)
-							)
-						)
-						
-					
-					
-						
-					)
-					(999		
-					
-				
-					
-;;;						(= temp7
-;;;							(PrintSpecial
-;;;								{Elevator}
-;;;								#button {Enter} 1
-;;;								#button {Exit} 2							
-;;;							)		
-						(= temp7
-							(PrintSpecial
-								{Ascensor}
-								#button {Entrar} 1
-								#button {Salir} 2							
-							)
-							)
-
-						(switch temp7
-							(1
-							    (DoVerb {enter elevator})
-							   
-	
-							)
-							(2
-								(DoVerb {exit elevator})
-							)
-						
-							(else
-								(event claimed: FALSE)
-							)
-						)
-						
-					)
-					
-					(995
-		
-		
-
-					(= temp7
-;;;							(PrintSpecial
-;;;								{Elevator}
-;;;								#button {Enter} 1
-;;;								#button {Exit} 2								
-;;;								#button {Press Up} 3
-;;;								#button {Press Down} 4
-;;;
-;;;							)
-							(PrintSpecial
-								{Ascensor}
-								#button {Entrar} 1
-								#button {Salir} 2
-								#button {Arriba} 3
-								#button {Abajo} 4								
-
-							)							
-							
-							)
-
-						(switch temp7
-							(1
-							    (DoVerb {open lift})
-							   
-	
-							)
-							(2
-								(DoVerb {close lift})
-							)
-							(3
-							    (DoVerb {move up})
-							   
-	
-							)
-							(4
-								(DoVerb {move down})
+							(switch temp7
+								(1
+								    (DoVerb {examine control})
+								)
+								(2
+									(DoVerb {examine keyhole})
+								)
+								(3
+									(DoVerb {examine shaft})
+								)						
+								(else
+									(event claimed: FALSE)
+								)
 							)	
-													
-							(else
-								(event claimed: FALSE)
+						)
+						(999 ;walk		
+							(= temp7
+								(PrintSpecial
+;;;									{Elevator}
+;;;									#button {Enter} 1
+;;;									#button {Exit} 2							
+									{Ascensor}
+									#button {Entrar} 1
+									#button {Salir} 2							
+								)
+							)
+							(switch temp7
+								(1
+								    (DoVerb {enter elevator})
+								)
+								(2
+									(DoVerb {exit elevator})
+								)
+								(else
+									(event claimed: FALSE)
+								)
+							)
+						)	
+						(995 ;hand
+							(= temp7
+;;;								(PrintSpecial
+;;;									{Elevator}
+;;;									#button {Enter} 1
+;;;									#button {Exit} 2								
+;;;									#button {Press Up} 3
+;;;									#button {Press Down} 4
+;;;								)
+								(PrintSpecial
+									{Ascensor}
+									#button {Entrar} 1
+									#button {Salir} 2
+									#button {Arriba} 3
+									#button {Abajo} 4
+								)
+							)
+							(switch temp7
+								(1
+								    (DoVerb {open lift})
+								)
+								(2
+									(DoVerb {close lift})
+								)
+								(3
+								    (DoVerb {move up})
+								)
+								(4
+									(DoVerb {move down})
+								)						
+								(else
+									(event claimed: FALSE)
+								)
 							)
 						)
-					)(else
-								(event claimed: FALSE)
-							)
+						(else
+							(event claimed: FALSE)
+						)
 					)
-					)
-					
-					
-					
-					
-					)
-				)
-
-	
-		
-		
-	
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+				)	
+			)
+		)
 		(if (event claimed?) (return))
 		(if (== (event type?) saidEvent)
 			(cond 
@@ -678,6 +609,7 @@
 	(method (cue)
 		(switch (++ global110)
 			(0
+				(Print {0})
 				(self stopUpd:)
 				(&= global109 $ffbf)
 				(if (!= curRoomNum global111)
@@ -686,6 +618,7 @@
 				(HandsOn)
 			)
 			(1
+				(Print {1})
 				(cSound number: 80 loop: 1 play:)
 				(chainID stopUpd:)
 				(elevatorID cycleSpeed: 2 setCycle: BegLoop self)
@@ -695,6 +628,7 @@
 				)
 			)
 			(2
+				(Print {2})
 				(cSound fade:)
 				(HandsOff)
 				(if (& global109 gateStMask)
@@ -704,6 +638,7 @@
 				)
 			)
 			(3
+				(Print {3})
 				(self stopUpd:)
 				(elevatorID loop: 0 cel: 0 stopUpd:)
 				(ego
@@ -717,8 +652,9 @@
 					show:
 				)
 			)
-			(4 (self gateFunc: 0 3))
+			(4 (Print {4}) (self gateFunc: 0 3))
 			(5
+				(Print {5})
 				(if (& (ego onControl: origin) cCYAN)
 					(ego
 						loop: 2
@@ -738,6 +674,7 @@
 				)
 			)
 			(6
+				(Print {6})
 				(HandsOff)
 				(|= global109 $0010)
 				(self gateFunc: 1 -1)
@@ -747,18 +684,21 @@
 				)
 			)
 			(7
+				(Print {7})
 				(ego
 					ignoreActors: TRUE
 					setMotion: MoveTo elevX (- elevY 2) self
 				)
 			)
 			(8
+				(Print {8})
 				(HandsOn)
 				(ego hide:)
 				(elevatorID setLoop: 1 forceUpd:)
 				(self gateFunc: 0 -1)
 			)
 			(9
+				(Print {9})
 				(ego
 					posn: elevX (- elevY 2)
 					illegalBits: 0
@@ -768,12 +708,14 @@
 				(self cue:)
 			)
 			(10
+				(Print {10})
 				(cSound number: 66 prevSignal: 0 loop: 1 play:)
 				(= global111 (| upRoomNo $8000))
 				(HandsOff)
 				(elevatorID cycleSpeed: 2 setCycle: EndLoop self)
 			)
 			(11
+				(Print {11})
 				(elevatorID
 					setLoop: 1
 					moveSpeed: 1
@@ -781,14 +723,16 @@
 					startUpd:
 				)
 			)
-			(12 (curRoom newRoom: upRoomNo))
+			(12 (Print {12})(curRoom newRoom: upRoomNo))
 			(13
+				(Print {13})
 				(cSound number: 66 prevSignal: 0 loop: 1 play:)
 				(= global111 (| downRoomNo $8000))
 				(HandsOff)
 				(elevatorID cycleSpeed: 2 setCycle: EndLoop self)
 			)
 			(14
+				(Print {14})
 				(chainID
 					view: 242
 					setLoop: 3
@@ -808,9 +752,11 @@
 				)
 			)
 			(15
+				(Print {15})
 				(curRoom newRoom: downRoomNo)
 			)
 			(16
+				(Print {16})
 				(cond 
 					(
 						(or
@@ -831,6 +777,7 @@
 				)
 			)
 			(17
+				(Print {17})
 				(cSound number: 90 loop: 1 play:)
 				(ShakeScreen 10 (| shakeSRight shakeSDiagonal))
 				(= cIcon 5)
@@ -840,6 +787,7 @@
 				(EgoDead 201 14)
 			)
 			(18
+				(Print {18})
 				(HandsOff)
 				(cSound number: 89 loop: -1 play:)
 				(ego
@@ -877,6 +825,7 @@
 				)
 			)
 			(19
+				(Print {19})
 				(cSound stop:)
 				(= cIcon 5)
 				(= deathLoop 6)
@@ -889,6 +838,7 @@
 
 	
 	(method (gateFunc param1 param2)
+		;(Printf {gateFunc param1: %d, param2: %d} param1 param2)
 		(HandsOff)
 		(self startUpd:)
 		(if (== param1 1)
@@ -916,12 +866,16 @@
 	(method (elevatorFunc)
 		(cond 
 			((& global109 gateStMask)
-;;;				(AlreadyOpen)
+				(Printf {global109: %d, gateStMAsk: %d} global109 gateStMask)
+				(= global109 0)
+				(AlreadyOpen)
 			)
 			((& (ego onControl: origin) cCYAN)
 				(if (!= curRoomNum global111)
+					(Print {gatefuck})
 					(self gateFunc: 1 3)
 				else
+					(Print {gateCue})
 					(|= global109 $0040)
 					(= global110 5)
 					(self cue:)
