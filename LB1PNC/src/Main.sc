@@ -571,7 +571,6 @@
 		newEvent
 		isHandsOff
 		yPositionInventory
-		ascensor
 )
 (procedure (Say whom &tmp theView [buffer 500])
 	(if

@@ -9,7 +9,7 @@
 (use Game)
 (use Actor)
 (use System)
-
+(use ElevGate);add
 
 (public
 	Room42 0
@@ -124,7 +124,6 @@
 		)
 		(if global193
 			(= global111 42)
-			(= ascensor 42) ;add
 			((= newPV (PicView new:))
 				view: 242
 				loop: 0
@@ -217,10 +216,8 @@
 ;;;					(== global109 $0010))						
 						;;;					(& (ego onControl: origin) ctlMAROON)) ;inside
 ;;;					(if (not (& (ego onControl: origin) (| cMAGENTA cCYAN))))
-			(if (and (ClickedOnPicView newPV_2 (event x?) (event y?))
-				(== global111 42))
-;;;					(ego onControl: origin) (| ctlMAROON ctlTEAL))
-;;;					(& global109 $0010)
+			(if (and (ClickedOnObj ElevGate (event x?) (event y?))
+					(ego onControl: origin) (| ctlMAROON ctlTEAL))
 					(event claimed: TRUE)
 					(Print {test1})
 					(switch theCursor
@@ -259,51 +256,6 @@
 						)
 					
 					)
-					(998
-						
-						
-					
-;;;						(= temp7
-;;;							(PrintSpecial
-;;;								{  }
-;;;								#button {Examine Control} 1
-;;;								#button {Examine Keyhole} 2	
-;;;								#button {Examine Shaft} 3						
-;;;							)		
-						(= temp7
-							(PrintSpecial
-								{ }
-								#button {Examine Control} 1
-								#button {Examine Keyhole} 2	
-								#button {Examine Shaft} 3						
-							)
-							)
-
-						(switch temp7
-							(1
-							    (DoVerb {examine control})
-							   
-	
-							)
-							(2
-								(DoVerb {examine keyhole})
-							)
-							(3
-								(DoVerb {examine shaft})
-							)						
-							(else
-								(event claimed: FALSE)
-							)
-						)
-						
-					
-					
-						
-					)					
-					
-					
-					
-					
 					
 					(999		
 					
@@ -325,12 +277,12 @@
 
 						(switch temp7
 							(1
-							    (DoVerb {open elevator})
+							    (DoVerb {enter elevator})
 							   
 	
 							)
 							(2
-								(DoVerb {close elevator})
+								(DoVerb {exit elevator})
 							)
 						
 							(else
@@ -393,11 +345,11 @@
 							)
 					
 					
-					
+					)
 					
 				)
 					
-			)
+	
 	
 	
 		
