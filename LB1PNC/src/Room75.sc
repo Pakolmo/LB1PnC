@@ -362,7 +362,7 @@
 
 (instance elevator of Actor
 	(properties
-		y -10
+		y 1 ;-10
 	)
 )
 
