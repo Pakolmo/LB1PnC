@@ -324,195 +324,195 @@
 	
 	(method (handleEvent event)
 		
-		
-		(cond
-			(
-				(and
-					(== (event type?) evMOUSEBUTTON)
-					(not (& (event modifiers?) emRIGHT_BUTTON))
-				)
-				(if (and (ClickedOnObj ElevGate (event x?) (event y?))
-					(if (& global109 $0010)
-					
+;;;		NOT NECESARY
+;;;		(cond
+;;;			(
+;;;				(and
+;;;					(== (event type?) evMOUSEBUTTON)
+;;;					(not (& (event modifiers?) emRIGHT_BUTTON))
+;;;				)
 ;;;				(if (and (ClickedOnObj ElevGate (event x?) (event y?))
-;;;						(if (not (and (ego onControl: origin) (| cMAGENTA cCYAN)))))
-;;;						(== global109 $0010)) ;inside
-
-					(event claimed: TRUE)
-					(Print {test2})
-					(switch theCursor
-					(619
-					(= temp7
-							
+;;;					(if (& global109 $0010)
+;;;					
+;;;;;;				(if (and (ClickedOnObj ElevGate (event x?) (event y?))
+;;;;;;						(if (not (and (ego onControl: origin) (| cMAGENTA cCYAN)))))
+;;;;;;						(== global109 $0010)) ;inside
+;;;
+;;;					(event claimed: TRUE)
+;;;					(Print {test2})
+;;;					(switch theCursor
+;;;					(619
+;;;					(= temp7
+;;;							
+;;;;;;							(PrintSpecial
+;;;;;;								{Elevator}
+;;;;;;								#button {Latch} 1
+;;;;;;								#button {Unbar} 2							
+;;;;;;							)							
+;;;							
+;;;							
+;;;							
+;;;							
 ;;;							(PrintSpecial
-;;;								{Elevator}
-;;;								#button {Latch} 1
-;;;								#button {Unbar} 2							
-;;;							)							
-							
-							
-							
-							
-							(PrintSpecial
-								{Ascensor}
-								#button {Bloquear} 1
-								#button {Desbloquear} 2							
-							)
-							)
-
-						(switch temp7
-							(1
-							    (DoVerb {latch control})
-							   
-	
-							)
-							(2
-								(DoVerb {unbar control})
-							)
-						
-							(else
-								(event claimed: FALSE)
-							)
-						)
-					
-					)
-					(998
-						
-						
-					
+;;;								{Ascensor}
+;;;								#button {Bloquear} 1
+;;;								#button {Desbloquear} 2							
+;;;							)
+;;;							)
+;;;
+;;;						(switch temp7
+;;;							(1
+;;;							    (DoVerb {latch control})
+;;;							   
+;;;	
+;;;							)
+;;;							(2
+;;;								(DoVerb {unbar control})
+;;;							)
+;;;						
+;;;							(else
+;;;								(event claimed: FALSE)
+;;;							)
+;;;						)
+;;;					
+;;;					)
+;;;					(998
+;;;						
+;;;						
+;;;					
+;;;;;;						(= temp7
+;;;;;;							(PrintSpecial
+;;;;;;								{  }
+;;;;;;								#button {Examine Control} 1
+;;;;;;								#button {Examine Keyhole} 2	
+;;;;;;								#button {Examine Shaft} 3						
+;;;;;;							)		
 ;;;						(= temp7
 ;;;							(PrintSpecial
-;;;								{  }
+;;;								{ }
 ;;;								#button {Examine Control} 1
 ;;;								#button {Examine Keyhole} 2	
 ;;;								#button {Examine Shaft} 3						
-;;;							)		
-						(= temp7
-							(PrintSpecial
-								{ }
-								#button {Examine Control} 1
-								#button {Examine Keyhole} 2	
-								#button {Examine Shaft} 3						
-							)
-							)
-
-						(switch temp7
-							(1
-							    (DoVerb {examine control})
-							   
-	
-							)
-							(2
-								(DoVerb {examine keyhole})
-							)
-							(3
-								(DoVerb {examine shaft})
-							)						
-							(else
-								(event claimed: FALSE)
-							)
-						)
-						
-					
-					
-						
-					)
-					(999		
-					
-				
-					
+;;;							)
+;;;							)
+;;;
+;;;						(switch temp7
+;;;							(1
+;;;							    (DoVerb {examine control})
+;;;							   
+;;;	
+;;;							)
+;;;							(2
+;;;								(DoVerb {examine keyhole})
+;;;							)
+;;;							(3
+;;;								(DoVerb {examine shaft})
+;;;							)						
+;;;							(else
+;;;								(event claimed: FALSE)
+;;;							)
+;;;						)
+;;;						
+;;;					
+;;;					
+;;;						
+;;;					)
+;;;					(999		
+;;;					
+;;;				
+;;;					
+;;;;;;						(= temp7
+;;;;;;							(PrintSpecial
+;;;;;;								{Elevator}
+;;;;;;								#button {Enter} 1
+;;;;;;								#button {Exit} 2							
+;;;;;;							)		
 ;;;						(= temp7
 ;;;							(PrintSpecial
-;;;								{Elevator}
-;;;								#button {Enter} 1
-;;;								#button {Exit} 2							
-;;;							)		
-						(= temp7
-							(PrintSpecial
-								{Ascensor}
-								#button {Entrar} 1
-								#button {Salir} 2							
-							)
-							)
-
-						(switch temp7
-							(1
-							    (DoVerb {enter elevator})
-							   
-	
-							)
-							(2
-								(DoVerb {exit elevator})
-							)
-						
-							(else
-								(event claimed: FALSE)
-							)
-						)
-						
-					)
-					
-					(995
-		
-		
-
-					(= temp7
-;;;							(PrintSpecial
-;;;								{Elevator}
-;;;								#button {Enter} 1
-;;;								#button {Exit} 2								
-;;;								#button {Press Up} 3
-;;;								#button {Press Down} 4
-;;;
+;;;								{Ascensor}
+;;;								#button {Entrar} 1
+;;;								#button {Salir} 2							
 ;;;							)
-							(PrintSpecial
-								{Ascensor}
-								#button {Entrar} 1
-								#button {Salir} 2
-								#button {Arriba} 3
-								#button {Abajo} 4								
-
-							)							
-							
-							)
-
-						(switch temp7
-							(1
-							    (DoVerb {open lift})
-							   
-	
-							)
-							(2
-								(DoVerb {close lift})
-							)
-							(3
-							    (DoVerb {move up})
-							   
-	
-							)
-							(4
-								(DoVerb {move down})
-							)	
-													
-							(else
-								(event claimed: FALSE)
-							)
-						)
-					)(else
-								(event claimed: FALSE)
-							)
-					)
-					)
-					)
-					
-					)
-					
-					)
-				)
-
-	
-		
-		
+;;;							)
+;;;
+;;;						(switch temp7
+;;;							(1
+;;;							    (DoVerb {enter elevator})
+;;;							   
+;;;	
+;;;							)
+;;;							(2
+;;;								(DoVerb {exit elevator})
+;;;							)
+;;;						
+;;;							(else
+;;;								(event claimed: FALSE)
+;;;							)
+;;;						)
+;;;						
+;;;					)
+;;;					
+;;;					(995
+;;;		
+;;;		
+;;;
+;;;					(= temp7
+;;;;;;							(PrintSpecial
+;;;;;;								{Elevator}
+;;;;;;								#button {Enter} 1
+;;;;;;								#button {Exit} 2								
+;;;;;;								#button {Press Up} 3
+;;;;;;								#button {Press Down} 4
+;;;;;;
+;;;;;;							)
+;;;							(PrintSpecial
+;;;								{Ascensor}
+;;;								#button {Entrar} 1
+;;;								#button {Salir} 2
+;;;								#button {Arriba} 3
+;;;								#button {Abajo} 4								
+;;;
+;;;							)							
+;;;							
+;;;							)
+;;;
+;;;						(switch temp7
+;;;							(1
+;;;							    (DoVerb {open lift})
+;;;							   
+;;;	
+;;;							)
+;;;							(2
+;;;								(DoVerb {close lift})
+;;;							)
+;;;							(3
+;;;							    (DoVerb {move up})
+;;;							   
+;;;	
+;;;							)
+;;;							(4
+;;;								(DoVerb {move down})
+;;;							)	
+;;;													
+;;;							(else
+;;;								(event claimed: FALSE)
+;;;							)
+;;;						)
+;;;					)(else
+;;;								(event claimed: FALSE)
+;;;							)
+;;;					)
+;;;					)
+;;;					)
+;;;					
+;;;					)
+;;;					
+;;;					)
+;;;				)
+;;;
+;;;	
+;;;		
+;;;		
 	
 		
 		

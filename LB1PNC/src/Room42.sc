@@ -218,11 +218,13 @@
 						;;;					(& (ego onControl: origin) ctlMAROON)) ;inside
 ;;;					(if (not (& (ego onControl: origin) (| cMAGENTA cCYAN))))
 			(if (and (ClickedOnPicView newPV_2 (event x?) (event y?))
-				(== global111 42))
+				(== global111 42)
+				(if (& global109 $0010)))
+				
 ;;;					(ego onControl: origin) (| ctlMAROON ctlTEAL))
 ;;;					(& global109 $0010)
 					(event claimed: TRUE)
-					(Print {test1})
+
 					(switch theCursor
 					(619
 					(= temp7
@@ -275,7 +277,7 @@
 								{ }
 								#button {Examine Control} 1
 								#button {Examine Keyhole} 2	
-								#button {Examine Shaft} 3						
+
 							)
 							)
 
@@ -288,9 +290,7 @@
 							(2
 								(DoVerb {examine keyhole})
 							)
-							(3
-								(DoVerb {examine shaft})
-							)						
+					
 							(else
 								(event claimed: FALSE)
 							)
@@ -303,43 +303,43 @@
 					
 					
 					
-					
-					
-					(999		
-					
-				
-					
+;;;					
+;;;					
+;;;					(999	;no hace falta	
+;;;					
+;;;				
+;;;					
+;;;;;;						(= temp7
+;;;;;;							(PrintSpecial
+;;;;;;								{Elevator}
+;;;;;;								#button {Enter} 1
+;;;;;;								#button {Exit} 2							
+;;;;;;							)		
 ;;;						(= temp7
 ;;;							(PrintSpecial
-;;;								{Elevator}
-;;;								#button {Enter} 1
-;;;								#button {Exit} 2							
-;;;							)		
-						(= temp7
-							(PrintSpecial
-								{Ascensor}
-								#button {Entrar} 1
-								#button {Salir} 2							
-							)
-							)
-
-						(switch temp7
-							(1
-							    (DoVerb {open elevator})
-							   
-	
-							)
-							(2
-								(DoVerb {close elevator})
-							)
-						
-							(else
-								(event claimed: FALSE)
-							)
-						)
-						
-					)
-					
+;;;								{Ascensor}
+;;;								#button {Entrar} 1
+;;;								#button {Salir} 2							
+;;;							)
+;;;							)
+;;;
+;;;						(switch temp7
+;;;							(1
+;;;							    (DoVerb {open elevator})
+;;;							   
+;;;	
+;;;							)
+;;;							(2
+;;;								(DoVerb {close elevator})
+;;;							)
+;;;						
+;;;							(else
+;;;								(event claimed: FALSE)
+;;;							)
+;;;						)
+;;;						
+;;;					)
+;;;					
 					(995
 		
 		 

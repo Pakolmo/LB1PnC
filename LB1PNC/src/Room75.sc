@@ -70,9 +70,15 @@
 			elevatorID: elevator
 			downID: down
 			upID: up
+;;;			msgID:
+;;;				{What a dark and creepy attic! It helps to have the moonlight shining in through those big windows. 
+;;;				Among all the junk, a stack of old newspapers catches your eye.}
 			msgID:
-				{What a dark and creepy attic! It helps to have the moonlight shining in through those big windows. 
-				Among all the junk, a stack of old newspapers catches your eye.}
+
+
+				{^Qu+ *tico tan oscuro y espeluznante! Ayuda tener la luz de la luna brillando a trav+s de esas grandes ventanas. 
+				
+				Entre todos los trastos, te llama la atenci/n una pila de peri/dicos viejos.}
 			init:
 		)
 	)
@@ -113,6 +119,104 @@
 	)
 	
 	(method (handleEvent event)
+		(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)
+			
+
+
+
+
+		
+			(if (ClickedOnObj paper (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998
+							(DoVerb {Examine newspaper})
+						)
+						(995 ;same
+							(DoVerb {Examine newspaper})
+						)						
+						(else
+
+						
+							(event claimed: FALSE)
+						)
+					)
+
+			)	
+		
+		
+			
+			(if (ClickedOnObj Window1 (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998
+							(DoVerb {Examine window})
+						)			
+						(else
+
+						
+							(event claimed: FALSE)
+						)
+					)
+
+			)	
+			
+			(if (ClickedOnObj Shaft (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998
+							(DoVerb {Examine elevator})
+						)			
+						(else
+
+						
+							(event claimed: FALSE)
+						)
+					)
+
+			)		
+		
+			(if (ClickedOnObj Junk (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998
+							(DoVerb {Examine garbage})
+						)			
+						(else
+
+						
+							(event claimed: FALSE)
+						)
+					)
+
+			)			
+		
+		
+		
+			)
+		)
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		(super handleEvent: event)
 		(if (event claimed?) (return))
 		(if (== (event type?) saidEvent)
@@ -362,7 +466,7 @@
 
 (instance elevator of Actor
 	(properties
-		y -10
+		y -10 ;-10
 	)
 )
 

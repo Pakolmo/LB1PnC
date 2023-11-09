@@ -1667,6 +1667,7 @@
 						(= cycles 1)
 					)	
 					(1
+						(Bset fPnCVolumeFlag)
 						(Bset fPnCSaveFlag)
 						(= cycles 1)
 					)
