@@ -1,5 +1,5 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-(script# 45)
+(script# 45) ;OK
 (include game.sh)
 (use Main)
 (use Intrface)
@@ -163,9 +163,12 @@
 						(995
 							(= temp7
 							(PrintSpecial
-								{Suit}
-								#button {Open} 1
-								#button {get} 2
+;;;								{Suit}
+;;;								#button {Open} 1
+;;;								#button {get} 2
+								{Maleta}
+								#button {Abrir} 1
+								#button {Coger} 2
 							)
 							)
 
@@ -484,9 +487,13 @@
 					(998
 						(= temp7
 							(PrintSpecial
-								{Glass}
-								#button {Examine} 1
-								#button {handkerchief} 2
+;;;								{Glass}
+;;;								#button {Examine} 1
+;;;								#button {handkerchief} 2
+;;;								#button {Ethel} 3
+								{Vaso}
+								#button {Examinar} 1
+								#button {Pa>uelo} 2
 								#button {Ethel} 3
 							)
 							)
@@ -512,10 +519,12 @@
 					(995
 						(= temp7
 							(PrintSpecial
-								{Glass}
-								#button {Get glass} 1
-								#button {Get handkerchief} 2
-
+;;;								{Glass}
+;;;								#button {Get glass} 1
+;;;								#button {Get handkerchief} 2
+								{Vaso}
+								#button {Coger vaso} 1
+								#button {Coger pa>uelo} 2
 							)
 							)
 

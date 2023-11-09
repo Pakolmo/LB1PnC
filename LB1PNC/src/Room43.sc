@@ -1,5 +1,5 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-(script# 43)
+(script# 43) ;OK
 (include game.sh)
 (use Main)
 (use Intrface)
@@ -170,10 +170,12 @@
 							(998 ;examine and examine in
 								(= temp7
 												(Print
-													{Vase}
-													#button {Examine} 1
-													#button {Examine in} 2								
-													
+;;;													{Vase}
+;;;													#button {Examine} 1
+;;;													#button {Examine in} 2								
+													{Jarr/n}
+													#button {Mirar} 1
+													#button {Examinar} 2														
 												)
 											)
 											(switch temp7
@@ -220,10 +222,12 @@
 								(= temp7
 												(Print
 
-													{Statue}
-													#button {Look} 1
-													#button {Examine in} 2								
-													
+;;;													{Statue}
+;;;													#button {Look} 1
+;;;													#button {Examine in} 2								
+													{Statua}
+													#button {Mirar} 1
+													#button {Examinar} 2													
 												)
 											)
 											(switch temp7
@@ -254,13 +258,12 @@
 							(998 ;look
 								(= temp7
 												(Print
-;;;													{Painting}
-;;;													#button {Colonel Eye} 1
-;;;													#button {Girl Eye} 2
-;;;													#button {below painting} 3		
-													{Statue}
-													#button {Look} 1
-													#button {Examine in} 2								
+;;;													{Statue}
+;;;													#button {Look} 1
+;;;													#button {Examine in} 2		
+													{Estatua}
+													#button {Mirar} 1
+													#button {Examinar} 2								
 													
 												)
 											)
@@ -393,10 +396,12 @@
 									(= temp7
 												(Print
 
-													{Wardrove}
-													#button {Look} 1
-													#button {Examine in} 2								
-													
+;;;													{Wardrove}
+;;;													#button {Look} 1
+;;;													#button {Examine in} 2								
+													{Armario}
+													#button {Mirar} 1
+													#button {Examinar} 2													
 												)
 											)
 											(switch temp7
@@ -427,9 +432,12 @@
 									(= temp7
 												(Print
 
-													{Wardrove}
-													#button {Look} 1
-													#button {Examine in} 2								
+;;;													{Wardrove}
+;;;													#button {Look} 1
+;;;													#button {Examine in} 2								
+													{Armario}
+													#button {Mirar} 1
+													#button {Examinar} 2							
 													
 												)
 											)

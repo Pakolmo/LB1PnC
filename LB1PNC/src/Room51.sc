@@ -1,5 +1,5 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-(script# 51)
+(script# 51) ;OK
 (include game.sh)
 (use Main)
 (use HighLite)
@@ -123,6 +123,9 @@
 								{Rata}
 								#button {Matar} 1
 								#button {Capturar} 2
+;;;								{Rat}
+;;;								#button {Kill} 1
+;;;								#button {Capture} 2								
 							)
 							)
 
@@ -161,9 +164,12 @@
 									
 							(= temp7
 							(Print
+;;;								{Tramp}
+;;;								#button {Open} 1
+;;;								#button {Close} 2
 								{Trampilla}
 								#button {Abrir} 1
-								#button {Cerrar} 2
+								#button {Cerrar} 2								
 							)
 							)
 

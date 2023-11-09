@@ -226,7 +226,25 @@
 							(940 ;Jules
 								(event type: 1 claimed: 1)
 								(DoVerb {ask fifi about Jules})
+							)
+							(941 ;Dog
+								(event type: 1 claimed: 1)
+								(DoVerb {ask fifi about beauregard})
+							)													
+							(942 ;Parrot
+								(event type: 1 claimed: 1)
+								(DoVerb {ask fifi about polly})
 							)							
+							(943 ;Horse
+								(event type: 1 claimed: 1)
+								(DoVerb {ask fifi about blaze})
+							)							
+													
+							
+							
+							
+							
+														
 						(996 ;talk
 							(DoVerb {converse Fifi})
 						)
@@ -396,7 +414,20 @@
 							(940 ;Jules
 								(event type: 1 claimed: 1)
 								(DoVerb {ask Colonel about Jules})
+							)		
+							(941 ;Dog
+								(event type: 1 claimed: 1)
+								(DoVerb {ask Colonel about beauregard})
+							)													
+							(942 ;Parrot
+								(event type: 1 claimed: 1)
+								(DoVerb {ask Colonel about polly})
 							)							
+							(943 ;Horse
+								(event type: 1 claimed: 1)
+								(DoVerb {ask Colonel about blaze})
+							)							
+																		
 						(996 ;talk
 							(DoVerb {converse Colonel})
 						)

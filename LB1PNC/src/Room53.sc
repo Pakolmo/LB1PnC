@@ -1,5 +1,5 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-(script# 53)
+(script# 53) ;OK
 (include game.sh)
 (use Main)
 (use Intrface)
@@ -107,7 +107,32 @@
 				(event claimed: TRUE)
 					(switch theCursor	
 						(998
-								(DoVerb {examine bed})
+	(= temp7
+							(Print
+;;;								{Bed}
+;;;								#button {Examine} 1
+;;;								#button {Examine in} 2
+								{Cama}
+								#button {Examine} 1
+								#button {Examine in} 2								
+							)
+							)
+
+						(switch temp7
+							(1
+							    (DoVerb {Examine bed})
+							   
+	
+							)
+							(2
+								(DoVerb {Examine in bed})
+							)
+							(else
+								(event claimed: FALSE)
+							)
+							
+						)
+												
 						)
 						(else
 							(event claimed: FALSE)

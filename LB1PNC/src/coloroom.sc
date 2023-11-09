@@ -251,7 +251,21 @@
 							(940 ;Jules
 								(event type: 1 claimed: 1)
 								(DoVerb {ask Colonel about Jules})
+								
+							)	
+		
+							(941 ;Dog
+								(event type: 1 claimed: 1)
+								(DoVerb {ask Colonel about beauregard})
+							)													
+							(942 ;Parrot
+								(event type: 1 claimed: 1)
+								(DoVerb {ask Colonel about polly})
 							)							
+							(943 ;Horse
+								(event type: 1 claimed: 1)
+								(DoVerb {ask Colonel about blaze})
+							)															
 						(996 ;talk
 							(DoVerb {converse Colonel})
 						)
@@ -265,7 +279,7 @@
 													#button {Mover} 1
 													#button {Mirar Cigarro} 2								
 													#button {Coger Cigarro} 3
-
+													#button {Oler Cigarro} 3
 												)
 											)
 											(switch temp7
@@ -278,7 +292,9 @@
 												(3 
 													(DoVerb {get butt})
 												)		
-		
+												(4 
+													(DoVerb {smell butt})
+												)		
 												(else
 						
 												(event claimed: FALSE)

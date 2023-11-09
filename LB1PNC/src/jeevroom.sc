@@ -1,5 +1,5 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-(script# 246)
+(script# 246) ;OK
 (include game.sh)
 (use Main)
 (use Intrface)
@@ -477,6 +477,174 @@
 	)
 	
 	(method (handleEvent event)
+		
+
+		(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)
+				
+				(if (ClickedOnObj Jeeves (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor	
+						
+					
+					(602 ;necklace_
+						(DoVerb {tell jeeves about handkerchief})						
+					)
+					(604 ;monocle
+						(DoVerb {tell jeeves about monocle})						
+					)
+					
+					(613 ;lantern_
+						(DoVerb {tell jeeves about lantern})						
+					)
+					(611 ;oilcan_
+						(DoVerb {tell jeeves about oilcan})						
+					)
+					(626 ;rolling_pin_
+						(DoVerb {tell jeeves about pin})						
+					)
+					(620 ;skeleton_key_
+						(DoVerb {tell jeeves about skeleton key})						
+					)
+					(627 ;poker_
+						(DoVerb {tell jeeves about poker})						
+					)															
+					(607 ;crowbar_
+						(DoVerb {tell jeeves about crowbar})						
+					)
+					(628 ;cigar_butt_
+						(DoVerb {tell jeeves about butt})						
+					)
+					(625 ;broken_record_
+						(DoVerb {tell jeeves about broken record})						
+					)
+					(601 ;notebook___pencil_
+						(DoVerb {tell jeeves about notebook})						
+					)
+					(603 ;_7_crackers________
+						(DoVerb {tell jeeves about crackers})						
+					)
+					(605 ;soup_bone_
+						(DoVerb {tell jeeves about soup bone})						
+					)
+					(606 ;valve_handle_
+						(DoVerb {tell jeeves about valve})						
+					)
+					(618 ;bullet_
+						(DoVerb {tell jeeves about bullet})						
+					)
+					(617 ;derringer__
+						(DoVerb {tell jeeves about derringer})						
+					)
+					(614 ;matches_
+						(DoVerb {tell jeeves about matches})						
+					)
+					(615 ;carrot_
+						(DoVerb {tell jeeves about carrot})						
+					)
+					(619 ;brass_key_
+						(DoVerb {tell jeeves about brass key})						
+					)
+					(616 ;diary_
+						(DoVerb {tell jeeves about diary})						
+					)
+					(621 ;crank_
+						(DoVerb {tell jeeves about crank})						
+					)
+					(612 ;cane_
+						(DoVerb {tell jeeves about cane})						
+					)
+					(622 ;pouch_
+						(DoVerb {tell jeeves about pouch})						
+					)																																																																																
+					(630 ;handkerchief_
+						(DoVerb {tell jeeves about handkerchief})
+					)
+											
+						
+							(994  ;ear
+								(event type: 1 claimed: 1)
+								(DoVerb {hear gertie})
+							)						
+						
+						
+							(930  ;gertrude
+								(event type: 1 claimed: 1)
+								(DoVerb {ask jeeves about Gertrude})
+							)
+							(931 ;Celie
+								(event type: 1 claimed: 1)
+								(DoVerb {ask jeeves about Celie})
+							)	
+							(932 ;Gloria
+								(event type: 1 claimed: 1)
+								(DoVerb {ask jeeves about Gloria})
+							)													
+							(933 ;Ethel
+								(event type: 1 claimed: 1)
+								(DoVerb {ask jeeves about Ethel})
+							)	
+							(934 ;Fifi
+								(event type: 1 claimed: 1)
+								(DoVerb {ask jeeves about Fifi})
+							)	
+							(935 ;Lillian
+								(event type: 1 claimed: 1)
+								(DoVerb {ask jeeves about Lillian})
+							)																					
+							(936 ;Clarence
+								(event type: 1 claimed: 1)
+								(DoVerb {ask jeeves about Clarence})
+							)	
+							(937 ;Feels
+								(event type: 1 claimed: 1)
+								(DoVerb {ask jeeves about wilbur})
+							)
+							(938 ;Rudy
+								(event type: 1 claimed: 1)
+								(DoVerb {ask jeeves about Rudy})
+							)	
+							(939 ;Colonel
+								(event type: 1 claimed: 1)
+								(DoVerb {ask jeeves about Colonel})
+							)
+							(940 ;Jules
+								(event type: 1 claimed: 1)
+								(DoVerb {ask jeeves about Jules})
+							)						
+						(998		
+							(DoVerb {examine butler})
+						)
+						(996
+							(DoVerb {converse jeeves})	
+						)	
+						(else
+						
+							(event claimed: FALSE)
+						)
+					)
+
+				)
+			)
+						)		
+		
+		
+				
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		(cond 
 			((and (== currentAct 1) (Said 'examine[<at]/bed'))
 				(Print 246 33)
@@ -513,6 +681,37 @@
 	)
 	
 	(method (handleEvent event)
+		
+			(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)
+		
+			(if (ClickedOnObj flowers (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998
+							(DoVerb {examine blossom})
+						)
+						(995
+							(DoVerb {get blossom})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+										
+					)
+			)	
+		
+		
+			)
+			)
+		
+		
+		
 		(cond 
 			((Said 'get/blossom')
 				(Print 246 37)
@@ -534,6 +733,42 @@
 	)
 	
 	(method (handleEvent event)
+		
+		
+			(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)
+		
+			(if (ClickedOnObj medicine (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998
+							(DoVerb {examine in mirror})
+						)
+						(995
+							(DoVerb {open armoire})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+										
+					)
+			)	
+		
+		
+			)
+			)
+		
+		
+		
+		
+		
+		
+		
 		(cond 
 			(
 				(or

@@ -317,7 +317,7 @@
 					(event claimed: TRUE)
 					(switch theCursor
 						(994
-							(DoVerb {smell body})
+							(DoVerb {hear body})
 						)
 						(996
 							(DoVerb {converse gloria})

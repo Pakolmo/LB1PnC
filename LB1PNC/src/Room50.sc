@@ -1,5 +1,5 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-(script# 50)
+(script# 50) ;OK
 (include game.sh)
 (use Main)
 (use Intrface)
@@ -386,6 +386,7 @@
 						)						
 						(998
 							(DoVerb {examine butt})
+							(DoVerb {smell butt})
 						)
 						(else
 							(event claimed: FALSE)

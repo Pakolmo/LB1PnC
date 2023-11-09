@@ -1,5 +1,5 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-(script# 52)
+(script# 52) ;OK
 (include game.sh)
 (use Main)
 (use HighLite)
@@ -500,7 +500,12 @@
 								#button {Manejar} 1
 								#button {Girar} 2
 								#button {Abrir} 3
-								#button {Coger} 4								
+								#button {Coger} 4	
+;;;								{Panel}
+;;;								#button {Control} 1
+;;;								#button {Rotate} 2
+;;;								#button {Open} 3
+;;;								#button {Get} 4															
 							)
 							)
 

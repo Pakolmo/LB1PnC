@@ -1,5 +1,5 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-(script# 279)
+(script# 279) ;OK
 (include game.sh)
 (use Main)
 (use Intrface)
@@ -23,6 +23,181 @@
 	(properties)
 	
 	(method (handleEvent event)
+	
+		(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)
+				
+				(if (ClickedOnObj Celie (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor	
+						
+					
+					(602 ;necklace_
+						(DoVerb {tell celie about handkerchief})						
+					)
+					(604 ;monocle
+						(DoVerb {tell celie about monocle})						
+					)
+					
+					(613 ;lantern_
+						(DoVerb {tell celie about lantern})						
+					)
+					(611 ;oilcan_
+						(DoVerb {tell celie about oilcan})						
+					)
+					(626 ;rolling_pin_
+						(DoVerb {tell celie about pin})						
+					)
+					(620 ;skeleton_key_
+						(DoVerb {tell celie about skeleton key})						
+					)
+					(627 ;poker_
+						(DoVerb {tell celie about poker})						
+					)															
+					(607 ;crowbar_
+						(DoVerb {tell celie about crowbar})						
+					)
+					(628 ;cigar_butt_
+						(DoVerb {tell celie about butt})						
+					)
+					(625 ;broken_record_
+						(DoVerb {tell celie about broken record})						
+					)
+					(601 ;notebook___pencil_
+						(DoVerb {tell celie about notebook})						
+					)
+					(603 ;_7_crackers________
+						(DoVerb {tell celie about crackers})						
+					)
+					(605 ;soup_bone_
+						(DoVerb {tell celie about soup bone})						
+					)
+					(606 ;valve_handle_
+						(DoVerb {tell celie about valve})						
+					)
+					(618 ;bullet_
+						(DoVerb {tell celie about bullet})						
+					)
+					(617 ;derringer__
+						(DoVerb {tell celie about derringer})						
+					)
+					(614 ;matches_
+						(DoVerb {tell celie about matches})						
+					)
+					(615 ;carrot_
+						(DoVerb {tell celie about carrot})						
+					)
+					(619 ;brass_key_
+						(DoVerb {tell celie about brass key})						
+					)
+					(616 ;diary_
+						(DoVerb {tell celie about diary})						
+					)
+					(621 ;crank_
+						(DoVerb {tell celie about crank})						
+					)
+					(612 ;cane_
+						(DoVerb {tell celie about cane})						
+					)
+					(622 ;pouch_
+						(DoVerb {tell celie about pouch})						
+					)																																																																																
+					(630 ;handkerchief_
+						(DoVerb {tell celie about handkerchief})
+					)
+											
+						
+							(994  ;ear
+								(event type: 1 claimed: 1)
+								(DoVerb {hear celie})
+							)						
+						
+						
+							(930  ;gertrude
+								(event type: 1 claimed: 1)
+								(DoVerb {ask celie about Gertrude})
+							)
+							(931 ;Celie
+								(event type: 1 claimed: 1)
+								(DoVerb {ask celie about Celie})
+							)	
+							(932 ;Gloria
+								(event type: 1 claimed: 1)
+								(DoVerb {ask celie about Gloria})
+							)													
+							(933 ;Ethel
+								(event type: 1 claimed: 1)
+								(DoVerb {ask celie about Ethel})
+							)	
+							(934 ;Fifi
+								(event type: 1 claimed: 1)
+								(DoVerb {ask celie about Fifi})
+							)	
+							(935 ;Lillian
+								(event type: 1 claimed: 1)
+								(DoVerb {ask celie about Lillian})
+							)																					
+							(936 ;Clarence
+								(event type: 1 claimed: 1)
+								(DoVerb {ask celie about Clarence})
+							)	
+							(937 ;Feels
+								(event type: 1 claimed: 1)
+								(DoVerb {ask celie about wilbur})
+							)
+							(938 ;Rudy
+								(event type: 1 claimed: 1)
+								(DoVerb {ask celie about Rudy})
+							)	
+							(939 ;Colonel
+								(event type: 1 claimed: 1)
+								(DoVerb {ask celie about Colonel})
+							)
+							(940 ;Jules
+								(event type: 1 claimed: 1)
+								(DoVerb {ask celie about Jules})
+							)						
+						(998		
+							(DoLook {gertie})
+						)
+						(996
+							(DoVerb {Talk gertie})	
+						)	
+						(else
+						
+							(event claimed: FALSE)
+						)
+					)
+
+				)
+			)
+						)		
+		
+		
+		
+			
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		(cond 
 			(
 			(and (MousedOn self event shiftDown) (not (& global207 $0002)))

@@ -1,5 +1,5 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-(script# 47)
+(script# 47) ;OK
 (include game.sh)
 (use Main)
 (use Intrface)
@@ -306,10 +306,12 @@
 						(995
 							(= temp7
 												(Print
-													{Door}
-													#button {close} 1
-													#button {open} 2								
-
+;;;													{Door}
+;;;													#button {close} 1
+;;;													#button {open} 2								
+													{Puerta}
+													#button {Cerrar} 1
+													#button {Abrir} 2
 
 												)
 											)
@@ -431,20 +433,31 @@
 						)
 					)	
 					
-					(if (ClickedOnObj Stair (event x?) (event y?)) 
+;;;					(if (ClickedOnObj Stair (event x?) (event y?)) 
+;;;					(event claimed: TRUE)
+;;;					(switch theCursor
+;;;						(998
+;;;							(Print 47 18)
+;;;							(event claimed: TRUE)
+;;;						)
+;;;						(else
+;;;							(event claimed: FALSE)
+;;;						)
+;;;						)
+;;;					)	
+					
+				(if (ClickedOnObj Stair (event x?) (event y?)) 
 					(event claimed: TRUE)
 					(switch theCursor
 						(998
-							(Print 47 18)
-							(event claimed: TRUE)
+							(DoVerb {examine stair})
 						)
 						(else
 							(event claimed: FALSE)
 						)
 						)
-					)	
-					
-									
+					)
+											
 					
 					
 					

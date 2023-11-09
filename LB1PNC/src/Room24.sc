@@ -133,7 +133,7 @@
 					(event claimed: TRUE)
 					(switch theCursor
 						(994
-							(DoVerb {smell Clarence})
+							(DoVerb {hear Clarence})
 						)						
 						(996
 							(DoVerb {converse attorney})

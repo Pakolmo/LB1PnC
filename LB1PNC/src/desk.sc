@@ -1,5 +1,5 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-(script# 276)
+(script# 276) ;OK
 (include game.sh)
 (use Main)
 (use Intrface)
@@ -37,50 +37,7 @@
 					(not (& (event modifiers?) emRIGHT_BUTTON))
 				)
 			
-		(if (ClickedOnObj desk (event x?) (event y?)) 
-			(event claimed: TRUE)
-					(switch theCursor
-						(998
-						(= temp7
-;;;									(PrintSpecial
-;;;										{ }
-;;;										#button {Examine desk} 1
-;;;										#button {Examine Notebook} 2
-;;;										#button {Examine in Notebook} 3									
-;;;									)
-									(PrintSpecial
-										{ }
-										#button {Examinar escritorio} 1
-										#button {Examinar libreta} 2
-										#button {Fisgar en libreta} 3									
-									)
-										)
-									
 
-								(switch temp7
-									(1		
-		
-										(DoVerb {examine desk})
-									)
-									(2
-
-										(DoVerb {examine notebook})
-									)
-									(3
-
-										(DoVerb {examine in notebook})
-									)
-								)
-									)
-									(else
-										(event claimed: FALSE)
-									)
-										
-						)
-						)
-						
-							
-	
 	
 			(if (or (ClickedOnObj Clarence (event x?) (event y?)) 
 					(ClickedOnObj cHead (event x?) (event y?)) )
@@ -345,6 +302,77 @@
 	)
 	
 	(method (handleEvent event &tmp temp0)
+
+	
+				(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)
+			
+		(if (ClickedOnObj desk (event x?) (event y?)) 
+			(event claimed: TRUE)
+					(switch theCursor
+						(998
+						(= temp7
+;;;									(PrintSpecial
+;;;										{ }
+;;;										#button {Examine desk} 1
+;;;										#button {Examine Notebook} 2
+;;;										#button {Examine in Notebook} 3									
+;;;									)
+									(PrintSpecial
+										{ }
+										#button {Examinar escritorio} 1
+										#button {Examinar libreta} 2
+										#button {Fisgar en libreta} 3									
+									)
+										)
+									
+
+								(switch temp7
+									(1		
+		
+										(DoVerb {examine desk})
+									)
+									(2
+
+										(DoVerb {examine notebook})
+									)
+									(3
+
+										(DoVerb {examine in notebook})
+									)
+								)
+									)
+									(else
+										(event claimed: FALSE)
+									)
+										
+						)
+						)
+						
+							
+			)
+				)
+			
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		(super handleEvent: event)
 		(if (event claimed?) (return))
 		(if (== (event type?) saidEvent)

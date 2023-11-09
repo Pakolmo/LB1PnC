@@ -1,5 +1,5 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-(script# 48)
+(script# 48) ;OK
 (include game.sh)
 (use Main)
 (use Intrface)
@@ -178,11 +178,14 @@
 						(998
 														(= temp7
 												(Print
+;;;													{Picture}
+;;;													#button {Eye} 1
+;;;													#button {Behind} 2	
+;;;													#button {examine} 3							
 													{Cuadro}
-													#button {Eye} 1
-													#button {Behind} 2	
-													#button {examine} 3							
-
+													#button {Ojo} 1
+													#button {Mirar atr*s} 2	
+													#button {examinar} 3	
 												)
 											)
 											(switch temp7
@@ -213,10 +216,12 @@
 						(995 							
 							(= temp7
 												(Print
+;;;													{Picture}
+;;;													#button {Get} 1
+;;;													#button {Open} 2								
 													{Cuadro}
-													#button {get} 1
-													#button {Open} 2								
-
+													#button {Coger} 1
+													#button {Abrir} 2
 												)
 											)
 											(switch temp7
@@ -263,13 +268,15 @@
 				(if (ClickedOnObj chest (event x?) (event y?)) 
 					(event claimed: TRUE)
 					(switch theCursor	
-						(995
+						(998
 							(= temp7
 												(Print
-													{chest}
-													#button {drawer} 1
-													#button {luggage} 2								
-
+;;;													{chest}
+;;;													#button {drawer} 1
+;;;													#button {luggage} 2								
+													{C/moda}
+													#button {Caj/n} 1
+													#button {Equipaje} 2	
 												)
 											)
 											(switch temp7
@@ -291,13 +298,15 @@
 												)
 											)
 						)
-						(998 
+						(995 
 							(= temp7
 												(Print
-													{chest}
-													#button {get} 1
-													#button {Open} 2								
-
+;;;													{Chest}
+;;;													#button {Get} 1
+;;;													#button {Open} 2								
+													{C/moda}
+													#button {Coger} 1
+													#button {Abrir} 2
 												)
 											)
 											(switch temp7
@@ -466,10 +475,14 @@
 						(998
 													(= temp7
 												(Print
-													{notebook}
-													#button {examine} 1
-													#button {Read} 2
+;;;													{Notebook}
+;;;													#button {Examine} 1
+;;;													#button {Read} 2
+													{Libreta}
+													#button {examinar} 1
+													#button {Leer} 2												
 												)
+												
 											)
 											(switch temp7
 												(1 
@@ -484,16 +497,7 @@
 													
 				
 												)
-												(3
-													(DoVerb {close notebook})
-													
-				
-												)												
-												(4
-													(DoVerb {get notebook})
-													
-				
-												)
+
 
 
 												(else
@@ -511,12 +515,16 @@
 						
 						(= temp7
 												(Print
-													{notebook}
-													#button {Rotate} 1
-													#button {Open} 2	
-													#button {Close} 3								
-													#button {get} 4
-
+;;;													{notebook}
+;;;													#button {Rotate} 1
+;;;													#button {Open} 2	
+;;;													#button {Close} 3								
+;;;													#button {get} 4
+													{Libreta}
+													#button {Pasar p*gina} 1
+													#button {Abrir} 2	
+													#button {Cerrar} 3								
+													#button {Coger} 4
 												)
 											)
 											(switch temp7

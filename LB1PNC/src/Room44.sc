@@ -1,5 +1,5 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-(script# 44)
+(script# 44) ;OK
 (include game.sh)
 (use Main)
 (use Intrface)
@@ -314,86 +314,14 @@
 					(not (& (event modifiers?) emRIGHT_BUTTON))
 				)
 				
-			
-;;;			((Said 'change,wear,(attach<on)/cloth') ;994
-;;;			((Said '(look<through),search/cloth') ;998	
-;;;			((Said 'get/cloth') ;995
-;;;			((Said '/(luggage,cloth)>') ;995
-;;;					((Said 'open,(look<in)') ;995
-;;;					((Said 'close') ;995
-;;;					((Said 'get') ;995
 
-;;;					
-
-;;;					
-
-			
-				
-				
-;;;				(if (ClickedOnObj suit1 (event x?) (event y?)) 
-;;;					
-;;;					(event claimed: TRUE)
-;;;					(switch theCursor	
-;;;						(994
-;;;							(DoVerb {change cloth})
-;;;						)
-;;;						(998
-;;;							(DoVerb {search cloth}) 
-;;;						)
-;;;						(995
-;;;
-;;;							(= temp7
-;;;							(PrintSpecialSimple
-;;;								44 20
-;;;								#button {Get} 1
-;;;								#button {luggage} 2
-;;;								#button {Open} 3
-;;;								#button {Close} 4
-;;;							
-;;;							)
-;;;							)
-;;;;;;						(event claimed: TRUE)
-;;;						(switch temp7
-;;;							(1
-;;;
-;;;													    (DoVerb {get cloth})
-;;;
-;;;													
-;;;													
-;;;													
-;;;							)
-;;;							(2
-;;;														
-;;;													    (DoVerb {luggage cloth})
-;;;							)
-;;;							(3		
-;;;;;;										(event claimed: TRUE)		
-;;;										(DoVerb {Open cloth})
-;;;									)
-;;;							(4
-;;;;;;										(event claimed: TRUE)
-;;;										(DoVerb {Close cloth})
-;;;									)
-;;;
-;;;
-;;;								)
-;;;									)
-;;;									(else
-;;;										(event claimed: FALSE)
-;;;									)
-;;;										
-;;;					)
-;;;				)
-;;;			
+	
 
 	
 				(if (ClickedOnObj suit1 (event x?) (event y?)) 
 					
 					(event claimed: TRUE)
 					(switch theCursor	
-						(994
-							(DoVerb {change cloth})
-						)
 						(998
 							(DoVerb {search cloth}) 
 						)
@@ -434,6 +362,7 @@
 										#button {Open} 1
 										#button {Close} 2
 										#button {Get} 3									
+										#button {Change cloth} 3	
 									)
 										)
 									
@@ -450,6 +379,9 @@
 									(3
 
 										(DoVerb {Get cloth})
+									)
+									(4
+										(DoVerb {change cloth})
 									)
 								)
 									)
@@ -736,20 +668,62 @@
 					)
 
 				)
+;;;				(if (ClickedOnObj Fireplace (event x?) (event y?)) 
+;;;					(event claimed: TRUE)
+;;;					(switch theCursor	
+;;;						(998 		
+;;;							(event claimed: TRUE)
+;;;							(DoLook {Fireplace})	
+;;;						)
+;;;						(else
+;;;						
+;;;							(event claimed: FALSE)
+;;;						)
+;;;					)
+;;;
+;;;				)
+	
 				(if (ClickedOnObj Fireplace (event x?) (event y?)) 
+					
 					(event claimed: TRUE)
 					(switch theCursor	
-						(998 		
-							(event claimed: TRUE)
-							(DoLook {Fireplace})	
+						(998		
+							(= temp7
+								(PrintSpecial
+									{Chimenea}
+									#button {Examinar} 1
+									#button {Mirar dentro} 2
+									#button {Mirar troncos} 3
+;;;									{Fireplace}
+;;;									#button {Examine} 1
+;;;									#button {Examine in} 2							
+;;;									#button {Examine fire} 3
+								)
+							)
+							(switch temp7
+								(1
+								    (DoVerb {examine fireplace})
+								)
+								(2
+									(DoVerb {examine in fireplace})
+								)
+								(3
+									(DoVerb {examine fire})
+								)								
+								(else
+									(event claimed: FALSE)
+								)
+							)
 						)
-						(else
+						(995
+							(DoVerb {get fire})
+						)								
+								(else
+									(event claimed: FALSE)
+								)
+							)
+						)
 						
-							(event claimed: FALSE)
-						)
-					)
-
-				)				
 				(if (ClickedOnObj table2 (event x?) (event y?)) 
 					(event claimed: TRUE)
 					(switch theCursor	

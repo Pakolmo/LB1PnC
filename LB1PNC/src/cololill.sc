@@ -1,5 +1,5 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-(script# 270)
+(script# 270) ;OK
 (include game.sh)
 (use Main)
 (use Intrface)
@@ -24,6 +24,7 @@
 	local3
 	colLillTalkCount
 	argueCount
+	temp7
 )
 (procedure (ColPrint)
 	(Colonel cycleSpeed: 1 setCycle: Forward)
@@ -356,6 +357,405 @@
 	)
 	
 	(method (handleEvent event)
+		
+						(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)
+						(if (ClickedOnObj Colonel (event x?) (event y?)) 
+
+					(event claimed: TRUE)
+					(switch theCursor	
+					
+					(602 ;necklace_
+						(DoVerb {tell Colonel about handkerchief})						
+					)
+					(604 ;monocle
+						(DoVerb {tell Colonel about monocle})						
+					)
+					
+					(613 ;lantern_
+						(DoVerb {tell Colonel about lantern})						
+					)
+					(611 ;oilcan_
+						(DoVerb {tell Colonel about oilcan})						
+					)
+					(626 ;rolling_pin_
+						(DoVerb {tell Colonel about pin})						
+					)
+					(620 ;skeleton_key_
+						(DoVerb {tell Colonel about skeleton key})						
+					)
+					(627 ;poker_
+						(DoVerb {tell Colonel about poker})						
+					)															
+					(607 ;crowbar_
+						(DoVerb {tell Colonel about crowbar})						
+					)
+					(628 ;cigar_butt_
+						(DoVerb {tell Colonel about butt})						
+					)
+					(625 ;broken_record_
+						(DoVerb {tell Colonel about broken record})						
+					)
+					(601 ;notebook___pencil_
+						(DoVerb {tell Colonel about notebook})						
+					)
+					(603 ;_7_crackers________
+						(DoVerb {tell Colonel about crackers})						
+					)
+					(605 ;soup_bone_
+						(DoVerb {tell Colonel about soup bone})						
+					)
+					(606 ;valve_handle_
+						(DoVerb {tell Colonel about valve})						
+					)
+					(618 ;bullet_
+						(DoVerb {tell Colonel about bullet})						
+					)
+					(617 ;derringer__
+						(DoVerb {tell Colonel about derringer})						
+					)
+					(614 ;matches_
+						(DoVerb {tell Colonel about matches})						
+					)
+					(615 ;carrot_
+						(DoVerb {tell Colonel about carrot})						
+					)
+					(619 ;brass_key_
+						(DoVerb {tell Colonel about brass key})						
+					)
+					(616 ;diary_
+						(DoVerb {tell Colonel about diary})						
+					)
+					(621 ;crank_
+						(DoVerb {tell Colonel about crank})						
+					)
+					(612 ;cane_
+						(DoVerb {tell Colonel about cane})						
+					)
+					(622 ;pouch_
+						(DoVerb {tell Colonel about pouch})						
+					)																																																																																
+					(630 ;handkerchief_
+						(DoVerb {tell Colonel about handkerchief})
+					)
+											
+						
+						
+						
+						
+							(930  ;gertrude
+								(event type: 1 claimed: 1)
+								(DoVerb {ask Colonel about Gertrude})
+							)
+							(931 ;Celie
+								(event type: 1 claimed: 1)
+								(DoVerb {ask Colonel about Celie})
+							)	
+							(932 ;Gloria
+								(event type: 1 claimed: 1)
+								(DoVerb {ask Colonel about Gloria})
+							)													
+							(933 ;Ethel
+								(event type: 1 claimed: 1)
+								(DoVerb {ask Colonel about Ethel})
+							)	
+							(934 ;Fifi
+								(event type: 1 claimed: 1)
+								(DoVerb {ask Colonel about Fifi})
+							)	
+							(935 ;Lillian
+								(event type: 1 claimed: 1)
+								(DoVerb {ask Colonel about Lillian})
+							)																					
+							(936 ;Clarence
+								(event type: 1 claimed: 1)
+								(DoVerb {ask Colonel about Clarence})
+							)	
+							(937 ;Feels
+								(event type: 1 claimed: 1)
+								(DoVerb {ask Colonel about Wilbur})
+							)
+							(938 ;Rudy
+								(event type: 1 claimed: 1)
+								(DoVerb {ask Colonel about Rudy})
+							)	
+							(939 ;Colonel
+								(event type: 1 claimed: 1)
+								(DoVerb {ask Colonel about Colonel})
+							)
+							(940 ;Jules
+								(event type: 1 claimed: 1)
+								(DoVerb {ask Colonel about Jules})
+								
+							)	
+		
+							(941 ;Dog
+								(event type: 1 claimed: 1)
+								(DoVerb {ask Colonel about beauregard})
+							)													
+							(942 ;Parrot
+								(event type: 1 claimed: 1)
+								(DoVerb {ask Colonel about polly})
+							)							
+							(943 ;Horse
+								(event type: 1 claimed: 1)
+								(DoVerb {ask Colonel about blaze})
+							)															
+						(996 ;talk
+							(DoVerb {converse Colonel})
+						)
+						(998	
+							(DoVerb {Examine Colonel})
+						)
+						(995
+							(= temp7
+												(Print
+													{Colonel}
+													#button {Mover} 1
+													#button {Mirar Cigarro} 2								
+													#button {Coger Cigarro} 3
+													#button {Oler Cigarro} 3
+												)
+											)
+											(switch temp7
+												(1 
+													(DoVerb {move wheelchair})
+												)
+												(2 
+													(DoVerb {examine butt})
+												)		
+												(3 
+													(DoVerb {get butt})
+												)		
+												(4 
+													(DoVerb {smell butt})
+												)		
+												(else
+						
+												(event claimed: FALSE)
+												)
+											)
+						)
+						(else
+						
+												(event claimed: FALSE)
+												)
+											)
+						)		
+		
+			(if (ClickedOnObj Lillian (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor	
+					
+					(602 ;necklace_
+						(DoVerb {tell lillian about handkerchief})						
+					)
+					(604 ;monocle
+						(DoVerb {tell lillian about monocle})						
+					)
+					
+					(613 ;lantern_
+						(DoVerb {tell lillian about lantern})						
+					)
+					(611 ;oilcan_
+						(DoVerb {tell lillian about oilcan})						
+					)
+					(626 ;rolling_pin_
+						(DoVerb {tell lillian about pin})						
+					)
+					(620 ;skeleton_key_
+						(DoVerb {tell lillian about skeleton key})						
+					)
+					(627 ;poker_
+						(DoVerb {tell lillian about poker})						
+					)															
+					(607 ;crowbar_
+						(DoVerb {tell lillian about crowbar})						
+					)
+					(628 ;cigar_butt_
+						(DoVerb {tell lillian about butt})						
+					)
+					(625 ;broken_record_
+						(DoVerb {tell lillian about broken record})						
+					)
+					(601 ;notebook___pencil_
+						(DoVerb {tell lillian about notebook})						
+					)
+					(603 ;_7_crackers________
+						(DoVerb {tell lillian about crackers})						
+					)
+					(605 ;soup_bone_
+						(DoVerb {tell lillian about soup bone})						
+					)
+					(606 ;valve_handle_
+						(DoVerb {tell lillian about valve})						
+					)
+					(618 ;bullet_
+						(DoVerb {tell lillian about bullet})						
+					)
+					(617 ;derringer__
+						(DoVerb {tell lillian about derringer})						
+					)
+					(614 ;matches_
+						(DoVerb {tell lillian about matches})						
+					)
+					(615 ;carrot_
+						(DoVerb {tell lillian about carrot})						
+					)
+					(619 ;brass_key_
+						(DoVerb {tell lillian about brass key})						
+					)
+					(616 ;diary_
+						(DoVerb {tell lillian about diary})						
+					)
+					(621 ;crank_
+						(DoVerb {tell lillian about crank})						
+					)
+					(612 ;cane_
+						(DoVerb {tell lillian about cane})						
+					)
+					(622 ;pouch_
+						(DoVerb {tell lillian about pouch})						
+					)																																																																																
+					(630 ;handkerchief_
+						(DoVerb {tell lillian about handkerchief})
+					)
+											
+						
+						
+						
+						
+							(930  ;gertrude
+								(event type: 1 claimed: 1)
+								(DoVerb {ask lillian about Gertrude})
+							)
+							(931 ;Celie
+								(event type: 1 claimed: 1)
+								(DoVerb {ask lillian about Celie})
+							)	
+							(932 ;Gloria
+								(event type: 1 claimed: 1)
+								(DoVerb {ask lillian about Gloria})
+							)													
+							(933 ;Ethel
+								(event type: 1 claimed: 1)
+								(DoVerb {ask lillian about Ethel})
+							)	
+							(934 ;Fifi
+								(event type: 1 claimed: 1)
+								(DoVerb {ask lillian about Fifi})
+							)	
+							(935 ;Lillian
+								(event type: 1 claimed: 1)
+								(DoVerb {ask lillian about Lillian})
+							)																					
+							(936 ;Clarence
+								(event type: 1 claimed: 1)
+								(DoVerb {ask lillian about Clarence})
+							)	
+							(937 ;Feels
+								(event type: 1 claimed: 1)
+								(DoVerb {ask lillian about Wilbur})
+							)
+							(938 ;Rudy
+								(event type: 1 claimed: 1)
+								(DoVerb {ask lillian about Rudy})
+							)	
+							(939 ;Colonel
+								(event type: 1 claimed: 1)
+								(DoVerb {ask lillian about Colonel})
+							)
+							(940 ;Jules
+								(event type: 1 claimed: 1)
+								(DoVerb {ask lillian about Jules})
+							)
+							(941 ;Dog
+								(event type: 1 claimed: 1)
+								(DoVerb {ask lillian about beauregard})
+							)													
+							(942 ;Parrot
+								(event type: 1 claimed: 1)
+								(DoVerb {ask lillian about polly})
+							)							
+							(943 ;Horse
+								(event type: 1 claimed: 1)
+								(DoVerb {ask lillian about blaze})
+							)							
+													
+							
+							
+							
+							
+														
+						(996 ;talk
+							(DoVerb {converse lillian})
+						)
+						(998	
+							(DoVerb {Examine lillian})
+						)
+						(995
+							(= temp7
+												(Print
+													{Lillian}
+													#button {Coger} 1
+													#button {Matar} 2								
+													#button {Besar} 3
+													#button {Abrazar} 4
+												)
+											)
+											(switch temp7
+												(1 
+													(DoVerb {get lillian})
+												)
+												(2 
+													(DoVerb {kill lillian})
+												)		
+												(3 
+													(DoVerb {kiss lillian})
+												)		
+												(4 
+													(DoVerb {embrace lillian})
+												)		
+		
+												(else
+						
+												(event claimed: FALSE)
+												)
+											)
+						)
+						(else
+						
+												(event claimed: FALSE)
+												)
+											)
+						)		
+		
+				
+				
+				
+				
+				
+				
+		
+			)
+			)
+			
+		
+		
+		
+		
+		
+		
+		
+		
+		
+				
+		
 		(if (< (ego distanceTo: Colonel) (ego distanceTo: Lillian))
 			(= global214 512)
 		else
