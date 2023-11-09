@@ -276,22 +276,22 @@
 				
 	
 
-		
-			(if (ClickedOnObj glass (event x?) (event y?)) 
-				(event claimed: TRUE)
-					(switch theCursor	
-						(998			
-							(DoVerb {examine glass})
-						)
-						(995
-							(DoVerb {get glass})
-						)
-						(else
-							(event claimed: FALSE)
-						)
-					)
-			)
-			
+;;;		
+;;;			(if (ClickedOnObj glass (event x?) (event y?)) 
+;;;				(event claimed: TRUE)
+;;;					(switch theCursor	
+;;;						(998			
+;;;							(DoVerb {examine glass})
+;;;						)
+;;;						(995
+;;;							(DoVerb {get glass})
+;;;						)
+;;;						(else
+;;;							(event claimed: FALSE)
+;;;						)
+;;;					)
+;;;			)
+;;;			
 			
 			)
 			
@@ -417,37 +417,37 @@
 		view 381
 		cel 2
 	)
-;;;		(method (handleEvent event) ;add NOOO
-;;;	
-;;;				(cond
-;;;			(
-;;;				(and
-;;;					(== (event type?) evMOUSEBUTTON)
-;;;					(not (& (event modifiers?) emRIGHT_BUTTON))
-;;;				)
-;;;			
-;;;
-;;;
-;;;
-;;;		
-;;;			(if (ClickedOnObj glass (event x?) (event y?)) 
-;;;				(event claimed: TRUE)
-;;;					(switch theCursor	
-;;;						(998			
-;;;							(DoVerb {examine glass})
-;;;						)
-;;;						(995
-;;;							(DoVerb {get glass})
-;;;						)
-;;;						(else
-;;;							(event claimed: FALSE)
-;;;						)
-;;;					)
-;;;			)
-;;;			
-;;;			)
-;;;				)
-;;;	
-;;;	
-;;;)
+		(method (handleEvent event) ;add NOOO
+	
+				(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)
+			
+
+
+
+		
+			(if (ClickedOnObj glass (event x?) (event y?)) 
+				(event claimed: TRUE)
+					(switch theCursor	
+						(998			
+							(DoVerb {examine glass})
+						)
+						(995
+							(DoVerb {get glass})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+			)
+			
+			)
+				)
+	
+	
+)
 )

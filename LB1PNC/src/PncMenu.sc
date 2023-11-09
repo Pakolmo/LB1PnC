@@ -1010,7 +1010,6 @@
 ;;;	)
 ;;;)
 
-
 ;;; Sierra Script 1.0 - (do not remove this comment)
 (script# 950)
 (include game.sh) (include menu.sh)(include sci.sh)
@@ -1540,7 +1539,7 @@
 							)
 							(994
 								(event type: 1 claimed: 1)
-								(DoVerb {smell room})
+								
 							)			
 						)
 										
@@ -1586,7 +1585,7 @@
 							(994 ;smell
 								(event type: 1 claimed: 1)
 ;;;								(Print {(What do you want to take?.)}) ;"What do you want to take?"
-								(Print {(&Qu+ quieres oler?)}) ;"What do you want to take?"
+								(Print {(No oigo n*.)}) ;"What do you want to take?"
 							)							
 							(997 ;wait sierra
 								(event type: 1 claimed: 0)
@@ -1880,7 +1879,7 @@
 (instance lookIcon of Prop
 	(properties
 		y 6
-		x 46
+		x 43
 		view 950
 		cel 1
 		loop 0
@@ -1890,7 +1889,7 @@
 (instance handIcon of Prop
 		(properties
 		y 6
-		x 77	
+		x 70	
 		view 950
 		cel 2
 		loop 0
@@ -1900,7 +1899,7 @@
 (instance talkIcon of Prop
 	(properties
 		y 6
-		x 108
+		x 97
 		view 950
 		cel 3
 		loop 0
@@ -1911,9 +1910,9 @@
 (instance smellIcon of Prop
 	(properties
 		y 6 ;189
-		x 139 ;move the rest of the icons down (x + 30)
+		x 124 ;move the rest of the icons down (x + 30)
 		view 950
-		cel 4
+		cel 10
 		loop 0
 	)
 )
@@ -1932,7 +1931,7 @@
 (instance invIcon of Prop
 	(properties
 		y 6
-		x 211 ;248 ;138 ;127 ;move the rest of the icons down (x + 28)
+		x 215 ;248 ;138 ;127 ;move the rest of the icons down (x + 28)
 		view 950
 		cel 5
 		loop 0
@@ -1942,7 +1941,7 @@
 (instance blockIcon of Prop
 	(properties
 		y 6
-		x 176 ;171 ;;as selectedicon
+		x 169 ;171 ;;as selectedicon
 		view 950
 		loop 2
 		cel 0
@@ -1952,7 +1951,7 @@
 (instance levelsIcon of Prop
 	(properties
 		y 6
-		x 242 ;220
+		x 243 ;220
 		view 950
 		cel 6
 		loop 0
@@ -1983,7 +1982,7 @@
 (instance saveIcon of Prop
 	(properties
 		y 6
-		x 273
+		x 272
 		view 950
 		cel 8
 		loop 0
@@ -1993,7 +1992,7 @@
 (instance quitIcon of Prop
 	(properties
 		y 6
-		x 304
+		x 303
 		view 950
 		cel 9
 		loop 0
@@ -2012,7 +2011,7 @@
 (instance selectedItem of Prop
 	(properties
 		y 6
-		x 176 ;as bloxk icon;
+		x 169 ;as bloxk icon;
 		view 950 ;950
 		loop 3; ;3
 		cel 0
