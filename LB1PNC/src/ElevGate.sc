@@ -43,19 +43,6 @@
 
 (class ElevGate of Prop
 	(properties
-;;;		chainID 0
-;;;		elevatorID 0
-;;;		downID 0
-;;;		upID 0
-;;;		msgID 0
-;;;		gateStMask 0
-;;;		gateX 283
-;;;		gateY 125
-;;;		elevX 296
-;;;		elevY 125
-;;;		chainY 0
-;;;		upRoomNo 0
-;;;		downRoomNo 0
 		y 0
 		x 0
 		z 0
@@ -139,7 +126,7 @@
 			else
 ;;;				(&= global109 (~ gateStMask))
 				(= global109 (& global109 (~ gateStMask)))
-				0
+				;0
 			)
 		)
 		(elevatorID
@@ -323,215 +310,6 @@
 	)
 	
 	(method (handleEvent event)
-		
-;;;		NOT NECESARY
-;;;		(cond
-;;;			(
-;;;				(and
-;;;					(== (event type?) evMOUSEBUTTON)
-;;;					(not (& (event modifiers?) emRIGHT_BUTTON))
-;;;				)
-;;;				(if (and (ClickedOnObj ElevGate (event x?) (event y?))
-;;;					(if (& global109 $0010)
-;;;					
-;;;;;;				(if (and (ClickedOnObj ElevGate (event x?) (event y?))
-;;;;;;						(if (not (and (ego onControl: origin) (| cMAGENTA cCYAN)))))
-;;;;;;						(== global109 $0010)) ;inside
-;;;
-;;;					(event claimed: TRUE)
-;;;					(Print {test2})
-;;;					(switch theCursor
-;;;					(619
-;;;					(= temp7
-;;;							
-;;;;;;							(PrintSpecial
-;;;;;;								{Elevator}
-;;;;;;								#button {Latch} 1
-;;;;;;								#button {Unbar} 2							
-;;;;;;							)							
-;;;							
-;;;							
-;;;							
-;;;							
-;;;							(PrintSpecial
-;;;								{Ascensor}
-;;;								#button {Bloquear} 1
-;;;								#button {Desbloquear} 2							
-;;;							)
-;;;							)
-;;;
-;;;						(switch temp7
-;;;							(1
-;;;							    (DoVerb {latch control})
-;;;							   
-;;;	
-;;;							)
-;;;							(2
-;;;								(DoVerb {unbar control})
-;;;							)
-;;;						
-;;;							(else
-;;;								(event claimed: FALSE)
-;;;							)
-;;;						)
-;;;					
-;;;					)
-;;;					(998
-;;;						
-;;;						
-;;;					
-;;;;;;						(= temp7
-;;;;;;							(PrintSpecial
-;;;;;;								{  }
-;;;;;;								#button {Examine Control} 1
-;;;;;;								#button {Examine Keyhole} 2	
-;;;;;;								#button {Examine Shaft} 3						
-;;;;;;							)		
-;;;						(= temp7
-;;;							(PrintSpecial
-;;;								{ }
-;;;								#button {Examine Control} 1
-;;;								#button {Examine Keyhole} 2	
-;;;								#button {Examine Shaft} 3						
-;;;							)
-;;;							)
-;;;
-;;;						(switch temp7
-;;;							(1
-;;;							    (DoVerb {examine control})
-;;;							   
-;;;	
-;;;							)
-;;;							(2
-;;;								(DoVerb {examine keyhole})
-;;;							)
-;;;							(3
-;;;								(DoVerb {examine shaft})
-;;;							)						
-;;;							(else
-;;;								(event claimed: FALSE)
-;;;							)
-;;;						)
-;;;						
-;;;					
-;;;					
-;;;						
-;;;					)
-;;;					(999		
-;;;					
-;;;				
-;;;					
-;;;;;;						(= temp7
-;;;;;;							(PrintSpecial
-;;;;;;								{Elevator}
-;;;;;;								#button {Enter} 1
-;;;;;;								#button {Exit} 2							
-;;;;;;							)		
-;;;						(= temp7
-;;;							(PrintSpecial
-;;;								{Ascensor}
-;;;								#button {Entrar} 1
-;;;								#button {Salir} 2							
-;;;							)
-;;;							)
-;;;
-;;;						(switch temp7
-;;;							(1
-;;;							    (DoVerb {enter elevator})
-;;;							   
-;;;	
-;;;							)
-;;;							(2
-;;;								(DoVerb {exit elevator})
-;;;							)
-;;;						
-;;;							(else
-;;;								(event claimed: FALSE)
-;;;							)
-;;;						)
-;;;						
-;;;					)
-;;;					
-;;;					(995
-;;;		
-;;;		
-;;;
-;;;					(= temp7
-;;;;;;							(PrintSpecial
-;;;;;;								{Elevator}
-;;;;;;								#button {Enter} 1
-;;;;;;								#button {Exit} 2								
-;;;;;;								#button {Press Up} 3
-;;;;;;								#button {Press Down} 4
-;;;;;;
-;;;;;;							)
-;;;							(PrintSpecial
-;;;								{Ascensor}
-;;;								#button {Entrar} 1
-;;;								#button {Salir} 2
-;;;								#button {Arriba} 3
-;;;								#button {Abajo} 4								
-;;;
-;;;							)							
-;;;							
-;;;							)
-;;;
-;;;						(switch temp7
-;;;							(1
-;;;							    (DoVerb {open lift})
-;;;							   
-;;;	
-;;;							)
-;;;							(2
-;;;								(DoVerb {close lift})
-;;;							)
-;;;							(3
-;;;							    (DoVerb {move up})
-;;;							   
-;;;	
-;;;							)
-;;;							(4
-;;;								(DoVerb {move down})
-;;;							)	
-;;;													
-;;;							(else
-;;;								(event claimed: FALSE)
-;;;							)
-;;;						)
-;;;					)(else
-;;;								(event claimed: FALSE)
-;;;							)
-;;;					)
-;;;					)
-;;;					)
-;;;					
-;;;					)
-;;;					
-;;;					)
-;;;				)
-;;;
-;;;	
-;;;		
-;;;		
-	
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 		(if (event claimed?) (return))
 		(if (== (event type?) saidEvent)
 			(cond 
@@ -940,7 +718,6 @@
 			)
 		)
 	)
-
 	
 	(method (gateFunc param1 param2)
 		(HandsOff)
@@ -968,35 +745,6 @@
 		)
 		(HandsOn)
 	)
-	
-;;;	(method (elevatorFunc)
-;;;		(cond 
-;;;			((& global109 gateStMask)
-;;;;;;				(AlreadyOpen)
-;;;			)
-;;;			((& (ego onControl: origin) cCYAN)
-;;;				(if (!= curRoomNum global111)
-;;;					(self gateFunc: 1 3)
-;;;				else
-;;;					(|= global109 $0040)
-;;;					(= global110 5)
-;;;					(self cue:)
-;;;				)
-;;;			)
-;;;			((& (ego onControl: origin) cMAGENTA)
-;;;				(self gateFunc: 1 2)
-;;;			)
-;;;			((& global109 $0010)
-;;;				(|= global109 $0040)
-;;;				(= global110 1)
-;;;				(self cue:)
-;;;			)
-;;;			(else
-;;;				(NotClose)
-;;;			)
-;;;		)
-;;;	)
-;;;)
 
 	(method (elevatorFunc)
 		(cond 
@@ -1020,11 +768,3 @@
 		)
 	)
 )
-;;;;;;(instance elevGate of Prop ;add
-;;;	(properties
-;;;		y 125
-;;;		x 283
-;;;		view 242
-;;;		loop 2
-;;;	)
-;;;)
