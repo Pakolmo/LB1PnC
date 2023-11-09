@@ -67,7 +67,7 @@
 					(not (& (event modifiers?) emRIGHT_BUTTON))
 				)
 				
-							(if (ClickedOnObj Body (event x?) (event y?)) 
+							(if (ClickedOnObj Dwilb (event x?) (event y?)) 
 					
 					(event claimed: TRUE)
 					(switch theCursor
@@ -86,7 +86,25 @@
 					)
 				)
 		
-		
+								(if (ClickedOnObj Body (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(DoVerb {examine wilbur})
+						)	
+						(995
+							(DoVerb {examine in wilbur})
+						)
+						(996
+							(DoVerb {converse wilbur})
+						)		
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+			
 			)
 					)
 		

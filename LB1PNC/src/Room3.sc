@@ -26,11 +26,11 @@
 	temp7
 )
 (procedure (RoomPrint)
-	(Print &rest
-		#at 110 25
-		#mode teJustCenter
-		#dispose
-	)
+	(Print &rest 67 110 25 30 1 88)
+;;;		#at 110 25
+;;;		#mode teJustCenter
+;;;		#dispose
+;;;	)
 )
 
 (instance Room3 of Room
@@ -99,7 +99,7 @@
 		(if (FirstEntry)
 			(Print 3 0)
 		)
-		(if (and (not climbingUp) (& (ego onControl: FALSE) cBLUE))
+		(if (and (not climbingUp) (& (ego onControl: 0) $0002))
 			(= climbingUp TRUE)
 			(ego setScript: climbUp)
 		)
@@ -349,7 +349,7 @@
 									)
 								)
 								((Said '<up')
-									(if (& (ego onControl: origin) cGREEN)
+									(if (& (ego onControl: 1) $0004)
 										(if bellOnGround
 											(Print 3 2)
 										else
@@ -380,7 +380,7 @@
 												(Print 3 8)
 											)
 										)
-										((& (ego onControl: origin) cGREEN)
+										((& (ego onControl: 1) $0004)
 											(if bellOnGround
 												(Print 3 2)
 											else
@@ -432,7 +432,8 @@
 						(and
 							nearLadder
 							(> (event y?) (ego y?))
-							(not (& (event modifiers?) (| shiftDown ctrlDown altDown)))
+;;;							(not (& (event modifiers?) (| shiftDown ctrlDown altDown)))
+							(not (& (event modifiers?) $000f))
 							(User canInput?)
 						)
 						(ego setScript: climbDown)
@@ -442,7 +443,8 @@
 					(if
 						(and
 							nearLadder
-							(== (event message?) dirS)
+;;;							(== (event message?) dirS)
+							(== (event message?) JOY_DOWN)
 							(User canInput?)
 						)
 						(ego setScript: climbDown)

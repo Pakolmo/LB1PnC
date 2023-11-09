@@ -77,6 +77,7 @@
 		(addToPics dispose:)
 		(features dispose:)
 		(cast eachElementDo: #hide)
+		(curRoom setRegions: 950) ;add
 		(DrawPic 74 WIPELEFT FALSE 0)
 		(door show:)
 		(lamp2 show:)
@@ -239,6 +240,7 @@
 					(localproc_00ed)
 					(DoSound ChangeVolume 0)
 					(Room74 picture: 74)
+					(curRoom setRegions: 950) ;add
 				)
 			)
 			(else

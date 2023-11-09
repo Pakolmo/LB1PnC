@@ -140,16 +140,14 @@
 												(PrintSpecial
 ;;;													{Lilian}
 ;;;													#button {Search} 1
-;;;													#button {Get Derringer} 2
-;;;													#button {Get bullet} 3
-;;;													#button {Examine in Cape} 4		
-;;;													#button {Examine insignia} 5	
+
+
+;;;													#button {Examine in Cape} 2		
+;;;													#button {Examine insignia} 3	
 													{Lilian}
 													#button {Buscar} 1
-													#button {Coger Arma} 2	
-													#button {Coger munici/n} 3								
-													#button {Examinar capa} 4
-													#button {Examinar insignia} 5
+													#button {Examinar capa} 2
+													#button {Examinar insignia} 3
 												)
 											)
 											(switch temp7
@@ -158,18 +156,10 @@
 													
 												)
 												(2 
-													(DoVerb {get derringer})
-													
-												)
-												(3 
-													(DoVerb {get bullet})
-													
-												)
-												(4 
 													(DoVerb {examine in cape})
 													
 												)
-												(5 
+												(3 
 													(DoVerb {examine insignia})
 													
 												)
@@ -199,6 +189,9 @@
 					
 					(event claimed: TRUE)
 					(switch theCursor
+						(995
+							(DoVerb {get bullet})
+						)
 						(998
 							(event claimed: TRUE)
 							(Print 280 2)
@@ -214,6 +207,9 @@
 					
 					(event claimed: TRUE)
 					(switch theCursor
+						(995
+							(DoVerb {get derringer})
+						)
 						(998
 							(event claimed: TRUE)
 							(Print 280 2)
