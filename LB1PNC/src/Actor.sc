@@ -73,8 +73,8 @@
 		;(super init:)
 	)
 	(method (dispose)
-		(addToPics	delete:self)
-		(super dispose:)
+;		(addToPics	delete:self)
+;		(super dispose:)
 	)
 		
 )
