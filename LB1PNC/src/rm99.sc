@@ -7,6 +7,7 @@
 (use Actor)
 (use Menu)
 (use User)
+(use Intrface)
 
 (public
 	rm99 0
@@ -65,6 +66,8 @@
 						(= howFast fast)
 					)
 				)
+				;(Printf {howFast: %d, machineSpeed: %d} howFast machineSpeed)
+				(= howFast medium) ;override detected speed
 				(theGame setSpeed: 6)
 				(HandsOn)
 				(theGame setCursor: 997 (HaveMouse))					
