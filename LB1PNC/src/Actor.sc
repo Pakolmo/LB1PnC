@@ -72,10 +72,12 @@
 		(addToPics	add:self)
 		;(super init:)
 	)
+
 	(method (dispose)
 ;		(addToPics	delete:self)
 ;		(super dispose:)
 	)
+
 		
 )
 
