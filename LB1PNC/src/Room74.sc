@@ -39,9 +39,7 @@
 		(= local7 0)
 		(= currentPalette 0)
 		(DrawPic 174 WIPERIGHT TRUE 0)
-		
 		(DrawPic 74 WIPERIGHT FALSE 0)
-;;;		(curRoom setRegions: 950) ;
 		(if (and (>= currentAct 2) (< currentAct 5))
 			(addToPics add: glasses)
 			(Room74 setFeatures: glasses)
@@ -51,7 +49,17 @@
 			(Room74 setFeatures: decanter)
 		)
 		(addToPics
-			add: wardrobe sofa table1 mirror chair1 chair2 table2 phono bed photo
+			add:
+				wardrobe
+				sofa
+				table1
+				mirror
+				chair1
+				chair2
+				table2
+				phono
+				bed
+				photo
 			eachElementDo: #init
 			doit:
 		)
@@ -79,27 +87,12 @@
 		(DrawPic 174 WIPELEFT TRUE 1)
 		(addToPics dispose:)
 		(features dispose:)
-;;;		(cast eachElementDo: #hide)
-		(if (cast contains: sofa)
-			;(sofa #hide)
-			(sofa dispose:)
-		)
-		(if (cast contains: wardrobe)
-			(wardrobe dispose:)
-		)		
-		(if (cast contains: decanter)
-			(decanter dispose:)
-		)		
-		
-		(if (cast contains: Tswing)
-			(Tswing dispose:)
-		)
-		(= currentAct 2)
+		(cast eachElementDo: #hide)
+		(ShowMenu) ;prevent menu from disapearing after (cast eachElementDo: #hide)
 		(DrawPic 74 WIPELEFT FALSE 0)
 		(door show:)
 		(lamp2 show:)
 		(ego show:)
-;;;		(setRegions show:) ;add
 	)
 )
 
