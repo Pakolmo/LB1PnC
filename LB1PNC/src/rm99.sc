@@ -7,7 +7,6 @@
 (use Actor)
 (use Menu)
 (use User)
-(include sci.sh)
 
 (public
 	rm99 0
@@ -66,7 +65,10 @@
 						(= howFast 2)
 					)
 				)
-				(= howFast medium)
+
+				;(Printf {howFast: %d, machineSpeed: %d} howFast machineSpeed)
+				(= howFast medium) ;override detected speed
+
 				(theGame setSpeed: 6)
 
 				(HandsOn)

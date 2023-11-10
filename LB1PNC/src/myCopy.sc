@@ -69,7 +69,7 @@
 
 (instance Glass of Actor)
 
-(instance Mood of Sound)
+;;;(instance Mood of Sound)
 
 (instance myCopy of Room
 	(properties

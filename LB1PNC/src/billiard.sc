@@ -924,13 +924,13 @@ code_0662:
 	)
 )
 
-(instance Mouth of Prop
-	(properties
-		view 364
-		loop 6
-		signal ignrAct
-	)
-)
+;;;(instance Mouth of Prop
+;;;	(properties
+;;;		view 364
+;;;		loop 6
+;;;		signal ignrAct
+;;;	)
+;;;)
 
 (instance CueBall of Actor
 	(properties

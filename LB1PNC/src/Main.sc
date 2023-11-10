@@ -1060,12 +1060,12 @@
 	)
 )
 
-(instance statusCode of Code
-	
-	(method (doit strg)
-		(StrCpy strg 0 1)
-	)
-)
+;;;(instance statusCode of Code
+;;;	
+;;;	(method (doit strg)
+;;;		(StrCpy strg 0 1)
+;;;	)
+;;;)
 
 (instance egoObj of Ego
 	(properties

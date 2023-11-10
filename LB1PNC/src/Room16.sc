@@ -716,6 +716,6 @@
 	)
 )
 
-(instance Wind of Sound)
+;;;(instance Wind of Sound)
 
 (instance myMusic of Sound)

@@ -1684,36 +1684,36 @@
 	)
 )
 
-(instance dotherestart of Script
-	(properties)
-	
-	(method (changeState newState)
-		(= state newState)
-		(switch state
-			(0
-				(restartIcon loop: 1)
-				(= cycles 3)
-			)
-			(1
-				(if
-					(Print MENU 3
-;;;	 					#title {Restart} ;ENGLISH
-	 					#title {Reiniciar} ;SPANISH
-						#font bigFont
-;;;						#button {Restart} 1 ;ENGLISH
-;;;						#button { Oops_} 0 ;ENGLISH
-						#button {Reiniciar} 1 ;SPANISH
-						#button { Ups_} 0 ;Spanish			
-					)
-					(theGame restart:)
-				else
-					(restartIcon loop: 0)
-					(= newState 0)
-				)
-			)
-		)
-	)
-)
+;;;(instance dotherestart of Script
+;;;	(properties)
+;;;	
+;;;	(method (changeState newState)
+;;;		(= state newState)
+;;;		(switch state
+;;;			(0
+;;;				(restartIcon loop: 1)
+;;;				(= cycles 3)
+;;;			)
+;;;			(1
+;;;				(if
+;;;					(Print MENU 3
+;;;;;;	 					#title {Restart} ;ENGLISH
+;;;	 					#title {Reiniciar} ;SPANISH
+;;;						#font bigFont
+;;;;;;						#button {Restart} 1 ;ENGLISH
+;;;;;;						#button { Oops_} 0 ;ENGLISH
+;;;						#button {Reiniciar} 1 ;SPANISH
+;;;						#button { Ups_} 0 ;Spanish			
+;;;					)
+;;;					(theGame restart:)
+;;;				else
+;;;					(restartIcon loop: 0)
+;;;					(= newState 0)
+;;;				)
+;;;			)
+;;;		)
+;;;	)
+;;;)
 
 (instance dothelevels of Script
 	(properties)
@@ -1998,15 +1998,16 @@
 		loop 0
 	)
 )
-(instance restartIcon of Prop
-	(properties
-		y 6 ;189
-		x 248
-		view 950
-		cel 7
-		loop 0
-	)
-)
+
+;;;(instance restartIcon of Prop
+;;;	(properties
+;;;		y 6 ;189
+;;;		x 248
+;;;		view 950
+;;;		cel 7
+;;;		loop 0
+;;;	)
+;;;)
 
 (instance selectedItem of Prop
 	(properties

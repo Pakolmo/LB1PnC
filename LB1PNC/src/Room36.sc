@@ -1191,7 +1191,7 @@
 
 (instance soundFX of Sound)
 
-(instance pianoMusic of Sound)
+;;;(instance pianoMusic of Sound)
 
 (instance doorMusic of Sound)
 
