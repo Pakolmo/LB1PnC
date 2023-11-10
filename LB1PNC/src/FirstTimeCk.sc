@@ -34,11 +34,11 @@
 			(curRoom newRoom: 777)
 		else
 			(cSound fade:)
-;;;			(TheMenuBar state: TRUE)
-		(if menuBarInitialized
-			(TheMenuBar hide:)
-		)
-			(theGame setCursor: 997 (HaveMouse))
+			(TheMenuBar state: TRUE)
+;;;		(if menuBarInitialized
+;;;			(TheMenuBar hide:)
+;;;		)
+;;;			(theGame setCursor: 997 (HaveMouse))
 			(curRoom newRoom: 44)
 		)
 	)

@@ -119,4 +119,5 @@
 	slow
 	medium
 	fast
+
 )

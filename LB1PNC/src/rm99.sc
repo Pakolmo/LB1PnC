@@ -7,6 +7,7 @@
 (use Actor)
 (use Menu)
 (use User)
+(include sci.sh)
 
 (public
 	rm99 0
@@ -33,7 +34,7 @@
 		(theGame setCursor: 997 (HaveMouse))
 		(= howFast -1)
 		(if (!= possibleScore 1)
-			(Load VIEW 899)
+			(Load rsVIEW 899)
 			(LoadMany 143 409)
 		)
 		(Speedy
@@ -56,16 +57,18 @@
 			(if (< doneTime (GetTime))
 				(cond 
 					((<= machineSpeed 40)
-						(= howFast slow)
+						(= howFast 0)
 					)
 					((<= machineSpeed 70)
-						(= howFast medium)
+						(= howFast 1)
 					)
 					(else
-						(= howFast fast)
+						(= howFast 2)
 					)
 				)
+				(= howFast medium)
 				(theGame setSpeed: 6)
+
 				(HandsOn)
 				(theGame setCursor: 997 (HaveMouse))					
 				(if

@@ -19,7 +19,7 @@
 	(method (init)
 		(super init:)
 		(Load FONT 41)
-		(Load VIEW 642)
+		(Load rsVIEW 642)
 		(LoadMany SOUND 29 94 95 96)
 		(Load SCRIPT 406)
 		(if (or possibleScore (not (Btst fSkippedIntro)))

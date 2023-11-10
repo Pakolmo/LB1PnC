@@ -150,8 +150,10 @@
 		(if (not local4)
 			(if
 				(or
-					(& (ego onControl: FALSE) cCYAN)
-					(& (ego onControl: FALSE) cRED)
+;;;					(& (ego onControl: FALSE) cCYAN)
+;;;					(& (ego onControl: FALSE) cRED)
+					(& (ego onControl: 0) $0008)
+					(& (ego onControl: 0) $0010)
 				)
 				(= temp0 9)
 			else
@@ -160,9 +162,12 @@
 			(ego setPri: temp0)
 		)
 		(switch (ego onControl: origin)
-			(cGREEN (curRoom newRoom: 46))
-			(cBLUE (curRoom newRoom: 48))
-			(cRED
+;;;			(cGREEN (curRoom newRoom: 46))
+;;;			(cBLUE (curRoom newRoom: 48))
+;;;			(cRED
+			(4 (curRoom newRoom: 46))
+			(2 (curRoom newRoom: 48))
+			(16	
 				(if (== (ego loop?) 3) (curRoom newRoom: 74))
 			)
 			(2048
@@ -498,14 +503,20 @@
 				(if
 					(or
 						(== (User controls?) 0)
-						(& (ego onControl: 0) cBLACK)
-						(& (ego onControl: 0) cCYAN)
-						(& (ego onControl: 0) cLGREY)
+;;;						(& (ego onControl: 0) cBLACK)
+;;;						(& (ego onControl: 0) cCYAN)
+;;;						(& (ego onControl: 0) cLGREY)
+						(& (ego onControl: 0) $0001)
+						(& (ego onControl: 0) $0008)
+						(& (ego onControl: 0) $0080)
+					)
+;;;			(cRED
 					)
 					(return)
-				)
+;;;				)
 				(switch (ego onControl: 0)
-					(cLBLUE
+;;;					(cLBLUE
+					(512
 						(ego
 							setMotion:
 								MoveTo
@@ -519,7 +530,8 @@
 								)
 						)
 					)
-					(cLGREEN
+;;;					(cLGREEN
+					(1024
 						(ego
 							setMotion:
 								MoveTo
@@ -540,20 +552,26 @@
 				(if
 					(or
 						(== (User controls?) 0)
-						(& (ego onControl: 0) cBLACK)
-						(& (ego onControl: 0) cCYAN)
-						(& (ego onControl: 0) cMAGENTA)
-						(& (ego onControl: 0) cLGREY)
+;;;						(& (ego onControl: 0) cBLACK)
+;;;						(& (ego onControl: 0) cCYAN)
+;;;						(& (ego onControl: 0) cMAGENTA)
+;;;						(& (ego onControl: 0) cLGREY)
+						(& (ego onControl: 0) $0001)
+						(& (ego onControl: 0) $0008)
+						(& (ego onControl: 0) $0020)
+						(& (ego onControl: 0) $0080)
 					)
 					(return)
 				)
 				(switch (event message?)
 					(dirN
 						(switch (ego onControl: 0)
-							(cLBLUE
+;;;							(cLBLUE
+							(512
 								(ego setMotion: MoveTo 60 136)
 							)
-							(cLGREEN
+;;;							(cLGREEN
+							(1024
 								(ego setMotion: MoveTo 261 136)
 							)
 						)
@@ -561,10 +579,12 @@
 					)
 					(dirS
 						(switch (ego onControl: 0)
-							(cLBLUE
+;;;							(cLBLUE
+							(512
 								(ego setMotion: MoveTo 39 190)
 							)
-							(cLGREEN
+;;;							(cLGREEN
+							(1024
 								(ego setMotion: MoveTo 280 190)
 							)
 						)

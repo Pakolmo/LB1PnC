@@ -363,7 +363,7 @@
 						)
 					)
 					((Said 'drop/room')
-						(= howFast slow)
+						(= howFast 0)
 						(event claimed: TRUE)
 					)
 				)

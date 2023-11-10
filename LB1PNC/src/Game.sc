@@ -826,24 +826,36 @@
 	)
 
 
-	(method (setRegions region &tmp i n regID)
-		;; Set the regions used by a room.
-
-		(for	((= i 0))
-				(< i argc)
-				((++ i))
-
-			(= n [region i])
-			(= regID (ScriptID n))
-			(regID number: n)
-			(regions add: regID)
-			(if (not (regID initialized?))
-				(regID init:)
+;;;	(method (setRegions region &tmp i n regID)
+;;;		;; Set the regions used by a room.
+;;;
+;;;		(for	((= i 0))
+;;;				(< i argc)
+;;;				((++ i))
+;;;
+;;;			(= n [region i])
+;;;			(= regID (ScriptID n))
+;;;			(regID number: n)
+;;;			(regions add: regID)
+;;;			(if (not (regID initialized?))
+;;;				(regID init:)
+;;;			)
+;;;		)
+;;;	)
+;;;
+	(method (setRegions scriptNumbers &tmp temp0 theScriptNumbers temp2)
+		(= temp0 0)
+		(while (< temp0 argc)
+			(= theScriptNumbers [scriptNumbers temp0])
+			((= temp2 (ScriptID theScriptNumbers))
+				number: theScriptNumbers
 			)
+			(regions add: temp2)
+			(if (not (temp2 initialized?)) (temp2 init:))
+			(++ temp0)
 		)
 	)
-
-
+	
 	; attach a locale to the locale list and send it it's init
 	(method (setLocales locale &tmp i n locID)
 		;; Set the locales used by a room.
@@ -862,18 +874,25 @@
 	)
 
 
-	(method (setFeatures feature &tmp i n featureID)
-		;; Set the features used by a room.
-
-		(for	((= i 0))
-				(< i argc)
-				((++ i))
-
-			(features add: [feature i])
+;;;	(method (setFeatures feature &tmp i n featureID)
+;;;		;; Set the features used by a room.
+;;;
+;;;		(for	((= i 0))
+;;;				(< i argc)
+;;;				((++ i))
+;;;
+;;;			(features add: [feature i])
+;;;		)
+;;;	)
+;;;
+	(method (setFeatures theFeatures &tmp temp0 [temp1 2])
+		(= temp0 0)
+		(while (< temp0 argc)
+			(features add: [theFeatures temp0])
+			(++ temp0)
 		)
 	)
-
-
+	
 	(method (newRoom n)
 		;; Remove this Room from the regions, let the rest of the regions
 		;; know about the room change, then put ourselves back in the action.
@@ -947,7 +966,8 @@
 
 	(method (handleEvent event)
 		;; Game programmer must redefine this method.
-		(return (event claimed?))
+;;;		(return (event claimed?))
+		(event claimed?)
 	)
 
 
