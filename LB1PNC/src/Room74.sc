@@ -9,6 +9,7 @@
 (use Game)
 (use Actor)
 (use System)
+(use PncMenu)
 
 (public
 	Room74 0
@@ -38,7 +39,9 @@
 		(= local7 0)
 		(= currentPalette 0)
 		(DrawPic 174 WIPERIGHT TRUE 0)
+		
 		(DrawPic 74 WIPERIGHT FALSE 0)
+;;;		(curRoom setRegions: 950) ;
 		(if (and (>= currentAct 2) (< currentAct 5))
 			(addToPics add: glasses)
 			(Room74 setFeatures: glasses)
@@ -76,12 +79,26 @@
 		(DrawPic 174 WIPELEFT TRUE 1)
 		(addToPics dispose:)
 		(features dispose:)
-		(cast eachElementDo: #hide)
-		(curRoom setRegions: 950) ;add
+;;;		(cast eachElementDo: #hide)
+		(if (cast contains: sofa)
+			(sofa #hide)
+		)
+		(if (cast contains: wardrobe)
+			(wardrobe dispose:)
+		)		
+		(if (cast contains: decanter)
+			(decanter dispose:)
+		)		
+		
+		(if (cast contains: Tswing)
+			(Tswing dispose:)
+		)
+		(= currentAct 2)
 		(DrawPic 74 WIPELEFT FALSE 0)
 		(door show:)
 		(lamp2 show:)
 		(ego show:)
+;;;		(setRegions show:) ;add
 	)
 )
 

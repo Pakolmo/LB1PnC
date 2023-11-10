@@ -85,7 +85,24 @@
 					)
 				)
 		
-		
+				(if (ClickedOnObj Dclar (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(DoVerb {examine clarence})
+						)	
+						(995
+							(DoVerb {examine in clarence})
+						)
+						(996
+							(DoVerb {converse clarence})
+						)		
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)	
 			)
 					)
 		

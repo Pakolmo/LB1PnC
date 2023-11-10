@@ -44,8 +44,10 @@
 			(
 				(and
 					(>= currentAct 6)
-					(not (& deadGuests deadRUDY))
-					(not (& deadGuests deadLILLIAN))
+;;;					(not (& deadGuests deadRUDY))
+;;;					(not (& deadGuests deadLILLIAN))
+					(not (& deadGuests $0020))
+					(not (& deadGuests $0040))
 				)
 				(cond 
 					((== gCurRoomNum_3 41) (++ local0)

@@ -96,7 +96,8 @@
 			init:
 		)
 		(self setFeatures: phone lamp Case2 Case1)
-		(ego view: 0 illegalBits: (| cWHITE cBLUE cGREEN) init:)
+;;;		(ego view: 0 illegalBits: (| cWHITE cBLUE cGREEN) init:)
+		(ego view: 0 illegalBits: -32762 init:)
 		(switch prevRoomNum
 			(4
 				(rDoor setCycle: BegLoop)
@@ -113,7 +114,8 @@
 				(Clock cel: (- (NumCels Clock) 1) setScript: CloseClock)
 			)
 			(50
-				(ego posn: 266 159 ignoreControl: cGREEN)
+;;;				(ego posn: 266 159 ignoreControl: cGREEN)
+				(ego posn: 266 159 ignoreControl: 4)
 				(Mirror
 					cel: (- (NumCels Mirror) 1)
 					setScript: CloseMirror
@@ -133,7 +135,8 @@
 		)
 		(if
 			(and
-				(& (ego onControl: origin) cMAGENTA)
+;;;				(& (ego onControl: origin) cMAGENTA)
+				(& (ego onControl: 1) $0020)
 				(not local1)
 				(== (ego loop?) 3)
 			)
@@ -141,10 +144,14 @@
 			(= local1 1)
 			(self setScript: myDoor)
 		)
-		(switch (ego onControl: origin)
-			(cRED (curRoom newRoom: 32))
-			(cCYAN (curRoom newRoom: 34))
-		)
+;;;		(switch (ego onControl: origin)
+;;;			(cRED (curRoom newRoom: 32))
+;;;			(cCYAN (curRoom newRoom: 34))
+;;;		)
+		(switch (ego onControl: 1)
+			(16 (curRoom newRoom: 32))
+			(8 (curRoom newRoom: 34))
+		)		
 		(cond 
 			((< (ego x?) 130) (= vertAngle 20))
 			((< (ego x?) 190) (= vertAngle 0))
@@ -174,7 +181,7 @@
 	)
 	
 	(method (handleEvent event &tmp temp0)
-		
+			(if (event claimed?) (return TRUE))	
 		
 			
 		
@@ -471,7 +478,7 @@
 			)
 		)
 		
-		(if (event claimed?) (return TRUE))
+
 		(return
 			(if (== (event type?) saidEvent)
 				(cond 
@@ -579,7 +586,8 @@
 			)
 			(2
 				(Clock stopUpd:)
-				(ego illegalBits: (| cWHITE cBLUE cGREEN))
+;;;				(ego illegalBits: (| cWHITE cBLUE cGREEN))
+				(ego illegalBits: -32762)
 				(HandsOn)
 				(client setScript: 0)
 			)
@@ -598,7 +606,8 @@
 				)
 			)
 			(1
-				(ego loop: 0 cel: 1 ignoreControl: cGREEN)
+;;;				(ego loop: 0 cel: 1 ignoreControl: cGREEN)
+				(ego loop: 0 cel: 1 ignoreControl: 4)
 				(Mirror cycleSpeed: 3 setCycle: EndLoop self)
 				(mySound number: 72 loop: 1 play:)
 			)
@@ -663,7 +672,8 @@
 				(mySound number: 72 loop: 1 play:)
 			)
 			(2
-				(ego illegalBits: (| cWHITE cBLUE cGREEN))
+;;;				(ego illegalBits: (| cWHITE cBLUE cGREEN))
+				(ego illegalBits: -32762)
 				(Mirror stopUpd:)
 				(HandsOn)
 				(client setScript: 0)
@@ -985,7 +995,8 @@
 		x 81
 		view 103
 		priority 15
-		signal (| ignrAct fixPriOn)
+;;;		signal (| ignrAct fixPriOn)
+		signal $4010
 		cycleSpeed 1
 	)
 )

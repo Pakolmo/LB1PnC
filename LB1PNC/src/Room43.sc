@@ -76,11 +76,13 @@
 		)
 		(switch prevRoomNum
 			(49
-				(ego illegalBits: cWHITE posn: 62 164)
+;;;				(ego illegalBits: cWHITE posn: 62 164)
+				(ego illegalBits: -32768 posn: 62 164)
 				(wardL setScript: closing)
 			)
 			(50
-				(ego illegalBits: cWHITE posn: 259 161)
+;;;				(ego illegalBits: cWHITE posn: 259 161)
+				(ego illegalBits: -32768 posn: 259 161)
 				(wardR setScript: closing)
 			)
 			(42
@@ -149,7 +151,7 @@
 	(method (handleEvent event &tmp temp0)
 		
 		
-		
+			(if (event claimed?) (return TRUE))	
 		
 
 		
@@ -487,7 +489,7 @@
 			)
 		)
 		
-		(if (event claimed?) (return TRUE))
+
 		(return
 			(if (and (== (event type?) saidEvent) (Said 'examine>'))
 				(cond 
@@ -528,7 +530,8 @@
 				(== global201 200)
 			)
 			(++ global201)
-			(|= deadGuests deadRUDY)
+;;;			(|= deadGuests deadRUDY)
+			(= deadGuests (| deadGuests $0020))
 		)
 		(super newRoom: n)
 	)
@@ -679,7 +682,8 @@
 		(switch (= state newState)
 			(0
 				(User canControl: FALSE canInput: FALSE)
-				(ego setMotion: 0 illegalBits: cWHITE)
+;;;				(ego setMotion: 0 illegalBits: cWHITE)
+				(ego setMotion: 0 illegalBits: -32768)
 				(myMusic number: 43 loop: 1 play:)
 				(Door cycleSpeed: 1 ignoreActors: 1 setCycle: EndLoop self)
 			)
@@ -877,8 +881,10 @@
 					(Said 'open<(drag,press)/armoire')
 				)
 				(cond 
-					((& (ego onControl: 0) cLGREY) (wardL setScript: Lcloset))
-					((& (ego onControl: 0) cGREY) (wardR setScript: Lcloset))
+;;;					((& (ego onControl: 0) cLGREY) (wardL setScript: Lcloset))
+;;;					((& (ego onControl: 0) cGREY) (wardR setScript: Lcloset))
+					((& (ego onControl: 0) $0080) (wardL setScript: Lcloset))
+					((& (ego onControl: 0) $0100) (wardR setScript: Lcloset))
 					(else (NotClose))
 				)
 			)
@@ -889,8 +895,10 @@
 					(Said 'search,open,(examine<in)/armoire')
 				)
 				(cond 
-					((& (ego onControl: 0) cLGREY) (doorL setScript: Lopen))
-					((& (ego onControl: 0) cGREY) (doorR setScript: Lopen))
+;;;					((& (ego onControl: 0) cLGREY) (doorL setScript: Lopen))
+;;;					((& (ego onControl: 0) cGREY) (doorR setScript: Lopen))
+					((& (ego onControl: 0) $0080) (doorL setScript: Lopen))
+					((& (ego onControl: 0) $0100) (doorR setScript: Lopen))
 					(else (NotClose))
 				)
 			)

@@ -47,6 +47,58 @@
 	)
 	
 	(method (init)
+		(theGame setSpeed: 1)
+		(ego get: 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21)
+		(= temp7
+								(PrintSpecial
+									{Acto}
+									#button {Uno} 1
+									#button {Dos} 2	
+									#button {Tres} 3
+									#button {Cuatro} 4
+									#button {Cinco} 5	
+									#button {Seis} 6
+									#button {Siete} 7	
+									#button {Ocho} 8									
+							
+								)
+							)
+							(switch temp7
+								(1
+								    (= currentAct 0)
+								)
+								(2
+									(= currentAct 1)
+								)
+								(3
+									(= currentAct 2)
+								)	
+								(4
+									(= currentAct 3)
+								)	
+								(5
+									(= currentAct 4)
+								)	
+								(6
+									(= currentAct 5)
+								)	
+								(7
+									(= currentAct 6)
+								)																																						
+								(8
+									(= currentAct 7)
+								)	
+
+							)
+						
+
+		
+		
+		
+		
+		
+		
+		
 		(= west 43)
 		(= saveDisabled FALSE)
 		(super init:)

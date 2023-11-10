@@ -901,8 +901,10 @@
 					(if (ego has: iCane)
 						(if
 							(or
-								(& (ego onControl: origin) cCYAN)
-								(& (ego onControl: origin) cGREEN)
+;;;								(& (ego onControl: origin) cCYAN)
+;;;								(& (ego onControl: origin) cGREEN)
+								(& (ego onControl: 1) $0008)
+								(& (ego onControl: 1) $0004)
 							)
 							(ego setScript: ringBell)
 						else
@@ -937,8 +939,10 @@
 					)
 					(
 						(or
-							(& (ego onControl: origin) cCYAN)
-							(& (ego onControl: origin) cGREEN)
+;;;							(& (ego onControl: origin) cCYAN)
+;;;							(& (ego onControl: origin) cGREEN)
+							(& (ego onControl: 1) $0008)
+							(& (ego onControl: 1) $0004)
 						)
 						(ego setScript: pullRope)
 					)
