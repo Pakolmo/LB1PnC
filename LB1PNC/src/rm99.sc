@@ -77,7 +77,7 @@
 				else
 					(curRoom newRoom:
 						(switch possibleScore
-							(1 44)
+							(1 44) ;44
 							(else  414)
 						)
 					)

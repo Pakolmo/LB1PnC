@@ -64,6 +64,7 @@
 		(cast eachElementDo: #hide)
 		(Visor show:)
 		(note show:)
+
 		(if (not (ego has: iValveHandle))
 			(valve setPri: 1 init:)
 		)
@@ -91,6 +92,7 @@
 		(if local57 (Display 37 1 p_restore saveBits))
 		(Room37 drawPic: curRoomNum 6)
 		(cast eachElementDo: #show)
+		
 		(addToPics
 			add: postR postL phone lamp clock mirror
 			eachElementDo: #init
@@ -100,6 +102,7 @@
 		(Visor hide:)
 		(note hide:)
 		(valve hide:)
+			
 		(if (and (!= local52 2) (!= local52 5) (!= local52 6))
 			(HandsOn)
 		)
@@ -140,6 +143,7 @@
 			setFeatures: phone lamp clock mirror Armor Axe Carpet Couch
 		)
 		(note setPri: 1 init: hide:)
+		
 		(lampL setPri: 7 init: stopUpd:)
 		(lampR setPri: 7 init: stopUpd:)
 		(if howFast
@@ -147,7 +151,8 @@
 			(lampL startUpd: setCycle: Forward)
 		)
 		(Can setStep: 5 5 ignoreHorizon: TRUE init: hide:)
-		(Visor setPri: 2 init: hide:)
+		(Visor setPri: 2 init: hide:)		
+
 		(knight ignoreActors: TRUE init: stopUpd:)
 		(chand
 			setLoop: 2
@@ -317,7 +322,7 @@
 ;;;	(method (handleEvent event &tmp temp0)
 ;;;	(method (handleEvent event &tmp temp0 &tmp [str 250])
 		(method (handleEvent event)
-	
+			
 			(cond
 			(
 				(and
@@ -360,172 +365,223 @@
 					)
 				)
 			
-			(if (and (ClickedOnObj knight (event x?) (event y?)) 
-				(== (event claimed?) FALSE))			
+;;;			(if (and (ClickedOnObj knight (event x?) (event y?)) 
+;;;				
+;;;				(== (event claimed?) FALSE))			
+;;;					(event claimed: TRUE)
+;;;					(switch theCursor
+;;;
+;;;						(611 ;oilcan
+;;;							(= temp7
+;;;								(PrintSpecial
+;;;									{Armor}
+;;;;;;									#button {Get} 1
+;;;;;;									#button {Arm left} 2
+;;;;;;									#button {Arm right} 3
+;;;;;;									#button {elbow left} 4																	
+;;;;;;									#button {elbow right} 5
+;;;;;;									#button {deliver left} 6
+;;;;;;									#button {deliver right} 7
+;;;;;;									#button {leg left} 8																	
+;;;;;;									#button {leg right} 9
+;;;;;;									#button {knee left} 10	
+;;;;;;									#button {knee right} 11	
+;;;;;;									#button {Body} 12	
+;;;;;;									#button {Neck} 13
+;;;									#button {Get} 1
+;;;									#button {Arm} 2
+;;;									
+;;;									#button {elbow} 3																	
+;;;									
+;;;									#button {deliver} 4
+;;;									
+;;;									#button {leg} 5																
+;;;									
+;;;									#button {knee} 6	
+;;;									
+;;;									#button {Body} 7	
+;;;									#button {Neck} 8																																		
+;;;								)
+;;;							)
+;;;							(switch temp7
+;;;								(1
+;;;									(DoVerb {get armor})
+;;;								)
+;;;								(2
+;;;									(DoVerb {Oil Arm left})
+;;;								)
+;;;								(3
+;;;									(DoVerb {Oil elbow left})
+;;;								
+;;;								)																
+;;;								(4
+;;;									(DoVerb {Oil deliver left})
+;;;								)
+;;;								(5
+;;;									(DoVerb {Oil leg left})
+;;;								)
+;;;
+;;;								(6
+;;;									(DoVerb {Oil knee left})
+;;;								)
+;;;								(7
+;;;									(DoVerb {Oil Body})
+;;;								)
+;;;
+;;;								(8
+;;;									(DoVerb {Oil Neck})
+;;;								)	
+;;;								(else
+;;;									(event claimed: FALSE)
+;;;								)
+;;;							)																																																																																											
+;;;						)										
+;;;						(995
+;;;							(= temp7
+;;;								(PrintSpecial
+;;;									{Armor}
+;;;;;;									#button {Get} 1
+;;;;;;									#button {Arm left} 2
+;;;;;;									#button {Arm right} 3
+;;;;;;									#button {elbow left} 4																	
+;;;;;;									#button {elbow right} 5
+;;;;;;									#button {deliver left} 6
+;;;;;;									#button {deliver right} 7
+;;;;;;									#button {leg left} 8																	
+;;;;;;									#button {leg right} 9
+;;;;;;									#button {knee left} 10	
+;;;;;;									#button {knee right} 11	
+;;;;;;									#button {Body} 12	
+;;;;;;									#button {Neck} 13
+;;;									#button {Get} 1
+;;;									#button {Arm} 2
+;;;									
+;;;									#button {elbow} 3																	
+;;;									
+;;;									#button {deliver} 4
+;;;									
+;;;									#button {leg} 5																
+;;;									
+;;;									#button {knee} 6	
+;;;									
+;;;									#button {Body} 7	
+;;;									#button {Neck} 8																																		
+;;;								)
+;;;							)
+;;;							(switch temp7
+;;;								(1
+;;;									(DoVerb {get armor})
+;;;								)
+;;;								(2
+;;;									(DoVerb {Oil Arm left})
+;;;								)
+;;;								(3
+;;;									(DoVerb {Oil elbow left})
+;;;								
+;;;								)																
+;;;								(4
+;;;									(DoVerb {Oil deliver left})
+;;;								)
+;;;								(5
+;;;									(DoVerb {Oil leg left})
+;;;								)
+;;;
+;;;								(6
+;;;									(DoVerb {Oil knee left})
+;;;								)
+;;;								(7
+;;;									(DoVerb {Oil Body})
+;;;								)
+;;;
+;;;								(8
+;;;									(DoVerb {Oil Neck})
+;;;								)	
+;;;								(else
+;;;									(event claimed: FALSE)
+;;;								)
+;;;							)																																																																																											
+;;;						)							
+;;;						(998
+;;;							(= temp7
+;;;								(Print
+;;;;;;									{Armor}
+;;;;;;									#button {Examine} 1
+;;;;;;									#button {Examine in} 2									
+;;;									{Armadura}
+;;;									#button {Mirar} 1
+;;;									#button {Examinar} 2								
+;;;								)
+;;;							)
+;;;							(switch temp7
+;;;								(1
+;;;									(DoVerb {examine armor})
+;;;								)
+;;;								(2
+;;;									(DoVerb {examine in armor})
+;;;								
+;;;								)	
+;;;								(else
+;;;									(event claimed: FALSE)
+;;;								)
+;;;							)
+;;;						)
+;;;						(else
+;;;							(event claimed: FALSE)
+;;;								)
+;;;							)
+;;;						)
+;;;			
+;;;			
+				(if (and (ClickedOnObj knight (event x?) (event y?)) 
+					(== (event claimed?) FALSE)
+					(not (ego has: iValveHandle)))		
 					(event claimed: TRUE)
 					(switch theCursor
-
 						(611 ;oilcan
-							(= temp7
-								(PrintSpecial
-									{Armor}
-;;;									#button {Get} 1
-;;;									#button {Arm left} 2
-;;;									#button {Arm right} 3
-;;;									#button {elbow left} 4																	
-;;;									#button {elbow right} 5
-;;;									#button {deliver left} 6
-;;;									#button {deliver right} 7
-;;;									#button {leg left} 8																	
-;;;									#button {leg right} 9
-;;;									#button {knee left} 10	
-;;;									#button {knee right} 11	
-;;;									#button {Body} 12	
-;;;									#button {Neck} 13
-									#button {Get} 1
-									#button {Arm} 2
-									
-									#button {elbow} 3																	
-									
-									#button {deliver} 4
-									
-									#button {leg} 5																
-									
-									#button {knee} 6	
-									
-									#button {Body} 7	
-									#button {Neck} 8																																		
-								)
-							)
-							(switch temp7
-								(1
-									(DoVerb {get armor})
-								)
-								(2
-									(DoVerb {Oil Arm left})
-								)
-								(3
-									(DoVerb {Oil elbow left})
-								
-								)																
-								(4
-									(DoVerb {Oil deliver left})
-								)
-								(5
-									(DoVerb {Oil leg left})
-								)
-
-								(6
-									(DoVerb {Oil knee left})
-								)
-								(7
-									(DoVerb {Oil Body})
-								)
-
-								(8
-									(DoVerb {Oil Neck})
-								)	
-								(else
-									(event claimed: FALSE)
-								)
-							)																																																																																											
-						)										
+							
+							(DoVerb {oil visor})
+							(event claimed: TRUE)
+							(DoVerb {open visor})
+							(event claimed: TRUE)
+;;;							(DoVerb {get note})
+;;;							(event claimed: TRUE)
+						)
 						(995
-							(= temp7
-								(PrintSpecial
-									{Armor}
-;;;									#button {Get} 1
-;;;									#button {Arm left} 2
-;;;									#button {Arm right} 3
-;;;									#button {elbow left} 4																	
-;;;									#button {elbow right} 5
-;;;									#button {deliver left} 6
-;;;									#button {deliver right} 7
-;;;									#button {leg left} 8																	
-;;;									#button {leg right} 9
-;;;									#button {knee left} 10	
-;;;									#button {knee right} 11	
-;;;									#button {Body} 12	
-;;;									#button {Neck} 13
-									#button {Get} 1
-									#button {Arm} 2
-									
-									#button {elbow} 3																	
-									
-									#button {deliver} 4
-									
-									#button {leg} 5																
-									
-									#button {knee} 6	
-									
-									#button {Body} 7	
-									#button {Neck} 8																																		
-								)
-							)
-							(switch temp7
-								(1
-									(DoVerb {get armor})
-								)
-								(2
-									(DoVerb {Oil Arm left})
-								)
-								(3
-									(DoVerb {Oil elbow left})
-								
-								)																
-								(4
-									(DoVerb {Oil deliver left})
-								)
-								(5
-									(DoVerb {Oil leg left})
-								)
-
-								(6
-									(DoVerb {Oil knee left})
-								)
-								(7
-									(DoVerb {Oil Body})
-								)
-
-								(8
-									(DoVerb {Oil Neck})
-								)	
-								(else
-									(event claimed: FALSE)
-								)
-							)																																																																																											
-						)							
+							(Print 37 7)
+						)	
 						(998
-							(= temp7
-								(Print
-;;;									{Armor}
-;;;									#button {Examine} 1
-;;;									#button {Examine in} 2									
-									{Armadura}
-									#button {Mirar} 1
-									#button {Examinar} 2								
-								)
-							)
-							(switch temp7
-								(1
-									(DoVerb {examine armor})
-								)
-								(2
-									(DoVerb {examine in armor})
-								
-								)	
-								(else
-									(event claimed: FALSE)
-								)
-							)
+							(Print 37 39)
+						)											
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+	
+				(if (and (ClickedOnObj knight (event x?) (event y?)) 
+					(== (event claimed?) FALSE)
+					(ego has: iValveHandle))	
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(Print 37 2)
+						)
+						(995
+							(Print 37 7)
 						)
 						(else
 							(event claimed: FALSE)
-								)
-							)
 						)
-			
-			
+					)
+				)
+	
+	
+		
+	
+	
+	
+	
+	
 			
 				(if (ClickedOnPicView lampR (event x?) (event y?)) 			
 					(event claimed: TRUE)
@@ -561,321 +617,333 @@
 					)
 				)
 	
-				(if (and (ClickedOnObj Visor (event x?) (event y?)) 	
-					(== (event claimed?) FALSE))		
-					(event claimed: TRUE)
-					(switch theCursor	
-						(998	
-								(DoVerb {examine in helmet})
-						)
-						(995
-								(DoVerb {open helmet})
-						)
-						(else
-							(event claimed: FALSE)
-						)
-					)
-				)
+;;;				(if (and (ClickedOnObj Visor (event x?) (event y?)) 	
+;;;					(== (event claimed?) FALSE))		
+;;;					(event claimed: TRUE)
+;;;					(switch theCursor	
+;;;						(998	
+;;;								(DoVerb {examine in helmet})
+;;;						)
+;;;						(995
+;;;								(DoVerb {open helmet})
+;;;						)
+;;;						(else
+;;;							(event claimed: FALSE)
+;;;						)
+;;;					)
+;;;				)
 			
-				(if (and (ClickedOnObj valve (event x?) (event y?)) 
-					(== (event claimed?) FALSE))			
-					(event claimed: TRUE)
-					(switch theCursor	
-						(995	
-							(DoVerb {get valve})	
-						)	
-						(else
-							(event claimed: FALSE)
-						)
-					)
-				)
-				(if (and (ClickedOnObj note (event x?) (event y?)) 
-					(== (event claimed?) FALSE))			
-					(event claimed: TRUE)
-					(switch theCursor
-						(995
-							(DoVerb {get letter})
-						)	
-						(998
-							(DoVerb {read note})		
-						)	
-						(else
-							(event claimed: FALSE)
-						)
-					)
-				)								
-				(if (ClickedOnObj Armor (event x?) (event y?)) 		;zoom	
-					(event claimed: TRUE)
-					(switch theCursor	
-						(999
-							(DoVerb {E})
-						)
-						(611 ;oilcan
-							(= temp7
-								(PrintSpecial
-									{Armor}
-;;;									#button {Exit} 1
-;;;									#button {Arm left} 2
-;;;									#button {Arm right} 3
-;;;									#button {elbow left} 4																	
-;;;									#button {elbow right} 5
-;;;									#button {deliver left} 6
-;;;									#button {deliver right} 7
-;;;									#button {leg left} 8																	
-;;;									#button {leg right} 9
-;;;									#button {knee left} 10	
-;;;									#button {knee right} 11	
-;;;									#button {Body} 12	
-;;;									#button {Neck} 13
-									#button {Exit} 1
-									#button {Arm left} 2
-									#button {Arm right} 3
-									#button {elbow left} 4																	
-									#button {elbow right} 5
-;;;									#button {deliver left} 6
-;;;									#button {deliver right} 7
-									#button {leg left} 8																	
-									#button {leg right} 9
-									#button {knee left} 10	
-									#button {knee right} 11	
-									#button {Body} 12	
-									#button {Neck} 13		
-									#button {Helmet} 14																																								
-								)
-							)
-							(switch temp7
-								(1
-									(DoVerb {E})
-								)
-								(2
-									(DoVerb {Oil Arm left})
-									(HandsOn)
-								)
-								(3
-									(DoVerb {Oil Arm right})
-									(HandsOn)
-								)								
-								(4
-									(DoVerb {Oil elbow left})
-									(HandsOn)
-								
-								)	
-								(5
-									(DoVerb {Oil elbow right})
-									(HandsOn)
-								
-								)																							
-								(8
-									(DoVerb {Oil leg left})
-									(HandsOn)
-								)
-								(9
-									(DoVerb {Oil leg right})
-									(HandsOn)
-								)
-
-								(10
-									(DoVerb {Oil knee left})
-									(HandsOn)
-								)
-								(11
-									(DoVerb {Oil knee right})
-									(HandsOn)
-								)								
-								(12
-									(DoVerb {Oil Body})
-									(HandsOn)
-								)
-
-								(13
-									(DoVerb {Oil Neck})
-									(HandsOn)
-								)	
-								(14
-									(DoVerb {Oil Helmet})
-									(HandsOn)
-								)									
-								(else
-									(event claimed: FALSE)
-								)
-							)																																																																																											
-						)										
-						(995
-							(= temp7
-								(PrintSpecial
-									{Armor}
-;;;									#button {Exit} 1
-;;;									#button {Arm left} 2
-;;;									#button {Arm right} 3
-;;;									#button {elbow left} 4																	
-;;;									#button {elbow right} 5
-;;;									#button {deliver left} 6
-;;;									#button {deliver right} 7
-;;;									#button {leg left} 8																	
-;;;									#button {leg right} 9
-;;;									#button {knee left} 10	
-;;;									#button {knee right} 11	
-;;;									#button {Body} 12	
-;;;									#button {Neck} 13
-									#button {Exit} 1
-									#button {Arm left} 2
-									#button {Arm right} 3
-									#button {elbow left} 4																	
-									#button {elbow right} 5
-;;;									#button {deliver left} 6
-;;;									#button {deliver right} 7
-									#button {leg left} 8																	
-									#button {leg right} 9
-									#button {knee left} 10	
-									#button {knee right} 11	
-									#button {Body} 12	
-									#button {Neck} 13		
-									#button {Helmet} 14																																								
-								)
-							)
-							(switch temp7
-								(1
-									(DoVerb {E})
-								)
-								(2
-									(DoVerb {Oil Arm left})
-									(HandsOn)
-								)
-								(3
-									(DoVerb {Oil Arm right})
-									(HandsOn)
-								)								
-								(4
-									(DoVerb {Oil elbow left})
-									(HandsOn)
-								
-								)	
-								(5
-									(DoVerb {Oil elbow right})
-									(HandsOn)
-								
-								)																							
-								(8
-									(DoVerb {Oil leg left})
-									(HandsOn)
-								)
-								(9
-									(DoVerb {Oil leg right})
-									(HandsOn)
-								)
-
-								(10
-									(DoVerb {Oil knee left})
-									(HandsOn)
-								)
-								(11
-									(DoVerb {Oil knee right})
-									(HandsOn)
-								)								
-								(12
-									(DoVerb {Oil Body})
-									(HandsOn)
-								)
-
-								(13
-									(DoVerb {Oil Neck})
-									(HandsOn)
-								)	
-								(14
-									(DoVerb {Oil Helmet})
-									(HandsOn)
-								)									
-								(else
-									(event claimed: FALSE)
-								)
-							)																																																																																											
-						)										
-											
-						(998
-							(= temp7
-								(Print
+;;;				(if (and (ClickedOnObj valve (event x?) (event y?)) 
+;;;					(== (event claimed?) FALSE))			
+;;;					(event claimed: TRUE)
+;;;					(switch theCursor	
+;;;						(995	
+;;;							(DoVerb {get valve})	
+;;;						)	
+;;;						(else
+;;;							(event claimed: FALSE)
+;;;						)
+;;;					)
+;;;				)
+;;;				(if (and (ClickedOnObj note (event x?) (event y?)) 
+;;;					(== (event claimed?) FALSE))			
+;;;					(event claimed: TRUE)
+;;;					(switch theCursor
+;;;						(995
+;;;							(DoVerb {get letter})
+;;;						)	
+;;;						(998
+;;;							(DoVerb {read note})		
+;;;						)	
+;;;						(else
+;;;							(event claimed: FALSE)
+;;;						)
+;;;					)
+;;;				)								
+;;;				(if (and (ClickedOnObj Armor (event x?) (event y?)) 		;zoom	
+;;;;;;						(not (cast contains: Can)))
+;;;						(not (ego has: iValveHandle)))
+;;;					(event claimed: TRUE)
+;;;					(switch theCursor	
+;;;						(999
+;;;							(if
+;;;							(and
+;;;								(not (event claimed?))
+;;;								(== keyDown (event type?))
+;;;								(or
+;;;									(== (event message?) `E)
+;;;									(== (event message?) `s)
+;;;								)
+;;;							)
+;;;							
+;;;						)
+;;;						)
+;;;						(611 ;oilcan
+;;;							(= temp7
+;;;								(PrintSpecial
 ;;;									{Armor}
-;;;									#button {Examine in} 1
-;;;									#button {Look} 2									
-									{Armadura}
-									#button {Examinar} 1
-									#button {Mirar} 2								
-								)
-							)
-							(switch temp7
-								(1
-									(DoVerb {examine in armor})
-								)
-								(2
-									(if local53
-										(event claimed: TRUE)
-										(Print 37 39 #at 110 110)
-									)
-								
-								)	
-								(else
-									(event claimed: FALSE)
-								)
-							)
-							
-							
-							
-							
-							
-							
-							
-		
-						)	
-						(else
-							(event claimed: FALSE)
-						)
-					)
-				)	
-		
-				(if (and (ClickedOnObj Axe (event x?) (event y?)) 
-						(== (event claimed?) FALSE))			
-					(event claimed: TRUE)
-					(switch theCursor
-						(611
-							(DoVerb {oil ax battle})
-							(HandsOn)
-							
-						)
-						(995
-							(= temp7
-								(Print
-;;;									{Axe}
-;;;									#button {Get} 1
-;;;									#button {Detatch} 2									
-									{Hacha}
-									#button {Coger} 1
-;;;									#button {Agarrar} 2								
-								)
-							)
-							(switch temp7
-								(1
-									(DoVerb {get ax battle})
-								)
-
-								(else
-									(event claimed: FALSE)
-								)
-							)
-						
-							
-							
-						)	
-						(998
-							(DoVerb {examine ax battle})
-								
-						)	
-						(else
-							(event claimed: FALSE)
-						)
-					)
-				)			
-		
-		
+;;;;;;									#button {Exit} 1
+;;;;;;									#button {Arm left} 2
+;;;;;;									#button {Arm right} 3
+;;;;;;									#button {elbow left} 4																	
+;;;;;;									#button {elbow right} 5
+;;;;;;									#button {deliver left} 6
+;;;;;;									#button {deliver right} 7
+;;;;;;									#button {leg left} 8																	
+;;;;;;									#button {leg right} 9
+;;;;;;									#button {knee left} 10	
+;;;;;;									#button {knee right} 11	
+;;;;;;									#button {Body} 12	
+;;;;;;									#button {Neck} 13
+;;;									#button {Exit} 1
+;;;									#button {Arm left} 2
+;;;									#button {Arm right} 3
+;;;									#button {elbow left} 4																	
+;;;									#button {elbow right} 5
+;;;;;;									#button {deliver left} 6
+;;;;;;									#button {deliver right} 7
+;;;									#button {leg left} 8																	
+;;;									#button {leg right} 9
+;;;									#button {knee left} 10	
+;;;									#button {knee right} 11	
+;;;									#button {Body} 12	
+;;;									#button {Neck} 13		
+;;;									#button {Helmet} 14																																								
+;;;								)
+;;;							)
+;;;							(switch temp7
+;;;								(1
+;;;									(DoVerb {E})
+;;;								)
+;;;								(2
+;;;									(DoVerb {Oil Arm left})
+;;;									(HandsOn)
+;;;								)
+;;;								(3
+;;;									(DoVerb {Oil Arm right})
+;;;									(HandsOn)
+;;;								)								
+;;;								(4
+;;;									(DoVerb {Oil elbow left})
+;;;									(HandsOn)
+;;;								
+;;;								)	
+;;;								(5
+;;;									(DoVerb {Oil elbow right})
+;;;									(HandsOn)
+;;;								
+;;;								)																							
+;;;								(8
+;;;									(DoVerb {Oil leg left})
+;;;									(HandsOn)
+;;;								)
+;;;								(9
+;;;									(DoVerb {Oil leg right})
+;;;									(HandsOn)
+;;;								)
+;;;
+;;;								(10
+;;;									(DoVerb {Oil knee left})
+;;;									(HandsOn)
+;;;								)
+;;;								(11
+;;;									(DoVerb {Oil knee right})
+;;;									(HandsOn)
+;;;								)								
+;;;								(12
+;;;									(DoVerb {Oil Body})
+;;;									(HandsOn)
+;;;								)
+;;;
+;;;								(13
+;;;									(DoVerb {Oil Neck})
+;;;									(HandsOn)
+;;;								)	
+;;;								(14
+;;;									(DoVerb {Oil Helmet})
+;;;									(HandsOn)
+;;;								)									
+;;;								(else
+;;;									(event claimed: FALSE)
+;;;								)
+;;;							)																																																																																											
+;;;						)										
+;;;						(995
+;;;							(= temp7
+;;;								(PrintSpecial
+;;;									{Armor}
+;;;;;;									#button {Exit} 1
+;;;;;;									#button {Arm left} 2
+;;;;;;									#button {Arm right} 3
+;;;;;;									#button {elbow left} 4																	
+;;;;;;									#button {elbow right} 5
+;;;;;;									#button {deliver left} 6
+;;;;;;									#button {deliver right} 7
+;;;;;;									#button {leg left} 8																	
+;;;;;;									#button {leg right} 9
+;;;;;;									#button {knee left} 10	
+;;;;;;									#button {knee right} 11	
+;;;;;;									#button {Body} 12	
+;;;;;;									#button {Neck} 13
+;;;									#button {Exit} 1
+;;;									#button {Arm left} 2
+;;;									#button {Arm right} 3
+;;;									#button {elbow left} 4																	
+;;;									#button {elbow right} 5
+;;;;;;									#button {deliver left} 6
+;;;;;;									#button {deliver right} 7
+;;;									#button {leg left} 8																	
+;;;									#button {leg right} 9
+;;;									#button {knee left} 10	
+;;;									#button {knee right} 11	
+;;;									#button {Body} 12	
+;;;									#button {Neck} 13		
+;;;									#button {Helmet} 14																																								
+;;;								)
+;;;							)
+;;;							(switch temp7
+;;;								(1
+;;;									(DoVerb {E})
+;;;								)
+;;;								(2
+;;;									(DoVerb {Oil Arm left})
+;;;									(HandsOn)
+;;;								)
+;;;								(3
+;;;									(DoVerb {Oil Arm right})
+;;;									(HandsOn)
+;;;								)								
+;;;								(4
+;;;									(DoVerb {Oil elbow left})
+;;;									(HandsOn)
+;;;								
+;;;								)	
+;;;								(5
+;;;									(DoVerb {Oil elbow right})
+;;;									(HandsOn)
+;;;								
+;;;								)																							
+;;;								(8
+;;;									(DoVerb {Oil leg left})
+;;;									(HandsOn)
+;;;								)
+;;;								(9
+;;;									(DoVerb {Oil leg right})
+;;;									(HandsOn)
+;;;								)
+;;;
+;;;								(10
+;;;									(DoVerb {Oil knee left})
+;;;									(HandsOn)
+;;;								)
+;;;								(11
+;;;									(DoVerb {Oil knee right})
+;;;									(HandsOn)
+;;;								)								
+;;;								(12
+;;;									(DoVerb {Oil Body})
+;;;									(HandsOn)
+;;;								)
+;;;
+;;;								(13
+;;;									(DoVerb {Oil Neck})
+;;;									(HandsOn)
+;;;								)	
+;;;								(14
+;;;									(DoVerb {Oil Helmet})
+;;;									(HandsOn)
+;;;								)									
+;;;								(else
+;;;									(event claimed: FALSE)
+;;;								)
+;;;							)																																																																																											
+;;;						)										
+;;;											
+;;;						(998
+;;;							(= temp7
+;;;								(Print
+;;;;;;									{Armor}
+;;;;;;									#button {Examine in} 1
+;;;;;;									#button {Look} 2									
+;;;									{Armadura}
+;;;									#button {Examinar} 1
+;;;									#button {Mirar} 2								
+;;;								)
+;;;							)
+;;;							(switch temp7
+;;;								(1
+;;;									(DoVerb {examine in armor})
+;;;								)
+;;;								(2
+;;;									(if local53
+;;;										(event claimed: TRUE)
+;;;										(Print 37 39 #at 110 110)
+;;;									)
+;;;								
+;;;								)	
+;;;								(else
+;;;									(event claimed: FALSE)
+;;;								)
+;;;							)
+;;;							
+;;;							
+;;;							
+;;;							
+;;;							
+;;;							
+;;;							
+;;;		
+;;;						)	
+;;;						(else
+;;;							(event claimed: FALSE)
+;;;						)
+;;;					)
+;;;				)	
+;;;		
+;;;				(if (and (ClickedOnObj Axe (event x?) (event y?)) 
+;;;						(== (event claimed?) FALSE))			
+;;;					(event claimed: TRUE)
+;;;					(switch theCursor
+;;;						(611
+;;;							(DoVerb {oil ax})
+;;;							(HandsOn)
+;;;							
+;;;						)
+;;;						(995
+;;;							(= temp7
+;;;								(Print
+;;;;;;									{Axe}
+;;;;;;									#button {Get} 1
+;;;;;;									#button {Detatch} 2									
+;;;									{Hacha}
+;;;									#button {Coger} 1
+;;;;;;									#button {Agarrar} 2								
+;;;								)
+;;;							)
+;;;							(switch temp7
+;;;								(1
+;;;									(DoVerb {get ax})
+;;;								)
+;;;
+;;;								(else
+;;;									(event claimed: FALSE)
+;;;								)
+;;;							)
+;;;						
+;;;							
+;;;							
+;;;						)	
+;;;						(998
+;;;							(DoVerb {examine ax})
+;;;								
+;;;						)	
+;;;						(else
+;;;							(event claimed: FALSE)
+;;;						)
+;;;					)
+;;;				)			
+;;;		
+;;;		
 		
 		
 		
@@ -2176,7 +2244,8 @@ code_0f17:
 			(1 (ego loop: 1) (= cycles 3))
 			(2
 				(localproc_002d)
-				(Can posn: 225 100 show:)
+;;;				(Can posn: 225 100 show:)
+				(Can posn: 225 100 dispose:)
 				(if local52
 					(Can
 						setMotion:
@@ -2514,14 +2583,14 @@ code_0f17:
 	)
 	
 	(method (handleEvent event)
-		(if
-			(or
-				(and local53 (MousedOn self event shiftDown))
-				(Said 'examine/ax[<battle]')
-			)
-			(Print 37 13)
-			(event claimed: TRUE)
-		)
+;;;		(if
+;;;			(or
+;;;				(and local53 (MousedOn self event shiftDown))
+;;;				(Said 'examine/ax[<battle]')
+;;;			)
+;;;			(Print 37 13)
+;;;			(event claimed: TRUE)
+;;;		)
 	)
 )
 
