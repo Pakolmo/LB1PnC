@@ -101,11 +101,11 @@
 	)
 )
 
-(instance lHead of Prop
-	(properties
-		y 133
-		x 265
-		view 512
-		loop 4
-	)
-)
+;;;(instance lHead of Prop
+;;;	(properties
+;;;		y 133
+;;;		x 265
+;;;		view 512
+;;;		loop 4
+;;;	)
+;;;)

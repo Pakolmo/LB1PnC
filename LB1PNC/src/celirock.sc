@@ -190,14 +190,14 @@
 	)
 )
 
-(instance frontDoor of Prop
-	(properties
-		y 93
-		x 227
-		view 106
-		priority 5
-	)
-)
+;;;(instance frontDoor of Prop
+;;;	(properties
+;;;		y 93
+;;;		x 227
+;;;		view 106
+;;;		priority 5
+;;;	)
+;;;)
 
 (instance chair of Prop
 	(properties

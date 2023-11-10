@@ -380,7 +380,7 @@
 	)
 )
 
-(instance myMusic of Sound)
+;;;(instance myMusic of Sound)
 
 (instance Table of RFeature
 	(properties

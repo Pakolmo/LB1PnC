@@ -1044,13 +1044,13 @@
 	)
 )
 
-(instance closeUp of Prop
-	(properties
-		y 58
-		x 155
-		view 638
-	)
-)
+;;;(instance closeUp of Prop
+;;;	(properties
+;;;		y 58
+;;;		x 155
+;;;		view 638
+;;;	)
+;;;)
 
 (instance lamp1 of Prop
 	(properties
