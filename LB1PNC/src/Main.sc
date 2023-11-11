@@ -1215,7 +1215,11 @@
 		)
 		(if (Btst fPnCSaveFlag)
 			(Bclr fPnCSaveFlag)
-			(theGame save:)	
+			(if saveDisabled
+				(Print 997 1) ; "You cannot save a game right now."
+			else
+				(gGame save:)
+			)
 		)
 		(if programControl
 			(User canControl: FALSE canInput: FALSE)

@@ -677,7 +677,11 @@
 						(= cycles 1)
 					)
 					(2
-						(theGame restore:)
+						(if saveDisabled
+							(Print 997 2) ; "You cannot restore a game right now."
+						else
+							(gGame restore:)
+						)
 						(= cycles 1)
 					)
 				)
