@@ -16,7 +16,10 @@
 	useI
 	oldCur
 )
-
+(procedure (ShowInventory)
+	(inventory showSelf: ego)
+	
+)
 (class InvI of Object
 	(properties
 		said 0
@@ -80,6 +83,7 @@
 
 	(method (init param1 &tmp temp0 temp1 temp2 temp3 temp4 temp5 temp6)
 		(= oldCur theCursor)
+
 		(= temp2 (= temp0 (= temp1 4)))
 		(= temp3 0)
 		(for
@@ -121,6 +125,7 @@
 			(self dispose:)
 			(return 0)
 		)
+
 		(= window systemWindow)
 		(self setSize:)
 		(= selI (DButton new:))
@@ -163,7 +168,13 @@
 		(self add: selI lookI useI yesI, setSize:, center:)
 		(return temp3)
 	)
-
+;;;	(method (delete param1 &tmp temp0 temp1 temp2 temp3 temp4 temp5 temp6)
+;;;		(= temp0 yesI)
+;;;		(return temp3)
+;;;
+;;;		(ShowInventory)
+;;;
+;;;	)
 	(method (doit param1 &tmp temp0 [str 200])
 		(cond
 			((== param1 777) ;inv use hack
@@ -221,6 +232,7 @@
 			(if (or (not temp0) (== temp0 -1) (== temp0 yesI))
 				(if
 					(or
+						
 						(== theCursor 998)
 						(== theCursor 993)
 					) 
@@ -267,36 +279,47 @@
 						(cond
 							((== ((temp0 value?) view?) 930) ;celie
 								(Print {Elige el personaje para hablar sobre +l.})
+								(theGame setCursor: ((temp0 value?) view?))
 							)
 							((== ((temp0 value?) view?) 931) 
 								(Print {Elige el personaje para hablar sobre +l.})
+								(theGame setCursor: ((temp0 value?) view?))
 							)							
 							((== ((temp0 value?) view?) 932) 
 								(Print {Elige el personaje para hablar sobre +l.})
+								(theGame setCursor: ((temp0 value?) view?))
 							)
 							((== ((temp0 value?) view?) 933) ;celie
 								(Print {Elige el personaje para hablar sobre +l.})
+								(theGame setCursor: ((temp0 value?) view?))
 							)
 							((== ((temp0 value?) view?) 934) 
 								(Print {Elige el personaje para hablar sobre +l.})
+								(theGame setCursor: ((temp0 value?) view?))
 							)
 							((== ((temp0 value?) view?) 935) 
 								(Print {Elige el personaje para hablar sobre +l.})
+								(theGame setCursor: ((temp0 value?) view?))
 							)
 							((== ((temp0 value?) view?) 936) 
 								(Print {Elige el personaje para hablar sobre +l.})
+								(theGame setCursor: ((temp0 value?) view?))
 							)
 							((== ((temp0 value?) view?) 937) 
 								(Print {Elige el personaje para hablar sobre +l.})
+								(theGame setCursor: ((temp0 value?) view?))
 							)
 							((== ((temp0 value?) view?) 938) 
 								(Print {Elige el personaje para hablar sobre +l.})
+								(theGame setCursor: ((temp0 value?) view?))
 							)																												
 							((== ((temp0 value?) view?) 939) 
 								(Print {Elige el personaje para hablar sobre +l.})
+								(theGame setCursor: ((temp0 value?) view?))
 							)	
 							((== ((temp0 value?) view?) 940) 
 								(Print {Elige el personaje para hablar sobre +l.})
+								(theGame setCursor: ((temp0 value?) view?))
 							)																											
 							((== ((temp0 value?) view?) 616) ;selected use diary
 										(Print 410 26)
@@ -310,13 +333,21 @@
 							
 							((== ((temp0 value?) view?) 603) ;EAT crackers
 								(if (> numCrackers 0)
-									(Print 410 34)
-									(-- numCrackers)
+
+									(Print (Format @str 410 34 numCrackers))
+;;;									(Print 410 34)
+									(-- numCrackers)	
+											
+									(break)				
 								else
+								
 									(Print 410 35)
 								)
-
 								
+;;;								(invD de:)
+		
+	
+
 							)							
 							
 							((== ((temp0 value?) view?) 617) ;unload gun
@@ -330,19 +361,20 @@
 									(else
 										(Print 410 14)
 									)
-								)	
+								)
 							)
 							(else
 ;;;								(Print {You don't need to use that item.})
 								(Print {No es necesario utilizar ese objeto.})
+								(theGame setCursor: ((temp0 value?) view?))
 							)
-						)
+					)
 					)
 					(998 ;look at item	
 						((temp0 value?) showSelf:) ;display the inventory item normally.
-
-		
-							
+;;;						(= itemIcon ((temp0 value?) view?))
+						(theGame setCursor: ((temp0 value?) view?))
+						(= itemIcon ((temp0 value?) view?))	
 							
 
 					
@@ -437,8 +469,14 @@
 					(else
 ;;;						(Print {You can't use those items together.}) ;English
 						(Print {No puedes usar esos dos objetos juntos.}) ;Spanish
+;;;						(theGame setCursor: ((temp0 value?) view?))
+						(theGame setCursor: ((temp0 value?) view?))
+						(= itemIcon ((temp0 value?) view?))
 					)
+
 				)
+									(theGame setCursor: ((temp0 value?) view?))
+									(= itemIcon ((temp0 value?) view?))
 			)
 		)
 		(self dispose:)
