@@ -98,7 +98,8 @@
 				(if (and (not (& global173 $0001)) (== [global368 0] 1))
 					(= [global368 0] 0)
 					(= [global368 2] 1800)
-					(|= global173 $0001)
+;;;					(|= global173 $0001)
+					(= global173 (| global173 $0001))
 					(= global199 1)
 				)
 				(if (and (== global199 1) (== [global368 2] 1))
@@ -175,11 +176,13 @@
 					(= global202 2)
 				)
 			)
-			(ego view: 0 illegalBits: (| cWHITE cGREEN) setPri: -1 init:)
+;;;			(ego view: 0 illegalBits: (| cWHITE cGREEN) setPri: -1 init:)
+			(ego view: 0 illegalBits: -32764 setPri: -1 init:)
 		else
 			(ego
 				view: 0
-				illegalBits: (| cWHITE cGREEN)
+;;;				illegalBits: (| cWHITE cGREEN)
+				illegalBits: -32764
 				setPri: 2
 				loop: 2
 				posn: 126 79
@@ -234,7 +237,8 @@
 			)
 		)
 		(if (& (ego onControl: origin) cGREEN)
-			(ego illegalBits: cWHITE ignoreActors: FALSE)
+;;;			(ego illegalBits: cWHITE ignoreActors: FALSE)
+			(ego illegalBits: -32768 ignoreActors: 0)
 			(curRoom newRoom: 15)
 		)
 		(if
@@ -417,7 +421,8 @@
 				(= local5 1)
 				(= global204 1)
 				(panel setMotion: MoveTo 170 83 self)
-				(ego illegalBits: cWHITE)
+;;;				(ego illegalBits: cWHITE)
+				(ego illegalBits: -32768)
 				(soundFX number: 74 loop: 1 play:)
 			)
 			(1
@@ -451,7 +456,8 @@
 			(0
 				(= local1 1)
 				(HandsOff)
-				(ego ignoreControl: cWHITE)
+;;;				(ego ignoreControl: cWHITE)
+				(ego ignoreControl: -32768)
 				(= cycles 2)
 			)
 			(1
@@ -516,7 +522,8 @@
 				(ego setMotion: MoveTo (ego x?) (+ (ego y?) 15) self)
 			)
 			(2
-				(ego setPri: -1 illegalBits: cWHITE)
+;;;				(ego setPri: -1 illegalBits: cWHITE)
+				(ego setPri: -1 illegalBits: -32768)
 				(panel setMotion: MoveTo 141 83 self)
 				(soundFX number: 75 loop: 1 play:)
 			)
@@ -920,7 +927,8 @@
 		view 136
 		loop 8
 		priority 9
-		signal ignrAct
+;;;		signal ignrAct
+		signal $4000
 	)
 )
 
@@ -932,7 +940,8 @@
 		loop 3
 		cel 1
 		priority 8
-		signal ignrAct
+;;;		signal ignrAct
+		signal $4000
 	)
 	
 	(method (handleEvent event)
@@ -1038,7 +1047,8 @@
 		view 136
 		loop 7
 		priority 5
-		signal fixPriOn
+;;;		signal fixPriOn
+		signal $0010
 	)
 )
 
@@ -1049,7 +1059,8 @@
 		view 136
 		loop 6
 		priority 5
-		signal fixPriOn
+;;;		signal fixPriOn
+		signal $0010
 	)
 )
 
@@ -1060,7 +1071,8 @@
 		view 136
 		loop 5
 		priority 6
-		signal fixPriOn
+;;;		signal fixPriOn
+		signal $0010
 	)
 )
 
@@ -1072,7 +1084,8 @@
 		loop 2
 		cel 5
 		priority 5
-		signal fixPriOn
+;;;		signal fixPriOn
+		signal $0010
 	)
 	
 	(method (handleEvent event)
@@ -1116,7 +1129,8 @@
 		view 136
 		cel 1
 		priority 4
-		signal fixPriOn
+;;;		signal fixPriOn
+		signal $0010
 	)
 	
 	(method (handleEvent event)
@@ -1133,7 +1147,8 @@
 		x 249
 		view 136
 		priority 1
-		signal fixPriOn
+;;;		signal fixPriOn
+		signal $0010
 	)
 	
 	(method (handleEvent event)
@@ -1182,7 +1197,9 @@
 		loop 2
 		cel 6
 		priority 3
-		signal (| fixedLoop fixedCel fixPriOn)
+;;;		signal (| fixedLoop fixedCel fixPriOn)
+;;;		illegalBits $0000
+		signal $1810
 		illegalBits $0000
 	)
 )
