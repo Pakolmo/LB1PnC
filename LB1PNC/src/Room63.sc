@@ -43,7 +43,8 @@
 			view: 0
 			loop: 1
 			posn: 200 153
-			illegalBits: cWHITE
+;;;			illegalBits: cWHITE
+			illegalBits: -32768
 			init:
 		)
 		(switch currentAct
@@ -62,7 +63,8 @@
 		(if (FirstEntry)
 			(Print 63 0)
 		)
-		(if (& (ego onControl: FALSE) cBLUE)
+;;;		(if (& (ego onControl: FALSE) cBLUE)
+		(if (& (ego onControl: 0) $0002)
 			(curRoom newRoom: 14)
 		)
 		(super doit:)
