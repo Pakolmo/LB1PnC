@@ -11,7 +11,7 @@
 	yesI
 	;useMonocleI
 	useToggle
-	selI
+;;;	selI
 	lookI
 	useI
 	oldCur
@@ -128,32 +128,32 @@
 
 		(= window systemWindow)
 		(self setSize:)
-		(= selI (DButton new:))
-		(selI 
-;;;			text: "Select", ;ENGLISH
-			text: "Elegir", ;SPANISH
-			setSize:,
-			moveTo: 
-				;(- nsRight (+ MARGIN (yesI nsRight?)))
-				(+ nsLeft (+ 4 (selI nsLeft?)))
-				nsBottom
-		)
-		(= lookI (DButton new:))
-		(lookI 
-;;;			text: "Look_", ;English
-			text: "Mirar", ;Spanish
-			setSize:,
-			moveTo: 
-				(+ nsLeft (+ 4 (selI nsRight?)))
-				nsBottom
-		)
+;;;		(= selI (DButton new:))
+;;;		(selI 
+;;;;;;			text: "Select", ;ENGLISH
+;;;			text: "Elegir", ;SPANISH
+;;;			setSize:,
+;;;			moveTo: 
+;;;				;(- nsRight (+ MARGIN (yesI nsRight?)))
+;;;				(+ nsLeft (+ 4 (selI nsLeft?)))
+;;;				nsBottom
+;;;		)
+;;;		(= lookI (DButton new:))
+;;;		(lookI 
+;;;;;;			text: "Look_", ;English
+;;;			text: "Mirar", ;Spanish
+;;;			setSize:,
+;;;			moveTo: 
+;;;					(+ nsLeft (+ MARGIN (lookI nsLeft?)))
+;;;					nsBottom
+;;;		)
 		(= useI (DButton new:))
 		(useI 
-;;;			text: "Use", ;ENGLISH
-			text: "Usar", ;SPANISH
+;;;			text: "Use Object", ;ENGLISH
+			text: "Utilizar objeto", ;SPANISH
 			setSize:,
 			moveTo: 
-				(+ nsLeft (+ 4 (lookI nsRight?)))
+				(+ nsLeft (+ 4 (useI nsRight?)))
 				nsBottom
 		)
 		(= yesI (DButton new:))
@@ -165,7 +165,7 @@
 				nsBottom
 		)
 		
-		(self add: selI lookI useI yesI, setSize:, center:)
+		(self add: useI yesI, setSize:, center:)
 		(return temp3)
 	)
 ;;;	(method (delete param1 &tmp temp0 temp1 temp2 temp3 temp4 temp5 temp6)
@@ -231,11 +231,11 @@
 			;These returns signal end of dialog
 			(if (or (not temp0) (== temp0 -1) (== temp0 yesI))
 				(if
-					(or
+;;;					(or
 						
-						(== theCursor 998)
+;;;						(== theCursor 998)
 						(== theCursor 993)
-					) 
+;;;					) 
 					(= theCursor oldCur)
 					(theGame setCursor: oldCur (HaveMouse))
 				)
@@ -244,22 +244,22 @@
 			
 			(if
 				(or
-					(== temp0 selI)
-					(== temp0 lookI)
+;;;					(== temp0 selI)
+;;;					(== temp0 lookI)
 					(== temp0 useI)
 					(== temp0 yesI) 
 				)
 				(cond 
-					((== temp0 selI)
-						(if (!= theCursor 993)
-							(theGame setCursor: 993)
-						)
-					)
-					((== temp0 lookI)
-						(if (!= theCursor 998)
-							(theGame setCursor: 998)
-						)
-					)
+;;;					((== temp0 selI)
+;;;						(if (!= theCursor 993)
+;;;							(theGame setCursor: 993)
+;;;						)
+;;;					)
+;;;					((== temp0 lookI)
+;;;						(if (!= theCursor 998)
+;;;							(theGame setCursor: 998)
+;;;						)
+;;;					)
 					((== temp0 useI)
 						(if (!= theCursor 995)
 							(theGame setCursor: 995)
@@ -272,6 +272,7 @@
 			else	
 				(switch theCursor
 					(993 ;set cursor to selected item and print desc.
+						((temp0 value?) showSelf:)
 						(= itemIcon ((temp0 value?) view?))
 						(theGame setCursor: ((temp0 value?) view?))
 					)
@@ -337,7 +338,8 @@
 									(Print (Format @str 410 34 numCrackers))
 ;;;									(Print 410 34)
 									(-- numCrackers)	
-											
+									(theGame setCursor: ((temp0 value?) view?))
+									(= itemIcon ((temp0 value?) view?))												
 									(break)				
 								else
 								
@@ -366,12 +368,13 @@
 							(else
 ;;;								(Print {You don't need to use that item.})
 								(Print {No es necesario utilizar ese objeto.})
+								((temp0 value?) showSelf:) ;display the inventory item normally.
 								(theGame setCursor: ((temp0 value?) view?))
 							)
 					)
 					)
 					(998 ;look at item	
-						((temp0 value?) showSelf:) ;display the inventory item normally.
+;;;						((temp0 value?) showSelf:) ;display the inventory item normally.
 ;;;						(= itemIcon ((temp0 value?) view?))
 						(theGame setCursor: ((temp0 value?) view?))
 						(= itemIcon ((temp0 value?) view?))	
@@ -380,6 +383,306 @@
 					
 												
 					)
+					(601
+						(if (== ((temp0 value?) view?) 601) ;selected monocle with monocle
+							((temp0 value?) showSelf:) ;display the inventory item normally.
+						)
+					)
+					(602
+						(if (== ((temp0 value?) view?) 602) ;selected monocle with monocle
+							((temp0 value?) showSelf:) ;display the inventory item normally.
+						)
+					)
+					(603
+						(if (== ((temp0 value?) view?) 603) ;selected monocle with monocle
+							((temp0 value?) showSelf:) ;display the inventory item normally.
+						)
+					)
+;;;					(604
+;;;						(if (== ((temp0 value?) view?) 604) ;selected monocle with monocle
+;;;							((temp0 value?) showSelf:) ;display the inventory item normally.
+;;;						)
+;;;					)
+					(605
+						(if (== ((temp0 value?) view?) 605) ;selected monocle with monocle
+							((temp0 value?) showSelf:) ;display the inventory item normally.
+						)
+					)
+					(606
+						(if (== ((temp0 value?) view?) 606) ;selected monocle with monocle
+							((temp0 value?) showSelf:) ;display the inventory item normally.
+						)
+					)
+					(607
+						(if (== ((temp0 value?) view?) 607) ;selected monocle with monocle
+							((temp0 value?) showSelf:) ;display the inventory item normally.
+						)
+					)
+					(608
+						(if (== ((temp0 value?) view?) 608) ;selected monocle with monocle
+							((temp0 value?) showSelf:) ;display the inventory item normally.
+						)
+					)
+					(609
+						(if (== ((temp0 value?) view?) 609) ;selected monocle with monocle
+							((temp0 value?) showSelf:) ;display the inventory item normally.
+						)
+					)
+					(610
+						(if (== ((temp0 value?) view?) 610) ;selected monocle with monocle
+							((temp0 value?) showSelf:) ;display the inventory item normally.
+						)
+					)
+					(611
+						(if (== ((temp0 value?) view?) 611) ;selected monocle with monocle
+							((temp0 value?) showSelf:) ;display the inventory item normally.
+						)
+					)
+					(612
+						(if (== ((temp0 value?) view?) 612) ;selected monocle with monocle
+							((temp0 value?) showSelf:) ;display the inventory item normally.
+						)
+					)
+					(613
+						(if (== ((temp0 value?) view?) 613) ;selected monocle with monocle
+							((temp0 value?) showSelf:) ;display the inventory item normally.
+						)
+					)
+;;;					(614
+;;;						(if (== ((temp0 value?) view?) 614) ;selected monocle with monocle
+;;;							((temp0 value?) showSelf:) ;display the inventory item normally.
+;;;						)
+;;;					)
+					(615
+						(if (== ((temp0 value?) view?) 615) ;selected monocle with monocle
+							((temp0 value?) showSelf:) ;display the inventory item normally.
+						)
+					)					
+					(616
+						(if (== ((temp0 value?) view?) 616) ;selected monocle with monocle
+							((temp0 value?) showSelf:) ;display the inventory item normally.
+						)
+					)
+					(617
+						(if (== ((temp0 value?) view?) 617) ;selected monocle with monocle
+							((temp0 value?) showSelf:) ;display the inventory item normally.
+						)
+					)
+;;;					(618
+;;;						(if (== ((temp0 value?) view?) 618) ;selected monocle with monocle
+;;;							((temp0 value?) showSelf:) ;display the inventory item normally.
+;;;						)
+;;;					)
+					(619
+						(if (== ((temp0 value?) view?) 619) ;selected monocle with monocle
+							((temp0 value?) showSelf:) ;display the inventory item normally.
+						)
+					)
+					(620
+						(if (== ((temp0 value?) view?) 620) ;selected item with same item
+							((temp0 value?) showSelf:) ;display the inventory item normally.
+						)
+					)					
+					(621
+						(if (== ((temp0 value?) view?) 621) ;selected item with same item
+							((temp0 value?) showSelf:) ;display the inventory item normally.
+						)
+					)
+					(622
+						(if (== ((temp0 value?) view?) 622) ;selected item with same item
+							((temp0 value?) showSelf:) ;display the inventory item normally.
+						)
+					)
+					(623
+						(if (== ((temp0 value?) view?) 623) ;selected item with same item
+							((temp0 value?) showSelf:) ;display the inventory item normally.
+						)
+					)
+					(624
+						(if (== ((temp0 value?) view?) 624) ;selected item with same item
+							((temp0 value?) showSelf:) ;display the inventory item normally.
+						)
+					)
+					(625
+						(if (== ((temp0 value?) view?) 625) ;selected item with same item
+							((temp0 value?) showSelf:) ;display the inventory item normally.
+						)
+					)
+					(626
+						(if (== ((temp0 value?) view?) 626) ;selected item with same item
+							((temp0 value?) showSelf:) ;display the inventory item normally.
+						)
+					)
+					(627
+						(if (== ((temp0 value?) view?) 627) ;selected item with same item
+							((temp0 value?) showSelf:) ;display the inventory item normally.
+						)
+					)
+					(628
+						(if (== ((temp0 value?) view?) 628) ;selected item with same item
+							((temp0 value?) showSelf:) ;display the inventory item normally.
+						)
+					)
+					(629
+						(if (== ((temp0 value?) view?) 629) ;selected item with same item
+							((temp0 value?) showSelf:) ;display the inventory item normally.
+						)
+					)
+					(630
+						(if (== ((temp0 value?) view?) 630) ;selected item with same item
+							((temp0 value?) showSelf:) ;display the inventory item normally.
+						)
+					)
+					(631
+						(if (== ((temp0 value?) view?) 631) ;selected item with same item
+							((temp0 value?) showSelf:) ;display the inventory item normally.
+						)
+					)
+
+					(632
+						(if (== ((temp0 value?) view?) 632) ;selected item with same item
+							((temp0 value?) showSelf:) ;display the inventory item normally.
+						)
+					)
+
+
+					(633
+						(if (== ((temp0 value?) view?) 633) ;selected item with same item
+							((temp0 value?) showSelf:) ;display the inventory item normally.
+						)
+					)
+					(634
+						(if (== ((temp0 value?) view?) 634) ;selected item with same item
+							((temp0 value?) showSelf:) ;display the inventory item normally.
+						)
+					)
+					(635
+						(if (== ((temp0 value?) view?) 635) ;selected item with same item
+							((temp0 value?) showSelf:) ;display the inventory item normally.
+						)
+					)		
+					
+					(636
+						(if (== ((temp0 value?) view?) 636) ;selected item with same item
+							((temp0 value?) showSelf:) ;display the inventory item normally.
+						)
+					)
+					(637
+						(if (== ((temp0 value?) view?) 637) ;selected item with same item
+							((temp0 value?) showSelf:) ;display the inventory item normally.
+						)
+					)
+					(638
+						(if (== ((temp0 value?) view?) 638) ;selected item with same item
+							((temp0 value?) showSelf:) ;display the inventory item normally.
+						)
+					)
+					(639
+						(if (== ((temp0 value?) view?) 639) ;selected item with same item
+							((temp0 value?) showSelf:) ;display the inventory item normally.
+						)
+					)
+					(640
+						(if (== ((temp0 value?) view?) 640) ;selected item with same item
+							((temp0 value?) showSelf:) ;display the inventory item normally.
+						)
+					)
+					(641
+						(if (== ((temp0 value?) view?) 641) ;selected item with same item
+							((temp0 value?) showSelf:) ;display the inventory item normally.
+						)
+					)
+
+					(642
+						(if (== ((temp0 value?) view?) 642) ;selected item with same item
+							((temp0 value?) showSelf:) ;display the inventory item normally.
+						)
+					)
+
+
+					(643
+						(if (== ((temp0 value?) view?) 643) ;selected item with same item
+							((temp0 value?) showSelf:) ;display the inventory item normally.
+						)
+					)					
+					(930
+						(if (== ((temp0 value?) view?) 930) ;selected item with same item
+							((temp0 value?) showSelf:) ;display the inventory item normally.
+						)
+					)
+					(931
+						(if (== ((temp0 value?) view?) 931) ;selected item with same item
+							((temp0 value?) showSelf:) ;display the inventory item normally.
+						)
+					)
+
+					(932
+						(if (== ((temp0 value?) view?) 932) ;selected item with same item
+							((temp0 value?) showSelf:) ;display the inventory item normally.
+						)
+					)
+
+
+					(933
+						(if (== ((temp0 value?) view?) 933) ;selected item with same item
+							((temp0 value?) showSelf:) ;display the inventory item normally.
+						)
+					)
+					(934
+						(if (== ((temp0 value?) view?) 934) ;selected item with same item
+							((temp0 value?) showSelf:) ;display the inventory item normally.
+						)
+					)
+					(935
+						(if (== ((temp0 value?) view?) 935) ;selected item with same item
+							((temp0 value?) showSelf:) ;display the inventory item normally.
+						)
+					)		
+					
+					(936
+						(if (== ((temp0 value?) view?) 936) ;selected item with same item
+							((temp0 value?) showSelf:) ;display the inventory item normally.
+						)
+					)
+					(937
+						(if (== ((temp0 value?) view?) 937) ;selected item with same item
+							((temp0 value?) showSelf:) ;display the inventory item normally.
+						)
+					)
+					(938
+						(if (== ((temp0 value?) view?) 938) ;selected item with same item
+							((temp0 value?) showSelf:) ;display the inventory item normally.
+						)
+					)
+					(939
+						(if (== ((temp0 value?) view?) 939) ;selected item with same item
+							((temp0 value?) showSelf:) ;display the inventory item normally.
+						)
+					)
+					(940
+						(if (== ((temp0 value?) view?) 940) ;selected item with same item
+							((temp0 value?) showSelf:) ;display the inventory item normally.
+						)
+					)
+					(941
+						(if (== ((temp0 value?) view?) 941) ;selected item with same item
+							((temp0 value?) showSelf:) ;display the inventory item normally.
+						)
+					)
+
+					(942
+						(if (== ((temp0 value?) view?) 942) ;selected item with same item
+							((temp0 value?) showSelf:) ;display the inventory item normally.
+						)
+					)
+
+
+					(943
+						(if (== ((temp0 value?) view?) 943) ;selected item with same item
+							((temp0 value?) showSelf:) ;display the inventory item normally.
+						)
+					)					
+																																																																																																													
 					(614 ;matches
 						(if (== ((temp0 value?) view?) 613) ;selected matches with lantern
 
@@ -394,8 +697,12 @@
 
 					
 						)
+						
 					)
 					(604 ;monocle
+						(if (== ((temp0 value?) view?) 604) ;selected monocle with monocle
+							((temp0 value?) showSelf:) ;display the inventory item normally.
+						)
 						(if (== ((temp0 value?) view?) 630) ;selected monocle with iHandkerchief panuelo
 
 									(Print 410 6 #icon 634 0 0)
@@ -432,6 +739,7 @@
 									(Bset fExaminedDiary)
 					
 						)		
+						
 					)
 
 					
@@ -458,7 +766,7 @@
 										)
 									)
 								)					
-												
+											
 						
 						
 						
@@ -470,6 +778,7 @@
 ;;;						(Print {You can't use those items together.}) ;English
 						(Print {No puedes usar esos dos objetos juntos.}) ;Spanish
 ;;;						(theGame setCursor: ((temp0 value?) view?))
+						((temp0 value?) showSelf:) ;display the inventory item normally.
 						(theGame setCursor: ((temp0 value?) view?))
 						(= itemIcon ((temp0 value?) view?))
 					)
