@@ -194,7 +194,7 @@
 			)
 		)
 ;;;		(ego get: 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23)
-		(ego get: 24 25 26 27 28 29 30 31 32 33) ;people
+		(ego get: 24 25 26 27 28 29 30 31 32 33 34) ;people
 		(if (not (self init: param1))
 			(Print (inventory empty:))
 			(return)
@@ -367,9 +367,9 @@
 							)
 							(else
 ;;;								(Print {You don't need to use that item.})
-								(Print {No es necesario utilizar ese objeto.})
-								((temp0 value?) showSelf:) ;display the inventory item normally.
-								(theGame setCursor: ((temp0 value?) view?))
+								(Print {Eso no hace nada.})
+;;;								((temp0 value?) showSelf:) ;display the inventory item normally.
+;;;								(theGame setCursor: ((temp0 value?) view?))
 							)
 					)
 					)
@@ -443,11 +443,11 @@
 							((temp0 value?) showSelf:) ;display the inventory item normally.
 						)
 					)
-					(613
-						(if (== ((temp0 value?) view?) 613) ;selected monocle with monocle
-							((temp0 value?) showSelf:) ;display the inventory item normally.
-						)
-					)
+;;;					(613
+;;;						(if (== ((temp0 value?) view?) 613) ;selected monocle with monocle
+;;;							((temp0 value?) showSelf:) ;display the inventory item normally.
+;;;						)
+;;;					)
 ;;;					(614
 ;;;						(if (== ((temp0 value?) view?) 614) ;selected monocle with monocle
 ;;;							((temp0 value?) showSelf:) ;display the inventory item normally.
@@ -458,16 +458,16 @@
 							((temp0 value?) showSelf:) ;display the inventory item normally.
 						)
 					)					
-					(616
-						(if (== ((temp0 value?) view?) 616) ;selected monocle with monocle
-							((temp0 value?) showSelf:) ;display the inventory item normally.
-						)
-					)
-					(617
-						(if (== ((temp0 value?) view?) 617) ;selected monocle with monocle
-							((temp0 value?) showSelf:) ;display the inventory item normally.
-						)
-					)
+;;;					(616
+;;;						(if (== ((temp0 value?) view?) 616) ;selected monocle with monocle
+;;;							((temp0 value?) showSelf:) ;display the inventory item normally.
+;;;						)
+;;;					)
+;;;					(617
+;;;						(if (== ((temp0 value?) view?) 617) ;selected monocle with monocle
+;;;							((temp0 value?) showSelf:) ;display the inventory item normally.
+;;;						)
+;;;					)
 ;;;					(618
 ;;;						(if (== ((temp0 value?) view?) 618) ;selected monocle with monocle
 ;;;							((temp0 value?) showSelf:) ;display the inventory item normally.
@@ -503,21 +503,21 @@
 							((temp0 value?) showSelf:) ;display the inventory item normally.
 						)
 					)
-					(625
-						(if (== ((temp0 value?) view?) 625) ;selected item with same item
-							((temp0 value?) showSelf:) ;display the inventory item normally.
-						)
-					)
-					(626
-						(if (== ((temp0 value?) view?) 626) ;selected item with same item
-							((temp0 value?) showSelf:) ;display the inventory item normally.
-						)
-					)
-					(627
-						(if (== ((temp0 value?) view?) 627) ;selected item with same item
-							((temp0 value?) showSelf:) ;display the inventory item normally.
-						)
-					)
+;;;					(625
+;;;						(if (== ((temp0 value?) view?) 625) ;selected item with same item
+;;;							((temp0 value?) showSelf:) ;display the inventory item normally.
+;;;						)
+;;;					)
+;;;					(626
+;;;						(if (== ((temp0 value?) view?) 626) ;selected item with same item
+;;;							((temp0 value?) showSelf:) ;display the inventory item normally.
+;;;						)
+;;;					)
+;;;					(627
+;;;						(if (== ((temp0 value?) view?) 627) ;selected item with same item
+;;;							((temp0 value?) showSelf:) ;display the inventory item normally.
+;;;						)
+;;;					)
 					(628
 						(if (== ((temp0 value?) view?) 628) ;selected item with same item
 							((temp0 value?) showSelf:) ;display the inventory item normally.
@@ -528,11 +528,11 @@
 							((temp0 value?) showSelf:) ;display the inventory item normally.
 						)
 					)
-					(630
-						(if (== ((temp0 value?) view?) 630) ;selected item with same item
-							((temp0 value?) showSelf:) ;display the inventory item normally.
-						)
-					)
+;;;					(630
+;;;						(if (== ((temp0 value?) view?) 630) ;selected item with same item
+;;;							((temp0 value?) showSelf:) ;display the inventory item normally.
+;;;						)
+;;;					)
 					(631
 						(if (== ((temp0 value?) view?) 631) ;selected item with same item
 							((temp0 value?) showSelf:) ;display the inventory item normally.
@@ -684,6 +684,9 @@
 					)					
 																																																																																																													
 					(614 ;matches
+						(if (== ((temp0 value?) view?) 614) ;selected matches with matches
+							((temp0 value?) showSelf:) ;display the inventory item normally.
+						)
 						(if (== ((temp0 value?) view?) 613) ;selected matches with lantern
 
 								(if (ego has: iMatches) ;matches
@@ -699,7 +702,27 @@
 						)
 						
 					)
+					(613 ;lantern
+						(if (== ((temp0 value?) view?) 613) ;selected lantern with lantern
+							((temp0 value?) showSelf:) ;display the inventory item normally.
+						)
+						(if (== ((temp0 value?) view?) 614) ;selected lantern with matches
+
+								(if (ego has: iMatches) ;matches
+									(if lanternIsLit
+										(Print 410 42)
+									else
+										(Print 410 43)
+										(= lanternIsLit TRUE)
+									)
+								)
+
+					
+						)
+						
+					)					
 					(604 ;monocle
+						
 						(if (== ((temp0 value?) view?) 604) ;selected monocle with monocle
 							((temp0 value?) showSelf:) ;display the inventory item normally.
 						)
@@ -741,11 +764,67 @@
 						)		
 						
 					)
+					(630
+						(if (== ((temp0 value?) view?) 630) ;selected lantern with lantern
+							((temp0 value?) showSelf:) ;display the inventory item normally.
+						)						
+								(if (== ((temp0 value?) view?) 604) ;selected handerchief with monocle
 
+									(Print 410 6 #icon 634 0 0)
+									(Bset fExaminedHandkerchief)
+					
+						)
+					)
+					(626	
+						(if (== ((temp0 value?) view?) 626) ;selected lantern with lantern
+							((temp0 value?) showSelf:) ;display the inventory item normally.
+						)						
+						(if (== ((temp0 value?) view?) 604) ;selected monocle with iRollingPin
+
+									(Print 410 7 #icon 639 0 0)
+									(Bset fExaminedRollingPin)
+					
+						)						
+					)
+					(627
+						(if (== ((temp0 value?) view?) 627) ;selected lantern with lantern
+							((temp0 value?) showSelf:) ;display the inventory item normally.
+						)							
+						(if (== ((temp0 value?) view?) 604) ;selected monocle with iPoker
+
+									(Print 410 8 #icon 632 0 0)
+									(Bset fExaminedPoker)
+					
+						)						
+					)
+					(625
+						(if (== ((temp0 value?) view?) 627) ;selected lantern with lantern
+							((temp0 value?) showSelf:) ;display the inventory item normally.
+						)							
+							(if (== ((temp0 value?) view?) 604) ;selected monocle with iBrokenRecord
+
+									(Print 410 9 #icon 636 0 0)
+									(Bset fExaminedRecord)
+					
+						)					
+					)
+					(616
+						(if (== ((temp0 value?) view?) 627) ;selected lantern with lantern
+							((temp0 value?) showSelf:) ;display the inventory item normally.
+						)						
+								(if (== ((temp0 value?) view?) 604) ;selected monocle with Diary
+
+									(Print 410 10 #icon 637 0 0)
+									(Bset fExaminedDiary)
+					
+						)		
+					)
 					
 					
-					
-					(618 ;bullet				
+					(618 ;bullet
+						(if (== ((temp0 value?) view?) 618) ;selected lantern with lantern
+							((temp0 value?) showSelf:) ;display the inventory item normally.
+						)										
 								(if (== ((temp0 value?) view?) 617) ;selected bullet with gun
 
 									(cond 
@@ -755,8 +834,12 @@
 										((ego has: iDerringer)
 											(if (ego has: iBullet)
 												(Ok)
-												(ego put: iBullet 99)
+;;;												(ego put: iBullet 99)
+												(ego put: iBullet 1)
 												(= gunIsLoaded TRUE)
+												(theGame setCursor: 617)
+												(= itemIcon 617)												
+;;;												(break)													
 											else
 												(Print 410 13)
 											)
@@ -772,7 +855,39 @@
 						
 					)					
 					
-					
+					(617 ;gun		
+						(if (== ((temp0 value?) view?) 617) ;selected lantern with lantern
+							((temp0 value?) showSelf:) ;display the inventory item normally.
+						)		
+								(if (== ((temp0 value?) view?) 618) ;selected bullet with gun
+
+									(cond 
+										(gunIsLoaded
+											(Print 410 12)
+										)
+										((ego has: iDerringer)
+											(if (ego has: iBullet)
+												(Ok)
+;;;												(ego put: iBullet 99)
+												(ego put: iBullet 1)
+												(= gunIsLoaded TRUE)
+												(theGame setCursor: 617)
+												(= itemIcon 617)												
+;;;												(break)	
+											else
+												(Print 410 13)
+											)
+										)
+										(else
+											(Print 410 14)
+										)
+									)
+								)					
+											
+						
+						
+						
+					)						
 					
 					(else
 ;;;						(Print {You can't use those items together.}) ;English

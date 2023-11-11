@@ -25,6 +25,32 @@
 	)
 	
 	(method (handleEvent event)
+		
+
+				
+;;;							(if (ClickedOnPicView WilburBlock (event x?) (event y?)) 
+;;;					
+;;;					(event claimed: TRUE)
+;;;					(switch theCursor
+;;;						(998
+;;;							(DoVerb {examine wilbur})
+;;;						)	
+;;;						(995
+;;;							(DoVerb {examine in wilbur})
+;;;						)
+;;;						(996
+;;;							(DoVerb {converse wilbur})
+;;;						)		
+;;;						(else
+;;;							(event claimed: FALSE)
+;;;						)
+;;;					)
+;;;				)
+;;;		
+		
+		
+		
+		
 		(if (or (MousedOn self event shiftDown) (Said 'examine/c'))
 			(event claimed: TRUE)
 			(Print 256 0)
@@ -32,7 +58,8 @@
 	)
 )
 
-(instance WilburBlock of Block)
+(instance WilburBlock of Block) ;Block
+	
 
 (instance myMusic of Sound
 	(properties
@@ -65,9 +92,9 @@
 				(and
 					(== (event type?) evMOUSEBUTTON)
 					(not (& (event modifiers?) emRIGHT_BUTTON))
-				)
-				
-							(if (ClickedOnPicView Dwilb (event x?) (event y?)) 
+				)		
+	
+								(if (ClickedOnPicView Body (event x?) (event y?)) 
 					
 					(event claimed: TRUE)
 					(switch theCursor
@@ -75,26 +102,7 @@
 							(DoVerb {examine wilbur})
 						)	
 						(995
-							(DoVerb {examine in wilbur})
-						)
-						(996
-							(DoVerb {converse wilbur})
-						)		
-						(else
-							(event claimed: FALSE)
-						)
-					)
-				)
-		
-								(if (ClickedOnObj Body (event x?) (event y?)) 
-					
-					(event claimed: TRUE)
-					(switch theCursor
-						(998
-							(DoVerb {examine wilbur})
-						)	
-						(995
-							(DoVerb {examine in wilbur})
+							(DoVerb {get monocle})
 						)
 						(996
 							(DoVerb {converse wilbur})
@@ -108,9 +116,7 @@
 			)
 					)
 		
-		
-		
-		
+			
 		
 		
 		

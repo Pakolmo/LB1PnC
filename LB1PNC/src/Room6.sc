@@ -538,7 +538,7 @@
 						)						
 						
 						(602
-							(DoVerb {hold necklace celie})
+							(DoVerb {show necklace celie})
 						)
 						
 						(998				

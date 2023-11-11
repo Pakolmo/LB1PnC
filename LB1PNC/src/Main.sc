@@ -1564,7 +1564,7 @@
 		said '/diary'
 		owner 44
 		view 616
-		name "diary_"
+		name "diary__"
 	)
 )
 
