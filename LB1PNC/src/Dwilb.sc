@@ -67,7 +67,7 @@
 					(not (& (event modifiers?) emRIGHT_BUTTON))
 				)
 				
-							(if (ClickedOnObj Dwilb (event x?) (event y?)) 
+							(if (ClickedOnPicView Dwilb (event x?) (event y?)) 
 					
 					(event claimed: TRUE)
 					(switch theCursor

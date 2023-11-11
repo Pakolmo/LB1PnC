@@ -38,6 +38,8 @@
 	(talkIcon show:)
 	(smellIcon show:)
 	(invIcon show:)
+	(blockIcon show:)
+	(selectedItem show:)
 	(levelsIcon show:)
 	(saveIcon show:)
 	(quitIcon show:)
