@@ -13,6 +13,7 @@
 (use Motion)
 (use Invent)
 (use Sound)
+(use Save)
 
 (public
 	PnCMenu 0

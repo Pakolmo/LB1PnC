@@ -21,6 +21,8 @@
 (use Main)
 (use Intrface)
 (use Window)
+(use System)
+
 
 (define	GAMESSHOWN 8)		;the number of games displayed in the selector
 (define	MAXGAMES 20)		;maximum number of games in a save directory
@@ -58,17 +60,32 @@
 	numGames
 	selected
 	status
-	okIText = [{Restore} {__Save__} {Replace} {Replace}]
+;;;	okIText = [{Restore} {__Save__} {Replace} {Replace}]
+;;;	textIText = [
+;;;					{Select the game that you would like to restore.}
+;;;					{Type the description of this saved game.}
+;;;					{This directory/disk can hold no more saved games. 
+;;;	You must replace one of your saved games or use
+;;;	Change Directory to save on a different directory/disk.}
+;;;					{This directory/disk can hold no more saved games. 
+;;;	You must replace one of your saved games or use
+;;;	Change Directory to save on a different directory/disk.}
+;;;					]
+	okIText = [{Restaurar} {__Salvar__} {Reemplazar} {Reemplazar}]
 	textIText = [
-					{Select the game that you would like to restore.}
-					{Type the description of this saved game.}
-					{This directory/disk can hold no more saved games. 
-	You must replace one of your saved games or use
-	Change Directory to save on a different directory/disk.}
-					{This directory/disk can hold no more saved games. 
-	You must replace one of your saved games or use
-	Change Directory to save on a different directory/disk.}
-					]
+					{Selecciona el juego que quieres cargar.}
+					{Escribe la descripci/n de esta partida guardada.}
+					{Este directorio o disco no puede contener m*s partidas guardadas. 
+	Debes sustituir una de tus partidas guardadas o Cambiar
+	el directorio para guardar en un directorio o disco diferente.}
+					{Este directorio o disco no puede contener m*s partidas guardadas. 
+	Debes sustituir una de tus partidas guardadas o Cambiar
+	el directorio para guardar en un directorio o disco diferente.}
+					]					
+
+
+
+
 )
 
 
@@ -78,6 +95,61 @@
 	HAVESPACE		;Save, with space on disk
 	NOSPACE			;Save, no space on disk but games to replace
 	NOREPLACE		;Save, no space on disk, no games to replace
+)
+
+
+(class SysWindow kindof	Object
+	(properties
+		top		0
+		left		0
+		bottom	0
+		right		0
+		color		0			; foreground color
+		back		15			; background color
+		priority	-1			; priority
+		window	0			; handle/pointer to system window
+		type	0				; generally	corresponds to system window types
+		title		0			; text appearing in title bar if present
+
+		;; this rectangle is the working area for X/Y centering
+		;; these coordinates can define a subsection of the picture
+		;; in which a window will be centered
+		brTop		0
+		brLeft	0
+		brBottom	190
+		brRight	320
+	)
+
+;;;	(methods
+;;;		open
+;;;		dispose
+;;;	)
+
+	;; Open corresponding system window structure
+	;; Custom window type 0x81 indicates that system
+	;; will NOT draw the window, only get a port and link into list
+	(method (open)
+		(= window 
+			(NewWindow 
+				top 
+				left 
+				bottom 
+				right 
+				title 
+				type
+				priority 
+				color
+				back
+			)
+		)
+	)
+	(method (dispose)
+		(if window
+			(DisposeWindow window)
+			(= window 0)
+		)
+		(super dispose:)
+	)
 )
 
 
@@ -353,14 +425,16 @@
 
 (class Restore of SRDialog
 	(properties
-		text "Restore a Game"
+;;;		text "Restore a Game"
+		text "Cargar un Juego" ;Spanish
 	)
 )
 
 
 (class Save of SRDialog
 	(properties
-		text "Save a Game"
+;;;		text "Save a Game"
+		text "Salvar un Juego" ;Spanish
 	)
 )
 
@@ -438,7 +512,8 @@
 				#font: SYSFONT
 				#edit: (StrCpy @newDir where) DIRECTORYSIZE
 				#button: {OK} 1
-				#button: {Cancel} 0
+;;;				#button: {Cancel} 0 ;english
+				#button: {Cancelar} 0 ;spanish
 			)
 		)
 
@@ -494,12 +569,14 @@
 )
 (instance cancelI of DButton
 	(properties
-		text "_Cancel_"
+;;;		text "_Cancel_"
+		text "_Cancelar_" ;spanish		
 	)
 )
 (instance changeDirI of DButton
 	(properties
-		text {Change\nDirectory}
+;;;		text {Change\nDirectory}
+		text {Cambiar\nDirectorio} ;spanish
 	)
 )
 (instance textI of DText
@@ -512,13 +589,15 @@
 (instance text1 of DText
 	(properties
 		font SYSFONT
-		text "Replace"
+;;;		text "Replace"
+		text "Reemplazar" ;spanish
 	)
 )
 (instance text2 of DText
 	(properties
 		font SYSFONT
-		text "with:"
+;;;		text "with:"
+		text "con:" ;spanish
 	)
 )
 (instance oldName of DText
@@ -530,12 +609,14 @@
 )
 (instance button1 of DButton
 	(properties
-		text "Replace"
+;;;		text "Replace" ;english
+		text "Reemplazar"	 ;spanish
 	)
 )
 (instance button2 of DButton
 	(properties
-		text "Cancel"
+;;;		text "Cancel" ;english
+		text "Cancelar" ;spanish
 	)
 )
 

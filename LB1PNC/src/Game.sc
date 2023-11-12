@@ -483,7 +483,7 @@
 		;; (RestoreGame) kernel function.
 
 		(Load FONT smallFont)
-
+		
 		(= oldCur (self setCursor:normalCursor))
 		(= oldPause (Sound pause:TRUE))
 		(if (PromptForDiskChange TRUE)
@@ -511,6 +511,7 @@
 			)
 			(PromptForDiskChange FALSE)
 		)
+
 		(Sound pause:oldPause)
 	)
 
