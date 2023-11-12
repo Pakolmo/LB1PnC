@@ -1218,7 +1218,7 @@
 			(if saveDisabled
 				(Print 997 1) ; "You cannot save a game right now."
 			else
-				(gGame save:)
+				(theGame save:)
 			)
 		)
 		(if programControl
