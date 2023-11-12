@@ -673,6 +673,9 @@
 						(= cycles 1)
 					)	
 					(1
+							(= saveVolume (theGame setVolume: pncVolume))
+							(theGame setVolume: pncVolume)
+;;;							(Bset 0) ;use un-use flag 0 for save hack						
 						(Bset fPnCVolumeFlag)
 						(Bset fPnCSaveFlag)
 						(= cycles 1)
@@ -682,6 +685,7 @@
 							(Print 997 2) ; "You cannot restore a game right now."
 						else
 							(theGame restore:)
+							(theGame setVolume: saveVolume)
 						)
 						(= cycles 1)
 					)

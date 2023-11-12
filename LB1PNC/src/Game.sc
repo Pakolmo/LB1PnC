@@ -524,6 +524,14 @@
 		(return oldSpeed)
 	)
 	
+	(method (setVolume newVolume &tmp oldVolume)
+		;; Set the animation speed for the game, returning the old speed.
+
+		(= oldVolume volume)
+		(= volume newVolume)
+		(return oldVolume)
+	)
+	
 	
 	(method (setCursor form showIt &tmp oldCur)
 		;; Set the cursor form, returning the previous form.

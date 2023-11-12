@@ -115,248 +115,7 @@
 	)
 	
 	(method (handleEvent event)
-		(super handleEvent: event)
-		(if (event claimed?) (return))
-		(if (== (event type?) saidEvent)
-			(cond 
-				((Said 'hear/fifi,colonel')
-					(if (cast contains: Lillian)
-						(Print 270 0)
-					else
-						(Print 270 1)
-					)
-				)
-				((cast contains: Lillian))
-				((Said 'converse,ask,tell')
-					(if colLillTalkCount
-						(Print 270 2)
-					else
-						(= theTalker 10)
-						(Say 1 270 3)
-						(++ colLillTalkCount)
-					)
-				)
-				((Said 'deliver/*')
-					(if haveInvItem
-						(Print 270 4)
-					else
-						(DontHave)
-					)
-				)
-				((Said 'hold/*]')
-					(if haveInvItem
-						(Print 270 5)
-					else
-						(DontHave)
-					)
-				)
-			)
-		)
-	)
-)
-
-(instance argue of Script
-	
-	(method (changeState newState)
-		(switch (= state newState)
-			(0
-				(cond 
-					((not global216)
-						(= state -1)
-					)
-					((not (& global118 $0002))
-						(|= global118 $0002)
-						(self setScript: (ScriptID 406 0))
-						(= state -1)
-					)
-					((self script?)
-						(= state -1)
-					)
-				)
-				(= cycles 1)
-			)
-			(1
-				(User canInput: FALSE)
-				(if (== (= argueCount (& gCurRoomNum_2 $7fff)) gCurRoomNum_2)
-					(if (< gCurRoomNum_2 10)
-						(++ gCurRoomNum_2)
-					else
-						(= gCurRoomNum_2 -32767)
-					)
-				else
-					(switch argueCount
-						(1 (= gCurRoomNum_2 -32766))
-						(2 (= gCurRoomNum_2 -32763))
-						(5 (= gCurRoomNum_2 -32762))
-						(6 (= gCurRoomNum_2 -32760))
-						(8 (= gCurRoomNum_2 -32752))
-						(10 (= gCurRoomNum_2 -32767))
-					)
-				)
-				(switch argueCount
-					(0 (LillPrint 270 6))
-					(1 (LillPrint 270 7))
-					(2 (ColPrint 270 8))
-					(3 (ColPrint 270 9))
-					(4 (LillPrint 270 10))
-					(5 (ColPrint 270 11))
-					(6 (LillPrint 270 12))
-					(7 (ColPrint 270 13))
-					(8 (ColPrint 270 14))
-					(9 (LillPrint 270 15))
-					(10 (LillPrint 270 16))
-				)
-				(= seconds 5)
-			)
-			(2
-				(LHead setCycle: 0)
-				(cls)
-				(Lillian setCycle: 0)
-				(Colonel setCycle: 0)
-				(= seconds 3)
-				(switch argueCount
-					(0 (LillPrint 270 17))
-					(5 (ColPrint 270 18))
-					(6 (ColPrint 270 19))
-					(8 (LillPrint 270 20))
-					(9 (ColPrint 270 21))
-					(10 (ColPrint 270 22))
-					(else
-						(= seconds 1)
-					)
-				)
-			)
-			(3
-				(cls)
-				(LHead setCycle: 0 setScript: headActions)
-				(Lillian setCycle: 0 setScript: lillActions)
-				(Colonel setScript: colonelActions)
-				(User canInput: TRUE)
-				(client setScript: 0)
-			)
-		)
-	)
-)
-
-(instance colonelActions of Script
-	
-	(method (changeState newState)
-		(switch (= state newState)
-			(0
-				(smoke2 cel: 0 hide:)
-				(Colonel
-					view: 304
-					loop: 0
-					cycleSpeed: 1
-					cel: 0
-					setCycle: EndLoop self
-				)
-			)
-			(1
-				(Glow show: loop: 1 cel: 0 setCycle: Forward)
-				(= cycles 18)
-			)
-			(2
-				(Glow hide:)
-				(Colonel
-					loop: 0
-					cel: (- (NumCels Colonel) 1)
-					setCycle: BegLoop self
-				)
-			)
-			(3
-				(smoke2 setCycle: Forward show:)
-				(smoke1 show: setCycle: EndLoop self)
-			)
-			(4
-				(smoke1 cel: 0 hide:)
-				(= cycles 1)
-			)
-			(5
-				(if (< (Random 1 100) 30)
-					(= state -1)
-				else
-					(= state 4)
-				)
-				(= seconds 5)
-			)
-		)
-	)
-)
-
-(instance lillActions of Script
-
-	(method (changeState newState)
-		(switch (= state newState)
-			(0
-				(if (!= (Lillian cel?) 0)
-					(Lillian loop: 0 cel: 3 setCycle: BegLoop self)
-				else
-					(= cycles 1)
-				)
-			)
-			(1
-				(Lillian loop: 0 cel: 0)
-				(= seconds (Random 6 15))
-			)
-			(2
-				(Lillian loop: 2 cel: 0 setCycle: EndLoop)
-				(= seconds (Random 6 15))
-			)
-			(3
-				(if (and (== (LHead loop?) 5) (== (LHead cel?) 2))
-					(Lillian loop: 3 cel: 0 setCycle: EndLoop self)
-				else
-					(= state 0)
-					(= cycles 1)
-				)
-			)
-			(4
-				(Lillian loop: 4 cel: 0 setCycle: Forward)
-				(= seconds 3)
-			)
-			(5
-				(Lillian loop: 2 cel: 2 setCycle: BegLoop self)
-				(= state 0)
-			)
-		)
-	)
-)
-
-(instance headActions of Script
-	
-	(method (changeState newState)
-		(switch (= state newState)
-			(0 (= seconds (Random 12 18)))
-			(1
-				(LHead loop: 5 cel: 0 setCycle: EndLoop)
-				(= seconds (Random 12 18))
-			)
-			(2
-				(LHead setCycle: BegLoop)
-				(= seconds (Random 12 18))
-			)
-			(3
-				(LHead loop: 6 cel: 0 setCycle: EndLoop)
-				(= seconds (Random 2 8))
-			)
-			(4
-				(LHead setCycle: BegLoop)
-				(= seconds (Random 12 18))
-				(= state 0)
-			)
-		)
-	)
-)
-
-(instance Colonel of Prop
-	(properties
-		y 97
-		x 176
-		view 312
-	)
-	
-	(method (handleEvent event)
+		
 		
 						(cond
 			(
@@ -751,7 +510,261 @@
 		
 		
 		
+				
 		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		(super handleEvent: event)
+		(if (event claimed?) (return))
+		(if (== (event type?) saidEvent)
+			(cond 
+				((Said 'hear/fifi,colonel')
+					(if (cast contains: Lillian)
+						(Print 270 0)
+					else
+						(Print 270 1)
+					)
+				)
+				((cast contains: Lillian))
+				((Said 'converse,ask,tell')
+					(if colLillTalkCount
+						(Print 270 2)
+					else
+						(= theTalker 10)
+						(Say 1 270 3)
+						(++ colLillTalkCount)
+					)
+				)
+				((Said 'deliver/*')
+					(if haveInvItem
+						(Print 270 4)
+					else
+						(DontHave)
+					)
+				)
+				((Said 'hold/*]')
+					(if haveInvItem
+						(Print 270 5)
+					else
+						(DontHave)
+					)
+				)
+			)
+		)
+	)
+)
+
+(instance argue of Script
+	
+	(method (changeState newState)
+		(switch (= state newState)
+			(0
+				(cond 
+					((not global216)
+						(= state -1)
+					)
+					((not (& global118 $0002))
+						(|= global118 $0002)
+						(self setScript: (ScriptID 406 0))
+						(= state -1)
+					)
+					((self script?)
+						(= state -1)
+					)
+				)
+				(= cycles 1)
+			)
+			(1
+				(User canInput: FALSE)
+				(if (== (= argueCount (& gCurRoomNum_2 $7fff)) gCurRoomNum_2)
+					(if (< gCurRoomNum_2 10)
+						(++ gCurRoomNum_2)
+					else
+						(= gCurRoomNum_2 -32767)
+					)
+				else
+					(switch argueCount
+						(1 (= gCurRoomNum_2 -32766))
+						(2 (= gCurRoomNum_2 -32763))
+						(5 (= gCurRoomNum_2 -32762))
+						(6 (= gCurRoomNum_2 -32760))
+						(8 (= gCurRoomNum_2 -32752))
+						(10 (= gCurRoomNum_2 -32767))
+					)
+				)
+				(switch argueCount
+					(0 (LillPrint 270 6))
+					(1 (LillPrint 270 7))
+					(2 (ColPrint 270 8))
+					(3 (ColPrint 270 9))
+					(4 (LillPrint 270 10))
+					(5 (ColPrint 270 11))
+					(6 (LillPrint 270 12))
+					(7 (ColPrint 270 13))
+					(8 (ColPrint 270 14))
+					(9 (LillPrint 270 15))
+					(10 (LillPrint 270 16))
+				)
+				(= seconds 5)
+			)
+			(2
+				(LHead setCycle: 0)
+				(cls)
+				(Lillian setCycle: 0)
+				(Colonel setCycle: 0)
+				(= seconds 3)
+				(switch argueCount
+					(0 (LillPrint 270 17))
+					(5 (ColPrint 270 18))
+					(6 (ColPrint 270 19))
+					(8 (LillPrint 270 20))
+					(9 (ColPrint 270 21))
+					(10 (ColPrint 270 22))
+					(else
+						(= seconds 1)
+					)
+				)
+			)
+			(3
+				(cls)
+				(LHead setCycle: 0 setScript: headActions)
+				(Lillian setCycle: 0 setScript: lillActions)
+				(Colonel setScript: colonelActions)
+				(User canInput: TRUE)
+				(client setScript: 0)
+			)
+		)
+	)
+)
+
+(instance colonelActions of Script
+	
+	(method (changeState newState)
+		(switch (= state newState)
+			(0
+				(smoke2 cel: 0 hide:)
+				(Colonel
+					view: 304
+					loop: 0
+					cycleSpeed: 1
+					cel: 0
+					setCycle: EndLoop self
+				)
+			)
+			(1
+				(Glow show: loop: 1 cel: 0 setCycle: Forward)
+				(= cycles 18)
+			)
+			(2
+				(Glow hide:)
+				(Colonel
+					loop: 0
+					cel: (- (NumCels Colonel) 1)
+					setCycle: BegLoop self
+				)
+			)
+			(3
+				(smoke2 setCycle: Forward show:)
+				(smoke1 show: setCycle: EndLoop self)
+			)
+			(4
+				(smoke1 cel: 0 hide:)
+				(= cycles 1)
+			)
+			(5
+				(if (< (Random 1 100) 30)
+					(= state -1)
+				else
+					(= state 4)
+				)
+				(= seconds 5)
+			)
+		)
+	)
+)
+
+(instance lillActions of Script
+
+	(method (changeState newState)
+		(switch (= state newState)
+			(0
+				(if (!= (Lillian cel?) 0)
+					(Lillian loop: 0 cel: 3 setCycle: BegLoop self)
+				else
+					(= cycles 1)
+				)
+			)
+			(1
+				(Lillian loop: 0 cel: 0)
+				(= seconds (Random 6 15))
+			)
+			(2
+				(Lillian loop: 2 cel: 0 setCycle: EndLoop)
+				(= seconds (Random 6 15))
+			)
+			(3
+				(if (and (== (LHead loop?) 5) (== (LHead cel?) 2))
+					(Lillian loop: 3 cel: 0 setCycle: EndLoop self)
+				else
+					(= state 0)
+					(= cycles 1)
+				)
+			)
+			(4
+				(Lillian loop: 4 cel: 0 setCycle: Forward)
+				(= seconds 3)
+			)
+			(5
+				(Lillian loop: 2 cel: 2 setCycle: BegLoop self)
+				(= state 0)
+			)
+		)
+	)
+)
+
+(instance headActions of Script
+	
+	(method (changeState newState)
+		(switch (= state newState)
+			(0 (= seconds (Random 12 18)))
+			(1
+				(LHead loop: 5 cel: 0 setCycle: EndLoop)
+				(= seconds (Random 12 18))
+			)
+			(2
+				(LHead setCycle: BegLoop)
+				(= seconds (Random 12 18))
+			)
+			(3
+				(LHead loop: 6 cel: 0 setCycle: EndLoop)
+				(= seconds (Random 2 8))
+			)
+			(4
+				(LHead setCycle: BegLoop)
+				(= seconds (Random 12 18))
+				(= state 0)
+			)
+		)
+	)
+)
+
+(instance Colonel of Prop
+	(properties
+		y 97
+		x 176
+		view 312
+	)
+	
+	(method (handleEvent event)
+		
+
 		
 		
 				

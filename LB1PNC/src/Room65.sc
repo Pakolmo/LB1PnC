@@ -221,15 +221,15 @@
 											)
 											(switch temp7
 												(1 
-													(DoVerb {close tramp})
+													(DoVerb {close trap})
 													
 												)
 												(2 
-													(DoVerb {open tramp})
+													(DoVerb {open trap})
 													
 												)
 												(3 
-													(DoVerb {examine in tramp})
+													(DoVerb {examine in trap})
 													
 												)
 									

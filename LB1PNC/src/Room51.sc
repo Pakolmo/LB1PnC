@@ -164,7 +164,7 @@
 									
 							(= temp7
 							(Print
-;;;								{Tramp}
+;;;								{Trap}
 ;;;								#button {Open} 1
 ;;;								#button {Close} 2
 								{Trampilla}

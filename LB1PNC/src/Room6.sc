@@ -458,72 +458,72 @@
 	
 
 					(604 ;monocle
-						(DoVerb {hold monocle celie})						
+						(DoVerb {give monocle celie})						
 					)
 					
 					(613 ;lantern_
-						(DoVerb {hold lantern celie})						
+						(DoVerb {give lantern celie})						
 					)
 					(611 ;oilcan_
-						(DoVerb {hold oilcan celie})						
+						(DoVerb {give oilcan celie})						
 					)
 					(626 ;rolling_pin_
-						(DoVerb {hold pin celie})						
+						(DoVerb {give pin celie})						
 					)
 					(620 ;skeleton_key_
-						(DoVerb {hold skeleton key celie})						
+						(DoVerb {give skeleton key celie})						
 					)
 					(627 ;poker_
-						(DoVerb {hold poker celie})						
+						(DoVerb {give poker celie})						
 					)															
 					(607 ;crowbar_
-						(DoVerb {hold crowbar celie})						
+						(DoVerb {give crowbar celie})						
 					)
 					(628 ;cigar_butt_
-						(DoVerb {hold butt celie})						
+						(DoVerb {give butt celie})						
 					)
 					(625 ;broken_record_
-						(DoVerb {hold broken record celie})						
+						(DoVerb {give broken record celie})						
 					)
 					(601 ;notebook___pencil_
-						(DoVerb {hold notebook celie})						
+						(DoVerb {give notebook celie})						
 					)
 					(603 ;_7_crackers________
-						(DoVerb {hold crackers celie})						
+						(DoVerb {give crackers celie})						
 					)
 					(605 ;soup_bone_
-						(DoVerb {hold soup bone celie})						
+						(DoVerb {give soup bone celie})						
 					)
 					(606 ;valve_handle_
-						(DoVerb {hold valve celie})						
+						(DoVerb {give valve celie})						
 					)
 					(618 ;bullet_
-						(DoVerb {hold bullet celie})						
+						(DoVerb {give bullet celie})						
 					)
 					(617 ;derringer__
-						(DoVerb {hold derringer celie})						
+						(DoVerb {give derringer celie})						
 					)
 					(614 ;matches_
-						(DoVerb {hold matches celie})						
+						(DoVerb {give matches celie})						
 					)
 					(615 ;carrot_
-						(DoVerb {hold carrot celie})						
+						(DoVerb {give carrot celie})						
 					)
 					(619 ;brass_key_
-						(DoVerb {hold brass key celie})						
+						(DoVerb {give brass key celie})						
 					)
 					(616 ;diary_
-						(DoVerb {hold diary celie})						
+						(DoVerb {give diary celie})						
 					)
 					(621 ;crank_
-						(DoVerb {hold crank celie})						
+						(DoVerb {give crank celie})						
 					)
 
 					(622 ;pouch_
-						(DoVerb {hold pouch celie})						
+						(DoVerb {give pouch celie})						
 					)																																																																																
 					(630 ;handkerchief_
-						(DoVerb {hold handkerchief celie})
+						(DoVerb {give handkerchief celie})
 					)
 											
 												
@@ -534,11 +534,11 @@
 						
 						
 						(612
-							(DoVerb {hold cane celie})	
+							(DoVerb {give cane celie})	
 						)						
 						
 						(602
-							(DoVerb {show necklace celie})
+							(DoVerb {give necklace celie})
 						)
 						
 						(998				
