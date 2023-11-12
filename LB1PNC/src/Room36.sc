@@ -1,5 +1,5 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-(script# 36)
+(script# 36) ;382 233 245 232
 (include game.sh)
 (use Main)
 (use Intrface)
@@ -25,6 +25,7 @@
 	firstTime
 	userCanControl
 	local8
+	temp7
 )
 (instance Room36 of Room
 	(properties
@@ -268,6 +269,560 @@
 	)
 	
 	(method (handleEvent event)
+			(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)	
+				(if (ClickedInRect 314 319 91 104 event) ;exit room right
+					(event claimed: TRUE)
+					(switch theCursor
+						(999
+							(ego setMotion: MoveTo 321 147)
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					 )
+				)				
+				
+				
+				(if (ClickedOnObj balls (event x?) (event y?)) 	
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998
+							(DoVerb {examine ball}) 
+						)
+						(995
+							(DoVerb {get ball}) 
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)	
+				)
+		
+					(if (ClickedOnObj phono (event x?) (event y?)) 	
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998
+							(= temp7
+								(Print
+;;;									{Gramophone}
+;;;									#button {Examine in} 1
+;;;									#button {Examine} 2
+		
+									{Gram/fono}
+									#button {Examinar} 1
+									#button {Mirar} 2								
+									
+								)
+							)
+							(switch temp7
+								(1 ;
+									(DoVerb {examine in gramophone}) 
+								)
+								(2
+									(DoVerb {examine gramophone})
+								)
+								(else				
+									(event claimed: FALSE)
+								)
+							)
+						
+						)
+						(995
+
+							(DoVerb {play gramophone})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)	
+				)
+		
+				(if (ClickedOnObj record (event x?) (event y?)) 	
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998	
+							(DoVerb {look record})
+						)
+						(995
+							(DoVerb {get record})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)	
+				)
+		
+		(if (or (ClickedOnPicView sofa1 (event x?) (event y?)) 	
+				(ClickedOnPicView sofa2 (event x?) (event y?)) 	)
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998
+							(DoVerb {look couch})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)	
+				)
+
+
+		(if (or (ClickedOnPicView table1 (event x?) (event y?)) 	
+				(ClickedOnPicView table2 (event x?) (event y?)) 	)
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998
+							(DoVerb {look table})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)	
+				)
+
+		(if (ClickedOnObj item (event x?) (event y?)) 	
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998
+							(DoVerb {look chair})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)	
+				)
+
+;;;		(if (and (ClickedOnObj wingback (event x?) (event y?)) 	;bug with Gloria
+;;;				(not (cast contains: Gloria)))
+;;;					(event claimed: TRUE)
+;;;					(switch theCursor	
+;;;						(998
+;;;							(DoVerb {look chair})
+;;;						)
+;;;						(else
+;;;							(event claimed: FALSE)
+;;;						)
+;;;					)	
+;;;				)
+
+		(if (ClickedOnObj harp (event x?) (event y?)) 	
+			
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998
+							(DoVerb {examine guitar})
+						)
+						(995
+							(DoVerb {get guitar})
+						)						
+						(else
+							(event claimed: FALSE)
+						)
+					)	
+				)
+		(if (ClickedOnObj tromb (event x?) (event y?)) 	
+			
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998
+							(event claimed: TRUE)
+							(Print 36 21)
+						)
+						
+						(else
+							(event claimed: FALSE)
+						)
+					)	
+				)
+
+
+		(if (ClickedOnObj trump (event x?) (event y?)) 	
+			
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998
+							(event claimed: TRUE)
+							(Print 36 21)
+						)
+						
+						(else
+							(event claimed: FALSE)
+						)
+					)	
+				)
+		(if (ClickedOnObj mandolin (event x?) (event y?)) 	
+			
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998
+							(event claimed: TRUE)
+							(Print 36 21)
+						)
+						
+						(else
+							(event claimed: FALSE)
+						)
+					)	
+				)
+
+		(if (ClickedOnObj cues (event x?) (event y?)) 	
+			
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998
+							(DoVerb {examine cue})
+						)
+						(995
+							(DoVerb {get cue})
+						)
+												
+						(else
+							(event claimed: FALSE)
+						)
+					)	
+				)
+
+
+		(if (ClickedOnObj bookcase (event x?) (event y?)) 	
+			
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998
+							(DoVerb {examine bookcase})
+						)
+						
+						(else
+							(event claimed: FALSE)
+						)
+					)	
+				)
+		(if (ClickedOnObj ship (event x?) (event y?)) 	
+			
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998
+							(DoVerb {examine boat})
+						)
+						(995
+							(DoVerb {get boat})
+						)
+												
+						(else
+							(event claimed: FALSE)
+						)
+					)	
+				)
+;;;			(if (ClickedOnObj billiard (event x?) (event y?)) 	;BUG with rudy and gloria.
+;;;				(if
+;;;					(and
+;;;						(ClickedInRect 0 0 0 0 event)
+;;;						(== (event claimed?) FALSE)
+;;;					)			
+;;;					(event claimed: TRUE)
+;;;					(switch theCursor	
+;;;						(998
+;;;							(DoVerb {examine billiard})
+;;;						)
+;;;																	
+;;;						(else
+;;;							(event claimed: FALSE)
+;;;						)
+;;;					)	
+;;;				)
+
+
+				(if (ClickedOnObj Gloria (event x?) (event y?)) 	
+					(event claimed: TRUE)
+					(switch theCursor	
+					
+					(602 ;necklace_
+						(DoVerb {tell Gloria about handkerchief})						
+					)
+					(604 ;monocle
+						(DoVerb {tell Gloria about monocle})						
+					)
+					
+					(613 ;lantern_
+						(DoVerb {tell Gloria about lantern})						
+					)
+					(611 ;oilcan_
+						(DoVerb {tell Gloria about oilcan})						
+					)
+					(626 ;rolling_pin_
+						(DoVerb {tell Gloria about pin})						
+					)
+					(620 ;skeleton_key_
+						(DoVerb {tell Gloria about skeleton key})						
+					)
+					(627 ;poker_
+						(DoVerb {tell Gloria about poker})						
+					)															
+					(607 ;crowbar_
+						(DoVerb {tell Gloria about crowbar})						
+					)
+					(628 ;cigar_butt_
+						(DoVerb {tell Gloria about butt})						
+					)
+					(625 ;broken_record_
+						(DoVerb {tell Gloria about broken record})						
+					)
+					(601 ;notebook___pencil_
+						(DoVerb {tell Gloria about notebook})						
+					)
+					(603 ;_7_crackers________
+						(DoVerb {tell Gloria about crackers})						
+					)
+					(605 ;soup_bone_
+						(DoVerb {tell Gloria about soup bone})						
+					)
+					(606 ;valve_handle_
+						(DoVerb {tell Gloria about valve})						
+					)
+					(618 ;bullet_
+						(DoVerb {tell Gloria about bullet})						
+					)
+					(617 ;derringer__
+						(DoVerb {tell Gloria about derringer})						
+					)
+					(614 ;matches_
+						(DoVerb {tell Gloria about matches})						
+					)
+					(615 ;carrot_
+						(DoVerb {tell Gloria about carrot})						
+					)
+					(619 ;brass_key_
+						(DoVerb {tell Gloria about brass key})						
+					)
+					(616 ;diary_
+						(DoVerb {tell Gloria about diary})						
+					)
+					(621 ;crank_
+						(DoVerb {tell Gloria about crank})						
+					)
+					(612 ;cane_
+						(DoVerb {tell Gloria about cane})						
+					)
+					(622 ;pouch_
+						(DoVerb {tell Gloria about pouch})						
+					)																																																																																
+					(630 ;handkerchief_
+						(DoVerb {tell Gloria about handkerchief})
+					)
+											
+						
+						
+						
+						
+							(930  ;gertrude
+								(event type: 1 claimed: 1)
+								(DoVerb {ask Gloria about Gertrude})
+							)
+							(931 ;Celie
+								(event type: 1 claimed: 1)
+								(DoVerb {ask Gloria about Celie})
+							)	
+							(932 ;Gloria
+								(event type: 1 claimed: 1)
+								(DoVerb {ask Gloria about Gloria})
+							)													
+							(933 ;Ethel
+								(event type: 1 claimed: 1)
+								(DoVerb {ask Gloria about Ethel})
+							)	
+							(934 ;Fifi
+								(event type: 1 claimed: 1)
+								(DoVerb {ask Gloria about Fifi})
+							)	
+							(935 ;Lillian
+								(event type: 1 claimed: 1)
+								(DoVerb {ask Gloria about Lillian})
+							)																					
+							(936 ;Clarence
+								(event type: 1 claimed: 1)
+								(DoVerb {ask Gloria about Clarence})
+							)	
+							(937 ;Feels
+								(event type: 1 claimed: 1)
+								(DoVerb {ask Gloria about Wilbur})
+							)
+							(938 ;Rudy
+								(event type: 1 claimed: 1)
+								(DoVerb {ask actress about Rudolph}) ;fixed
+							)	
+							(939 ;Colonel
+								(event type: 1 claimed: 1)
+								(DoVerb {ask Gloria about Colonel})
+							)
+							(940 ;Jules
+								(event type: 1 claimed: 1)
+								(DoVerb {ask Gloria about Jules})
+								
+							)	
+		
+							(941 ;Dog
+								(event type: 1 claimed: 1)
+								(DoVerb {ask Gloria about beauregard})
+							)													
+							(942 ;Parrot
+								(event type: 1 claimed: 1)
+								(DoVerb {ask Gloria about polly})
+							)							
+							(943 ;Horse
+								(event type: 1 claimed: 1)
+								(DoVerb {ask Gloria about blaze})
+							)															
+						(996 ;talk
+							(DoVerb {converse Gloria})
+						)
+						(994
+								(DoVerb {hear Gloria})
+						)
+						(998	
+							
+							(DoVerb {examine actress})
+						)
+								(else				
+									(event claimed: FALSE)
+								)
+							)
+						
+						)
+			
+	
+						
+
+
+			(if (ClickedOnObj portrait (event x?) (event y?)) 	
+			
+					(event claimed: TRUE)
+					(switch theCursor
+						(995
+							(= temp7
+								(PrintSpecial
+;;;									{Portrait}
+;;;									#button {Get} 1
+;;;									#button {Open} 2
+	
+									{Retrato}
+									#button {Coger} 1
+									#button {Abrir} 2
+								)
+							)
+							(switch temp7
+								(1 ;
+									(DoVerb {get painting})
+								)
+								(2
+									(DoVerb {open painting})
+								)
+								(else
+									(event claimed: FALSE)
+								)
+							)
+						)	
+						(998
+							(= temp7
+								(PrintSpecial
+;;;									{Portrait}
+;;;									#button {Examine Behind} 1
+;;;									#button {Examine Eye} 2
+;;;									#button {Examine} 3		
+									{Retrato}
+									#button {Mirar por detr*s} 1
+									#button {Mirar Ojo} 2								
+									#button {Examinar} 3
+								)
+							)
+							(switch temp7
+								(1 ;
+									(DoVerb {examine behind painting})
+								)
+								(2
+									(DoVerb {examine eye})
+								)
+								(3
+									(DoVerb {examine painting})
+								)
+								(else
+							(event claimed: FALSE)
+						)
+							)
+						)
+									
+																	
+						(else
+							(event claimed: FALSE)
+						)
+					)	
+				)
+		(if (or (ClickedOnObj Fdoor (event x?) (event y?)) 	
+				(ClickedOnObj Bdoor (event x?) (event y?)) 	)
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998
+							(DoVerb {look door})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)	
+				)
+
+		(if (ClickedOnObj crank_ (event x?) (event y?)) 	
+			
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998
+							(DoVerb {examine control})
+						)
+						(995
+							(DoVerb {rotate piano})
+						)						
+						(else
+							(event claimed: FALSE)
+						)
+					)	
+				)
+		(if (or (ClickedOnObj lamp1 (event x?) (event y?)) 	
+				(ClickedOnObj lamp1 (event x?) (event y?)) 	)
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998
+							(DoVerb {look lamp})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)	
+				)
+		(if (ClickedOnObj Piano (event x?) (event y?)) 	
+				
+					(event claimed: TRUE)
+					(switch theCursor
+						(995
+							(DoVerb {open piano})
+						)							
+						(998
+							(DoVerb {examine piano})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)	
+				)		
+			)
+			)
+		
+		
+		
+		
+		
+		
+		
 		(super handleEvent: event)
 		(if (event claimed?) (return))
 		(if (== (event type?) saidEvent)
@@ -1207,7 +1762,7 @@
 (instance myMusic of Sound)
 
 (instance soundFX of Sound)
-
+(instance Gloria of Actor)
 ;;;(instance pianoMusic of Sound)
 
 (instance doorMusic of Sound)

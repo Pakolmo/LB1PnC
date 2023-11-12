@@ -240,11 +240,12 @@
 								(DoVerb {ask celie about Jules})
 							)						
 						(998		
-							(DoLook {gertie})
+							(DoLook {celie})
 						)
 						(996
-							(DoVerb {Talk gertie})	
-						)	
+							(DoVerb {Talk celie})	
+						)
+							
 						(else
 						
 							(event claimed: FALSE)

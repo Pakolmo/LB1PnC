@@ -230,6 +230,145 @@
 					(== (event type?) evMOUSEBUTTON)
 					(not (& (event modifiers?) emRIGHT_BUTTON))
 				)
+				
+				(if (ClickedInRect 313 319 140 153 event) ;exit room right
+					(event claimed: TRUE)
+					(switch theCursor
+						(999
+							(ego setMotion: MoveTo 321 147)
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					 )
+				)				
+			(if (and (ClickedOnObj ElevGate (event x?) (event y?))
+				(== global111 42)
+				(if (& global109 $0010)))
+				
+
+					(event claimed: TRUE)
+
+					(switch theCursor
+						(619
+							(= temp7
+
+								(PrintSpecial
+									{Ascensor}
+									#button {Bloquear} 1
+									#button {Desbloquear} 2
+									
+;;;									{Elevator}
+;;;									#button {Lock} 1
+;;;									#button {Unlock} 2							
+								)
+							)
+							(switch temp7
+								(1
+								    ;(DoVerb {latch elevator})
+								    (DoVerb {lock elevator})
+								)
+								(2
+									;(DoVerb {unbar elevator})
+									(DoVerb {unlock elevator})
+								)
+								(else
+									(event claimed: FALSE)
+								)
+							)
+						
+
+					
+					)
+					
+						(998	
+							(= temp7
+								(PrintSpecial
+									{ }
+									#button {Examinar Control} 1
+									#button {Examinar Agujero} 2	
+									#button {Examinar Eje} 3
+;;;									#button {Examine Control} 1
+;;;									#button {Examine Keyhole} 2	
+;;;									#button {Examine Shaft} 3							
+								)
+							)
+							(switch temp7
+								(1
+								    (DoVerb {examine control})	
+								)
+								(2
+									(DoVerb {examine keyhole})
+								)
+								(3
+									(DoVerb {examine shaft})
+								)						
+								(else
+									(event claimed: FALSE)
+								)
+							)
+						)
+						(999	
+							(= temp7
+								(PrintSpecial
+									{Ascensor}
+									#button {Entrar} 1
+									#button {Salir} 2
+;;;									{Elevator}
+;;;									#button {Enter} 1
+;;;									#button {Exit} 2							
+								)
+							)
+							(switch temp7
+								(1
+								    (DoVerb {open elevator})
+								)
+								(2
+									(DoVerb {close elevator})
+								)
+								(else
+									(event claimed: FALSE)
+								)
+							)
+						)
+						(995
+							(= temp7
+								(PrintSpecial
+									{Elevator}
+									#button {Open} 1
+									#button {Close} 2
+									#button {Arriba} 3
+									#button {Abajo} 4								
+;;;									#button {Open} 1
+;;;									#button {Close} 2								
+;;;									#button {Press Up} 3
+;;;									#button {Press Down} 4
+								)		
+
+							)
+							(switch temp7
+								(1
+								    (DoVerb {open elevator})
+								)
+								(2
+									(DoVerb {close elevator})
+								)
+								(3
+								    (DoVerb {move up})
+								)
+								(4
+									(DoVerb {move down})
+								)							
+								(else
+									(event claimed: FALSE)
+								)
+							)
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)				
 				(if (ClickedOnPicView mantle (event x?) (event y?)) 
 					(event claimed: TRUE)
 					(switch theCursor	
@@ -295,7 +434,7 @@
 				(if
 					(or
 						(ClickedOnPicView sofa1 (event x?) (event y?)) 
-						(ClickedOnPicView sofa1 (event x?) (event y?))
+						(ClickedOnPicView sofa2 (event x?) (event y?))
 					)
 					(event claimed: TRUE)
 					(switch theCursor	
@@ -387,6 +526,9 @@
 						(998
 							(= temp7
 								(PrintSpecial
+;;;									{Magazine}
+;;;									#button {Examine} 1
+;;;									#button {Read} 2
 									{Revista}
 									#button {Examinar} 1
 									#button {Leer} 2		

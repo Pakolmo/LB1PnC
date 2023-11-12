@@ -22,7 +22,7 @@
 	(method (handleEvent event)
 		
 	
-;;;		
+		;BUG
 ;;;						(cond
 ;;;			(
 ;;;				(and
@@ -31,7 +31,7 @@
 ;;;				)
 ;;;				
 ;;;	
-;;;				(if (ClickedOnObj Chimenea (event x?) (event y?)) 
+;;;				(if (ClickedOnObj fireReg (event x?) (event y?)) 
 ;;;					
 ;;;					(event claimed: TRUE)
 ;;;					(switch theCursor	
@@ -42,7 +42,7 @@
 ;;;									#button {Examine} 1
 ;;;									#button {Examine in} 2
 ;;;									#button {Examine fire} 3
-;;;;;;									{Fireplace}
+;;;									{Fireplace}
 ;;;;;;									#button {Examine} 1
 ;;;;;;									#button {Examine in} 2							
 ;;;;;;									#button {Examine fire} 3
@@ -77,8 +77,8 @@
 ;;;			)
 ;;;						)
 ;;;		
-;;;		
-;;;		
+		
+		
 		
 		(if (event claimed?) (return))
 		(if (== (event type?) saidEvent)

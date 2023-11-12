@@ -1,5 +1,5 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-(script# 31)
+(script# 31) ;213 380 384 264
 (include game.sh)
 (use Main)
 (use Intrface)
@@ -28,6 +28,8 @@
 	local7
 	firstTime
 	local9
+	temp7
+	temp8
 )
 (instance Room31 of Room
 	(properties
@@ -199,9 +201,857 @@
 	)
 	
 	(method (handleEvent event)
+				(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)
+				
+				(if (ClickedInRect 309 319 115 127 event) ;exit room right
+					(event claimed: TRUE)
+					(switch theCursor
+						(999
+							(ego setMotion: MoveTo 321 121)
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					 )
+				)					
+				(if (ClickedOnObj rhino (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor	
+						(995
+							(DoVerb {get head})
+						)
+						(998
+														(= temp7
+								(PrintSpecial
+;;;									{Rhino}
+;;;									#button {Examine} 1
+;;;									#button {Examine in} 2
+									{Rhino}
+									#button {Mirar} 1
+									#button {Examinar} 2		
+								)
+							)
+							(switch temp7
+								(1 		
+									(DoVerb {examine head})
+								)
+								(2
+									(DoVerb {examine in head})
+							
+								)
+								(else
+									(event claimed: FALSE)
+								)
+							)
+						
+							
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)		
+		
+						(if (ClickedOnObj logs (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998
+							(DoVerb {examine fireplace})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)	
+		
+				(if (ClickedOnObj aligator (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998
+							(DoVerb {examine alligator})
+						)
+						(995
+							(DoVerb {get alligator})
+						)						
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)	
+			
+		
+				(if (ClickedOnObj sofa (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998
+							(DoVerb {examine chair})
+						)					
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)	
+					
+		
+					(if (ClickedOnObj wingback (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998
+							(DoVerb {examine chair})
+						)					
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)	
+		
+					(if (ClickedOnObj chair (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998
+							(DoVerb {examine chair})
+						)					
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)	
+				
+					(if (ClickedOnObj table1 (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998
+							(DoVerb {examine table})
+						)					
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)	
+						
+					(if (ClickedOnObj table2 (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998
+							(DoVerb {examine table})
+						)					
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)	
+												
+				
+					(if (ClickedOnObj hawk (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998
+							(cond 
+								((super handleEvent: event))
+								((or (MousedOn self event shiftDown) (Said 'examine/bird'))
+									(event claimed: TRUE)
+									(Print 31 2)
+								)
+							)
+						)
+										
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)	
+				
+				
+				
+				(if (ClickedOnObj globe (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+						(= temp7
+								(PrintSpecial
+;;;									{Globe}
+;;;									#button {Examine below} 1
+;;;									#button {Examine in} 2
+;;;									#button {Examine} 3
+									{Guante}
+									#button {Mirar debajo} 1
+									#button {Examinar} 2
+									#button {Mirar} 3											
+								)
+							)
+							(switch temp7
+								(1 		
+									(DoVerb {examine below globe})
+								)
+								(2
+									(DoVerb {examine in globe})
+							
+								)
+								(3
+									(DoVerb {examine globe})
+							
+								)								
+								(else
+									(event claimed: FALSE)
+								)
+							)
+						)
+							
+						
+						(995
+												(= temp7
+								(PrintSpecial
+;;;									{Globe}
+;;;									#button {Move} 1
+;;;									#button {Get} 2
+;;;									#button {Open} 3
+;;;									#button {Rotate} 4
+									{Tierra}
+									#button {Mover} 1
+									#button {Coger} 2
+									#button {Abrir} 3											
+									#button {Girar} 4
+								)
+							)
+							(switch temp7
+								(1 		
+									(DoVerb {move globe})
+								)
+								(2
+									(DoVerb {get globe})
+							
+								)
+								(3
+									(DoVerb {open globe})
+							
+								)
+								(4
+									(DoVerb {rotate globe})
+							
+								)																
+								(else
+									(event claimed: FALSE)
+								)
+							)
+						)
+						(else
+									(event claimed: FALSE)
+								)
+							)
+						)
+				
+				(if (ClickedOnObj crossbow (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(DoVerb {examine crossbow})
+							 (cond 
+								((super handleEvent: event))
+								(
+
+
+										(Said 'examine/crossbow[<antique]')
+
+									(event claimed: TRUE)
+									(Print 31 39)
+								)	
+							 )
+						)
+					
+						(995
+							
+							(DoVerb {get crossbow})
+									(cond 
+										((super handleEvent: event))
+									)
+						)
+					
+						(else
+									(event claimed: FALSE)
+								)
+					)
+				)
+					
+					
+					(if (ClickedOnObj lamp1 (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor
+						(998				
+							(DoLook {lamp})
+						)
+						(else
+									(event claimed: FALSE)
+								)
+					)
+					)
+					(if (ClickedOnObj lamp2 (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor
+						(998				
+							(DoLook {lamp})
+						)
+						(else
+									(event claimed: FALSE)
+								)
+					)
+					)						
+					
+						(if (ClickedOnObj tomahawk (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor
+						(995
+							(DoVerb {get ax feathered})
+							(cond 
+								((super handleEvent: event))
+
+							)
+						)
+						(998
+								(DoVerb {examine ax feathered})											
+							(cond 
+								((super handleEvent: event))
+
+							)
+						)
+						(else
+									(event claimed: FALSE)
+								)
+						)
+					)					
+
+
+
+						(if (ClickedOnObj Spear (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor
+						(995
+								(DoVerb {get spear})	
+						)
+						(998
+							(DoVerb {examine spear})
+						)
+						(else
+								(event claimed: FALSE)
+							)
+						)
+					)		
+						(if (ClickedOnObj Desk (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor
+						(995
+								(DoVerb {open desk})	
+						)
+						(998
+							(DoVerb {examine desk})
+						)
+						(else
+								(event claimed: FALSE)
+							)
+						)
+					)		
+
+
+						(if (or (ClickedOnObj Window1 (event x?) (event y?)) 
+								(ClickedOnObj Window2 (event x?) (event y?)) )
+					(event claimed: TRUE)
+					(switch theCursor
+
+						(998
+							(DoVerb {examine window})
+						)
+						(else
+								(event claimed: FALSE)
+							)
+						)
+					)		
+
+						(if (or (ClickedOnObj Bdoor (event x?) (event y?)) 
+								(ClickedOnObj Fdoor (event x?) (event y?)) )
+					(event claimed: TRUE)
+					(switch theCursor
+
+						(998
+							(DoVerb {examine door})
+						)
+						(else
+								(event claimed: FALSE)
+							)
+						)
+					)		
+
+
+						(if (and (ClickedOnObj gundoor (event x?) (event y?)) 
+							(== opendoor 1))
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(event claimed: TRUE)
+							(if (Btst 47)
+								(Print 31 3)
+							else
+								(Print 31 4)
+							)
+														(= temp7
+								(PrintSpecial
+;;;									{Examine}
+
+;;;									#button {Armoire} 1
+;;;									#button {Weapon} 2
+;;;									#button {boomerang} 2
+;;;									#button {Cutlass} 4
+;;;									#button {Dagger} 5
+;;;									#button {Mace} 6
+;;;									#button {Rifle} 7
+;;;									#button {Derringer} 8
+
+
+									{Examinar}
+
+									#button {Armario} 1
+									#button {Arma} 2
+									#button {boomerang} 3
+									#button {Cutlass} 4
+									#button {Daga} 5
+									#button {Mazo} 6
+;;;									#button {Rifle} 7
+;;;									#button {Derringer} 8																			
+								)
+							)
+							(switch temp7
+								(1 		
+										(event claimed: TRUE)
+										(Print 31 5)
+								)
+								(2
+									(DoVerb {examine weapon})
+							
+								)
+								(3
+									(DoVerb {examine boomerang})
+							
+								)	
+								(4 		
+									(DoVerb {Examine Cutlass})
+								)
+								(5
+									(DoVerb {examine Dagger})
+							
+								)
+								(6
+									(DoVerb {examine mace})
+							
+								)
+								(7 		
+									(DoVerb {Examine rifle})
+								)
+								(8
+									(DoVerb {examine derringer})
+							
+								)
+																							
+								(else
+									(event claimed: FALSE)
+								)
+							)
+						
+
+						)
+						(995
+							(= temp8
+										(PrintSpecial
+		;;;									{Get}
+		;;;									#button {Weapon} 1
+		;;;									#button {boomerang} 2
+		;;;									#button {Cutlass} 3
+		;;;									#button {Dagger} 4
+		;;;									#button {Mace} 5
+;;;		;;;									#button {Rifle} 6
+;;;		;;;									#button {Derringer} 7
+		;;;									#button {Close armoire} 8
+											{Coger}
+											#button {Arma} 1
+											#button {boomerang} 2
+											#button {Cutlass} 3
+											#button {Daga} 4
+											#button {Mazo} 5
+;;;											#button {Rifle} 6
+;;;											#button {Derringer} 7
+
+												
+										)
+										
+									)
+
+									(switch temp8	
+										(1 	
+											(gundoor setScript: cabinetDrawer)
+											(DoVerb {get weapon})
+											
+											
+										)
+										(2
+											(gundoor setScript: cabinetDrawer)
+											(DoVerb {get boomerang})
+									
+										)
+										(3
+											(gundoor setScript: cabinetDrawer)
+											(DoVerb {get Cutlass})
+									
+										)
+										(4
+											(gundoor setScript: cabinetDrawer)
+											(DoVerb {get Dagger})
+									
+										)
+										(5
+											(gundoor setScript: cabinetDrawer)
+											(DoVerb {get Mace})
+									
+										)
+										(6
+											(gundoor setScript: cabinetDrawer)
+											(DoVerb {get Rifle})
+									
+										)
+										(7
+											(gundoor setScript: cabinetDrawer)
+											(DoVerb {get Derringer})
+									
+										)
+																																																															
+										(else
+											(event claimed: FALSE)
+										)
+									)
+								)
+
+								(else
+								(event claimed: FALSE)
+							)	
+					)
+						)
+
+
+
+
+
+
+						(if (and (ClickedOnObj gundoor (event x?) (event y?)) 
+							(== opendoor 0))
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(event claimed: TRUE)
+							(if (Btst 47)
+								(Print 31 3)
+							else
+								(Print 31 4)
+							)
+						)							
+						(995
+								(cond 
+					((< (ego x?) 160)
+						(switch local4
+							(1 (Print 31 23))
+							(2 (Print 31 24))
+							(3 (Print 31 25))
+							(4 (Bset 27) (Print 31 26))
+							(5 (Bset 28) (Print 31 17))
+							(0
+								(Printf 31 27
+									(if (>= currentAct 5)
+										{,}
+									else
+										{, a pearl-handled dagger,}
+										{, una daga tallada con perlas,}
+									)
+								)
+								(if (>= currentAct 5) (Bset 28) else (Bset 27))
+							)
+						)
+					)
+					(local5 (Print 31 28) (= local5 0))
+					(else (Print 31 29))
+				)
+;;;				(= cycles 1)
+				(= opendoor 1)
+			)
+							
+							
+						
+						(else
+								(event claimed: FALSE)
+							)
+						)
+					)		
+
+
+
+;;;
+;;;				(if (ClickedOnObj cabDoor (event x?) (event y?)) 
+;;;					(event claimed: TRUE)
+;;;					(switch theCursor
+;;;						(998
+;;;							(= temp7
+;;;								(PrintSpecial
+;;;;;;									{Examine}
+;;;
+;;;;;;									#button {Armoire} 1
+;;;;;;									#button {Weapon} 2
+;;;;;;									#button {boomerang} 2
+;;;;;;									#button {Cutlass} 4
+;;;;;;									#button {Dagger} 5
+;;;;;;									#button {Mace} 6
+;;;									#button {Rifle} 7
+;;;									#button {Derringer} 8
+;;;
+;;;
+;;;									{Examinar}
+;;;
+;;;									#button {Armario} 1
+;;;									#button {Arma} 2
+;;;									#button {boomerang} 3
+;;;									#button {Cutlass} 4
+;;;									#button {Daga} 5
+;;;									#button {Mazo} 6
+;;;									#button {Rifle} 7
+;;;									#button {Derringer} 8																			
+;;;								)
+;;;							)
+;;;							(switch temp7
+;;;								(1 		
+;;;										(event claimed: TRUE)
+;;;										(Print 31 5)
+;;;								)
+;;;								(2
+;;;									(DoVerb {examine weapon})
+;;;							
+;;;								)
+;;;								(3
+;;;									(DoVerb {examine boomerang})
+;;;							
+;;;								)	
+;;;								(4 		
+;;;									(DoVerb {Examine Cutlass})
+;;;								)
+;;;								(5
+;;;									(DoVerb {examine Dagger})
+;;;							
+;;;								)
+;;;								(6
+;;;									(DoVerb {examine mace})
+;;;							
+;;;								)
+;;;								(7 		
+;;;									(DoVerb {Examine rifle})
+;;;								)
+;;;								(8
+;;;									(DoVerb {examine derringer})
+;;;							
+;;;								)
+;;;																							
+;;;								(else
+;;;									(event claimed: FALSE)
+;;;								)
+;;;							)
+;;;						
+;;;
+;;;						)
+;;;						(995
+;;;						(= temp7
+;;;								(PrintSpecial
+;;;;;;									{Cabinet}
+;;;;;;									#button {Open} 1
+;;;;;;									#button {Close} 2
+;;;
+;;;									{Armario}
+;;;									#button {Abrir} 1
+;;;									#button {Cerrar} 2
+;;;										
+;;;								)
+;;;							)
+;;;							(switch temp7
+;;;								(1 		
+;;;									(DoVerb {open armoire})
+;;;									(event claimed: TRUE)
+;;;									(= temp8
+;;;										(PrintSpecial
+;;;		;;;									{Get}
+;;;		;;;									#button {Weapon} 1
+;;;		;;;									#button {boomerang} 2
+;;;		;;;									#button {Cutlass} 3
+;;;		;;;									#button {Dagger} 4
+;;;		;;;									#button {Mace} 5
+;;;		;;;									#button {Rifle} 6
+;;;		;;;									#button {Derringer} 7
+;;;		;;;									#button {Close armoire} 8
+;;;											{Coger}
+;;;											#button {Arma} 1
+;;;											#button {boomerang} 2
+;;;											#button {Cutlass} 3
+;;;											#button {Daga} 4
+;;;											#button {Mazo} 5
+;;;											#button {Rifle} 6
+;;;											#button {Derringer} 7
+;;;											#button {Cerrar armario} 8
+;;;												
+;;;										)
+;;;									)
+;;;									(switch temp8	
+;;;										(1 	
+;;;											
+;;;											(DoVerb {get weapon})
+;;;											
+;;;											
+;;;										)
+;;;										(2
+;;;											(DoVerb {get boomerang})
+;;;									
+;;;										)
+;;;										(3
+;;;											(DoVerb {get Cutlass})
+;;;									
+;;;										)
+;;;										(4
+;;;											(DoVerb {get Dagger})
+;;;									
+;;;										)
+;;;										(5
+;;;											(DoVerb {get Mace})
+;;;									
+;;;										)
+;;;										(6
+;;;											(DoVerb {get Rifle})
+;;;									
+;;;										)
+;;;										(7
+;;;											(DoVerb {get Derringer})
+;;;									
+;;;										)
+;;;										(8
+;;;											(DoVerb {close armoire})
+;;;									
+;;;										)																																																															
+;;;										(else
+;;;											(event claimed: FALSE)
+;;;										)
+;;;									)
+;;;								)
+;;;							
+;;;						
+;;;							)
+;;;						)	
+;;;						(else
+;;;									(event claimed: FALSE)
+;;;								)
+;;;						
+;;;						)
+;;;						)
+;;;
+;;;
+;;;
+
+				(if (ClickedOnObj derringer (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor
+						(995					
+																(= temp7
+								(PrintSpecial
+;;;									{Derringer}
+;;;									#button {Break case} 1
+;;;									#button {get case} 2
+
+									{C{pula}
+									#button {Romper} 1
+									#button {Coger} 3											
+
+								)
+							)
+							(switch temp7
+								(1 		
+									(DoVerb {break case})
+								)
+								(2
+									(DoVerb {get case})
+							
+								)
+															
+								(else
+									(event claimed: FALSE)
+								)
+							)
+						)
+						(else
+									(event claimed: FALSE)
+								)
+							)
+						)
+						
+		(if (and (ClickedOnObj cabDoor (event x?) (event y?)) 
+							(== opendoor2 1))
+					(event claimed: TRUE)
+					(switch theCursor
+						(998		
+							(DoVerb {look rifle})
+							(event claimed: TRUE)
+;;;							(Print {You only see a rifle.})
+							(Print {Simplemente ves un rifle.})
+							
+						)
+						(995
+							(DoVerb {get rifle})
+						)
+						(else
+								(event claimed: FALSE)
+							)
+						)
+					)			
+								
+								
+						
+	(if (and (ClickedOnObj cabDoor (event x?) (event y?)) 
+							(== opendoor2 0))
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(event claimed: TRUE)
+							(if (Btst 47)
+								(Print 31 3)
+							else
+								(Print 31 4)
+							)
+						)							
+						(995
+							(DoVerb {open armoire})	
+								
+							(= opendoor2 1)
+			)
+							
+							
+						
+						(else
+								(event claimed: FALSE)
+							)
+						)
+					)		
+					
+						
+						
+						
+						)
+					)
+			
+					
 		(super handleEvent: event)
 		(if (event claimed?) (return))
 		(DisposeScript SAVE)
+
 		(if (== (event type?) saidEvent)
 			(if
 				(and
@@ -358,6 +1208,13 @@
 					)
 				)
 			)
+			
+	
+			
+			
+			
+			
+			
 		)
 	)
 	
@@ -436,29 +1293,30 @@
 			)
 			(1 (= cycles 8))
 			(2
-				(cond 
-					((< (ego x?) 160)
-						(switch local4
-							(1 (Print 31 23))
-							(2 (Print 31 24))
-							(3 (Print 31 25))
-							(4 (Bset 27) (Print 31 26))
-							(5 (Bset 28) (Print 31 17))
-							(0
-								(Printf 31 27
-									(if (>= currentAct 5)
-										{,}
-									else
-										{, a pearl-handled dagger,}
-									)
-								)
-								(if (>= currentAct 5) (Bset 28) else (Bset 27))
-							)
-						)
-					)
-					(local5 (Print 31 28) (= local5 0))
-					(else (Print 31 29))
-				)
+;;;				(cond 
+;;;					((< (ego x?) 160)
+;;;						(switch local4
+;;;							(1 (Print 31 23))
+;;;							(2 (Print 31 24))
+;;;							(3 (Print 31 25))
+;;;							(4 (Bset 27) (Print 31 26))
+;;;							(5 (Bset 28) (Print 31 17))
+;;;							(0
+;;;								(Printf 31 27
+;;;									(if (>= currentAct 5)
+;;;										{,}
+;;;									else
+;;;;;;										{, a pearl-handled dagger,}
+;;;										{, una daga tallada con perlas,}
+;;;									)
+;;;								)
+;;;								(if (>= currentAct 5) (Bset 28) else (Bset 27))
+;;;							)
+;;;						)
+;;;					)
+;;;					(local5 (Print 31 28) (= local5 0))
+;;;					(else (Print 31 29))
+;;;				)
 				(= cycles 1)
 			)
 			(3 (client setCycle: BegLoop self))

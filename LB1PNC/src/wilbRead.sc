@@ -126,7 +126,10 @@
 					(996
 						(DoVerb {converse wilbur})
 					)
-						
+					(994
+						(DoVerb {hear wilbur})
+					)
+											
 					
 					(602 ;necklace_
 						(DoVerb {tell wilbur about handkerchief})						

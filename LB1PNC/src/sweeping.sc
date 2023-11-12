@@ -55,6 +55,204 @@
 	)
 	
 	(method (handleEvent event)
+			
+		
+						(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)
+				
+		
+			
+				(if (ClickedOnObj Jeeves (event x?) (event y?)) 	
+					(event claimed: TRUE)
+					(switch theCursor	
+					
+					(602 ;necklace_
+						(DoVerb {tell Jeeves about handkerchief})						
+					)
+					(604 ;monocle
+						(DoVerb {tell Jeeves about monocle})						
+					)
+					
+					(613 ;lantern_
+						(DoVerb {tell Jeeves about lantern})						
+					)
+					(611 ;oilcan_
+						(DoVerb {tell Jeeves about oilcan})						
+					)
+					(626 ;rolling_pin_
+						(DoVerb {tell Jeeves about pin})						
+					)
+					(620 ;skeleton_key_
+						(DoVerb {tell Jeeves about skeleton key})						
+					)
+					(627 ;poker_
+						(DoVerb {tell Jeeves about poker})						
+					)															
+					(607 ;crowbar_
+						(DoVerb {tell Jeeves about crowbar})						
+					)
+					(628 ;cigar_butt_
+						(DoVerb {tell Jeeves about butt})						
+					)
+					(625 ;broken_record_
+						(DoVerb {tell Jeeves about broken record})						
+					)
+					(601 ;notebook___pencil_
+						(DoVerb {tell Jeeves about notebook})						
+					)
+					(603 ;_7_crackers________
+						(DoVerb {tell Jeeves about crackers})						
+					)
+					(605 ;soup_bone_
+						(DoVerb {tell Jeeves about soup bone})						
+					)
+					(606 ;valve_handle_
+						(DoVerb {tell Jeeves about valve})						
+					)
+					(618 ;bullet_
+						(DoVerb {tell Jeeves about bullet})						
+					)
+					(617 ;derringer__
+						(DoVerb {tell Jeeves about derringer})						
+					)
+					(614 ;matches_
+						(DoVerb {tell Jeeves about matches})						
+					)
+					(615 ;carrot_
+						(DoVerb {tell Jeeves about carrot})						
+					)
+					(619 ;brass_key_
+						(DoVerb {tell Jeeves about brass key})						
+					)
+					(616 ;diary_
+						(DoVerb {tell Jeeves about diary})						
+					)
+					(621 ;crank_
+						(DoVerb {tell Jeeves about crank})						
+					)
+					(612 ;cane_
+						(DoVerb {tell Jeeves about cane})						
+					)
+					(622 ;pouch_
+						(DoVerb {tell Jeeves about pouch})						
+					)																																																																																
+					(630 ;handkerchief_
+						(DoVerb {tell Jeeves about handkerchief})
+					)
+											
+						
+						
+						
+						
+							(930  ;gertrude
+								(event type: 1 claimed: 1)
+								(DoVerb {ask Jeeves about Gertrude})
+							)
+							(931 ;Celie
+								(event type: 1 claimed: 1)
+								(DoVerb {ask Jeeves about Celie})
+							)	
+							(932 ;Gloria
+								(event type: 1 claimed: 1)
+								(DoVerb {ask Jeeves about Gloria})
+							)													
+							(933 ;Ethel
+								(event type: 1 claimed: 1)
+								(DoVerb {ask Jeeves about Ethel})
+							)	
+							(934 ;Fifi
+								(event type: 1 claimed: 1)
+								(DoVerb {ask Jeeves about Fifi})
+							)	
+							(935 ;Lillian
+								(event type: 1 claimed: 1)
+								(DoVerb {ask Jeeves about Lillian})
+							)																					
+							(936 ;Clarence
+								(event type: 1 claimed: 1)
+								(DoVerb {ask Jeeves about Clarence})
+							)	
+							(937 ;Feels
+								(event type: 1 claimed: 1)
+								(DoVerb {ask Jeeves about Wilbur})
+							)
+							(938 ;Rudy
+								(event type: 1 claimed: 1)
+								(DoVerb {ask Jeeves about Rudolph}) 
+							)	
+							(939 ;Colonel
+								(event type: 1 claimed: 1)
+								(DoVerb {ask Jeeves about Colonel})
+							)
+							(940 ;Jules
+								(event type: 1 claimed: 1)
+								(DoVerb {ask Jeeves about Jules})
+								
+							)	
+		
+							(941 ;Dog
+								(event type: 1 claimed: 1)
+								(DoVerb {ask Jeeves about beauregard})
+							)													
+							(942 ;Parrot
+								(event type: 1 claimed: 1)
+								(DoVerb {ask Jeeves about polly})
+							)							
+							(943 ;Horse
+								(event type: 1 claimed: 1)
+								(DoVerb {ask Jeeves about blaze})
+							)															
+						(996 ;talk
+							(DoVerb {converse Jeeves})
+						)
+						(994
+								(DoVerb {hear Jeeves})
+						)	
+						(998
+								(DoVerb {look Jeeves})
+						)
+						(else				
+									(event claimed: FALSE)
+								)
+							)
+						
+						)
+	
+	
+						(if (ClickedOnObj Feather (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+					
+					(998
+						(DoVerb {look feather})
+					)
+					(995
+						(DoVerb {get feather})
+					)
+					(else				
+						(event claimed: FALSE)
+								)
+							)
+						
+						)
+	
+		
+			)
+						)
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		(return (if (event claimed?) (return TRUE) else FALSE))
 	)
 )

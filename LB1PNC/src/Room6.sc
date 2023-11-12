@@ -642,7 +642,7 @@
 				(User canInput: TRUE)
 				(HandsOn)
 				(Print 6 12)
-				(= seconds 12) ;8
+				(= seconds 16) ;8
 			)
 			(3
 				(HandsOff)
@@ -666,6 +666,129 @@
 	)
 	
 	(method (handleEvent event &tmp temp0)
+				(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)		
+					(if (ClickedOnObj Celie (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						
+	
+
+					(604 ;monocle
+						(DoVerb {give monocle celie})						
+					)
+					
+					(613 ;lantern_
+						(DoVerb {give lantern celie})						
+					)
+					(611 ;oilcan_
+						(DoVerb {give oilcan celie})						
+					)
+					(626 ;rolling_pin_
+						(DoVerb {give pin celie})						
+					)
+					(620 ;skeleton_key_
+						(DoVerb {give skeleton key celie})						
+					)
+					(627 ;poker_
+						(DoVerb {give poker celie})						
+					)															
+					(607 ;crowbar_
+						(DoVerb {give crowbar celie})						
+					)
+					(628 ;cigar_butt_
+						(DoVerb {give butt celie})						
+					)
+					(625 ;broken_record_
+						(DoVerb {give broken record celie})						
+					)
+					(601 ;notebook___pencil_
+						(DoVerb {give notebook celie})						
+					)
+					(603 ;_7_crackers________
+						(DoVerb {give crackers celie})						
+					)
+					(605 ;soup_bone_
+						(DoVerb {give soup bone celie})						
+					)
+					(606 ;valve_handle_
+						(DoVerb {give valve celie})						
+					)
+					(618 ;bullet_
+						(DoVerb {give bullet celie})						
+					)
+					(617 ;derringer__
+						(DoVerb {give derringer celie})						
+					)
+					(614 ;matches_
+						(DoVerb {give matches celie})						
+					)
+					(615 ;carrot_
+						(DoVerb {give carrot celie})						
+					)
+					(619 ;brass_key_
+						(DoVerb {give brass key celie})						
+					)
+					(616 ;diary_
+						(DoVerb {give diary celie})						
+					)
+					(621 ;crank_
+						(DoVerb {give crank celie})						
+					)
+
+					(622 ;pouch_
+						(DoVerb {give pouch celie})						
+					)																																																																																
+					(630 ;handkerchief_
+						(DoVerb {give handkerchief celie})
+					)
+											
+												
+						
+						
+						
+						
+						
+						
+						(612
+							(DoVerb {give cane celie})	
+						)						
+						
+						(602
+							(DoVerb {give necklace celie})
+						)
+						
+						(998				
+							(DoVerb {look celie})
+						)
+						(996
+							(DoVerb {converse celie})
+						)
+						(else
+							(event claimed: FALSE)
+						)																	
+					)											
+				)		
+					
+					
+			)
+			)
+				
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		(super handleEvent: event)
 		(if (event claimed?) (return))
 		(if (== (event type?) saidEvent)
@@ -725,7 +848,8 @@
 			(0
 				(cond 
 					((not (& global118 $0001))
-						(|= global118 $0001)
+;;;						(|= global118 $0001)
+						(= global118 (| global118 $0001))
 						(self setScript: (ScriptID 406 0))
 						(= state -1)
 					)

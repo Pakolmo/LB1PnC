@@ -479,6 +479,9 @@
 								)
 							)
 						)
+							(else				
+									(event claimed: FALSE)
+								)
 					)
 				)
 				(if (ClickedOnObj suit2 (event x?) (event y?)) ;Get diary

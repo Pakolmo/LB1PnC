@@ -27,6 +27,7 @@
 	local102
 	local103
 	local104
+	saveBits3
 )
 (procedure (localproc_0136)
 	(SetCursor 997 1  ;1 1
@@ -299,7 +300,7 @@
 				)
 				(= saveBits2
 					(Display {\n 2024 DoomLazer y Pakolmo}
-						p_at 65 158
+						p_at 35 159
 						p_width 210
 						p_color vWHITE
 						p_back -1
@@ -307,8 +308,17 @@
 						p_save
 					)
 				)
-				
-				
+;;;				(= saveBits3
+;;;					(Display {Teresa, Stormspirit86 y Wallas74}
+;;;						p_at 72 152
+;;;						p_width 210
+;;;						p_color vWHITE
+;;;						p_back -1
+;;;						p_font SYSFONT
+;;;						p_save
+;;;					)
+;;;				)				
+;;;				
 				
 				
 				(= seconds 4)

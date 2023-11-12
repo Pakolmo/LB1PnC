@@ -220,6 +220,362 @@
 	)
 	
 	(method (handleEvent event)
+		
+						(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)	
+				(if (ClickedOnObj Gloria (event x?) (event y?)) 	
+					(event claimed: TRUE)
+					(switch theCursor	
+					
+					(602 ;necklace_
+						(DoVerb {tell Gloria about handkerchief})						
+					)
+					(604 ;monocle
+						(DoVerb {tell Gloria about monocle})						
+					)
+					
+					(613 ;lantern_
+						(DoVerb {tell Gloria about lantern})						
+					)
+					(611 ;oilcan_
+						(DoVerb {tell Gloria about oilcan})						
+					)
+					(626 ;rolling_pin_
+						(DoVerb {tell Gloria about pin})						
+					)
+					(620 ;skeleton_key_
+						(DoVerb {tell Gloria about skeleton key})						
+					)
+					(627 ;poker_
+						(DoVerb {tell Gloria about poker})						
+					)															
+					(607 ;crowbar_
+						(DoVerb {tell Gloria about crowbar})						
+					)
+					(628 ;cigar_butt_
+						(DoVerb {tell Gloria about butt})						
+					)
+					(625 ;broken_record_
+						(DoVerb {tell Gloria about broken record})						
+					)
+					(601 ;notebook___pencil_
+						(DoVerb {tell Gloria about notebook})						
+					)
+					(603 ;_7_crackers________
+						(DoVerb {tell Gloria about crackers})						
+					)
+					(605 ;soup_bone_
+						(DoVerb {tell Gloria about soup bone})						
+					)
+					(606 ;valve_handle_
+						(DoVerb {tell Gloria about valve})						
+					)
+					(618 ;bullet_
+						(DoVerb {tell Gloria about bullet})						
+					)
+					(617 ;derringer__
+						(DoVerb {tell Gloria about derringer})						
+					)
+					(614 ;matches_
+						(DoVerb {tell Gloria about matches})						
+					)
+					(615 ;carrot_
+						(DoVerb {tell Gloria about carrot})						
+					)
+					(619 ;brass_key_
+						(DoVerb {tell Gloria about brass key})						
+					)
+					(616 ;diary_
+						(DoVerb {tell Gloria about diary})						
+					)
+					(621 ;crank_
+						(DoVerb {tell Gloria about crank})						
+					)
+					(612 ;cane_
+						(DoVerb {tell Gloria about cane})						
+					)
+					(622 ;pouch_
+						(DoVerb {tell Gloria about pouch})						
+					)																																																																																
+					(630 ;handkerchief_
+						(DoVerb {tell Gloria about handkerchief})
+					)
+											
+						
+						
+						
+						
+							(930  ;gertrude
+								(event type: 1 claimed: 1)
+								(DoVerb {ask Gloria about Gertrude})
+							)
+							(931 ;Celie
+								(event type: 1 claimed: 1)
+								(DoVerb {ask Gloria about Celie})
+							)	
+							(932 ;Gloria
+								(event type: 1 claimed: 1)
+								(DoVerb {ask Gloria about Gloria})
+							)													
+							(933 ;Ethel
+								(event type: 1 claimed: 1)
+								(DoVerb {ask Gloria about Ethel})
+							)	
+							(934 ;Fifi
+								(event type: 1 claimed: 1)
+								(DoVerb {ask Gloria about Fifi})
+							)	
+							(935 ;Lillian
+								(event type: 1 claimed: 1)
+								(DoVerb {ask Gloria about Lillian})
+							)																					
+							(936 ;Clarence
+								(event type: 1 claimed: 1)
+								(DoVerb {ask Gloria about Clarence})
+							)	
+							(937 ;Feels
+								(event type: 1 claimed: 1)
+								(DoVerb {ask Gloria about Wilbur})
+							)
+							(938 ;Rudy
+								(event type: 1 claimed: 1)
+								(DoVerb {ask actress about Rudolph}) ;fixed
+							)	
+							(939 ;Colonel
+								(event type: 1 claimed: 1)
+								(DoVerb {ask Gloria about Colonel})
+							)
+							(940 ;Jules
+								(event type: 1 claimed: 1)
+								(DoVerb {ask Gloria about Jules})
+								
+							)	
+		
+							(941 ;Dog
+								(event type: 1 claimed: 1)
+								(DoVerb {ask Gloria about beauregard})
+							)													
+							(942 ;Parrot
+								(event type: 1 claimed: 1)
+								(DoVerb {ask Gloria about polly})
+							)							
+							(943 ;Horse
+								(event type: 1 claimed: 1)
+								(DoVerb {ask Gloria about blaze})
+							)															
+						(996 ;talk
+							(DoVerb {converse Gloria})
+						)
+						(994
+								(DoVerb {hear Gloria})
+						)
+						(998	
+							
+							
+									(DoLook {gloria})
+							
+						
+						)
+						(else				
+									(event claimed: FALSE)
+								)
+							)
+						
+						)	
+	
+	
+				(if (ClickedOnObj Clarence (event x?) (event y?)) 	
+					(event claimed: TRUE)
+					(switch theCursor	
+					
+					(602 ;necklace_
+						(DoVerb {tell Clarence about handkerchief})						
+					)
+					(604 ;monocle
+						(DoVerb {tell Clarence about monocle})						
+					)
+					
+					(613 ;lantern_
+						(DoVerb {tell Clarence about lantern})						
+					)
+					(611 ;oilcan_
+						(DoVerb {tell Clarence about oilcan})						
+					)
+					(626 ;rolling_pin_
+						(DoVerb {tell Clarence about pin})						
+					)
+					(620 ;skeleton_key_
+						(DoVerb {tell Clarence about skeleton key})						
+					)
+					(627 ;poker_
+						(DoVerb {tell Clarence about poker})						
+					)															
+					(607 ;crowbar_
+						(DoVerb {tell Clarence about crowbar})						
+					)
+					(628 ;cigar_butt_
+						(DoVerb {tell Clarence about butt})						
+					)
+					(625 ;broken_record_
+						(DoVerb {tell Clarence about broken record})						
+					)
+					(601 ;notebook___pencil_
+						(DoVerb {tell Clarence about notebook})						
+					)
+					(603 ;_7_crackers________
+						(DoVerb {tell Clarence about crackers})						
+					)
+					(605 ;soup_bone_
+						(DoVerb {tell Clarence about soup bone})						
+					)
+					(606 ;valve_handle_
+						(DoVerb {tell Clarence about valve})						
+					)
+					(618 ;bullet_
+						(DoVerb {tell Clarence about bullet})						
+					)
+					(617 ;derringer__
+						(DoVerb {tell Clarence about derringer})						
+					)
+					(614 ;matches_
+						(DoVerb {tell Clarence about matches})						
+					)
+					(615 ;carrot_
+						(DoVerb {tell Clarence about carrot})						
+					)
+					(619 ;brass_key_
+						(DoVerb {tell Clarence about brass key})						
+					)
+					(616 ;diary_
+						(DoVerb {tell Clarence about diary})						
+					)
+					(621 ;crank_
+						(DoVerb {tell Clarence about crank})						
+					)
+					(612 ;cane_
+						(DoVerb {tell Clarence about cane})						
+					)
+					(622 ;pouch_
+						(DoVerb {tell Clarence about pouch})						
+					)																																																																																
+					(630 ;handkerchief_
+						(DoVerb {tell Clarence about handkerchief})
+					)
+											
+						
+						
+						
+						
+							(930  ;gertrude
+								(event type: 1 claimed: 1)
+								(DoVerb {ask Clarence about Gertrude})
+							)
+							(931 ;Celie
+								(event type: 1 claimed: 1)
+								(DoVerb {ask Clarence about Celie})
+							)	
+							(932 ;Gloria
+								(event type: 1 claimed: 1)
+								(DoVerb {ask Clarence about Gloria})
+							)													
+							(933 ;Ethel
+								(event type: 1 claimed: 1)
+								(DoVerb {ask Clarence about Ethel})
+							)	
+							(934 ;Fifi
+								(event type: 1 claimed: 1)
+								(DoVerb {ask Clarence about Fifi})
+							)	
+							(935 ;Lillian
+								(event type: 1 claimed: 1)
+								(DoVerb {ask Clarence about Lillian})
+							)																					
+							(936 ;Clarence
+								(event type: 1 claimed: 1)
+								(DoVerb {ask Clarence about Clarence})
+							)	
+							(937 ;Feels
+								(event type: 1 claimed: 1)
+								(DoVerb {ask Clarence about Wilbur})
+							)
+							(938 ;Rudy
+								(event type: 1 claimed: 1)
+								(DoVerb {ask Clarence about Rudolph}) 
+							)	
+							(939 ;Colonel
+								(event type: 1 claimed: 1)
+								(DoVerb {ask Clarence about Colonel})
+							)
+							(940 ;Jules
+								(event type: 1 claimed: 1)
+								(DoVerb {ask Clarence about Jules})
+								
+							)	
+		
+							(941 ;Dog
+								(event type: 1 claimed: 1)
+								(DoVerb {ask Clarence about beauregard})
+							)													
+							(942 ;Parrot
+								(event type: 1 claimed: 1)
+								(DoVerb {ask Clarence about polly})
+							)							
+							(943 ;Horse
+								(event type: 1 claimed: 1)
+								(DoVerb {ask Clarence about blaze})
+							)															
+						(996 ;talk
+							(DoVerb {converse Clarence})
+						)
+						(994
+								(DoVerb {hear Clarence})
+						)	
+						(998
+								(DoVerb {look Clarence})
+						)
+						(else				
+									(event claimed: FALSE)
+								)
+							)
+						
+						)
+	
+	
+	
+	
+	
+	
+	
+							
+							
+			)
+						)
+		
+		
+		
+		
+		
+		
+		
+				
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		(super handleEvent: event)
 		(if (event claimed?) (return))
 		(if (== (event type?) saidEvent)

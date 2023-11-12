@@ -571,6 +571,8 @@
 		newEvent
 		isHandsOff
 		yPositionInventory
+		opendoor=0 ;room31 doorclosed first time
+		opendoor2=0 ;room31 other armoire
 )
 (procedure (Say whom &tmp theView [buffer 500])
 	(if

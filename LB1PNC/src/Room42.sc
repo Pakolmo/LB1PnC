@@ -449,9 +449,12 @@
 						(998
 							(= temp7
 								(Print
-									{Cannon}
+;;;									{Cannon}
+;;;									#button {Look} 1
+;;;									#button {Examine in} 2	
+									{Ca>on}
 									#button {Mirar} 1
-									#button {Examinar} 2	
+									#button {Examinar} 2										
 								)
 							)
 							(switch temp7
