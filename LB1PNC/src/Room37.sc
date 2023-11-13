@@ -332,7 +332,19 @@
 				
 				
 				
-				
+					(if (ClickedInRect 103 220 180 189 event) ;exit room down
+					(event claimed: TRUE)
+					(switch theCursor
+						(999
+
+							(ego setMotion: MoveTo (ego x?) (+ (ego y?) 215))
+;;;							(ego setMotion: MoveTo 162 190)
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					 )
+				)			
 				
 				
 				

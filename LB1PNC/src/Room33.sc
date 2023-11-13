@@ -193,7 +193,20 @@
 				)	
 		
 		
-		
+					(if (ClickedInRect 42 285 180 189 event) ;exit room down
+					(event claimed: TRUE)
+					(switch theCursor
+						(999
+
+							(ego setMotion: MoveTo (ego x?) (+ (ego y?) 215))
+
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					 )
+				)			
+						
 		
 						(if (ClickedOnPicView lamp (event x?) (event y?)) ;lamp
 					(event claimed: TRUE)

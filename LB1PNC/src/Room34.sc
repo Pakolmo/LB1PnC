@@ -21,6 +21,8 @@
 	local1
 	local2
 	local3
+	temp7
+	chutes = 0
 )
 (instance Room34 of Room
 	(properties
@@ -91,6 +93,17 @@
 			stopUpd:
 			setScript: chuteActions
 		)
+		(chutefake
+			setLoop: 6
+			setCel: 0
+			yStep: 5
+			illegalBits: 0
+			setPri: 2
+			ignoreActors: TRUE
+			init:
+			stopUpd:
+			setScript: chuteActions
+		)		
 		(if
 			(and
 				(<= (Random 1 100) 35)
@@ -184,6 +197,411 @@
 	)
 	
 	(method (handleEvent event &tmp temp0)
+
+			(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)
+				(if (or (ClickedOnObj chair1 (event x?) (event y?)) 
+						(ClickedOnObj chair2 (event x?) (event y?)) 
+						(ClickedOnObj chair3 (event x?) (event y?)) 
+						(ClickedOnObj chair4 (event x?) (event y?)) 
+						(ClickedOnObj chair5 (event x?) (event y?)) 
+						(ClickedOnObj chair6 (event x?) (event y?)) 
+						(ClickedOnObj chair7 (event x?) (event y?)) 
+						(ClickedOnObj chair8 (event x?) (event y?)) 
+						(ClickedOnObj chair9 (event x?) (event y?)) 
+						(ClickedOnObj chair10 (event x?) (event y?)) 
+						(ClickedOnObj chair11 (event x?) (event y?)) 
+						(ClickedOnObj chair12 (event x?) (event y?)) )
+						
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998
+							(event claimed: TRUE)
+							(DoLook {chair})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+				
+				(if (and (ClickedOnObj chutefake (event x?) (event y?)) 
+						(== local0 1))
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998		
+	
+							(if local0
+								(Print 44 10)
+							else
+								(DoLook {chute})
+							)
+						)
+						(995
+								(= chutes
+												(Print
+;;;													{Chute Actions}
+;;;													#button {Open Door} 1
+;;;													#button {Enter Chute} 2
+;;;													#button {Close Door} 3		
+													{Rampa}
+													#button {Abrir Puerta} 1
+													#button {Entrar} 2								
+													#button {Cerrar Puerta} 3
+												)
+											)
+											(switch chutes
+												(1 ;Abrir Puerta
+	
+
+													(= newEvent (Event new:))
+													(newEvent
+													    type: evKEYBOARD
+													    message: {open chute}
+													    modifiers: 999
+													    claimed: 0
+													)
+													(User handleEvent: newEvent)
+													(newEvent dispose:)
+													(User mapKeyToDir: FALSE)
+													(= local0 1)
+													
+												
+												)
+						
+										
+
+												(2
+													
+
+					
+													(= newEvent (Event new:))
+													(newEvent
+													    type: evKEYBOARD
+													    message: {enter chute}
+													    modifiers: 999
+													    claimed: 0
+													)
+													(User handleEvent: newEvent)
+													(newEvent dispose:)
+					
+											)	
+												
+												(3
+								
+
+					
+													(= newEvent (Event new:))
+													(newEvent
+													    type: evKEYBOARD
+													    message: {close chute}
+													    modifiers: 999
+													    claimed: 0
+													)
+													(User handleEvent: newEvent)
+													(newEvent dispose:)
+													(User mapKeyToDir: TRUE)
+													(= local0 0)
+											)
+											
+								
+
+
+						
+
+						(else
+						
+							(event claimed: FALSE)
+						)
+					)
+
+						)
+
+				
+
+				)
+
+				)	
+				
+				
+				
+				(if (and (ClickedOnObj chutefake (event x?) (event y?)) 
+						(== local0 0))
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998		
+	
+							(if local0
+								(Print 44 10)
+							else
+								(DoLook {chute})
+							)
+						)
+						(995
+								(= chutes
+												(Print
+;;;													{Chute Actions}
+;;;													#button {Open Door} 1
+;;;													#button {Enter Chute} 2
+;;;													#button {Close Door} 3		
+													{Rampa}
+													#button {Abrir Puerta} 1
+													#button {Entrar} 2								
+													#button {Cerrar Puerta} 3
+												)
+											)
+											(switch chutes
+												(1 ;Abrir Puerta
+	
+
+													(= newEvent (Event new:))
+													(newEvent
+													    type: evKEYBOARD
+													    message: {open chute}
+													    modifiers: 999
+													    claimed: 0
+													)
+													(User handleEvent: newEvent)
+													(newEvent dispose:)
+													(User mapKeyToDir: FALSE)
+													(= local0 1)
+													
+													
+												
+												)
+						
+										
+
+												(2
+													
+
+					
+													(= newEvent (Event new:))
+													(newEvent
+													    type: evKEYBOARD
+													    message: {enter chute}
+													    modifiers: 999
+													    claimed: 0
+													)
+													(User handleEvent: newEvent)
+													(newEvent dispose:)
+					
+											)	
+												
+												(3
+								
+
+					
+													(= newEvent (Event new:))
+													(newEvent
+													    type: evKEYBOARD
+													    message: {close chute}
+													    modifiers: 999
+													    claimed: 0
+													)
+													(User handleEvent: newEvent)
+													(newEvent dispose:)
+													(User mapKeyToDir: TRUE)
+													(= local0 0)
+											)
+											
+								
+
+
+						
+
+						(else
+						
+							(event claimed: FALSE)
+						)
+					)
+
+						)
+
+				
+
+				)
+				)		
+				
+
+				(if (ClickedOnObj coffee (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998
+							(DoVerb {Examine urn})
+						)
+						(995
+								(= temp7
+
+								(PrintSpecial
+									{Coffee}
+									#button {Mirar} 1
+									#button {Tomar} 2
+									
+;;;									{Coffee}
+;;;									#button {Examine in} 1
+;;;									#button {Get} 2							
+								)
+							)
+							(switch temp7
+								(1
+								    (DoVerb {Examine in coffee})
+								)
+								(2
+									(DoVerb {get cup})
+								)
+								(else
+									(event claimed: FALSE)
+								)
+							)
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)							
+				(if (ClickedOnObj chandelier (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998
+							(DoVerb {Examine chandelier})
+						)
+						
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)		
+				(if (ClickedOnObj fire (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998
+							(DoVerb {examine log})
+						)
+						(995
+							(DoVerb {get log})
+						)						
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+				(if (ClickedOnObj gas (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998
+							(event claimed: TRUE)
+							(DoLook {lamp})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+;;;				(if (ClickedOnObj chute (event x?) (event y?)) 
+;;;					(event claimed: TRUE)
+;;;					(switch theCursor	
+;;;						(998
+;;;							(DoVerb {examine door})
+;;;						)
+;;;						(else
+;;;							(event claimed: FALSE)
+;;;						)
+;;;					)
+;;;				)
+				(if (ClickedOnPicView Hutch (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998
+							(DoVerb {examine armoire})
+						)
+						(995
+							(DoVerb {open armoire})
+						)						
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+				(if (and (ClickedOnPicView BigTable (event x?) (event y?)) 
+					(== (event claimed?) FALSE))
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998
+							(DoVerb {examine nightstand dining})
+						)					
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+				(if (and (ClickedOnPicView Table (event x?) (event y?)) 
+						(== (event claimed?) FALSE))
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998
+							(DoVerb {nightstand little})
+						)					
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+			
+				
+				(if (and (ClickedOnPicView Mirror (event x?) (event y?)) 
+						(== (event claimed?) FALSE))
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998
+								(= temp7
+								(PrintSpecial
+									{Espejo}
+									#button {Examinar} 1
+									#button {Mirar dentro} 2
+									#button {Reflejo} 3
+;;;									{Mirror}
+;;;									#button {Examine} 1
+;;;									#button {Examine below} 2							
+;;;									#button {Reflexion} 3
+								)
+							)
+							(switch temp7
+								(1
+								    (DoVerb {examine mirror})
+								)
+								(2
+									(DoVerb {examine below mirror})
+								)
+								(3
+									(DoVerb {examine in mirror})
+								)								
+								(else
+									(event claimed: FALSE)
+								)
+							)
+						)
+							
+							
+							
+							
+									
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)				
+			)
+			)
+
+
+
+
+
 		(asm
 			pushi    #claimed
 			pushi    0
@@ -510,7 +928,7 @@ code_05bf:
 		(switch (= state newState)
 			(0 (cls))
 			(1
-				(User canControl: FALSE)
+;;;				(User canControl: FALSE)
 				(ego illegalBits: 0 setMotion: MoveTo 33 127 self)
 			)
 			(2
@@ -519,12 +937,12 @@ code_05bf:
 				(myMusic number: 74 loop: 1 play:)
 			)
 			(3
-				(= local0 1)
+				(= local0 1) ;chuteisopen
 				(Print 34 20)
 			)
 			(4
 				(chute setMotion: MoveTo 23 121)
-				(= local0 0)
+				(= local0 0) ;chuteisnotopen
 				(myMusic number: 75 loop: 1 play:)
 				(ego setCycle: BegLoop self)
 			)
@@ -1073,5 +1491,14 @@ code_05bf:
 (instance myIcon of DCIcon
 	(properties
 		view 653
+	)
+)
+(instance chutefake of Actor
+	(properties
+		y 125
+		x 21
+		view 950
+		cel 0
+		loop 6
 	)
 )

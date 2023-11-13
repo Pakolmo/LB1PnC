@@ -592,7 +592,7 @@
 							(994 ;smell
 								(event type: 1 claimed: 1)
 ;;;								(Print {(What do you want to take?.)}) ;"What do you want to take?"
-								(Print {(No oigo n*.)}) ;"What do you want to take?"
+								(Print {(No oigo nada.)}) ;"What do you want to take?"
 							)							
 							(997 ;wait sierra
 								(event type: 1 claimed: 0)

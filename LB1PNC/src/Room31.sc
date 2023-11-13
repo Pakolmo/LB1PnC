@@ -378,7 +378,7 @@
 ;;;									#button {Examine below} 1
 ;;;									#button {Examine in} 2
 ;;;									#button {Examine} 3
-									{Guante}
+									{Tierra}
 									#button {Mirar debajo} 1
 									#button {Examinar} 2
 									#button {Mirar} 3											

@@ -202,7 +202,7 @@
 				(if
 					(and 
 						(ClickedOnObj Trap (event x?) (event y?))
-						(== global147 1); check trap door is open before accepting clicks
+						global147; check trap door is open before accepting clicks
 					) 
 					(event claimed: TRUE)
 					(switch theCursor
@@ -267,7 +267,7 @@
 					(switch theCursor
 
 						(606 ;valve handle
-							(DoVerb {attach valve handle})
+							(DoVerb {poner manija en eje})
 						)
 
 						(995
@@ -356,6 +356,7 @@
 					(switch theCursor
 						(995
 							(DoVerb {rotate valve handle})
+							
 						)
 						(998
 							(= temp7
@@ -407,6 +408,7 @@
 						(621 ;crank
 							(DoVerb {attach control shaft})
 						)
+						
 						(998
 							(DoVerb {examine shaft})
 						)
@@ -489,8 +491,7 @@
 							)
 							((Said '/shaft')
 								(if (ego inRect: 205 111 276 200)
-;;;									(if (== (inventory at: iValveHandle) 65)
-									(if (ego has: iValveHandle)
+									(if (== (inventory at: iValveHandle) 65)
 										(Print 65 7)
 									else
 										(Print 65 8)
@@ -514,6 +515,8 @@
 								(= valveCued TRUE)
 								(self setScript: bend)
 								((inventory at: iValveHandle) moveTo: curRoomNum)
+								(= itemIcon 601) ;delete cursor to notebook
+								(theGame setCursor: 999) ;delete cursor
 							else
 								(NotClose)
 							)

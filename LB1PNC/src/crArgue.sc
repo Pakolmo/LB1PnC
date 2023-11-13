@@ -265,7 +265,9 @@
 								(DoVerb {ask rudolph about blaze})
 							)							
 						
-						
+						(994
+							(DoVerb {hear rudolph})
+						)
 						
 						
 						(996

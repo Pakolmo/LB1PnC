@@ -164,9 +164,16 @@
 		)
 	)
 
-	(method (get what &tmp i)
-		(for ((= i 0)) (< i argc) ((++ i))
-			((inventory at: [what i]) moveTo: self)
+;;;	(method (get what &tmp i)
+;;;		(for ((= i 0)) (< i argc) ((++ i))
+;;;			((inventory at: [what i]) moveTo: self)
+;;;		)
+;;;	)
+	(method (get param1 &tmp temp0)
+		(= temp0 0)
+		(while (< temp0 argc)
+			((inventory at: [param1 temp0]) moveTo: self)
+			(++ temp0)
 		)
 	)
 
@@ -190,6 +197,7 @@
 						(and
 							(not (& (event modifiers:) emSHIFT))
 							(User controls:)
+							(== theCursor 999)
 						)
 						(self setMotion: MoveTo (event x:) (event y:))
 						(User prevDir: 0)

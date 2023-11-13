@@ -275,7 +275,7 @@
 									(DoLook {gloria})
 								)
 								(2
-									(DoVerb {examine cigarete}) 
+									(DoVerb {examine cigarrete}) 
 								)
 								(3
 									(DoVerb {examine boa}) 
