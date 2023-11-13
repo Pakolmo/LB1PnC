@@ -197,7 +197,8 @@
 						(and
 							(not (& (event modifiers:) emSHIFT))
 							(User controls:)
-							(== theCursor 999)
+							(== theCursor 999) ;only walk if cursor is 999
+
 						)
 						(self setMotion: MoveTo (event x:) (event y:))
 						(User prevDir: 0)
