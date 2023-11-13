@@ -272,10 +272,10 @@
 			(0
 				(theGame setCursor: 997 (HaveMouse))
 				(= saveBits2
-					(Display 414 1
-						p_at 90 16
-						p_width 256
-						p_color vWHITE
+					(Display {\n 2024 DoomLazer y Pakolmo presentan:}
+						p_at 26 8
+						p_width 265
+						p_color vRED
 						p_back -1
 						p_font SYSFONT
 						p_save
@@ -299,12 +299,12 @@
 					)
 				)
 				(= saveBits2
-					(Display {\n 2024 DoomLazer y Pakolmo}
-						p_at 35 159
-						p_width 210
-						p_color vWHITE
+					(Display {\n Danfielding, nralsd, Teresa, Stormspirit86 y Walas74}
+						p_at 30 169
+						p_width 250
+						p_color vBLUE
 						p_back -1
-						p_font SYSFONT
+						p_font 4
 						p_save
 					)
 				)

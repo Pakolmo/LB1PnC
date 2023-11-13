@@ -202,7 +202,7 @@
 				(if
 					(and 
 						(ClickedOnObj Trap (event x?) (event y?))
-						global147 ; check trap door is open before accepting clicks
+						(== global147 1); check trap door is open before accepting clicks
 					) 
 					(event claimed: TRUE)
 					(switch theCursor
@@ -221,13 +221,13 @@
 							)
 							(switch temp7
 								(1 
-									(DoVerb {close trap})
+									(DoVerb {close trapdoor})
 								)
 								(2 
-									(DoVerb {open trap})
+									(DoVerb {open trapdoor})
 								)
 								(3 
-									(DoVerb {examine in trap})	
+									(DoVerb {examine in trapdoor})	
 								)
 								(else
 									(event claimed: FALSE)
@@ -265,6 +265,11 @@
 				(if (ClickedOnObj statue (event x?) (event y?)) 
 					(event claimed: TRUE)
 					(switch theCursor
+
+						(606 ;valve handle
+							(DoVerb {attach valve handle})
+						)
+
 						(995
 							(= temp7
 								(PrintSpecial
@@ -396,9 +401,9 @@
 						(607 ;crowbar
 							(DoVerb {force shaft})
 						)
-						(606 ;valve handle
-							(DoVerb {attach valve handleshaft})
-						)
+;;;						(606 ;valve handle
+;;;							(DoVerb {attach valve handleshaft})
+;;;						)
 						(621 ;crank
 							(DoVerb {attach control shaft})
 						)
@@ -419,7 +424,7 @@
 									#button {Mover} 2
 									#button {Rotar} 3	
 									#button {Coger V*lvula} 4
-									#button {Rotar V*vula} 4													
+									#button {Rotar V*vula} 5													
 								)
 							)
 							(switch temp7
@@ -484,7 +489,8 @@
 							)
 							((Said '/shaft')
 								(if (ego inRect: 205 111 276 200)
-									(if (== (inventory at: iValveHandle) 65)
+;;;									(if (== (inventory at: iValveHandle) 65)
+									(if (ego has: iValveHandle)
 										(Print 65 7)
 									else
 										(Print 65 8)

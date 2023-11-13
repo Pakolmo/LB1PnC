@@ -319,9 +319,9 @@
 		(super dispose:)
 	)
 	
-;;;	(method (handleEvent event &tmp temp0)
+	(method (handleEvent event &tmp temp0)
 ;;;	(method (handleEvent event &tmp temp0 &tmp [str 250])
-		(method (handleEvent event)
+;;;		(method (handleEvent event)
 			
 			(cond
 			(
@@ -2165,9 +2165,13 @@ code_0f17:
 					(Print 37 28 #at 60 90)
 					(= gotItem TRUE)
 					(ego get: iValveHandle)
+					
 				else
 					(Print 37 29 #at 70 90)
 				)
+					(= gotItem TRUE)
+					(ego get: iValveHandle)
+					
 				(= cycles 1)
 			)
 			(8
