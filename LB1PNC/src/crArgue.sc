@@ -131,7 +131,7 @@
 						
 					
 					(602 ;necklace_
-						(DoVerb {tell rudolph about handkerchief})						
+						(DoVerb {tell rudolph about necklace})						
 					)
 					(604 ;monocle
 						(DoVerb {tell rudolph about monocle})						
@@ -303,7 +303,7 @@
 						
 					
 					(602 ;necklace_
-						(DoVerb {tell Clarence about handkerchief})						
+						(DoVerb {tell Clarence about necklace})						
 					)
 					(604 ;monocle
 						(DoVerb {tell Clarence about monocle})						

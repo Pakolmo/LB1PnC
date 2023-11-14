@@ -285,20 +285,20 @@
 				)	
 			
 		
-				(if (ClickedOnObj sofa (event x?) (event y?)) 
-					(event claimed: TRUE)
-					(switch theCursor	
-						(998
-							(DoVerb {examine chair})
-						)					
-						(else
-							(event claimed: FALSE)
-						)
-					)
-				)	
+;;;				(if (ClickedOnObj sofa (event x?) (event y?)) ;BUG WITH LILLIAN
+;;;					(event claimed: TRUE)
+;;;					(switch theCursor	
+;;;						(998
+;;;							(DoVerb {examine chair})
+;;;						)					
+;;;						(else
+;;;							(event claimed: FALSE)
+;;;						)
+;;;					)
+;;;				)	
 					
 		
-					(if (ClickedOnObj wingback (event x?) (event y?)) 
+				(if (ClickedOnObj wingback (event x?) (event y?))  
 					(event claimed: TRUE)
 					(switch theCursor	
 						(998

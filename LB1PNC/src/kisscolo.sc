@@ -106,7 +106,7 @@
 					(switch theCursor	
 					
 					(602 ;necklace_
-						(DoVerb {tell fifi about handkerchief})						
+						(DoVerb {tell fifi about necklace})						
 					)
 					(604 ;monocle
 						(DoVerb {tell fifi about monocle})						
@@ -294,7 +294,7 @@
 					(switch theCursor	
 					
 					(602 ;necklace_
-						(DoVerb {tell Colonel about handkerchief})						
+						(DoVerb {tell Colonel about necklace})						
 					)
 					(604 ;monocle
 						(DoVerb {tell Colonel about monocle})						

@@ -22,6 +22,7 @@
 (local
 	local0
 	local1
+	temp7
 )
 (procedure (LowPrint)
 	(Print &rest
@@ -127,7 +128,132 @@
 				)
 			
 
+				(if (and (ClickedOnObj gate (event x?) (event y?))
+						(== global111 75)
+						(if (& global109 $0010)))
+						
+				(event claimed: TRUE)
 
+					(switch theCursor
+						(619
+							(= temp7
+
+								(PrintSpecial
+									{Ascensor}
+									#button {Bloquear} 1
+									#button {Desbloquear} 2
+									
+;;;									{Elevator}
+;;;									#button {Lock} 1
+;;;									#button {Unlock} 2							
+								)
+							)
+							(switch temp7
+								(1
+								    ;(DoVerb {latch elevator})
+								    (DoVerb {lock elevator})
+								)
+								(2
+									;(DoVerb {unbar elevator})
+									(DoVerb {unlock elevator})
+								)
+								(else
+									(event claimed: FALSE)
+								)
+							)
+						
+
+					
+					)
+					
+						(998	
+							(= temp7
+								(PrintSpecial
+									{ }
+									#button {Examinar Control} 1
+									#button {Examinar Agujero} 2	
+									#button {Examinar Eje} 3
+;;;									#button {Examine Control} 1
+;;;									#button {Examine Keyhole} 2	
+;;;									#button {Examine Shaft} 3							
+								)
+							)
+							(switch temp7
+								(1
+								    (DoVerb {examine control})	
+								)
+								(2
+									(DoVerb {examine keyhole})
+								)
+								(3
+									(DoVerb {examine shaft})
+								)						
+								(else
+									(event claimed: FALSE)
+								)
+							)
+						)
+;;;						(999	
+;;;							(= temp7
+;;;								(PrintSpecial
+;;;									{Ascensor}
+;;;									#button {Entrar} 1
+;;;									#button {Salir} 2
+;;;;;;									{Elevator}
+;;;;;;									#button {Enter} 1
+;;;;;;									#button {Exit} 2							
+;;;								)
+;;;							)
+;;;							(switch temp7
+;;;								(1
+;;;								    (DoVerb {open elevator})
+;;;								)
+;;;								(2
+;;;									(DoVerb {close elevator})
+;;;								)
+;;;								(else
+;;;									(event claimed: FALSE)
+;;;								)
+;;;							)
+;;;						)
+						(995
+							(= temp7
+								(PrintSpecial
+									{Elevator}
+									#button {Open} 1
+									#button {Close} 2
+									#button {Arriba} 3
+									#button {Abajo} 4								
+;;;									#button {Open} 1
+;;;									#button {Close} 2								
+;;;									#button {Press Up} 3
+;;;									#button {Press Down} 4
+								)		
+
+							)
+							(switch temp7
+								(1
+								    (DoVerb {open elevator})
+								)
+								(2
+									(DoVerb {close elevator})
+								)
+								(3
+								    (DoVerb {move up})
+								)
+								(4
+									(DoVerb {move down})
+								)							
+								(else
+									(event claimed: FALSE)
+								)
+							)
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)		
 
 
 		

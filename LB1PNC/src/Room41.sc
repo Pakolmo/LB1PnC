@@ -269,7 +269,18 @@
 				
 				)
 		
-		
+				(if (ClickedInRect 309 319 113 128 event) ;exit room
+			(event claimed: TRUE)
+					(switch theCursor
+						(999
+							(ego setMotion: MoveTo 321 120)
+						)
+						(else
+								(event claimed: FALSE)
+						)
+					 )
+				
+				)	
 				(if (ClickedInRect 151 173 22 49 event) ;curtain
 					
 					

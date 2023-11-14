@@ -98,7 +98,7 @@
 						
 					
 					(602 ;necklace_
-						(DoVerb {tell wilbur about handkerchief})						
+						(DoVerb {tell wilbur about necklace})						
 					)
 					(604 ;monocle
 						(DoVerb {tell wilbur about monocle})						

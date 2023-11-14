@@ -89,7 +89,7 @@
 						
 					
 					(602 ;necklace_
-						(DoVerb {tell Clarence about handkerchief})						
+						(DoVerb {tell Clarence about necklace})						
 					)
 					(604 ;monocle
 						(DoVerb {tell Clarence about monocle})						

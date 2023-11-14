@@ -59,7 +59,7 @@
 					(switch theCursor	
 					
 					(602 ;necklace_
-						(DoVerb {tell Jeeves about handkerchief})						
+						(DoVerb {tell Jeeves about necklace})						
 					)
 					(604 ;monocle
 						(DoVerb {tell Jeeves about monocle})						

@@ -74,7 +74,8 @@
 			)
 			(10 (ego posn: 310 138))
 		)
-		(ego view: 0 illegalBits: cWHITE init:)
+;;;		(ego view: 0 illegalBits: cWHITE init:)
+		(ego view: 0 illegalBits: -32768 init:)
 	)
 	
 	(method (doit)
@@ -82,15 +83,18 @@
 			(FirstEntry)
 			(Print 14 0)
 		)
-		(if (& (ego onControl: FALSE) cRED)
+;;;		(if (& (ego onControl: FALSE) cRED)
+		(if (& (ego onControl: 0) $0010)
 			(curRoom newRoom: 3)
 		)
-		(if (& (ego onControl: FALSE) cCYAN)
+;;;		(if (& (ego onControl: FALSE) cCYAN)
+		(if (& (ego onControl: 0) $0008)
 			(curRoom newRoom: 9)
 		)
 		(if
 			(and
-				(& (ego onControl: origin) cYELLOW)
+;;;				(& (ego onControl: origin) cYELLOW)
+				(& (ego onControl: 1) $4000)
 				(!= (ego mover?) 0)
 				howFast
 			)
@@ -505,6 +509,7 @@
 		(switch (= state newState)
 			(0
 				(HandsOff)
+
 				(if local2
 					(ego illegalBits: 0 setMotion: MoveTo 236 130 self)
 				else
@@ -543,9 +548,12 @@
 							(== prevRoomNum 63)
 							(& global118 $0002)
 						)
-						(&= global118 $00fb)
+;;;						(&= global118 $00fb)
+						(= global118 (& global118 $00fb))
 					)
+
 					(curRoom newRoom: 63)
+
 				)
 				(HandsOn)
 				(client setScript: 0)
@@ -555,14 +563,15 @@
 )
 
 (instance comeIn of Script
-
+	(properties)
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
 				(ego view: 56 loop: 0 setCycle: EndLoop self)
 			)
 			(1
-				(Print 14 3 #at 40 140 #draw #dispose)
+;;;				(Print 14 3 #at 40 140 #draw #dispose)
+				(Print 14 3 67 40 140 83 88)
 				(soundFX number: 48 loop: 1 play:)
 				(ego loop: 2 setCycle: Forward)
 				(= cycles 14)
@@ -582,7 +591,7 @@
 			(4
 				(= local2 1)
 				(ego view: 0 setCycle: Walk setScript: myDoor)
-				(client setScript: 0)
+;;;				(client setScript: 0) ;FIXED!!!!
 			)
 		)
 	)

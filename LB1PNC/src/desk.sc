@@ -20,7 +20,7 @@
 	askCount
 	temp7
 )
-(instance Clarence of Prop
+(instance Clarence of Prop ;Prop
 	(properties
 		y 138
 		x 267
@@ -37,7 +37,9 @@
 					(not (& global207 $0040))
 					(or (MousedOn self event shiftDown) (Said 'examine/attorney'))
 				)
-				(|= global207 $0040)
+				
+;;;				(|= global207 $0040)
+				(= global207 (| global207 $0040))
 				(= theTalker talkCLARENCE)
 				(event claimed: TRUE)
 				(Say 0 276 0)
@@ -54,7 +56,7 @@
 	)
 )
 
-(instance cHead of Prop
+(instance cHead of Prop ;Prop
 	(properties
 		y 99
 		x 268
@@ -69,7 +71,8 @@
 					(not (& global207 $0040))
 					(or (MousedOn self event shiftDown) (Said 'examine/attorney'))
 				)
-				(|= global207 $0040)
+;;;				(|= global207 $0040)
+				(= global207 (| global207 $0040))
 				(= theTalker talkCLARENCE)
 				(event claimed: TRUE)
 				(Say 0 276 0)
@@ -116,15 +119,14 @@
 				)
 	
 	
-			(if (or (ClickedOnObj Clarence (event x?) (event y?)) 
-					(ClickedOnObj cHead (event x?) (event y?)) )
+			(if (ClickedOnObj Clarence (event x?) (event y?)) 
 				(event claimed: TRUE)
 					(switch theCursor
 						
 						
 					
 					(602 ;necklace_
-						(DoVerb {tell Clarence about handkerchief})						
+						(DoVerb {tell Clarence about necklace})						
 					)
 					(604 ;monocle
 						(DoVerb {tell Clarence about monocle})						
@@ -265,47 +267,7 @@
 							(DoVerb {converse Clarence})
 						)	
 						(998
-							(cond 
-								(
-									
-										(not (& global207 $0040))
-										
-									
-									(|= global207 $0040)
-									(= theTalker talkCLARENCE)
-									(event claimed: TRUE)
-									(Say 0 276 0)
-								)
-								(
-									
-										(& global207 $0040)
-										
-									
-									(event claimed: TRUE)
-									(Print 276 1)
-								)
-							)
-						)
-						(else
-							(event claimed: FALSE)
-						)
-					)
-			)
-				
-		
-		
-	
-		
-	
-	
-	
-	
-			
-		(if (ClickedOnObj desk (event x?) (event y?)) 
-			(event claimed: TRUE)
-					(switch theCursor
-						(998
-						(= temp7
+													(= temp7
 ;;;									(PrintSpecial
 ;;;										{ }
 ;;;										#button {Examine desk} 1
@@ -334,21 +296,101 @@
 
 										(DoVerb {examine in notebook})
 									)
+									(else
+										(event claimed: FALSE)
+									)
 								)
 									)
 									(else
 										(event claimed: FALSE)
 									)
-										
-						)
-						)
-						
-							
-			)
+;;;							(cond 
+;;;								(
+;;;									
+;;;										(not (& global207 $0040))
+;;;										
+;;;									
+;;;									(|= global207 $0040)
+;;;									(= theTalker talkCLARENCE)
+;;;									(event claimed: TRUE)
+;;;									(Say 0 276 0)
+;;;								)
+;;;								(
+;;;									
+;;;										(& global207 $0040)
+;;;										
+;;;									
+;;;									(event claimed: TRUE)
+;;;									(Print 276 1)
+;;;								)
+;;;							)
+;;;						)
+;;;						(else
+;;;							(event claimed: FALSE)
+;;;						)
+;;;					)
+;;;			)
+				
 				)
-			
+	)
+)
+)
+
+	
 		
-		
+	
+	
+	
+;;;	DONT WORK ALONE.
+;;;			
+;;;		(if (ClickedOnObj desk (event x?) (event y?)) 
+;;;			(event claimed: TRUE)
+;;;					(switch theCursor
+;;;						(998
+;;;						(= temp7
+;;;;;;									(PrintSpecial
+;;;;;;										{ }
+;;;;;;										#button {Examine desk} 1
+;;;;;;										#button {Examine Notebook} 2
+;;;;;;										#button {Examine in Notebook} 3									
+;;;;;;									)
+;;;									(PrintSpecial
+;;;										{ }
+;;;										#button {Examinar escritorio} 1
+;;;										#button {Examinar libreta} 2
+;;;										#button {Fisgar en libreta} 3									
+;;;									)
+;;;										)
+;;;									
+;;;
+;;;								(switch temp7
+;;;									(1		
+;;;		
+;;;										(DoVerb {examine desk})
+;;;									)
+;;;									(2
+;;;
+;;;										(DoVerb {examine notebook})
+;;;									)
+;;;									(3
+;;;
+;;;										(DoVerb {examine in notebook})
+;;;									)
+;;;								)
+;;;									)
+;;;									(else
+;;;										(event claimed: FALSE)
+;;;									)
+;;;										
+;;;						)
+;;;						)
+;;;						
+;;;							
+;;;			)
+;;;				)
+;;;			
+;;;		
+;;;		
 		
 		
 		
@@ -446,7 +488,8 @@
 				(cond 
 					((not global216) (= state -1))
 					((not (& global118 $0008))
-						(|= global118 $0008)
+						(= global118 (| global118 $0008))
+;;;						(|= global118 $0008)
 						(self setScript: (ScriptID 406 0))
 						(= state -1)
 					)
@@ -484,3 +527,13 @@
 		)
 	)
 )
+;;;(instance desk of Actor ;RPicView
+;;;	(properties
+;;;		y 135
+;;;		x 283
+;;;		view 148
+;;;		loop 1
+;;;		cel 8
+;;;		priority 10
+;;;	)
+;;;)

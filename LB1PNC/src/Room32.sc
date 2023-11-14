@@ -241,13 +241,13 @@
 							(event claimed: FALSE)
 						)
 					 )
-				)				
-			(if (and (ClickedOnObj ElevGate (event x?) (event y?))
-				(== global111 42)
-				(if (& global109 $0010)))
-				
-
-					(event claimed: TRUE)
+				)
+;;;				(if (and (ego onControl: origin) $0008
+				(if (and (ClickedOnObj newElevGate (event x?) (event y?))
+						(== global111 32)
+						(if (& global109 $0010)))
+						
+				(event claimed: TRUE)
 
 					(switch theCursor
 						(619
@@ -308,29 +308,29 @@
 								)
 							)
 						)
-						(999	
-							(= temp7
-								(PrintSpecial
-									{Ascensor}
-									#button {Entrar} 1
-									#button {Salir} 2
-;;;									{Elevator}
-;;;									#button {Enter} 1
-;;;									#button {Exit} 2							
-								)
-							)
-							(switch temp7
-								(1
-								    (DoVerb {open elevator})
-								)
-								(2
-									(DoVerb {close elevator})
-								)
-								(else
-									(event claimed: FALSE)
-								)
-							)
-						)
+;;;						(999	
+;;;							(= temp7
+;;;								(PrintSpecial
+;;;									{Ascensor}
+;;;									#button {Entrar} 1
+;;;									#button {Salir} 2
+;;;;;;									{Elevator}
+;;;;;;									#button {Enter} 1
+;;;;;;									#button {Exit} 2							
+;;;								)
+;;;							)
+;;;							(switch temp7
+;;;								(1
+;;;								    (DoVerb {open elevator})
+;;;								)
+;;;								(2
+;;;									(DoVerb {close elevator})
+;;;								)
+;;;								(else
+;;;									(event claimed: FALSE)
+;;;								)
+;;;							)
+;;;						)
 						(995
 							(= temp7
 								(PrintSpecial
@@ -368,7 +368,8 @@
 							(event claimed: FALSE)
 						)
 					)
-				)				
+				)
+								
 				(if (ClickedOnPicView mantle (event x?) (event y?)) 
 					(event claimed: TRUE)
 					(switch theCursor	
@@ -763,14 +764,16 @@
 									(Print 32 19)
 								)
 								((Said '/magazine')
-									(if (& (ego onControl:) cBROWN)
+;;;									(if (& (ego onControl:) cBROWN)
+									(if (& (ego onControl:) $0040)										
 										(Print 32 20)
 									else
 										(NotClose)
 									)
 								)
 								((Said '/racehorse')
-									(if (& (ego onControl:) cBROWN)
+;;;									(if (& (ego onControl:) cBROWN)
+									(if (& (ego onControl:) $0040)										
 										(Print 32 21)
 									else
 										(Print 32 22)
@@ -802,7 +805,8 @@
 							(cond 
 								((Said '/poker')
 									(if (not (ego has: iPoker))
-										(if (& (ego onControl:) cLBLUE)
+;;;										(if (& (ego onControl:) cLBLUE)
+										(if (& (ego onControl:) $0200)
 											(self setScript: pickUp)
 										else
 											(NotClose)
@@ -823,7 +827,8 @@
 						((Said '/book/nightstand') (Print 32 28))
 						((Said '/book') (Print 32 29))
 						((and (>= currentAct 2) (Said '/magazine'))
-							(if (& (ego onControl:) cBROWN)
+;;;							(if (& (ego onControl:) cBROWN)
+							(if (& (ego onControl:) $0040)
 								(Print 32 20)
 							else
 								(NotClose)

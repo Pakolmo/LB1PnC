@@ -1,5 +1,5 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-(script# 48) ;OK 379 241 260 259 276
+(script# 48) ;OK 379 241 260 259 276DESK
 (include game.sh) 
 (use Main)
 (use Intrface)
@@ -83,7 +83,7 @@
 			(0
 				(if (> global199 0)
 					(= local0 1)
-					(self setRegions: 379)
+					(self setRegions: 379) 
 				)
 			)
 			(1
@@ -172,7 +172,7 @@
 					(not (& (event modifiers?) emRIGHT_BUTTON))
 				)	
 		
-				(if (ClickedOnObj lady (event x?) (event y?)) 
+				(if (ClickedOnPicView lady (event x?) (event y?)) 
 					(event claimed: TRUE)
 					(switch theCursor
 						(998
@@ -252,7 +252,7 @@
 						)
 
 		
-				(if (ClickedOnObj bed1 (event x?) (event y?)) 
+				(if (ClickedOnPicView bed1 (event x?) (event y?)) 
 					(event claimed: TRUE)
 					(switch theCursor	
 						(998 		
@@ -265,7 +265,7 @@
 					)
 
 				)		
-				(if (ClickedOnObj chest (event x?) (event y?)) 
+				(if (ClickedOnPicView chest (event x?) (event y?)) 
 					(event claimed: TRUE)
 					(switch theCursor	
 						(998
@@ -336,7 +336,7 @@
 
 						)
 		
-					(if (ClickedOnObj bed2 (event x?) (event y?)) 
+					(if (ClickedOnPicView bed2 (event x?) (event y?)) 
 					(event claimed: TRUE)
 					(switch theCursor	
 						(998 		
@@ -351,7 +351,8 @@
 
 				)
 	
-					(if (ClickedOnObj desk (event x?) (event y?)) 
+					(if (and (ClickedOnPicView desk (event x?) (event y?)) 
+							(not (cast contains: Clarence)))
 					(event claimed: TRUE)
 					(switch theCursor
 						(995		
@@ -369,7 +370,7 @@
 				)
 		
 	
-					(if (ClickedOnObj table1 (event x?) (event y?)) 
+					(if (ClickedOnPicView table1 (event x?) (event y?)) 
 					(event claimed: TRUE)
 					(switch theCursor
 						
@@ -386,7 +387,7 @@
 				)
 			
 	
-					(if (ClickedOnObj chair (event x?) (event y?)) 
+					(if (ClickedOnPicView chair (event x?) (event y?)) 
 					(event claimed: TRUE)
 					(switch theCursor
 						(995		
@@ -402,7 +403,7 @@
 					)
 
 				)
-					(if (ClickedOnObj sofa (event x?) (event y?)) 
+					(if (ClickedOnPicView sofa (event x?) (event y?)) 
 					(event claimed: TRUE)
 					(switch theCursor
 						(998		
@@ -417,7 +418,7 @@
 				)
 			
 					
-						(if (ClickedOnObj table2 (event x?) (event y?)) 
+						(if (ClickedOnPicView table2 (event x?) (event y?)) 
 					(event claimed: TRUE)
 					(switch theCursor
 						(998
@@ -437,7 +438,7 @@
 				)
 			
 					
-						(if (ClickedOnObj suit1 (event x?) (event y?)) 
+						(if (ClickedOnPicView suit1 (event x?) (event y?)) 
 					(event claimed: TRUE)
 					(switch theCursor
 						(998
@@ -453,7 +454,7 @@
 
 				)
 					
-						(if (ClickedOnObj suit2 (event x?) (event y?)) 
+						(if (ClickedOnPicView suit2 (event x?) (event y?)) 
 					(event claimed: TRUE)
 					(switch theCursor
 						(998
@@ -773,7 +774,7 @@
 	)
 )
 
-(instance lady of RPicView
+(instance lady of PicView ;RPicView
 	(properties
 		y 47
 		x 138
@@ -814,7 +815,7 @@
 	)
 )
 
-(instance bed1 of RPicView
+(instance bed1 of PicView ;RPicView
 	(properties
 		y 105
 		x 208
@@ -832,7 +833,7 @@
 	)
 )
 
-(instance chest of RPicView
+(instance chest of PicView ;RPicView
 	(properties
 		y 89
 		x 136
@@ -859,7 +860,7 @@
 	)
 )
 
-(instance bed2 of RPicView
+(instance bed2 of PicView ;RPicView
 	(properties
 		y 107
 		x 104
@@ -878,7 +879,7 @@
 	)
 )
 
-(instance desk of RPicView
+(instance desk of PicView ;RPicView
 	(properties
 		y 135
 		x 283
@@ -905,7 +906,7 @@
 	)
 )
 
-(instance table1 of RPicView
+(instance table1 of PicView ;RPicView
 	(properties
 		y 90
 		x 63
@@ -923,7 +924,7 @@
 	)
 )
 
-(instance chair of RPicView
+(instance chair of PicView ;RPicView
 	(properties
 		y 137
 		x 254
@@ -952,7 +953,7 @@
 	)
 )
 
-(instance sofa of RPicView
+(instance sofa of PicView ;RPicView
 	(properties
 		y 157
 		x 194
@@ -970,7 +971,7 @@
 	)
 )
 
-(instance table2 of RPicView
+(instance table2 of PicView ;RPicView
 	(properties
 		y 157
 		x 133
@@ -999,7 +1000,7 @@
 	)
 )
 
-(instance suit1 of RPicView
+(instance suit1 of PicView ;RPicView
 	(properties
 		y 113
 		x 214
@@ -1016,7 +1017,7 @@
 	)
 )
 
-(instance suit2 of RPicView
+(instance suit2 of PicView ;RPicView
 	(properties
 		y 100
 		x 72
@@ -1069,7 +1070,7 @@
 	)
 )
 
-(instance lamp1 of Prop
+(instance lamp1 of Prop ;Prop
 	(properties
 		y 44
 		x 72
@@ -1085,7 +1086,7 @@
 	)
 )
 
-(instance lamp2 of Prop
+(instance lamp2 of Prop ;Prop
 	(properties
 		y 43
 		x 202
@@ -1108,7 +1109,7 @@
 	)
 )
 
-(instance stain of Prop
+(instance stain of Prop ;Prop
 	(properties
 		y 140
 		x 244
@@ -1117,3 +1118,4 @@
 		cel 5
 	)
 )
+(instance Clarence of Actor)

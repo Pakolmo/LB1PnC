@@ -493,7 +493,7 @@
 						
 					
 					(602 ;necklace_
-						(DoVerb {tell jeeves about handkerchief})						
+						(DoVerb {tell jeeves about necklace})						
 					)
 					(604 ;monocle
 						(DoVerb {tell jeeves about monocle})						

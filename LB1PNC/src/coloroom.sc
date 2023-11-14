@@ -131,7 +131,7 @@
 					(switch theCursor	
 					
 					(602 ;necklace_
-						(DoVerb {tell Colonel about handkerchief})						
+						(DoVerb {tell Colonel about necklace})						
 					)
 					(604 ;monocle
 						(DoVerb {tell Colonel about monocle})						
@@ -274,7 +274,7 @@
 						)
 						(995
 							(= temp7
-												(Print
+												(PrintSpecial
 													{Colonel}
 													#button {Mover} 1
 													#button {Mirar Cigarro} 2								

@@ -307,29 +307,9 @@
 					(event claimed: TRUE)
 					(switch theCursor	
 						(998
-							(= temp7
-								(Print
-;;;									{Gramophone}
-;;;									#button {Examine in} 1
-;;;									#button {Examine} 2
-		
-									{Gram/fono}
-									#button {Examinar} 1
-									#button {Mirar} 2								
-									
-								)
-							)
-							(switch temp7
-								(1 ;
-									(DoVerb {examine in gramophone}) 
-								)
-								(2
+
 									(DoVerb {examine gramophone})
-								)
-								(else				
-									(event claimed: FALSE)
-								)
-							)
+								
 						
 						)
 						(995
@@ -540,7 +520,7 @@
 					(switch theCursor	
 					
 					(602 ;necklace_
-						(DoVerb {tell Gloria about handkerchief})						
+						(DoVerb {tell Gloria about necklace})						
 					)
 					(604 ;monocle
 						(DoVerb {tell Gloria about monocle})						

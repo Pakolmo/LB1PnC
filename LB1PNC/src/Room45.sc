@@ -363,7 +363,7 @@
 				(switch theCursor
 					
 					(602 ;necklace_
-						(DoVerb {tell ethel about handkerchief})						
+						(DoVerb {tell ethel about necklace})						
 					)
 					(604 ;monocle
 						(DoVerb {tell ethel about monocle})						

@@ -1,5 +1,5 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-(script# 34)
+(script# 34) ;237 213  403 383
 (include game.sh)
 (use Main)
 (use Intrface)

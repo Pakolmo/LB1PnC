@@ -376,7 +376,7 @@
 (define	cLRED					4096	)			;	12
 (define	cLMAGENTA			8192	)			;	13
 (define	cYELLOW				16384	)			;	14
-(define	cWHITE				32768	)			;	15
+(define	cWHITE				-32768	)			;	15
 
 ; ******** VISUAL colors
 (enum						;	color#

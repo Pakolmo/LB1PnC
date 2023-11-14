@@ -101,7 +101,7 @@
 						
 					
 					(602 ;necklace_
-						(DoVerb {tell celie about handkerchief})						
+						(DoVerb {tell celie about necklace})						
 					)
 					(604 ;monocle
 						(DoVerb {tell celie about monocle})						

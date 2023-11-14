@@ -260,7 +260,7 @@
 					(== (event type?) evMOUSEBUTTON)
 					(not (& (event modifiers?) emRIGHT_BUTTON))
 				)
-		
+
 			(if (ClickedOnObj WallPlate (event x?) (event y?)) 
 					
 					(event claimed: TRUE)

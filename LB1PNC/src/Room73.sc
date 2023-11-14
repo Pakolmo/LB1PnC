@@ -296,7 +296,7 @@
 						
 											
 					(602 ;necklace_
-						(DoVerb {tell lil about handkerchief})						
+						(DoVerb {tell lil about necklace})						
 					)
 					(604 ;monocle
 						(DoVerb {tell lil about monocle})						

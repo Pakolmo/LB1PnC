@@ -824,16 +824,23 @@
 	)
 
 
-	(method (handleEvent event)
-		(or
-			(super handleEvent: event)
-			(if controls
-				(controls handleEvent: event)
-			)
+;;;	(method (handleEvent event)
+;;;		(or
+;;;			(super handleEvent: event)
+;;;;;;			(if controls
+;;;;;;				(controls handleEvent: event)
+;;;			
+;;;;;;			)
+;;;		)
+;;;		(return (event claimed?))
+;;;	)
+	(method (handleEvent pEvent)
+		(cond 
+			((super handleEvent: pEvent))
+			(controls (controls handleEvent: pEvent))
 		)
-		(return (event claimed?))
+		(pEvent claimed?)
 	)
-
 
 ;;;	(method (setRegions region &tmp i n regID)
 ;;;		;; Set the regions used by a room.
