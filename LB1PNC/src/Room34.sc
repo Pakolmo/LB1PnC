@@ -23,6 +23,7 @@
 	local3
 	temp7
 	chutes = 0
+	chutemoving
 )
 (instance Room34 of Room
 	(properties
@@ -250,8 +251,8 @@
 ;;;													#button {Close Door} 3		
 													{Rampa}
 													#button {Abrir Puerta} 1
-													#button {Entrar} 2								
-													#button {Cerrar Puerta} 3
+;;;													#button {Entrar} 2								
+;;;													#button {Cerrar Puerta} 3
 												)
 											)
 											(switch chutes
@@ -275,51 +276,56 @@
 						
 										
 
-												(2
-													
-
-					
-													(= newEvent (Event new:))
-													(newEvent
-													    type: evKEYBOARD
-													    message: {enter chute}
-													    modifiers: 999
-													    claimed: 0
-													)
-													(User handleEvent: newEvent)
-													(newEvent dispose:)
-					
-											)	
-												
-												(3
-								
-
-					
-													(= newEvent (Event new:))
-													(newEvent
-													    type: evKEYBOARD
-													    message: {close chute}
-													    modifiers: 999
-													    claimed: 0
-													)
-													(User handleEvent: newEvent)
-													(newEvent dispose:)
-													(User mapKeyToDir: TRUE)
-													(= local0 0)
-											)
+;;;												(2
+;;;													
+;;;
+;;;					
+;;;													(= newEvent (Event new:))
+;;;													(newEvent
+;;;													    type: evKEYBOARD
+;;;													    message: {enter chute}
+;;;													    modifiers: 999
+;;;													    claimed: 0
+;;;													)
+;;;													(User handleEvent: newEvent)
+;;;													(newEvent dispose:)
+;;;					
+;;;											)	
+;;;												
+;;;												(3
+;;;								
+;;;
+;;;					
+;;;													(= newEvent (Event new:))
+;;;													(newEvent
+;;;													    type: evKEYBOARD
+;;;													    message: {close chute}
+;;;													    modifiers: 999
+;;;													    claimed: 0
+;;;													)
+;;;													(User handleEvent: newEvent)
+;;;													(newEvent dispose:)
+;;;													(User mapKeyToDir: TRUE)
+;;;													(= local0 0)
+;;;											)
 											
 								
 
 
 						
 
-						(else
+											(else
+											
+												(event claimed: FALSE)
+											)
+											)
 						
-							(event claimed: FALSE)
-						)
-					)
 
 						)
+						(else
+											
+												(event claimed: FALSE)
+											)
 
 				
 
@@ -350,8 +356,8 @@
 ;;;													#button {Close Door} 3		
 													{Rampa}
 													#button {Abrir Puerta} 1
-													#button {Entrar} 2								
-													#button {Cerrar Puerta} 3
+;;;													#button {Entrar} 2								
+;;;													#button {Cerrar Puerta} 3
 												)
 											)
 											(switch chutes
@@ -375,41 +381,41 @@
 												)
 						
 										
-
-												(2
-													
-
-					
-													(= newEvent (Event new:))
-													(newEvent
-													    type: evKEYBOARD
-													    message: {enter chute}
-													    modifiers: 999
-													    claimed: 0
-													)
-													(User handleEvent: newEvent)
-													(newEvent dispose:)
-					
-											)	
-												
-												(3
-								
-
-					
-													(= newEvent (Event new:))
-													(newEvent
-													    type: evKEYBOARD
-													    message: {close chute}
-													    modifiers: 999
-													    claimed: 0
-													)
-													(User handleEvent: newEvent)
-													(newEvent dispose:)
-													(User mapKeyToDir: TRUE)
-													(= local0 0)
-											)
-											
-								
+;;;
+;;;												(2
+;;;													
+;;;
+;;;					
+;;;													(= newEvent (Event new:))
+;;;													(newEvent
+;;;													    type: evKEYBOARD
+;;;													    message: {enter chute}
+;;;													    modifiers: 999
+;;;													    claimed: 0
+;;;													)
+;;;													(User handleEvent: newEvent)
+;;;													(newEvent dispose:)
+;;;					
+;;;											)	
+;;;												
+;;;												(3
+;;;								
+;;;
+;;;					
+;;;													(= newEvent (Event new:))
+;;;													(newEvent
+;;;													    type: evKEYBOARD
+;;;													    message: {close chute}
+;;;													    modifiers: 999
+;;;													    claimed: 0
+;;;													)
+;;;													(User handleEvent: newEvent)
+;;;													(newEvent dispose:)
+;;;													(User mapKeyToDir: TRUE)
+;;;													(= local0 0)
+;;;											)
+;;;											
+;;;								
 
 
 						
@@ -421,12 +427,38 @@
 					)
 
 						)
+						(else
+						
+							(event claimed: FALSE)
+						)
 
 				
 
 				)
 				)		
+
+
+
+
+
+			(if (== chutemoving 1)
+				(ego setMotion: 0)
+				(SetCursor 998)
+					(event claimed: TRUE)
+					(switch theCursor
+						(999
+;;;							(ego setMotion: 0)
+;;;							(theGame setCursor: 998 (HaveMouse))
+							(DoVerb {close chute})
+							(= chutemoving 0)
+						)
+						(else
+								(event claimed: FALSE)
+						)
+					 )
 				
+			)
+					
 
 				(if (ClickedOnObj coffee (event x?) (event y?)) 
 					(event claimed: TRUE)
@@ -513,7 +545,7 @@
 ;;;						)
 ;;;					)
 ;;;				)
-				(if (ClickedOnPicView Hutch (event x?) (event y?)) 
+				(if (ClickedOnObj Hutch (event x?) (event y?)) 
 					(event claimed: TRUE)
 					(switch theCursor	
 						(998
@@ -527,7 +559,7 @@
 						)
 					)
 				)
-				(if (and (ClickedOnPicView BigTable (event x?) (event y?)) 
+				(if (and (ClickedOnObj BigTable (event x?) (event y?)) 
 					(== (event claimed?) FALSE))
 					(event claimed: TRUE)
 					(switch theCursor	
@@ -539,7 +571,7 @@
 						)
 					)
 				)
-				(if (and (ClickedOnPicView Table (event x?) (event y?)) 
+				(if (and (ClickedOnObj Table (event x?) (event y?)) 
 						(== (event claimed?) FALSE))
 					(event claimed: TRUE)
 					(switch theCursor	
@@ -553,7 +585,7 @@
 				)
 			
 				
-				(if (and (ClickedOnPicView Mirror (event x?) (event y?)) 
+				(if (and (ClickedOnObj Mirror (event x?) (event y?)) 
 						(== (event claimed?) FALSE))
 					(event claimed: TRUE)
 					(switch theCursor	
@@ -939,6 +971,8 @@ code_05bf:
 			(3
 				(= local0 1) ;chuteisopen
 				(Print 34 20)
+				(User mapKeyToDir: FALSE)
+				(theGame setCursor: 998 (HaveMouse))				
 			)
 			(4
 				(chute setMotion: MoveTo 23 121)
@@ -948,7 +982,9 @@ code_05bf:
 			)
 			(5
 				(ego view: 0 loop: 1 setCycle: Walk illegalBits: cWHITE)
-				(User canControl: TRUE)
+;;;				(User canControl: TRUE)
+				(User mapKeyToDir: TRUE)
+				(theGame setCursor: 998 (HaveMouse))				
 			)
 			(6
 				(myMusic number: 9 loop: 1 play:)
@@ -985,8 +1021,9 @@ code_05bf:
 			(10
 				(= cIcon myIcon)
 				(= deathLoop 0)
-			)
-			(11
+				(HandsOn)
+;;;			)
+;;;			(11
 				(= cyclingIcon 1)
 				(EgoDead 34 22)
 			)

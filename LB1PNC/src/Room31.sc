@@ -633,6 +633,12 @@
 								)
 								(3
 									(DoVerb {examine boomerang})
+									(if (< (ego distanceTo: gundoor) 30)
+										(= local4 1)
+										(gundoor setScript: cabinetDrawer)
+									else
+										(NotClose)
+							)
 							
 								)	
 								(4 		
@@ -689,38 +695,38 @@
 
 									(switch temp8	
 										(1 	
-											(gundoor setScript: cabinetDrawer)
+;;;											(gundoor setScript: cabinetDrawer)
 											(DoVerb {get weapon})
 											
 											
 										)
 										(2
-											(gundoor setScript: cabinetDrawer)
+;;;											(gundoor setScript: cabinetDrawer)
 											(DoVerb {get boomerang})
 									
 										)
 										(3
-											(gundoor setScript: cabinetDrawer)
+;;;											(gundoor setScript: cabinetDrawer)
 											(DoVerb {get Cutlass})
 									
 										)
 										(4
-											(gundoor setScript: cabinetDrawer)
+;;;											(gundoor setScript: cabinetDrawer)
 											(DoVerb {get Dagger})
 									
 										)
 										(5
-											(gundoor setScript: cabinetDrawer)
+;;;											(gundoor setScript: cabinetDrawer)
 											(DoVerb {get Mace})
 									
 										)
 										(6
-											(gundoor setScript: cabinetDrawer)
+;;;											(gundoor setScript: cabinetDrawer)
 											(DoVerb {get Rifle})
 									
 										)
 										(7
-											(gundoor setScript: cabinetDrawer)
+;;;											(gundoor setScript: cabinetDrawer)
 											(DoVerb {get Derringer})
 									
 										)
@@ -978,7 +984,7 @@
 									(DoVerb {break case})
 								)
 								(2
-									(DoVerb {get case})
+									(DoVerb {get Derringer})
 							
 								)
 															
@@ -1293,30 +1299,30 @@
 			)
 			(1 (= cycles 8))
 			(2
-;;;				(cond 
-;;;					((< (ego x?) 160)
-;;;						(switch local4
-;;;							(1 (Print 31 23))
-;;;							(2 (Print 31 24))
-;;;							(3 (Print 31 25))
-;;;							(4 (Bset 27) (Print 31 26))
-;;;							(5 (Bset 28) (Print 31 17))
-;;;							(0
-;;;								(Printf 31 27
-;;;									(if (>= currentAct 5)
-;;;										{,}
-;;;									else
-;;;;;;										{, a pearl-handled dagger,}
-;;;										{, una daga tallada con perlas,}
-;;;									)
-;;;								)
-;;;								(if (>= currentAct 5) (Bset 28) else (Bset 27))
-;;;							)
-;;;						)
-;;;					)
-;;;					(local5 (Print 31 28) (= local5 0))
-;;;					(else (Print 31 29))
-;;;				)
+				(cond 
+					((< (ego x?) 160)
+						(switch local4
+							(1 (Print 31 23))
+							(2 (Print 31 24))
+							(3 (Print 31 25))
+							(4 (Bset 27) (Print 31 26))
+							(5 (Bset 28) (Print 31 17))
+							(0
+								(Printf 31 27
+									(if (>= currentAct 5)
+										{,}
+									else
+										{, a pearl-handled dagger,}
+										{, una daga tallada con perlas,}
+									)
+								)
+								(if (>= currentAct 5) (Bset 28) else (Bset 27))
+							)
+						)
+					)
+					(local5 (Print 31 28) (= local5 0))
+					(else (Print 31 29))
+				)
 				(= cycles 1)
 			)
 			(3 (client setCycle: BegLoop self))

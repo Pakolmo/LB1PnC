@@ -275,7 +275,7 @@
 									(DoLook {gloria})
 								)
 								(2
-									(DoVerb {examine cigarrete}) 
+									(DoVerb {examine cigar}) 
 								)
 								(3
 									(DoVerb {examine boa}) 
@@ -687,10 +687,10 @@
 							)
 							(switch temp7
 								(1 	
-									(DoLook {gloria})
+									(DoLook {actress})
 								)
 								(2
-									(DoVerb {examine cigarrete}) 
+									(DoVerb {examine cigar}) 
 								)
 								(3
 									(DoVerb {examine boa}) 

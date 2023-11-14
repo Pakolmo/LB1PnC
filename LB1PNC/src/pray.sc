@@ -238,7 +238,19 @@
 							(940 ;Jules
 								(event type: 1 claimed: 1)
 								(DoVerb {ask celie about Jules})
-							)						
+							)
+							(941 ;Dog
+								(event type: 1 claimed: 1)
+								(DoVerb {ask celie about beauregard})
+							)													
+							(942 ;Parrot
+								(event type: 1 claimed: 1)
+								(DoVerb {ask celie about polly})
+							)							
+							(943 ;Horse
+								(event type: 1 claimed: 1)
+								(DoVerb {ask celie about blaze})
+							)																
 						(998		
 							(DoLook {celie})
 						)

@@ -29,6 +29,84 @@
 	
 	(method (handleEvent event)
 	
+
+	
+		(cond 
+			(
+				(and
+					(not (& global207 $0040))
+					(or (MousedOn self event shiftDown) (Said 'examine/attorney'))
+				)
+				(|= global207 $0040)
+				(= theTalker talkCLARENCE)
+				(event claimed: TRUE)
+				(Say 0 276 0)
+			)
+			(
+				(and
+					(& global207 $0040)
+					(or (MousedOn self event shiftDown) (Said 'examine/attorney'))
+				)
+				(event claimed: TRUE)
+				(Print 276 1)
+			)
+		)
+	)
+)
+
+(instance cHead of Prop
+	(properties
+		y 99
+		x 268
+		view 411
+		loop 1
+	)
+	
+	(method (handleEvent event)
+		(cond 
+			(
+				(and
+					(not (& global207 $0040))
+					(or (MousedOn self event shiftDown) (Said 'examine/attorney'))
+				)
+				(|= global207 $0040)
+				(= theTalker talkCLARENCE)
+				(event claimed: TRUE)
+				(Say 0 276 0)
+			)
+			(
+				(and
+					(& global207 $0040)
+					(or (MousedOn self event shiftDown) (Said 'examine/attorney'))
+				)
+				(event claimed: TRUE)
+				(Print 276 1)
+			)
+		)
+	)
+)
+
+(instance desk of Region ;Region
+	
+	(method (init)
+		(super init:)
+		(Load FONT 4)
+		(= global195 64)
+		(cHead setPri: 10 init:)
+		(Clarence init:)
+		(self setScript: noteBook)
+	)
+	
+	(method (doit)
+		(super doit:)
+	)
+	
+	(method (dispose)
+		(super dispose:)
+	)
+	
+	(method (handleEvent event &tmp temp0)
+
 	
 				(cond
 			(
@@ -36,8 +114,7 @@
 					(== (event type?) evMOUSEBUTTON)
 					(not (& (event modifiers?) emRIGHT_BUTTON))
 				)
-			
-
+	
 	
 			(if (or (ClickedOnObj Clarence (event x?) (event y?)) 
 					(ClickedOnObj cHead (event x?) (event y?)) )
@@ -218,98 +295,11 @@
 		
 		
 	
-			)
-				)
+		
 	
 	
 	
 	
-	
-	
-	
-		(cond 
-			(
-				(and
-					(not (& global207 $0040))
-					(or (MousedOn self event shiftDown) (Said 'examine/attorney'))
-				)
-				(|= global207 $0040)
-				(= theTalker talkCLARENCE)
-				(event claimed: TRUE)
-				(Say 0 276 0)
-			)
-			(
-				(and
-					(& global207 $0040)
-					(or (MousedOn self event shiftDown) (Said 'examine/attorney'))
-				)
-				(event claimed: TRUE)
-				(Print 276 1)
-			)
-		)
-	)
-)
-
-(instance cHead of Prop
-	(properties
-		y 99
-		x 268
-		view 411
-		loop 1
-	)
-	
-	(method (handleEvent event)
-		(cond 
-			(
-				(and
-					(not (& global207 $0040))
-					(or (MousedOn self event shiftDown) (Said 'examine/attorney'))
-				)
-				(|= global207 $0040)
-				(= theTalker talkCLARENCE)
-				(event claimed: TRUE)
-				(Say 0 276 0)
-			)
-			(
-				(and
-					(& global207 $0040)
-					(or (MousedOn self event shiftDown) (Said 'examine/attorney'))
-				)
-				(event claimed: TRUE)
-				(Print 276 1)
-			)
-		)
-	)
-)
-
-(instance desk of Region
-	
-	(method (init)
-		(super init:)
-		(Load FONT 4)
-		(= global195 64)
-		(cHead setPri: 10 init:)
-		(Clarence init:)
-		(self setScript: noteBook)
-	)
-	
-	(method (doit)
-		(super doit:)
-	)
-	
-	(method (dispose)
-		(super dispose:)
-	)
-	
-	(method (handleEvent event &tmp temp0)
-
-	
-				(cond
-			(
-				(and
-					(== (event type?) evMOUSEBUTTON)
-					(not (& (event modifiers?) emRIGHT_BUTTON))
-				)
 			
 		(if (ClickedOnObj desk (event x?) (event y?)) 
 			(event claimed: TRUE)

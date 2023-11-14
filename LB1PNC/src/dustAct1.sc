@@ -19,6 +19,7 @@
 (local
 	dustCount
 	[local1 2]
+	temp7
 )
 (instance dustAct1 of Region
 	
@@ -45,6 +46,218 @@
 	)
 	
 	(method (handleEvent event)
+		
+			(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)
+					(if (ClickedOnObj Fifi (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor	
+					
+					(602 ;necklace_
+						(DoVerb {tell fifi about handkerchief})						
+					)
+					(604 ;monocle
+						(DoVerb {tell fifi about monocle})						
+					)
+					
+					(613 ;lantern_
+						(DoVerb {tell fifi about lantern})						
+					)
+					(611 ;oilcan_
+						(DoVerb {tell fifi about oilcan})						
+					)
+					(626 ;rolling_pin_
+						(DoVerb {tell fifi about pin})						
+					)
+					(620 ;skeleton_key_
+						(DoVerb {tell fifi about skeleton key})						
+					)
+					(627 ;poker_
+						(DoVerb {tell fifi about poker})						
+					)															
+					(607 ;crowbar_
+						(DoVerb {tell fifi about crowbar})						
+					)
+					(628 ;cigar_butt_
+						(DoVerb {tell fifi about butt})						
+					)
+					(625 ;broken_record_
+						(DoVerb {tell fifi about broken record})						
+					)
+					(601 ;notebook___pencil_
+						(DoVerb {tell fifi about notebook})						
+					)
+					(603 ;_7_crackers________
+						(DoVerb {tell fifi about crackers})						
+					)
+					(605 ;soup_bone_
+						(DoVerb {tell fifi about soup bone})						
+					)
+					(606 ;valve_handle_
+						(DoVerb {tell fifi about valve})						
+					)
+					(618 ;bullet_
+						(DoVerb {tell fifi about bullet})						
+					)
+					(617 ;derringer__
+						(DoVerb {tell fifi about derringer})						
+					)
+					(614 ;matches_
+						(DoVerb {tell fifi about matches})						
+					)
+					(615 ;carrot_
+						(DoVerb {tell fifi about carrot})						
+					)
+					(619 ;brass_key_
+						(DoVerb {tell fifi about brass key})						
+					)
+					(616 ;diary_
+						(DoVerb {tell fifi about diary})						
+					)
+					(621 ;crank_
+						(DoVerb {tell fifi about crank})						
+					)
+					(612 ;cane_
+						(DoVerb {tell fifi about cane})						
+					)
+					(622 ;pouch_
+						(DoVerb {tell fifi about pouch})						
+					)																																																																																
+					(630 ;handkerchief_
+						(DoVerb {tell fifi about handkerchief})
+					)
+											
+						
+						
+						
+						
+							(930  ;gertrude
+								(event type: 1 claimed: 1)
+								(DoVerb {ask fifi about Gertrude})
+							)
+							(931 ;Celie
+								(event type: 1 claimed: 1)
+								(DoVerb {ask fifi about Celie})
+							)	
+							(932 ;Gloria
+								(event type: 1 claimed: 1)
+								(DoVerb {ask fifi about Gloria})
+							)													
+							(933 ;Ethel
+								(event type: 1 claimed: 1)
+								(DoVerb {ask fifi about Ethel})
+							)	
+							(934 ;Fifi
+								(event type: 1 claimed: 1)
+								(DoVerb {ask fifi about Fifi})
+							)	
+							(935 ;Lillian
+								(event type: 1 claimed: 1)
+								(DoVerb {ask fifi about Lillian})
+							)																					
+							(936 ;Clarence
+								(event type: 1 claimed: 1)
+								(DoVerb {ask fifi about Clarence})
+							)	
+							(937 ;Feels
+								(event type: 1 claimed: 1)
+								(DoVerb {ask fifi about Wilbur})
+							)
+							(938 ;Rudy
+								(event type: 1 claimed: 1)
+								(DoVerb {ask fifi about Rudy})
+							)	
+							(939 ;Colonel
+								(event type: 1 claimed: 1)
+								(DoVerb {ask fifi about Colonel})
+							)
+							(940 ;Jules
+								(event type: 1 claimed: 1)
+								(DoVerb {ask fifi about Jules})
+							)
+							(941 ;Dog
+								(event type: 1 claimed: 1)
+								(DoVerb {ask fifi about beauregard})
+							)													
+							(942 ;Parrot
+								(event type: 1 claimed: 1)
+								(DoVerb {ask fifi about polly})
+							)							
+							(943 ;Horse
+								(event type: 1 claimed: 1)
+								(DoVerb {ask fifi about blaze})
+							)							
+													
+							
+							
+						(994	
+							(DoVerb {hear Fifi})
+						)							
+						(996 ;talk
+							(DoVerb {converse Fifi})
+						)
+						(998	
+							(DoVerb {Examine Fifi})
+						)
+						(995
+							(= temp7
+												(Print
+													{Fifi}
+													#button {Coger} 1
+													#button {Matar} 2								
+													#button {Besar} 3
+													#button {Abrazar} 4
+												)
+											)
+											(switch temp7
+												(1 
+													(DoVerb {get fifi})
+												)
+												(2 
+													(DoVerb {kill fifi})
+												)		
+												(3 
+													(DoVerb {kiss fifi})
+												)		
+												(4 
+													(DoVerb {embrace fifi})
+												)		
+		
+												(else
+						
+												(event claimed: FALSE)
+												)
+											)
+						)
+						(else
+						
+												(event claimed: FALSE)
+												)
+											)
+						)			
+		
+		
+			)
+			)
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		(super handleEvent: event)
 		(return (if (event claimed?) (return TRUE) else FALSE))
 	)

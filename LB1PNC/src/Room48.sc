@@ -1,6 +1,6 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-(script# 48) ;OK
-(include game.sh)
+(script# 48) ;OK 379 241 260 259 276
+(include game.sh) 
 (use Main)
 (use Intrface)
 (use RFeature)

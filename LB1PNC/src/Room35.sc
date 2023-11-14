@@ -1,5 +1,5 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-(script# 35)
+(script# 35) ;229 236
 (include game.sh)
 (use Main)
 (use Intrface)
@@ -22,6 +22,7 @@
 	local1
 	firstTime
 	askedCelie
+	temp7
 )
 (procedure (localproc_000c)
 	(addToPics dispose:)
@@ -165,6 +166,242 @@
 	)
 	
 	(method (handleEvent event &tmp temp0)
+
+		(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)
+		
+					
+				(if (ClickedOnObj sink (event x?) (event y?)) ;lamp
+					(event claimed: TRUE)
+					(switch theCursor
+					(998
+							(DoVerb {examine sink})
+					)
+					(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+				(if (ClickedOnObj butterchurn (event x?) (event y?)) ;lamp
+					(event claimed: TRUE)
+					(switch theCursor
+					(995
+							(DoVerb {examine in butterchurn})
+					)
+					(998
+							(DoVerb {examine butterchurn})
+					)					
+					(else
+							(event claimed: FALSE)
+						)
+					)
+				)					
+				(if (ClickedOnObj stool (event x?) (event y?)) ;lamp
+					(event claimed: TRUE)
+					(switch theCursor
+					(998
+							(DoVerb {examine chair})
+					)					
+					(else
+							(event claimed: FALSE)
+						)
+					)
+				)					
+				(if (ClickedOnObj rack (event x?) (event y?)) ;lamp
+					(event claimed: TRUE)
+					(switch theCursor
+					(998
+							(DoVerb {examine pan})
+					)					
+					(else
+							(event claimed: FALSE)
+						)
+					)
+				)			
+				(if (ClickedOnObj icebox (event x?) (event y?)) ;lamp
+					(event claimed: TRUE)
+					(switch theCursor
+					(605 ;soup devolver
+						(DoVerb {get back bone})
+					)
+					(998
+							(DoVerb {examine freezer})
+					)		
+					(995
+							(DoVerb {get bone})
+					)									
+					(else
+							(event claimed: FALSE)
+						)
+					)
+				)		
+				(if (and (ClickedOnObj shelves (event x?) (event y?)) ;lamp
+					(== (event claimed?) FALSE))
+					(event claimed: TRUE)
+					(switch theCursor
+					(998
+							(DoVerb {examine armoire})
+					)		
+					(995
+							(DoVerb {examine in armoire})
+					)									
+					(else
+							(event claimed: FALSE)
+						)
+					)
+				)		
+				(if (or (ClickedOnObj lamp1 (event x?) (event y?)) ;lamp
+					(ClickedOnObj lamp2 (event x?) (event y?)) );lamp
+					(event claimed: TRUE)
+					(switch theCursor
+					(998
+							(DoVerb {examine armoire})
+					)		
+					(995
+							(DoVerb {examine in armoire})
+					)									
+					(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+				(if (or (ClickedOnObj Fdoor (event x?) (event y?)) 
+					(ClickedOnObj Bdoor (event x?) (event y?)) )
+					(event claimed: TRUE)
+					(switch theCursor
+					(998
+							(DoVerb {examine door})
+					)		
+								
+					(else
+							(event claimed: FALSE)
+						)
+					)
+				)	
+				(if (and (ClickedOnObj kettle (event x?) (event y?)) ;lamp
+					(== (event claimed?) FALSE))
+					(event claimed: TRUE)
+					(switch theCursor
+					(995
+						(= temp7
+												(Print
+													{Caldron}
+													#button {Open} 1
+													#button {Get} 2
+													#button {Drink} 3
+						
+	
+
+												)
+											)
+											(switch temp7
+												(1 
+													(DoVerb {open caldron})
+														
+												)
+						
+												(2 
+													(DoVerb {get caldron})
+														
+												)
+												(3 
+													(DoVerb {drink coffee})
+														
+												)																						
+
+											
+												(else
+						
+													(event claimed: FALSE)
+												)
+											)
+						
+					)		
+					(998
+							(DoVerb {examine at caldron coffee})
+					)									
+					(else
+							(event claimed: FALSE)
+						)
+					)
+				)		
+				
+				(if (and (ClickedOnObj Stove (event x?) (event y?)) ;lamp
+						(== (event claimed?) FALSE))
+					(event claimed: TRUE)
+					(switch theCursor
+					(995				
+							(DoVerb {open oven})
+					)
+					(998
+						(DoVerb {examine oven})
+					)									
+					(else
+							(event claimed: FALSE)
+						)
+					)
+				)							
+				(if (or (ClickedOnObj Window1 (event x?) (event y?)) 
+					(ClickedOnObj Window2 (event x?) (event y?)) )
+					(event claimed: TRUE)
+					(switch theCursor
+					(998	
+							(DoVerb {look window})
+					)									
+					(else
+							(event claimed: FALSE)
+						)
+					)
+				)	
+				(if (ClickedOnObj Table (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+					(998
+							(DoVerb {examine nightstand})
+					)		
+								
+					(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+				(if (and (ClickedOnObj Cabinet (event x?) (event y?)) 
+					(== (event claimed?) FALSE))
+					
+					(event claimed: TRUE)
+					(switch theCursor
+					(998
+							(Print 35 22)
+							(event claimed: TRUE)
+					)		
+								
+					(else
+							(event claimed: FALSE)
+						)
+					)
+				)													
+			)
+		)
+		
+		
+;	Bone	
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		(DisposeScript 990)
 		(super handleEvent: event)
 		(if (event claimed?) (return TRUE))
@@ -517,7 +754,8 @@
 		loop 1
 		cel 1
 		priority 10
-		signal ignrAct
+;;;		signal ignrAct
+		signal $4000
 	)
 )
 
@@ -529,7 +767,8 @@
 		loop 4
 		cel 1
 		priority 6
-		signal fixPriOn
+;;;		signal fixPriOn
+		signal $0010
 	)
 	
 	(method (handleEvent event)
@@ -547,7 +786,8 @@
 		view 135
 		loop 4
 		priority 11
-		signal fixPriOn
+;;;		signal fixPriOn
+		signal $0010
 	)
 	
 	(method (handleEvent event)
@@ -652,6 +892,8 @@
 		nsLeft 90
 		nsBottom 88
 		nsRight 133
+		x 32
+		y 90
 	)
 	
 	(method (handleEvent event)
@@ -677,6 +919,8 @@
 		nsLeft 46
 		nsBottom 85
 		nsRight 72
+		x 20
+		y 46
 	)
 	
 	(method (handleEvent event)
@@ -693,6 +937,8 @@
 		nsLeft 145
 		nsBottom 85
 		nsRight 172
+		x 20
+		y 145
 	)
 	
 	(method (handleEvent event)
@@ -748,6 +994,8 @@
 		nsLeft 110
 		nsBottom 12
 		nsRight 175
+		x 106
+		y 110
 	)
 	
 	(method (handleEvent event)
@@ -768,6 +1016,8 @@
 		nsLeft 176
 		nsBottom 52
 		nsRight 210
+		x 33
+		y 176
 	)
 	
 	(method (handleEvent event)
