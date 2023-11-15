@@ -4,20 +4,41 @@
 
 (class	RFeature	of Feature
 	(properties
-		nsTop 	0				;nowSeen - current rectangle
-		nsLeft 	0
+;;;		nsTop 	0				;nowSeen - current rectangle
+;;;		nsLeft 	0
+;;;		nsBottom 0
+;;;		nsRight 	0
+		y 0
+		x 0
+		z 0
+		heading 0
+		nsTop 0
+		nsLeft 0
 		nsBottom 0
-		nsRight 	0
+		nsRight 0
 	)
 
 ); RFeature
 
 (class RPicView	of PicView
 	(properties
-		nsTop 	0				;nowSeen - current rectangle
-		nsLeft 	0				;assumes	origin in bottom middle
-		nsBottom 0				;i.e. view editor default 
-		nsRight 	0
+;;;		nsTop 	0				;nowSeen - current rectangle
+;;;		nsLeft 	0				;assumes	origin in bottom middle
+;;;		nsBottom 0				;i.e. view editor default 
+;;;		nsRight 	0
+		y 0
+		x 0
+		z 0
+		heading 0
+		view 0
+		loop 0
+		cel 0
+		priority -1
+		signal $0000
+		nsTop 0
+		nsLeft 0
+		nsBottom 0
+		nsRight 0
 	)
 
 	(method (init &tmp halfWidth)

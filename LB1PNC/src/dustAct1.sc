@@ -30,7 +30,8 @@
 		(Fifi
 			view: 464
 			setAvoider: (Avoider new:)
-			illegalBits: (| cYELLOW cWHITE)
+;;;			illegalBits: (| cYELLOW cWHITE)
+			illegalBits: -16378
 			init:
 			setScript: fifiActions
 		)
@@ -272,7 +273,8 @@
 					view: 464
 					setPri: -1
 					setCycle: Walk
-					illegalBits: (| cYELLOW cWHITE)
+;;;					illegalBits: (| cYELLOW cWHITE)
+					illegalBits: -16378
 					ignoreActors: 0
 				)
 				(Fifi

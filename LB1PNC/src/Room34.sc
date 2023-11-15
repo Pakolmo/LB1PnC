@@ -22,7 +22,7 @@
 	local2
 	local3
 	temp7
-	chutes = 0
+	chutes
 	chutemoving
 )
 (instance Room34 of Room
@@ -148,11 +148,13 @@
 			else
 				(ego posn: 265 120)
 			)
-			(ego illegalBits: cWHITE view: 0 init:)
+;;;			(ego illegalBits: cWHITE view: 0 init:)
+			(ego illegalBits: -32768 view: 0 init:)
 		else
 			(ego
 				view: 0
-				illegalBits: cWHITE
+;;;				illegalBits: cWHITE
+				illegalBits: -32768
 				setPri: -1
 				posn: 68 167
 				init:
@@ -251,8 +253,8 @@
 ;;;													#button {Close Door} 3		
 													{Rampa}
 													#button {Abrir Puerta} 1
-;;;													#button {Entrar} 2								
-;;;													#button {Cerrar Puerta} 3
+													#button {Entrar} 2								
+													#button {Cerrar Puerta} 3
 												)
 											)
 											(switch chutes
@@ -262,52 +264,53 @@
 													(= newEvent (Event new:))
 													(newEvent
 													    type: evKEYBOARD
-													    message: {open chute}
+													    message: {open chute door}
 													    modifiers: 999
 													    claimed: 0
 													)
 													(User handleEvent: newEvent)
 													(newEvent dispose:)
 													(User mapKeyToDir: FALSE)
-													(= local0 1)
-													
+;;;													(= local0 1)
+													(= chutemoving 1)
 												
 												)
 						
 										
 
-;;;												(2
-;;;													
-;;;
-;;;					
-;;;													(= newEvent (Event new:))
-;;;													(newEvent
-;;;													    type: evKEYBOARD
-;;;													    message: {enter chute}
-;;;													    modifiers: 999
-;;;													    claimed: 0
-;;;													)
-;;;													(User handleEvent: newEvent)
-;;;													(newEvent dispose:)
-;;;					
-;;;											)	
-;;;												
-;;;												(3
-;;;								
-;;;
-;;;					
-;;;													(= newEvent (Event new:))
-;;;													(newEvent
-;;;													    type: evKEYBOARD
-;;;													    message: {close chute}
-;;;													    modifiers: 999
-;;;													    claimed: 0
-;;;													)
-;;;													(User handleEvent: newEvent)
-;;;													(newEvent dispose:)
-;;;													(User mapKeyToDir: TRUE)
+												(2
+													
+
+					
+													(= newEvent (Event new:))
+													(newEvent
+													    type: evKEYBOARD
+													    message: {enter chute}
+													    modifiers: 999
+													    claimed: 0
+													)
+													(User handleEvent: newEvent)
+													(newEvent dispose:)
+					
+											)	
+												
+												(3
+								
+
+					
+													(= newEvent (Event new:))
+													(newEvent
+													    type: evKEYBOARD
+													    message: {close chute door}
+													    modifiers: 999
+													    claimed: 0
+													)
+													(User handleEvent: newEvent)
+													(newEvent dispose:)
+													(User mapKeyToDir: TRUE)
 ;;;													(= local0 0)
-;;;											)
+													(= chutemoving 0)
+											)
 											
 								
 
@@ -356,8 +359,8 @@
 ;;;													#button {Close Door} 3		
 													{Rampa}
 													#button {Abrir Puerta} 1
-;;;													#button {Entrar} 2								
-;;;													#button {Cerrar Puerta} 3
+													#button {Entrar} 2								
+													#button {Cerrar Puerta} 3
 												)
 											)
 											(switch chutes
@@ -367,55 +370,56 @@
 													(= newEvent (Event new:))
 													(newEvent
 													    type: evKEYBOARD
-													    message: {open chute}
+													    message: {open chute door}
 													    modifiers: 999
 													    claimed: 0
 													)
 													(User handleEvent: newEvent)
 													(newEvent dispose:)
 													(User mapKeyToDir: FALSE)
-													(= local0 1)
-													
+;;;													(= local0 1)
+													(= chutemoving 1)
 													
 												
 												)
 						
 										
-;;;
-;;;												(2
-;;;													
-;;;
-;;;					
-;;;													(= newEvent (Event new:))
-;;;													(newEvent
-;;;													    type: evKEYBOARD
-;;;													    message: {enter chute}
-;;;													    modifiers: 999
-;;;													    claimed: 0
-;;;													)
-;;;													(User handleEvent: newEvent)
-;;;													(newEvent dispose:)
-;;;					
-;;;											)	
-;;;												
-;;;												(3
-;;;								
-;;;
-;;;					
-;;;													(= newEvent (Event new:))
-;;;													(newEvent
-;;;													    type: evKEYBOARD
-;;;													    message: {close chute}
-;;;													    modifiers: 999
-;;;													    claimed: 0
-;;;													)
-;;;													(User handleEvent: newEvent)
-;;;													(newEvent dispose:)
-;;;													(User mapKeyToDir: TRUE)
+
+												(2
+													
+
+					
+													(= newEvent (Event new:))
+													(newEvent
+													    type: evKEYBOARD
+													    message: {enter chute}
+													    modifiers: 999
+													    claimed: 0
+													)
+													(User handleEvent: newEvent)
+													(newEvent dispose:)
+					
+											)	
+												
+												(3
+								
+
+					
+													(= newEvent (Event new:))
+													(newEvent
+													    type: evKEYBOARD
+													    message: {close chute door}
+													    modifiers: 999
+													    claimed: 0
+													)
+													(User handleEvent: newEvent)
+													(newEvent dispose:)
+													(User mapKeyToDir: TRUE)
 ;;;													(= local0 0)
-;;;											)
-;;;											
-;;;								
+													(= chutemoving 0)
+											)
+											
+								
 
 
 						
@@ -971,6 +975,9 @@ code_05bf:
 			(3
 				(= local0 1) ;chuteisopen
 				(Print 34 20)
+;;;				(User mapKeyToDir: FALSE)
+;;;				(theGame setCursor: 998 (HaveMouse))
+				(ego setMotion: 0)
 				(User mapKeyToDir: FALSE)
 				(theGame setCursor: 998 (HaveMouse))				
 			)
@@ -979,6 +986,8 @@ code_05bf:
 				(= local0 0) ;chuteisnotopen
 				(myMusic number: 75 loop: 1 play:)
 				(ego setCycle: BegLoop self)
+				(User mapKeyToDir: FALSE)
+				(= chutemoving 0)
 			)
 			(5
 				(ego view: 0 loop: 1 setCycle: Walk illegalBits: cWHITE)
@@ -1007,6 +1016,7 @@ code_05bf:
 				(= cycles 21)
 			)
 			(9
+				(HandsOff)
 				(= local1 1)
 				(myMusic number: 57 loop: 1 play: self)
 				(ego

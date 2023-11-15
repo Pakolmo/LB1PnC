@@ -1242,7 +1242,8 @@ code_0662:
 				(Clarence ignoreActors: FALSE)
 				(Gloria
 					loop: -1
-					illegalBits: cWHITE
+;;;					illegalBits: cWHITE
+					illegalBits: -32768					
 					ignoreActors: 0
 					setAvoider: (Avoider new:)
 					setCycle: Walk
@@ -1250,7 +1251,8 @@ code_0662:
 				)
 			)
 			(6
-				(Gloria illegalBits: (| cWHITE cGREEN))
+;;;				(Gloria illegalBits: (| cWHITE cGREEN))
+				(Gloria illegalBits: -32764)
 				(= global202 2)
 			)
 			(7

@@ -448,9 +448,10 @@
 							((& global145 $0004)
 								(Say 1 402 13)
 							)
-							((& (ego onControl: origin) (| cCYAN cMAGENTA))
-								(Print 402 14)
-							)
+;;;							((& (ego onControl: origin) (| cCYAN cMAGENTA))
+;;;								(Print 402 14)
+;;;							)
+							((& (ego onControl: 1) $0028) (Print 402 14))
 							(else
 								(HandsOff)
 ;;;								(|= global145 $0004)

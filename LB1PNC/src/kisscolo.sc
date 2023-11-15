@@ -50,7 +50,8 @@
 					view: 464
 					setAvoider: (Avoider new:)
 					init:
-					illegalBits: (| cWHITE cGREEN)
+;;;					illegalBits: (| cWHITE cGREEN)
+					illegalBits: -32764
 					setScript: fifiActions
 				)
 			)
@@ -584,7 +585,8 @@
 					view: 470
 					loop: 1
 					cycleSpeed: 0
-					illegalBits: (| cWHITE cGREEN)
+;;;					illegalBits: (| cWHITE cGREEN)
+					illegalBits: -32764
 					setScript: fifiActions
 				)
 				(client setScript: 0)

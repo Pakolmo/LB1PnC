@@ -94,7 +94,8 @@
 				)
 			)
 		)
-		(ego view: 0 illegalBits: (| cWHITE cBLUE) init:)
+;;;		(ego view: 0 illegalBits: (| cWHITE cBLUE) init:)
+		(ego view: 0 illegalBits: -32766 init:)		
 	)
 	
 	(method (doit)

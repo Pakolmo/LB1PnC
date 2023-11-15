@@ -79,7 +79,8 @@
 			(lamp1 init: stopUpd:)
 			(lamp2 init: stopUpd:)
 		)
-		(ego view: 0 posn: 304 122 illegalBits: (| cWHITE cCYAN) init:)
+;;;		(ego view: 0 posn: 304 122 illegalBits: (| cWHITE cCYAN) init:)
+		(ego view: 0 posn: 304 122 illegalBits: -32760 init:)
 	)
 	
 	(method (doit)

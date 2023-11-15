@@ -109,7 +109,8 @@
 			)
 		)
 		(if (!= prevRoomNum 49)
-			(ego view: 0 illegalBits: (| cWHITE cGREEN) posn: 304 101 init:)
+;;;			(ego view: 0 illegalBits: (| cWHITE cGREEN) posn: 304 101 init:)
+			(ego view: 0 illegalBits: -32764 posn: 304 101 init:)
 		else
 			(ego
 				view: 0
@@ -571,7 +572,8 @@
 				(ego setMotion: MoveTo (ego x?) (+ (ego y?) 15) self)
 			)
 			(2
-				(ego setPri: -1 illegalBits: (| cWHITE cGREEN))
+;;;				(ego setPri: -1 illegalBits: (| cWHITE cGREEN))
+				(ego setPri: -1 illegalBits: -32764)
 				(panel setMotion: MoveTo 155 84 self)
 				(myMusic number: 75 loop: 1 play:)
 			)

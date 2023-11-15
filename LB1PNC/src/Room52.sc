@@ -98,7 +98,8 @@
 			(door cel: (- (NumCels door) 1))
 		else
 			(door cel: 0)
-			(ego illegalBits: (| cWHITE cBLUE))
+;;;			(ego illegalBits: (| cWHITE cBLUE))
+			(ego illegalBits: -32764)
 		)
 		(if (== global189 51)
 			(ego setPri: 3 posn: 195 63)
@@ -235,7 +236,8 @@
 		(if
 			(or
 				(< (ego y?) 66)
-				(and (& global205 $0001) (& (ego onControl:) (| cGREEN cRED)))
+;;;				(and (& global205 $0001) (& (ego onControl:) (| cGREEN cRED)))
+				(and (& global205 $0001) (& (ego onControl:) $0014))
 			)
 			(glow show:)
 		else

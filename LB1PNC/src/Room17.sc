@@ -71,7 +71,8 @@
 			(23 (ego posn: 310 188))
 			(12 (ego posn: 310 140))
 		)
-		(ego view: 0 illegalBits: (| cWHITE cBLUE) init:)
+;;;		(ego view: 0 illegalBits: (| cWHITE cBLUE) init:)
+		(ego view: 0 illegalBits: -32766 init:)		
 	)
 	
 	(method (doit)

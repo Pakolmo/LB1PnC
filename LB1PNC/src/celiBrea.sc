@@ -758,7 +758,8 @@
 					posn: 153 126
 					ignoreActors: FALSE
 					setCycle: Walk
-					illegalBits: (| cWHITE cGREEN)
+;;;					illegalBits: (| cWHITE cGREEN)
+					illegalBits: -32764
 					setMotion: MoveTo 119 93 self
 				)
 				(if (not local7)

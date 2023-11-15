@@ -1,5 +1,5 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-(script# 32)
+(script# 32) ;213 220  402 269
 (include game.sh)
 (use Main)
 (use ElevGate)
@@ -73,9 +73,16 @@
 				else
 					(ego posn: 55 120)
 				)
-				(ego view: 0 illegalBits: cWHITE setPri: -1)
+;;;				(ego view: 0 illegalBits: cWHITE setPri: -1)
+				(ego view: 0 illegalBits: -32768 setPri: -1)
 			else
-				(ego view: 0 illegalBits: cWHITE setPri: -1 posn: 252 167)
+;;;				(ego view: 0 illegalBits: cWHITE setPri: -1 posn: 252 167)
+				(ego
+					view: 0
+					illegalBits: -32768
+					setPri: -1
+					posn: 252 167
+				)
 				(= local6 1)
 			)
 		)
@@ -244,9 +251,9 @@
 					 )
 				)
 ;;;				(if (and (ego onControl: origin) $0008
-				(if (and (ClickedOnObj newElevGate (event x?) (event y?))
+				(if (and (ClickedOnPicView elevGate (event x?) (event y?))
 						(== global111 32)
-						(if (& global109 $0010)))
+						(& global109 $0010))
 						
 				(event claimed: TRUE)
 
@@ -460,7 +467,7 @@
 						)
 					)
 				)	
-				(if (ClickedOnObj fire (event x?) (event y?)) 
+				(if (ClickedOnPicView fire (event x?) (event y?)) 
 					(event claimed: TRUE)
 					(switch theCursor	
 						(995
@@ -474,7 +481,7 @@
 						)
 					)
 				)		
-				(if (ClickedOnObj poker (event x?) (event y?)) 		
+				(if (ClickedOnPicView poker (event x?) (event y?)) 		
 					(event claimed: TRUE)
 					(switch theCursor	
 						(995
@@ -491,8 +498,8 @@
 				)
 				(if
 					(or
-						(ClickedOnObj lamp1 (event x?) (event y?)) 
-						(ClickedOnObj lamp2 (event x?) (event y?))
+						(ClickedOnPicView lamp1 (event x?) (event y?)) 
+						(ClickedOnPicView lamp2 (event x?) (event y?))
 					)
 					(event claimed: TRUE)
 					(switch theCursor	
@@ -505,7 +512,7 @@
 						)
 					)
 				)
-				(if (ClickedOnObj Feather (event x?) (event y?)) 
+				(if (ClickedOnPicView Feather (event x?) (event y?)) 
 					(event claimed: TRUE)
 					(switch theCursor	
 						(998
@@ -519,7 +526,7 @@
 						)
 					)
 				)
-				(if (ClickedOnObj Mag (event x?) (event y?)) 
+				(if (ClickedOnPicView Mag (event x?) (event y?)) 
 					(event claimed: TRUE)
 					(switch theCursor	
 						(995
@@ -645,7 +652,8 @@
 								(cond 
 									((< curRoomNum global111) (Print 32 6))
 									((> curRoomNum global111) (Print 32 7))
-									((not (& (ego onControl: origin) (| cMAGENTA cCYAN))) (NotClose))
+;;;									((not (& (ego onControl: origin) (| cMAGENTA cCYAN))) (NotClose))
+									((not (& (ego onControl: 1) $0028)) (NotClose))
 								)
 							)
 						)
@@ -1260,6 +1268,8 @@
 		nsLeft 281
 		nsBottom 125
 		nsRight 310
+		x 65
+		y 281
 	)
 	
 	(method (handleEvent event)

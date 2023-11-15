@@ -157,7 +157,8 @@
 			(ego posn: 84 124)
 			(if (not firstTime) (Fdoor setScript: closeDoor))
 		)
-		(ego view: 0 illegalBits: (| cWHITE cGREEN) init:)
+;;;		(ego view: 0 illegalBits: (| cWHITE cGREEN) init:)
+		(ego view: 0 illegalBits: -32764 init:)		
 	)
 	
 	(method (doit)
