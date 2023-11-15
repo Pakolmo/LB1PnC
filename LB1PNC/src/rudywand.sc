@@ -67,7 +67,8 @@
 				(>= [global368 1] (* (- 8 global114) 100))
 			)
 			(= gCurRoomNum_4 curRoomNum)
-			(|= global208 $0100)
+;;;			(|= global208 $0100)
+			(= global208 (| global208 $0100))
 			(= [global368 1] (- 899 (* global114 100)))
 			(= local63 1)
 			(Rudy
@@ -98,7 +99,8 @@
 				(not local63)
 			)
 			(if (User controls?)
-				(|= global208 $0100)
+;;;				(|= global208 $0100)
+				(= global208 (| global208 $0100))
 				(= global114 (- 8 (/ [global368 1] 100)))
 				(= gCurRoomNum_4 curRoomNum)
 				(= local63 1)
@@ -176,7 +178,8 @@
 						(if (and (== gameMinutes 3) (== curRoomNum 10))
 							(gDoor startUpd:)
 						)
-						(|= global118 $0001)
+;;;						(|= global118 $0001)
+						(= global118 (| global118 $0001))
 						(self setScript: (ScriptID 406 0))
 						(= state 0)
 					)
@@ -217,7 +220,8 @@
 				)
 				(= gCurRoomNum_4 0)
 				(DisposeScript 985)
-				(&= global208 $feff)
+;;;				(&= global208 $feff)
+				(= global208 (& global208 $feff))
 				(= [global377 8] 0)
 				(= local63 0)
 				(client setScript: 0)
@@ -233,6 +237,196 @@
 (instance Rudy of Actor
 	
 	(method (handleEvent event)
+					(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)
+			
+
+
+
+
+		
+			(if (ClickedOnObj Rudy (event x?) (event y?)) 
+				(event claimed: TRUE)
+					(switch theCursor
+						
+						
+					
+					(602 ;necklace_
+						(DoVerb {tell rudolph about necklace})						
+					)
+					(604 ;monocle
+						(DoVerb {tell rudolph about monocle})						
+					)
+					
+					(613 ;lantern_
+						(DoVerb {tell rudolph about lantern})						
+					)
+					(611 ;oilcan_
+						(DoVerb {tell rudolph about oilcan})						
+					)
+					(626 ;rolling_pin_
+						(DoVerb {tell rudolph about pin})						
+					)
+					(620 ;skeleton_key_
+						(DoVerb {tell rudolph about skeleton key})						
+					)
+					(627 ;poker_
+						(DoVerb {tell rudolph about poker})						
+					)															
+					(607 ;crowbar_
+						(DoVerb {tell rudolph about crowbar})						
+					)
+					(628 ;cigar_butt_
+						(DoVerb {tell rudolph about butt})						
+					)
+					(625 ;broken_record_
+						(DoVerb {tell rudolph about broken record})						
+					)
+					(601 ;notebook___pencil_
+						(DoVerb {tell rudolph about notebook})						
+					)
+					(603 ;_7_crackers________
+						(DoVerb {tell rudolph about crackers})						
+					)
+					(605 ;soup_bone_
+						(DoVerb {tell rudolph about soup bone})						
+					)
+					(606 ;valve_handle_
+						(DoVerb {tell rudolph about valve})						
+					)
+					(618 ;bullet_
+						(DoVerb {tell rudolph about bullet})						
+					)
+					(617 ;derringer__
+						(DoVerb {tell rudolph about derringer})						
+					)
+					(614 ;matches_
+						(DoVerb {tell rudolph about matches})						
+					)
+					(615 ;carrot_
+						(DoVerb {tell rudolph about carrot})						
+					)
+					(619 ;brass_key_
+						(DoVerb {tell rudolph about brass key})						
+					)
+					(616 ;diary_
+						(DoVerb {tell rudolph about diary})						
+					)
+					(621 ;crank_
+						(DoVerb {tell rudolph about crank})						
+					)
+					(612 ;cane_
+						(DoVerb {tell rudolph about cane})						
+					)
+					(622 ;pouch_
+						(DoVerb {tell rudolph about pouch})						
+					)																																																																																
+					(630 ;handkerchief_
+						(DoVerb {tell rudolph about handkerchief})
+					)
+											
+						
+						
+						
+						
+							(930  ;gertrude
+								(event type: 1 claimed: 1)
+								(DoVerb {ask rudolph about Gertrude})
+							)
+							(931 ;Celie
+								(event type: 1 claimed: 1)
+								(DoVerb {ask rudolph about Celie})
+							)	
+							(932 ;Gloria
+								(event type: 1 claimed: 1)
+								(DoVerb {ask rudolph about Gloria})
+							)													
+							(933 ;Ethel
+								(event type: 1 claimed: 1)
+								(DoVerb {ask rudolph about Ethel})
+							)	
+							(934 ;Fifi
+								(event type: 1 claimed: 1)
+								(DoVerb {ask rudolph about Fifi})
+							)	
+							(935 ;Lillian
+								(event type: 1 claimed: 1)
+								(DoVerb {ask rudolph about Lillian})
+							)																					
+							(936 ;Clarence
+								(event type: 1 claimed: 1)
+								(DoVerb {ask rudolph about Clarence})
+							)	
+							(937 ;Feels
+								(event type: 1 claimed: 1)
+								(DoVerb {ask rudolph about Wilbur})
+							)
+							(938 ;Rudy
+								(event type: 1 claimed: 1)
+								(DoVerb {ask rudolph about Rudy})
+							)	
+							(939 ;Colonel
+								(event type: 1 claimed: 1)
+								(DoVerb {ask rudolph about Colonel})
+							)
+							(940 ;Jules
+								(event type: 1 claimed: 1)
+								(DoVerb {ask rudolph about Jules})
+							)											
+							(941 ;Dog
+								(event type: 1 claimed: 1)
+								(DoVerb {ask rudolph about beauregard})
+							)													
+							(942 ;Parrot
+								(event type: 1 claimed: 1)
+								(DoVerb {ask rudolph about polly})
+							)							
+							(943 ;Horse
+								(event type: 1 claimed: 1)
+								(DoVerb {ask rudolph about blaze})
+							)							
+						
+						(994
+							(DoVerb {hear rudolph})
+						)
+						
+						
+						(996
+							(DoVerb {converse rudolph})
+						)	
+						(998
+							(cond
+								((not (& global207 $0100)) 
+								(event claimed: TRUE)
+								(DoLook {rudy})
+							)
+							(
+								
+									(& global207 $0100)
+									
+								
+								(event claimed: TRUE)
+								(Print 259 17)
+							)			
+							)
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+			)
+	
+
+		
+			)
+			)		
+		
+		
+		
 		(super handleEvent: event)
 		(if local63
 			(if (== currentAct 6)

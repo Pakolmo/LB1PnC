@@ -1,6 +1,6 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
 (script# 280)
-(include game.sh)
+(include game.sh) ;game.sh
 (use Main)
 (use Intrface)
 (use Sound)
@@ -30,13 +30,13 @@
 	)
 )
 
-(enum
-	getGUN
-	getBULLET
-	getKEY
-	getHEEL
-)
-
+;;;(enum
+;;;	getGUN
+;;;	getBULLET
+;;;	getKEY
+;;;	getHEEL
+;;;)
+;;;
 (instance Body of Prop
 	(properties
 		y 114
@@ -433,7 +433,8 @@
 						(= state -1)
 					)
 					((not (& deadGuests deadLILLIAN))
-						(|= deadGuests deadLILLIAN)
+;;;						(|= deadGuests deadLILLIAN)
+						(= deadGuests (| deadGuests $0040))						
 						(self setScript: (ScriptID 406 0))
 						(= state -1)
 					)
@@ -477,7 +478,8 @@
 					(client hide:)
 				)
 				(switch pickUpState
-					(getGUN
+;;;					(getGUN
+					(1
 						(= gotItem TRUE)
 						(ego get: iDerringer)
 						(if (ego has: iBullet)
@@ -486,18 +488,22 @@
 							(Print 280 27)
 						)
 					)
-					(getKEY
+;;;					(getKEY
+					(2
 						(= gotItem TRUE)
 						(ego get: iSkeletonKey)
 						(Print 280 16)
 						(Print 280 28)
 					)
-					(getBULLET
+;;;					(getBULLET
+					(3
 						(= gotItem TRUE)
 						(ego get: iBullet)
 						(Ok)
 					)
-					(getHEEL
+					
+;;;					(getHEEL
+					(4
 						(switch foundInsignia
 							(0 (Print 280 29))
 							(else  (Print 280 30))

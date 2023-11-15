@@ -141,7 +141,8 @@
 			)
 			(addToPics add: newPV newPV_2 doit:)
 			(ego init:)
-			(&= global109 $fff7)
+;;;			(&= global109 $fff7)
+			(= global109 (& global109 $fff7))			
 		else
 			(if
 				(and
@@ -718,7 +719,8 @@
 	(method (newRoom n)
 		(if (and (!= n 41) (== global201 200))
 			(++ global201)
-			(|= deadGuests deadRUDY)
+;;;			(|= deadGuests deadRUDY)
+			(= deadGuests (| deadGuests deadRUDY))
 		)
 		(super newRoom: n)
 	)
@@ -732,7 +734,8 @@
 				(cond 
 					((not global216) (= state -1))
 					((not (& global118 $0004))
-						(|= global118 $0004)
+						(= global118 (| global118 $0004))	
+;;;						(|= global118 $0004)
 						(self setScript: (ScriptID 406 0))
 						(= state -1)
 					)

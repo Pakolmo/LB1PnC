@@ -36,7 +36,8 @@
 		(Clarence setPri: 6 init: setScript: clarActions)
 		(Smoke setPri: 6 init: hide:)
 		(if (not (& global194 $0002))
-			(|= global194 $0002)
+;;;			(|= global194 $0002)
+			(= global194 (| global194 $0002))
 			(Jeeves
 				view: 444
 				posn: -15 98

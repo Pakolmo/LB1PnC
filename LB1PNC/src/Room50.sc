@@ -515,7 +515,8 @@
 							((& (ego onControl: origin) cCYAN)
 								(switch (curRoom south?)
 									(38
-										(|= global175 $0008)
+;;;										(|= global175 $0008)
+										(= global175 (| global175 $0008))
 									)
 									(48
 										(= global175 $0080)
@@ -527,10 +528,12 @@
 							((& (ego onControl: origin) cGREEN)
 								(switch (curRoom north?)
 									(34
-										(|= global175 $0002)
+;;;										(|= global175 $0002)
+										(= global175 (| global175 $0002))
 									)
 									(44
-										(|= global175 $0020)
+;;;										(|= global175 $0020)
+										(= global175 (| global175 $0020))
 									)
 								)
 								(self setScript: Back)

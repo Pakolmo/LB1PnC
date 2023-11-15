@@ -30,7 +30,8 @@
 		(cond 
 			(
 			(and (MousedOn self event shiftDown) (not (& global207 $0002)))
-				(|= global207 $0002)
+;;;				(|= global207 $0002)
+				(= global207 (| global207 $0002))
 				(= theTalker talkCELIE)
 				(event claimed: TRUE)
 				(Say 0 279 0)
@@ -300,7 +301,8 @@
 						(= state -1)
 					)
 					((not (& global118 $0008))
-						(|= global118 $0008)
+;;;						(|= global118 $0008)
+						(= global118 (| global118 $0008))
 						(self setScript: (ScriptID 406 0))
 						(= state -1)
 					)

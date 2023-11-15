@@ -46,7 +46,8 @@
 				(== [local42 (- 7 global115)] curRoomNum)
 				(>= [global368 3] (* (- 6 global115) 100))
 			)
-			(|= global208 $0040)
+;;;			(|= global208 $0040)
+			(= global208 (| global208 $0040))
 			(= [global368 3] (- 699 (* global115 100)))
 			(= local50 1)
 			(Clarence
@@ -70,7 +71,8 @@
 				(== [local42 (/ [global368 3] 100)] curRoomNum)
 			)
 			(= local50 1)
-			(|= global208 $0040)
+;;;			(|= global208 $0040)
+			(= global208 (| global208 $0040))
 			(= global115 (- 7 (/ [global368 3] 100)))
 			(Clarence
 				setAvoider: ((Avoider new:) offScreenOK: TRUE)
@@ -207,7 +209,8 @@
 				(cond 
 					((not global216) (= state -1))
 					((not (& global118 $0008))
-						(|= global118 $0008)
+;;;						(|= global118 $0008)
+						(= global118 (| global118 $0008))						
 						(self setScript: (ScriptID 406 0))
 						(= state -1)
 					)
@@ -236,7 +239,8 @@
 				else
 					(= [global368 3] (- 699 (* global115 100)))
 				)
-				(&= global208 $ffbf)
+;;;				(&= global208 $ffbf)
+				(= global208 (& global208 $ffbf))
 				(= [global377 6] 0)
 				(Clarence dispose:)
 				(client setScript: 0)

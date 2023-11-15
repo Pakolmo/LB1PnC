@@ -312,7 +312,8 @@
 			(if (& global207 $0020)
 				(Print 265 11)
 			else
-				(|= global207 $0020)
+;;;				(|= global207 $0020)
+				(= global207 (| global207 $0020))
 				(Print 265 12)
 			)
 			(event claimed: TRUE)

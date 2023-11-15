@@ -93,7 +93,8 @@
 	
 	(method (dispose)
 		(if (and (not (& global173 $0080)) global125)
-			(|= global173 $0080)
+;;;			(|= global173 $0080)
+			(= global173 (| global173 $0080))			
 		)
 		(super dispose:)
 	)

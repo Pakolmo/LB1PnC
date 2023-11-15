@@ -188,7 +188,8 @@
 					)
 				)
 				
-					(if (ClickedOnObj Note (event x?) (event y?)) 
+					(if (and (ClickedOnObj Note (event x?) (event y?)) 
+						(!= global203 500))
 					
 					(event claimed: TRUE)
 					(switch theCursor
@@ -197,6 +198,7 @@
 						)
 						(995
 							(DoVerb {get letter})
+							(DoVerb {read letter}) ;yes2
 						)
 						(else
 							(event claimed: FALSE)
@@ -290,10 +292,10 @@
 							(if (ClickedOnObj Mat (event x?) (event y?)) 	
 							(event claimed: TRUE)
 								(switch theCursor
-									(998
+									(995
 										(DoVerb {move doormat})
 									)
-									(995
+									(998
 										(= temp7
 												(Print
 													{Mat}

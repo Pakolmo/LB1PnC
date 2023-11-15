@@ -269,7 +269,8 @@
 				(= gDoor 1)
 			)
 			(2
-				(|= global141 $0002)
+;;;				(|= global141 $0002)
+				(= global141 (| global141 $0002))
 				(Jeeves view: 459 cel: 0 loop: 1 setCycle: EndLoop self)
 			)
 			(3
@@ -334,7 +335,8 @@
 					(or (MousedOn self event shiftDown) (Said 'examine/butler'))
 				)
 				(= theTalker talkJEEVES)
-				(|= global207 $0400)
+;;;				(|= global207 $0400)
+				(= global207 (| global207 $0400))				
 				(event claimed: TRUE)
 				(Say 0 269 1)
 			)

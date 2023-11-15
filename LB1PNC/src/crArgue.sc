@@ -481,7 +481,8 @@
 				(cond 
 					((not global216) (= state -1))
 					((not (& global118 $0004))
-						(|= global118 $0004)
+;;;						(|= global118 $0004)
+						(= global118 (| global118 $0004))						
 						(self setScript: (ScriptID 406 0))
 						(= state -1)
 					)
@@ -825,7 +826,8 @@
 						(Say 1 259 15)
 					else
 						(Say 1 259 16)
-						(|= global145 $0080)
+;;;						(|= global145 $0080)
+						(= global145 (| global145 $0080))						
 						(Rudy setScript: goSee)
 					)
 				else

@@ -51,7 +51,8 @@
 				(cond 
 					((not global216) (= state -1))
 					((not (& global118 $0004))
-						(|= global118 $0004)
+;;;						(|= global118 $0004)
+						(= global118 (| global118 $0004))
 						(self setScript: (ScriptID 406 0))
 						(= state -1)
 					)

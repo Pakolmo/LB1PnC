@@ -640,13 +640,15 @@
 	(= temp1 (<< $0001 (mod param2 16)))
 	(switch param1
 		(0
-			(|= [gameFlags temp0] temp1)
+;;;			(|= [gameFlags temp0] temp1)
+			(= [gameFlags temp0] (| [gameFlags temp0] temp1))
 		)
 		(1
 			(return (& [gameFlags temp0] temp1))
 		)
 		(2
-			(&= [gameFlags temp0] (~ temp1))
+;;;			(&= [gameFlags temp0] (~ temp1))
+			(= [gameFlags temp0] (& [gameFlags temp0] (~ temp1)))
 		)
 	)
 )
@@ -741,7 +743,8 @@
 
 (procedure (FirstEntry &tmp i temp1)
 	(if (not (& visitedFlags $8000))
-		(|= visitedFlags $8000)
+;;;		(|= visitedFlags $8000)
+		(= visitedFlags (| visitedFlags $8000))		
 		(= i (/ curRoomNum 16))
 		(= temp1 (<< $0001 (mod curRoomNum 16)))
 		(if (not (& [global148 i] temp1))
@@ -1024,7 +1027,8 @@
 		(= r (+ right 8))
 		(= mapSet VMAP)
 		(if (!= priority -1)
-			(|= mapSet PMAP)
+;;;			(|= mapSet PMAP)
+			(= mapSet (| mapSet PMAP))				
 		)
 		(= underBits
 			(Graph GSaveBits t l b r mapSet)
@@ -1272,7 +1276,8 @@
 		(mouseDownHandler add: cast features)
 		(HandsOn)
 		(cls)
-		(&= visitedFlags $7fff)
+;;;		(&= visitedFlags $7fff)
+		(= visitedFlags (& visitedFlags $7fff))
 		(= global195 (= global208 (= global214 0)))
 		(for ((= i 0)) (< i 11) ((++ i))
 			(= [global377 i] 0)

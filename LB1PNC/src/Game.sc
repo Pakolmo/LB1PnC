@@ -1100,30 +1100,44 @@
 )
 
 
-
+;;;
+;;;(instance RestoreUpdate of Code
+;;;	;;; Used by replay: to properly deal with members of the cast which were
+;;;	;;; not updating when the game was saved.
+;;;
+;;;	(properties
+;;;		name "RU"
+;;;	)
+;;;
+;;;	(method (doit obj &tmp sigBits)
+;;;		;; If the object has underBits, it was not updating.  Its underBits
+;;;		;; property is now invalid, so clear it.  Also, set the signal bits
+;;;		;; to draw the object and stopUpd: it.
+;;;
+;;;		(if (obj underBits?)
+;;;			(= sigBits (obj signal?))
+;;;			(|= sigBits stopUpdOn)
+;;;			(&= sigBits (~ notUpd))
+;;;			(obj underBits:0, signal:sigBits)
+;;;		)
+;;;	)
+;;;)
+;;;
 (instance RestoreUpdate of Code
-	;;; Used by replay: to properly deal with members of the cast which were
-	;;; not updating when the game was saved.
-
-	(properties
-		name "RU"
-	)
-
-	(method (doit obj &tmp sigBits)
-		;; If the object has underBits, it was not updating.  Its underBits
-		;; property is now invalid, so clear it.  Also, set the signal bits
-		;; to draw the object and stopUpd: it.
-
-		(if (obj underBits?)
-			(= sigBits (obj signal?))
-			(|= sigBits stopUpdOn)
-			(&= sigBits (~ notUpd))
-			(obj underBits:0, signal:sigBits)
+	(properties)
+	
+	(method (doit param1 &tmp temp0)
+		(if (param1 underBits?)
+			(= temp0
+				(&
+					(= temp0 (| (= temp0 (param1 signal?)) $0001))
+					$fffb
+				)
+			)
+			(param1 underBits: 0 signal: temp0)
 		)
 	)
 )
-
-
 
 (instance DisposeNonKeptRegion of Code
 	;;; Used during room changes to dispose any Regions whose 'keep' property

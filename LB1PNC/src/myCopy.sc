@@ -299,7 +299,7 @@
 					)
 				)
 				(= saveBits2
-					(Display {\n Danfielding, nralsd, Teresa, Stormspirit86 y Walas74}
+					(Display {______Con ayuda de: Teresa, Stormspirit86 y Walas74}
 						p_at 30 169
 						p_width 250
 						p_color vBLUE

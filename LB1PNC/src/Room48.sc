@@ -23,6 +23,7 @@
 (local
 	local0
 	temp7
+	desknew =0
 )
 (instance mySound of Sound)
 
@@ -92,7 +93,8 @@
 			)
 			(2
 				(if (and (& global118 $0004) (< [global368 2] 2))
-					(|= global173 $0008)
+;;;					(|= global173 $0008)
+					(= global173 (| global173 $0008))
 					(= local0 1)
 					(self setRegions: 260)
 				else
@@ -103,6 +105,7 @@
 			)
 			(5
 				(= local0 1)
+				(= desknew 1)
 				(self setRegions: 276)
 			)
 			(6
@@ -129,7 +132,8 @@
 	
 	(method (doit)
 		(if (and (not (& global173 $0008)) (== currentAct 6))
-			(|= global173 $0008)
+			(= global173 (| global173 $0008))
+;;;			(|= global173 $0008)
 			(Print 48 0)
 		)
 		(if (FirstEntry)
@@ -159,8 +163,7 @@
 	(method (handleEvent event)
 		
 		
-		lady bed1 bed2 chest desk table1 table2 suit1 suit2 sofa chair
-		stain lamp1 lamp2 panel notebook
+
 		
 		
 	
@@ -171,7 +174,23 @@
 					(== (event type?) evMOUSEBUTTON)
 					(not (& (event modifiers?) emRIGHT_BUTTON))
 				)	
-		
+
+				(if (ClickedOnPicView stain (event x?) (event y?)) 	
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(DoVerb {examine blood})
+						)
+						(else
+						
+							(event claimed: FALSE)
+						)
+					)
+
+				)
+						
+								
+					
 				(if (ClickedOnPicView lady (event x?) (event y?)) 
 					(event claimed: TRUE)
 					(switch theCursor
@@ -352,7 +371,7 @@
 				)
 	
 					(if (and (ClickedOnPicView desk (event x?) (event y?)) 
-							(not (cast contains: Clarence)))
+							(== desknew 0))
 					(event claimed: TRUE)
 					(switch theCursor
 						(995		
@@ -470,7 +489,8 @@
 
 				)			
 									
-						(if (ClickedOnObj notebook (event x?) (event y?)) 
+						(if (and (ClickedOnObj notebook (event x?) (event y?)) 
+								(== desknew 1) )
 					(event claimed: TRUE)
 					(switch theCursor
 						(998
@@ -752,7 +772,8 @@
 			(0
 				(cond 
 					((not (& global118 $0001))
-						(|= global118 $0001)
+;;;						(|= global118 $0001)
+						(= global118 (| global118 $0001))
 						(self setScript: (ScriptID 406 0))
 						(= state -1)
 					)
@@ -1109,7 +1130,7 @@
 	)
 )
 
-(instance stain of Prop ;Prop
+(instance stain of Prop ;Prop SANGRE
 	(properties
 		y 140
 		x 244
@@ -1118,4 +1139,4 @@
 		cel 5
 	)
 )
-(instance Clarence of Actor)
+

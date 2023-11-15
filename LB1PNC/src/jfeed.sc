@@ -615,7 +615,8 @@
 				(if (& global207 $0400)
 					(Print 239 25)
 				else
-					(|= global207 $0400)
+;;;					(|= global207 $0400)
+					(= global207 (| global207 $0400))
 					(= theTalker talkJEEVES)
 					(Say 0 239 26)
 				)

@@ -36,7 +36,8 @@
 	(method (doit)
 		(super doit:)
 		(if (and global216 (not (& global118 $0004)))
-			(|= global118 $0004)
+;;;			(|= global118 $0004)
+			(= global118 (| global118 $0004))		
 			(self setScript: (ScriptID 406 0))
 		)
 		(if
@@ -87,7 +88,8 @@
 							(if (& global207 $0001)
 								(Print 224 2)
 							else
-								(|= global207 $0001)
+;;;								(|= global207 $0001)
+								(= global207 (| global207 $0001))
 								(Say 0 224 3)
 							)
 						)

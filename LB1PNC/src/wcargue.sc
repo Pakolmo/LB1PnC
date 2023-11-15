@@ -803,7 +803,8 @@
 						(Say 1 237 22)
 					else
 						(Say 1 237 23)
-						(|= global145 $0004)
+;;;						(|= global145 $0004)
+						(= global145 (| global145 $0004))
 						(Wilbur setScript: goSee)
 						(Clarence setScript: 0)
 					)

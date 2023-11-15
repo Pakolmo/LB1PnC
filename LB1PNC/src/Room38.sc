@@ -117,7 +117,8 @@
 				(= local3 1)
 				(if (not (& global173 $0002))
 					(if (== [global368 1] 1)
-						(|= global173 $0002)
+;;;						(|= global173 $0002)
+						(= global173 (| global173 $0002))						
 						(= [global368 1] 0)
 						(self setRegions: 378)
 					else

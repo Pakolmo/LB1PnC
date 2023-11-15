@@ -29,6 +29,7 @@
 		(= guestState 1)
 		(= serving 0)
 		(|= global195 $0400)
+		(= global195 (| global195 $0400))		
 	)
 	
 	(method (doit &tmp oldSeconds)
@@ -72,7 +73,8 @@
 						(Print 204 0)
 					else
 						(= theTalker talkJEEVES)
-						(|= global207 $0400)
+;;;						(|= global207 $0400)
+						(= global207 (| global207 $0400))						
 						(Say 0 204 1)
 					)
 					(event claimed: TRUE)

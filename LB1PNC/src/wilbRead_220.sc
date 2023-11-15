@@ -64,7 +64,8 @@
 				(= global199 2)
 			)
 			((not (& global194 $0008))
-				(|= global194 $0008)
+;;;				(|= global194 $0008)
+				(= global194 (| global194 $0008))
 				(Jeeves
 					view: 444
 					posn: 320 150

@@ -45,7 +45,8 @@
 	
 	(method (init &tmp [temp0 50])
 		(super init:)
-		(|= global195 $0400)
+;;;		(|= global195 $0400)
+		(= global195 (| global195 $0400))
 		(Load SCRIPT AVOIDER)
 		(Load SCRIPT PATH)
 		(if (== [global368 2] 0) (= [global368 2] 1800))
@@ -226,7 +227,8 @@
 				(if (& global207 $0400)
 					(Print 381 0)
 				else
-					(|= global207 $0400)
+;;;					(|= global207 $0400)
+					(= global207 (| global207 $0400))
 					(Say 0 381 1)
 				)
 				(event claimed: TRUE)

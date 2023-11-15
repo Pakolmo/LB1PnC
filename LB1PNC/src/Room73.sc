@@ -53,7 +53,8 @@
 				(LoadMany VIEW 500 505 905)
 				(LoadMany 143 243 226)
 				(= [global377 5] 226)
-				(|= global208 $0020)
+;;;				(|= global208 $0020)
+				(= global208 (| global208 $0020))
 				(Lilian
 					setAvoider: ((Avoider new:) offScreenOK: TRUE)
 					init:
@@ -1116,7 +1117,8 @@
 		(cond 
 			((or (MousedOn self event shiftDown) (Said 'examine/lil'))
 				(if (not (& global207 $0020))
-					(|= global207 $0020)
+;;;					(|= global207 $0020)
+					(= global207 (| global207 $0020))
 					(= theTalker talkLILLIAN)
 					(Say 0 73 39)
 				else

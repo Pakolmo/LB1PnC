@@ -61,7 +61,8 @@
 		(glass setPri: 13 ignoreActors: TRUE init: stopUpd:)
 		(Rudy init: setScript: drink)
 		(if (not (& global194 $0001))
-			(|= global194 $0001)
+;;;			(|= global194 $0001)
+			(= global194 (| global194 $0001))
 			(Jeeves
 				view: 444
 				posn: -10 101

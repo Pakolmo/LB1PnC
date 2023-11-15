@@ -331,7 +331,8 @@
 							(= state -1)
 						)
 						((not (& global118 $0002))
-							(|= global118 $0002)
+;;;							(|= global118 $0002)
+							(= global118 (| global118 $0020))
 							(self setScript: (ScriptID 406 0))
 							(= state -1)
 						)
@@ -577,7 +578,9 @@
 						(Say 1 264 16)
 						(event claimed: TRUE)
 					else
-						(|= global145 $0001)
+;;;						(|= global145 $0001)
+						(= global145 (| global145 $0001))
+						global118						
 						(self setScript: goSee)
 						(event claimed: TRUE)
 					)
@@ -592,7 +595,8 @@
 						(Say 1 264 16)
 						(event claimed: TRUE)
 					else
-						(|= global145 $0001)
+;;;						(|= global145 $0001)
+						(= global145 (| global145 $0001))						
 						(self setScript: goSee)
 						(event claimed: TRUE)
 					)
@@ -606,7 +610,8 @@
 						(Say 1 264 16)
 						(event claimed: TRUE)
 					else
-						(|= global145 $0001)
+;;;						(|= global145 $0001)
+						(= global145 (| global145 $0001))						
 						(self setScript: goSee)
 					)
 				else

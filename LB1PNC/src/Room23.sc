@@ -526,7 +526,8 @@
 	
 	(method (newRoom n)
 		(if local4
-			(|= deadGuests deadGLORIA)
+;;;			(|= deadGuests deadGLORIA)
+			(= deadGuests (| deadGuests deadGLORIA))
 			(= gCurRoomNum 0)
 		)
 		(super newRoom: n)

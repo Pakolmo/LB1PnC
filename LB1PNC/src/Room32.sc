@@ -176,7 +176,8 @@
 					(if (& global109 $0001)
 						(- (NumCels elevGate) 1)
 					else
-						(&= global109 $fffe)
+;;;						(&= global109 $fffe)
+						(= global109 (& global109 $fffe))
 					)
 				setPri: 9
 				init:
@@ -708,7 +709,8 @@
 						((Said '[<around,at][/room]')
 							(cond 
 								((cast contains: poker)
-									(&= global166 (~ (<< $0001 currentAct)))
+;;;									(&= global166 (~ (<< $0001 currentAct)))
+									(= global166 (& global166 (~ (<< $0001 currentAct))))
 									(Print 32 3)
 								)
 								((& (ego onControl: 0) cMAGENTA) (Print 32 12))
@@ -855,11 +857,13 @@
 				(if (== local3 1)
 					(cSound number: 81)
 					(elevGate setCycle: EndLoop)
-					(|= global109 $0001)
+;;;					(|= global109 $0001)
+					(= global109 (| global109 $0001))
 				else
 					(cSound number: 79)
 					(elevGate setCycle: BegLoop)
-					(&= global109 $fffe)
+;;;					(&= global109 $fffe)
+					(= global109 (& global109 $fffe))
 				)
 				(cSound loop: 1 play: self)
 				(if (!= local4 -1)

@@ -180,7 +180,8 @@
 			)
 			((or (MousedOn self event shiftDown) (Said 'examine/ethel'))
 				(if (not (& global207 $0008))
-					(|= global207 $0008)
+;;;					(|= global207 $0008)
+					(= global207 (| global207 $0008))
 					(Say 0 238 14)
 				else
 					(Print 238 15)

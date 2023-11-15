@@ -183,7 +183,8 @@
 							(cond
 								((not (& global207 $0100)) 
 									(event claimed: TRUE)
-									(|= global207 $0100)
+;;;									(|= global207 $0100)
+									(= global207 (| global207 $0100))
 									(Say 0 385 0)
 							)
 							(
@@ -219,7 +220,8 @@
 		(cond 
 			((and (not (& global207 $0100)) (MousedOn self event shiftDown))
 				(event claimed: TRUE)
-				(|= global207 $0100)
+;;;				(|= global207 $0100)
+				(= global207 (| global207 $0100))				
 				(Say 0 385 0)
 			)
 			(
@@ -323,7 +325,8 @@
 						(= state -1)
 					)
 					((not (& global118 $0004))
-						(|= global118 $0004)
+;;;						(|= global118 $0004)
+						(= global118 (| global118 $0004))
 						(self setScript: (ScriptID 406 0))
 						(= state -1)
 					)

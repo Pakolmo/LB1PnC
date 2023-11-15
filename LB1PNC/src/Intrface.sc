@@ -195,9 +195,11 @@
 	(method (enable bool)
 		;; Enable/disable this control.
 		(if bool
-			(|= state dActive)
+;;;			(|= state dActive)
+			(= state (| state $0001))
 		else
-			(&= state (~ dActive))
+;;;			(&= state (~ dActive))
+			(= state (& state $fffe))
 		)
 	)
 
@@ -205,9 +207,11 @@
 	(method (select bool)
 		;; Select/deselect this control.
 		(if bool
-			(|= state dSelected)
+;;;			(|= state dSelected)
+			(= state (| state $0008))
 		else
-			(&= state (~ dSelected))
+;;;			(&= state (~ dSelected))
+			(= state (& state $fff7))
 		)
 		(self draw:)
 	)

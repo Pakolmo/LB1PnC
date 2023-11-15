@@ -197,7 +197,8 @@
 			(0
 				(mySound number: 99 loop: -1 play:)
 				(gDoor setCycle: Forward init:)
-				(|= deadGuests deadFIFI)
+;;;				(|= deadGuests deadFIFI)
+				(= deadGuests (| deadGuests $0010))
 				(Bset fSawFifiJeevesTogether)
 				(HandsOff)
 				(= seconds 2)

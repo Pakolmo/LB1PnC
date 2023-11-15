@@ -61,7 +61,7 @@
 	(= butRow 0)
 	(= atX (= atY -1))
 	(= keepIt (= fixWidth (= buttonWide (= iconI (= editI (= buttonsUsed 0))))))
-	((= theDialog (Dialog new:)) window: gMyWindow name: {PrintD})
+	((= theDialog (Dialog new:)) window: myWindow name: {PrintD})
 	(= textI (DText new:))
 	(cond
 		((u< [args 0] 1000)
@@ -106,7 +106,7 @@
 				(= atY [args (++ i)])
 			)
 			(83
-				(Animate (gCast elements:) 0)
+				(Animate (cast elements:) 0)
 			)
 			(41
 				(++ i)
@@ -295,17 +295,21 @@
 
 	(method (enable bool)
 		(if bool
-			(|= state $0001)
+;;;			(|= state $0001)
+			(= state (| state $0001))
 		else
-			(&= state $fffe)
+		(= state (& state $fffe))
+;;;			(&= state $fffe)
 		)
 	)
 
 	(method (select bool)
 		(if bool
-			(|= state $0008)
+;;;			(|= state $0008)
+			(= state (| state $0008))
 		else
-			(&= state $fff7)
+;;;			(&= state $fff7)
+			(= state (& state $fff7))			
 		)
 		(self draw:)
 	)
@@ -650,8 +654,8 @@
 	)
 
 	(method (open wtype pri)
-		(if (and (PicNotValid) gCast)
-			(Animate (gCast elements:) 0)
+		(if (and (PicNotValid) cast)
+			(Animate (cast elements:) 0)
 		)
 		(= window (window new:))
 		(window

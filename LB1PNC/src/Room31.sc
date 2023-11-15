@@ -971,11 +971,11 @@
 								(PrintSpecial
 ;;;									{Derringer}
 ;;;									#button {Break case} 1
-;;;									#button {get case} 2
+;;;									#button {get derringer} 2
 
 									{C{pula}
 									#button {Romper} 1
-									#button {Coger} 3											
+									#button {Coger derringer} 3											
 
 								)
 							)
@@ -984,7 +984,7 @@
 									(DoVerb {break case})
 								)
 								(2
-									(DoVerb {get Derringer})
+									(DoVerb {get derringer})
 							
 								)
 															

@@ -924,7 +924,8 @@
 									(Print 6 17)
 									(= greetCued FALSE)
 								else
-									(|= global135 $0100)
+;;;									(|= global135 $0100)
+									(= global135 (| global135 $0100))
 									(Room6 setScript: lastGreet)
 								)
 							)

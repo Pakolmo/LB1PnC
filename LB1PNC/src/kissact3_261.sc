@@ -121,7 +121,8 @@
 						(= state -1)
 					)
 					((not (& global118 $0002))
-						(|= global118 $0002)
+;;;						(|= global118 $0002)
+						(= global118 (| global118 $0002))						
 						(|= global173 $0008)
 						(= [global368 2] 0)
 						(self setScript: (ScriptID 406 0))
@@ -333,7 +334,8 @@
 					(cond 
 						((not (& global207 $0010))
 							(= theTalker talkFIFI)
-							(|= global207 $0010)
+;;;							(|= global207 $0010)
+							(= global207 (| global207 $0010))							
 							(Say 0 261 3)
 						)
 						(fifiSleeping

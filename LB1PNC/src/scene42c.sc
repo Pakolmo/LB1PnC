@@ -85,7 +85,8 @@
 			init:
 		)
 		(myMusic number: 27 loop: -1 play:)
-		(|= global173 $0040)
+;;;		(|= global173 $0040)
+		(= global173 (| global173 $0040))		
 		(self setScript: stoke)
 	)
 	

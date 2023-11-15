@@ -136,7 +136,8 @@
 		;; Prepare View and add to cast.
 		
 		;Make sure that we're not going to be deleted on the next animation cycle.
-		(&= signal (~ delObj))
+;;;		(&= signal (~ delObj))
+		(= signal (& signal $7fff))
 		
 		;Set lastSeen to null rectangle if View is not currently in the cast.
 		(if (not (cast contains:self))
@@ -147,7 +148,8 @@
 			(= lsRight 0)
 			
 			;Ensure that HIDE and HIDDEN bits are not on.
-			(&= signal (~ (| hideActor actorHidden)))
+;;;			(&= signal (~ (| hideActor actorHidden)))
+			(= signal (& signal $ff77))
 		)
 		
 		;Set baseRect of the View.
@@ -183,21 +185,24 @@
 		;; later.
 		
 		(self startUpd:, hide:)
-		(|= signal delObj)
+;;;		(|= signal delObj)
+		(= signal (| signal $8000))
 	)
 	
 	
 	(method (hide)
 		;; Hide the object (remove from screen without removing from cast).
 		
-		(|= signal hideActor)
+;;;		(|= signal hideActor)
+		(= signal (| signal $0008))
 	)
 	
 	
 	(method (show)
 		;; Show a hidden object.
 		
-		(&= signal (~ hideActor))
+;;;		(&= signal (~ hideActor))
+		(= signal (& signal $fff7))
 	)
 	
 	
@@ -225,7 +230,8 @@
 			)
 			
 			;Ensure that this signal is not hanging around.
-			(&= signal (~ delObj))
+;;;			(&= signal (~ delObj))
+			(= signal (& signal $7fff))
 			
 			;Remove the object from the cast.
 			(cast delete:self)
@@ -247,21 +253,26 @@
 	
 	(method (stopUpd)
 		;; Set signal bits to request a stop update.
-		(|= signal stopUpdOn)
-		(&= signal (~ startUpdOn))
+;;;		(|= signal stopUpdOn)
+;;;		(&= signal (~ startUpdOn))
+		(= signal (| signal notUpd))
+		(= signal (& signal $fffd))
 	)
 	
 	
 	(method (forceUpd)
 		;; Set signal to request one forced update.
-		(|= signal forceUpdOn)
+;;;		(|= signal forceUpdOn)
+		(= signal (| signal $0040))
 	)
 	
 	
 	(method (startUpd)
 		;; Set signal bits to request a start update.
-		(|= signal startUpdOn)
-		(&= signal (~ stopUpdOn))
+;;;		(|= signal startUpdOn)
+;;;		(&= signal (~ stopUpdOn))
+		(= signal (| signal $0002))
+		(= signal (& signal $fffe))
 	)
 	
 	
@@ -274,14 +285,17 @@
 		
 		(cond
 			((== argc 0)
-				(|= signal fixPriOn)
+;;;				(|= signal fixPriOn)
+				(= signal (| signal fixPriOn))
 			)
 			((== newPri -1)
-				(&= signal (~ fixPriOn))
+;;;				(&= signal (~ fixPriOn))
+				(= signal (& signal $ffef))
 			)
 			(else
 				(= priority newPri)
-				(|= signal fixPriOn)
+;;;				(|= signal fixPriOn)
+				(= signal (| signal fixPriOn))
 			)
 		)
 		
@@ -299,14 +313,17 @@
 		
 		(cond
 			((== argc 0)
-				(|= signal fixedLoop)
+;;;				(|= signal fixedLoop)
+				(= signal (| signal noTurn))
 			)
 			((== newLoop -1)
-				(&= signal (~ fixedLoop))
+;;;				(&= signal (~ fixedLoop))
+				(= signal (& signal $f7ff))
 			)
 			(else
 				(= loop newLoop)
-				(|= signal fixedLoop)
+;;;				(|= signal fixedLoop)
+				(= signal (| signal noTurn))
 			)
 		)
 		
@@ -323,13 +340,16 @@
 		
 		(cond
 			((== argc 0)
-				(|= signal fixedCel)
+;;;				(|= signal fixedCel)
+				(= signal (| signal skipCheck))
 			)
 			((== newCel -1)
-				(&= signal (~ fixedCel))
+;;;				(&= signal (~ fixedCel))
+				(= signal (& signal $efff))
 			)
 			(else
-				(|= signal fixedCel)
+;;;				(|= signal fixedCel)
+				(= signal (| signal skipCheck))
 				(= cel 
 					(if (>= newCel (self lastCel:))
 						(self lastCel:)
@@ -351,9 +371,11 @@
 		;; collide.
 		
 		(if (or (== 0 argc) arg)
-			(|= signal ignrAct)
+;;;			(|= signal ignrAct)
+			(= signal (| signal ignAct))
 		else
-			(&= signal (~ ignrAct))
+;;;			(&= signal (~ ignrAct))
+			(= signal (& signal $bfff))
 		)
 	)  
 	
@@ -364,7 +386,8 @@
 		(if (not (cast contains: self))
 			(self init:)
 		)
-		(self signal:(| signal ADDTOPIC))
+;;;		(self signal:(| signal ADDTOPIC))
+		(self signal: (| signal $8021))
 	)
 	
 	
@@ -390,9 +413,11 @@
 		(= ret (& signal anExtra))
 		(if argc
 			(if value
-				(|= signal anExtra)
+;;;				(|= signal anExtra)
+				(= signal (| signal anExtra))
 			else
-				(&= signal (~ anExtra))
+;;;				(&= signal (~ anExtra))
+				(= signal (& signal $fdff))
 			)
 		)
 		(return ret)
@@ -607,7 +632,8 @@
 			(viewer doit: self)
 		)
 		
-		(&= signal (~ blocked))		;clear the blocked bit
+;;;		(&= signal (~ blocked))		;clear the blocked bit
+		(= signal (& signal $fbff))
 		
 		;Move the actor.  An avoider (which will call the mover itself)
 		;takes precedence over a mover.
@@ -775,38 +801,53 @@
 		;; the rooms horizon.  If arg is zero, require the actor to observe it.
 		
 		(if (or (not argc) arg)
-			(|= signal ignrHrz)
+;;;			(|= signal ignrHrz)
+			(= signal (| signal ignoreHorizon))
 		else
 			;Clear the bit
-			(&= signal (~ ignrHrz))
+;;;			(&= signal (~ ignrHrz))
+			(= signal (& signal $dfff))
 		)
 	)  
 	
 	
-	(method (observeControl ctrl &tmp i)
-		;; Set the controls which the actor cannot be on.
-		
-		(for	((= i 0))
-			(< i argc)
-			((++ i))
-			
-			(|= illegalBits [ctrl i])
+;;;	(method (observeControl ctrl &tmp i)
+;;;		;; Set the controls which the actor cannot be on.
+;;;		
+;;;		(for	((= i 0))
+;;;			(< i argc)
+;;;			((++ i))
+;;;			
+;;;			(|= illegalBits [ctrl i])
+;;;		)
+;;;	)
+;;;	
+	(method (observeControl bits &tmp temp0)
+		(= temp0 0)
+		(while (< temp0 argc)
+			(= illegalBits (| illegalBits [bits temp0]))
+			(++ temp0)
 		)
 	)
-	
-	
-	(method (ignoreControl ctrl &tmp i)
-		;; Set the controls which the actor can be on.
 		
-		(for	((= i 0))
-			(< i argc)
-			((++ i))
-			
-			(&= illegalBits (~ [ctrl i]))
+;;;	(method (ignoreControl ctrl &tmp i)
+;;;		;; Set the controls which the actor can be on.
+;;;		
+;;;		(for	((= i 0))
+;;;			(< i argc)
+;;;			((++ i))
+;;;			
+;;;			(&= illegalBits (~ [ctrl i]))
+;;;		)
+;;;	)
+;;;	
+	(method (ignoreControl bits &tmp temp0)
+		(= temp0 0)
+		(while (< temp0 argc)
+			(= illegalBits (& illegalBits (~ [bits temp0])))
+			(++ temp0)
 		)
-	)
-	
-	
+	)	
 	(method (observeBlocks)
 		;; Set the blocks (class Block) which an actor cannot be inside of.
 		

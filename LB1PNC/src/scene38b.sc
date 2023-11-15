@@ -81,7 +81,8 @@
 	
 	(method (dispose)
 		(super dispose:)
-		(|= global173 $0002)
+;;;		(|= global173 $0002)
+		(= global173 (| global173 $0002))
 	)
 	
 	(method (handleEvent event)

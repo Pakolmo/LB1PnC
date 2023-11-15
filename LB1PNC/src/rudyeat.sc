@@ -330,7 +330,8 @@
 						(= state -1)
 					)
 					((not (& global118 $0001))
-						(|= global118 $0001)
+						(= global118 (| global118 $0001))						
+;;;						(|= global118 $0001)
 						(self setScript: (ScriptID 406 0))
 						(= state -1)
 					)
@@ -472,7 +473,8 @@
 						(Say 1 403 19)
 					else
 						(Say 1 403 20)
-						(|= global145 $0080)
+;;;						(|= global145 $0080)
+						(= global145 (| global145 $0080))						
 						(rudyeat setScript: goSee)
 					)
 				else
@@ -487,7 +489,8 @@
 						(Say 1 403 21)
 					else
 						(Say 1 403 20)
-						(|= global145 $0080)
+;;;						(|= global145 $0080)
+						(= global145 (| global145 $0080))						
 						(rudyeat setScript: goSee)
 					)
 				else

@@ -109,7 +109,8 @@
 				(not (& deadGuests deadWILBUR))
 				(not (& deadGuests deadLILLIAN))
 			)
-			(|= deadGuests deadWILBUR)
+;;;			(|= deadGuests deadWILBUR)
+			(= deadGuests (| deadGuests deadWILBUR))			
 			(self setRegions: 256)
 		)
 		(ego

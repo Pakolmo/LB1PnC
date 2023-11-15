@@ -373,7 +373,8 @@
 			(or (MousedOn self event shiftDown) (Said 'examine/fifi'))
 				(event claimed: TRUE)
 				(if (not (& global207 $0010))
-					(|= global207 $0010)
+					(= global207 (| global207 $0010))
+;;;					(|= global207 $0010)
 					(= theTalker talkFIFI)
 					(Say 0 380 1)
 				else

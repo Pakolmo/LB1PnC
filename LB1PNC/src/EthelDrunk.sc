@@ -75,7 +75,8 @@
 			)
 			(Smashed number: 62 loop: -1 priority: 12 play:)
 			(= local84 1)
-			(|= global208 $0008)
+;;;			(|= global208 $0008)
+			(= global208 (| global208 $0008))
 			(Ethel
 				setCycle: Walk
 				ignoreHorizon: TRUE
@@ -122,7 +123,8 @@
 				(Smashed number: 62 loop: -1 priority: 12 play:)
 				(DisposeScript SAVE)
 				(= global113 (- 11 (/ [global368 0] 100)))
-				(|= global208 $0008)
+;;;				(|= global208 $0008)
+				(= global208 (| global208 $0008))
 				(= local84 1)
 				(Ethel
 					setCycle: Walk
@@ -371,7 +373,8 @@
 								(= local86 1)
 								(gDoor startUpd:)
 							)
-							(|= global118 $0004)
+;;;							(|= global118 $0004)
+							(= global118 (| global118 $0004))							
 							(self setScript: (ScriptID 406 0))
 							(= state -1)
 						)
@@ -410,7 +413,8 @@
 				(Smashed fade:)
 				(= gCurRoomNum_2 0)
 				(Ethel dispose:)
-				(&= global208 $fff7)
+;;;				(&= global208 $fff7)
+				(= global208 (& global208 $fff7))
 				(= [global377 3] 0)
 				(client setScript: 0)
 			)

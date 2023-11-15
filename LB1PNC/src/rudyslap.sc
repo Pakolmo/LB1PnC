@@ -43,7 +43,8 @@
 						(Say 1 241 0)
 					else
 						(Say 1 241 1)
-						(|= global145 $0080)
+;;;						(|= global145 $0080)
+						(= global145 (| global145 $0080))
 						(Rudy setScript: goSee)
 					)
 				else

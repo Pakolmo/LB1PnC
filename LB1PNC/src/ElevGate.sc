@@ -430,7 +430,8 @@
 								(!= upRoomNo -1)
 								(or (!= upRoomNo 75) (& global109 $0008))
 							)
-							(|= global109 $0040)
+;;;							(|= global109 $0040)
+							(= global109 (| global109 $0040))
 							(= global110 9)
 							(self cue:)
 						else
@@ -448,7 +449,8 @@
 					)
 					(if (& global109 $0010)
 						(if (!= downRoomNo -1)
-							(|= global109 $0040)
+;;;							(|= global109 $0040)
+							(= global109 (| global109 $0040))
 							(= global110 12)
 							(self cue:)
 						else
@@ -466,7 +468,8 @@
 						(if (ego has: iBrassKey)
 							(if (& global109 $0008)
 								(Print 201 9)
-								(&= global109 $fff7)
+								(= global109 (& global109 $fff7))
+;;;								(&= global109 $fff7)
 							else
 								(Print 201 10)
 							)
@@ -488,7 +491,8 @@
 								(Print 201 12)
 							else
 								(Print 201 9)
-								(|= global109 $0008)
+;;;								(|= global109 $0008)
+								(= global109 (| global109 $0008))
 							)
 						else
 							(Print 201 11)
@@ -564,14 +568,16 @@
 						(Print msgID)
 					)
 					(HandsOn)
-					(&= global109 $ffef)
+;;;					(&= global109 $ffef)
+					(= global109 (& global109 $ffef))
 					(= global110 -1)
 					(self cue:)
 				)
 			)
 			(6
 				(HandsOff)
-				(|= global109 $0010)
+;;;				(|= global109 $0010)
+				(= global109 (| global109 $0010))
 				(self gateFunc: 1 -1)
 				(ego
 					setMotion: MoveTo elevX (+ gateY (ego yStep?))

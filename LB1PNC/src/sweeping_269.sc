@@ -78,7 +78,8 @@
 				(= gDoor 1)
 			)
 			(2
-				(|= global141 $0002)
+;;;				(|= global141 $0002)
+				(= global141 (| global141 $0002))				
 				(Jeeves view: 459 cel: 0 loop: 1 setCycle: EndLoop self)
 			)
 			(3
@@ -143,7 +144,8 @@
 					(or (MousedOn self event 3) (Said 'look/butler'))
 				)
 				(= theTalker 11)
-				(|= global207 $0400)
+;;;				(|= global207 $0400)
+				(= global207 (| global207 $0400))
 				(event claimed: 1)
 				(Say 0 269 1) ; "Jeeves is the Colonel's imposing butler. Though you find him somewhat good-looking, he nevertheless gives off a disconcerting feeling of secretiveness. You have noticed that Jeeves generally keeps to himself and seems to talk in little more than monosyllables. You wonder about him."
 			)

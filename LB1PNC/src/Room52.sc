@@ -51,7 +51,8 @@
 		(= horizon 0)
 		(super init:)
 		(addToPics add: rags tub eachElementDo: #init doit:)
-		(|= deadGuests $003f)
+;;;		(|= deadGuests $003f)
+		(= deadGuests (| deadGuests $003f))		
 		(self
 			setRegions: 242
 			setFeatures:
@@ -188,7 +189,9 @@
 				(= theTalker 25)
 				(Say 0 52 1)
 				(Print 52 2)
-				(|= global205 $0002)
+;;;				(|= global205 $0002)
+				(= global205 (| global205 $0002))
+				
 				(= global200 101)
 			)
 			(else
@@ -825,7 +828,8 @@
 			)
 			(6
 				(panelCrank setCycle: EndLoop self)
-				(|= global205 $0001)
+;;;				(|= global205 $0001)
+				(= global205 (| global205 $0001))				
 			)
 			(7
 				(cls)

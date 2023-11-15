@@ -165,7 +165,8 @@
 			)
 			(2
 				(if (not (& deadGuests deadETHEL))
-					(|= deadGuests deadETHEL)
+;;;					(|= deadGuests deadETHEL)
+					(= deadGuests (| deadGuests $0008))					
 					(myMusic play:)
 					(if (!= curRoomNum 61)
 						(Print 268 10
