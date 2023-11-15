@@ -94,6 +94,9 @@
 						(995
 							(DoVerb {examine in fifi})
 						)
+						(994
+							(DoVerb {hear fifi})
+						)						
 						(996
 							(DoVerb {converse fifi})
 						)		

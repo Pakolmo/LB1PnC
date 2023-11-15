@@ -1,5 +1,5 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-(script# 74)
+(script# 74) ;244  261 273
 (include game.sh)
 (use Main)
 (use Intrface)
@@ -33,6 +33,7 @@
 	saveVolume
 	local9
 	local10
+	temp7
 )
 (procedure (localproc_000c)
 	(if local7
@@ -321,6 +322,716 @@
 	
 	(method (handleEvent event &tmp temp0)
 		(DisposeScript SAVE)
+		
+		
+		
+		(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)
+				(if (ClickedOnPicView wardrobe (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor	
+						(995
+							(DoVerb {open armoire}) 
+						)
+						(998
+							(DoVerb {examine armoire}) 
+						)
+						(else
+							(event claimed: FALSE)
+						)
+				
+					)
+					
+				)							
+				(if (ClickedOnPicView sofa (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998
+							(DoVerb {examine couch}) 
+						)
+						(else
+							(event claimed: FALSE)
+						)
+				
+					)
+					
+				)		
+				(if (ClickedOnPicView table1 (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998
+							(event claimed: TRUE)
+							(Print 74 18) 
+						)
+						(else
+							(event claimed: FALSE)
+						)
+				
+					)
+					
+				)	
+				(if (ClickedOnPicView bed (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998
+							(= temp7
+												(Print
+;;;													{Bed}
+;;;													#button {Examine} 1
+;;;													#button {Examine below} 2	
+													{Cama}
+													#button {Examinar} 1
+													#button {Mirar debajo} 2								
+													
+												)
+											)
+											(switch temp7
+												(1 ;
+													(DoVerb {examine bed})
+												)
+												(2
+														(event claimed: TRUE)
+														(DoLook {bed})
+												)
+												(else
+														(event claimed: FALSE)
+												)
+										
+											)
+											
+										)
+										(else
+							(event claimed: FALSE)
+						)
+				
+					)
+					
+				)	
+
+
+				(if (ClickedOnPicView mirror (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998
+							(= temp7
+												(Print
+;;;													{Mirror}
+;;;													#button {reflection} 1
+;;;													#button {Examine below} 2	
+;;;													#button {Examine} 3
+;;;													#button {Get} 4
+													{Espejo}
+													#button {Reflejo} 1
+													#button {Mirar debajo} 2								
+													#button {Mirar} 3
+													#button {Coger} 4
+													
+												)
+											)
+											(switch temp7
+												(1 ;
+													(DoVerb {examine in mirror})
+												)
+												(2
+													(DoVerb {examine below mirror})
+												)
+												(3
+													(DoVerb {examine mirror})
+												)
+												(4
+													(DoVerb {get mirror})
+												)
+												(else
+														(event claimed: FALSE)
+												)
+											)
+						)
+						(995
+							(DoVerb {open mirror})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)	
+
+				(if (or (ClickedOnPicView chair1 (event x?) (event y?)) 
+					(ClickedOnPicView chair2 (event x?) (event y?)) )
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998
+							(event claimed: TRUE)
+							(DoLook {chair})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)	
+				(if (ClickedOnPicView table2 (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998
+									(if
+										(and
+											(>= currentAct 2)
+											(< currentAct 6)
+											(or (MousedOn self event shiftDown) (Said 'examine/nightstand'))
+										)
+										(if (== currentAct 5)
+											(if local4
+												(Print 74 26)
+											else
+												(Print 74 27)
+											)
+										else
+											(Print 74 28)
+										)
+										(event claimed: TRUE)
+									)
+									(if (MousedOn self event shiftDown)
+										(event claimed: TRUE)
+										(DoLook {table})
+									)
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)	
+				(if (ClickedOnPicView glasses (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor	
+						(995
+							(= temp7
+												(Print
+;;;													{Glass}
+;;;													#button {Get} 1
+;;;													#button {Examine in} 2	
+													{Vaso}
+													#button {Coger} 1
+													#button {Mirar dentro} 2								
+													
+												)
+											)
+											(switch temp7
+												(1 ;
+													(DoVerb {get glass})
+												)
+												(2	
+													(DoVerb {examine in glass})							
+												)
+												(else
+														(event claimed: FALSE)
+												)
+											)
+						)
+						(998
+							(DoVerb {examine glass})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+				
+				(if (ClickedOnPicView decanter (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor	
+						(604 ;monocle
+							(DoVerb {examine fingerprint})
+						)
+						
+						
+						(998		
+						(= temp7
+												(Print
+;;;													{Decanter}
+;;;													#button {Examine in} 1
+;;;													#button {Examine} 2	
+													{Vaso}
+													#button {Coger} 1
+													#button {Mirar dentro} 2								
+													
+												)
+											)
+											(switch temp7
+												(1 ;
+													(DoVerb {get decanter})
+												)
+												(2	
+													(DoVerb {examine in decanter})							
+												)
+												(else
+														(event claimed: FALSE)
+												)
+											)
+						)
+						(995
+							(DoVerb {examine decanter})	
+						)				
+						(else
+							(event claimed: FALSE)
+							)
+						)
+					)
+					(if (ClickedOnPicView photo (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(event claimed: TRUE)
+							(DoLook {picture})
+						)
+						(else
+							(event claimed: FALSE)
+							)
+						)
+					)							
+					(if (ClickedOnPicView phono (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(= temp7
+												(Print
+;;;													{Gramophone}
+;;;													#button {Examine gramophone} 1
+;;;													#button {Examine record} 2	
+													{Gram/fono}
+													#button {Examinar gram/fono} 1
+													#button {Examinar disco} 2								
+													
+												)
+											)
+											(switch temp7
+												(1 ;
+													(DoVerb {examine record})
+												)
+												(2	
+													(DoVerb {examine gramophone})							
+												)
+												(else
+														(event claimed: FALSE)
+												)
+											)
+						)
+						(995
+													(= temp7
+												(Print
+;;;													{Phono}
+;;;													#button {Cease} 1
+;;;													#button {Play} 2	
+													{Fon/grafo}
+													#button {Parar} 1
+													#button {Tocar} 2								
+													
+												)
+											)
+											(switch temp7
+												(1 ;
+													(DoVerb {cease record})
+												)
+												(2	
+													(DoVerb {play music})							
+												)
+												(else
+														(event claimed: FALSE)
+												)
+											)
+						)
+						(else
+							(event claimed: FALSE)
+							)
+						)
+					)		
+						(if (ClickedOnObj flowers (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(995
+							(DoVerb {get blossom})
+						)
+						(998
+							(DoVerb {examine blossom})
+						)
+						(else
+							(event claimed: FALSE)
+							)
+						)
+					)	
+;;;					(if (ClickedOnObj lamp1 (event x?) (event y?)) ;Not sense
+;;;					
+;;;					(event claimed: TRUE)
+;;;					(switch theCursor
+;;;						(995
+;;;									(= temp7
+;;;												(Print
+;;;;;;													{Lamp}
+;;;;;;													#button {Change cloth} 1
+;;;;;;													#button {Get cloth} 2	
+;;;;;;													#button {Close curtain} 3	
+;;;
+;;;
+;;;													{L*mpara}
+;;;													#button {Cambiar ropa} 1
+;;;													#button {Coger ropa} 2								
+;;;													#button {Cerrar cortina} 3
+;;;												)
+;;;											)
+;;;											(switch temp7
+;;;												(1 ;
+;;;													(DoVerb {change cloth})
+;;;												)
+;;;												(2	
+;;;													(DoVerb {get cloth})							
+;;;												)
+;;;												(3
+;;;													(DoVerb {close curtain})							
+;;;												)												
+;;;												(else
+;;;														(event claimed: FALSE)
+;;;												)
+;;;											)
+;;;						)
+;;;						(998
+;;;									(= temp7
+;;;												(Print
+;;;;;;													{Lamp}
+;;;;;;													#button {Examine below} 1
+;;;;;;													#button {Examine} 2	
+;;;;;;													#button {Examinar cloth} 3
+;;;													{L*mpara}
+;;;													#button {Mirar debajo} 1
+;;;													#button {Examinar} 2								
+;;;													#button {Examinar ropa} 3
+;;;												)
+;;;											)
+;;;											(switch temp7
+;;;												(1 ;
+;;;													(DoVerb {examine below lamp})
+;;;												)
+;;;												(2	
+;;;													(DoVerb {examine lamp})							
+;;;												)
+;;;												(3	
+;;;													(DoVerb {examine cloth})							
+;;;												)												
+;;;												(else
+;;;														(event claimed: FALSE)
+;;;												)
+;;;											)
+;;;						)							
+;;;						(else
+;;;							(event claimed: FALSE)
+;;;						)
+;;;					)
+;;;				)						
+					(if (ClickedOnObj lamp2 (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(995					
+							(DoVerb {get lamp})
+						)
+						(998
+							(event claimed: TRUE)
+							(DoLook {lamp})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)		
+				(if (ClickedOnObj door (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(995
+	(= temp7
+												(Print
+;;;													{Door}
+;;;													#button {Open} 1
+;;;													#button {Close} 2	
+;;;													#button {Bang} 3
+;;;													#button {Enter} 4
+													{Puerta}
+													#button {Abrir} 1
+													#button {Cerrar} 2								
+													#button {Golpear} 3
+													#button {Entrar} 4
+												)
+											)
+											(switch temp7
+												(1 ;
+													(DoVerb {open door})
+												)
+												(2	
+													(DoVerb {close door})							
+												)
+												(3	
+													(DoVerb {bang door})							
+												)
+												(4	
+													(DoVerb {go in attic})							
+												)																								
+												(else
+														(event claimed: FALSE)
+												)
+											)
+						)									
+						(619 ;skeletonkey
+							(DoVerb {unbar door})	
+						)
+						(998
+							(= temp7
+												(Print
+;;;													{Door}
+;;;													#button {Examine door} 1
+;;;													#button {Examine keyhole} 2	
+													{Door}
+													#button {Examinar puerta} 1
+													#button {Examinar cerradura} 2								
+												)
+											)
+											(switch temp7
+												(1 ;
+													(DoVerb {examine door attic})
+												)
+												(2	
+													(DoVerb {examine keyhole})							
+												)							
+												(else
+														(event claimed: FALSE)
+												)
+											)
+						)						
+				(else
+							(event claimed: FALSE)
+						)
+					)
+				)		
+				(if (ClickedOnObj Tswing (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(DoVerb {examine door swinging})
+									(if
+										(and
+											(== local2 2)
+											(or
+												(MousedOn self event shiftDown)
+												(Said 'examine/door[<swinging]')
+											)
+										)
+										(Print 74 65)
+										(event claimed: TRUE)
+									)
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)	
+				
+					(if (ClickedOnObj Bswing (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor
+						(998	
+							(DoVerb {examine door swinging})		
+							(if
+								(and
+									(== local2 2)
+									(or
+										(MousedOn self event shiftDown)
+										(Said 'examine/door[<swinging]')
+									)
+								)
+								(Print 74 65)
+								(event claimed: TRUE)
+							)
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)	
+				(if (and (ClickedOnObj Fifi (event x?) (event y?)) 
+					(not local7))
+					(event claimed: TRUE)
+					(switch theCursor
+						(998	
+								(if (not (& global207 $0010))
+									(= global207 (| global207 $0010))						
+			;;;						(|= global207 $0010)
+									(Say 0 74 73)
+								else
+									(Print 74 74)
+								)	
+						)
+				
+					(602 ;necklace_
+						(DoVerb {tell fifi about necklace})						
+					)
+					(604 ;monocle
+						(DoVerb {tell fifi about monocle})						
+					)
+					
+					(613 ;lantern_
+						(DoVerb {tell fifi about lantern})						
+					)
+					(611 ;oilcan_
+						(DoVerb {tell fifi about oilcan})						
+					)
+					(626 ;rolling_pin_
+						(DoVerb {tell fifi about pin})						
+					)
+					(620 ;skeleton_key_
+						(DoVerb {tell fifi about skeleton key})						
+					)
+					(627 ;poker_
+						(DoVerb {tell fifi about poker})						
+					)															
+					(607 ;crowbar_
+						(DoVerb {tell fifi about crowbar})						
+					)
+					(628 ;cigar_butt_
+						(DoVerb {tell fifi about butt})						
+					)
+					(625 ;broken_record_
+						(DoVerb {tell fifi about broken record})						
+					)
+					(601 ;notebook___pencil_
+						(DoVerb {tell fifi about notebook})						
+					)
+					(603 ;_7_crackers________
+						(DoVerb {tell fifi about crackers})						
+					)
+					(605 ;soup_bone_
+						(DoVerb {tell fifi about soup bone})						
+					)
+					(606 ;valve_handle_
+						(DoVerb {tell fifi about valve})						
+					)
+					(618 ;bullet_
+						(DoVerb {tell fifi about bullet})						
+					)
+					(617 ;derringer__
+						(DoVerb {tell fifi about derringer})						
+					)
+					(614 ;matches_
+						(DoVerb {tell fifi about matches})						
+					)
+					(615 ;carrot_
+						(DoVerb {tell fifi about carrot})						
+					)
+					(619 ;brass_key_
+						(DoVerb {tell fifi about brass key})						
+					)
+					(616 ;diary_
+						(DoVerb {tell fifi about diary})						
+					)
+					(621 ;crank_
+						(DoVerb {tell fifi about crank})						
+					)
+					(612 ;cane_
+						(DoVerb {tell fifi about cane})						
+					)
+					(622 ;pouch_
+						(DoVerb {tell fifi about pouch})						
+					)																																																																																
+					(630 ;handkerchief_
+						(DoVerb {tell fifi about handkerchief})
+					)
+											
+						
+						
+						
+						
+							(930  ;gertrude
+								(event type: 1 claimed: 1)
+								(DoVerb {ask fifi about Gertrude})
+							)
+							(931 ;Celie
+								(event type: 1 claimed: 1)
+								(DoVerb {ask fifi about Celie})
+							)	
+							(932 ;Gloria
+								(event type: 1 claimed: 1)
+								(DoVerb {ask fifi about Gloria})
+							)													
+							(933 ;Ethel
+								(event type: 1 claimed: 1)
+								(DoVerb {ask fifi about Ethel})
+							)	
+							(934 ;Fifi
+								(event type: 1 claimed: 1)
+								(DoVerb {ask fifi about Fifi})
+							)	
+							(935 ;Lillian
+								(event type: 1 claimed: 1)
+								(DoVerb {ask fifi about Lillian})
+							)																					
+							(936 ;Clarence
+								(event type: 1 claimed: 1)
+								(DoVerb {ask fifi about Clarence})
+							)	
+							(937 ;Feels
+								(event type: 1 claimed: 1)
+								(DoVerb {ask fifi about Wilbur})
+							)
+							(938 ;Rudy
+								(event type: 1 claimed: 1)
+								(DoVerb {ask fifi about Rudy})
+							)	
+							(939 ;Colonel
+								(event type: 1 claimed: 1)
+								(DoVerb {ask fifi about Colonel})
+							)
+							(940 ;Jules
+								(event type: 1 claimed: 1)
+								(DoVerb {ask fifi about Jules})
+							)
+							(941 ;Dog
+								(event type: 1 claimed: 1)
+								(DoVerb {ask fifi about beauregard})
+							)													
+							(942 ;Parrot
+								(event type: 1 claimed: 1)
+								(DoVerb {ask fifi about polly})
+							)							
+							(943 ;Horse
+								(event type: 1 claimed: 1)
+								(DoVerb {ask fifi about blaze})
+							)							
+													
+							
+							
+						(994	
+							(DoVerb {hear Fifi})
+						)							
+						(996 ;talk
+							(DoVerb {converse Fifi})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)						
+				
+				
+				
+				
+			)
+		)	
+										
 		(if (event claimed?) (return TRUE))
 		(return
 			(if (== (event type?) saidEvent)
