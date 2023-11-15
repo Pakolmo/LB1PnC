@@ -752,6 +752,52 @@
 						)
 					)
 				)		
+
+				(if (ClickedOnObj Tswing (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(DoVerb {examine door swinging})
+									(if
+										(and
+											(== local2 2)
+											(or
+												(MousedOn self event shiftDown)
+												(Said 'examine/door[<swinging]')
+											)
+										)
+										(Print 74 65)
+										(event claimed: TRUE)
+									)
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)	
+				
+					(if (ClickedOnObj Bswing (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor
+						(998	
+							(DoVerb {examine door swinging})		
+							(if
+								(and
+									(== local2 2)
+									(or
+										(MousedOn self event shiftDown)
+										(Said 'examine/door[<swinging]')
+									)
+								)
+								(Print 74 65)
+								(event claimed: TRUE)
+							)
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)	
 				(if (ClickedOnObj door (event x?) (event y?)) 
 					
 					(event claimed: TRUE)
@@ -819,54 +865,9 @@
 							(event claimed: FALSE)
 						)
 					)
-				)		
-				(if (ClickedOnObj Tswing (event x?) (event y?)) 
-					(event claimed: TRUE)
-					(switch theCursor
-						(998
-							(DoVerb {examine door swinging})
-									(if
-										(and
-											(== local2 2)
-											(or
-												(MousedOn self event shiftDown)
-												(Said 'examine/door[<swinging]')
-											)
-										)
-										(Print 74 65)
-										(event claimed: TRUE)
-									)
-						)
-						(else
-							(event claimed: FALSE)
-						)
-					)
-				)	
-				
-					(if (ClickedOnObj Bswing (event x?) (event y?)) 
-					(event claimed: TRUE)
-					(switch theCursor
-						(998	
-							(DoVerb {examine door swinging})		
-							(if
-								(and
-									(== local2 2)
-									(or
-										(MousedOn self event shiftDown)
-										(Said 'examine/door[<swinging]')
-									)
-								)
-								(Print 74 65)
-								(event claimed: TRUE)
-							)
-						)
-						(else
-							(event claimed: FALSE)
-						)
-					)
-				)	
-				(if (and (ClickedOnObj Fifi (event x?) (event y?)) 
-					(not local7))
+				)						
+				(if (ClickedOnObj Fifi (event x?) (event y?)) 
+;;;					(not local7))
 					(event claimed: TRUE)
 					(switch theCursor
 						(998	

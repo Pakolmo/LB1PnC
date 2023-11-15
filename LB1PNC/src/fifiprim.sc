@@ -30,7 +30,69 @@
 		signal fixPriOn
 	)
 	
+	
+	(method (handleEvent event)	
+		(if (> (ego x?) 64)
+			(cond 
+				((Said 'hear/fifi')
+					(Print 244 0)
+				)
+				((Said 'converse/fifi')
+					(= theTalker talkFIFI)
+					(switch talkCount
+						(0 (Say 1 244 1))
+						(1 (Say 1 244 2))
+						(2 (Say 1 244 3))
+						(else  (Say 1 244 4))
+					)
+					(++ talkCount)
+				)
+				((and (MousedOn self event shiftDown) (not (& global207 $0010)))
+					(event claimed: TRUE)
+					(DoLook {fifi})
+				)
+				(
+					(and
+						(& global207 $0010)
+						(or (MousedOn self event shiftDown) (Said 'examine/fifi'))
+					)
+					(event claimed: TRUE)
+					(Print 244 5)
+				)
+			)
+		)
+	)
+)
+
+(instance fifiprim of Region
+	
+	(method (init)
+		(super init:)
+		(Bset 20)
+		(LoadMany 143 243 250)
+		(Load VIEW 904)
+		(= global208 16)
+		(= [global377 4] 250)
+		(LoadMany SOUND 224 229)
+		(Fifi init: stopUpd:)
+		(FifiButt init: stopUpd:)
+	)
+	
+	(method (doit)
+		(if (and (> (ego x?) 64) (not script))
+			(self setScript: primp)
+			(gDoor init: setScript: playRecord)
+		)
+		(super doit:)
+	)
+	
+	(method (dispose)
+		(super dispose:)
+	)
+	
 	(method (handleEvent event)
+		
+
 		(cond
 			(
 				(and
@@ -186,6 +248,7 @@
 							(DoVerb {converse Fifi})
 						)	
 						(998
+							(DoVerb {examine Fifi})
 							(cond
 								 ((not (& global207 $0010))
 									(event claimed: TRUE)
@@ -210,67 +273,8 @@
 					
 				)	
 			)
-		)
+		)		
 		
-		(if (> (ego x?) 64)
-			(cond 
-				((Said 'hear/fifi')
-					(Print 244 0)
-				)
-				((Said 'converse/fifi')
-					(= theTalker talkFIFI)
-					(switch talkCount
-						(0 (Say 1 244 1))
-						(1 (Say 1 244 2))
-						(2 (Say 1 244 3))
-						(else  (Say 1 244 4))
-					)
-					(++ talkCount)
-				)
-				((and (MousedOn self event shiftDown) (not (& global207 $0010)))
-					(event claimed: TRUE)
-					(DoLook {fifi})
-				)
-				(
-					(and
-						(& global207 $0010)
-						(or (MousedOn self event shiftDown) (Said 'examine/fifi'))
-					)
-					(event claimed: TRUE)
-					(Print 244 5)
-				)
-			)
-		)
-	)
-)
-
-(instance fifiprim of Region
-	
-	(method (init)
-		(super init:)
-		(Bset 20)
-		(LoadMany 143 243 250)
-		(Load VIEW 904)
-		(= global208 16)
-		(= [global377 4] 250)
-		(LoadMany SOUND 224 229)
-		(Fifi init: stopUpd:)
-		(FifiButt init: stopUpd:)
-	)
-	
-	(method (doit)
-		(if (and (> (ego x?) 64) (not script))
-			(self setScript: primp)
-			(gDoor init: setScript: playRecord)
-		)
-		(super doit:)
-	)
-	
-	(method (dispose)
-		(super dispose:)
-	)
-	
-	(method (handleEvent event)
 		(return (if (event claimed?) (return TRUE) else FALSE))
 	)
 )
