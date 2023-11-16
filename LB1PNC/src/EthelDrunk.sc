@@ -319,6 +319,9 @@
 						(996
 							(DoVerb {Talk Ethel})	
 						)	
+						(994
+							(DoVerb {hear Ethel})	
+						)						
 						(else
 						
 							(event claimed: FALSE)

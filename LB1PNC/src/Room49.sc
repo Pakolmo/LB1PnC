@@ -95,6 +95,7 @@
 	
 	(method (init)
 		(HandsOn)
+		(ego get: iCane) ;TEST
 		(if
 			(or
 				(< prevRoomNum 40)

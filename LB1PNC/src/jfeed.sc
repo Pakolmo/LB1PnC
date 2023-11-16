@@ -46,6 +46,7 @@
 			(if (or (> global155 1) (> currentAct 1))
 				(= global162 1)
 				(= dogState 2)
+				
 				(Rover
 					view: 520
 					illegalBits: 0
@@ -60,6 +61,7 @@
 			else
 				(Rover view: 520 posn: 340 160 init:)
 			)
+			(ego get: 35) ;inv dog.
 			(= gMySound Rover)
 		)
 		(if (and (< global155 2) (== currentAct 1))

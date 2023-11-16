@@ -1,5 +1,5 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-(script# 38)
+(script# 38) ;378, 217 238 267 272
 (include game.sh)
 (use Main)
 (use Intrface)
@@ -26,6 +26,7 @@
 	local4
 	local5
 	firstTime
+	temp7
 )
 (instance Room38 of Room
 	(properties
@@ -232,6 +233,386 @@
 	)
 	
 	(method (handleEvent event &tmp temp0)
+
+		
+		(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)
+				(if (ClickedOnPicView bar (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998	
+							
+							
+							(= temp7
+							(PrintSpecial
+								{Bar}
+;;;								#button {Examine} 1
+;;;								#button {Look} 2
+								#button {Examinar} 1
+								#button {Mirar} 2
+							)
+							)
+						
+						(switch temp7
+							(1
+							    (DoVerb {examine in bar})
+							)
+							(2
+								(DoVerb {examine bar})
+							)
+							(else
+								(event claimed: FALSE)
+							)
+										
+						)
+						)(else
+								(event claimed: FALSE)
+							)
+					)
+				)
+				(if (ClickedOnPicView table3 (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998						
+							(event claimed: TRUE)
+							(DoLook {table})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+				(if (ClickedOnPicView statue (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998						
+							(DoVerb {examine monument})
+						)
+						(995						
+							(DoVerb {get monument})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)							
+				(if (or (ClickedOnPicView sofa1 (event x?) (event y?)) 
+						(ClickedOnPicView sofa2 (event x?) (event y?)) )
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998						
+							(DoVerb {look sofa})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)							
+				(if (ClickedOnPicView portrait (event x?) (event y?)) 	
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(= temp7
+							(PrintSpecial
+;;;								{Portrait}
+;;;								#button {Get} 1
+;;;								#button {Open} 2
+
+								{Retrato}
+								#button {Coger} 1
+								#button {Abrir} 2
+								
+							)
+							)
+
+						(switch temp7
+							(1
+							    (DoVerb {examine behind painting})
+							)
+							(2
+							    (DoVerb {examine painting})
+							)
+							(else
+								(event claimed: FALSE)
+							)							
+							
+						)
+						)		
+						(995						
+							(= temp7
+							(PrintSpecial
+;;;								{Portrait}
+;;;								#button {Examine behind} 1
+;;;								#button {Look} 2
+;;;								#button {Examine eye} 3
+								{Retrato}
+								#button {Examinar} 1
+								#button {Mirar} 2
+								#button {Mirar ojo} 3								
+							)
+							)
+
+						(switch temp7
+							(1
+							    (DoVerb {examine behind painting})
+							)
+							(2
+							    (DoVerb {examine painting})
+							)							
+						
+							(3
+							    (DoVerb {examine eye})
+							)						
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)	
+				(else
+							(event claimed: FALSE)
+						)
+					)
+				)		
+				(if (ClickedOnPicView horse (event x?) (event y?)) 	
+					(event claimed: TRUE)
+					(switch theCursor
+						(995
+							(DoVerb {get blaze})
+						)
+						(998
+							(DoVerb {examine blaze})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)	
+				(if (or (ClickedOnPicView chair1 (event x?) (event y?)) 	
+						(ClickedOnPicView chair2 (event x?) (event y?)) 
+						(ClickedOnPicView chair3 (event x?) (event y?)) 
+						(ClickedOnPicView chair4 (event x?) (event y?)) )
+					(event claimed: TRUE)
+					(switch theCursor
+						(995
+							(DoVerb {get chair})
+						)
+						(998
+							(DoVerb {examine chair})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)	
+				(if (or (ClickedOnPicView table1 (event x?) (event y?)) 	
+						(ClickedOnPicView table2 (event x?) (event y?)) )	
+					(event claimed: TRUE)
+					(switch theCursor
+						(995
+							(DoVerb {get chair})
+						)
+						(998
+							(DoVerb {examine chair})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)	
+				(if (ClickedOnPicView couch (event x?) (event y?)) 	
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(DoVerb {examine couch})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)	
+				(if (ClickedOnObj decantar (event x?) (event y?)) 	
+					(event claimed: TRUE)
+					(switch theCursor
+						(995
+							(DoVerb {drink alcohol})
+						)
+						(998
+								(= temp7
+							(PrintSpecial
+;;;								{Decanter}
+;;;								#button {Examine alcohol} 1
+;;;								#button {examine in} 2
+;;;								#button {Look} 3
+								{Retrato}
+								#button {Examinar alcohol} 1
+								#button {Mirar dentro} 2
+								#button {Mirar} 3								
+							)
+							)
+
+						(switch temp7
+							(1
+							    (DoVerb {examine alcohol})
+							)
+							(2
+							    (DoVerb {examine in decanter})
+							)
+							(3
+							    (DoVerb {examine decanter})
+							)
+							(else
+							(event claimed: FALSE)
+							)
+						)
+						)					
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)	
+				
+				(if (ClickedOnPicView glass (event x?) (event y?)) 	
+					(event claimed: TRUE)
+					(switch theCursor
+						(604 ; Monocle
+							(DoVerb {use monocle glass})
+						)
+						(995
+						(= temp7
+							(PrintSpecial
+;;;								{Glass}
+;;;								#button {Examine in} 1
+;;;								#button {examine} 2
+
+								{Vaso}
+								#button {Examinar dentro} 1
+								#button {Examinar} 2
+								
+							)
+							)
+
+						(switch temp7
+							(1
+							    (DoVerb {examine in glass})
+							)
+							(2
+							    (DoVerb {examine glass})
+							)
+							(else
+								(event claimed: FALSE)
+						)
+					)
+				)	
+				(else
+							(event claimed: FALSE)
+						)
+					)
+				)	
+				(if (or (ClickedOnPicView stool1 (event x?) (event y?)) 	
+						(ClickedOnPicView stool2 (event x?) (event y?)) )	
+					(event claimed: TRUE)
+					(switch theCursor
+						(998 	
+							(event claimed: TRUE)
+							(DoLook {chair})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)	
+				(if (ClickedOnObj Fdoor (event x?) (event y?)) 	
+				(event claimed: TRUE)
+					(switch theCursor
+						(998 			
+							(DoVerb {examine door})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)	
+				(if (or (ClickedOnObj lamp1 (event x?) (event y?)) 	
+						(ClickedOnObj lamp2 (event x?) (event y?)) 	)
+				(event claimed: TRUE)
+					(switch theCursor
+						(998 			
+							(event claimed: TRUE)
+							(DoLook {lamp})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)				
+				(if (ClickedOnObj parrot (event x?) (event y?)) 
+				(event claimed: TRUE)
+					(switch theCursor
+						(996
+							(DoVerb {converse parrot})
+						)
+
+							
+						
+						(994
+							(DoVerb {hear parrot})
+						)
+						(998
+							
+							(DoVerb {Examine parrot})
+							
+							
+						)
+						(995 	
+						(= temp7
+							(PrintSpecial
+;;;								{Parrot}
+;;;								#button {Deliver} 1
+;;;								#button {Capture} 2
+;;;								#button {Kill} 3
+								{Loro}
+								#button {Alimentar} 1
+								#button {Capturar} 2
+								#button {Matar} 3							
+							)
+							)
+
+						(switch temp7
+							(1
+							    (DoVerb {Deliver parrot food})
+							)
+							(2
+							    (DoVerb {get parrot})
+							)
+							(3
+							    (DoVerb {kill parrot})
+							)
+							(else
+							(event claimed: FALSE)
+						)
+					)
+				)	
+				(else
+							(event claimed: FALSE)
+						)
+					)
+				)	
+				
+				
+				
+				
+				
+				
+				
+					
+			)
+		)
+	
+		
 		(if (event claimed?) (return TRUE))
 		(if (== (event type?) saidEvent)
 			(DisposeScript SAVE)

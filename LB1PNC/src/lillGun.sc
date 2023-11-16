@@ -580,7 +580,6 @@
 					else
 ;;;						(|= global145 $0001)
 						(= global145 (| global145 $0001))
-						global118						
 						(self setScript: goSee)
 						(event claimed: TRUE)
 					)

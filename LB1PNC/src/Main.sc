@@ -1135,8 +1135,8 @@
 				carrot_
 				brass_key_
 				diary_
-				crank_
-				cane_
+				crank_ ;20
+				cane_ ;21
 				pouch_
 				handkerchief_
 				Celie ;24

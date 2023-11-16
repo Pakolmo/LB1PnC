@@ -493,7 +493,7 @@
 ;;;								#button {Ethel} 3
 								{Vaso}
 								#button {Examinar} 1
-								#button {Pa>uelo} 2
+								#button {Pa=uelo} 2
 								#button {Ethel} 3
 							)
 							)

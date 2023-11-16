@@ -138,105 +138,7 @@
 	)
 	
 	(method (handleEvent event)
-		(super handleEvent: event)
-		(if (event claimed?) (return))
-		(if
-			(and
-				global208
-				(Said
-					'ask,tell,hold,deliver,examine,get,kill,kiss,embrace,flirt>'
-				)
-			)
-			(Rudy setScript: (ScriptID 243 0))
-			((Rudy script?) handleEvent: event)
-			(if (event claimed?) (return))
-		)
-	)
-)
-
-(instance rudyActions of Script
-	
-	(method (changeState newState)
-		(switch (= state newState)
-			(0
-				(if
-					(and
-						(== prevRoomNum 31)
-						(or (!= (ego x?) 118) (!= (ego y?) 144))
-					)
-					(= state -1)
-				)
-				(= cycles 1)
-			)
-			(1
-				(cond 
-					((not global216)
-						(= state 0)
-					)
-					(
-					(and (== currentAct 3) (not (& global118 $0001)))
-						(if (and (== gameMinutes 3) (== curRoomNum 10))
-							(gDoor startUpd:)
-						)
-;;;						(|= global118 $0001)
-						(= global118 (| global118 $0001))
-						(self setScript: (ScriptID 406 0))
-						(= state 0)
-					)
-					((self script?)
-						(= state 0)
-					)
-				)
-				(= cycles 1)
-			)
-			(2
-				(if (== curRoomNum 10)
-					(gDoor stopUpd:)
-				)
-				(if
-					(and
-						(== (Rudy x?) [local36 (* global114 2)])
-						(== (Rudy y?) [local36 (+ (* global114 2) 1)])
-					)
-					(if (== curRoomNum 27)
-						(= state 3)
-					)
-				else
-					(= state 1)
-				)
-				(= cycles 1)
-			)
-			(3
-				(++ global114)
-				(= [global368 1] (- 899 (* global114 100)))
-				(if (and (== currentAct 6) (< [global368 1] 2))
-					(= [global368 1] 900)
-					(= global114 0)
-				)
-				(if (and (== curRoomNum 21) (== currentAct 3))
-					(Rudy dispose:)
-				else
-					(Rudy setAvoider: 0 hide:)
-				)
-				(= gCurRoomNum_4 0)
-				(DisposeScript 985)
-;;;				(&= global208 $feff)
-				(= global208 (& global208 $feff))
-				(= [global377 8] 0)
-				(= local63 0)
-				(client setScript: 0)
-			)
-			(4
-				(= state 2)
-				(Rudy setMotion: MoveTo 110 110 self)
-			)
-		)
-	)
-)
-
-(instance Rudy of Actor
-	
-	(method (handleEvent event)
+		
 					(cond
 			(
 				(and
@@ -423,7 +325,108 @@
 
 		
 			)
-			)		
+			)				
+		
+		(super handleEvent: event)
+		(if (event claimed?) (return))
+		(if
+			(and
+				global208
+				(Said
+					'ask,tell,hold,deliver,examine,get,kill,kiss,embrace,flirt>'
+				)
+			)
+			(Rudy setScript: (ScriptID 243 0))
+			((Rudy script?) handleEvent: event)
+			(if (event claimed?) (return))
+		)
+	)
+)
+
+(instance rudyActions of Script
+	
+	(method (changeState newState)
+		(switch (= state newState)
+			(0
+				(if
+					(and
+						(== prevRoomNum 31)
+						(or (!= (ego x?) 118) (!= (ego y?) 144))
+					)
+					(= state -1)
+				)
+				(= cycles 1)
+			)
+			(1
+				(cond 
+					((not global216)
+						(= state 0)
+					)
+					(
+					(and (== currentAct 3) (not (& global118 $0001)))
+						(if (and (== gameMinutes 3) (== curRoomNum 10))
+							(gDoor startUpd:)
+						)
+;;;						(|= global118 $0001)
+						(= global118 (| global118 $0001))
+						(self setScript: (ScriptID 406 0))
+						(= state 0)
+					)
+					((self script?)
+						(= state 0)
+					)
+				)
+				(= cycles 1)
+			)
+			(2
+				(if (== curRoomNum 10)
+					(gDoor stopUpd:)
+				)
+				(if
+					(and
+						(== (Rudy x?) [local36 (* global114 2)])
+						(== (Rudy y?) [local36 (+ (* global114 2) 1)])
+					)
+					(if (== curRoomNum 27)
+						(= state 3)
+					)
+				else
+					(= state 1)
+				)
+				(= cycles 1)
+			)
+			(3
+				(++ global114)
+				(= [global368 1] (- 899 (* global114 100)))
+				(if (and (== currentAct 6) (< [global368 1] 2))
+					(= [global368 1] 900)
+					(= global114 0)
+				)
+				(if (and (== curRoomNum 21) (== currentAct 3))
+					(Rudy dispose:)
+				else
+					(Rudy setAvoider: 0 hide:)
+				)
+				(= gCurRoomNum_4 0)
+				(DisposeScript 985)
+;;;				(&= global208 $feff)
+				(= global208 (& global208 $feff))
+				(= [global377 8] 0)
+				(= local63 0)
+				(client setScript: 0)
+			)
+			(4
+				(= state 2)
+				(Rudy setMotion: MoveTo 110 110 self)
+			)
+		)
+	)
+)
+
+(instance Rudy of Actor
+	
+	(method (handleEvent event)
+
 		
 		
 		

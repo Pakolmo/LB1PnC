@@ -61,6 +61,170 @@
 	)
 	
 	(method (handleEvent event &tmp temp0)
+		
+			(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)
+			
+				
+				(if (ClickedOnObj Ethel (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor	
+						
+					
+					(602 ;necklace_
+						(DoVerb {tell ethel about necklace})						
+					)
+					(604 ;monocle
+						(DoVerb {tell ethel about monocle})						
+					)
+					
+					(613 ;lantern_
+						(DoVerb {tell ethel about lantern})						
+					)
+					(611 ;oilcan_
+						(DoVerb {tell ethel about oilcan})						
+					)
+					(626 ;rolling_pin_
+						(DoVerb {tell ethel about pin})						
+					)
+					(620 ;skeleton_key_
+						(DoVerb {tell ethel about skeleton key})						
+					)
+					(627 ;poker_
+						(DoVerb {tell ethel about poker})						
+					)															
+					(607 ;crowbar_
+						(DoVerb {tell ethel about crowbar})						
+					)
+					(628 ;cigar_butt_
+						(DoVerb {tell ethel about butt})						
+					)
+					(625 ;broken_record_
+						(DoVerb {tell ethel about broken record})						
+					)
+					(601 ;notebook___pencil_
+						(DoVerb {tell ethel about notebook})						
+					)
+					(603 ;_7_crackers________
+						(DoVerb {tell ethel about crackers})						
+					)
+					(605 ;soup_bone_
+						(DoVerb {tell ethel about soup bone})						
+					)
+					(606 ;valve_handle_
+						(DoVerb {tell ethel about valve})						
+					)
+					(618 ;bullet_
+						(DoVerb {tell ethel about bullet})						
+					)
+					(617 ;derringer__
+						(DoVerb {tell ethel about derringer})						
+					)
+					(614 ;matches_
+						(DoVerb {tell ethel about matches})						
+					)
+					(615 ;carrot_
+						(DoVerb {tell ethel about carrot})						
+					)
+					(619 ;brass_key_
+						(DoVerb {tell ethel about brass key})						
+					)
+					(616 ;diary_
+						(DoVerb {tell ethel about diary})						
+					)
+					(621 ;crank_
+						(DoVerb {tell ethel about crank})						
+					)
+					(612 ;cane_
+						(DoVerb {tell ethel about cane})						
+					)
+					(622 ;pouch_
+						(DoVerb {tell ethel about pouch})						
+					)																																																																																
+					(630 ;handkerchief_
+						(DoVerb {tell ethel about handkerchief})
+					)
+											
+						
+						
+						
+						
+							(930  ;gertrude
+								(event type: 1 claimed: 1)
+								(DoVerb {ask ethel about Gertrude})
+							)
+							(931 ;Celie
+								(event type: 1 claimed: 1)
+								(DoVerb {ask ethel about Celie})
+							)	
+							(932 ;Gloria
+								(event type: 1 claimed: 1)
+								(DoVerb {ask ethel about Gloria})
+							)													
+							(933 ;Ethel
+								(event type: 1 claimed: 1)
+								(DoVerb {ask ethel about Ethel})
+							)	
+							(934 ;Fifi
+								(event type: 1 claimed: 1)
+								(DoVerb {ask ethel about Fifi})
+							)	
+							(935 ;Lillian
+								(event type: 1 claimed: 1)
+								(DoVerb {ask ethel about Lillian})
+							)																					
+							(936 ;Clarence
+								(event type: 1 claimed: 1)
+								(DoVerb {ask ethel about Clarence})
+							)	
+							(937 ;Feels
+								(event type: 1 claimed: 1)
+								(DoVerb {ask ethel about wilbur})
+							)
+							(938 ;Rudy
+								(event type: 1 claimed: 1)
+								(DoVerb {ask ethel about Rudy})
+							)	
+							(939 ;Colonel
+								(event type: 1 claimed: 1)
+								(DoVerb {ask ethel about Colonel})
+							)
+							(940 ;Jules
+								(event type: 1 claimed: 1)
+								(DoVerb {ask ethel about Jules})
+							)
+						(994		
+							(DoVerb {hear ethel})
+						)													
+						(998		
+							(DoLook {ethel})
+						)
+						(996
+							(DoVerb {Talk Ethel})	
+						)	
+						(else
+						
+							(event claimed: FALSE)
+						)
+					)
+
+				)
+				
+			)
+		)		
+		
+		
+		
+		
+		
+		
+		
+		
 		(if (event claimed?) (return TRUE))
 		(if (and (== (event type?) saidEvent) (Said '/drink,glass>'))
 			(cond 

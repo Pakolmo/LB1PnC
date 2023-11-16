@@ -976,7 +976,7 @@
 
 									{C{pula}
 									#button {Romper} 1
-									#button {Coger derringer} 3											
+									#button {Coger derringer} 2											
 
 								)
 							)

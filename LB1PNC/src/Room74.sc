@@ -669,73 +669,46 @@
 							)
 						)
 					)	
-;;;					(if (ClickedOnObj lamp1 (event x?) (event y?)) ;Not sense
-;;;					
-;;;					(event claimed: TRUE)
-;;;					(switch theCursor
-;;;						(995
-;;;									(= temp7
-;;;												(Print
-;;;;;;													{Lamp}
-;;;;;;													#button {Change cloth} 1
-;;;;;;													#button {Get cloth} 2	
-;;;;;;													#button {Close curtain} 3	
-;;;
-;;;
-;;;													{L*mpara}
-;;;													#button {Cambiar ropa} 1
-;;;													#button {Coger ropa} 2								
-;;;													#button {Cerrar cortina} 3
-;;;												)
-;;;											)
-;;;											(switch temp7
-;;;												(1 ;
-;;;													(DoVerb {change cloth})
-;;;												)
-;;;												(2	
-;;;													(DoVerb {get cloth})							
-;;;												)
-;;;												(3
-;;;													(DoVerb {close curtain})							
-;;;												)												
-;;;												(else
-;;;														(event claimed: FALSE)
-;;;												)
-;;;											)
-;;;						)
-;;;						(998
-;;;									(= temp7
-;;;												(Print
-;;;;;;													{Lamp}
-;;;;;;													#button {Examine below} 1
-;;;;;;													#button {Examine} 2	
-;;;;;;													#button {Examinar cloth} 3
-;;;													{L*mpara}
-;;;													#button {Mirar debajo} 1
-;;;													#button {Examinar} 2								
-;;;													#button {Examinar ropa} 3
-;;;												)
-;;;											)
-;;;											(switch temp7
-;;;												(1 ;
-;;;													(DoVerb {examine below lamp})
-;;;												)
-;;;												(2	
-;;;													(DoVerb {examine lamp})							
-;;;												)
-;;;												(3	
-;;;													(DoVerb {examine cloth})							
-;;;												)												
-;;;												(else
-;;;														(event claimed: FALSE)
-;;;												)
-;;;											)
-;;;						)							
-;;;						(else
-;;;							(event claimed: FALSE)
-;;;						)
-;;;					)
-;;;				)						
+					(if (or (ClickedOnObj Tswing (event x?) (event y?)) ;twice
+							(ClickedOnObj Tswing (event x?) (event y?)) )
+					(event claimed: TRUE)
+					(switch theCursor
+						(995
+									(= temp7
+												(Print
+;;;													{Cloth}
+;;;													#button {Change cloth} 1
+;;;													#button {Get cloth} 2	
+;;;													#button {Close curtain} 3	
+
+
+													{Ropa}
+													#button {Cambiar ropa} 1
+													#button {Coger ropa} 2								
+													#button {Cerrar cortina} 3
+												)
+											)
+											(switch temp7
+												(1 ;
+													(DoVerb {change cloth})
+												)
+												(2	
+													(DoVerb {get cloth})							
+												)
+												(3
+													(DoVerb {close curtain})							
+												)												
+												(else
+														(event claimed: FALSE)
+												)
+											)
+						)
+												
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)						
 					(if (ClickedOnObj lamp2 (event x?) (event y?)) 
 					
 					(event claimed: TRUE)
@@ -757,15 +730,12 @@
 					(event claimed: TRUE)
 					(switch theCursor
 						(998
-							(DoVerb {examine door swinging})
+;;;							(DoVerb {examine door swinging})
 									(if
-										(and
+;;;										(and
 											(== local2 2)
-											(or
-												(MousedOn self event shiftDown)
-												(Said 'examine/door[<swinging]')
-											)
-										)
+														
+;;;										)
 										(Print 74 65)
 										(event claimed: TRUE)
 									)
@@ -780,15 +750,14 @@
 					(event claimed: TRUE)
 					(switch theCursor
 						(998	
-							(DoVerb {examine door swinging})		
+	
 							(if
-								(and
+
 									(== local2 2)
-									(or
-										(MousedOn self event shiftDown)
-										(Said 'examine/door[<swinging]')
-									)
-								)
+									
+									
+
+								
 								(Print 74 65)
 								(event claimed: TRUE)
 							)
@@ -828,7 +797,7 @@
 													(DoVerb {bang door})							
 												)
 												(4	
-													(DoVerb {go in attic})							
+													(DoVerb {enter attic})							
 												)																								
 												(else
 														(event claimed: FALSE)

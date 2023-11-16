@@ -587,7 +587,18 @@
 						)
 					)
 				)
-			
+			(if (ClickedInRect 0 10 139 154 event) ;exit room
+			(event claimed: TRUE)
+					(switch theCursor
+						(999
+							(ego setMotion: MoveTo -2 175)
+						)
+						(else
+								(event claimed: FALSE)
+						)
+					 )
+				
+				)
 				
 				(if (and (ClickedOnObj Mirror (event x?) (event y?)) 
 						(== (event claimed?) FALSE))

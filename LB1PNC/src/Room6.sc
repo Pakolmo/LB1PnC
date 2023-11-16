@@ -138,7 +138,7 @@
 					(== (event type?) evMOUSEBUTTON)
 					(not (& (event modifiers?) emRIGHT_BUTTON))
 				)
-				
+
 				(if (ClickedOnPicView Door (event x?) (event y?)) 
 					
 					(event claimed: TRUE)

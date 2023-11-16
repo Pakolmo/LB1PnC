@@ -24,6 +24,7 @@
 	climbingUp
 	local4
 	temp7
+	moving
 )
 (procedure (RoomPrint)
 	(Print &rest 67 110 25 30 1 88)
@@ -95,6 +96,7 @@
 		(ego view: 0 illegalBits: cWHITE init:)
 	)
 	
+;;;	(method (doit)
 	(method (doit)
 		(if (FirstEntry)
 			(Print 3 0)
@@ -103,6 +105,8 @@
 			(= climbingUp TRUE)
 			(ego setScript: climbUp)
 		)
+	
+		
 		(super doit:)
 	)
 	
@@ -112,8 +116,7 @@
 	)
 	
 	(method (handleEvent event &tmp temp0)
-		
-		
+
 			(cond
 			(
 				(and
@@ -121,84 +124,104 @@
 					(not (& (event modifiers?) emRIGHT_BUTTON))
 				)
 				
-				(if (ClickedOnObj bell (event x?) (event y?)) 
+				(if (and (ClickedOnObj bell (event x?) (event y?)) 
+					(== moving 1))
 					
 					(event claimed: TRUE)
 					(switch theCursor
-					
+					(999
+;;;						(= moving 0)
+						(DoVerb {climb})
+;;;						(= moving 0)
+					)
 					(602 ;necklace_
-						(DoVerb {Use necklace in bell})						
+						(DoVerb {atatch necklace in bell})						
 					)
 					(604 ;monocle
-						(DoVerb {Use monocle in bell})						
+						(DoVerb {atatch monocle in bell})						
 					)
 					
 					(613 ;lantern_
-						(DoVerb {Use lantern in bell})						
+						(DoVerb {atatch lantern in bell ring})						
 					)
 					(611 ;oilcan_
-						(DoVerb {Use oilcan in bell})						
+						(DoVerb {oil bell})	;YES					
 					)
 					(626 ;rolling_pin_
-						(DoVerb {Use pin in bell})						
+						(DoVerb {atatch pin in bell ring})						
 					)
-					(620 ;skeleton_key_
-						(DoVerb {Use skeleton key in bell})						
-					)
+
 					(627 ;poker_
-						(DoVerb {Use poker in bell})						
+						(DoVerb {atatch poker in bell ring})						
 					)															
 					(607 ;crowbar_
-						(DoVerb {Use crowbar in bell})						
+						(DoVerb {atatch crowbar in bell ring})						
 					)
 					(628 ;cigar_butt_
-						(DoVerb {Use butt in bell})						
+						(DoVerb {atatch butt in bell ring})						
 					)
 					(625 ;broken_record_
-						(DoVerb {Use broken record in bell})						
+						(DoVerb {atatch broken record in bell ring})						
 					)
 					(601 ;notebook___pencil_
-						(DoVerb {Use notebook in bell})						
+						(DoVerb {atatch notebook in bell ring})						
 					)
 					(603 ;_7_crackers________
-						(DoVerb {Use crackers in bell})						
+						(DoVerb {atatch crackers in bell ring})						
 					)
-					(605 ;soup_bone_
-						(DoVerb {Use soup bone in bell})						
-					)
+
 					(606 ;valve_handle_
-						(DoVerb {Use valve in bell})						
+						(DoVerb {atatch valve in bell ring})						
 					)
 					(618 ;bullet_
-						(DoVerb {Use bullet in bell})						
+						(DoVerb {atatch bullet in bell ring})						
 					)
 					(617 ;derringer__
-						(DoVerb {Use derringer in bell})						
+						(DoVerb {atatch derringer in bell ring})						
 					)
 					(614 ;matches_
-						(DoVerb {Use matches in bell})						
+						(DoVerb {atatch matches in bell ring})						
 					)
 					(615 ;carrot_
-						(DoVerb {Use carrot in bell})						
+						(DoVerb {atatch carrot in bell ring})						
 					)
 					(619 ;brass_key_
-						(DoVerb {Use brass key in bell})						
+						(DoVerb {atatch brass key in bell ring})						
 					)
 					(616 ;diary_
-						(DoVerb {Use diary in bell})						
+						(DoVerb {atatch diary in bell ring})						
 					)
-					(621 ;crank_
-						(DoVerb {Use crank in bell})						
+					(621 ;cane!
+						(if (ego has: iCane)
+							(DoVerb {attach cane in bell ring})
+						
+						else
+							(Print {ERROR})						
+						)
 					)
 
 					(622 ;pouch_
-						(DoVerb {Use pouch in bell})						
+						(DoVerb {atatch pouch in bell ring})						
 					)																																																																																
 					(630 ;handkerchief_
-						(DoVerb {Use handkerchief in bell})
+						(DoVerb {atatch handkerchief in bell ring})
 					)
-											
-												
+					(620 ;Crank!
+						(if (ego has: iCane)
+							(DoVerb {attach crank in bell ring})
+						
+						else
+							(Print {ERROR})						
+						)
+					)											
+					(605 ;Skeleton key!
+						(if (ego has: iCane)
+							(DoVerb {attach crank in bell ring})
+						
+						else
+							(Print {ERROR})						
+						)
+					)												
 						
 						
 						
@@ -206,7 +229,7 @@
 						
 						
 						(612
-							(DoVerb {use cane bell})	
+							(DoVerb {ring with cane bell})	
 						)
 						(998
 								(= temp7
@@ -287,6 +310,9 @@
 					(switch theCursor
 						(998
 							(DoVerb {examine ring})
+						)
+						(627 ;cane
+							(DoVerb {ring bell with cane})
 						)
 						(else
 							(event claimed: FALSE)
@@ -443,8 +469,8 @@
 					(if
 						(and
 							nearLadder
-;;;							(== (event message?) dirS)
-							(== (event message?) JOY_DOWN)
+							(== (event message?) dirS)
+;;;							(== (event message?) JOY_DOWN)
 							(User canInput?)
 						)
 						(ego setScript: climbDown)
@@ -504,6 +530,33 @@
 
 (instance climbUp of Script
 	
+;;;	(method (doit event)
+;;;	(theGame setCursor: 998 (HaveMouse))
+;;;		(if (== moving 1)
+;;;				
+;;;				(if (== theCursor 999)
+;;;;;;				(SetCursor 998)
+;;;;;;				(theGame setCursor: 998 (HaveMouse))
+;;;;;;					(event claimed: TRUE)
+;;;					(ego setMotion: 0)
+;;;					(switch theCursor
+;;;						(999
+;;;;;;							(ego setMotion: 0)
+;;;;;;							(theGame setCursor: 998 (HaveMouse))
+;;;							(DoVerb {climb})
+;;;;;;							(climbDown setScript: 0)
+;;;							(= moving 0)
+;;;						)
+;;;						(else
+;;;;;;								(ego setMotion: 0)
+;;;						)
+;;;					 
+;;;					)
+;;;	)
+;;;		)
+;;;	)
+;;;				
+		
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
@@ -536,10 +589,16 @@
 			)
 			(5
 				(ego setLoop: 3 cel: 0 posn: 39 55 setCycle: EndLoop self)
+				(HandsOn)
+				(User mapKeyToDir: FALSE)
+				(ego setMotion: 0)
+				
 				(if (not local4)
 					(++ local4)
 					(bat show: setCycle: Walk setMotion: MoveTo 340 80)
 				)
+				(theGame setCursor: 998 (HaveMouse))
+				(= moving 1)
 			)
 			(6
 				(arm show:)
@@ -550,6 +609,8 @@
 				(= nearLadder 1)
 				(User canInput: TRUE)
 				(HandsOn)
+				(User mapKeyToDir: FALSE)
+				(= moving 1)
 				(client setScript: 0)
 			)
 		)
@@ -561,6 +622,7 @@
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
+				(= moving 0)
 				(User canInput: FALSE)
 				(ego cel: 3 loop: 3 setCycle: BegLoop self)
 				(arm hide:)
@@ -584,7 +646,8 @@
 					setPri: -1
 					setCycle: Walk
 					setLoop: 2
-					illegalBits: cWHITE
+;;;					illegalBits: cWHITE
+					illegalBits: -32768
 					cycleSpeed: 0
 					setMotion: MoveTo 32 164 self
 				)
@@ -598,6 +661,7 @@
 		)
 	)
 )
+
 
 (instance oilBell of Script
 
@@ -911,7 +975,7 @@
 							(NotClose)
 						)
 					else
-						(DontHave)
+;;;						(DontHave)
 					)
 				else
 					(Print 3 29)
