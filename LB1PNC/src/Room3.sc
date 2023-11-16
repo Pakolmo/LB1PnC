@@ -298,8 +298,23 @@
 					)						
 		
 		
-		
-		
+				(if (and (ClickedOnObj bell (event x?) (event y?)) 
+						(== bellOnGround 1))
+					
+					(event claimed: TRUE)
+					(switch theCursor
+					(998
+						(DoVerb {look bell})
+					)
+					(995
+						(DoVerb {Get crank})
+					)
+					(else
+							(event claimed: FALSE)
+						)
+					)
+					)
+				
 		
 		
 		
@@ -311,9 +326,17 @@
 						(998
 							(DoVerb {examine ring})
 						)
-						(627 ;cane
+					(612 ;cane!
+						(if (ego has: iCane)
 							(DoVerb {ring bell with cane})
+						
+						else
+							(Print {ERROR})						
 						)
+					)						
+;;;						(627 ;cane
+;;;							(DoVerb {ring bell with cane})
+;;;						)
 						(else
 							(event claimed: FALSE)
 						)																	
@@ -718,7 +741,8 @@
 		(switch (= state newState)
 			(0
 				(HandsOff)
-				(if (& (ego onControl: origin) cCYAN)
+;;;				(if (& (ego onControl: origin) cCYAN)
+				(if (& (ego onControl: 1) $0008)
 					(ego setMotion: MoveTo 94 144 self)
 					(= local2 0)
 				else
@@ -798,7 +822,8 @@
 					view: 0
 					loop: (if oiledBell 1 else 2)
 					cycleSpeed: 0
-					illegalBits: cWHITE
+;;;					illegalBits: cWHITE
+					illegalBits: -32768
 					setCycle: Walk
 				)
 				(ring stopUpd:)
@@ -816,7 +841,8 @@
 					setLoop: -1
 					setCycle: Walk
 					setAvoider: (Avoider new:)
-					illegalBits: cWHITE
+;;;					illegalBits: cWHITE
+					illegalBits: -32768
 					setMotion: MoveTo 179 167 self
 				)
 			)
@@ -962,6 +988,7 @@
 					(Said 'ring/bell/cane<(with,use)')
 				)
 				(if (not bellOnGround)
+;;;					(if oiledBell
 					(if (ego has: iCane)
 						(if
 							(or
@@ -976,6 +1003,7 @@
 						)
 					else
 ;;;						(DontHave)
+;;;					)
 					)
 				else
 					(Print 3 29)
@@ -1001,7 +1029,7 @@
 					(bellOnGround
 						(Print 3 29)
 					)
-					(
+					(oiledBell
 						(or
 ;;;							(& (ego onControl: origin) cCYAN)
 ;;;							(& (ego onControl: origin) cGREEN)
