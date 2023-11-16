@@ -127,13 +127,21 @@
 				(if (and (ClickedOnObj bell (event x?) (event y?)) 
 					(== moving 1))
 					
+;;;					(ego setMotion: 0)
+;;;					(if (== theCursor 999) ;
+;;;						(event claimed: TRUE)
+;;;						(DoVerb {climb})
+;;;						(= moving 0)
+;;;						(ego setScript: climbDown)
+;;;					)
+					
 					(event claimed: TRUE)
 					(switch theCursor
-					(999
-;;;						(= moving 0)
-						(DoVerb {climb})
-;;;						(= moving 0)
-					)
+;;;					(999
+;;;;;;						(= moving 0)
+;;;						(DoVerb {climb})
+;;;;;;						(= moving 0)
+;;;					)
 					(602 ;necklace_
 						(DoVerb {atatch necklace in bell})						
 					)
@@ -363,6 +371,9 @@
 					
 					(event claimed: TRUE)
 					(switch theCursor
+						(999
+							(ego setScript: climbDown)
+						)
 						(995
 							(DoVerb {climb ladder})
 						)
@@ -476,24 +487,24 @@
 						)
 					)
 				)
-				(mouseDown
-					(if
-						(and
-							nearLadder
-							(> (event y?) (ego y?))
-;;;							(not (& (event modifiers?) (| shiftDown ctrlDown altDown)))
-							(not (& (event modifiers?) $000f))
-							(User canInput?)
-						)
-						(ego setScript: climbDown)
-					)
+				(mouseDown ;FIXED laura movements.
+;;;					(if
+;;;						(and
+;;;							nearLadder
+;;;							(> (event y?) (ego y?))
+;;;;;;							(not (& (event modifiers?) (| shiftDown ctrlDown altDown)))
+;;;							(not (& (event modifiers?) $000f))
+;;;							(User canInput?)
+;;;						)
+;;;						(ego setScript: climbDown)
+;;;					)
 				)
 				(direction
 					(if
 						(and
 							nearLadder
-							(== (event message?) dirS)
-;;;							(== (event message?) JOY_DOWN)
+;;;							(== (event message?) dirS)
+							(== (event message?) JOY_DOWN)
 							(User canInput?)
 						)
 						(ego setScript: climbDown)
@@ -579,6 +590,22 @@
 ;;;		)
 ;;;	)
 ;;;				
+	(method (doit event)
+		
+					(if (== theCursor 999) ;
+						(ego setMotion: 0)
+						(= nearLadder 1)
+;;;							(event claimed: TRUE)
+;;;							(DoVerb {climb})
+;;;							(= moving 0)
+
+					)
+					)
+
+
+
+
+	
 		
 	(method (changeState newState)
 		(switch (= state newState)
@@ -645,7 +672,7 @@
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
-				(= moving 0)
+				(= nearLadder 0)
 				(User canInput: FALSE)
 				(ego cel: 3 loop: 3 setCycle: BegLoop self)
 				(arm hide:)
@@ -678,6 +705,7 @@
 			(6
 				(ego setLoop: -1)
 				(HandsOn)
+				(= moving 0)
 				(= local1 (= nearLadder (= climbingUp 0)))
 				(client setScript: 0)
 			)

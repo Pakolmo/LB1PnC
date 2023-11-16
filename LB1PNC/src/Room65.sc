@@ -406,7 +406,7 @@
 ;;;							(DoVerb {attach valve handleshaft})
 ;;;						)
 						(621 ;crank
-							(DoVerb {attach control shaft})
+							(DoVerb {attach crank in shaft})
 						)
 						
 						(998
