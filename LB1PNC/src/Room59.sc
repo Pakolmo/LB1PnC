@@ -21,6 +21,8 @@
 (local
 	egoSitting
 	askedForCarrot
+	temp7
+	chutemoving
 )
 (instance Room59 of Room
 	(properties
@@ -125,6 +127,312 @@
 	)
 	
 	(method (handleEvent event)
+	
+		(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)
+	
+			(if (== (event type?) evMOUSEBUTTON)
+    			(if (== egoSitting 1)
+        			;(if (== theCursor 992) ;use wait sierra cursor to stand up.
+        			(if (== theCursor 999)
+					
+						
+            			(DoVerb {stand})
+       				 )
+    			)
+			)				
+				
+
+					(if (ClickedOnPicView stove (event x?) (event y?)) 
+						(event claimed: TRUE)
+						(switch theCursor	
+							(998
+								(switch (Random 1 2)
+									(1 (DoVerb {examine oven}))
+									(2 (DoVerb {examine oak}))
+								
+								)
+							)
+							(else
+								(event claimed: FALSE)
+						)
+					)
+				)
+				(if (ClickedOnObj dresser (event x?) (event y?)) 
+						(event claimed: TRUE)
+						(switch theCursor	
+							(995
+								(DoVerb {examine in dresser})
+							)
+							(998
+								(DoVerb {examine dresser})
+							)
+							(else
+								(event claimed: FALSE)
+						)
+					)
+				)
+				(if (ClickedOnPicView pillow (event x?) (event y?)) 
+						(event claimed: TRUE)
+						(switch theCursor	
+							(995
+								(DoVerb {examine below pillow})
+							)
+							(998
+								(DoVerb {examine pillow})
+							)
+							(else
+								(event claimed: FALSE)
+						)
+					)
+				)		
+				(if (ClickedOnPicView mirror (event x?) (event y?)) 
+						(event claimed: TRUE)
+						(switch theCursor	
+							(998
+							(= temp7
+												(Print
+;;;													{Mirror}
+;;;													#button {Examine} 1
+;;;													#button {Examine in} 2								
+													{Espejo}
+													#button {Mirar} 1
+													#button {Examinar} 2														
+												)
+											)
+											(switch temp7
+												(1 
+													(DoVerb {examine mirror})
+												)
+												(2
+													(DoVerb {examine in mirror})
+												)
+												(else
+													(event claimed: FALSE)
+												)
+											)
+							)
+							
+							(995
+								(DoVerb {get pillow})
+							)
+							(else
+								(event claimed: FALSE)
+						)
+					)
+				)		
+		
+						(if (ClickedOnPicView shelf (event x?) (event y?)) 
+						(event claimed: TRUE)
+						(switch theCursor	
+							(995
+								(DoVerb {get bottle})
+							)
+							(998
+			(= temp7
+												(Print
+;;;													{Shelf}
+;;;													#button {Examine} 1
+;;;													#button {Examine in} 2								
+													{Estanter-a}
+													#button {Mirar} 1
+													#button {Examinar} 2														
+												)
+											)
+											(switch temp7
+												(1 
+													(DoVerb {examine shelf})
+												)
+												(2
+													(DoVerb {examine in shelf})
+												)
+												(else
+													(event claimed: FALSE)
+												)
+											)
+							)
+							(else
+								(event claimed: FALSE)
+						)
+					)
+				)		
+		
+						(if (ClickedOnPicView table (event x?) (event y?)) 
+						(event claimed: TRUE)
+						(switch theCursor	
+							(998
+								(DoVerb {examine nightstand})
+							)
+							(else
+								(event claimed: FALSE)
+						)
+					)
+				)		
+		(if (ClickedOnPicView chair2 (event x?) (event y?)) 
+						(event claimed: TRUE)
+						(switch theCursor	
+							(995
+							(= temp7
+												(Print
+;;;													{Chair}
+;;;													#button {Sit} 1
+;;;													#button {Stand} 2								
+													{Silla}
+													#button {Sentarse} 1
+													#button {Levantarse} 2														
+												)
+											)
+											(switch temp7
+												(1 
+													(DoVerb {sit})
+												)
+												(2
+													(DoVerb {stand})
+												)
+												(else
+													(event claimed: FALSE)
+												)
+											)
+							
+							)
+							(998
+								(event claimed: TRUE)
+								(Print 59 25)
+							)
+							(else
+								(event claimed: FALSE)
+						)
+					)
+				)		
+;;;			(if (ClickedOnPicView chair1 (event x?) (event y?)) ;molesta
+;;;						(event claimed: TRUE)
+;;;						(switch theCursor	
+;;;							(998
+;;;								(DoVerb {examine chair})
+;;;							)
+;;;							(else
+;;;								(event claimed: FALSE)
+;;;						)
+;;;					)
+;;;				)		
+			(if (ClickedOnObj carrot (event x?) (event y?)) 
+						(event claimed: TRUE)
+						(switch theCursor	
+							(998
+								(DoVerb {examine carrot})
+							)
+							(995
+								(DoVerb {get carrot})
+							)
+							(else
+								(event claimed: FALSE)
+						)
+					)
+				)			
+				
+			(if (ClickedOnObj boil (event x?) (event y?)) 
+						(event claimed: TRUE)
+						(switch theCursor	
+							(998
+								(DoVerb {examine caldron})
+							)
+							(995
+								(DoVerb {get caldron})
+							)
+							(994
+								(DoVerb {eat food})
+							)							
+							(else
+								(event claimed: FALSE)
+						)
+					)
+				)			
+				(if (ClickedOnObj Window1 (event x?) (event y?)) 
+						(event claimed: TRUE)
+						(switch theCursor	
+							(998
+								(switch (Random 1 2)
+									(1 (DoVerb {open window}))
+									(2 (DoVerb {break window}))
+								)	
+							)
+							(995
+								(switch (Random 1 2)
+									(1 (DoVerb {examine out window}))
+									(2 (DoVerb {examine window}))
+								)	
+							)	
+				(else
+								(event claimed: FALSE)
+						)
+					)
+				)			
+				(if (ClickedOnObj Window2 (event x?) (event y?)) 
+						(event claimed: TRUE)
+						(switch theCursor	
+							(998
+								(event claimed: TRUE)
+								(Print 59 32)
+							)
+							(else
+								(event claimed: FALSE)
+						)
+					)
+				)
+				(if (ClickedOnObj Rug (event x?) (event y?)) 
+						(event claimed: TRUE)
+						(switch theCursor	
+							(998
+								(DoVerb {examine carpet})
+							)
+							(995
+								(DoVerb {examine below carpet})
+							)							
+							(else
+								(event claimed: FALSE)
+						)
+					)
+				)
+				
+				(if (ClickedOnObj Bed (event x?) (event y?)) 
+						(event claimed: TRUE)
+						(switch theCursor	
+							(998
+								(DoVerb {examine bed})
+							)
+							(995
+								(DoVerb {examine below bed})
+							)							
+							(else
+								(event claimed: FALSE)
+						)
+					)
+				)				
+;;;			(if (== chutemoving 1)
+;;;				(ego setMotion: 0)
+;;;				(SetCursor 998)
+;;;					(event claimed: TRUE)
+;;;					(switch theCursor
+;;;						(999
+;;;;;;							(ego setMotion: 0)
+;;;;;;							(theGame setCursor: 998 (HaveMouse))
+;;;							(DoVerb {stand})
+;;;							(= chutemoving 0)
+;;;						)
+;;;						(else
+;;;								(event claimed: FALSE)
+;;;						)
+;;;					 )
+;;;				
+;;;			)
+	
+					
+			)
+		)
 		(if (event claimed?) (return TRUE))
 		(return
 			(if (== (event type?) saidEvent)
@@ -173,7 +481,7 @@
 						(if (ego inRect: 180 145 222 185)
 							(if (not egoSitting)
 								(= egoSitting TRUE)
-								(HandsOff)
+;;;								(HandsOff)
 								(ego setScript: sitDown)
 							else
 								(Print 59 8)
@@ -185,7 +493,7 @@
 					((Said 'stand[/up,*]')
 						(if egoSitting
 							(= egoSitting FALSE)
-							(HandsOff)
+;;;							(HandsOff)
 							(ego setScript: standUp)
 						else
 							(Print 59 9)
@@ -213,20 +521,177 @@
 )
 
 (instance sitDown of Script
+	(method (doit)
+							
+							
+	)
 	
+	
+	
+	(method (handleEvent event)
+;;;							(if (ego inRect: 180 145 222 185)
+;;;							(if egoSitting
+;;;								(User mapKeyToDir: FALSE)
+;;;								(ego setMotion: 0)
+;;;
+;;;						(if (or (ClickedOnObj ego (event x?) (event y?)) 
+;;;							(ClickedOnPicView chair2 (event x?) (event y?)))
+;;;						(event claimed: TRUE)
+;;;						(switch theCursor	
+;;;							(995
+;;;															(= temp7
+;;;												(Print
+;;;;;;													{Chair}
+;;;;;;													#button {Sit} 1
+;;;;;;													#button {Stand} 2								
+;;;													{Silla}
+;;;													#button {Sentarse} 1
+;;;													#button {Levantarse} 2														
+;;;												)
+;;;											)
+;;;											(switch temp7
+;;;												(1 
+;;;													(DoVerb {sit})
+;;;												)
+;;;												(2
+;;;													(DoVerb {stand})
+;;;												)
+;;;												(else
+;;;													(event claimed: FALSE)
+;;;												)
+;;;											)
+;;;							
+;;;							
+;;;							)
+;;;							(994
+;;;															(= temp7
+;;;												(Print
+;;;;;;													{Chair}
+;;;;;;													#button {Sit} 1
+;;;;;;													#button {Stand} 2								
+;;;													{Silla}
+;;;													#button {Sentarse} 1
+;;;													#button {Levantarse} 2														
+;;;												)
+;;;											)
+;;;											(switch temp7
+;;;												(1 
+;;;													(DoVerb {sit})
+;;;												)
+;;;												(2
+;;;													(DoVerb {stand})
+;;;												)
+;;;												(else
+;;;													(event claimed: FALSE)
+;;;												)
+;;;											)
+;;;							
+;;;							
+;;;							)
+;;;							(996
+;;;															(= temp7
+;;;												(Print
+;;;;;;													{Chair}
+;;;;;;													#button {Sit} 1
+;;;;;;													#button {Stand} 2								
+;;;													{Silla}
+;;;													#button {Sentarse} 1
+;;;													#button {Levantarse} 2														
+;;;												)
+;;;											)
+;;;											(switch temp7
+;;;												(1 
+;;;													(DoVerb {sit})
+;;;												)
+;;;												(2
+;;;													(DoVerb {stand})
+;;;												)
+;;;												(else
+;;;													(event claimed: FALSE)
+;;;												)
+;;;											)
+;;;							
+;;;							
+;;;							)
+;;;							(998
+;;;															(= temp7
+;;;												(Print
+;;;;;;													{Chair}
+;;;;;;													#button {Sit} 1
+;;;;;;													#button {Stand} 2								
+;;;													{Silla}
+;;;													#button {Sentarse} 1
+;;;													#button {Levantarse} 2														
+;;;												)
+;;;											)
+;;;											(switch temp7
+;;;												(1 
+;;;													(DoVerb {sit})
+;;;												)
+;;;												(2
+;;;													(DoVerb {stand})
+;;;												)
+;;;												(else
+;;;													(event claimed: FALSE)
+;;;												)
+;;;											)
+;;;							
+;;;							
+;;;							)
+;;;							(999
+;;;															(= temp7
+;;;												(Print
+;;;;;;													{Chair}
+;;;;;;													#button {Sit} 1
+;;;;;;													#button {Stand} 2								
+;;;													{Silla}
+;;;													#button {Sentarse} 1
+;;;													#button {Levantarse} 2														
+;;;												)
+;;;											)
+;;;											(switch temp7
+;;;												(1 
+;;;													(DoVerb {sit})
+;;;												)
+;;;												(2
+;;;													(DoVerb {stand})
+;;;												)
+;;;												(else
+;;;													(event claimed: FALSE)
+;;;												)
+;;;											)
+;;;							
+;;;							
+;;;							)
+;;;							(else
+;;;								(event claimed: FALSE)
+;;;						)
+;;;							)	
+;;;							
+;;;						)
+;;;							)
+;;;
+;;;							
+;;;					)
+;;;					)	
+)
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
+;;;				(HandsOff)
 				(ego
 					setAvoider: (Avoider new:)
 					setMotion: MoveTo 202 165 self
 				)
+				(= chutemoving 1)
 			)
 			(1
 				(ego view: 2 setPri: 13 loop: 2 cel: 0 setCycle: EndLoop self)
 			)
 			(2
 				(User canInput: TRUE)
+				(User canControl: TRUE)
+				(User mapKeyToDir: FALSE)
 				(client setScript: 0)
 			)
 		)
@@ -238,11 +703,14 @@
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
+				(User canInput: TRUE)
+				(User canControl: TRUE)
+				(User mapKeyToDir: TRUE)
 				(ego setAvoider: 0 setPri: -1 setCycle: BegLoop self)
 			)
 			(1
+				(= chutemoving 0)
 				(ego view: 0 loop: 3 setCycle: Walk)
-				(HandsOn)
 				(client setScript: 0)
 			)
 		)
@@ -629,3 +1097,4 @@
 		)
 	)
 )
+

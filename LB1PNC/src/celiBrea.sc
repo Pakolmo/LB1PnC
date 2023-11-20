@@ -500,17 +500,18 @@
 							)
 							(941 ;Dog
 								(event type: 1 claimed: 1)
-								(DoVerb {ask Colonel about beauregard})
+								(DoVerb {ask celie about beauregard})
 							)													
 							(942 ;Parrot
 								(event type: 1 claimed: 1)
-								(DoVerb {ask Colonel about polly})
+								(DoVerb {ask celie about polly})
 							)							
 							(943 ;Horse
 								(event type: 1 claimed: 1)
-								(DoVerb {ask Colonel about blaze})
+								(DoVerb {ask celie about blaze})
 							)										
 							
+
 						(998		
 							(DoLook {celie})
 						)
