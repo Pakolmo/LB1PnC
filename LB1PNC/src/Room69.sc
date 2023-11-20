@@ -26,6 +26,7 @@
 	local3
 	local4
 	local5
+	temp7
 )
 (instance Room69 of Room
 	(properties
@@ -172,6 +173,601 @@
 	)
 	
 	(method (handleEvent event)
+		(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)
+				(if (ClickedOnPicView saddle (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor	
+						(995
+						(DoVerb {attach saddle}) 
+						)
+						(998
+							(DoVerb {examine saddle}) 
+						)
+						(else
+							(event claimed: FALSE)
+						)
+				
+					)
+					
+				)							
+				(if (ClickedOnPicView trough (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998
+							(DoVerb {examine water}) 
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)							
+						
+				(if (ClickedOnPicView bridle (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor	
+						(995
+							(DoVerb {detach bit}) 
+						)
+						(998
+							(DoVerb {examine bit}) 
+						)						
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)							
+				(if (ClickedOnObj Door (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor	
+						(995
+										(= temp7
+												(Print
+;;;													{Door}
+;;;													#button {Enter} 1
+;;;													#button {Open} 2	
+;;;													#button {Close} 3	
+
+
+													{Puerta}
+													#button {Entrar} 1
+													#button {Abrir} 2								
+													#button {Cerrar} 3
+												)
+											)
+											(switch temp7
+												(1 ;
+													(DoVerb {enter room})
+												)
+												(2	
+													(DoVerb {open room})							
+												)
+												(3
+													(DoVerb {close room})							
+												)												
+												(else
+														(event claimed: FALSE)
+												)
+											)
+						
+									
+						)
+						(998
+							(DoVerb {examine room}) 
+						)						
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)											
+				(if (ClickedOnObj Lamp (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor	
+						(612 ;cane
+							(DoVerb {get lantern cane})
+						)
+						(995
+							(DoVerb {get ignite}) 
+						)
+						(998
+							(DoVerb {examine ignite}) 
+						)						
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)			
+							
+				(if (or (ClickedOnObj Horse (event x?) (event y?)) 
+						(ClickedOnObj Head (event x?) (event y?)) 
+						(ClickedOnObj Mouth (event x?) (event y?)) 
+						(ClickedOnObj Tail (event x?) (event y?)) )
+
+						
+						
+					(event claimed: TRUE)
+					(switch theCursor	
+
+					(602 ;necklace_
+						(DoVerb {tell Blaze about necklace})						
+					)
+					(604 ;monocle
+						(DoVerb {tell Blaze about monocle})						
+					)
+					
+					(613 ;lantern_
+						(DoVerb {tell Blaze about lantern})						
+					)
+					(611 ;oilcan_
+						(DoVerb {tell Blaze about oilcan})						
+					)
+					(626 ;rolling_pin_
+						(DoVerb {tell Blaze about pin})						
+					)
+					(620 ;skeleton_key_
+						(DoVerb {tell Blaze about skeleton key})						
+					)
+					(627 ;poker_
+						(DoVerb {tell Blaze about poker})						
+					)															
+					(607 ;crowbar_
+						(DoVerb {tell Blaze about crowbar})						
+					)
+					(628 ;cigar_butt_
+						(DoVerb {tell Blaze about butt})						
+					)
+					(625 ;broken_record_
+						(DoVerb {tell Blaze about broken record})						
+					)
+					(601 ;notebook___pencil_
+						(DoVerb {tell Blaze about notebook})						
+					)
+					(603 ;_7_crackers________
+						(DoVerb {tell Blaze about crackers})						
+					)
+					(605 ;soup_bone_
+						(DoVerb {tell Blaze about soup bone})						
+					)
+					(606 ;valve_handle_
+						(DoVerb {tell Blaze about valve})						
+					)
+					(618 ;bullet_
+						(DoVerb {tell Blaze about bullet})						
+					)
+					(617 ;derringer__
+						(DoVerb {tell Blaze about derringer})						
+					)
+					(614 ;matches_
+						(DoVerb {tell Blaze about matches})						
+					)
+
+					(619 ;brass_key_
+						(DoVerb {tell Blaze about brass key})						
+					)
+					(616 ;diary_
+						(DoVerb {tell Blaze about diary})						
+					)
+					(621 ;crank_
+						(DoVerb {tell Blaze about crank})						
+					)
+					(612 ;cane_
+						(DoVerb {tell Blaze about cane})						
+					)
+					(622 ;pouch_
+						(DoVerb {tell Blaze about pouch})						
+					)																																																																																
+					(630 ;handkerchief_
+						(DoVerb {tell Blaze about handkerchief})
+					)
+											
+						
+						
+						
+						
+							(930  ;gertrude
+								(event type: 1 claimed: 1)
+								(DoVerb {ask Blaze about Gertrude})
+							)
+							(931 ;Celie
+								(event type: 1 claimed: 1)
+								(DoVerb {ask Blaze about Celie})
+							)	
+							(932 ;Gloria
+								(event type: 1 claimed: 1)
+								(DoVerb {ask Blaze about Gloria})
+							)													
+							(933 ;Ethel
+								(event type: 1 claimed: 1)
+								(DoVerb {ask Blaze about Ethel})
+							)	
+							(934 ;Fifi
+								(event type: 1 claimed: 1)
+								(DoVerb {ask Blaze about Fifi})
+							)	
+							(935 ;Lillian
+								(event type: 1 claimed: 1)
+								(DoVerb {ask Blaze about Lillian})
+							)																					
+							(936 ;Clarence
+								(event type: 1 claimed: 1)
+								(DoVerb {ask Blaze about Clarence})
+							)	
+							(937 ;Feels
+								(event type: 1 claimed: 1)
+								(DoVerb {ask Blaze about Wilbur})
+							)
+							(938 ;Rudy
+								(event type: 1 claimed: 1)
+								(DoVerb {ask actress about Rudolph}) ;fixed
+							)	
+							(939 ;Colonel
+								(event type: 1 claimed: 1)
+								(DoVerb {ask Blaze about Colonel})
+							)
+							(940 ;Jules
+								(event type: 1 claimed: 1)
+								(DoVerb {ask Blaze about Jules})
+								
+							)	
+		
+							(941 ;Dog
+								(event type: 1 claimed: 1)
+								(DoVerb {ask Blaze about beauregard})
+							)													
+							(942 ;Parrot
+								(event type: 1 claimed: 1)
+								(DoVerb {ask Blaze about polly})
+							)							
+							(943 ;Horse
+								(event type: 1 claimed: 1)
+								(DoVerb {ask Blaze about blaze})
+							)															
+						(994
+								(DoVerb {hear blaze})
+						)						
+						(615 ;Kakarot
+							(DoVerb {deliver carrot})
+						)
+						(995							
+							(= temp7
+												(PrintSpecial
+;;;													{Blaze}
+
+;;;													#button {Mount} 1	
+;;;													#button {Move} 2
+;;;													#button {Kill} 3
+;;;													#button {Pat} 4
+													{Blaze}
+													#button {Montar} 1
+													#button {Mover} 2								
+													#button {Matar} 3
+													#button {Acariciar} 4
+													
+												)
+											)
+											(switch temp7
+												(1 ;
+													(DoVerb {mount blaze})
+												)
+												(2
+													(DoVerb {move blaze})
+												)
+												(3
+													(DoVerb {kill blaze})
+												)
+												(4
+													(DoVerb {pat blaze})
+												)
+												(else
+														(event claimed: FALSE)
+												)
+											)
+						)
+						(996
+														(= temp7
+												(PrintSpecial
+;;;													{Blaze}
+
+;;;													#button {Converse} 1	
+;;;													#button {Bit} 2
+;;;													#button {Call} 3
+;;;													#button {Kiss} 4
+													{Blaze}
+													#button {Conversar} 1
+													#button {Morder} 2								
+													#button {Llamar} 3
+													#button {Besar} 4
+													
+												)
+											)
+											(switch temp7
+												(1 ;
+													(DoVerb {converse blaze})
+												)
+												(2
+													(DoVerb {bit blaze})
+												)
+												(3
+													(DoVerb {call blaze})
+												)
+												(4
+													(DoVerb {kiss blaze})
+												)
+												(else
+														(event claimed: FALSE)
+												)
+											)
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)									
+				
+				(if (ClickedOnObj Jeeves (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor	
+
+					(602 ;necklace_
+						(DoVerb {tell butler about necklace})						
+					)
+					(604 ;monocle
+						(DoVerb {tell butler about monocle})						
+					)
+					
+					(613 ;lantern_
+						(DoVerb {tell butler about lantern})						
+					)
+					(611 ;oilcan_
+						(DoVerb {tell butler about oilcan})						
+					)
+					(626 ;rolling_pin_
+						(DoVerb {tell butler about pin})						
+					)
+					(620 ;skeleton_key_
+						(DoVerb {tell butler about skeleton key})						
+					)
+					(627 ;poker_
+						(DoVerb {tell butler about poker})						
+					)															
+					(607 ;crowbar_
+						(DoVerb {tell butler about crowbar})						
+					)
+					(628 ;cigar_butt_
+						(DoVerb {tell butler about butt})						
+					)
+					(625 ;broken_record_
+						(DoVerb {tell butler about broken record})						
+					)
+					(601 ;notebook___pencil_
+						(DoVerb {tell butler about notebook})						
+					)
+					(603 ;_7_crackers________
+						(DoVerb {tell butler about crackers})						
+					)
+					(605 ;soup_bone_
+						(DoVerb {tell butler about soup bone})						
+					)
+					(606 ;valve_handle_
+						(DoVerb {tell butler about valve})						
+					)
+					(618 ;bullet_
+						(DoVerb {tell butler about bullet})						
+					)
+					(617 ;derringer__
+						(DoVerb {tell butler about derringer})						
+					)
+					(614 ;matches_
+						(DoVerb {tell butler about matches})						
+					)
+
+					(619 ;brass_key_
+						(DoVerb {tell butler about brass key})						
+					)
+					(616 ;diary_
+						(DoVerb {tell butler about diary})						
+					)
+					(621 ;crank_
+						(DoVerb {tell butler about crank})						
+					)
+					(612 ;cane_
+						(DoVerb {tell butler about cane})						
+					)
+					(622 ;pouch_
+						(DoVerb {tell butler about pouch})						
+					)																																																																																
+					(630 ;handkerchief_
+						(DoVerb {tell butler about handkerchief})
+					)
+											
+						
+						
+						
+						
+							(930  ;gertrude
+								(event type: 1 claimed: 1)
+								(DoVerb {ask butler about Gertrude})
+							)
+							(931 ;Celie
+								(event type: 1 claimed: 1)
+								(DoVerb {ask butler about Celie})
+							)	
+							(932 ;Gloria
+								(event type: 1 claimed: 1)
+								(DoVerb {ask butler about Gloria})
+							)													
+							(933 ;Ethel
+								(event type: 1 claimed: 1)
+								(DoVerb {ask butler about Ethel})
+							)	
+							(934 ;Fifi
+								(event type: 1 claimed: 1)
+								(DoVerb {ask butler about Fifi})
+							)	
+							(935 ;Lillian
+								(event type: 1 claimed: 1)
+								(DoVerb {ask butler about Lillian})
+							)																					
+							(936 ;Clarence
+								(event type: 1 claimed: 1)
+								(DoVerb {ask butler about Clarence})
+							)	
+							(937 ;Feels
+								(event type: 1 claimed: 1)
+								(DoVerb {ask butler about Wilbur})
+							)
+							(938 ;Rudy
+								(event type: 1 claimed: 1)
+								(DoVerb {ask actress about Rudolph}) ;fixed
+							)	
+							(939 ;Colonel
+								(event type: 1 claimed: 1)
+								(DoVerb {ask butler about Colonel})
+							)
+							(940 ;Jules
+								(event type: 1 claimed: 1)
+								(DoVerb {ask butler about Jules})
+								
+							)	
+		
+							(941 ;Dog
+								(event type: 1 claimed: 1)
+								(DoVerb {ask butler about beauregard})
+							)													
+							(942 ;Parrot
+								(event type: 1 claimed: 1)
+								(DoVerb {ask butler about polly})
+							)							
+							(943 ;Horse
+								(event type: 1 claimed: 1)
+								(DoVerb {ask butler about blaze})
+							)															
+						(996 ;talk
+							(DoVerb {converse butler})
+						)
+						(994
+								(DoVerb {hear butler})
+						)				
+				(else
+							(event claimed: FALSE)
+						)
+					)
+				)	
+				(if (ClickedOnObj hay1 (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor					
+					(996
+						(DoVerb {get drink})
+					)
+					(995
+							(= temp7
+												(PrintSpecial
+;;;													{ }
+;;;													#button {Get bale} 1
+;;;													#button {Get water} 2	
+													{Cama}
+													#button {Coger heno} 1
+													#button {Coger agua} 2								
+													
+												)
+											)
+											(switch temp7
+												(1 ;
+													(DoVerb {get bale})
+												)
+												(2
+													(DoVerb {get water})
+												)
+												(else
+														(event claimed: FALSE)
+												)
+										
+											)
+											
+										
+					)
+					(998
+													(= temp7
+												(PrintSpecial
+;;;													{ }
+;;;													#button {Examine in water} 1
+;;;													#button {Examine in bale} 2
+;;;													#button {Examine bale} 3		
+													{ }
+													#button {Mirar en agua} 1
+													#button {Mirar en heno} 2								
+													#button {Mirar heno} 3													
+												)
+											)
+											(switch temp7
+												(1 ;
+													(DoVerb {examine in water})
+												)
+												(2
+													(DoVerb {examine in bale})
+												)
+												(3
+													(DoVerb {examine bale})
+												)												
+												(else
+														(event claimed: FALSE)
+												)
+										
+											)
+											
+										
+					
+				)				
+				(else
+							(event claimed: FALSE)
+						)
+					)
+				)	
+			(if (ClickedOnObj hay2 (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor					
+					(998
+						(event claimed: TRUE)
+						(Print 69 46)
+					)
+					(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+				(if (or (ClickedOnObj window1 (event x?) (event y?)) 		
+						(ClickedOnObj window2 (event x?) (event y?)) 		
+						(ClickedOnObj window3 (event x?) (event y?)) )
+					(event claimed: TRUE)
+					(switch theCursor
+					(998
+						(event claimed: TRUE)
+						(Print 69 47)
+					)
+					(995
+								
+							(switch (Random 0 1)
+									(0 (DoVerb {open window}))
+									(1 (DoVerb {break window})
+								
+								)
+					)
+					)
+					(else
+							(event claimed: FALSE)
+						)
+					)
+				)			
+					
+			)	
+					
+					
+					
+					)							
 		(if (event claimed?) (return TRUE))
 		(return
 			(if (== (event type?) saidEvent)

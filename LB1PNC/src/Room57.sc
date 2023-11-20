@@ -11,6 +11,7 @@
 (use Game)
 (use Actor)
 (use System)
+(use User)
 
 (public
 	Room57 0
@@ -38,6 +39,7 @@
 	local13
 	firstTime
 	noGetInMsg
+	temp7
 )
 (procedure (LookRoom &tmp [str 250])
 	(if (== tombDoorState 1)
@@ -193,11 +195,11 @@
 	(method (doit)
 		(cond 
 			((== tombDoorState 1)
-				(if (& (ego onControl: origin) cBLUE)
+				(if (& (ego onControl: origin) $0200)
 					(curRoom newRoom: 2)
 				)
 			)
-			((& (ego onControl: origin) cLBLUE)
+			((& (ego onControl: origin) $0200)
 				(if (not barredMsg)
 					(= barredMsg TRUE)
 					(Print 57 0)
@@ -207,7 +209,7 @@
 				(= barredMsg FALSE)
 			)
 		)
-		(if (and (& (ego onControl: origin) cRED) local13)
+		(if (and (& (ego onControl: origin) $0020) local13)
 			(cond 
 				(lanternIsLit
 					(self setScript: GettingIn)
@@ -218,7 +220,7 @@
 				)
 			)
 		)
-		(if (& (ego onControl: origin) cBLACK)
+		(if (& (ego onControl: origin) $0001)
 			(= noGetInMsg FALSE)
 		)
 		(super doit:)
@@ -231,6 +233,438 @@
 	)
 	
 	(method (handleEvent event &tmp temp0)
+	
+						(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)
+	
+			(if (and (ClickedOnObj marysCover (event x?) (event y?))  ;???
+					(& (ego onControl: origin) ctlNAVY)	)
+					(event claimed: TRUE)
+					(switch theCursor	
+					(612 ;cane
+						(DoVerb {pry vault with cane})
+					)
+					(607 ;crowbar_
+						(DoVerb {pry vault with crowbar})						
+					)
+					(627 ;poker
+						(DoVerb {pry vault with poker})						
+					)
+						(995
+							(DoVerb {examine frances}) 
+						)
+						(998
+							(event claimed: TRUE)
+							(Print 57 4)
+						)
+						(else
+							(event claimed: FALSE)
+						
+						)
+					)
+				)			
+		
+			(if (and (ClickedOnObj rubysCover (event x?) (event y?)) 
+					(& (ego onControl: origin) ctlGREEN)	)
+					(event claimed: TRUE)
+					(switch theCursor
+						(612 ;cane
+						(DoVerb {pry vault with cane})
+					)
+					(607 ;crowbar_
+						(DoVerb {pry vault with crowbar})						
+					)
+					(627 ;poker
+						(DoVerb {pry vault with poker})						
+					)				(995
+							(DoVerb {examine ruby}) 
+						)							
+						(998
+							(event claimed: TRUE)
+							(Print 57 5)
+						)
+						(else
+							(event claimed: FALSE)
+							
+						)
+					)
+				)		
+		
+			(if (and (ClickedOnObj tomsCover (event x?) (event y?)) 
+					(& (ego onControl: origin) ctlTEAL)	)
+					(event claimed: TRUE)
+					(switch theCursor
+					(612 ;cane
+						(DoVerb {pry vault with cane})
+					)
+					(607 ;crowbar_
+						(DoVerb {pry vault with crowbar})						
+					)
+					(627 ;poker
+						(DoVerb {pry vault with poker})						
+					)							
+						(995
+							(DoVerb {examine crouton}) 
+						)						
+						(998
+							(event claimed: TRUE)
+							(Print 57 6)
+						)
+						(else
+							(event claimed: FALSE)
+							
+						)
+					)
+				)		
+			(if (and (ClickedOnObj claudesCover (event x?) (event y?)) 
+					(& (ego onControl: origin) ctlMAROON)	)
+					(event claimed: TRUE)
+					(switch theCursor	
+					(612 ;cane
+						(DoVerb {pry vault with cane})
+					)
+					(607 ;crowbar_
+						(DoVerb {pry vault with crowbar})						
+					)
+					(627 ;poker
+						(DoVerb {pry vault with poker})						
+					)						
+						(995
+							(DoVerb {examine claude}) 
+						)
+						(998
+							(event claimed: TRUE)
+							(Print 57 7)
+						)
+						(else
+							(event claimed: FALSE)
+							
+						)
+					)
+				)				
+			(if (ClickedOnObj pouch (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998
+							(DoVerb {examine ruby}) 
+						)
+						(995
+													
+							(DoVerb {get diamond}) 
+						
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)		
+			(if (ClickedOnObj lantern (event x?) (event y?)) 
+
+					(event claimed: TRUE)
+					(switch theCursor	
+						(614 ;matches
+							(if (ego has: iMatches) ;matches
+									(if lanternIsLit
+										(Print 410 42)
+									else
+										(Print 410 43)
+										(= lanternIsLit TRUE)
+									)
+								)
+						
+						)
+						(995
+							(DoVerb {get lantern}) 
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)			
+;;;			(if (ClickedOnObj skull (event x?) (event y?)) 
+;;;					
+;;;					(event claimed: TRUE)
+;;;					(switch theCursor	
+;;;						
+;;;						(else
+;;;							(event claimed: FALSE)
+;;;						)
+;;;					)
+;;;				)				
+			(if (ClickedOnPicView skeleton (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor	
+						(995
+							(DoVerb {move skeleton}) 
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+			(if (ClickedOnPicView casket (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor	
+						(995
+							(DoVerb {get casket}) 
+						)
+						
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)	
+;;;			(if (ClickedOnPicView skeletons (event x?) (event y?)) 
+;;;					
+;;;					(event claimed: TRUE)
+;;;					(switch theCursor	
+;;;						
+;;;						(else
+;;;							(event claimed: FALSE)
+;;;						)
+;;;					)
+;;;				)	
+			(if (ClickedOnObj Window1 (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(995
+								(= temp7
+												(Print
+;;;													{Window}
+;;;													#button {Open} 1
+;;;													#button {Break} 2	
+
+	
+
+
+													{Ventana}
+													#button {Abrir} 1
+													#button {Romper} 2
+							
+ 
+												)
+											)
+											(switch temp7
+												(1 ;
+													(DoVerb {open window})
+												)
+												(2	
+													(DoVerb {break window})							
+												)
+										
+												(else
+														(event claimed: FALSE)
+												)
+											)
+						
+										
+						)	
+						(998
+							(DoVerb {examine window}) 
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)	
+			(if (ClickedOnObj Window2 (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998
+							(Print 57 40)
+							(event claimed: TRUE)
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+
+				
+				
+			(if (ClickedOnObj Box (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998
+							(DoVerb {examine sarcophagus}) 
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)	
+				
+				
+;;;			(if (or (& (ego onControl: origin) cBLUE)	
+;;;				(& (ego onControl: origin) cRED)				)
+;;;				(event claimed: TRUE)
+;;;					(switch theCursor
+;;;						(995
+;;;							(= temp7
+;;;						(Print
+;;;;;;													{ }
+;;;;;;													#button {Break} 1
+;;;;;;													#button {Close} 2	
+;;;;;;													#button {Unbar} 3
+;;;	
+;;;
+;;;
+;;;													{ }
+;;;													#button {Romper} 1
+;;;													#button {Cerrar} 2
+;;;													#button {Abrir} 3								
+;;;
+;;;												)
+;;;											)
+;;;											(switch temp7
+;;;												(1 ;
+;;;													(DoVerb {break}) ;yes
+;;;												)
+;;;												(2	
+;;;													(DoVerb {close})	;yes						
+;;;												)
+;;;												(3	
+;;;													(DoVerb {unbar})	;yes						
+;;;												)																						
+;;;												(else
+;;;														(event claimed: FALSE)
+;;;												)
+;;;											)
+;;;						
+;;;						)	
+;;;							
+;;;							
+;;;							
+;;;							
+;;;							
+;;;							
+;;;						(607
+;;;								(DoVerb {break crowbar})
+;;;						)	
+;;;						(627
+;;;							(DoVerb {break poker})
+;;;						)
+;;;						(612 ;cane
+;;;							(DoVerb {break cane})
+;;;							
+;;;						)
+;;;						(998
+;;;								(= temp7
+;;;												(Print
+;;;;;;													{ }
+;;;;;;													#button {Examine} 1
+;;;;;;													#button {Examine in} 2	
+;;;	
+;;;
+;;;
+;;;													{ }
+;;;													#button {Examinar} 1
+;;;													#button {Mirar dentro} 2								
+;;;
+;;;												)
+;;;											)
+;;;											(switch temp7
+;;;												(1 ;
+;;;													(DoVerb {examine}) ;yes
+;;;												)
+;;;												(2	
+;;;													(DoVerb {examine in})	;yes						
+;;;												)
+;;;																						
+;;;												(else
+;;;														(event claimed: FALSE)
+;;;												)
+;;;											)
+;;;						
+;;;						
+;;;						)
+;;;						(else
+;;;							(event claimed: FALSE)
+;;;						)
+;;;					)
+;;;				)	
+		(if (or (& (ego onControl: origin) cLBLUE)		
+			(& (ego onControl: origin) cBROWN)	)
+				(event claimed: TRUE)
+					(switch theCursor
+						(995
+								(= temp7
+												(Print
+;;;													{ }
+;;;													#button {Bar} 1
+;;;													#button {Open} 2	
+;;;													#button {Unbar} 3
+	
+
+
+													{ }
+													#button {Bloquear} 1
+													#button {Abrir} 2
+													#button {Desbloquear} 3								
+ 
+												)
+											)
+											(switch temp7
+												(1 ;
+													(DoVerb {bar door})
+												)
+												(2	
+													(DoVerb {open})							
+												)
+												(3	
+													(DoVerb {unbar})							
+												)										
+												(else
+														(event claimed: FALSE)
+												)
+											)
+						
+						)									
+						(else
+														(event claimed: FALSE)
+												)
+											)
+						
+						)									
+									
+									
+												
+			(if (& (ego onControl: origin) cRED)	
+				(event claimed: TRUE)
+					(switch theCursor
+						(995
+							(NotClose)
+						)	
+						(998
+							(NotClose)
+						)									
+						(607
+							(NotClose)
+						)
+						(612
+							(NotClose)
+						)												
+						(627
+							(NotClose)
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)	
+														
+			)
+						)															
 		(if (event claimed?) (return))
 		(if (== (event type?) saidEvent)
 			(cond 
@@ -446,7 +880,7 @@
 								((not (& global169 $0002))
 									(Print 57 22)
 								)
-								((not (& (ego onControl: origin) cBLUE))
+								((not (& (ego onControl: origin) $0002))
 									(NotClose)
 								)
 								(else
@@ -459,7 +893,7 @@
 								((not (& global169 $0008))
 									(Print 57 22)
 								)
-								((not (& (ego onControl: origin) cCYAN))
+								((not (& (ego onControl: origin) $0008))
 									(NotClose)
 								)
 								(else
@@ -472,7 +906,7 @@
 								((not (& global169 $0010))
 									(Print 57 22)
 								)
-								((not (& (ego onControl: origin) cRED))
+								((not (& (ego onControl: origin) $0010))
 									(NotClose)
 								)
 								(else
@@ -485,7 +919,7 @@
 								((not (& global169 $0004))
 									(Print 57 22)
 								)
-								((not (& (ego onControl: origin) cGREEN))
+								((not (& (ego onControl: origin) $0004))
 									(NotClose)
 								)
 								((ego has: iPouch)
@@ -506,19 +940,22 @@
 										(& (ego onControl: origin) thisControl)
 										(& global169 thisControl)
 									)
-									(if (== thisControl cGREEN)
+;;;									(if (== thisControl cGREEN)
+									(if (== thisControl $0004)	
 										(DontSee)
 										(break)
 									)
 									(if (Said '/skeleton')
-										(if (== thisControl cCYAN)
+;;;										(if (== thisControl cCYAN)
+										(if (== thisControl $0008)
 											(DontSee)
 											(break)
 										)
 										(Print 57 23)
 										(break)
 									)
-									(if (!= thisControl cCYAN)
+;;;									(if (!= thisControl cCYAN)
+									(if (!= thisControl $0008)
 										(DontSee)
 										(break)
 									)

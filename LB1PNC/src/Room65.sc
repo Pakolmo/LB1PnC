@@ -555,7 +555,8 @@
 								(Print 65 12)
 							)
 							((== ((inventory at: iValveHandle) owner?) 65)
-								(TurnValve)
+								(TurnValve);NO
+								
 							)
 							(else
 								(Print 65 13)

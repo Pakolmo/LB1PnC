@@ -486,7 +486,7 @@
 					)
 					(998
 						(= temp7
-							(PrintSpecial
+							(PrintSpecialSimple
 ;;;								{Glass}
 ;;;								#button {Examine} 1
 ;;;								#button {handkerchief} 2
@@ -524,7 +524,7 @@
 ;;;								#button {Get handkerchief} 2
 								{Vaso}
 								#button {Coger vaso} 1
-								#button {Coger pa>uelo} 2
+								#button {Coger pa=uelo} 2
 							)
 							)
 

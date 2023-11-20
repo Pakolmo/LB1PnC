@@ -20,6 +20,7 @@
 (local
 	oilCanHere
 	local1
+	temp7
 )
 (instance Room61 of Room
 	(properties
@@ -81,6 +82,331 @@
 	)
 	
 	(method (handleEvent event &tmp temp0)
+		(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)
+				(if (ClickedOnPicView anchor (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor	
+						(995
+							(DoVerb {get anchor}) 
+						)
+						(998
+							(DoVerb {examine anchor}) 
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)		
+			(if (ClickedOnPicView harness (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998
+							(DoVerb {examine bit}) 
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)			
+		
+			(if (ClickedOnObj Boat (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor	
+						(995
+							 
+								(= temp7
+												(Print
+;;;													{Boat}
+;;;													#button {Get} 1
+;;;													#button {Enter} 2	
+	
+
+
+													{Bote}
+													#button {Recoger} 1
+													#button {Entrar} 2								
+
+												)
+											)
+											(switch temp7
+												(1 ;
+													(DoVerb {get boat})
+												)
+												(2	
+													(DoVerb {enter boat})							
+												)
+																						
+												(else
+														(event claimed: FALSE)
+												)
+											)
+						
+									
+						
+							
+							
+							
+						
+							
+							
+							
+							
+						)
+						(998
+									(= temp7
+												(PrintSpecial
+;;;													{Boat}
+;;;													#button {Examine below} 1
+;;;													#button {Examine in} 2	
+;;;													#button {Examine} 3	
+
+
+													{Bote}
+													#button {Examinar debajo} 1
+													#button {Examinar} 2								
+													#button {Mirar} 3
+												)
+											)
+											(switch temp7
+												(1 ;
+													(DoVerb {examine below boat})
+												)
+												(2	
+													(DoVerb {examine in boat})							
+												)
+												(3
+													(DoVerb {examine boat})							
+												)												
+												(else
+														(event claimed: FALSE)
+												)
+											)
+						
+									
+						
+							
+							
+							
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)		
+		
+		
+		
+		
+				(if (ClickedOnObj Box (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor	
+						(995	
+									 
+								(= temp7
+												(Print
+;;;													{Box}
+;;;													#button {Open} 1
+;;;													#button {Get} 2	
+	
+
+
+													{Caja}
+													#button {Abrir} 1
+													#button {Recoger} 2								
+
+												)
+											)
+											(switch temp7
+												(1 ;
+													(DoVerb {open box})
+												)
+												(2	
+													(DoVerb {get box})							
+												)
+																						
+												(else
+														(event claimed: FALSE)
+												)
+											)
+						
+									
+						
+							
+							
+							
+						
+							
+							
+							
+							
+						)
+						(998	
+									 
+								(= temp7
+												(Print
+;;;													{Box}
+;;;													#button {Examine in} 1
+;;;													#button {Look} 2	
+	
+
+
+													{Caja}
+													#button {Examinar} 1
+													#button {Mirar} 2								
+
+												)
+											)
+											(switch temp7
+												(1 ;
+													(DoVerb {Examine in box})
+												)
+												(2	
+													(DoVerb {examine box})							
+												)
+																						
+												(else
+														(event claimed: FALSE)
+												)
+											)
+								
+							
+						)		
+		(else
+														(event claimed: FALSE)
+												)
+											)
+								
+							
+						)		
+		
+		
+		
+
+		
+				(if (ClickedOnObj Car (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor	
+						(995	
+									 
+								(= temp7
+												(Print
+;;;													{Buggy}
+;;;													#button {Enter} 1
+;;;													#button {Get} 2	
+	
+
+
+													{Buggy}
+													#button {Entrar} 1
+													#button {Recoger} 2								
+
+												)
+											)
+											(switch temp7
+												(1 ;
+													(DoVerb {enter buggy})
+												)
+												(2	
+													(DoVerb {get buggy})							
+												)
+																						
+												(else
+														(event claimed: FALSE)
+												)
+											)
+						
+									
+						
+							
+							
+							
+						
+							
+							
+							
+							
+						)
+						(998	
+									 
+								(= temp7
+												(Print
+;;;													{Buggy}
+;;;													#button {Examine in} 1
+;;;													#button {Look} 2	
+	
+
+
+													{Buggy}
+													#button {Examinar} 1
+													#button {Mirar} 2								
+
+												)
+											)
+											(switch temp7
+												(1 ;
+													(DoVerb {Examine in Buggy})
+												)
+												(2	
+													(DoVerb {examine Buggy})							
+												)
+																						
+												(else
+														(event claimed: FALSE)
+												)
+											)
+								
+							
+						)		
+		(else
+														(event claimed: FALSE)
+												)
+											)
+								
+							
+						)		
+		
+			(if (ClickedOnObj OilCan (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor	
+						(995
+							(DoVerb {get can}) 
+						)
+						(998
+							(DoVerb {examine can}) 
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)	
+			(if (ClickedOnObj Table (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor	
+
+						(998
+							(DoVerb {examine nightstand}) 
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)		
+		
+		
+		
+		
+		)
+	)
+		
+		
+		
+		
+		
 		(super handleEvent: event)
 		(if (event claimed?) (return TRUE))
 		(return

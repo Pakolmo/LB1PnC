@@ -14,6 +14,9 @@
 	(blackboard board)
 	(doll bear toy)
 )
+(local
+	temp7
+)
 
 (instance Room63 of Room
 	(properties
@@ -75,6 +78,96 @@
 	)
 	
 	(method (handleEvent event)
+		(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)
+				(if (ClickedOnPicView table (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor	
+						(995
+							(DoVerb {examine nightstand}) 
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)		
+			(if (ClickedOnPicView chair1 (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998
+							(DoVerb {examine chair}) 
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)	
+				(if (ClickedOnPicView chair2 (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998
+							(Print 63 9)
+							(event claimed: TRUE)
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)	
+				(if (ClickedOnPicView BigDoll (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998
+							(DoVerb {examine doll}) 
+						)
+						(995
+								 
+								(= temp7
+												(Print
+;;;													{Doll}
+;;;													#button {Play} 1
+;;;													#button {Get} 2	
+	
+
+
+													{Mu=eco}
+													#button {Jugar} 1
+													#button {Coger} 2								
+
+												)
+											)
+											(switch temp7
+												(1 ;
+													(DoVerb {play doll})
+												)
+												(2	
+													(DoVerb {get doll})							
+												)
+																						
+												(else
+														(event claimed: FALSE)
+												)
+											)
+						
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)		
+		)
+			)
+		
+		
+		
+		
+		
+		
+		
 		(if (event claimed?) (return))
 		(if (== (event type?) saidEvent)
 			(if
