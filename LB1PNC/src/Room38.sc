@@ -447,7 +447,7 @@
 ;;;								#button {Examine alcohol} 1
 ;;;								#button {examine in} 2
 ;;;								#button {Look} 3
-								{Retrato}
+								{Decantador}
 								#button {Examinar alcohol} 1
 								#button {Mirar dentro} 2
 								#button {Mirar} 3								

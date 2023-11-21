@@ -139,8 +139,9 @@
 					(not (& (event modifiers?) emRIGHT_BUTTON))
 				)
 
-				(if (ClickedOnPicView Door (event x?) (event y?)) 
-					
+;;;				(if (ClickedOnPicView Door (event x?) (event y?)) 
+				(if (and (ClickedInRect  225 255 40 95 event) 
+					(== (event claimed?) FALSE) )
 					(event claimed: TRUE)
 					(switch theCursor
 						(995		
@@ -148,11 +149,14 @@
 								(= temp7
 												(PrintSpecial
 		
-													{Door}
-													#button {Break} 1
-													#button {Open} 2	
-													#button {Bang} 3							
-													
+;;;													{Door}
+;;;													#button {Break} 1
+;;;													#button {Open} 2	
+;;;													#button {Bang} 3							
+													{Puerta}
+													#button {Romper} 1
+													#button {Abrir} 2	
+													#button {Picar} 3													
 												)
 											)
 											(switch temp7
@@ -188,9 +192,12 @@
 								(= temp7
 												(Print
 		
-													{Chair}
-													#button {Get} 1
-													#button {Boulder} 2
+;;;													{Chair}
+;;;													#button {Get} 1
+;;;													#button {Boulder} 2
+													{Silla}
+													#button {Coger} 1
+													#button {Mecerse} 2
 																										
 												)
 											)
@@ -322,10 +329,12 @@
 								(= temp7
 												(Print
 		
-													{Chicken}
-													#button {feed} 1
-													#button {capture} 2								
-													
+;;;													{Chicken}
+;;;													#button {feed} 1
+;;;													#button {capture} 2								
+													{Pollo}
+													#button {Alimentar} 1
+													#button {Capturar} 2														
 												)
 											)
 											(switch temp7
@@ -396,11 +405,14 @@
 												(= temp7
 												(Print
 		
-													{Window}
-													#button {Break} 1
-													#button {Examine in} 2								
-													#button {Open} 2	
-													
+;;;													{Window}
+;;;													#button {Break} 1
+;;;													#button {Examine in} 2								
+;;;													#button {Open} 2	
+													{Ventana}
+													#button {Romper} 1
+													#button {Examinar} 2								
+													#button {Abrir} 2													
 												)
 											)
 											(switch temp7

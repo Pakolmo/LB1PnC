@@ -372,7 +372,8 @@
 					setAvoider: 0
 					setScript: lilActions
 				)
-				(ego observeControl: cYELLOW)
+;;;				(ego observeControl: cYELLOW)
+				(ego observeControl: 16384)
 				(DisposeScript AVOIDER)
 				(client setScript: 0)
 			)

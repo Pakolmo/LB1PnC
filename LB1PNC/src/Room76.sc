@@ -19,6 +19,7 @@
 
 (local
 	local0
+	temp7
 )
 (instance Room76 of Room
 	(properties
@@ -38,6 +39,7 @@
 			)
 		)
 		(switch currentAct
+
 			(2 (= local0 1))
 			(4 (= local0 2))
 			(6 (= local0 4))
@@ -84,6 +86,215 @@
 	)
 	
 	(method (handleEvent event &tmp temp0)
+		
+				(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)
+				(if (and (ClickedOnObj trunk (event x?) (event y?)) 
+					(== (event claimed?) FALSE) 
+					local0)
+					(event claimed: TRUE)
+					(switch theCursor
+						(995
+							(= temp7
+												(PrintSpecial
+		
+;;;													{Get}
+;;;													#button {Cape} 1	
+;;;													#button {Glove} 2	
+;;;													#button {Boot} 3
+;;;													#button {Hat} 4	
+;;;													#button {Insignia} 5	
+		
+													{Coger}
+													#button {Capa} 1
+													#button {Guante} 2	
+													#button {Bota} 3
+													#button {Gorro} 4														
+													#button {Insignia} 5
+																									
+												)
+											)
+											(switch temp7
+												(1 
+													(DoVerb {get cape})
+												)
+												(2 
+													(DoVerb {get glove})
+												)
+												(3 
+													(DoVerb {get boot})
+												)
+												(4 
+													(DoVerb {get hat})
+												)
+												(5 
+													(DoVerb {get insignia})
+												)
+																																				
+												(else
+													(event claimed: FALSE)
+												)	
+											)											
+						)		
+						(998
+							(= temp7
+												(PrintSpecial
+		
+;;;													{Examine}
+;;;													#button {Cape} 1	
+;;;													#button {Glove} 2	
+;;;													#button {Boot} 3
+;;;													#button {Hat} 4	
+;;;													#button {Insignia} 5	
+		
+													{Examinar}
+													#button {Capa} 1
+													#button {Guante} 2	
+													#button {Bota} 3
+													#button {Gorro} 4														
+													#button {Insignia} 5
+																									
+												)
+											)
+											(switch temp7
+												(1 
+													(DoVerb {examine cape})
+												)
+												(2 
+													(DoVerb {examine glove})
+												)
+												(3 
+													(DoVerb {examine boot})
+												)
+												(4 
+													(DoVerb {examine hat})
+												)
+												(5 
+													(DoVerb {examine insignia})
+												)
+																																				
+												(else
+													(event claimed: FALSE)
+												)	
+											)											
+						)		
+			(else
+													(event claimed: FALSE)
+												)	
+											)											
+						)		
+
+
+
+
+				(if (and (ClickedOnObj trunk (event x?) (event y?)) 
+					(== (event claimed?) FALSE) 
+					(not local0))
+					(event claimed: TRUE)
+					(switch theCursor
+						(995	
+		
+								(= temp7
+												(PrintSpecial
+		
+;;;													{ }
+;;;													#button {Get box} 1
+;;;													#button {Get chest} 2	
+
+													{ }
+													#button {Coger caja} 1
+													#button {Coger cofre} 2	
+																									
+												)
+											)
+											(switch temp7
+												(1 
+													(DoVerb {get box})
+														
+												)
+												(2 
+													(DoVerb {get chest})
+		
+														
+												)
+												(else
+													(event claimed: FALSE)
+												)	
+											)											
+						)		
+		
+						(998
+									
+								(= temp7
+												(PrintSpecial
+		
+;;;													{Chest}
+;;;													#button {Search} 1
+;;;													#button {Examine} 2	
+
+													{Cofre}
+													#button {Buscar} 1
+													#button {Examinar} 2	
+																									
+												)
+											)
+											(switch temp7
+												(1 
+													(DoVerb {examine in chest})
+														
+												)
+												(2 
+													(DoVerb {examine chest})
+		
+														
+												)
+												(else
+													(event claimed: FALSE)
+												)	
+											)											
+						)		
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)		
+		
+				(if (and (ClickedOnObj Elevator (event x?) (event y?)) 
+					(== (event claimed?) FALSE) )
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+								(event claimed: TRUE)
+								(DoLook {elevator})		
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)		
+				(if (and (ClickedOnObj Junk (event x?) (event y?)) 
+					(== (event claimed?) FALSE) )
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+								(DoVerb {examine garbage})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)		
+				
+			)
+				)
+		
+		
+		
+		
 		(if (event claimed?) (return TRUE))
 		(return
 			(if (== (event type?) saidEvent)

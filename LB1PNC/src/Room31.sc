@@ -169,7 +169,8 @@
 		)
 		(if
 			(and
-				(& (ego onControl: 0) cRED)
+;;;				(& (ego onControl: 0) cRED)
+				(& (ego onControl: 0) $0010)
 				(== (ego loop?) 1)
 				(not script)
 			)
@@ -181,7 +182,8 @@
 		else
 			(ego setPri: -1)
 		)
-		(if (& (ego onControl: origin) cGREEN)
+;;;		(if (& (ego onControl: origin) cGREEN)
+		(if (& (ego onControl: 1) $0004)
 			(curRoom newRoom: 10)
 			(if (or (== global154 1) (== global154 2))
 				(= global154 3)
@@ -1313,7 +1315,7 @@
 									(if (>= currentAct 5)
 										{,}
 									else
-										{, a pearl-handled dagger,}
+;;;										{, a pearl-handled dagger,}
 										{, una daga tallada con perlas,}
 									)
 								)
