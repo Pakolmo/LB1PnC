@@ -57,7 +57,7 @@
 		(SetCursor 993 TRUE 300 0) ;hand_cursor no, walk.
 ;;;		(HandsOff)
 		(theGame setCursor: 993 (HaveMouse))
-		(User canInput: FALSE)
+;;;		(User canInput: FALSE)
 		(cSound stop:)
 		(Load FONT 4)
 		(LoadMany VIEW 22 653 38)
