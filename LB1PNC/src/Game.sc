@@ -1092,7 +1092,7 @@
 		)
 
 		(if (== ret 2)
-			(= ret (GetDirectory curSaveDir))
+			(= ret (GetSaveDir curSaveDir))
 		)
 
 	)

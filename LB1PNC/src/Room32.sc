@@ -533,27 +533,8 @@
 							(DoVerb {rotate page})
 						)
 						(998
-							(= temp7
-								(PrintSpecial
-;;;									{Magazine}
-;;;									#button {Examine} 1
-;;;									#button {Read} 2
-									{Revista}
-									#button {Examinar} 1
-									#button {Leer} 2		
-								)
-							)
-							(switch temp7
-								(1 		
+		
 									(DoVerb {examine magazine})
-								)
-								(2
-									(DoVerb {read magazine})
-								)
-								(else
-									(event claimed: FALSE)
-								)
-							)
 						)
 						(else
 							(event claimed: FALSE)

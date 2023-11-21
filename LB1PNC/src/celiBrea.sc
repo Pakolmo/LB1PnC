@@ -250,68 +250,350 @@
 					)
 											
 						
-						
-						
-						
+					
+											
 							(930  ;gertrude
 								(event type: 1 claimed: 1)
-								(DoVerb {ask lillian about Gertrude})
+												(= temp7
+							(Print
+;;;								{Ask or Tell}
+;;;								#button {Ask} 1
+;;;								#button {Tell} 2
+								{Preguntar o Hablar de}
+								#button {Preguntar} 1
+								#button {Hablar de} 2												
 							)
+						)
+						(switch temp7
+							(1 
+								(DoVerb {ask lillian about gertrude})
+							)
+							(2
+								(DoVerb {tell lillian about gertrude})
+							)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+							
 							(931 ;Celie
 								(event type: 1 claimed: 1)
+								(= temp7
+															(Print
+;;;								{Ask or Tell}
+;;;								#button {Ask} 1
+;;;								#button {Tell} 2
+								{Preguntar o Hablar de}
+								#button {Preguntar} 1
+								#button {Hablar de} 2												
+							)
+						)
+						(switch temp7
+							(1 
 								(DoVerb {ask lillian about Celie})
-							)	
+							)
+							(2
+								(DoVerb {tell lillian about Celie})
+							)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+							
 							(932 ;Gloria
 								(event type: 1 claimed: 1)
-								(DoVerb {ask lillian about Gloria})
-							)													
+								(= temp7
+															(Print
+;;;								{Ask or Tell}
+;;;								#button {Ask} 1
+;;;								#button {Tell} 2
+								{Preguntar o Hablar de}
+								#button {Preguntar} 1
+								#button {Hablar de} 2												
+							)
+						)
+						(switch temp7
+							(1 
+								(DoVerb {ask lillian about gloria})
+							)
+							(2
+								(DoVerb {tell lillian about gloria})
+							)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)												
 							(933 ;Ethel
+								
 								(event type: 1 claimed: 1)
-								(DoVerb {ask lillian about Ethel})
-							)	
+								(= temp7
+															(Print
+;;;								{Ask or Tell}
+;;;								#button {Ask} 1
+;;;								#button {Tell} 2
+								{Preguntar o Hablar de}
+								#button {Preguntar} 1
+								#button {Hablar de} 2												
+							)
+						)
+						(switch temp7
+							(1 
+								(DoVerb {ask lillian about ethel})
+							)
+							(2
+								(DoVerb {tell lillian about ethel})
+							)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+							
 							(934 ;Fifi
 								(event type: 1 claimed: 1)
-								(DoVerb {ask lillian about Fifi})
-							)	
+								(= temp7
+														(Print
+;;;								{Ask or Tell}
+;;;								#button {Ask} 1
+;;;								#button {Tell} 2
+								{Preguntar o Hablar de}
+								#button {Preguntar} 1
+								#button {Hablar de} 2												
+							)
+						)
+						(switch temp7
+							(1 
+								(DoVerb {ask lillian about fifi})
+							)
+							(2
+								(DoVerb {tell lillian about fifi})
+							)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
 							(935 ;Lillian
 								(event type: 1 claimed: 1)
-								(DoVerb {ask lillian about Lillian})
-							)																					
+								(= temp7
+															(Print
+;;;								{Ask or Tell}
+;;;								#button {Ask} 1
+;;;								#button {Tell} 2
+								{Preguntar o Hablar de}
+								#button {Preguntar} 1
+								#button {Hablar de} 2												
+							)
+						)
+						(switch temp7
+							(1 
+								(DoVerb {ask lillian about lillian})
+							)
+							(2
+								(DoVerb {tell lillian about lillian})
+							)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)																				
 							(936 ;Clarence
 								(event type: 1 claimed: 1)
+								(= temp7
+															(Print
+;;;								{Ask or Tell}
+;;;								#button {Ask} 1
+;;;								#button {Tell} 2
+								{Preguntar o Hablar de}
+								#button {Preguntar} 1
+								#button {Hablar de} 2												
+							)
+						)
+						(switch temp7
+							(1 
 								(DoVerb {ask lillian about Clarence})
-							)	
+							)
+							(2
+								(DoVerb {tell lillian about clarence})
+							)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
 							(937 ;Feels
 								(event type: 1 claimed: 1)
+								(= temp7
+															(Print
+;;;								{Ask or Tell}
+;;;								#button {Ask} 1
+;;;								#button {Tell} 2
+								{Preguntar o Hablar de}
+								#button {Preguntar} 1
+								#button {Hablar de} 2												
+							)
+						)
+						(switch temp7
+							(1 
 								(DoVerb {ask lillian about Wilbur})
 							)
+							(2
+								(DoVerb {tell lillian about Wilbur})
+							)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
 							(938 ;Rudy
 								(event type: 1 claimed: 1)
-								(DoVerb {ask lillian about Rudy})
-							)	
+								(= temp7
+															(Print
+;;;								{Ask or Tell}
+;;;								#button {Ask} 1
+;;;								#button {Tell} 2
+								{Preguntar o Hablar de}
+								#button {Preguntar} 1
+								#button {Hablar de} 2												
+							)
+						)
+						(switch temp7
+							(1 
+								(DoVerb {ask lillian about rudolph})
+							)
+							(2
+								(DoVerb {tell lillian about rudolph})
+							)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
 							(939 ;Colonel
 								(event type: 1 claimed: 1)
-								(DoVerb {ask lillian about Colonel})
+								(= temp7
+															(Print
+;;;								{Ask or Tell}
+;;;								#button {Ask} 1
+;;;								#button {Tell} 2
+								{Preguntar o Hablar de}
+								#button {Preguntar} 1
+								#button {Hablar de} 2												
 							)
+						)
+						(switch temp7
+							(1 
+								(DoVerb {ask lillian about colonel})
+							)
+							(2
+								(DoVerb {tell lillian about colonel})
+							)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
 							(940 ;Jules
 								(event type: 1 claimed: 1)
+								(= temp7
+															(Print
+;;;								{Ask or Tell}
+;;;								#button {Ask} 1
+;;;								#button {Tell} 2
+								{Preguntar o Hablar de}
+								#button {Preguntar} 1
+								#button {Hablar de} 2												
+							)
+						)
+						(switch temp7
+							(1 
 								(DoVerb {ask lillian about Jules})
 							)
+							(2
+								(DoVerb {tell lillian about Jules})
+							)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+		
 							(941 ;Dog
 								(event type: 1 claimed: 1)
+							(= temp7	
+							(Print
+;;;								{Ask or Tell}
+;;;								#button {Ask} 1
+;;;								#button {Tell} 2
+								{Preguntar o Hablar de}
+								#button {Preguntar} 1
+								#button {Hablar de} 2												
+							)
+						)
+						(switch temp7
+							(1 
 								(DoVerb {ask lillian about beauregard})
-							)													
+							)
+							(2
+								(DoVerb {tell lillian about beauregard})
+							)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)												
 							(942 ;Parrot
 								(event type: 1 claimed: 1)
+								(= temp7	
+							(Print
+;;;								{Ask or Tell}
+;;;								#button {Ask} 1
+;;;								#button {Tell} 2
+								{Preguntar o Hablar de}
+								#button {Preguntar} 1
+								#button {Hablar de} 2												
+							)
+						)
+						(switch temp7
+							(1 
 								(DoVerb {ask lillian about polly})
-							)							
+							)
+							(2
+								(DoVerb {tell lillian about polly})
+							)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)				
 							(943 ;Horse
 								(event type: 1 claimed: 1)
+								(= temp7	
+							(Print
+;;;								{Ask or Tell}
+;;;								#button {Ask} 1
+;;;								#button {Tell} 2
+								{Preguntar o Hablar de}
+								#button {Preguntar} 1
+								#button {Hablar de} 2												
+							)
+						)
+						(switch temp7
+							(1 
 								(DoVerb {ask lillian about blaze})
-							)							
-													
-							
-							
+							)
+							(2
+								(DoVerb {tell lillian about blaze})
+							)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)								
+						
 							
 							
 														
@@ -453,64 +735,352 @@
 								(DoVerb {hear celie})
 							)						
 						
+
+				
+						
+					
 						
 							(930  ;gertrude
 								(event type: 1 claimed: 1)
-								(DoVerb {ask celie about Gertrude})
+												(= temp7
+							(Print
+;;;								{Ask or Tell}
+;;;								#button {Ask} 1
+;;;								#button {Tell} 2
+								{Preguntar o Hablar de}
+								#button {Preguntar} 1
+								#button {Hablar de} 2												
 							)
+						)
+						(switch temp7
+							(1 
+								(DoVerb {ask celie about gertrude})
+							)
+							(2
+								(DoVerb {tell celie about gertrude})
+							)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+							
 							(931 ;Celie
 								(event type: 1 claimed: 1)
+								(= temp7
+															(Print
+;;;								{Ask or Tell}
+;;;								#button {Ask} 1
+;;;								#button {Tell} 2
+								{Preguntar o Hablar de}
+								#button {Preguntar} 1
+								#button {Hablar de} 2												
+							)
+						)
+						(switch temp7
+							(1 
 								(DoVerb {ask celie about Celie})
-							)	
+							)
+							(2
+								(DoVerb {tell celie about Celie})
+							)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+							
 							(932 ;Gloria
 								(event type: 1 claimed: 1)
-								(DoVerb {ask celie about Gloria})
-							)													
+								(= temp7
+															(Print
+;;;								{Ask or Tell}
+;;;								#button {Ask} 1
+;;;								#button {Tell} 2
+								{Preguntar o Hablar de}
+								#button {Preguntar} 1
+								#button {Hablar de} 2												
+							)
+						)
+						(switch temp7
+							(1 
+								(DoVerb {ask celie about gloria})
+							)
+							(2
+								(DoVerb {tell celie about gloria})
+							)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)												
 							(933 ;Ethel
+								
 								(event type: 1 claimed: 1)
-								(DoVerb {ask celie about Ethel})
-							)	
+								(= temp7
+															(Print
+;;;								{Ask or Tell}
+;;;								#button {Ask} 1
+;;;								#button {Tell} 2
+								{Preguntar o Hablar de}
+								#button {Preguntar} 1
+								#button {Hablar de} 2												
+							)
+						)
+						(switch temp7
+							(1 
+								(DoVerb {ask celie about ethel})
+							)
+							(2
+								(DoVerb {tell celie about ethel})
+							)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+							
 							(934 ;Fifi
 								(event type: 1 claimed: 1)
-								(DoVerb {ask celie about Fifi})
-							)	
+								(= temp7
+														(Print
+;;;								{Ask or Tell}
+;;;								#button {Ask} 1
+;;;								#button {Tell} 2
+								{Preguntar o Hablar de}
+								#button {Preguntar} 1
+								#button {Hablar de} 2												
+							)
+						)
+						(switch temp7
+							(1 
+								(DoVerb {ask celie about fifi})
+							)
+							(2
+								(DoVerb {tell celie about fifi})
+							)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
 							(935 ;Lillian
 								(event type: 1 claimed: 1)
-								(DoVerb {ask celie about Lillian})
-							)																					
+								(= temp7
+															(Print
+;;;								{Ask or Tell}
+;;;								#button {Ask} 1
+;;;								#button {Tell} 2
+								{Preguntar o Hablar de}
+								#button {Preguntar} 1
+								#button {Hablar de} 2												
+							)
+						)
+						(switch temp7
+							(1 
+								(DoVerb {ask celie about lillian})
+							)
+							(2
+								(DoVerb {tell celie about lillian})
+							)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)																				
 							(936 ;Clarence
 								(event type: 1 claimed: 1)
+								(= temp7
+															(Print
+;;;								{Ask or Tell}
+;;;								#button {Ask} 1
+;;;								#button {Tell} 2
+								{Preguntar o Hablar de}
+								#button {Preguntar} 1
+								#button {Hablar de} 2												
+							)
+						)
+						(switch temp7
+							(1 
 								(DoVerb {ask celie about Clarence})
-							)	
+							)
+							(2
+								(DoVerb {tell celie about clarence})
+							)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
 							(937 ;Feels
 								(event type: 1 claimed: 1)
-								(DoVerb {ask celie about wilbur})
+								(= temp7
+															(Print
+;;;								{Ask or Tell}
+;;;								#button {Ask} 1
+;;;								#button {Tell} 2
+								{Preguntar o Hablar de}
+								#button {Preguntar} 1
+								#button {Hablar de} 2												
 							)
+						)
+						(switch temp7
+							(1 
+								(DoVerb {ask celie about Wilbur})
+							)
+							(2
+								(DoVerb {tell celie about Wilbur})
+							)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
 							(938 ;Rudy
 								(event type: 1 claimed: 1)
-								(DoVerb {ask celie about Rudy})
-							)	
+								(= temp7
+															(Print
+;;;								{Ask or Tell}
+;;;								#button {Ask} 1
+;;;								#button {Tell} 2
+								{Preguntar o Hablar de}
+								#button {Preguntar} 1
+								#button {Hablar de} 2												
+							)
+						)
+						(switch temp7
+							(1 
+								(DoVerb {ask celie about rudolph})
+							)
+							(2
+								(DoVerb {tell celie about rudolph})
+							)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
 							(939 ;Colonel
 								(event type: 1 claimed: 1)
-								(DoVerb {ask celie about Colonel})
+								(= temp7
+															(Print
+;;;								{Ask or Tell}
+;;;								#button {Ask} 1
+;;;								#button {Tell} 2
+								{Preguntar o Hablar de}
+								#button {Preguntar} 1
+								#button {Hablar de} 2												
 							)
+						)
+						(switch temp7
+							(1 
+								(DoVerb {ask celie about colonel})
+							)
+							(2
+								(DoVerb {tell celie about colonel})
+							)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
 							(940 ;Jules
 								(event type: 1 claimed: 1)
+								(= temp7
+															(Print
+;;;								{Ask or Tell}
+;;;								#button {Ask} 1
+;;;								#button {Tell} 2
+								{Preguntar o Hablar de}
+								#button {Preguntar} 1
+								#button {Hablar de} 2												
+							)
+						)
+						(switch temp7
+							(1 
 								(DoVerb {ask celie about Jules})
 							)
+							(2
+								(DoVerb {tell celie about Jules})
+							)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+		
 							(941 ;Dog
 								(event type: 1 claimed: 1)
+							(= temp7	
+							(Print
+;;;								{Ask or Tell}
+;;;								#button {Ask} 1
+;;;								#button {Tell} 2
+								{Preguntar o Hablar de}
+								#button {Preguntar} 1
+								#button {Hablar de} 2												
+							)
+						)
+						(switch temp7
+							(1 
 								(DoVerb {ask celie about beauregard})
-							)													
+							)
+							(2
+								(DoVerb {tell celie about beauregard})
+							)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)												
 							(942 ;Parrot
 								(event type: 1 claimed: 1)
+								(= temp7	
+							(Print
+;;;								{Ask or Tell}
+;;;								#button {Ask} 1
+;;;								#button {Tell} 2
+								{Preguntar o Hablar de}
+								#button {Preguntar} 1
+								#button {Hablar de} 2												
+							)
+						)
+						(switch temp7
+							(1 
 								(DoVerb {ask celie about polly})
-							)							
+							)
+							(2
+								(DoVerb {tell celie about polly})
+							)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)				
 							(943 ;Horse
 								(event type: 1 claimed: 1)
+								(= temp7	
+							(Print
+;;;								{Ask or Tell}
+;;;								#button {Ask} 1
+;;;								#button {Tell} 2
+								{Preguntar o Hablar de}
+								#button {Preguntar} 1
+								#button {Hablar de} 2												
+							)
+						)
+						(switch temp7
+							(1 
 								(DoVerb {ask celie about blaze})
-							)										
-							
+							)
+							(2
+								(DoVerb {tell celie about blaze})
+							)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)												
 
 						(998		
 							(DoLook {celie})
