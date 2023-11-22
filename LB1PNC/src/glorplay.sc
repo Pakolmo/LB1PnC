@@ -449,10 +449,10 @@
 						)
 						(switch temp7
 							(1 
-								(DoVerb {ask gloria about Jules})
+								(DoVerb {ask gloria about Jeeves})
 							)
 							(2
-								(DoVerb {tell gloria about Jules})
+								(DoVerb {tell gloria about Jeeves})
 							)
 						(else
 							(event claimed: FALSE)
@@ -933,7 +933,7 @@
 							)
 							(940 ;Jules
 								(event type: 1 claimed: 1)
-								(DoVerb {ask Gloria about Jules})
+								(DoVerb {ask Gloria about Jeeves})
 								
 							)	
 		

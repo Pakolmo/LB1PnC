@@ -1184,10 +1184,10 @@
 						)
 						(switch temp7
 							(1 
-								(DoVerb {ask fifi about Jules})
+								(DoVerb {ask fifi about Jeeves})
 							)
 							(2
-								(DoVerb {tell fifi about Jules})
+								(DoVerb {tell fifi about Jeeves})
 							)
 						(else
 							(event claimed: FALSE)

@@ -217,7 +217,7 @@
 							)
 							(940 ;Jules
 								(event type: 1 claimed: 1)
-								(DoVerb {ask wilbur about Jules})
+								(DoVerb {ask wilbur about Jeeves})
 							)											
 							(941 ;Dog
 								(event type: 1 claimed: 1)

@@ -410,7 +410,7 @@
 							)
 							(940 ;Jules
 								(event type: 1 claimed: 1)
-								(DoVerb {ask Blaze about Jules})
+								(DoVerb {ask Blaze about Jeeves})
 								
 							)	
 		
@@ -630,7 +630,7 @@
 							)
 							(940 ;Jules
 								(event type: 1 claimed: 1)
-								(DoVerb {ask butler about Jules})
+								(DoVerb {ask butler about Jeeves})
 								
 							)	
 		

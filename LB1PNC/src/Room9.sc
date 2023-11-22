@@ -89,41 +89,41 @@
 		)
 		(super doit:)
 		(switch (ego onControl: origin)
-			(cBROWN
+			(64
 				(if (or (== (ego loop?) 1) (== (ego loop?) 3))
 					(= local2 1)
 					(User canControl: 0)
 					(ego illegalBits: 0 setLoop: 1 setMotion: MoveTo 268 133)
 				)
 			)
-			(cLGREY
+			(128
 				(if (or (== (ego loop?) 0) (== (ego loop?) 2))
 					(= local2 1)
 					(User canControl: 0)
 					(ego setLoop: 0 illegalBits: 0 setMotion: MoveTo 294 158)
 				)
 			)
-			(cBLACK
+			(1
 				(if (== local2 1)
 					(= local2 0)
 					(User canControl: TRUE)
 					(ego illegalBits: cWHITE setLoop: -1)
 				)
 			)
-			(cCYAN
+			(8 
 				(curRoom newRoom: 2)
 			)
-			(cGREEN
+			(4
 				(= global133 1)
 				(curRoom newRoom: 58)
 			)
-			(cBLUE
+			(2
 				(HandsOn)
 				(= global133 0)
 				(self setScript: 0)
 				(curRoom newRoom: 58)
 			)
-			(cRED
+			(16
 				(if
 					(and
 						(or (== (ego loop?) 3) (== (ego loop?) 1))

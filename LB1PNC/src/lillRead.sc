@@ -401,7 +401,7 @@
 								(DoVerb {ask lillian about Jules})
 							)
 							(2
-								(DoVerb {tell lillian about Jules})
+								(DoVerb {tell lillian about Jeeves})
 							)
 						(else
 							(event claimed: FALSE)

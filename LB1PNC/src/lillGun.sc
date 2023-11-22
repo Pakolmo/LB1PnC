@@ -42,9 +42,9 @@
 		(if (not (& global118 $0002))
 			(LoadMany FONT 4 41)
 			(LoadMany SOUND 29 94 95 96)
-			(Load rsSCRIPT 406)
+			(Load SCRIPT 406)
 		)
-		(Load rsVIEW 642 904)
+		(Load VIEW 642 904)
 		(LoadMany 143 243 295)
 		(= global208 32)
 		(= [global377 5] 295)
@@ -414,10 +414,10 @@
 						)
 						(switch temp7
 							(1 
-								(DoVerb {ask lillian about Jules})
+								(DoVerb {ask lillian about Jeeves})
 							)
 							(2
-								(DoVerb {tell lillian about Jules})
+								(DoVerb {tell lillian about Jeeves})
 							)
 						(else
 							(event claimed: FALSE)
@@ -618,7 +618,7 @@
 						)
 						((not (& global118 $0002))
 ;;;							(|= global118 $0002)
-							(= global118 (| global118 $0020))
+							(= global118 (| global118 $0002))
 							(self setScript: (ScriptID 406 0))
 							(= state -1)
 						)

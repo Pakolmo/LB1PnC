@@ -1690,7 +1690,7 @@
 	(properties
 ;;;		said '/Jules'
 		view 940
-		name "Jules"
+		name "Jeeves"
 	)
 )	
 (instance Beauregard_ of InvI

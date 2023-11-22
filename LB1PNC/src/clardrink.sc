@@ -178,7 +178,7 @@
 							)
 							(940 ;Jules
 								(event type: 1 claimed: 1)
-								(DoVerb {ask Clarence about Jules})
+								(DoVerb {ask Clarence about Jeeves})
 								
 							)	
 		
