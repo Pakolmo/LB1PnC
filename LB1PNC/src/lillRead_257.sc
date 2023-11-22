@@ -47,7 +47,7 @@
 		(Load VIEW 905)
 		(= global208 32)
 		(= [global377 5] 288)
-;;;		(Lillian init:)
+		(Lillian init:)
 		(LHead init: stopUpd:)
 		(Book init: stopUpd:)
 		(self setScript: reading)

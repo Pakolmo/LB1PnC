@@ -1,5 +1,5 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-(script# 58)
+(script# 58) ;279
 (include game.sh)
 (use Main)
 (use Intrface)
@@ -201,7 +201,7 @@
 					(event claimed: TRUE)
 					(switch theCursor
 					(607
-						(DoVerb {force crowbar board})
+						(DoVerb {Lift floorboard with crowbar})
 					)
 					(998
 						(DoVerb {examine board})
@@ -212,10 +212,10 @@
 						(DoVerb {get bible}) ;2
 					)
 					(627
-						(DoVerb {force poker board})		
+						(DoVerb {Lift floorboard with poker})		
 					)
 					(612
-						(DoVerb {force cane board})		
+						(DoVerb {Lift floorboard with cane})		
 					)									
 					(else
 							(event claimed: FALSE)

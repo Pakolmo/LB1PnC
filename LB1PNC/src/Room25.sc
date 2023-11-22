@@ -1,5 +1,5 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-(script# 25)
+(script# 25) ;205 207 202 281
 (include game.sh)
 (use Main)
 (use Intrface)
@@ -224,7 +224,7 @@
 					(event claimed: TRUE)
 					(switch theCursor
 						(998		
-							(DoVerb {examine bootprint})
+							(Print 25 3)
 						)
 						(604 ;monocle
 							(DoVerb {examine monocle bootprint})
@@ -240,7 +240,7 @@
 					(event claimed: TRUE)
 					(switch theCursor
 						(998		
-							(DoVerb {examine pin rolling})
+							(Print 25 2)
 						)
 						(995		
 							(DoVerb {get pin rolling})

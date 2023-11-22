@@ -519,7 +519,7 @@
 								(DoVerb {get boa})
 						)	
 						(998
-								(DoVerb {look boa})
+								(DoVerb {look feather})
 						)
 						(else				
 									(event claimed: FALSE)

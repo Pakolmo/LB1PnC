@@ -19,6 +19,7 @@
 	talkCount
 	askCount
 	tellCount
+	temp7
 )
 (instance Dog of Prop
 	(properties
@@ -29,6 +30,474 @@
 	)
 	
 	(method (handleEvent event)
+			(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)
+			
+
+
+
+
+		
+			(if (ClickedOnObj Rudy (event x?) (event y?)) 
+				(event claimed: TRUE)
+					(switch theCursor
+						
+						
+					
+					(602 ;necklace_
+						(DoVerb {tell rudolph about necklace})						
+					)
+					(604 ;monocle
+						(DoVerb {tell rudolph about monocle})						
+					)
+					
+					(613 ;lantern_
+						(DoVerb {tell rudolph about lantern})						
+					)
+					(611 ;oilcan_
+						(DoVerb {tell rudolph about oilcan})						
+					)
+					(626 ;rolling_pin_
+						(DoVerb {tell rudolph about pin})						
+					)
+					(620 ;skeleton_key_
+						(DoVerb {tell rudolph about skeleton key})						
+					)
+					(627 ;poker_
+						(DoVerb {tell rudolph about poker})						
+					)															
+					(607 ;crowbar_
+						(DoVerb {tell rudolph about crowbar})						
+					)
+					(628 ;cigar_butt_
+						(DoVerb {tell rudolph about butt})						
+					)
+					(625 ;broken_record_
+						(DoVerb {tell rudolph about broken record})						
+					)
+					(601 ;notebook___pencil_
+						(DoVerb {tell rudolph about notebook})						
+					)
+					(603 ;_7_crackers________
+						(DoVerb {tell rudolph about crackers})						
+					)
+					(605 ;soup_bone_
+						(DoVerb {tell rudolph about soup bone})						
+					)
+					(606 ;valve_handle_
+						(DoVerb {tell rudolph about valve})						
+					)
+					(618 ;bullet_
+						(DoVerb {tell rudolph about bullet})						
+					)
+					(617 ;derringer__
+						(DoVerb {tell rudolph about derringer})						
+					)
+					(614 ;matches_
+						(DoVerb {tell rudolph about matches})						
+					)
+					(615 ;carrot_
+						(DoVerb {tell rudolph about carrot})						
+					)
+					(619 ;brass_key_
+						(DoVerb {tell rudolph about brass key})						
+					)
+					(616 ;diary_
+						(DoVerb {tell rudolph about diary})						
+					)
+					(621 ;crank_
+						(DoVerb {tell rudolph about crank})						
+					)
+					(612 ;cane_
+						(DoVerb {tell rudolph about cane})						
+					)
+					(622 ;pouch_
+						(DoVerb {tell rudolph about pouch})						
+					)																																																																																
+					(630 ;handkerchief_
+						(DoVerb {tell rudolph about handkerchief})
+					)
+											
+						
+								
+						
+							(930  ;gertrude
+								(event type: 1 claimed: 1)
+												(= temp7
+							(Print
+;;;								{Ask or Tell}
+;;;								#button {Ask} 1
+;;;								#button {Tell} 2
+								{Preguntar o Hablar de}
+								#button {Preguntar} 1
+								#button {Hablar de} 2												
+							)
+						)
+						(switch temp7
+							(1 
+								(DoVerb {ask rudolph about gertrude})
+							)
+							(2
+								(DoVerb {tell rudolph about gertrude})
+							)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+							
+							(931 ;Celie
+								(event type: 1 claimed: 1)
+								(= temp7
+															(Print
+;;;								{Ask or Tell}
+;;;								#button {Ask} 1
+;;;								#button {Tell} 2
+								{Preguntar o Hablar de}
+								#button {Preguntar} 1
+								#button {Hablar de} 2												
+							)
+						)
+						(switch temp7
+							(1 
+								(DoVerb {ask rudolph about Celie})
+							)
+							(2
+								(DoVerb {tell rudolph about Celie})
+							)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+							
+							(932 ;Gloria
+								(event type: 1 claimed: 1)
+								(= temp7
+															(Print
+;;;								{Ask or Tell}
+;;;								#button {Ask} 1
+;;;								#button {Tell} 2
+								{Preguntar o Hablar de}
+								#button {Preguntar} 1
+								#button {Hablar de} 2												
+							)
+						)
+						(switch temp7
+							(1 
+								(DoVerb {ask rudolph about gloria})
+							)
+							(2
+								(DoVerb {tell rudolph about gloria})
+							)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)												
+							(933 ;Ethel
+								
+								(event type: 1 claimed: 1)
+								(= temp7
+															(Print
+;;;								{Ask or Tell}
+;;;								#button {Ask} 1
+;;;								#button {Tell} 2
+								{Preguntar o Hablar de}
+								#button {Preguntar} 1
+								#button {Hablar de} 2												
+							)
+						)
+						(switch temp7
+							(1 
+								(DoVerb {ask rudolph about ethel})
+							)
+							(2
+								(DoVerb {tell rudolph about ethel})
+							)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+							
+							(934 ;Fifi
+								(event type: 1 claimed: 1)
+								(= temp7
+														(Print
+;;;								{Ask or Tell}
+;;;								#button {Ask} 1
+;;;								#button {Tell} 2
+								{Preguntar o Hablar de}
+								#button {Preguntar} 1
+								#button {Hablar de} 2												
+							)
+						)
+						(switch temp7
+							(1 
+								(DoVerb {ask rudolph about fifi})
+							)
+							(2
+								(DoVerb {tell rudolph about fifi})
+							)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+							(935 ;Lillian
+								(event type: 1 claimed: 1)
+								(= temp7
+															(Print
+;;;								{Ask or Tell}
+;;;								#button {Ask} 1
+;;;								#button {Tell} 2
+								{Preguntar o Hablar de}
+								#button {Preguntar} 1
+								#button {Hablar de} 2												
+							)
+						)
+						(switch temp7
+							(1 
+								(DoVerb {ask rudolph about lillian})
+							)
+							(2
+								(DoVerb {tell rudolph about lillian})
+							)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)																				
+							(936 ;Clarence
+								(event type: 1 claimed: 1)
+								(= temp7
+															(Print
+;;;								{Ask or Tell}
+;;;								#button {Ask} 1
+;;;								#button {Tell} 2
+								{Preguntar o Hablar de}
+								#button {Preguntar} 1
+								#button {Hablar de} 2												
+							)
+						)
+						(switch temp7
+							(1 
+								(DoVerb {ask rudolph about Clarence})
+							)
+							(2
+								(DoVerb {tell rudolph about clarence})
+							)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+							(937 ;Feels
+								(event type: 1 claimed: 1)
+								(= temp7
+															(Print
+;;;								{Ask or Tell}
+;;;								#button {Ask} 1
+;;;								#button {Tell} 2
+								{Preguntar o Hablar de}
+								#button {Preguntar} 1
+								#button {Hablar de} 2												
+							)
+						)
+						(switch temp7
+							(1 
+								(DoVerb {ask rudolph about Wilbur})
+							)
+							(2
+								(DoVerb {tell rudolph about Wilbur})
+							)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+							(938 ;Rudy
+								(event type: 1 claimed: 1)
+								(= temp7
+															(Print
+;;;								{Ask or Tell}
+;;;								#button {Ask} 1
+;;;								#button {Tell} 2
+								{Preguntar o Hablar de}
+								#button {Preguntar} 1
+								#button {Hablar de} 2												
+							)
+						)
+						(switch temp7
+							(1 
+								(DoVerb {ask rudolph about rudolph})
+							)
+							(2
+								(DoVerb {tell rudolph about rudolph})
+							)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+							(939 ;Colonel
+								(event type: 1 claimed: 1)
+								(= temp7
+															(Print
+;;;								{Ask or Tell}
+;;;								#button {Ask} 1
+;;;								#button {Tell} 2
+								{Preguntar o Hablar de}
+								#button {Preguntar} 1
+								#button {Hablar de} 2												
+							)
+						)
+						(switch temp7
+							(1 
+								(DoVerb {ask rudolph about colonel})
+							)
+							(2
+								(DoVerb {tell rudolph about colonel})
+							)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+							(940 ;Jules
+								(event type: 1 claimed: 1)
+								(= temp7
+															(Print
+;;;								{Ask or Tell}
+;;;								#button {Ask} 1
+;;;								#button {Tell} 2
+								{Preguntar o Hablar de}
+								#button {Preguntar} 1
+								#button {Hablar de} 2												
+							)
+						)
+						(switch temp7
+							(1 
+								(DoVerb {ask rudolph about Jeeves})
+							)
+							(2
+								(DoVerb {tell rudolph about Jeeves})
+							)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+		
+							(941 ;Dog
+								(event type: 1 claimed: 1)
+							(= temp7	
+							(Print
+;;;								{Ask or Tell}
+;;;								#button {Ask} 1
+;;;								#button {Tell} 2
+								{Preguntar o Hablar de}
+								#button {Preguntar} 1
+								#button {Hablar de} 2												
+							)
+						)
+						(switch temp7
+							(1 
+								(DoVerb {ask rudolph about beauregard})
+							)
+							(2
+								(DoVerb {tell rudolph about beauregard})
+							)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)												
+							(942 ;Parrot
+								(event type: 1 claimed: 1)
+								(= temp7	
+							(Print
+;;;								{Ask or Tell}
+;;;								#button {Ask} 1
+;;;								#button {Tell} 2
+								{Preguntar o Hablar de}
+								#button {Preguntar} 1
+								#button {Hablar de} 2												
+							)
+						)
+						(switch temp7
+							(1 
+								(DoVerb {ask rudolph about polly})
+							)
+							(2
+								(DoVerb {tell rudolph about polly})
+							)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)				
+							(943 ;Horse
+								(event type: 1 claimed: 1)
+								(= temp7	
+							(Print
+;;;								{Ask or Tell}
+;;;								#button {Ask} 1
+;;;								#button {Tell} 2
+								{Preguntar o Hablar de}
+								#button {Preguntar} 1
+								#button {Hablar de} 2												
+							)
+						)
+						(switch temp7
+							(1 
+								(DoVerb {ask rudolph about blaze})
+							)
+							(2
+								(DoVerb {tell rudolph about blaze})
+							)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)						
+						(994
+							(DoVerb {hear rudolph})
+						)
+						
+						
+						(996
+							(DoVerb {converse rudolph})
+						)	
+						(998
+							(cond
+								((not (& global207 $0100)) 
+								(event claimed: TRUE)
+								(DoLook {rudy})
+							)
+							(
+								
+									(& global207 $0100)
+									
+								
+								(event claimed: TRUE)
+								(Print 259 17)
+							)			
+							)
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+			)
+			)
+			)
+		
 		(cond 
 			(
 				(or

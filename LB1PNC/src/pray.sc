@@ -61,8 +61,8 @@
 						(= theTalker talkCELIE)
 						(switch talkCount
 							(0 (Say 1 279 4))
-							(1 (Say 1 279 5))
-							(else  (Print 279 6))
+							(1 (Say 1 279 5)(DoVerb {pray}))
+							(else  (Print 279 6)	)
 						)
 						(++ talkCount)
 					)

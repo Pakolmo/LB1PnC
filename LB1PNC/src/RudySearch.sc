@@ -31,6 +31,111 @@
 	)
 	
 	(method (handleEvent event)
+
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		(cond 
+			((and (not (& global207 $0100)) (MousedOn self event shiftDown))
+				(event claimed: TRUE)
+;;;				(|= global207 $0100)
+				(= global207 (| global207 $0100))				
+				(Say 0 385 0)
+			)
+			(
+				(and
+					(& global207 $0100)
+					(or (MousedOn self event shiftDown) (Said 'examine/rudolph'))
+				)
+				(event claimed: TRUE)
+				(Print 385 1)
+			)
+			((Said 'ask,tell//*<about')
+				(= theTalker talkRUDY)
+				(switch askCount
+					(0
+						(Say 1 385 2)
+						(++ askCount)
+					)
+					(1
+						(Print 385 3)
+					)
+				)
+			)
+			((Said 'hold,deliver/*')
+				(if (and theInvItem haveInvItem)
+					(Print 385 3)
+				else
+					(DontHave)
+				)
+			)
+			((Said '/rudolph>')
+				(cond 
+					((Said 'converse')
+						(= theTalker talkRUDY)
+						(switch talkCount
+							(0
+								(Say 1 385 4)
+							)
+							(1
+								(Say 1 385 5)
+							)
+							(else
+								(Print 385 6)
+							)
+						)
+						(++ talkCount)
+					)
+					((Said 'get')
+						(Print 385 7)
+					)
+					((Said 'kill')
+						(Print 385 8)
+					)
+					((Said 'kiss,embrace')
+						(Print 385 9)
+					)
+				)
+			)
+			((Said 'flirt//rudolph<with')
+				(Print 385 10)
+			)
+		)
+	)
+)
+
+(instance RudySearch of Region
+
+	(method (init)
+		(super init:)
+		(= global195 256)
+		(Load VIEW 393)
+		(self setScript: searching)
+		(Rudy
+			setAvoider: ((Avoider new:) offScreenOK: TRUE)
+			illegalBits: cWHITE
+			init:
+		)
+	)
+	
+	(method (doit)
+		(super doit:)
+	)
+	
+	(method (dispose)
+		(DisposeScript AVOIDER)
+		(super dispose:)
+	)
+	
+	(method (handleEvent event)
 		
 			
 			(if (ClickedOnObj Rudy (event x?) (event y?)) 
@@ -490,111 +595,7 @@
 	
 	
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		(cond 
-			((and (not (& global207 $0100)) (MousedOn self event shiftDown))
-				(event claimed: TRUE)
-;;;				(|= global207 $0100)
-				(= global207 (| global207 $0100))				
-				(Say 0 385 0)
-			)
-			(
-				(and
-					(& global207 $0100)
-					(or (MousedOn self event shiftDown) (Said 'examine/rudolph'))
-				)
-				(event claimed: TRUE)
-				(Print 385 1)
-			)
-			((Said 'ask,tell//*<about')
-				(= theTalker talkRUDY)
-				(switch askCount
-					(0
-						(Say 1 385 2)
-						(++ askCount)
-					)
-					(1
-						(Print 385 3)
-					)
-				)
-			)
-			((Said 'hold,deliver/*')
-				(if (and theInvItem haveInvItem)
-					(Print 385 3)
-				else
-					(DontHave)
-				)
-			)
-			((Said '/rudolph>')
-				(cond 
-					((Said 'converse')
-						(= theTalker talkRUDY)
-						(switch talkCount
-							(0
-								(Say 1 385 4)
-							)
-							(1
-								(Say 1 385 5)
-							)
-							(else
-								(Print 385 6)
-							)
-						)
-						(++ talkCount)
-					)
-					((Said 'get')
-						(Print 385 7)
-					)
-					((Said 'kill')
-						(Print 385 8)
-					)
-					((Said 'kiss,embrace')
-						(Print 385 9)
-					)
-				)
-			)
-			((Said 'flirt//rudolph<with')
-				(Print 385 10)
-			)
-		)
-	)
-)
-
-(instance RudySearch of Region
-
-	(method (init)
-		(super init:)
-		(= global195 256)
-		(Load VIEW 393)
-		(self setScript: searching)
-		(Rudy
-			setAvoider: ((Avoider new:) offScreenOK: TRUE)
-			illegalBits: cWHITE
-			init:
-		)
-	)
-	
-	(method (doit)
-		(super doit:)
-	)
-	
-	(method (dispose)
-		(DisposeScript AVOIDER)
-		(super dispose:)
-	)
-	
-	(method (handleEvent event)
+				
 		(super handleEvent: event)
 		(if (event claimed?) (return))
 	)

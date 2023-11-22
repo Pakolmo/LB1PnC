@@ -505,10 +505,12 @@
 						(994
 							(DoVerb {hear rudolph})
 						)						
-						
+						(998
+							(DoVerb {look rudolph})
+						)						
 						
 						(996
-							(DoVerb {converse desert}) ;yes
+							(DoVerb {converse rudolph}) ;
 						)	
 						(995
 							(DoVerb {get desert})

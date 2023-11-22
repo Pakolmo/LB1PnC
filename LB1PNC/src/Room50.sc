@@ -409,7 +409,25 @@
 				)
 							
 		
-		
+			(if (ClickedOnObj boot (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor	
+						(604
+							(DoVerb {examine boot with monocle})
+						)						
+						(995
+							(DoVerb {get boot})
+						)						
+						(998
+							(DoVerb {examine boot})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+										
+					)
+			)	
 		
 		
 		
