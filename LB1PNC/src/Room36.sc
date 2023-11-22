@@ -376,19 +376,42 @@
 					)	
 				)
 
-;;;		(if (and (ClickedOnObj wingback (event x?) (event y?)) 	;bug with Gloria
-;;;				(not (cast contains: Gloria)))
-;;;					(event claimed: TRUE)
-;;;					(switch theCursor	
-;;;						(998
-;;;							(DoVerb {look chair})
-;;;						)
-;;;						(else
-;;;							(event claimed: FALSE)
-;;;						)
-;;;					)	
-;;;				)
-
+		(if (and (ClickedInRect 285 300 59 86 event) ;Wingback	;bug with Gloria
+				
+;;;				(== (event claimed?) FALSE)
+				(not (cast contains: record)))
+				
+					(event claimed: TRUE)
+					(switch theCursor	
+						(995
+							(DoVerb {sit})
+						)						
+						(998
+							(DoVerb {look chair})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)	
+				)
+		(if (and (ClickedInRect 285 300 59 86 event) ;Wingback	;bug with Gloria
+				
+				(== (event claimed?) FALSE)
+				(not (cast contains: Gloria)))
+				
+					(event claimed: TRUE)
+					(switch theCursor	
+						(995
+							(DoVerb {sit})
+						)						
+						(998
+							(DoVerb {look chair})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)	
+				)
 		(if (ClickedOnObj harp (event x?) (event y?)) 	
 			
 					(event claimed: TRUE)
@@ -470,7 +493,10 @@
 		(if (ClickedOnObj bookcase (event x?) (event y?)) 	
 			
 					(event claimed: TRUE)
-					(switch theCursor	
+					(switch theCursor
+						(995
+							(DoVerb {pick up book})
+						)	
 						(998
 							(DoVerb {examine bookcase})
 						)

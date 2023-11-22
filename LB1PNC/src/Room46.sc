@@ -346,6 +346,29 @@
 								(== (event claimed?) FALSE)) 
 					(event claimed: TRUE)
 					(switch theCursor	
+						(995 ;hand
+							(= temp7
+												(Print
+;;;													{luggage}
+;;;													#button {open} 1
+;;;													#button {get} 2								
+													{Equipaje}
+													#button {Abrir} 1
+													#button {Coger} 2														
+												)
+											)
+											(switch temp7
+												(1 		
+													(DoVerb {open luggage})
+												)
+												(2
+													(DoVerb {get luggage})
+												)
+												(else
+													(event claimed: FALSE)
+												)
+											)
+						)						
 						(998 ;examine
 							(Print 46 19)
 						)

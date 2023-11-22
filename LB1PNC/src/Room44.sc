@@ -48,8 +48,8 @@
 	
 	(method (init)
 		(theGame setSpeed: 1)
-;;;		(ego get: 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 21 20 22 23 24 25 26 27 28 29 30)
-		
+		(ego get: 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 21 20 22 23 24 25 26 27 28 29 30)
+		(= currentAct 2)
 		
 		(= west 43)
 		(= saveDisabled FALSE)
@@ -335,8 +335,10 @@
 							(= temp7
 							(PrintSpecial
 								44 22
-								#button {Get} 1
-								#button {luggage} 2
+;;;								#button {Get} 1
+;;;								#button {luggage} 2
+								#button {Coger} 1
+								#button {Equipaje} 2
 							)
 							)
 
@@ -363,10 +365,14 @@
 										(= temp7
 									(Print	
 										44 22
-										#button {Open} 1
-										#button {Close} 2
-										#button {Get} 3									
-										#button {Change cloth} 3	
+;;;										#button {Open} 1
+;;;										#button {Close} 2
+;;;										#button {Get} 3									
+;;;										#button {Change cloth} 4
+										#button {Abrir} 1
+										#button {Cerrar} 2
+										#button {Coger} 3									
+										#button {Cambiar ropa} 4
 									)
 										)
 									

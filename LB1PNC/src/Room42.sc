@@ -1144,7 +1144,8 @@
 					)
 					((and (& global175 $0010) (Said 'open,move'))
 						(if (not global193)
-							(if (& (ego onControl: origin) cLGREY)
+;;;							(if (& (ego onControl: origin) cLGREY)
+							(if (& (ego onControl: 1) $0080)
 								(curRoom newRoom: 49)
 							else
 								(NotClose)

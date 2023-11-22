@@ -20,6 +20,7 @@
 	(board floorboard)
 	(bible book)
 	(room chapel)
+
 )
 
 (local
@@ -30,6 +31,7 @@
 	inPath = [117 113 232 115 216 92 PATHEND]
 	outPath = [238 115 117 113 115 94 PATHEND]
 	local18
+	temp7
 )
 (instance Room58 of Room
 	(properties
@@ -131,7 +133,8 @@
 		)
 		(if
 			(and
-				(& (ego onControl: origin) cGREEN)
+;;;				(& (ego onControl: origin) cGREEN)
+				(& (ego onControl: 1) $0004)
 				(not local3)
 				(not global133)
 			)
@@ -139,7 +142,8 @@
 			(HandsOff)
 			(self setScript: myDoor)
 		)
-		(if (& (ego onControl: origin) cCYAN)
+;;;		(if (& (ego onControl: origin) cCYAN)
+			(if (& (ego onControl: 1) $0008)
 			(if
 			(and (== global134 0) (not local0) (not script))
 				(Creak loop: 1 play:)
@@ -151,7 +155,8 @@
 		else
 			(= local0 0)
 		)
-		(if (& (ego onControl: origin) cBLUE)
+;;;		(if (& (ego onControl: origin) cBLUE)
+		(if (& (ego onControl: 1) $0002)
 			(= global133 0)
 			(curRoom newRoom: 9)
 		)
@@ -183,11 +188,346 @@
 	)
 	
 	(method (handleEvent event &tmp temp0 temp1 [temp2 5])
+		
+		
+	
+		(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)	
+				(if (ClickedOnObj board (event x?) (event y?)) ;tabla
+					(event claimed: TRUE)
+					(switch theCursor
+					(607
+						(DoVerb {force crowbar board})
+					)
+					(998
+						(DoVerb {examine board})
+					)	
+					(995
+						(DoVerb {break board})
+						(event claimed: TRUE)
+						(DoVerb {get bible}) ;2
+					)
+					(627
+						(DoVerb {force poker board})		
+					)
+					(612
+						(DoVerb {force cane board})		
+					)									
+					(else
+							(event claimed: FALSE)
+						)
+					)
+				)		
+				(if (ClickedOnPicView statueLeft (event x?) (event y?)) ;lamp
+					(event claimed: TRUE)
+					(switch theCursor
+					(998
+							(DoVerb {examine monument})
+					)
+					(995
+							(DoVerb {get monument})
+					)					
+					(else
+							(event claimed: FALSE)
+						)
+					)
+				)		
+				(if (ClickedOnPicView statueRight (event x?) (event y?)) ;lamp
+					(event claimed: TRUE)
+					(switch theCursor
+					(998
+							(DoVerb {examine monument})
+					)
+					(995
+							(DoVerb {get monument})
+					)					
+					(else
+							(event claimed: FALSE)
+						)
+					)
+				)		
+				(if (ClickedOnObj StainedGlass (event x?) (event y?)) ;window
+					(event claimed: TRUE)
+					(switch theCursor
+					(998
+						(DoVerb {examine window})
+					)					
+					(else
+							(event claimed: FALSE)
+						)
+					)
+				)		
+								
+				(if (ClickedOnObj lamp (event x?) (event y?)) ;lamp
+					(event claimed: TRUE)
+					(switch theCursor
+					(995
+								(= temp7
+												(Print
+;;;													{Candle}
+;;;													#button {Get} 1
+;;;													#button {Ignite} 2
+
+													{Vela}
+													#button {Coger} 1
+													#button {Encender} 2
+						
+	
+
+												)
+											)
+											(switch temp7
+												(1 
+													(DoVerb {get candle})
+														
+												)
+						
+												(2 
+													(DoVerb {ignite candle})
+														
+												)
+
+												(else
+						
+													(event claimed: FALSE)
+												)
+											)
+						
+						
+					)
+					(998
+							(DoVerb {examine candle})
+					)					
+					(else
+							(event claimed: FALSE)
+						)
+					)
+				)		
+		
+				(if (ClickedOnObj Door (event x?) (event y?)) ;lamp
+					(event claimed: TRUE)
+					(switch theCursor
+					(998
+						(DoVerb {examine door back})
+					)					
+					(else
+							(event claimed: FALSE)
+						)
+					)
+				)				
+			(if (ClickedOnObj Altar (event x?) (event y?)) ;lamp
+					(event claimed: TRUE)
+					(switch theCursor
+					(995
+							(= temp7
+												(Print
+;;;													{Altar}
+;;;													#button {Examine} 1
+;;;													#button {Pray} 2
+
+													{Altar}
+													#button {Examinar dentro} 1
+													#button {Rezar} 2
+						
+	
+
+												)
+											)
+											(switch temp7
+												(1 
+													(DoVerb {examine in altar})
+														
+												)
+						
+												(2 
+													(DoVerb {pray altar})
+														
+												)
+
+												(else
+						
+													(event claimed: FALSE)
+												)
+											)
+						
+						
+					
+					)
+						
+					(998
+						(DoVerb {examine altar})
+					)					
+					(else
+							(event claimed: FALSE)
+						)
+					)
+				)				
+			(if (ClickedOnObj Window1 (event x?) (event y?)) ;lamp
+					(event claimed: TRUE)
+					(switch theCursor
+					(995
+							(= temp7
+												(Print
+;;;													{Window}
+;;;													#button {Break} 1
+;;;													#button {Open} 2
+
+													{Ventana}
+													#button {Romper} 1
+													#button {Abrir} 2
+						
+	
+
+												)
+											)
+											(switch temp7
+												(1 
+													(DoVerb {break window})
+														
+												)
+						
+												(2 
+													(DoVerb {open window})
+														
+												)
+
+												(else
+						
+													(event claimed: FALSE)
+												)
+											)
+						
+						
+					
+					)
+					(998
+							(= temp7
+												(PrintSpecial
+;;;													{Window}
+;;;													#button {Examine out} 1
+;;;													#button {Examine} 2
+
+													{Ventana}
+													#button {Examinar por fuera} 1
+													#button {Examinar} 2
+						
+	
+
+												)
+											)
+											(switch temp7
+												(1 
+													(DoVerb {Examine out window})
+														
+												)
+						
+												(2 
+													(event claimed: TRUE)
+													(Print 58 35)
+														
+												)
+
+												(else
+						
+													(event claimed: FALSE)
+												)
+											)
+						
+						
+					
+					)					
+					(else
+							(event claimed: FALSE)
+						)
+					)
+				)		
+			(if (ClickedOnObj Window2 (event x?) (event y?)) ;lamp
+					(event claimed: TRUE)
+					(switch theCursor
+					(998
+						(event claimed: TRUE)
+						(Print 58 35)	
+					)	
+					(else
+							(event claimed: FALSE)
+						)
+					)
+				)	
+				
+			(if (ClickedOnObj Pew1 (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor
+						(995
+							(DoVerb {sit bench})
+						)
+					(998
+						(= temp7
+												(PrintSpecial
+;;;													{Bench}
+;;;													#button {Examine below} 1
+;;;													#button {Examine} 2
+
+													{Banco}
+													#button {Examinar por abajo} 1
+													#button {Examinar} 2
+						
+	
+
+												)
+											)
+											(switch temp7
+												(1 
+													(DoVerb {Examine below bench})
+														
+												)
+						
+												(2 
+													(DoVerb {Examine bench})
+														
+												)
+
+												(else
+						
+													(event claimed: FALSE)
+												)
+											)
+						
+						
+					
+					)					
+					(else
+							(event claimed: FALSE)
+						)
+					)
+				)						
+				
+				(if (ClickedOnObj Pew2 (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(event claimed: TRUE)
+							(Print 58 38)
+						)
+							(else
+							(event claimed: FALSE)
+						)
+					)
+				)	
+				
+			)
+		)
+		
 		(if (event claimed?) (return))
 		(if
 			(or
-				(& (ego onControl: FALSE) cBLACK)
-				(& (ego onControl: FALSE) cCYAN)
+;;;				(& (ego onControl: FALSE) cBLACK)
+;;;				(& (ego onControl: FALSE) cCYAN)
+				(& (ego onControl: 0) $0001)
+				(& (ego onControl: 0) $0008)
 			)
 			(= temp1 1)
 		else
@@ -197,10 +537,10 @@
 			(cond 
 				((or (Said '/board>') (Said '//board>'))
 					(= temp0 2)
-					(if theInvItem
-						(if (not haveInvItem) (return))
-						(= temp0 (!= whichItem iCrowbar))
-					)
+;;;					(if theInvItem
+;;;						(if (not haveInvItem) (return))
+;;;						(= temp0 (!= whichItem iCrowbar))
+;;;					)
 					(cond 
 						((Said 'examine')
 							(if (== global134 2)
@@ -219,7 +559,7 @@
 									(Said 'open//crowbar')
 								)
 							)
-							(if (ego has: iCrowbar)
+;;;							(if (ego has: iCrowbar)
 								(cond 
 									((== global134 2)
 										(AlreadyOpen)
@@ -229,9 +569,9 @@
 									)
 									(else (Print 58 4))
 								)
-							else
-								(self setScript: tryBoard)
-							)
+;;;							else
+;;;								(self setScript: tryBoard)
+;;;							)
 						)
 						(
 							(and
@@ -254,9 +594,9 @@
 								(Said '(break,lift,force)<use<poker')
 								(Said 'open//poker')
 							)
-							(if (ego has: iPoker)
+;;;							(if (ego has: iPoker)
 								(Print 58 5)
-							)
+;;;							)
 						)
 						(
 							(or
@@ -264,9 +604,9 @@
 								(Said '(break,lift,force)<use<cane')
 								(Said 'open//cane')
 							)
-							(if (ego has: iCane)
+;;;							(if (ego has: iCane)
 								(Print 58 6)
-							)
+;;;							)
 						)
 						((Said 'press,close')
 							(cond 
@@ -286,7 +626,7 @@
 				((Said '/bible>')
 					(cond 
 						((!= global134 2)
-							(DontSee)
+;;;							(DontSee)
 							(event claimed: TRUE)
 						)
 						((Said 'get,open,read,examine')
@@ -712,7 +1052,7 @@
 			(3
 				(Print 58 19 #dispose)
 				(ego loop: 4 cycleSpeed: 4 setCycle: Forward)
-				(= cycles 21)
+				(= cycles 31) ;21
 			)
 			(4 (ego setCycle: BegLoop self))
 			(5

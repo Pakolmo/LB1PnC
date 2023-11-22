@@ -552,6 +552,9 @@
 				(if (ClickedOnObj parrot (event x?) (event y?)) 
 				(event claimed: TRUE)
 					(switch theCursor
+						(603
+							(DoVerb {feed cracker})
+						)
 						(996
 							(DoVerb {converse parrot})
 						)
@@ -571,24 +574,19 @@
 						(= temp7
 							(PrintSpecial
 ;;;								{Parrot}
-;;;								#button {Deliver} 1
-;;;								#button {Capture} 2
-;;;								#button {Kill} 3
+;;;								#button {Capture} 1
+;;;								#button {Kill} 2
 								{Loro}
-								#button {Alimentar} 1
-								#button {Capturar} 2
-								#button {Matar} 3							
+								#button {Capturar} 1
+								#button {Matar} 2							
 							)
 							)
 
 						(switch temp7
 							(1
-							    (DoVerb {Deliver parrot food})
-							)
-							(2
 							    (DoVerb {get parrot})
 							)
-							(3
+							(2
 							    (DoVerb {kill parrot})
 							)
 							(else

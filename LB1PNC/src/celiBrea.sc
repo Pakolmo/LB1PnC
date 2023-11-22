@@ -118,6 +118,7 @@
 		(LHead setPri: 10 ignoreActors: TRUE init: stopUpd:)
 		(if (and (< gameMinutes 3) (== global155 0))
 			(HandsOff)
+			(User mapKeyToDir: TRUE)
 			(Jeeves
 				setAvoider: (Avoider new:)
 				setScript: jeevActions
@@ -1728,6 +1729,7 @@
 						(Say 1 236 43)
 					else
 						(HandsOff)
+						(User mapKeyToDir: TRUE)
 ;;;						(|= global145 $0001)
 						(= global145 (| global145 $0001))
 						(= local5 1)

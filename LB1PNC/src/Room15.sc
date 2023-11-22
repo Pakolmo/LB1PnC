@@ -107,14 +107,16 @@
 			)
 			(= firstEntry 0)
 		)
-		(if (and local4 (& (ego onControl: origin) cBLACK))
+;;;		(if (and local4 (& (ego onControl: origin) cBLACK))
+		(if (and local4 (& (ego onControl: 1) $0001))
 			(User canControl: TRUE)
 			(ego illegalBits: cWHITE)
 			(= local4 0)
 		)
 		(if
 			(and
-				(& (ego onControl: FALSE) cMAGENTA)
+;;;				(& (ego onControl: FALSE) cMAGENTA)
+				(& (ego onControl: 0) $0020)
 				(or (== (ego loop?) 3) (== (ego loop?) 0))
 			)
 			(User canControl: FALSE)
@@ -123,7 +125,8 @@
 		)
 		(if
 			(and
-				(& (ego onControl: origin) cLGREY)
+;;;				(& (ego onControl: origin) cLGREY)
+				(& (ego onControl: 1) $0080)
 				(or (== (ego loop?) 2) (== (ego loop?) 1))
 			)
 			(User canControl: FALSE)
@@ -132,7 +135,8 @@
 		)
 		(if
 			(and
-				(& (ego onControl: FALSE) cRED)
+;;;				(& (ego onControl: FALSE) cRED)
+				(& (ego onControl: 0) $0010)
 				(not local2)
 				(or (== (ego loop?) 3) (== (ego loop?) 0))
 			)
@@ -146,19 +150,23 @@
 		)
 		(if
 			(or
-				(& (ego onControl: FALSE) cBLUE)
-				(& (ego onControl: FALSE) cRED)
+;;;				(& (ego onControl: FALSE) cBLUE)
+;;;				(& (ego onControl: FALSE) cRED)
+				(& (ego onControl: 0) $0002)
+				(& (ego onControl: 0) $0010)
 			)
 			(ego setPri: 7)
 		else
 			(ego setPri: -1)
 		)
-		(if (& (ego onControl: origin) cBLUE)
+;;;		(if (& (ego onControl: origin) cBLUE)
+		(if (& (ego onControl: 1) $0002)			
 			(curRoom newRoom: 36)
 		)
 		(if
 			(and
-				(& (ego onControl: origin) cYELLOW)
+;;;				(& (ego onControl: origin) cYELLOW)
+				(& (ego onControl: 1) $4000)
 				(!= (ego mover?) 0)
 				howFast
 			)

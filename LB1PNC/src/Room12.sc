@@ -258,11 +258,13 @@
 						(998
 							(= temp7
 												(Print
-													{basement}
-													#button {examine} 1
-													#button {examine in} 2								
+;;;													{Basement}
+;;;													#button {Examine} 1
+;;;													#button {Examine in} 2								
 
-
+													{S/tano}
+													#button {Mirar} 1
+													#button {Examinar} 2
 												)
 											)
 											(switch temp7
@@ -283,10 +285,12 @@
 						(995
 							(= temp7
 												(Print
-													{door}
-													#button {unbar} 1
-													#button {open} 2								
-
+;;;													{Door}
+;;;													#button {Unbar} 1
+;;;													#button {Open} 2								
+													{Puerta}
+													#button {Desbloquear} 1
+													#button {Abrir} 2
 
 												)
 											)
@@ -339,11 +343,15 @@
 						(998	
 								(= temp7
 												(Print
-													{Doghouse}
-													#button {examine behind} 1
-													#button {search} 2								
-													#button {examine} 3
+;;;													{Doghouse}
+;;;													#button {Examine behind} 1
+;;;													#button {Search} 2								
+;;;													#button {Examine} 3
 
+													{Caseta}
+													#button {examinar por detr*s} 1
+													#button {Buscar} 2								
+													#button {Examinar} 3
 												)
 											)
 											(switch temp7
@@ -566,14 +574,16 @@
 						(Print 12 5)
 					)
 					((Said 'bang/door<basement')
-						(if (& (ego onControl: FALSE) cLGREY)
+;;;						(if (& (ego onControl: FALSE) cLGREY)
+						(if (& (ego onControl: 0) $0080)
 							(ego setScript: knockDoor)
 						else
 							(NotClose)
 						)
 					)
 					((or (Said 'bang/[<door,!*,*]') (Said 'bang'))
-						(if (& (ego onControl: FALSE) cLGREY)
+;;;						(if (& (ego onControl: FALSE) cLGREY)
+						(if (& (ego onControl: 0) $0080)
 							(ego setScript: knockDoor)
 						else
 							(Print 12 6)
@@ -785,7 +795,8 @@
 			(
 				(or
 					(Said '/(door<basement),basement>')
-					(and (& (ego onControl: FALSE) cLGREY) (Said '/door>'))
+;;;					(and (& (ego onControl: FALSE) cLGREY) (Said '/door>'))
+					(and (& (ego onControl: 0) $0080) (Said '/door>'))
 				)
 				(cond 
 					((Said '(examine<in),unbar')

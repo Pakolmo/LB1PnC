@@ -18,7 +18,8 @@
 				(== currentAct 0)
 				(not (Btst 39))
 				(< curRoomNum 18)
-				(& (ego onControl: origin) cBLACK)
+;;;				(& (ego onControl: origin) cBLACK)
+				(& (ego onControl: origin) $0001)
 			)
 			(Print 206 0)
 			(Bset 39)
@@ -30,6 +31,17 @@
 	)
 	
 	(method (handleEvent event)
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		(if (event claimed?) (return TRUE))
 		(return
 			(if (== (event type?) saidEvent)
@@ -39,7 +51,8 @@
 							(== curRoomNum 10)
 							(Said 'examine[<in]/read,colonel[/read]')
 						)
-						(if (& (ego onControl: FALSE) cBROWN)
+;;;						(if (& (ego onControl: FALSE) cBROWN)
+						(if (& (ego onControl: 0) $0040)	
 							(Print 206 1)
 						else
 							(NotClose)
@@ -47,7 +60,8 @@
 					)
 					(
 					(and (== curRoomNum 12) (Said 'examine[<in]/kitchen'))
-						(if (& (ego onControl: FALSE) cBROWN)
+;;;						(if (& (ego onControl: FALSE) cBROWN)
+						(if (& (ego onControl: 0) $0040)
 							(Print 206 1)
 						else
 							(NotClose)
@@ -58,7 +72,8 @@
 							(== curRoomNum 15)
 							(Said 'examine[<in]/room<billiard')
 						)
-						(if (& (ego onControl: FALSE) cBROWN)
+;;;						(if (& (ego onControl: FALSE) cBROWN)
+						(if (& (ego onControl: 0) $0040)
 							(Print 206 1)
 						else
 							(NotClose)
@@ -73,7 +88,8 @@
 								(Said 'examine[<in]/parlor')
 							)
 						)
-						(if (& (ego onControl: FALSE) cBROWN)
+;;;						(if (& (ego onControl: FALSE) cBROWN)
+						(if (& (ego onControl: 0) $0040)
 							(Print 206 1)
 						else
 							(NotClose)
@@ -81,7 +97,8 @@
 					)
 					(
 					(and (== curRoomNum 17) (Said 'examine[<in]/parlor'))
-						(if (& (ego onControl: FALSE) cBROWN)
+;;;						(if (& (ego onControl: FALSE) cBROWN)
+						(if (& (ego onControl: 0) $0040)
 							(Print 206 1)
 						else
 							(NotClose)
@@ -91,7 +108,8 @@
 						(cond 
 							((Said '<(in,through)/window,cabin')
 								(if (< curRoomNum 20)
-									(if (& (ego onControl: FALSE) cBROWN)
+;;;									(if (& (ego onControl: FALSE) cBROWN)
+										(if (& (ego onControl: 0) $0040)
 										(Print 206 1)
 									else
 										(NotClose)

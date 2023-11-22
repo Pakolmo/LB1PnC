@@ -74,77 +74,77 @@
 						
 					
 					(602 ;necklace_
-						(DoVerb {hold necklace necklace})						
+						(DoVerb {give necklace necklace})						
 					)
 					(604 ;monocle
-						(DoVerb {tell celie about monocle})						
+						(DoVerb {give celie monocle})						
 					)
 					
 					(613 ;lantern_
-						(DoVerb {tell celie about lantern})						
+						(DoVerb {give celie lantern})						
 					)
 					(611 ;oilcan_
-						(DoVerb {tell celie about oilcan})						
+						(DoVerb {give celie oilcan})						
 					)
 					(626 ;rolling_pin_
-						(DoVerb {tell celie about pin})						
+						(DoVerb {give celie pin})						
 					)
 					(620 ;skeleton_key_
-						(DoVerb {tell celie about skeleton key})						
+						(DoVerb {give celie skeleton key})						
 					)
 					(627 ;poker_
-						(DoVerb {tell celie about poker})						
+						(DoVerb {give celie poker})						
 					)															
 					(607 ;crowbar_
-						(DoVerb {tell celie about crowbar})						
+						(DoVerb {give celie crowbar})						
 					)
 					(628 ;cigar_butt_
-						(DoVerb {tell celie about butt})						
+						(DoVerb {give celie butt})						
 					)
 					(625 ;broken_record_
-						(DoVerb {tell celie about broken record})						
+						(DoVerb {give celie broken record})						
 					)
 					(601 ;notebook___pencil_
-						(DoVerb {tell celie about notebook})						
+						(DoVerb {give celie notebook})						
 					)
 					(603 ;_7_crackers________
-						(DoVerb {tell celie about crackers})						
+						(DoVerb {give celie crackers})						
 					)
 					(605 ;soup_bone_
-						(DoVerb {ask celie for soup bone})						
+						(DoVerb {give celie soup bone})						
 					)
 					(606 ;valve_handle_
-						(DoVerb {tell celie about valve})						
+						(DoVerb {give celie valve})						
 					)
 					(618 ;bullet_
-						(DoVerb {tell celie about bullet})						
+						(DoVerb {give celie bullet})						
 					)
 					(617 ;derringer__
-						(DoVerb {tell celie about derringer})						
+						(DoVerb {give celie derringer})						
 					)
 					(614 ;matches_
-						(DoVerb {tell celie about matches})						
+						(DoVerb {give celie matches})						
 					)
 					(615 ;carrot_
-						(DoVerb {tell celie about carrot})						
+						(DoVerb {give celie carrot})						
 					)
 					(619 ;brass_key_
-						(DoVerb {tell celie about brass key})						
+						(DoVerb {give celie brass key})						
 					)
 					(616 ;diary_
-						(DoVerb {tell celie about diary})						
+						(DoVerb {give celie diary})						
 					)
 					(621 ;crank_
-						(DoVerb {tell celie about crank})						
+						(DoVerb {give celie crank})						
 					)
 					(612 ;cane_
-						(DoVerb {tell celie about cane})						
+						(DoVerb {give celie cane})						
 					)
 					(622 ;pouch_
-						(DoVerb {tell celie about pouch})						
+						(DoVerb {give celie pouch})						
 					)																																																																																
 					(630 ;handkerchief_
-						(DoVerb {tell celie about handkerchief})
+						(DoVerb {give celie handkerchief})
 					)
 											
 						

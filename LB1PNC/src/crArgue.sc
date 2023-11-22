@@ -1146,6 +1146,7 @@
 				(Clarence setScript: clarActions)
 				(client setScript: 0)
 				(User canInput: 1)
+				(User mapKeyToDir: TRUE)
 			)
 		)
 	)

@@ -9,6 +9,7 @@
 (use Game)
 (use Actor)
 (use System)
+(use User)
 
 (public
 	Room48 0
@@ -99,6 +100,7 @@
 					(self setRegions: 260)
 				else
 					(HandsOff)
+					(User mapKeyToDir: TRUE)
 					(= local0 1)
 					(self setRegions: 259)
 				)
@@ -657,6 +659,7 @@
 								(if (not local0)
 									(if (& (ego onControl: 0) cGREEN)
 										(HandsOff)
+										(User mapKeyToDir: TRUE)
 										(self setScript: exiting)
 									else
 										(NotClose)

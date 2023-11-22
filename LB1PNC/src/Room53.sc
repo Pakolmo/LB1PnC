@@ -284,23 +284,23 @@
 					)
 				)		
 	
-			(if (ClickedOnObj Jeeves (event x?) (event y?)) 
-					
-					(event claimed: TRUE)
-					(switch theCursor	
-						(996	
-							(DoVerb {ask butler cracker for})
-						)
-						(998
-							(DoVerb {look jeeves})
-						)
-							
-						(else
-							(event claimed: FALSE)
-						)				
-					)
-				)		
-		
+;;;			(if (ClickedOnObj Jeeves (event x?) (event y?)) 
+;;;					
+;;;					(event claimed: TRUE)
+;;;					(switch theCursor	
+;;;						(996	
+;;;							(DoVerb {ask butler cracker for})
+;;;						)
+;;;						(998
+;;;							(DoVerb {look jeeves})
+;;;						)
+;;;							
+;;;						(else
+;;;							(event claimed: FALSE)
+;;;						)				
+;;;					)
+;;;				)		
+;;;		
 			)
 			)
 		
@@ -368,7 +368,7 @@
 		(super newRoom: n)
 	)
 )
-(instance Jeeves of Actor) ;add
+;;;(instance Jeeves of Actor) ;add
 (instance dresser1 of RPicView
 	(properties
 		y 131

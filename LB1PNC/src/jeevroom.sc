@@ -200,7 +200,7 @@
 						
 							(994  ;ear
 								(event type: 1 claimed: 1)
-								(DoVerb {hear gertie})
+								(DoVerb {hear jeeves})
 							)						
 						
 				

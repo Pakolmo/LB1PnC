@@ -132,6 +132,7 @@
 			(3
 				(if (not (& global118 $0002))
 					(HandsOff)
+					(User mapKeyToDir: TRUE)
 					(self setRegions: 264)
 					(gundoor cel: 1)
 					(= local6 1)
@@ -175,6 +176,7 @@
 				(not script)
 			)
 			(HandsOff)
+			(User mapKeyToDir: TRUE)
 			(self setScript: myDoor)
 		)
 		(if (ego inRect: 235 102 267 118)
@@ -1238,6 +1240,7 @@
 		(switch (= state newState)
 			(0
 				(HandsOff)
+				(User mapKeyToDir: TRUE)
 				(= local0 1)
 				(sphere cycleSpeed: 0 setCycle: Forward)
 				(= seconds 4)
@@ -1292,6 +1295,7 @@
 					(client setScript: 0)
 				else
 					(HandsOff)
+					(User mapKeyToDir: TRUE)
 					(ego loop: 3)
 					(cond 
 						(local9 (= state 2) (= cycles 1))
@@ -1969,6 +1973,7 @@
 		(switch (= state newState)
 			(0
 				(HandsOff)
+				(User mapKeyToDir: TRUE)
 				(= cycles 3)
 			)
 			(1

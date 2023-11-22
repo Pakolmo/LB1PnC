@@ -471,29 +471,9 @@
 							(DoVerb {Examine urn})
 						)
 						(995
-								(= temp7
-
-								(PrintSpecial
-									{Coffee}
-									#button {Mirar} 1
-									#button {Tomar} 2
-									
-;;;									{Coffee}
-;;;									#button {Examine in} 1
-;;;									#button {Get} 2							
-								)
-							)
-							(switch temp7
-								(1
 								    (DoVerb {Examine in coffee})
-								)
-								(2
-									(DoVerb {get cup})
-								)
-								(else
-									(event claimed: FALSE)
-								)
-							)
+								
+								
 						)
 						(else
 							(event claimed: FALSE)

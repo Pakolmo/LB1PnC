@@ -9,6 +9,7 @@
 (use Game)
 (use Actor)
 (use System)
+(use User)
 
 (public
 	Room35 0
@@ -116,6 +117,7 @@
 			(ego posn: 1 123)
 		else
 			(HandsOff)
+			(User mapKeyToDir: TRUE)
 			(ego posn: 235 120)
 			(if (not firstTime)
 				(self setScript: closeDoor)
@@ -142,6 +144,7 @@
 				(== (ego loop?) 0)
 			)
 			(HandsOff)
+			(User mapKeyToDir: TRUE)
 			(= local0 1)
 			(ego setScript: myDoor)
 		)
@@ -301,11 +304,14 @@
 					(995
 						(= temp7
 												(Print
-													{Caldron}
-													#button {Open} 1
-													#button {Get} 2
-													#button {Drink} 3
-						
+;;;													{Caldron}
+;;;													#button {Open} 1
+;;;													#button {Get} 2
+;;;													#button {Drink} 3
+													{Caldero}
+													#button {Abrir} 1
+													#button {Coger} 2
+													#button {Beber} 3						
 	
 
 												)
@@ -401,7 +407,7 @@
 		)
 		
 		
-;	Bone	
+
 		
 		
 		
@@ -574,6 +580,7 @@
 			)
 			(2
 				(HandsOn)
+				(User mapKeyToDir: TRUE)
 				(Bdoor stopUpd:)
 				(Fdoor stopUpd:)
 				(client setScript: 0)

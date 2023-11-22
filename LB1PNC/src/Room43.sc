@@ -227,7 +227,7 @@
 ;;;													{Statue}
 ;;;													#button {Look} 1
 ;;;													#button {Examine in} 2								
-													{Statua}
+													{Estatua}
 													#button {Mirar} 1
 													#button {Examinar} 2													
 												)
@@ -545,7 +545,8 @@
 				(HandsOff)
 				(doorL hide:)
 				(doorR hide:)
-				(if (& (ego onControl: 0) cLGREY)
+;;;				(if (& (ego onControl: 0) cLGREY)
+				(if (& (ego onControl: 0) $0080)	
 					(if (== global143 0) (Print 43 5))
 					(if (ego inRect: 81 162 83 166)
 						(= cycles 1)
@@ -563,17 +564,22 @@
 			)
 			(1
 				(Face ego client)
-				(if (& (ego onControl: 0) cLGREY)
-					(ego ignoreControl: cGREEN)
+;;;				(if (& (ego onControl: 0) cLGREY)
+;;;					(ego ignoreControl: cGREEN)
+;;;				else
+;;;					(ego ignoreControl: cCYAN)
+				(if (& (ego onControl: 0) $0080)
+					(ego ignoreControl: 4)
 				else
-					(ego ignoreControl: cCYAN)
+					(ego ignoreControl: 8)
 				)
 				(client cycleSpeed: 3 setCycle: EndLoop self)
 				(myMusic number: 71 loop: 1 play:)
 			)
 			(2
 				(client stopUpd:)
-				(if (& (ego onControl: 0) cLGREY)
+;;;				(if (& (ego onControl: 0) cLGREY)
+				(if (& (ego onControl: 0) $0080)
 					(ego setMotion: MoveTo 40 (ego y?) self)
 				else
 					(ego setMotion: MoveTo 283 (ego y?) self)
