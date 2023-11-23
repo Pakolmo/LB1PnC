@@ -1,19 +1,4 @@
-;;; Sierra Script 1.0 - (do not remove this comment)
-;;;;
-;;;;	GAME.SC
-;;;;	(c) Sierra On-Line, Inc, 1988
-;;;;
-;;;;	Author: Jeff Stephenson
-;;;;
-;;;;	This module contains the classes which implement much of the behavior
-;;;;	of an adventure game.
-;;;;
-;;;;	Classes:
-;;;;		Game
-;;;;		Region
-;;;;		Room
-;;;;		Locale
-;;;;		StatusLine
+;;;;;;Sierra Script 1.0 - (do not remove this comment)
 
 
 (script#	GAME)
@@ -28,19 +13,9 @@
 (use System)
 
 
-;;;(procedure
-;;;	PromptForDiskChange
-;;;)
-;;;
-;;;(extern
-;;;	GetDirectory	SAVE	0
-;;;)
 
 
 
-;;;; GAME OBJECTS
-;;;; These are static objects which are used in the generalized game.  Game
-;;;; specific objects will be defined in module 0.
 
 (instance theCast of EventHandler
 	(properties
@@ -104,7 +79,6 @@
 )
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
 (class Game of Object
@@ -118,29 +92,6 @@
 		script 0			;a current script for the game as a whole
 	)
 
-;;;	(methods
-;;;		play				;start playing the game
-;;;		replay			;start playing from a restore
-;;;		newRoom			;change rooms
-;;;		startRoom		;initialize the room which is being changed to
-;;;		restart			;restart the game
-;;;		restore			;restore a game
-;;;		save				;save a game
-;;;		changeScore		;change the game score
-;;;		handleEvent		;handle user events
-;;;		showMem			;show the free memory
-;;;		setSpeed			;set the animation speed
-;;;		setCursor		;set the cursor shape
-;;;		checkAni			;check the animation speed, dropping out Extras if too bad
-;;;		notify			;communication mechanism between Game, Regions, and Rooms
-;;;		setScript		;set the script for the Game
-;;;		cue				;cues the game script
-;;;
-;;;		wordFail			;invoked when parser can't find a word in the dictionary
-;;;		syntaxFail		;invoked when the parser can't make sense of input
-;;;		semanticFail	;invoked when a sentence isn't 'logical'
-;;;		pragmaFail		;invoked when nobody responds to the user's input
-;;;	)
 
 	
 
@@ -401,9 +352,6 @@
 				
 		;Activate Demo Demon if needed, 
 		;-----------------------------
-;;;		(if demoScripts
-;;;			(curRoom setRegions: DEMO)
-;;;		)
 		
 	)
 
@@ -629,10 +577,7 @@
 
 
 (class Region kindof Object
-	;;; A Region is an area of a game which is larger than a Room and which
-	;;; has global actions associated with it.  Music which needs to be played
-	;;; across rooms needs to be owned by a Region so that it is not disposed
-	;;; on a room change.
+
 
 	(properties
 		name "Rgn"
@@ -643,13 +588,6 @@
 		initialized 0	;has the Region been initialized?
 	)
 
-;;;	(methods
-;;;		handleEvent		;handle user input
-;;;		setScript		;set the script for this Region
-;;;		cue				;cue the Region
-;;;		newRoom			;invoked when the Game changes rooms
-;;;		notify			;communication mechanism between Game, Regions, and Rooms
-;;;	)
 
 
 
@@ -754,14 +692,6 @@
 		vertAngle 0
 	)
 
-;;;	(methods
-;;;		handleEvent		;handle user input
-;;;		setRegions		;set the Regions which contain this Room
-;;;		setFeatures		;set the Features for this Room
-;;;		setLocales		;set the Locales for this Room
-;;;		drawPic			;draw the picture for this Room
-;;;		overlay			;overlay a picture
-;;;	)
 
 
 
@@ -824,16 +754,6 @@
 	)
 
 
-;;;	(method (handleEvent event)
-;;;		(or
-;;;			(super handleEvent: event)
-;;;;;;			(if controls
-;;;;;;				(controls handleEvent: event)
-;;;			
-;;;;;;			)
-;;;		)
-;;;		(return (event claimed?))
-;;;	)
 	(method (handleEvent pEvent)
 		(cond 
 			((super handleEvent: pEvent))
@@ -842,23 +762,6 @@
 		(pEvent claimed?)
 	)
 
-;;;	(method (setRegions region &tmp i n regID)
-;;;		;; Set the regions used by a room.
-;;;
-;;;		(for	((= i 0))
-;;;				(< i argc)
-;;;				((++ i))
-;;;
-;;;			(= n [region i])
-;;;			(= regID (ScriptID n))
-;;;			(regID number: n)
-;;;			(regions add: regID)
-;;;			(if (not (regID initialized?))
-;;;				(regID init:)
-;;;			)
-;;;		)
-;;;	)
-;;;
 	(method (setRegions scriptNumbers &tmp temp0 theScriptNumbers temp2)
 		(= temp0 0)
 		(while (< temp0 argc)
@@ -890,17 +793,6 @@
 	)
 
 
-;;;	(method (setFeatures feature &tmp i n featureID)
-;;;		;; Set the features used by a room.
-;;;
-;;;		(for	((= i 0))
-;;;				(< i argc)
-;;;				((++ i))
-;;;
-;;;			(features add: [feature i])
-;;;		)
-;;;	)
-;;;
 	(method (setFeatures theFeatures &tmp temp0 [temp1 2])
 		(= temp0 0)
 		(while (< temp0 argc)
@@ -965,24 +857,16 @@
 
 
 (class Locale of Object
-	;;; A Locale is similar to a Region in that it may encompass many Rooms,
-	;;; but its only purpose is to provide default responses to user input.
-	;;; Thus, a forest locale will provide generic responses to input like
-	;;; 'look forest', 'look tree', 'climb tree', etc.  A locale is attached
-	;;; to a Room with the setLocales: method.
+
 
 	(properties
 		number 0				;module number of this Locale
 	)
 
-;;;	(methods
-;;;		handleEvent			;handle user input
-;;;	)
 
 
 	(method (handleEvent event)
 		;; Game programmer must redefine this method.
-;;;		(return (event claimed?))
 		(event claimed?)
 	)
 
@@ -999,56 +883,6 @@
 
 
 
-;;;(class StatusLine of Object
-;;;	;;; The StatusLine class provides a status line at the top of the
-;;;	;;; screen which is programmer-definable.  When enabled, it overlays
-;;;	;;; the menu bar.  The user may still access the menu by pressing Esc
-;;;	;;; or positioning the mouse pointer in the status line end pressing
-;;;	;;; the mouse button.  The status line usually shows the player's
-;;;	;;; score.
-;;;	;;; To use a status line in a game, create an instance of class Code
-;;;	;;; whose doit: method takes a pointer to an array.  The Code should
-;;;	;;; format the desired text string into the array.
-;;;	;;; To display the status line, execute (StatusLine enable:).
-;;;
-;;;	(properties
-;;;		name "SL"
-;;;		state FALSE		;enabled/disabled
-;;;		code 0			;ID of Code to display status line
-;;;	)
-;;;
-;;;;;;	(methods
-;;;;;;		enable			;display the status line
-;;;;;;		disable			;hide the status line
-;;;;;;	)
-;;;
-;;;
-;;;	(method (doit &tmp [theLine 41])
-;;;		;; This method calls the application code to format the status
-;;;		;; line string at theLine, then draws it.
-;;;
-;;;		(if code
-;;;			(code doit: @theLine)
-;;;			(DrawStatus (if state @theLine else 0))
-;;;		)
-;;;	)
-;;;
-;;;
-;;;	(method (enable)
-;;;		;; Display the status line.
-;;;
-;;;		(= state TRUE)
-;;;		(self doit:)
-;;;	)
-;;;
-;;;
-;;;	(method (disable)
-;;;		;Hide the status line.
-;;;
-;;;		(= state FALSE)
-;;;		(self doit:)
-;;;	)
-;;;)
 
 
 
@@ -1100,29 +934,6 @@
 )
 
 
-;;;
-;;;(instance RestoreUpdate of Code
-;;;	;;; Used by replay: to properly deal with members of the cast which were
-;;;	;;; not updating when the game was saved.
-;;;
-;;;	(properties
-;;;		name "RU"
-;;;	)
-;;;
-;;;	(method (doit obj &tmp sigBits)
-;;;		;; If the object has underBits, it was not updating.  Its underBits
-;;;		;; property is now invalid, so clear it.  Also, set the signal bits
-;;;		;; to draw the object and stopUpd: it.
-;;;
-;;;		(if (obj underBits?)
-;;;			(= sigBits (obj signal?))
-;;;			(|= sigBits stopUpdOn)
-;;;			(&= sigBits (~ notUpd))
-;;;			(obj underBits:0, signal:sigBits)
-;;;		)
-;;;	)
-;;;)
-;;;
 (instance RestoreUpdate of Code
 	(properties)
 	
@@ -1140,8 +951,7 @@
 )
 
 (instance DisposeNonKeptRegion of Code
-	;;; Used during room changes to dispose any Regions whose 'keep' property
-	;;; is not TRUE.
+
 
 	(properties
 		name "DNKR"

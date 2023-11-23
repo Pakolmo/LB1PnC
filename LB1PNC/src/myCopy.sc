@@ -300,7 +300,7 @@
 				)
 				(= saveBits2
 					(Display {______Con ayuda de: Teresa, Stormspirit86 y Walas74}
-						p_at 30 169
+						p_at 35 162
 						p_width 250
 						p_color vBLUE
 						p_back -1

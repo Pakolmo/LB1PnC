@@ -378,7 +378,7 @@
 					(event claimed: TRUE)
 					(switch theCursor
 						(995		
-							(DoVerb {examine in desk})	
+							(DoVerb {read notebook})	
 						)							
 						(998 		
 							(DoVerb {examine desk})	

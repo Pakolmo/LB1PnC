@@ -142,99 +142,11 @@
 ;;;						(DoVerb {climb})
 ;;;;;;						(= moving 0)
 ;;;					)
-					(602 ;necklace_
-						(DoVerb {atatch necklace in bell})						
-					)
-					(604 ;monocle
-						(DoVerb {atatch monocle in bell})						
-					)
-					
-					(613 ;lantern_
-						(DoVerb {atatch lantern in bell ring})						
-					)
+
 					(611 ;oilcan_
 						(DoVerb {oil bell})	;YES					
 					)
-					(626 ;rolling_pin_
-						(DoVerb {atatch pin in bell ring})						
-					)
 
-					(627 ;poker_
-						(DoVerb {atatch poker in bell ring})						
-					)															
-					(607 ;crowbar_
-						(DoVerb {atatch crowbar in bell ring})						
-					)
-					(628 ;cigar_butt_
-						(DoVerb {atatch butt in bell ring})						
-					)
-					(625 ;broken_record_
-						(DoVerb {atatch broken record in bell ring})						
-					)
-					(601 ;notebook___pencil_
-						(DoVerb {atatch notebook in bell ring})						
-					)
-					(603 ;_7_crackers________
-						(DoVerb {atatch crackers in bell ring})						
-					)
-
-					(606 ;valve_handle_
-						(DoVerb {atatch valve in bell ring})						
-					)
-					(618 ;bullet_
-						(DoVerb {atatch bullet in bell ring})						
-					)
-					(617 ;derringer__
-						(DoVerb {atatch derringer in bell ring})						
-					)
-					(614 ;matches_
-						(DoVerb {atatch matches in bell ring})						
-					)
-					(615 ;carrot_
-						(DoVerb {atatch carrot in bell ring})						
-					)
-					(619 ;brass_key_
-						(DoVerb {atatch brass key in bell ring})						
-					)
-					(616 ;diary_
-						(DoVerb {atatch diary in bell ring})						
-					)
-					(621 ;cane!
-						(if (ego has: iCane)
-							(DoVerb {attach cane in bell ring})
-						
-						else
-							(Print {ERROR})						
-						)
-					)
-
-					(622 ;pouch_
-						(DoVerb {atatch pouch in bell ring})						
-					)																																																																																
-					(630 ;handkerchief_
-						(DoVerb {atatch handkerchief in bell ring})
-					)
-					(620 ;Crank!
-						(if (ego has: iCane)
-							(DoVerb {attach crank in bell ring})
-						
-						else
-							(Print {ERROR})						
-						)
-					)											
-					(605 ;Skeleton key!
-						(if (ego has: iCane)
-							(DoVerb {attach crank in bell ring})
-						
-						else
-							(Print {ERROR})						
-						)
-					)												
-						
-						
-						
-						
-						
 						
 						(612
 							(DoVerb {ring with cane bell})	
@@ -335,16 +247,12 @@
 							(DoVerb {examine ring})
 						)
 					(612 ;cane!
-						(if (ego has: iCane)
+
 							(DoVerb {ring bell with cane})
 						
-						else
-							(Print {ERROR})						
-						)
+
 					)						
-;;;						(627 ;cane
-;;;							(DoVerb {ring bell with cane})
-;;;						)
+
 						(else
 							(event claimed: FALSE)
 						)																	

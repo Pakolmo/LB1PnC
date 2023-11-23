@@ -84,6 +84,20 @@
 					(== (event type?) evMOUSEBUTTON)
 					(not (& (event modifiers?) emRIGHT_BUTTON))
 				)
+				(if (ClickedOnPicView Chalk (event x?) (event y?)) 
+					(event claimed: TRUE)
+					(switch theCursor	
+						(995
+							(Print 282 2)
+						)
+						(998
+							(Print 282 1)
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)		
 				(if (ClickedOnPicView table (event x?) (event y?)) 
 					(event claimed: TRUE)
 					(switch theCursor	

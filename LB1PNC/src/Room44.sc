@@ -48,15 +48,16 @@
 	
 	(method (init)
 		(theGame setSpeed: 1)
-		(ego get: 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 21 20 22 23 24 25 26 27 28 29 30)
+;;;		(ego get: 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 21 20 22 23 24 25 26 27 28 29 30)
 ;;;		(= currentAct 2)
 		
 		(= west 43)
 		(= saveDisabled FALSE)
 		(super init:)
-		(SetCursor 993 TRUE 300 0) ;hand_cursor no, walk.
+;;;		(SetCursor 993 TRUE 300 0) ;hand_cursor no, walk.
+		(SetCursor 993)
 ;;;		(HandsOff)
-		(theGame setCursor: 993 (HaveMouse))
+;;;		(theGame setCursor: 993 (HaveMouse))
 ;;;		(User canInput: FALSE)
 		(cSound stop:)
 		(Load FONT 4)

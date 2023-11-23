@@ -135,9 +135,27 @@
 					(not (& (event modifiers?) emRIGHT_BUTTON))
 				)
 						
-;;;basket sink toilet bathtub Cabinet settie Window1 Mirror		
-				(if (ClickedOnObj basket (event x?) (event y?)) 
-					
+	
+				(if (and (ClickedOnObj basket (event x?) (event y?)) 
+					(>= currentAct 5) )
+					(event claimed: TRUE)
+					(switch theCursor	
+						(604 ;monocle
+							(DoVerb {examine basket with monocle})
+						)						
+						(998 ;examine
+							(DoVerb {examine in basket})
+						)
+						(995 ;get
+							(DoVerb {get bottle})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+				(if (and (ClickedOnObj basket (event x?) (event y?)) 
+					(<= currentAct 4) )
 					(event claimed: TRUE)
 					(switch theCursor	
 						(604 ;monocle
@@ -153,8 +171,7 @@
 							(event claimed: FALSE)
 						)
 					)
-				)
-		
+				)	
 				(if (ClickedOnObj sink (event x?) (event y?)) 
 					
 					(event claimed: TRUE)

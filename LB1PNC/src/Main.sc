@@ -65,7 +65,7 @@
 	timers
 	sounds
 	inventory
-	addToPics
+	addToPics ;10
 	curRoomNum
 	prevRoomNum
 	newRoomNum
@@ -75,7 +75,7 @@
 	showStyle =  IRISOUT
 	aniInterval
 	theCursor
-	normalCursor =  ARROW_CURSOR
+	normalCursor =  ARROW_CURSOR ;20
 	waitCursor =  HAND_CURSOR
 	userFont =  USERFONT
 	smallFont =  4
@@ -1375,7 +1375,8 @@
 		said '/necklace'
 		owner 99
 		view 602
-		name "necklace_"
+;;;		name "necklace_"
+		name "collar___"
 	)
 )
 
@@ -1383,7 +1384,8 @@
 	(properties
 		said '/monocle'
 		view 604
-		name "monocle_"
+;;;		name "monocle__"
+		name "mon/culo_"
 	)
 )
 
@@ -1392,7 +1394,8 @@
 		said '/lantern'
 		owner 69
 		view 613
-		name "lantern_"
+;;;		name "lantern__"
+		name "linterna_"
 	)
 	
 	(method (showSelf)
@@ -1407,7 +1410,8 @@
 		said '/can'
 		owner 61
 		view 611
-		name "oilcan_"
+;;;		name "oilcan___"
+		name "aceitera_"
 	)
 )
 
@@ -1416,7 +1420,8 @@
 		said '/pin'
 		owner 25
 		view 626
-		name "rolling pin_"
+;;;		name "rolling_pin_"
+		name "amasador____"		
 	)
 )
 
@@ -1425,7 +1430,8 @@
 		said '/key<skeleton'
 		owner 58
 		view 620
-		name "skeleton key_"
+;;;		name "skeleton key__"
+		name "llave_maestra_"
 	)
 )
 
@@ -1434,7 +1440,8 @@
 		said '/poker'
 		owner 32
 		view 627
-		name "poker_"
+;;;		name "poker____"
+		name "atizador_"
 	)
 )
 
@@ -1443,7 +1450,8 @@
 		said '/crowbar'
 		owner 61
 		view 607
-		name "crowbar_"
+;;;		name "crowbar____"
+		name "palanqueta_"
 	)
 )
 
@@ -1451,7 +1459,8 @@
 	(properties
 		said '/butt,butt'
 		view 628
-		name "cigar butt_"
+;;;		name "cigar_butt_"
+		name "colilla_"		
 	)
 )
 
@@ -1460,7 +1469,8 @@
 		said '/record'
 		owner 36
 		view 625
-		name "broken record_"
+;;;		name "broken_record_"
+		name "disco_roto____"
 	)
 )
 
@@ -1469,7 +1479,8 @@
 		said '/notebook,pencil'
 		owner 44
 		view 601
-		name "notebook & pencil_"
+;;;		name "notebook & pencil_"
+		name "libreta y l*piz___"
 	)
 )
 
@@ -1478,7 +1489,9 @@
 		said '/cracker,box'
 		owner 53
 		view 603
-		name "7 crackers________"
+;;;		name "7 crackers______________"
+		name "7 galletas______________"
+			  
 	)
 	
 	(method (ownedBy)
@@ -1503,7 +1516,8 @@
 		said '/bone'
 		owner 35
 		view 605
-		name "soup bone_"
+;;;		name "soup_bone________"
+		name "hueso_para_caldo_"
 	)
 )
 
@@ -1512,7 +1526,8 @@
 		said '/valve,handle'
 		owner 37
 		view 606
-		name "valve handle_"
+;;;		name "valve_handle_____"
+		name "mango_de_v*lvula_"
 	)
 )
 
@@ -1521,7 +1536,8 @@
 		said '/bullet'
 		owner 65
 		view 618
-		name "bullet_"
+;;;		name "bullet______"
+		name "bala________"
 	)
 )
 
@@ -1530,7 +1546,7 @@
 		said '/derringer'
 		owner 31
 		view 617
-		name "derringer__"
+		name "derringer________"
 	)
 	
 	(method (ownedBy)
@@ -1548,7 +1564,8 @@
 		said '/match'
 		owner 67
 		view 614
-		name "matches_"
+;;;		name "matches_____"
+		name "cerillas____"		
 	)
 )
 
@@ -1557,7 +1574,8 @@
 		said '/carrot'
 		owner 59
 		view 615
-		name "carrot_"
+;;;		name "carrot______"
+		name "zanahoria___"
 	)
 )
 
@@ -1566,7 +1584,8 @@
 		said '/key'
 		owner 42
 		view 619
-		name "brass key_"
+;;;		name "brass_key______"
+		name "llave_de_lat/n_"
 	)
 )
 
@@ -1575,7 +1594,8 @@
 		said '/diary'
 		owner 44
 		view 616
-		name "diary__"
+;;;		name "diary_____"
+		name "diario____"		
 	)
 )
 
@@ -1584,7 +1604,8 @@
 		said '/control'
 		owner 3
 		view 621
-		name "crank_"
+;;;		name "crank____"
+		name "manivela_"
 	)
 )
 
@@ -1592,7 +1613,8 @@
 	(properties
 		said '/cane'
 		view 612
-		name "cane_"
+;;;		name "cane___"
+		name "bast/n_"
 	)
 )
 
@@ -1601,7 +1623,8 @@
 		said '/diamond'
 		owner 57
 		view 622
-		name "pouch_"
+;;;		name "pouch___"
+		name "bolsita_"
 	)
 )
 
@@ -1610,7 +1633,8 @@
 		said '/handkerchief'
 		owner 47
 		view 630
-		name "handkerchief_"
+;;;		name "handkerchief_"
+		name "pa=uelo______"
 	)
 )
 
@@ -1619,14 +1643,14 @@
 	(properties
 ;;;		said '/Celie'
 		view 931
-		name "Celie"
+		name "Celie__"
 	)
 )
 (instance Fifi_ of InvI
 	(properties
 ;;;		said '/Fifi'
 		view 934
-		name "Fifi"
+		name "Fifi__"
 	)
 )	
 
@@ -1634,83 +1658,83 @@
 	(properties
 ;;;		said '/Rudy'
 		view 938
-		name "Rudy"
+		name "Rudy__"
 	)
 )	
 (instance Wilbur_C_Feels of InvI
 	(properties
 ;;;		said '/Feels'
 		view 937
-		name "Wilbur"
+		name "Wilbur__"
 	)
 )	
 (instance Gertrude_Dijon of InvI
 	(properties
 ;;;		said '/Gertrude'
 		view 930
-		name "Gertrude"
+		name "Gertrude__"
 	)
 )	
 (instance Lillian_Prune of InvI
 	(properties
 ;;;		said '/Lillian'
 		view 935
-		name "Lillian"
+		name "Lillian__"
 	)
 )
 (instance Ethel_Prune of InvI
 	(properties
 ;;;		said '/Ethel'
 		view 933
-		name "Ethel"
+		name "Ethel__"
 	)
 )	
 (instance Henri_Dijon of InvI
 	(properties
 ;;;		said '/Colonel'
 		view 939
-		name "Colonel"
+		name "Colonel__"
 	)
 )	
 (instance Gloria_Swansong of InvI
 	(properties
 ;;;		said '/Gloria'
 		view 932
-		name "Gloria"
+		name "Gloria__"
 	)
 )	
 (instance Clarence_Sparrow of InvI
 	(properties
 ;;;		said '/Clarence'
 		view 936
-		name "Clarence"
+		name "Clarence__"
 	)
 )
 (instance Jules_ of InvI
 	(properties
 ;;;		said '/Jules'
 		view 940
-		name "Jeeves"
+		name "Jeeves__"
 	)
 )	
 (instance Beauregard_ of InvI
 	(properties
 ;;;		said '/Beauregard'
 		view 941
-		name "Beauregard"
+		name "Beauregard__"
 	)
 )
 (instance Polly_ of InvI
 	(properties
 ;;;		said '/Polly'
 		view 942
-		name "Polly"
+		name "Polly__"
 	)
 )
 (instance Blaze_ of InvI
 	(properties
 ;;;		said '/Blaze'
 		view 943
-		name "Blaze"
+		name "Blaze__"
 	)
 )						

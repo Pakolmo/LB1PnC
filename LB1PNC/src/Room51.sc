@@ -31,6 +31,7 @@
 	)
 	
 	(method (init)
+		(HandsOff)
 		(= horizon 0)
 		(= west 55)
 		(= global189 51)
@@ -51,7 +52,9 @@
 				(= local0 1)
 				(ego loop: 0 y: 170)
 			)
+			
 			(ego view: 7 xStep: 3 init:)
+			
 			(glow deltaX: 8 deltaY: 8 ignoreCast: 1 init:)
 			(rat
 				view: 151
@@ -64,6 +67,7 @@
 				init:
 				setScript: Scurry
 			)
+			(HandsOn)
 		else
 			(HandsOff)
 			(ego
@@ -84,12 +88,15 @@
 		(if (and (not local0) (< (ego x?) 117))
 			(= local0 1)
 		)
-		(if (and local0 (& (ego onControl: origin) cCYAN))
+;;;		(if (and local0 (& (ego onControl: origin) cCYAN))
+		(if (and local0 (& (ego onControl: 1) $0008))
 			(HandsOff)
 			(ego illegalBits: 0 setMotion: MoveTo 244 80)
 		)
-		(if (& (ego onControl: origin) cBLUE)
-			(ego illegalBits: cWHITE)
+;;;		(if (& (ego onControl: origin) cBLUE)
+;;;			(ego illegalBits: cWHITE)
+		(if (& (ego onControl: 1) $0002)
+			(ego illegalBits: -32768)
 			(curRoom newRoom: 65)
 		)
 		(super doit:)
@@ -107,7 +114,7 @@
 					(== (event type?) evMOUSEBUTTON)
 					(not (& (event modifiers?) emRIGHT_BUTTON))
 				)
-		
+	
 			(if (ClickedOnObj rat (event x?) (event y?)) 
 					
 					(event claimed: TRUE)
@@ -274,7 +281,9 @@
 	
 	(method (cue)
 		(HandsOn)
-		(ego illegalBits: cWHITE)
+;;;		(ego illegalBits: cWHITE)
+		(ego illegalBits: -32768)
+
 	)
 	
 	(method (newRoom n)
