@@ -201,10 +201,12 @@
 
 										(= temp7
 												(PrintSpecial
-													{Well}
-													#button {Examine at} 1
-													#button {Enter} 2								
-										
+;;;													{Well}
+;;;													#button {Examine at} 1
+;;;													#button {Enter} 2								
+													{Pozo}
+													#button {Examinar} 1
+													#button {Entrar} 2											
 
 
 												)
@@ -238,11 +240,14 @@
 						(998	
 										(= temp7
 												(PrintSpecial
-													{Bucket}
-													#button {Examine Control} 1
-													#button {Examine In} 2								
-													#button {Examine} 3
-
+;;;													{Bucket}
+;;;													#button {Examine control} 1
+;;;													#button {Examine in} 2								
+;;;													#button {Examine} 3
+													{Cubo}
+													#button {Examinar controles} 1
+													#button {Examinar dentro} 2								
+													#button {Examinar} 3
 
 												)
 											)
@@ -265,15 +270,21 @@
 						(995
 										(= temp7
 												(PrintSpecial
-													{Bucket}
-													#button {Lift} 1
-													#button {Lower} 2								
-													#button {Get} 3
-													#button {Drop} 4
-													#button {Untie} 5
-													#button {Enter} 6
+;;;													{Bucket}
+;;;													#button {Lift} 1
+;;;													#button {Lower} 2								
+;;;													#button {Get} 3
+;;;													#button {Drop} 4
+;;;													#button {Untie} 5
+;;;													#button {Enter} 6
 
-
+													{Cubo}
+													#button {Subir} 1
+													#button {Bajar} 2								
+													#button {Coger} 3
+													#button {Dejar caer} 4
+													#button {Desatar} 5
+													#button {Entrar} 6
 												)
 											)
 											(switch temp7
