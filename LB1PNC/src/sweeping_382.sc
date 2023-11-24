@@ -151,10 +151,10 @@
 						)
 						(switch temp7
 							(1 
-								(DoVerb {ask Jeeves about gertrude})
+								(DoVerb {ask Jeeves about gertie})
 							)
 							(2
-								(DoVerb {tell Jeeves about gertrude})
+								(DoVerb {tell Jeeves about gertie})
 							)
 						(else
 							(event claimed: FALSE)

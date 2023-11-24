@@ -324,10 +324,10 @@
 						)
 						(switch temp7
 							(1 
-								(DoVerb {ask gloria about gertrude})
+								(DoVerb {ask gloria about gertie})
 							)
 							(2
-								(DoVerb {tell gloria about gertrude})
+								(DoVerb {tell gloria about gertie})
 							)
 						(else
 							(event claimed: FALSE)
@@ -769,10 +769,10 @@
 						)
 						(switch temp7
 							(1 
-								(DoVerb {ask Clarence about gertrude})
+								(DoVerb {ask Clarence about gertie})
 							)
 							(2
-								(DoVerb {tell Clarence about gertrude})
+								(DoVerb {tell Clarence about gertie})
 							)
 						(else
 							(event claimed: FALSE)

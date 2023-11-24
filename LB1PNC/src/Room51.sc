@@ -10,6 +10,7 @@
 (use Game)
 (use Actor)
 (use System)
+(use User)
 
 (public
 	Room51 0
@@ -31,7 +32,12 @@
 	)
 	
 	(method (init)
-		(HandsOff)
+;;;		(HandsOff)
+			(User canControl: FALSE canInput: FALSE)
+
+				
+				(User mapKeyToDir: FALSE)
+			(theGame setCursor: 997 (HaveMouse))
 		(= horizon 0)
 		(= west 55)
 		(= global189 51)
@@ -41,7 +47,11 @@
 		(if lanternIsLit
 			(if (== prevRoomNum 65)
 				(= local0 0)
-				(HandsOff)
+				(User canControl: FALSE canInput: FALSE)
+;;;				(ego setMotion: 0)
+				
+				(User mapKeyToDir: FALSE)
+;;;				(theGame setCursor: 997 (HaveMouse))
 				(ego
 					loop: 1
 					posn: 222 91
@@ -67,7 +77,11 @@
 				init:
 				setScript: Scurry
 			)
-			(HandsOn)
+				(User canControl: TRUE canInput: TRUE)
+;;;				(ego setMotion: 0)
+				
+				(User mapKeyToDir: TRUE)
+				(theGame setCursor: 999 (HaveMouse))
 		else
 			(HandsOff)
 			(ego
@@ -84,19 +98,31 @@
 	(method (doit)
 		(if (and (FirstEntry) lanternIsLit)
 			(Print 51 0)
+			
 		)
 		(if (and (not local0) (< (ego x?) 117))
 			(= local0 1)
+			(User canControl: FALSE canInput: FALSE)
 		)
 ;;;		(if (and local0 (& (ego onControl: origin) cCYAN))
 		(if (and local0 (& (ego onControl: 1) $0008))
-			(HandsOff)
+;;;			(HandsOff)
+			(User canControl: FALSE canInput: FALSE)
+
+				
+				(User mapKeyToDir: FALSE)
+			(theGame setCursor: 999 (HaveMouse))
 			(ego illegalBits: 0 setMotion: MoveTo 244 80)
 		)
 ;;;		(if (& (ego onControl: origin) cBLUE)
 ;;;			(ego illegalBits: cWHITE)
 		(if (& (ego onControl: 1) $0002)
 			(ego illegalBits: -32768)
+						(User canControl: FALSE canInput: FALSE)
+
+				
+				(User mapKeyToDir: FALSE)
+			(theGame setCursor: 997 (HaveMouse))
 			(curRoom newRoom: 65)
 		)
 		(super doit:)
@@ -114,6 +140,25 @@
 					(== (event type?) evMOUSEBUTTON)
 					(not (& (event modifiers?) emRIGHT_BUTTON))
 				)
+
+			(switch (event type:)
+				(evMOUSEBUTTON
+					(if
+						(and
+							(not (& (event modifiers:) emSHIFT))
+							(User controls:)
+							
+
+						)
+;;;						(ego setMotion: MoveTo (((ego x?) +1) ((ego y?) +1) ))
+						(User prevDir: 0)
+						(event claimed: 1)
+
+					)
+				)
+			)
+
+
 	
 			(if (ClickedOnObj rat (event x?) (event y?)) 
 					
@@ -283,6 +328,11 @@
 		(HandsOn)
 ;;;		(ego illegalBits: cWHITE)
 		(ego illegalBits: -32768)
+			(User canControl: TRUE canInput: TRUE)
+
+				
+				(User mapKeyToDir: TRUE)
+			(theGame setCursor: 999 (HaveMouse))		
 
 	)
 	

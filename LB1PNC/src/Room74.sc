@@ -767,8 +767,8 @@
 						)
 					)
 				)	
-				(if (ClickedOnObj door (event x?) (event y?)) 
-					
+				(if (and (ClickedOnObj door (event x?) (event y?)) 
+					(== prevRoomNum 47) )
 					(event claimed: TRUE)
 					(switch theCursor
 						(995
@@ -804,7 +804,7 @@
 												)
 											)
 						)									
-						(619 ;skeletonkey
+						(620 ;skeletonkey
 							(DoVerb {unbar door})	
 						)
 						(998
@@ -834,7 +834,48 @@
 							(event claimed: FALSE)
 						)
 					)
-				)						
+				)	
+				(if (and (ClickedOnObj door (event x?) (event y?)) 
+					(!= prevRoomNum 47) )
+					(event claimed: TRUE)
+					(switch theCursor
+						(995
+							(DoVerb {unbar door})
+							(event claimed: TRUE)
+							(DoVerb {open door})
+						)
+						(620 ;skeletonkey
+							(DoVerb {unbar door})	
+						)
+						(998
+							(= temp7
+												(Print
+;;;													{Door}
+;;;													#button {Examine door} 1
+;;;													#button {Examine keyhole} 2	
+													{Door}
+													#button {Examinar puerta} 1
+													#button {Examinar cerradura} 2								
+												)
+											)
+											(switch temp7
+												(1 ;
+													(DoVerb {examine door attic})
+												)
+												(2	
+													(DoVerb {examine keyhole})							
+												)							
+												(else
+														(event claimed: FALSE)
+												)
+											)
+						)					
+				(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+									
 				(if (ClickedOnObj Fifi (event x?) (event y?)) 
 ;;;					(not local7))
 					(event claimed: TRUE)
@@ -940,10 +981,10 @@
 						)
 						(switch temp7
 							(1 
-								(DoVerb {ask fifi about gertrude})
+								(DoVerb {ask fifi about gertie})
 							)
 							(2
-								(DoVerb {tell fifi about gertrude})
+								(DoVerb {tell fifi about gertie})
 							)
 						(else
 							(event claimed: FALSE)

@@ -1634,7 +1634,7 @@
 		owner 47
 		view 630
 ;;;		name "handkerchief_"
-		name "pa=uelo______"
+		name "pa}uelo______"
 	)
 )
 

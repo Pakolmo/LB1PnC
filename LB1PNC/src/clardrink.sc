@@ -138,7 +138,7 @@
 						
 							(930  ;gertrude
 								(event type: 1 claimed: 1)
-								(DoVerb {ask Clarence about Gertrude})
+								(DoVerb {ask Clarence about gertie})
 							)
 							(931 ;Celie
 								(event type: 1 claimed: 1)

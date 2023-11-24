@@ -171,10 +171,10 @@
 						)
 						(switch temp7
 							(1 
-								(DoVerb {ask jeeves about gertrude})
+								(DoVerb {ask jeeves about gertie})
 							)
 							(2
-								(DoVerb {tell jeeves about gertrude})
+								(DoVerb {tell jeeves about gertie})
 							)
 						(else
 							(event claimed: FALSE)
@@ -612,10 +612,10 @@
 						)
 						(switch temp7
 							(1 
-								(DoVerb {ask fifi about gertrude})
+								(DoVerb {ask fifi about gertie})
 							)
 							(2
-								(DoVerb {tell fifi about gertrude})
+								(DoVerb {tell fifi about gertie})
 							)
 						(else
 							(event claimed: FALSE)
@@ -1343,7 +1343,7 @@
 						
 							(930  ;gertrude
 								(event type: 1 claimed: 1)
-								(DoVerb {ask fifi about Gertrude})
+								(DoVerb {ask fifi about gertie})
 							)
 							(931 ;Celie
 								(event type: 1 claimed: 1)

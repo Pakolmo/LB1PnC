@@ -370,6 +370,9 @@
 							(Print 6 33)
 							(event claimed: TRUE)
 						)
+						(996
+							(DoVerb {converse chicken})
+						)						
 						(else
 							(event claimed: FALSE)
 						)

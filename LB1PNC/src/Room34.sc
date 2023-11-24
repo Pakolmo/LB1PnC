@@ -571,7 +571,7 @@
 			(event claimed: TRUE)
 					(switch theCursor
 						(999
-							(ego setMotion: MoveTo -2 175)
+							(ego setMotion: MoveTo -2 145)
 						)
 						(else
 								(event claimed: FALSE)

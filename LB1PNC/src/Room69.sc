@@ -370,7 +370,7 @@
 						
 							(930  ;gertrude
 								(event type: 1 claimed: 1)
-								(DoVerb {ask Blaze about Gertrude})
+								(DoVerb {ask Blaze about gertie})
 							)
 							(931 ;Celie
 								(event type: 1 claimed: 1)
@@ -590,7 +590,7 @@
 						
 							(930  ;gertrude
 								(event type: 1 claimed: 1)
-								(DoVerb {ask butler about Gertrude})
+								(DoVerb {ask butler about gertie})
 							)
 							(931 ;Celie
 								(event type: 1 claimed: 1)

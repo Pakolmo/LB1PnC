@@ -205,10 +205,10 @@
 						)
 						(switch temp7
 							(1 
-								(DoVerb {ask gloria about gertrude})
+								(DoVerb {ask gloria about gertie})
 							)
 							(2
-								(DoVerb {tell gloria about gertrude})
+								(DoVerb {tell gloria about gertie})
 							)
 						(else
 							(event claimed: FALSE)
@@ -893,7 +893,7 @@
 						
 							(930  ;gertrude
 								(event type: 1 claimed: 1)
-								(DoVerb {ask Gloria about Gertrude})
+								(DoVerb {ask Gloria about gertie})
 							)
 							(931 ;Celie
 								(event type: 1 claimed: 1)

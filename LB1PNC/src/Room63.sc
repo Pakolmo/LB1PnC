@@ -16,6 +16,7 @@
 )
 (local
 	temp7
+	ChalkOK
 )
 
 (instance Room63 of Room
@@ -27,6 +28,7 @@
 		(super init:)
 		(if (>= currentAct 6)
 			(addToPics add: Chalk)
+			(= ChalkOK 1)
 		)
 		(if
 			(and
@@ -84,7 +86,8 @@
 					(== (event type?) evMOUSEBUTTON)
 					(not (& (event modifiers?) emRIGHT_BUTTON))
 				)
-				(if (ClickedOnPicView Chalk (event x?) (event y?)) 
+				(if (and (ClickedOnPicView Chalk (event x?) (event y?)) 
+					(== ChalkOK 1))
 					(event claimed: TRUE)
 					(switch theCursor	
 						(995

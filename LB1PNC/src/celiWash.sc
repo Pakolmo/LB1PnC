@@ -72,7 +72,9 @@
 					
 
 					(605 ;soup_bone_
-						(DoVerb {give bone to beauregard})						
+;;;						(Print {You think that is not the best moment.}) ;
+						(Print {Posiblemente no sea el mejor momento.})
+;;;						(DoVerb {give bone to beauregard})	;Deadend.					
 					)
 
 							(994  ;ear
@@ -199,10 +201,10 @@
 						)
 						(switch temp7
 							(1 
-								(DoVerb {ask celie about gertrude})
+								(DoVerb {ask celie about gertie})
 							)
 							(2
-								(DoVerb {tell celie about gertrude})
+								(DoVerb {tell celie about gertie})
 							)
 						(else
 							(event claimed: FALSE)

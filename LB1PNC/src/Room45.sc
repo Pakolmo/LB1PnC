@@ -453,10 +453,10 @@
 						)
 						(switch temp7
 							(1 
-								(DoVerb {ask ethel about gertrude})
+								(DoVerb {ask ethel about gertie})
 							)
 							(2
-								(DoVerb {tell ethel about gertrude})
+								(DoVerb {tell ethel about gertie})
 							)
 						(else
 							(event claimed: FALSE)
@@ -786,14 +786,14 @@
 					)
 					(998
 						(= temp7
-							(PrintSpecialSimple
+							(PrintSpecial
 ;;;								{Glass}
 ;;;								#button {Examine} 1
 ;;;								#button {handkerchief} 2
 ;;;								#button {Ethel} 3
 								{Vaso}
 								#button {Examinar} 1
-								#button {Pa=uelo} 2
+								#button {"Pa>uelo"} 2
 								#button {Ethel} 3
 							)
 							)
@@ -824,7 +824,7 @@
 ;;;								#button {Get handkerchief} 2
 								{Vaso}
 								#button {Coger vaso} 1
-								#button {Coger pa=uelo} 2
+								#button {Coger pa>uelo} 2
 							)
 							)
 

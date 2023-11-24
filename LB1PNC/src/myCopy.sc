@@ -28,6 +28,7 @@
 	local103
 	local104
 	saveBits3
+	saveBits4
 )
 (procedure (localproc_0136)
 	(SetCursor 997 1  ;1 1
@@ -267,12 +268,12 @@
 
 (instance identify of Script
 	
-	(method (changeState newState &tmp [str 25])
+	(method (changeState newState &tmp [str 250])
 		(switch (= state newState)
 			(0
-				(theGame setCursor: 997 (HaveMouse))
+;;;				(theGame setCursor: 997 (HaveMouse))
 				(= saveBits2
-					(Display {\n 2024 DoomLazer y Pakolmo presentan:}
+					(Display { 2024 DoomLazer y Pakolmo presentan:}
 						p_at 26 8
 						p_width 265
 						p_color vRED
@@ -281,12 +282,22 @@
 						p_save
 					)
 				)
-				
+				(= saveBits4
+					(Display {___Con la traducci/n de: Joseph113}
+						p_at 72 22
+						p_width 280
+						p_color vGREY
+						p_back -1
+						p_font 4
+						p_save
+					)
+				)				
 				(= cycles 20)
 			)
 			(1
 				(theGame setCursor: 997 (HaveMouse))
 				(= saveBits
+					
 					(Display
 						(Format @str 414 2 version)
 						p_mode teJustCenter
@@ -298,9 +309,9 @@
 						p_save
 					)
 				)
-				(= saveBits2
-					(Display {______Con ayuda de: Teresa, Stormspirit86 y Walas74}
-						p_at 35 162
+				(= saveBits3
+					(Display {______Testeado por: Teresa, Stormspirit86 y Walas74}
+						p_at 34 164
 						p_width 250
 						p_color vBLUE
 						p_back -1
@@ -308,6 +319,7 @@
 						p_save
 					)
 				)
+				
 ;;;				(= saveBits3
 ;;;					(Display {Teresa, Stormspirit86 y Wallas74}
 ;;;						p_at 72 152

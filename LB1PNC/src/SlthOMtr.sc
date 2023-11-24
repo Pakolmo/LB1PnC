@@ -713,6 +713,7 @@ code_091e:
 		(super init:)
 		(TheMenuBar state: FALSE)
 		(User canControl: TRUE canInput: FALSE)
+		(theGame setCursor: 993 (HaveMouse))
 		(Load FONT 4)
 		(LoadMany SOUND 17 27 119)
 		(localproc_0037)
