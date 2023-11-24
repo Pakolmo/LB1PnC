@@ -151,7 +151,21 @@
 					(not (& (event modifiers?) emRIGHT_BUTTON))
 				)	
 		
-		
+
+					(if (ClickedInRect 0 5 90 159 event) ;exit room left
+					(event claimed: TRUE)
+					(switch theCursor
+						(999
+
+							(ego setMotion: MoveTo (- (ego x?) 315) (ego y?) )
+;;;							
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					 )
+				)	
+						
 		
 						(if (ClickedOnObj House (event x?) (event y?)) 
 					(event claimed: TRUE)

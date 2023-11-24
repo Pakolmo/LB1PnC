@@ -5,6 +5,7 @@
 (use Intrface)
 (use RFeature)
 (use Game)
+(use Motion)
 
 (public
 	Room5 0
@@ -95,7 +96,19 @@
 					(== (event type?) evMOUSEBUTTON)
 					(not (& (event modifiers?) emRIGHT_BUTTON))
 				)
-				
+				(if (ClickedInRect 88 237 180 189 event) ;exit room down
+					(event claimed: TRUE)
+					(switch theCursor
+						(999
+
+							(ego setMotion: MoveTo (ego x?) (+ (ego y?) 160))
+;;;							
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					 )
+				)				
 				(if (ClickedOnPicView planter1 (event x?) (event y?)) 
 					
 					(event claimed: TRUE)

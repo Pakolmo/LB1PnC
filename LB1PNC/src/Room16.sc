@@ -142,7 +142,73 @@
 					(not (& (event modifiers?) emRIGHT_BUTTON))
 				)
 				
+						(if (ClickedInRect 0 316 184 189 event) ;exit room down
+					(event claimed: TRUE)
+					(switch theCursor
+						(999
+
+							(ego setMotion: MoveTo (ego x?) (+ (ego y?) 215))
+;;;							
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					 )
+				)	
+
+					(if (ClickedInRect 0 5 116 136 event) ;exit room left
+					(event claimed: TRUE)
+					(switch theCursor
+						(999
+
+							(ego setMotion: MoveTo (- (ego x?) 315) (ego y?) )
+;;;							
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					 )
+				)					
+					(if (ClickedInRect 0 5 167 189 event) ;exit room LEFT2
+					(event claimed: TRUE)
+					(switch theCursor
+						(999
+
+							(ego setMotion: MoveTo (+ (ego x?) 315) (ego y?) )
+;;;							
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					 )
+				)		
 				
+				(if (ClickedInRect 314 319 118 135 event) ;exit room right1
+					(event claimed: TRUE)
+					(switch theCursor
+						(999
+
+							(ego setMotion: MoveTo (+ (ego x?) 200) (ego y?) )
+;;;							
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					 )
+				)					
+				(if (ClickedInRect 314 319 163 189 event) ;exit room right2
+					(event claimed: TRUE)
+					(switch theCursor
+						(999
+
+							(ego setMotion: MoveTo (+ (ego x?) 200) (ego y?) )
+;;;							
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					 )
+				)							
 					(if (ClickedOnObj Lamp (event x?) (event y?)) 
 					
 					(event claimed: TRUE)

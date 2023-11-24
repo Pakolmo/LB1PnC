@@ -126,7 +126,33 @@
 					(== (event type?) evMOUSEBUTTON)
 					(not (& (event modifiers?) emRIGHT_BUTTON))
 				)
-			
+			(if (ClickedInRect 5 270 183 189 event) ;exit room down
+					(event claimed: TRUE)
+					(switch theCursor
+						(999
+
+							(ego setMotion: MoveTo (ego x?) (+ (ego y?) 215))
+;;;							
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					 )
+				)	
+					(if (ClickedInRect 0 7 112 189 event) ;exit room left
+					(event claimed: TRUE)
+					(switch theCursor
+						(999
+
+							(ego setMotion: MoveTo (- (ego x?) 315) (ego y?) )
+;;;							
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					 )
+				)	
+				
 
 				(if (and (ClickedOnObj gate (event x?) (event y?))
 						(== global111 75)

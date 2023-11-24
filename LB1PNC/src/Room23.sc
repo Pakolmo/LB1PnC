@@ -129,6 +129,63 @@
 					(== (event type?) evMOUSEBUTTON)
 					(not (& (event modifiers?) emRIGHT_BUTTON))
 				)
+	
+						(if (ClickedInRect 4 313 186 189 event) ;exit room down
+					(event claimed: TRUE)
+					(switch theCursor
+						(999
+
+							(ego setMotion: MoveTo (ego x?) (+ (ego y?) 200))
+;;;							
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					 )
+				)	
+					(if (ClickedInRect 0 5 95 124 event) ;exit room left
+					(event claimed: TRUE)
+					(switch theCursor
+						(999
+
+							(ego setMotion: MoveTo (- (ego x?) 315) (ego y?) )
+;;;							
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					 )
+				)	
+				
+				(if (ClickedInRect 0 5 154 189 event) ;exit room left2
+					(event claimed: TRUE)
+					(switch theCursor
+						(999
+
+							(ego setMotion: MoveTo (- (ego x?) 315) (ego y?) )
+;;;							
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					 )
+				)
+					(if (ClickedInRect 313 319 73 189 event) ;exit room right
+					(event claimed: TRUE)
+					(switch theCursor
+						(999
+
+							(ego setMotion: MoveTo (+ (ego x?) 315) (ego y?) )
+;;;							
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					 )
+				)	
+	
+	
+	
 					
 ;;;			(if (and (ClickedOnPicView Well (event x?) (event y?)) 
 			(if (and (ClickedInRect 206 240 125 135 event)

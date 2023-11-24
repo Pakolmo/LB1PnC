@@ -183,7 +183,33 @@
 					(not (& (event modifiers?) emRIGHT_BUTTON))
 				)	
 		
-		
+						(if (ClickedInRect 3 194 182 189 event) ;exit room down
+					(event claimed: TRUE)
+					(switch theCursor
+						(999
+
+							(ego setMotion: MoveTo (ego x?) (+ (ego y?) 9))
+;;;							
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					 )
+				)	
+					(if (ClickedInRect 0 3 71 189 event) ;exit room left
+					(event claimed: TRUE)
+					(switch theCursor
+						(999
+
+							(ego setMotion: MoveTo (- (ego x?) 129) (ego y?) )
+;;;							
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					 )
+				)	
+					
 		
 						(if (ClickedOnObj Gator (event x?) (event y?)) ;alligator
 					(event claimed: TRUE)

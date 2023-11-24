@@ -77,6 +77,40 @@
 				)
 							
 		
+		
+	
+					(if (ClickedInRect 0 8 118 159 event) ;exit room left
+					(event claimed: TRUE)
+					(switch theCursor
+						(999
+
+							(ego setMotion: MoveTo (- (ego x?) 315) (ego y?) )
+;;;							
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					 )
+				)
+								
+					(if (ClickedInRect 311 319 79 155 event) ;exit room right
+					(event claimed: TRUE)
+					(switch theCursor
+						(999
+
+							(ego setMotion: MoveTo (+ (ego x?) 315) (ego y?) )
+;;;							
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					 )
+				)			
+		
+		
+		
+		
+				
 			(if (ClickedOnObj owlHead (event x?) (event y?)) 
 					
 					(event claimed: TRUE)

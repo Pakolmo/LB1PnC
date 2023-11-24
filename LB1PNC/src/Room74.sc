@@ -333,6 +333,32 @@
 					(== (event type?) evMOUSEBUTTON)
 					(not (& (event modifiers?) emRIGHT_BUTTON))
 				)
+			(if (ClickedInRect 16 69 180 189 event) ;exit room down
+					(event claimed: TRUE)
+					(switch theCursor
+						(999
+
+							(ego setMotion: MoveTo (ego x?) (+ (ego y?) 50))
+;;;							
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					 )
+				)	
+			(if (ClickedInRect 0 48 39 78 event) ;exit room up
+					(event claimed: TRUE)
+					(switch theCursor
+						(999
+
+							(ego setMotion: MoveTo (ego x?) (- (ego y?) 50))
+;;;							
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					 )
+				)						
 				(if (ClickedOnPicView wardrobe (event x?) (event y?)) 
 					(event claimed: TRUE)
 					(switch theCursor	

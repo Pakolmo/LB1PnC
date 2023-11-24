@@ -201,7 +201,32 @@
 					(not (& (event modifiers?) emRIGHT_BUTTON))
 				)
 				
-				
+					(if (ClickedInRect 58 314 184 189 event) ;exit room down
+					(event claimed: TRUE)
+					(switch theCursor
+						(999
+
+							(ego setMotion: MoveTo (ego x?) (+ (ego y?) 170))
+;;;							
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					 )
+				)	
+					(if (ClickedInRect 316 319 39 189 event) ;exit room right
+					(event claimed: TRUE)
+					(switch theCursor
+						(999
+
+							(ego setMotion: MoveTo (+ (ego x?) 186) (ego y?) )
+;;;							
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					 )
+				)					
 					(if (ClickedOnObj Door (event x?) (event y?)) 
 					
 					(event claimed: TRUE)
