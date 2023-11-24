@@ -1672,7 +1672,7 @@
 	(properties
 ;;;		said '/Gertrude'
 		view 930
-		name "Gertrude__"
+		name "Gertie___"
 	)
 )	
 (instance Lillian_Prune of InvI
