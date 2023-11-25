@@ -80,6 +80,7 @@
 			)
 			(2
 				(cls)
+				(HandsOn)
 				(User canInput: TRUE)
 				(= global154 2)
 				(= seconds 30)

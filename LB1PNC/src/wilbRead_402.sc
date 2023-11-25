@@ -336,7 +336,7 @@
 				(= cycles 2)
 			)
 			(1
-				(HandsOff)
+;;;				(HandsOff)
 				(User canControl: TRUE)
 				(Print 402 12 #dispose)
 				(= local1 1)
@@ -453,7 +453,7 @@
 ;;;							)
 							((& (ego onControl: 1) $0028) (Print 402 14))
 							(else
-								(HandsOff)
+;;;								(HandsOff)
 ;;;								(|= global145 $0004)
 								(= global145 (| global145 $0004))
 								(Wilbur setScript: 0)
