@@ -198,12 +198,11 @@
 							(not (& (event modifiers:) emSHIFT))
 							(User controls:)
 							(== theCursor 999) ;only walk if cursor is 999
-
+							(not isHandsOff)
 						)
 						(self setMotion: MoveTo (event x:) (event y:))
 						(User prevDir: 0)
 						(event claimed: 1)
-
 					)
 					; click on ego handled in PNCmenu, script 950
 ;;;					(if (ClickedOnObj Ego (event x?) (event y?))

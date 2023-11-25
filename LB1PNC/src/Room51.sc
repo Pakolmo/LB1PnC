@@ -32,12 +32,6 @@
 	)
 	
 	(method (init)
-;;;		(HandsOff)
-			(User canControl: FALSE canInput: FALSE)
-
-				
-				(User mapKeyToDir: FALSE)
-			(theGame setCursor: 997 (HaveMouse))
 		(= horizon 0)
 		(= west 55)
 		(= global189 51)
@@ -47,11 +41,7 @@
 		(if lanternIsLit
 			(if (== prevRoomNum 65)
 				(= local0 0)
-				(User canControl: FALSE canInput: FALSE)
-;;;				(ego setMotion: 0)
-				
-				(User mapKeyToDir: FALSE)
-;;;				(theGame setCursor: 997 (HaveMouse))
+				(HandsOff)
 				(ego
 					loop: 1
 					posn: 222 91
@@ -77,11 +67,6 @@
 				init:
 				setScript: Scurry
 			)
-				(User canControl: TRUE canInput: TRUE)
-;;;				(ego setMotion: 0)
-				
-				(User mapKeyToDir: TRUE)
-				(theGame setCursor: 999 (HaveMouse))
 		else
 			(HandsOff)
 			(ego
@@ -94,35 +79,21 @@
 			)
 		)
 	)
-	
+
 	(method (doit)
 		(if (and (FirstEntry) lanternIsLit)
 			(Print 51 0)
-			
 		)
 		(if (and (not local0) (< (ego x?) 117))
 			(= local0 1)
-			(User canControl: FALSE canInput: FALSE)
 		)
-;;;		(if (and local0 (& (ego onControl: origin) cCYAN))
 		(if (and local0 (& (ego onControl: 1) $0008))
-;;;			(HandsOff)
-			(User canControl: FALSE canInput: FALSE)
-
-				
-				(User mapKeyToDir: FALSE)
-			(theGame setCursor: 999 (HaveMouse))
+			;climb stairs
+			(HandsOff)
 			(ego illegalBits: 0 setMotion: MoveTo 244 80)
 		)
-;;;		(if (& (ego onControl: origin) cBLUE)
-;;;			(ego illegalBits: cWHITE)
 		(if (& (ego onControl: 1) $0002)
 			(ego illegalBits: -32768)
-						(User canControl: FALSE canInput: FALSE)
-
-				
-				(User mapKeyToDir: FALSE)
-			(theGame setCursor: 997 (HaveMouse))
 			(curRoom newRoom: 65)
 		)
 		(super doit:)
@@ -134,58 +105,48 @@
 	)
 	
 	(method (handleEvent event &tmp temp0)
-			(cond
-			(
-				(and
-					(== (event type?) evMOUSEBUTTON)
-					(not (& (event modifiers?) emRIGHT_BUTTON))
-				)
-
-			(switch (event type:)
-				(evMOUSEBUTTON
-					(if
-						(and
-							(not (& (event modifiers:) emSHIFT))
-							(User controls:)
-							
-
-						)
-;;;						(ego setMotion: MoveTo (((ego x?) +1) ((ego y?) +1) ))
-						(User prevDir: 0)
-						(event claimed: 1)
-
-					)
-				)
+		(if
+			(and
+				(== (event type?) evMOUSEBUTTON)
+				(not (& (event modifiers?) emRIGHT_BUTTON))
 			)
-
-
-	
+			
+;;;			(switch (event type:)
+;;;				(evMOUSEBUTTON
+;;;					(if
+;;;					(and
+;;;						(not (& (event modifiers:) emSHIFT))
+;;;						(User controls:)
+;;;					)
+;;;					(ego setMotion: MoveTo (((ego x?) +1) ((ego y?) +1) ))
+;;;					(User prevDir: 0)
+;;;					(event claimed: 1)
+;;;				)
+;;;			)
+			(if isHandsOff
+				(event claimed: TRUE)
+				(return)
+			)
 			(if (ClickedOnObj rat (event x?) (event y?)) 
-					
-					(event claimed: TRUE)
-					(switch theCursor	
-						(998
-							(DoVerb {examine rat})
-						)
-						(995
-							
-							
-							(= temp7
+				(event claimed: TRUE)
+				(switch theCursor	
+					(998
+						(DoVerb {examine rat})
+					)
+					(995
+						(= temp7
 							(Print
 								{Rata}
 								#button {Matar} 1
 								#button {Capturar} 2
-;;;								{Rat}
-;;;								#button {Kill} 1
-;;;								#button {Capture} 2								
+;;;									{Rat}
+;;;									#button {Kill} 1
+;;;									#button {Capture} 2								
 							)
-							)
-
+						)
 						(switch temp7
 							(1
-							    (DoVerb {kill rat})
-							   
-	
+							    (DoVerb {kill rat})		   
 							)
 							(2
 								(DoVerb {capture rat})
@@ -193,28 +154,21 @@
 							(else
 								(event claimed: FALSE)
 							)
-							
 						)
-						)
-						
-						(else
-							(event claimed: FALSE)
-						)
-										
 					)
-			)	
-
-
-
+					(else
+						(event claimed: FALSE)
+					)				
+				)
+			)
 			(if (ClickedOnPicView trapdoor (event x?) (event y?)) 
 				(event claimed: TRUE)
-					(switch theCursor	
-						(998
-							(DoVerb {examine trapdoor})
-						)
-						(995
-									
-							(= temp7
+				(switch theCursor	
+					(998
+						(DoVerb {examine trapdoor})
+					)
+					(995	
+						(= temp7
 							(Print
 ;;;								{Trap}
 ;;;								#button {Open} 1
@@ -223,13 +177,10 @@
 								#button {Abrir} 1
 								#button {Cerrar} 2								
 							)
-							)
-
+						)
 						(switch temp7
 							(1
 							    (DoVerb {Open trapdoor})
-							   
-	
 							)
 							(2
 								(DoVerb {Close trapdoor})
@@ -237,57 +188,41 @@
 							(else
 								(event claimed: FALSE)
 							)
-							
 						)
-						
-							
-						)
-							
-							
-							
-							
-							
-						(else
-							(event claimed: FALSE)
-						)
-										
 					)
+					(else
+						(event claimed: FALSE)
+					)							
+				)
 			)	
-		
-		
-		
-				(if (ClickedInRect 213 319 145 176 event) ;dino
+			(if (ClickedInRect 213 319 145 176 event) ;dino
 				(event claimed: TRUE)
-					(switch theCursor	
-						(998
-							(DoVerb {examine dinosaur})
-						)
-						(else
-							(event claimed: FALSE)
-						)
-										
+				(switch theCursor	
+					(998
+						(DoVerb {examine dinosaur})
 					)
+					(else
+						(event claimed: FALSE)
+					)				
+				)
 			)	
-			
-		
-						(if (or (ClickedInRect 168 175 181 185 event) ;bones
-								(ClickedInRect 185 193 180 185 event)
-								(ClickedInRect 204 224 174 183 event)
-							)
-						(event claimed: TRUE)
-						(switch theCursor	
-							(998	
-								(DoVerb {examine bone})
-							)
-							(else
-								(event claimed: FALSE)
-						)
-										
+			(if
+				(or
+					(ClickedInRect 168 175 181 185 event) ;bones
+					(ClickedInRect 185 193 180 185 event)
+					(ClickedInRect 204 224 174 183 event)
+				)
+				(event claimed: TRUE)
+				(switch theCursor	
+					(998	
+						(DoVerb {examine bone})
 					)
-			)	
-		
+					(else
+						(event claimed: FALSE)
+					)
+				)
 			)
-			)
+		)
 		
 		(if (event claimed?) (return))
 		(if (== (event type?) saidEvent)
@@ -328,12 +263,6 @@
 		(HandsOn)
 ;;;		(ego illegalBits: cWHITE)
 		(ego illegalBits: -32768)
-			(User canControl: TRUE canInput: TRUE)
-
-				
-				(User mapKeyToDir: TRUE)
-			(theGame setCursor: 999 (HaveMouse))		
-
 	)
 	
 	(method (newRoom n)

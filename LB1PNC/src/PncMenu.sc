@@ -561,24 +561,21 @@
 						)
 						;ignore so clicks pass to jet script 77
 					)
-						
-
+				
 					;Room defaults if nothing else is clicked on.
 					(else 
-
 						(switch theCursor
 							(999 ;walk
-
+								(if isHandsOff
+									(event claimed: TRUE)
+								else
 									(event type: 1 claimed: 0)
-							
+								)
 							)
-
 							(998 ;look
 								(event type: 1 claimed: 1)
 								(DoVerb {look room})	
 							)
-								
-							
 							(996 ;talk 
 								(event type: 1 claimed: 1)
 ;;;								(Print {(There is no response.)} #at -1 144) ;"(There is no response.)"
@@ -597,7 +594,6 @@
 							(997 ;wait sierra
 								(event type: 1 claimed: 0)
 							)
-
 							(else ;inventory item
 								(event type: 1 claimed: 1)
 ;;;								(Print {no need to use that here.}) ;"no need to use that here"

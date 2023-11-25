@@ -91,7 +91,7 @@
 			(shaft setPri: 8 ignoreActors: TRUE init: stopUpd:)
 		)
 		(statue setPri: 7 ignoreActors: TRUE init: stopUpd:)
-		(ego view: 0 illegalBits: cWHITE init:)
+		(ego view: 0 illegalBits: cWHITE setPri: -1 init:)
 		(if (== prevRoomNum 51)
 			(ego posn: 273 138)
 		else
@@ -267,11 +267,9 @@
 				(if (ClickedOnObj statue (event x?) (event y?)) 
 					(event claimed: TRUE)
 					(switch theCursor
-
 						(606 ;valve handle
 							(DoVerb {poner manija en eje})
 						)
-
 						(995
 							(= temp7
 								(PrintSpecial
@@ -397,7 +395,13 @@
 							(event claimed: FALSE)
 						)
 					)
-				)			
+				)	
+				(if (ClickedInRect 230 245 80 100 event)
+					;allow using the value handle on the base of the statue
+					(if (== theCursor 606) ;valve handle
+						(DoVerb {poner manija en eje})
+					)
+				)		
 				(if (ClickedOnObj shaft (event x?) (event y?)) 
 					(event claimed: TRUE)
 					(switch theCursor
@@ -1064,8 +1068,8 @@
 
 (instance shaft of Prop
 	(properties
-		y 95
-		x 243
+		y 106 ;95
+		x 244 ;243
 		view 165
 		loop 2
 		cel 3
