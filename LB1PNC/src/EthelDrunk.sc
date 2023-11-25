@@ -173,6 +173,7 @@
 				(= [global368 0] (- 1120 (* global113 100)))
 			)
 		)
+		(Smashed fade:)
 		(DisposeScript AVOIDER)
 		(super dispose:)
 	)
@@ -184,433 +185,361 @@
 					(== (event type?) evMOUSEBUTTON)
 					(not (& (event modifiers?) emRIGHT_BUTTON))
 				)
-			
-				
-				(if (ClickedOnObj Ethel (event x?) (event y?)) 
-					
+				(if (ClickedOnObj Ethel (event x?) (event y?)) 	
 					(event claimed: TRUE)
 					(switch theCursor	
-						
-					
-					(602 ;necklace_
-						(DoVerb {tell ethel about necklace})						
-					)
-					(604 ;monocle
-						(DoVerb {tell ethel about monocle})						
-					)
-					
-					(613 ;lantern_
-						(DoVerb {tell ethel about lantern})						
-					)
-					(611 ;oilcan_
-						(DoVerb {tell ethel about oilcan})						
-					)
-					(626 ;rolling_pin_
-						(DoVerb {tell ethel about pin})						
-					)
-					(620 ;skeleton_key_
-						(DoVerb {tell ethel about skeleton key})						
-					)
-					(627 ;poker_
-						(DoVerb {tell ethel about poker})						
-					)															
-					(607 ;crowbar_
-						(DoVerb {tell ethel about crowbar})						
-					)
-					(628 ;cigar_butt_
-						(DoVerb {tell ethel about butt})						
-					)
-					(625 ;broken_record_
-						(DoVerb {tell ethel about broken record})						
-					)
-					(601 ;notebook___pencil_
-						(DoVerb {tell ethel about notebook})						
-					)
-					(603 ;_7_crackers________
-						(DoVerb {tell ethel about crackers})						
-					)
-					(605 ;soup_bone_
-						(DoVerb {tell ethel about soup bone})						
-					)
-					(606 ;valve_handle_
-						(DoVerb {tell ethel about valve})						
-					)
-					(618 ;bullet_
-						(DoVerb {tell ethel about bullet})						
-					)
-					(617 ;derringer__
-						(DoVerb {tell ethel about derringer})						
-					)
-					(614 ;matches_
-						(DoVerb {tell ethel about matches})						
-					)
-					(615 ;carrot_
-						(DoVerb {tell ethel about carrot})						
-					)
-					(619 ;brass_key_
-						(DoVerb {tell ethel about brass key})						
-					)
-					(616 ;diary_
-						(DoVerb {tell ethel about diary})						
-					)
-					(621 ;crank_
-						(DoVerb {tell ethel about crank})						
-					)
-					(612 ;cane_
-						(DoVerb {tell ethel about cane})						
-					)
-					(622 ;pouch_
-						(DoVerb {tell ethel about pouch})						
-					)																																																																																
-					(630 ;handkerchief_
-						(DoVerb {tell ethel about handkerchief})
-					)
-											
-						
-						
-											
-							(930  ;gertrude
-								(event type: 1 claimed: 1)
-												(= temp7
-							(Print
-;;;								{Ask or Tell}
-;;;								#button {Ask} 1
-;;;								#button {Tell} 2
-								{Preguntar o Hablar de}
-								#button {Preguntar} 1
-								#button {Hablar de} 2												
+						(602 ;necklace_
+							(DoVerb {tell ethel about necklace})						
+						)
+						(604 ;monocle
+							(DoVerb {tell ethel about monocle})						
+						)
+						(613 ;lantern_
+							(DoVerb {tell ethel about lantern})						
+						)
+						(611 ;oilcan_
+							(DoVerb {tell ethel about oilcan})						
+						)
+						(626 ;rolling_pin_
+							(DoVerb {tell ethel about pin})						
+						)
+						(620 ;skeleton_key_
+							(DoVerb {tell ethel about skeleton key})						
+						)
+						(627 ;poker_
+							(DoVerb {tell ethel about poker})						
+						)															
+						(607 ;crowbar_
+							(DoVerb {tell ethel about crowbar})						
+						)
+						(628 ;cigar_butt_
+							(DoVerb {tell ethel about butt})						
+						)
+						(625 ;broken_record_
+							(DoVerb {tell ethel about broken record})						
+						)
+						(601 ;notebook___pencil_
+							(DoVerb {tell ethel about notebook})						
+						)
+						(603 ;_7_crackers________
+							(DoVerb {tell ethel about crackers})						
+						)
+						(605 ;soup_bone_
+							(DoVerb {tell ethel about soup bone})						
+						)
+						(606 ;valve_handle_
+							(DoVerb {tell ethel about valve})						
+						)
+						(618 ;bullet_
+							(DoVerb {tell ethel about bullet})						
+						)
+						(617 ;derringer__
+							(DoVerb {tell ethel about derringer})						
+						)
+						(614 ;matches_
+							(DoVerb {tell ethel about matches})						
+						)
+						(615 ;carrot_
+							(DoVerb {tell ethel about carrot})						
+						)
+						(619 ;brass_key_
+							(DoVerb {tell ethel about brass key})						
+						)
+						(616 ;diary_
+							(DoVerb {tell ethel about diary})						
+						)
+						(621 ;crank_
+							(DoVerb {tell ethel about crank})						
+						)
+						(612 ;cane_
+							(DoVerb {tell ethel about cane})						
+						)
+						(622 ;pouch_
+							(DoVerb {tell ethel about pouch})						
+						)																																																																																
+						(630 ;handkerchief_
+							(DoVerb {tell ethel about handkerchief})
+						)					
+						(930  ;gertrude
+							(= temp7
+								(Print
+;;;									{Ask or Tell}
+;;;									#button {Ask} 1
+;;;									#button {Tell} 2
+									{Preguntar o Hablar de}
+									#button {Preguntar} 1
+									#button {Hablar de} 2												
+								)
+							)
+							(switch temp7
+								(1 
+									(DoVerb {ask ethel about gertie})
+								)
+								(2
+									(DoVerb {tell ethel about gertie})
+								)
 							)
 						)
-						(switch temp7
-							(1 
-								(DoVerb {ask ethel about gertie})
+						(931 ;Celie
+							(= temp7
+								(Print
+;;;									{Ask or Tell}
+;;;									#button {Ask} 1
+;;;									#button {Tell} 2
+									{Preguntar o Hablar de}
+									#button {Preguntar} 1
+									#button {Hablar de} 2												
+								)
 							)
-							(2
-								(DoVerb {tell ethel about gertie})
+							(switch temp7
+								(1 
+									(DoVerb {ask ethel about Celie})
+								)
+								(2
+									(DoVerb {tell ethel about Celie})
+								)
 							)
-						(else
-							(event claimed: FALSE)
-						)
-					)
-				)
-							
-							(931 ;Celie
-								(event type: 1 claimed: 1)
-								(= temp7
-															(Print
-;;;								{Ask or Tell}
-;;;								#button {Ask} 1
-;;;								#button {Tell} 2
-								{Preguntar o Hablar de}
-								#button {Preguntar} 1
-								#button {Hablar de} 2												
+						)		
+						(932 ;Gloria
+							(= temp7
+								(Print
+;;;									{Ask or Tell}
+;;;									#button {Ask} 1
+;;;									#button {Tell} 2
+									{Preguntar o Hablar de}
+									#button {Preguntar} 1
+									#button {Hablar de} 2												
+								)
 							)
-						)
-						(switch temp7
-							(1 
-								(DoVerb {ask ethel about Celie})
+							(switch temp7
+								(1 
+									(DoVerb {ask ethel about gloria})
+								)
+								(2
+									(DoVerb {tell ethel about gloria})
+								)
 							)
-							(2
-								(DoVerb {tell ethel about Celie})
+						)												
+						(933 ;Ethel	
+							(= temp7
+								(Print
+;;;									{Ask or Tell}
+;;;									#button {Ask} 1
+;;;									#button {Tell} 2
+									{Preguntar o Hablar de}
+									#button {Preguntar} 1
+									#button {Hablar de} 2												
+								)
 							)
-						(else
-							(event claimed: FALSE)
-						)
-					)
-				)
-							
-							(932 ;Gloria
-								(event type: 1 claimed: 1)
-								(= temp7
-															(Print
-;;;								{Ask or Tell}
-;;;								#button {Ask} 1
-;;;								#button {Tell} 2
-								{Preguntar o Hablar de}
-								#button {Preguntar} 1
-								#button {Hablar de} 2												
-							)
-						)
-						(switch temp7
-							(1 
-								(DoVerb {ask ethel about gloria})
-							)
-							(2
-								(DoVerb {tell ethel about gloria})
-							)
-						(else
-							(event claimed: FALSE)
-						)
-					)
-				)												
-							(933 ;Ethel
-								
-								(event type: 1 claimed: 1)
-								(= temp7
-															(Print
-;;;								{Ask or Tell}
-;;;								#button {Ask} 1
-;;;								#button {Tell} 2
-								{Preguntar o Hablar de}
-								#button {Preguntar} 1
-								#button {Hablar de} 2												
+							(switch temp7
+								(1 
+									(DoVerb {ask ethel about ethel})
+								)
+								(2
+									(DoVerb {tell ethel about ethel})
+								)
 							)
 						)
-						(switch temp7
-							(1 
-								(DoVerb {ask ethel about ethel})
+						(934 ;Fifi
+							(= temp7
+								(Print
+;;;									{Ask or Tell}
+;;;									#button {Ask} 1
+;;;									#button {Tell} 2
+									{Preguntar o Hablar de}
+									#button {Preguntar} 1
+									#button {Hablar de} 2												
+								)
 							)
-							(2
-								(DoVerb {tell ethel about ethel})
-							)
-						(else
-							(event claimed: FALSE)
-						)
-					)
-				)
-							
-							(934 ;Fifi
-								(event type: 1 claimed: 1)
-								(= temp7
-														(Print
-;;;								{Ask or Tell}
-;;;								#button {Ask} 1
-;;;								#button {Tell} 2
-								{Preguntar o Hablar de}
-								#button {Preguntar} 1
-								#button {Hablar de} 2												
+							(switch temp7
+								(1 
+									(DoVerb {ask ethel about fifi})
+								)
+								(2
+									(DoVerb {tell ethel about fifi})
+								)
 							)
 						)
-						(switch temp7
-							(1 
-								(DoVerb {ask ethel about fifi})
+						(935 ;Lillian
+							(= temp7
+								(Print
+;;;									{Ask or Tell}
+;;;									#button {Ask} 1
+;;;									#button {Tell} 2
+									{Preguntar o Hablar de}
+									#button {Preguntar} 1
+									#button {Hablar de} 2												
+								)
 							)
-							(2
-								(DoVerb {tell ethel about fifi})
+							(switch temp7
+								(1 
+									(DoVerb {ask ethel about lillian})
+								)
+								(2
+									(DoVerb {tell ethel about lillian})
+								)
 							)
-						(else
-							(event claimed: FALSE)
-						)
-					)
-				)
-							(935 ;Lillian
-								(event type: 1 claimed: 1)
-								(= temp7
-															(Print
-;;;								{Ask or Tell}
-;;;								#button {Ask} 1
-;;;								#button {Tell} 2
-								{Preguntar o Hablar de}
-								#button {Preguntar} 1
-								#button {Hablar de} 2												
+						)																				
+						(936 ;Clarence
+							(= temp7
+								(Print
+;;;									{Ask or Tell}
+;;;									#button {Ask} 1
+;;;									#button {Tell} 2
+									{Preguntar o Hablar de}
+									#button {Preguntar} 1
+									#button {Hablar de} 2												
+								)
 							)
-						)
-						(switch temp7
-							(1 
-								(DoVerb {ask ethel about lillian})
-							)
-							(2
-								(DoVerb {tell ethel about lillian})
-							)
-						(else
-							(event claimed: FALSE)
-						)
-					)
-				)																				
-							(936 ;Clarence
-								(event type: 1 claimed: 1)
-								(= temp7
-															(Print
-;;;								{Ask or Tell}
-;;;								#button {Ask} 1
-;;;								#button {Tell} 2
-								{Preguntar o Hablar de}
-								#button {Preguntar} 1
-								#button {Hablar de} 2												
+							(switch temp7
+								(1 
+									(DoVerb {ask ethel about Clarence})
+								)
+								(2
+									(DoVerb {tell ethel about clarence})
+								)
 							)
 						)
-						(switch temp7
-							(1 
-								(DoVerb {ask ethel about Clarence})
+						(937 ;Feels
+							(= temp7
+								(Print
+;;;									{Ask or Tell}
+;;;									#button {Ask} 1
+;;;									#button {Tell} 2
+									{Preguntar o Hablar de}
+									#button {Preguntar} 1
+									#button {Hablar de} 2												
+								)
 							)
-							(2
-								(DoVerb {tell ethel about clarence})
-							)
-						(else
-							(event claimed: FALSE)
-						)
-					)
-				)
-							(937 ;Feels
-								(event type: 1 claimed: 1)
-								(= temp7
-															(Print
-;;;								{Ask or Tell}
-;;;								#button {Ask} 1
-;;;								#button {Tell} 2
-								{Preguntar o Hablar de}
-								#button {Preguntar} 1
-								#button {Hablar de} 2												
+							(switch temp7
+								(1 
+									(DoVerb {ask ethel about Wilbur})
+								)
+								(2
+									(DoVerb {tell ethel about Wilbur})
+								)
 							)
 						)
-						(switch temp7
-							(1 
-								(DoVerb {ask ethel about Wilbur})
+						(938 ;Rudy
+							(= temp7
+								(Print
+;;;									{Ask or Tell}
+;;;									#button {Ask} 1
+;;;									#button {Tell} 2
+									{Preguntar o Hablar de}
+									#button {Preguntar} 1
+									#button {Hablar de} 2												
+								)
 							)
-							(2
-								(DoVerb {tell ethel about Wilbur})
-							)
-						(else
-							(event claimed: FALSE)
-						)
-					)
-				)
-							(938 ;Rudy
-								(event type: 1 claimed: 1)
-								(= temp7
-															(Print
-;;;								{Ask or Tell}
-;;;								#button {Ask} 1
-;;;								#button {Tell} 2
-								{Preguntar o Hablar de}
-								#button {Preguntar} 1
-								#button {Hablar de} 2												
+							(switch temp7
+								(1 
+									(DoVerb {ask ethel about rudolph})
+								)
+								(2
+									(DoVerb {tell ethel about rudolph})
+								)
 							)
 						)
-						(switch temp7
-							(1 
-								(DoVerb {ask ethel about rudolph})
+						(939 ;Colonel
+							(= temp7
+								(Print
+;;;									{Ask or Tell}
+;;;									#button {Ask} 1
+;;;									#button {Tell} 2
+									{Preguntar o Hablar de}
+									#button {Preguntar} 1
+									#button {Hablar de} 2												
+								)
 							)
-							(2
-								(DoVerb {tell ethel about rudolph})
-							)
-						(else
-							(event claimed: FALSE)
-						)
-					)
-				)
-							(939 ;Colonel
-								(event type: 1 claimed: 1)
-								(= temp7
-															(Print
-;;;								{Ask or Tell}
-;;;								#button {Ask} 1
-;;;								#button {Tell} 2
-								{Preguntar o Hablar de}
-								#button {Preguntar} 1
-								#button {Hablar de} 2												
+							(switch temp7
+								(1 
+									(DoVerb {ask ethel about colonel})
+								)
+								(2
+									(DoVerb {tell ethel about colonel})
+								)
 							)
 						)
-						(switch temp7
-							(1 
-								(DoVerb {ask ethel about colonel})
+						(940 ;Jules
+							(= temp7
+								(Print
+;;;									{Ask or Tell}
+;;;									#button {Ask} 1
+;;;									#button {Tell} 2
+									{Preguntar o Hablar de}
+									#button {Preguntar} 1
+									#button {Hablar de} 2												
+								)
 							)
-							(2
-								(DoVerb {tell ethel about colonel})
-							)
-						(else
-							(event claimed: FALSE)
-						)
-					)
-				)
-							(940 ;Jules
-								(event type: 1 claimed: 1)
-								(= temp7
-															(Print
-;;;								{Ask or Tell}
-;;;								#button {Ask} 1
-;;;								#button {Tell} 2
-								{Preguntar o Hablar de}
-								#button {Preguntar} 1
-								#button {Hablar de} 2												
+							(switch temp7
+								(1 
+									(DoVerb {ask ethel about Jeeves})
+								)
+								(2
+									(DoVerb {tell ethel about Jeeves})
+								)
 							)
 						)
-						(switch temp7
-							(1 
-								(DoVerb {ask ethel about Jeeves})
-							)
-							(2
-								(DoVerb {tell ethel about Jeeves})
-							)
-						(else
-							(event claimed: FALSE)
-						)
-					)
-				)
-		
-							(941 ;Dog
-								(event type: 1 claimed: 1)
+						(941 ;Dog
 							(= temp7	
-							(Print
-;;;								{Ask or Tell}
-;;;								#button {Ask} 1
-;;;								#button {Tell} 2
-								{Preguntar o Hablar de}
-								#button {Preguntar} 1
-								#button {Hablar de} 2												
+								(Print
+;;;									{Ask or Tell}
+;;;									#button {Ask} 1
+;;;									#button {Tell} 2
+									{Preguntar o Hablar de}
+									#button {Preguntar} 1
+									#button {Hablar de} 2												
+								)
 							)
-						)
-						(switch temp7
-							(1 
-								(DoVerb {ask ethel about beauregard})
+							(switch temp7
+								(1 
+									(DoVerb {ask ethel about beauregard})
+								)
+								(2
+									(DoVerb {tell ethel about beauregard})
+								)
 							)
-							(2
-								(DoVerb {tell ethel about beauregard})
+						)												
+						(942 ;Parrot
+							(= temp7	
+								(Print
+;;;									{Ask or Tell}
+;;;									#button {Ask} 1
+;;;									#button {Tell} 2
+									{Preguntar o Hablar de}
+									#button {Preguntar} 1
+									#button {Hablar de} 2												
+								)
 							)
-						(else
-							(event claimed: FALSE)
-						)
-					)
-				)												
-							(942 ;Parrot
-								(event type: 1 claimed: 1)
-								(= temp7	
-							(Print
-;;;								{Ask or Tell}
-;;;								#button {Ask} 1
-;;;								#button {Tell} 2
-								{Preguntar o Hablar de}
-								#button {Preguntar} 1
-								#button {Hablar de} 2												
+							(switch temp7
+								(1 
+									(DoVerb {ask ethel about polly})
+								)
+								(2
+									(DoVerb {tell ethel about polly})
+								)
 							)
-						)
-						(switch temp7
-							(1 
-								(DoVerb {ask ethel about polly})
+						)				
+						(943 ;Horse
+							(= temp7	
+								(Print
+;;;									{Ask or Tell}
+;;;									#button {Ask} 1
+;;;									#button {Tell} 2
+									{Preguntar o Hablar de}
+									#button {Preguntar} 1
+									#button {Hablar de} 2												
+								)
 							)
-							(2
-								(DoVerb {tell ethel about polly})
+							(switch temp7
+								(1 
+									(DoVerb {ask ethel about blaze})
+								)
+								(2
+									(DoVerb {tell ethel about blaze})
+								)
 							)
-						(else
-							(event claimed: FALSE)
-						)
-					)
-				)				
-							(943 ;Horse
-								(event type: 1 claimed: 1)
-								(= temp7	
-							(Print
-;;;								{Ask or Tell}
-;;;								#button {Ask} 1
-;;;								#button {Tell} 2
-								{Preguntar o Hablar de}
-								#button {Preguntar} 1
-								#button {Hablar de} 2												
-							)
-						)
-						(switch temp7
-							(1 
-								(DoVerb {ask ethel about blaze})
-							)
-							(2
-								(DoVerb {tell ethel about blaze})
-							)
-						(else
-							(event claimed: FALSE)
-						)
-					)
-				)								
-						
+						)		
 						(998		
 							(DoLook {ethel})
 						)
@@ -625,25 +554,9 @@
 							(event claimed: FALSE)
 						)
 					)
-
 				)
-				
 			)
 		)		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 		(super handleEvent: event)
 		(if (event claimed?) (return))
 		(if
