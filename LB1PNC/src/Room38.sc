@@ -553,7 +553,7 @@
 				(event claimed: TRUE)
 					(switch theCursor
 						(603
-							(DoVerb {feed cracker})
+							(DoVerb {give cracker to parrot})
 						)
 						(996
 							(DoVerb {converse parrot})
@@ -600,7 +600,19 @@
 					)
 				)	
 				
-				
+			(if (ClickedInRect 0 6 94 105 event) ;exit room left
+					(event claimed: TRUE)
+					(switch theCursor
+						(999
+
+							(ego setMotion: MoveTo (- (ego x?) 35) (ego y?) )
+;;;							
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					 )
+				)		
 				
 				
 				
