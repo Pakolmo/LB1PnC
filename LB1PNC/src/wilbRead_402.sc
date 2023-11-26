@@ -346,6 +346,8 @@
 			(2
 				(cls)
 				(User canInput: TRUE)
+				(User canControl: TRUE)
+				(HandsOn)
 				(client setScript: 0)
 			)
 		)

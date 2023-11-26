@@ -69,7 +69,7 @@
 				;(loadIcon setPri: 15 y: yPosition init:)
 				(saveIcon setPri: 15 y: yPosition init:)
 				(quitIcon setPri: 15 y: yPosition init:)
-				(if (!= itemIcon 900) ;nothing
+				(if (!= itemIcon 600) ;nothing
 					(selectedItem setPri: 15 y: yPositionInventory cel: itemIcon init:)
 				else
 					(selectedItem setPri: 15 y: yPositionInventory cel: 0 init:)
@@ -91,7 +91,7 @@
 				;(loadIcon setPri: 15 y: yPosition init:)
 				(saveIcon setPri: 15 y: yPosition init:)
 				(quitIcon setPri: 15 y: yPosition init:)
-				(if (!= itemIcon 900) ;nothing
+				(if (!= itemIcon 600) ;nothing
 					(selectedItem setPri: 15 y: yPositionInventory cel: itemIcon init:)
 				else
 					(selectedItem setPri: 15 y: yPositionInventory cel: 0 init:)
@@ -111,7 +111,7 @@
 				;(loadIcon setPri: 15 y: yPosition init:)
 				(saveIcon setPri: 15 y: yPosition init:)
 				(quitIcon setPri: 15 y: yPosition init:)
-				(if (!= itemIcon 900) ;nothing
+				(if (!= itemIcon 600) ;nothing
 ;;;					(blockIcon
 ;;;						setPri: 14
 ;;;						y: yPosition

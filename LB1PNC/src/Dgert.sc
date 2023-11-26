@@ -64,9 +64,11 @@
 					(switch theCursor
 						(998
 							(DoVerb {examine gertie})
+							(Bset 51)
 						)	
 						(995
 							(DoVerb {examine in gertie})
+							(Bset 51) ;Gertie death
 						)
 						(996
 							(DoVerb {converse gertie})

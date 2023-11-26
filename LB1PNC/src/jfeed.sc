@@ -152,7 +152,11 @@
 		(if (ClickedOnObj Rover (event x?) (event y?)) 
 		
 			(event claimed: TRUE)
-			(switch theCursor	
+			(switch theCursor
+				(605
+					(DoVerb {deliver bone})
+									
+				)	
 				(996
 													(= temp7
 												(Print
@@ -186,6 +190,7 @@
 				)
 				(998		
 					(DoVerb {examine beauregard})
+					(ego get: 35) ;inv dog.
 				)
 				(995
 								(= temp7
@@ -268,11 +273,20 @@
 								(2
 									(Print 239 0)
 									(= local3 1)
+									(= itemIcon 600) ;clear menu inv item pic 
+;;;									(theGame itemIcon: 600 (HaveMouse))
+									(theGame setCursor: 999 (HaveMouse)) ;clear inv cursor, switch to walk	
+									(= itemIcon 600)										
 								)
 								(else
 									(Print 239 1)
+									(= itemIcon 600) ;clear menu inv item pic 
+;;;									(theGame itemIcon: 600 (HaveMouse))
+									(theGame setCursor: 999 (HaveMouse)) ;clear inv cursor, switch to walk		
+									(= itemIcon 600)
 								)
 							)
+													
 						else
 							(DontHave)
 						)
@@ -286,6 +300,8 @@
 							(if (ego has: iSoupBone)
 								(if (and (> (ego y?) 95) (> (ego x?) 45))
 									(HandsOff)
+									(theGame setCursor: 601 (HaveMouse)) ;clear inv cursor, switch to walk		
+									(= itemIcon 601)
 									(self setScript: toss)
 								else
 									(Print 239 2)

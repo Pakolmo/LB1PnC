@@ -180,11 +180,14 @@
 						(995
 													(= temp7
 												(Print
-													{Bed}
-													#button {Open} 1
-													#button {Close} 2								
-													#button {Examine} 3
-
+;;;													{Bed}
+;;;													#button {Open} 1
+;;;													#button {Close} 2								
+;;;													#button {Examine} 3
+													{Cama}
+													#button {Abrir} 1
+													#button {Cerrar} 2								
+													#button {Examinar} 3
 												)
 											)
 											(switch temp7

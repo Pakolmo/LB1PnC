@@ -453,7 +453,7 @@
 ;;;									{Cannon}
 ;;;									#button {Look} 1
 ;;;									#button {Examine in} 2	
-									{Ca>on}
+									{Ca=on}
 									#button {Mirar} 1
 									#button {Examinar} 2										
 								)

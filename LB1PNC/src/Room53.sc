@@ -173,7 +173,7 @@
 				(event claimed: TRUE)
 					(switch theCursor	
 						(995
-								(DoVerb {open nightstand})
+								(DoVerb {get cracker})
 						)
 						(998
 								(DoVerb {examine nightstand})

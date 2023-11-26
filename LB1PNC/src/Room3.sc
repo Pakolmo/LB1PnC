@@ -193,10 +193,12 @@
 								(= temp7
 												(Print
 		
-													{Bell}
-													#button {examine} 1
-													#button {examine in} 2								
-													
+;;;													{Bell}
+;;;													#button {examine} 1
+;;;													#button {examine in} 2								
+													{Campana}
+													#button {Mirar} 1
+													#button {Examinar} 2														
 												)
 											)
 											(switch temp7
@@ -219,11 +221,17 @@
 							(= temp7
 												(PrintSpecial
 		
-													{Bell}
-													#button {get control} 1
-													#button {move} 2								
-													#button {get} 3
-													#button {ring} 4
+;;;													{Bell}
+;;;													#button {get control} 1
+;;;													#button {move} 2								
+;;;													#button {get} 3
+;;;													#button {Ring} 4
+													{Campana}
+													#button {Usar controles} 1
+													#button {Mover} 2								
+													#button {Coger} 3
+													#button {Hacer sonar} 4 ;;;												
+													
 												)
 											)
 											(switch temp7
@@ -422,7 +430,9 @@
 										(= oiledBell TRUE)
 										(self setScript: oilBell)
 									else
-										(Print 3 12)
+;;;										(Print 3 12)
+											(= oiledBell TRUE)
+											(self setScript: oilBell)
 									)
 								else
 									(Print 3 13)
@@ -543,7 +553,7 @@
 						(= nearLadder 1)
 ;;;							(event claimed: TRUE)
 ;;;							(DoVerb {climb})
-;;;							(= moving 0)
+							(= moving 1)
 
 					)
 					)

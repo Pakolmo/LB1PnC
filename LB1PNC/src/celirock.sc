@@ -74,7 +74,7 @@
 						
 					
 					(602 ;necklace_
-						(DoVerb {give necklace necklace})						
+						(DoVerb {give necklace celie})						
 					)
 					(604 ;monocle
 						(DoVerb {give celie monocle})						

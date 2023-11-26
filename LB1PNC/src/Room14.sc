@@ -303,12 +303,16 @@
 						(995
 								(= temp7
 												(PrintSpecial
-													{Door}
-													#button {Break} 1
-													#button {Unbar} 2								
-													#button {Bang} 3
-													#button {Open} 4
-
+;;;													{Door}
+;;;													#button {Break} 1
+;;;													#button {Unbar} 2								
+;;;													#button {Bang} 3
+;;;													#button {Open} 4
+													{Puerta}
+													#button {Romper} 1
+													#button {Desatrancar} 2								
+													#button {Golpear} 3
+													#button {Abrir} 4
 												)
 											)
 											(switch temp7
@@ -346,10 +350,12 @@
 						(998
 															(= temp7
 												(PrintSpecial
-													{Window}
-													#button {Examine in} 1
-													#button {Examine} 2								
-
+;;;													{Window}
+;;;													#button {Examine in} 1
+;;;													#button {Examine} 2								
+													{Ventana}
+													#button {Examinar por dentro} 1
+													#button {Mirar} 2	
 
 												)
 											)
@@ -372,10 +378,12 @@
 						(995
 								(= temp7
 												(Print
-													{Window}
-													#button {Break} 1
-													#button {Open} 2								
-
+;;;													{Window}
+;;;													#button {Break} 1
+;;;													#button {Open} 2								
+													{Ventana}
+													#button {Romper} 1
+													#button {Abrir} 2
 
 												)
 											)

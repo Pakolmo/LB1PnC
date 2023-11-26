@@ -64,6 +64,7 @@
 			(0
 				(if (== (User controls?) TRUE)
 					(ego setMotion: 0)
+					
 				)
 				(= oldSaveDisabled saveDisabled)
 				(= saveDisabled TRUE)

@@ -414,13 +414,13 @@
 					(event claimed: TRUE)
 					(switch theCursor	
 						(604
-							(DoVerb {examine boot with monocle})
+							(DoVerb {examine bootprint with monocle})
 						)						
 						(995
-							(DoVerb {get boot})
+							(DoVerb {get bootprint})
 						)						
 						(998
-							(DoVerb {examine boot})
+							(DoVerb {examine down})
 						)
 						(else
 							(event claimed: FALSE)

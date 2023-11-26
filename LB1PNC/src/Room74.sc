@@ -869,6 +869,7 @@
 							(DoVerb {unbar door})
 							(event claimed: TRUE)
 							(DoVerb {open door})
+							(event claimed: TRUE)
 						)
 						(620 ;skeletonkey
 							(DoVerb {unbar door})	
@@ -2436,7 +2437,7 @@
 					(ego loop: 3)
 				)
 				(mySound prevSignal: 0)
-				(HandsOff)
+;;;				(HandsOff)
 				(if (not (& global117 $8000))
 					(mySound number: 43 loop: 1 priority: 10 play:)
 					(DoSound ChangeVolume saveVolume)
@@ -2455,6 +2456,7 @@
 				)
 			)
 			(2
+				(HandsOn)
 				(if (not (& global117 $8000))
 					(door loop: (if (< (ego y?) 104) 3 else 6) stopUpd:)
 				)

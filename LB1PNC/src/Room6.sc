@@ -1,5 +1,5 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-(script# 6)
+(script# 6) ;266 203
 (include game.sh)
 (use Main)
 (use Intrface)
@@ -272,75 +272,75 @@
 					(event claimed: TRUE)
 					(switch theCursor
 					(602 ;necklace_
-						(DoVerb {Use handkerchief in chicken})						
+						(DoVerb {give handkerchief in chicken})						
 					)
 					(604 ;monocle
-						(DoVerb {Use monocle in chicken})						
+						(DoVerb {give monocle in chicken})						
 					)
 					
 					(613 ;lantern_
-						(DoVerb {Use lantern in chicken})						
+						(DoVerb {give lantern in chicken})						
 					)
 					(611 ;oilcan_
-						(DoVerb {Use oilcan in chicken})						
+						(DoVerb {give oilcan in chicken})						
 					)
 					(626 ;rolling_pin_
-						(DoVerb {Use pin in chicken})						
+						(DoVerb {give rollin pin in chicken})						
 					)
 					(620 ;skeleton_key_
-						(DoVerb {Use skeleton key in chicken})						
+						(DoVerb {give skeleton key in chicken})						
 					)
 					(627 ;poker_
-						(DoVerb {Use poker in chicken})						
+						(DoVerb {give poker in chicken})						
 					)															
 					(607 ;crowbar_
-						(DoVerb {Use crowbar in chicken})						
+						(DoVerb {give crowbar in chicken})						
 					)
 					(628 ;cigar_butt_
-						(DoVerb {Use butt in chicken})						
+						(DoVerb {give butt in chicken})						
 					)
 					(625 ;broken_record_
-						(DoVerb {Use broken record in chicken})						
+						(DoVerb {give broken record in chicken})						
 					)
 					(601 ;notebook___pencil_
-						(DoVerb {Use notebook in chicken})						
+						(DoVerb {give notebook in chicken})						
 					)
 					(603 ;_7_crackers________
-						(DoVerb {Use crackers in chicken})						
+						(DoVerb {give crackers in chicken})						
 					)
 					(605 ;soup_bone_
-						(DoVerb {Use soup bone in chicken})						
+						(DoVerb {give soup bone in chicken})						
 					)
 					(606 ;valve_handle_
-						(DoVerb {Use valve in chicken})						
+						(DoVerb {give valve in chicken})						
 					)
 					(618 ;bullet_
-						(DoVerb {Use bullet in chicken})						
+						(DoVerb {give bullet in chicken})						
 					)
 					(617 ;derringer__
-						(DoVerb {Use derringer in chicken})						
+						(DoVerb {give derringer in chicken})						
 					)
 					(614 ;matches_
-						(DoVerb {Use matches in chicken})						
+						(DoVerb {give matches in chicken})						
 					)
 					(615 ;carrot_
-						(DoVerb {Use carrot in chicken})						
+						(DoVerb {give carrot in chicken})						
 					)
 					(619 ;brass_key_
-						(DoVerb {Use brass key in chicken})						
+						(DoVerb {give brass key in chicken})						
 					)
 					(616 ;diary_
-						(DoVerb {Use diary in chicken})						
+						(DoVerb {give diary in chicken})						
 					)
 					(621 ;crank_
-						(DoVerb {Use crank in chicken})						
+						(DoVerb {give crank in chicken})						
 					)
 
 					(622 ;pouch_
-						(DoVerb {Use pouch in chicken})						
+						(DoVerb {give pouch in chicken})						
 					)																																																																																
 					(630 ;handkerchief_
-						(DoVerb {Use handkerchief in chicken})
+						(DoVerb {give handkerchief in chicken})
 					)
 											
 												
@@ -351,7 +351,7 @@
 						
 						
 						(612
-							(DoVerb {use cane in chicken})	
+							(DoVerb {give cane in chicken})	
 						)						
 						
 						
@@ -698,7 +698,7 @@
 				(= seconds 16) ;8
 			)
 			(3
-				(HandsOff)
+				
 				(Print 6 13)
 				(Door setCycle: BegLoop self)
 				(myMusic number: 44 loop: 1 play:)

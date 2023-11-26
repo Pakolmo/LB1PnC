@@ -342,9 +342,9 @@
 						(995
 							(= temp7
 								(PrintSpecial
-									{Elevator}
-									#button {Open} 1
-									#button {Close} 2
+									{Ascensor}
+									#button {Abrir} 1
+									#button {Cerrar} 2
 									#button {Arriba} 3
 									#button {Abajo} 4								
 ;;;									#button {Open} 1
@@ -563,7 +563,7 @@
 								(PrintSpecial
 									{Espejo}
 									#button {Examinar} 1
-									#button {Mirar detr+s} 2	
+									#button {Mirar detr*s} 2	
 ;;;									{Mirror}
 ;;;									#button {Examine} 1
 ;;;									#button {Examine Behind} 2

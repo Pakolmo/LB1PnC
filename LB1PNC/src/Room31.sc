@@ -127,12 +127,13 @@
 				)
 			)
 			(1
-				(if (== global154 1) (self setRegions: 384))
+				(if (== global154 1) (HandsOn)(self setRegions: 384))
 			)
 			(3
 				(if (not (& global118 $0002))
 					(HandsOff)
 					(User mapKeyToDir: TRUE)
+					(HandsOn)
 					(self setRegions: 264)
 					(gundoor cel: 1)
 					(= local6 1)
@@ -156,6 +157,7 @@
 			(ego posn: 310 123)
 		else
 			(ego posn: 84 124)
+			(HandsOn)
 			(if (not firstTime) (Fdoor setScript: closeDoor))
 		)
 ;;;		(ego view: 0 illegalBits: (| cWHITE cGREEN) init:)
@@ -165,7 +167,7 @@
 	(method (doit)
 		(if firstTime
 			(Print 31 0)
-			(if (== prevRoomNum 10) (Fdoor setScript: closeDoor))
+			(if (== prevRoomNum 10) (HandsOff)(Fdoor setScript: closeDoor))
 			(= firstTime 0)
 		)
 		(if
@@ -177,12 +179,15 @@
 			)
 			(HandsOff)
 			(User mapKeyToDir: TRUE)
+			(HandsOn)
 			(self setScript: myDoor)
 		)
 		(if (ego inRect: 235 102 267 118)
 			(ego setPri: 8)
+			(User canControl: TRUE)
 		else
-			(ego setPri: -1)
+			(ego setPri: -1) ;-1
+			(User canControl: TRUE)
 		)
 ;;;		(if (& (ego onControl: origin) cGREEN)
 		(if (& (ego onControl: 1) $0004)
@@ -357,7 +362,7 @@
 					(switch theCursor	
 						(998
 							(cond 
-								((super handleEvent: event))
+								((hawk handleEvent: event))
 								((or (MousedOn self event shiftDown) (Said 'examine/bird'))
 									(event claimed: TRUE)
 									(Print 31 2)
@@ -456,7 +461,7 @@
 						(998
 							(DoVerb {examine crossbow})
 							 (cond 
-								((super handleEvent: event))
+								((crossbow handleEvent: event))
 								(
 
 
@@ -472,7 +477,7 @@
 							
 							(DoVerb {get crossbow})
 									(cond 
-										((super handleEvent: event))
+										((crossbow handleEvent: event))
 									)
 						)
 					
@@ -512,14 +517,14 @@
 						(995
 							(DoVerb {get ax feathered})
 							(cond 
-								((super handleEvent: event))
+								((tomahawk handleEvent: event))
 
 							)
 						)
 						(998
 								(DoVerb {examine ax feathered})											
 							(cond 
-								((super handleEvent: event))
+								((tomahawk handleEvent: event))
 
 							)
 						)
@@ -1241,6 +1246,7 @@
 			(0
 				(HandsOff)
 				(User mapKeyToDir: TRUE)
+				(User canControl: TRUE)
 				(= local0 1)
 				(sphere cycleSpeed: 0 setCycle: Forward)
 				(= seconds 4)
@@ -1365,6 +1371,7 @@
 				(mySound number: 43 play:)
 			)
 			(3
+				(HandsOn)
 				(ego setMotion: MoveTo (- (ego x?) 50) 121)
 			)
 		)
@@ -1972,8 +1979,9 @@
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
-				(HandsOff)
-				(User mapKeyToDir: TRUE)
+;;;				(HandsOff)
+;;;				(User mapKeyToDir: TRUE)
+				(HandsOn)
 				(= cycles 3)
 			)
 			(1

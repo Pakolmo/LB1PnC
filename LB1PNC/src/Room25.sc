@@ -237,7 +237,7 @@
 					(event claimed: TRUE)
 					(switch theCursor
 						(998		
-							(Print 25 3)
+							(Print 25 2)
 						)
 						(604 ;monocle
 							(DoVerb {examine monocle bootprint})
@@ -253,10 +253,10 @@
 					(event claimed: TRUE)
 					(switch theCursor
 						(998		
-							(Print 25 2)
+							(Print 25 3)
 						)
 						(995		
-							(DoVerb {get pin rolling})
+							(DoVerb {get rolling pin})
 						)					
 						(else
 							(event claimed: FALSE)

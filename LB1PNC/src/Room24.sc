@@ -636,10 +636,11 @@
 						(998		
 								(= temp7
 												(PrintSpecial
-													{Gazebo}
+;;;													{Gazebo}
 ;;;													#button {Examine} 1
 ;;;													#button {Examine in} 2								
 ;;;													#button {Examine below} 3
+													{Cenador}
 													#button {Examinar} 1
 													#button {Examinar dentro} 2								
 													#button {Examinar por debajo} 3

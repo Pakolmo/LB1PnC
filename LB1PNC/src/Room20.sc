@@ -153,11 +153,11 @@
 					(event claimed: TRUE)
 					(switch theCursor
 						(995
-							(DoVerb {capture esquirrel})
+							(DoVerb {capture squirrel})
 						)
 						
 						(998
-							(DoVerb {examine esquirrel})
+							(DoVerb {examine squirrel})
 						)
 						
 						(else
@@ -189,10 +189,12 @@
 						(998
 								(= temp7
 												(PrintSpecial
-													{Window}
-													#button {Examine in} 1
-													#button {Examine} 2								
-
+;;;													{Window}
+;;;													#button {Examine in} 1
+;;;													#button {Examine} 2								
+													{Ventana}
+													#button {Examinar dentro} 1
+													#button {Mirar} 2	
 
 												)
 											)
@@ -215,10 +217,12 @@
 						(995
 								(= temp7
 												(Print
-													{Window}
-													#button {Break} 1
-													#button {Open} 2								
-
+;;;													{Window}
+;;;													#button {Break} 1
+;;;													#button {Open} 2								
+													{Ventana}
+													#button {Romper} 1
+													#button {Abrir} 2
 
 												)
 											)
@@ -304,10 +308,12 @@
 						(998
 									(= temp7
 												(PrintSpecial
-													{Box}
-													#button {Examine in} 1
-													#button {Examine} 2								
-
+;;;													{Box}
+;;;													#button {Examine in} 1
+;;;													#button {Examine} 2								
+													{Caja}
+													#button {Examinar dentro} 1
+													#button {Mirar} 2	
 
 												)
 											)

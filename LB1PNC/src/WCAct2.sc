@@ -63,6 +63,7 @@
 			(1
 				(HandsOff)
 				(User canControl: TRUE)
+				(HandsOn)
 				(Print 384 1 #dispose)
 				(= local0 1)
 				(CHead hide:)
@@ -82,10 +83,12 @@
 				(cls)
 				(HandsOn)
 				(User canInput: TRUE)
+				(User canControl: TRUE)
 				(= global154 2)
 				(= seconds 30)
 			)
 			(3
+				(HandsOn)
 				(= global154 3)
 				(client setScript: 0)
 			)

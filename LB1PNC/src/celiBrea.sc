@@ -119,12 +119,14 @@
 		(if (and (< gameMinutes 3) (== global155 0))
 			(HandsOff)
 			(User mapKeyToDir: TRUE)
+			(User canControl: TRUE)
 			(Jeeves
 				setAvoider: (Avoider new:)
 				setScript: jeevActions
 				init:
 			)
 		)
+		(User canControl: TRUE)
 		(self setScript: bread)
 	)
 	
@@ -132,9 +134,11 @@
 		(cond 
 			((cast contains: Jeeves)
 				(User canInput: FALSE)
+				(User canControl: TRUE)
 			)
 			((and (not local26) (not (ego script?)))
 				(User canInput: TRUE)
+				(User canControl: TRUE)
 			)
 		)
 		(DisposeScript SAVE)
@@ -1233,6 +1237,7 @@
 				(= local26 0)
 				(if (not (ego script?))
 					(User canInput: TRUE)
+					(User canControl: TRUE)
 				)
 				(= local2 0)
 				(Lillian stopUpd: setScript: lillActions)
@@ -1458,6 +1463,7 @@
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
+				(HandsOn) ;FIXED
 				(Jeeves loop: 4 setCycle: EndLoop self)
 			)
 			(1
@@ -1481,6 +1487,7 @@
 				(= [global368 2] 1800)
 				(= global155 1)
 				(Jeeves setAvoider: 0 dispose:)
+				(HandsOn)
 			)
 		)
 	)
@@ -1491,6 +1498,7 @@
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
+				(HandsOn)
 				(= theTalker talkLILLIAN)
 				(Say 1 236 27)
 				(if (ego inRect: 180 145 200 150)

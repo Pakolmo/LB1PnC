@@ -30,6 +30,94 @@
 	)
 	
 	(method (handleEvent event)
+
+		
+		(cond 
+			(
+				(or
+					(Said 'feed,deliver/*/beauregard>')
+					(Said 'feed,deliver/*<beauregard>')
+				)
+				(cond 
+					((and (ego has: iSoupBone) (Said '/bone'))
+						(Print 277 0)
+					)
+					((and theInvItem haveInvItem)
+						(Print 277 1)
+					)
+					(else
+						(DontHave)
+					)
+				)
+				(event claimed: TRUE)
+			)
+			(
+				(or
+					(Said 'deliver,hold/*/beauregard')
+					(Said 'deliver,hold/*<beauregard')
+				)
+				(if (and theInvItem haveInvItem)
+					(Print 277 2)
+				else
+					(DontHave)
+				)
+			)
+			((Said 'throw/bone')
+				(Print 277 3)
+			)
+			((Said '/beauregard>')
+				(cond 
+					((Said 'examine')
+						(Print 277 4)
+					)
+					((Said 'get,move,drag,get')
+						(Print 277 5)
+					)
+					((Said 'pat')
+						(Print 277 6)
+					)
+					((Said 'converse')
+						(Print 277 7)
+					)
+					((Said 'kill')
+						(Print 277 8)
+					)
+					((Said 'kiss')
+						(Print 277 9)
+					)
+				)
+			)
+		)
+	)
+)
+
+(instance rudypet of Region
+	
+	(method (init)
+		(super init:)
+		(Load FONT 4)
+		(= global195 256)
+		(if (not (& global118 $0004))
+			(Load FONT 41)
+			(Load VIEW 642)
+			(LoadMany SOUND 29 94 95 96)
+			(Load SCRIPT 406)
+		)
+		(Dog init:)
+		(Rudy init:)
+		(self setScript: petDog)
+	)
+	
+	(method (doit)
+		(super doit:)
+	)
+	
+	(method (dispose)
+		(super dispose:)
+	)
+	
+	(method (handleEvent event &tmp temp0)
+		
 			(cond
 			(
 				(and
@@ -495,94 +583,47 @@
 						)
 					)
 			)
-			)
-			)
-		
-		(cond 
-			(
-				(or
-					(Said 'feed,deliver/*/beauregard>')
-					(Said 'feed,deliver/*<beauregard>')
-				)
-				(cond 
-					((and (ego has: iSoupBone) (Said '/bone'))
-						(Print 277 0)
-					)
-					((and theInvItem haveInvItem)
-						(Print 277 1)
-					)
-					(else
-						(DontHave)
-					)
-				)
-				(event claimed: TRUE)
-			)
-			(
-				(or
-					(Said 'deliver,hold/*/beauregard')
-					(Said 'deliver,hold/*<beauregard')
-				)
-				(if (and theInvItem haveInvItem)
-					(Print 277 2)
-				else
-					(DontHave)
-				)
-			)
-			((Said 'throw/bone')
-				(Print 277 3)
-			)
-			((Said '/beauregard>')
-				(cond 
-					((Said 'examine')
-						(Print 277 4)
-					)
-					((Said 'get,move,drag,get')
-						(Print 277 5)
-					)
-					((Said 'pat')
-						(Print 277 6)
-					)
-					((Said 'converse')
-						(Print 277 7)
-					)
-					((Said 'kill')
-						(Print 277 8)
-					)
-					((Said 'kiss')
-						(Print 277 9)
-					)
-				)
-			)
-		)
-	)
-)
+			
+				(if (and (ClickedOnObj Dog (event x?) (event y?)) 
+					(== (event claimed?) FALSE))
+					(event claimed: TRUE)
+					(switch theCursor	
+						
+					
 
-(instance rudypet of Region
-	
-	(method (init)
-		(super init:)
-		(Load FONT 4)
-		(= global195 256)
-		(if (not (& global118 $0004))
-			(Load FONT 41)
-			(Load VIEW 642)
-			(LoadMany SOUND 29 94 95 96)
-			(Load SCRIPT 406)
-		)
-		(Dog init:)
-		(Rudy init:)
-		(self setScript: petDog)
-	)
-	
-	(method (doit)
-		(super doit:)
-	)
-	
-	(method (dispose)
-		(super dispose:)
-	)
-	
-	(method (handleEvent event &tmp temp0)
+					(605 ;soup_bone_
+
+						(DoVerb {give bone to beauregard})					
+					)
+
+							(994  ;ear
+								(event type: 1 claimed: 1)
+								(DoVerb {hear beauregard})
+							)						
+										
+							
+						(998		
+							(DoLook {beauregard})
+						)
+						(996
+							(DoVerb {Talk beauregard})	
+						)
+							
+						(else
+						
+							(event claimed: FALSE)
+						)
+					)
+
+				)	
+			
+			
+			)
+			)		
+		
+		
+		
+		
 		(super handleEvent: event)
 		(if (event claimed?) (return TRUE))
 		(if (== (event type?) saidEvent)

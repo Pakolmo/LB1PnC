@@ -94,6 +94,7 @@
 			(Shadow illegalBits: 0 posn: 13 82 setPri: 2 init:)
 			(Shadow setScript: shadowWalk)
 		)
+		(User canControl: TRUE)
 		(switch currentAct
 			(0 (self setRegions: 229))
 			(1 (self setRegions: 236))
@@ -118,9 +119,11 @@
 		else
 			(HandsOff)
 			(User mapKeyToDir: TRUE)
+			(User canControl: TRUE)
 			(ego posn: 235 120)
 			(if (not firstTime)
 				(self setScript: closeDoor)
+				(User canControl: TRUE)
 			)
 		)
 		(ego view: 0 illegalBits: -32732 init:)
@@ -242,12 +245,14 @@
 					(switch theCursor
 					(605 ;soup devolver
 						(DoVerb {get back bone})
-					)
+											)
 					(998
 							(DoVerb {examine freezer})
 					)		
 					(995
 							(DoVerb {get bone})
+							(= itemIcon 605) ;clear menu inv item pic 
+							(theGame setCursor: 605 (HaveMouse)) ;clear inv cursor, switch to look
 					)									
 					(else
 							(event claimed: FALSE)
@@ -581,6 +586,7 @@
 			(2
 				(HandsOn)
 				(User mapKeyToDir: TRUE)
+				(User canControl: TRUE)				
 				(Bdoor stopUpd:)
 				(Fdoor stopUpd:)
 				(client setScript: 0)

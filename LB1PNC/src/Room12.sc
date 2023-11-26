@@ -472,9 +472,11 @@
 		
 			(event claimed: TRUE)
 			(switch theCursor	
-				(605
-					(DoVerb {hold bone beauregard})
-				)
+;;;				(605
+;;;					(DoVerb {hold bone beauregard})
+;;;					(= itemIcon 600) ;clear menu inv item pic 
+;;;					(theGame setCursor: 998 (HaveMouse)) ;clear inv cursor, switch to look					
+;;;				)
 				(996
 													(= temp7
 												(Print

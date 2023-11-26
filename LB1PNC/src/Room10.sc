@@ -1,5 +1,5 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-(script# 10)
+(script# 10) ;206 381 277 202 281
 (include game.sh)
 (use Main)
 (use Intrface)
@@ -548,6 +548,8 @@
 				(myMusic number: 43 loop: 1 priority: 5 play:)
 			)
 			(3
+				(User canControl: TRUE canInput: TRUE)
+				(HandsOn)	
 				(ego
 					ignoreActors: 1
 					setMotion: MoveTo (+ (ego x?) 50) 121
