@@ -36,6 +36,7 @@
 	(method (init)
 		(super init:)
 		(ego get: 37); inventory blaze horse
+		(ego get: 17); ONLY TET
 		(addToPics
 			add: saddle trough bridle
 			eachElementDo: #init
@@ -865,6 +866,8 @@
 			)
 			(4
 				(ego put: iCarrot 69)
+				(theGame setCursor: 999 (HaveMouse)) ;clear inv cursor, switch to walk	
+				(= itemIcon 601)	
 				(ego view: 0 loop: 1 setCycle: Walk)
 				(HandsOn)
 				(= seconds 5)
@@ -904,6 +907,7 @@
 			(2
 				(ego setAvoider: 0)
 				(Door stopUpd:)
+				(Horse signal: ignrAct) ;fixed laura movement walk.
 				(if (!= ((inventory at: iCarrot) owner?) 69)
 					(Room69 setScript: kicked)
 				else
@@ -1123,6 +1127,7 @@
 		view 169
 		loop 1
 		cel 1
+		signal ignrAct ;add to wak.
 	)
 	
 	(method (handleEvent event)
@@ -1261,7 +1266,7 @@
 		x 62
 		view 169
 		loop 3
-		signal ignrAct
+;;;		signal ignrAct
 		cycleSpeed 2
 	)
 )
@@ -1272,7 +1277,7 @@
 		x 119
 		view 169
 		loop 5
-		signal ignrAct
+;;;		signal ignrAct
 	)
 )
 
@@ -1301,6 +1306,7 @@
 		x 51
 		view 169
 		loop 2
+		
 	)
 	
 	(method (handleEvent event)
@@ -1376,7 +1382,12 @@
 							)
 							((ego has: 17)
 								(if (& (ego onControl: FALSE) cGREEN)
+									(theGame setCursor: 999 (HaveMouse)) ;clear inv cursor, switch to walk	
+									(= itemIcon 601)	
+									(Horse signal: ignrAct)
 									(Room69 setScript: feedHorse)
+									
+									
 								else
 									(NotClose)
 								)

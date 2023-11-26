@@ -591,7 +591,7 @@
 						)						
 						
 						(602
-							(DoVerb {give necklace celie})
+							(DoVerb {give necklace to celie})
 						)
 						
 						(998				
@@ -813,7 +813,8 @@
 						)						
 						
 						(602
-							(DoVerb {give necklace celie})
+							(DoVerb {give necklace to celie})
+							(event claimed: TRUE)
 						)
 						
 						(998				

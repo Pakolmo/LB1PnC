@@ -474,7 +474,7 @@
 			(switch theCursor	
 ;;;				(605
 ;;;					(DoVerb {hold bone beauregard})
-;;;					(= itemIcon 600) ;clear menu inv item pic 
+;;;					(= itemIcon 601) ;clear menu inv item pic 
 ;;;					(theGame setCursor: 998 (HaveMouse)) ;clear inv cursor, switch to look					
 ;;;				)
 				(996

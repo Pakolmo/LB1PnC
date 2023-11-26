@@ -1386,6 +1386,10 @@
 									else
 										(Print 38 42)
 									)
+									(if (== numCrackers 0)
+										(theGame setCursor: 999 (HaveMouse)) ;clear inv cursor, switch to walk	
+										(= itemIcon 601)
+									)	
 								else
 									(DontHave)
 								)

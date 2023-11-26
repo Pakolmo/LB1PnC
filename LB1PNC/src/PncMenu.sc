@@ -666,6 +666,7 @@
 				)
 				(switch loadOrSave
 					(0
+						(theGame setCursor: gPreviousCursor (HaveMouse))
 						(= cycles 1)
 					)	
 					(1
@@ -757,6 +758,10 @@
 					)
 				)
 				(switch sGauge2
+					(0
+						(theGame setCursor: gPreviousCursor (HaveMouse))
+						(= cycles 1)
+					)
 					(1
 						(= sGauge 1)
 						(= state 9)	

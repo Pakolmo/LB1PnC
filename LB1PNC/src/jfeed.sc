@@ -273,17 +273,17 @@
 								(2
 									(Print 239 0)
 									(= local3 1)
-									(= itemIcon 600) ;clear menu inv item pic 
+									(= itemIcon 601) ;clear menu inv item pic 
 ;;;									(theGame itemIcon: 600 (HaveMouse))
 									(theGame setCursor: 999 (HaveMouse)) ;clear inv cursor, switch to walk	
-									(= itemIcon 600)										
+									(= itemIcon 601)										
 								)
 								(else
 									(Print 239 1)
-									(= itemIcon 600) ;clear menu inv item pic 
+									(= itemIcon 601) ;clear menu inv item pic 
 ;;;									(theGame itemIcon: 600 (HaveMouse))
 									(theGame setCursor: 999 (HaveMouse)) ;clear inv cursor, switch to walk		
-									(= itemIcon 600)
+									(= itemIcon 601)
 								)
 							)
 													
