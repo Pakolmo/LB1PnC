@@ -90,7 +90,9 @@
 						
 					
 					(602 ;necklace_
-						(DoVerb {tell celie about necklace})						
+						(DoVerb {tell celie about necklace})
+						(= itemIcon 601) ;clear menu inv item pic 
+						(theGame setCursor: 601 (HaveMouse)) ;clear inv cursor, switch to notebook						
 					)
 					(604 ;monocle
 						(DoVerb {tell celie about monocle})						

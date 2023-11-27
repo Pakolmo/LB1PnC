@@ -325,11 +325,12 @@
 												(Print
 ;;;													{Door}
 ;;;													#button {Unbar} 1
-;;;													#button {Open} 2								
+;;;													#button {Open} 2
+;;;													#button {bang} 3								
 													{Puerta}
 													#button {Desbloquear} 1
 													#button {Abrir} 2
-
+													#button {Picar} 2
 												)
 											)
 											(switch temp7
@@ -339,6 +340,9 @@
 												(2
 													(DoVerb {open door})
 												)
+												(3
+													(DoVerb {bang basement door})
+												)												
 												(else
 													(event claimed: FALSE)
 												)

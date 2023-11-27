@@ -117,10 +117,12 @@
 									(= temp7
 												(Print
 		
-													{Urn}
-													#button {Move} 1
-													#button {Get} 2								
-													
+;;;													{Urn}
+;;;													#button {Move} 1
+;;;													#button {Get} 2								
+													{Urna}
+													#button {Mover} 1
+													#button {Coger} 2													
 												)
 											)
 											(switch temp7
@@ -142,11 +144,14 @@
 									(= temp7
 												(PrintSpecial
 		
-													{Urn}
-													#button {examine} 1
-													#button {examine in} 2	
-													#button {examine below} 3							
-													
+;;;													{Urn}
+;;;													#button {examine} 1
+;;;													#button {examine in} 2	
+;;;													#button {examine below} 3							
+													{Urna}
+													#button {Mirar} 1
+													#button {Examinar} 2	
+													#button {Examinar por debajo} 3													
 												)
 											)
 											(switch temp7
@@ -266,10 +271,12 @@
 							(= temp7
 												(Print
 		
-													{Bench}
-													#button {examine below} 1
-													#button {examine} 2	
-													
+;;;													{Bench}
+;;;													#button {examine below} 1
+;;;													#button {examine} 2	
+													{Banco}
+													#button {examinar por debajo} 1
+													#button {Mirar} 2													
 													
 												)
 											)

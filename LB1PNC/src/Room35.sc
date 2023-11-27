@@ -251,8 +251,7 @@
 					)		
 					(995
 							(DoVerb {get bone})
-							(= itemIcon 605) ;clear menu inv item pic 
-							(theGame setCursor: 605 (HaveMouse)) ;clear inv cursor, switch to look
+							
 					)									
 					(else
 							(event claimed: FALSE)
@@ -726,6 +725,8 @@
 						(Said 'get/bone')
 					)
 				)
+				(= itemIcon 605) ;clear menu inv item pic 
+				(theGame setCursor: 605 (HaveMouse)) ;clear inv cursor, switch to bone
 				(Print 35 18)
 			)
 			((Said 'get/bone')

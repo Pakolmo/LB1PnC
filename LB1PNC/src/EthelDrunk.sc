@@ -47,6 +47,7 @@
 	
 	(method (init)
 		(super init:)
+		(HandsOn)
 		(if (not (& global118 $0004))
 			(LoadMany FONT 41)
 			(LoadMany SOUND 29 94 95 96)

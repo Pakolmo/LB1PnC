@@ -193,10 +193,12 @@
 						(995
 								(= temp7
 												(Print
-													{Door}
-													#button {Open} 1
-													#button {Close} 2								
-
+;;;													{Door}
+;;;													#button {Open} 1
+;;;													#button {Close} 2								
+													{Puerta}
+													#button {Abrir} 1
+													#button {Cerrar} 2
 
 												)
 											)
@@ -252,43 +254,15 @@
 					
 					(event claimed: TRUE)
 					(switch theCursor
-						(995
+						(998
 									(= temp7
 												(Print
-													{Window}
-													#button {Examine} 1
-													#button {Examine In} 2								
-
-
-												)
-											)
-											(switch temp7
-												(1 
-													(DoVerb {examine window})
-														
-												)
-						
-										
-
-												(2
-													(DoVerb {examine in window})
-													
-				
-												)
-												(else
-													(event claimed: FALSE)
-												)
-											)
-						
-
-						)
-						(998
-								(= temp7
-												(Print
-													{Window}
-													#button {Examine} 1
-													#button {Examine In} 2								
-
+;;;													{Window}
+;;;													#button {Examine} 1
+;;;													#button {Examine In} 2								
+													{Ventana}
+													#button {Mirar} 1
+													#button {Examinar} 2
 
 												)
 											)
@@ -312,6 +286,7 @@
 						
 
 						)
+						
 						(else
 							(event claimed: FALSE)
 						)
@@ -354,10 +329,12 @@
 						(995
 									(= temp7
 												(Print
-													{Archway}
-													#button {Open} 1
-													#button {Close} 2								
-
+;;;													{Archway}
+;;;													#button {Open} 1
+;;;													#button {Close} 2								
+													{Portal}
+													#button {Abrir} 1
+													#button {Cerrar} 2	
 
 												)
 											)
@@ -386,10 +363,12 @@
 						(998
 														(= temp7
 												(Print
-													{Archway}
-													#button {Examine} 1
-													#button {Examine grave} 2								
-
+;;;													{Archway}
+;;;													#button {Examine} 1
+;;;													#button {Examine grave} 2								
+													{Portal}
+													#button {Examinar} 1
+													#button {Examinar tumba} 2
 
 												)
 											)

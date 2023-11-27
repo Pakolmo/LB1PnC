@@ -591,7 +591,9 @@
 						)						
 						
 						(602
+							
 							(DoVerb {give necklace to celie})
+							
 						)
 						
 						(998				
@@ -814,7 +816,7 @@
 						
 						(602
 							(DoVerb {give necklace to celie})
-							(event claimed: TRUE)
+;;;							(event claimed: TRUE)
 						)
 						
 						(998				
@@ -857,7 +859,7 @@
 							(= state 4)
 							(= cycles 1)
 						else
-							(Print 6 10)
+;;;							(Print 6 10) ;Aquí no hay nadie.
 						)
 					else
 						(DontHave)

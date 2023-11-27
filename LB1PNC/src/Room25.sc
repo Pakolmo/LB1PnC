@@ -195,12 +195,16 @@
 						(995
 								(= temp7
 												(PrintSpecial
-													{Owl}
-													#button {Deliver} 1
-													#button {Feed} 2								
-													#button {Hold} 3
-													#button {Capture} 4
-
+;;;													{Owl}
+;;;													#button {Deliver} 1
+				
+;;;													#button {Hold} 2
+;;;													#button {Capture} 3
+													{Buho}
+													#button {Alimentar} 1
+							
+													#button {Coger} 2
+													#button {Capturar} 3
 												)
 											)
 											(switch temp7
@@ -208,12 +212,9 @@
 													(DoVerb {deliver bird})	
 												)
 												(2
-													(DoVerb {feed bird})
-												)
-												(3
 													(DoVerb {hold bird})
 												)	
-												(4
+												(3
 													(DoVerb {capture bird})
 												)			
 												(else

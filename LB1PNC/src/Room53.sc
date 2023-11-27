@@ -113,8 +113,8 @@
 ;;;								#button {Examine} 1
 ;;;								#button {Examine in} 2
 								{Cama}
-								#button {Examine} 1
-								#button {Examine in} 2								
+								#button {Mirar} 1
+								#button {Examinar} 2								
 							)
 							)
 

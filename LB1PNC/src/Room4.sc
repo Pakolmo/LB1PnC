@@ -158,10 +158,12 @@
 							(= temp7
 												(Print
 		
-													{Bench}
-													#button {examine} 1
-													#button {examine in} 2								
-													
+;;;													{Bench}
+;;;													#button {examine} 1
+;;;													#button {examine in} 2								
+													{Banco}
+													#button {Mirar} 1
+													#button {examinar} 2														
 												)
 											)
 											(switch temp7
@@ -201,10 +203,12 @@
 							(= temp7
 												(Print
 		
-													{Statue}
-													#button {get} 1
-													#button {move} 2								
-													
+;;;													{Statue}
+;;;													#button {get} 1
+;;;													#button {move} 2								
+													{Estatua}
+													#button {Coger} 1
+													#button {Mover} 2													
 												)
 											)
 											(switch temp7

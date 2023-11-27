@@ -722,9 +722,12 @@
 				#icon cIcon deathLoop deathCel
 				#mode teJustCenter
 				#width 240
-				#button {__Restore__} 1
-				#button {__Restart__} 2
-				#button {___Quit___} 3
+;;;				#button {__Restore__} 1
+;;;				#button {__Restart__} 2
+;;;				#button {___Quit___} 3
+				#button {__Restaurar__} 1
+				#button {__Reempezar__} 2
+				#button {___Salir___} 3				
 			)
 			(1
 				(theGame restore:)
