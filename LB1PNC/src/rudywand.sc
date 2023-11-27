@@ -127,7 +127,7 @@
 			)
 		)
 		(super doit:)
-		(HandsOn)
+		
 	)
 	
 	(method (dispose)

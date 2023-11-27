@@ -179,7 +179,7 @@
 					(== (event type?) evMOUSEBUTTON)
 					(not (& (event modifiers?) emRIGHT_BUTTON))
 				)
-			(if (ClickedInRect 7 12 111 128 event) ;exit room
+			(if (ClickedInRect 0 12 111 128 event) ;exit room
 			(event claimed: TRUE)
 					(switch theCursor
 						(999
