@@ -117,8 +117,8 @@
 		
 ;;;													{Get}
 ;;;													#button {Cape} 1	
-;;;													#button {Glove} 2	
-;;;													#button {Boot} 3
+;;;													#button {Gloves} 2	
+;;;													#button {Boots} 3
 ;;;													#button {Hat} 4	
 ;;;													#button {Insignia} 5	
 		
@@ -159,14 +159,14 @@
 								(PrintSpecial
 ;;;									{Examine}
 ;;;									#button {Cape} 1
-;;;									#button {Glove} 2
-;;;									#button {Boot} 3
+;;;									#button {Gloves} 2
+;;;									#button {Boots} 3
 ;;;									#button {Hat} 4
 ;;;									#button {Insignia} 5
 									{Examinar}
 									#button {Capa} 1
-									#button {Guante} 2
-									#button {Bota} 3
+									#button {Guantes} 2
+									#button {Botas} 3
 									#button {Gorro} 4
 									#button {Insignia} 5
 								)

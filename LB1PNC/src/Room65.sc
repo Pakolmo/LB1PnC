@@ -286,7 +286,7 @@
 					(event claimed: TRUE)
 					(switch theCursor
 						(606 ;valve handle
-							(DoVerb {poner manija en eje})
+							(DoVerb {put valve handle on shaft})
 						)
 						(995
 							(= temp7
@@ -417,7 +417,7 @@
 				(if (ClickedInRect 230 245 80 100 event)
 					;allow using the value handle on the base of the statue
 					(if (== theCursor 606) ;valve handle
-						(DoVerb {poner manija en eje})
+						(DoVerb {put valve handle in shaft})
 					)
 				)		
 				(if (ClickedOnObj shaft (event x?) (event y?)) 

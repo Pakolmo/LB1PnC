@@ -1,4 +1,0 @@
-cd cb
-sierra
-cd ..
-

@@ -141,7 +141,7 @@
 					(event claimed: TRUE)
 					(switch theCursor	
 						(604 ;monocle
-							(DoVerb {examine basket with monocle})
+							(DoVerb {examine bottle with monocle})
 						)						
 						(998 ;examine
 							(DoVerb {examine in basket})

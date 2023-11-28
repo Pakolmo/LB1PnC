@@ -252,11 +252,14 @@
 						(995
 								(= temp7
 												(PrintSpecial
-													{Statue}
-													#button {Get} 1
-													#button {Move} 2								
-													#button {Rotate} 3
-
+;;;													{Statue}
+;;;													#button {Get} 1
+;;;													#button {Move} 2								
+;;;													#button {Rotate} 3
+													{Estatua}
+													#button {Coger} 1
+													#button {Mover} 2								
+													#button {Rotar} 3
 
 												)
 											)

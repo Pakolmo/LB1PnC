@@ -815,7 +815,7 @@
 							description: (Format @str 950 35)
 ;;;							text: {Sound Volume} ;ENGLISH
 							text: {Volumen} ;SPANISH
-							normal: 15
+							normal: 11
 ;;;							higher: {Louder} ;ENGLISH
 ;;;							lower: {Softer} ;ENGLISH
 							higher: {Subir} ;SPANISH

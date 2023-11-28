@@ -258,11 +258,14 @@
 						(995	
 									(= temp7
 												(Print
-													{Chair}
-													#button {press} 1
-													#button {swing} 2								
-													#button {get} 3
-
+;;;													{Chair}
+;;;													#button {press} 1
+;;;													#button {swing} 2								
+;;;													#button {get} 3
+													{Silla}
+													#button {Columpiar} 1
+													#button {Columpiarse} 2								
+													#button {Coger} 3
 
 												)
 											)
@@ -292,8 +295,8 @@
 		
 		
 						
-						(if (ClickedOnObj Door (event x?) (event y?)) 
-					
+						(if (and (ClickedOnObj Door (event x?) (event y?)) 
+						(== (event claimed?) FALSE))
 					(event claimed: TRUE)
 					(switch theCursor
 						(998
@@ -484,8 +487,8 @@
 				)
 						
 		
-				(if (ClickedOnObj House (event x?) (event y?)) 
-					
+				(if (and (ClickedOnObj House (event x?) (event y?)) 
+					(== (event claimed?) FALSE))
 					(event claimed: TRUE)
 					(switch theCursor
 						(998

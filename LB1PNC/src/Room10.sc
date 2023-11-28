@@ -434,7 +434,7 @@
 				(Wilbur loop: 2 setCycle: Forward)
 				(WHead setCycle: Forward)
 				(Print 10 6 #at 25 145 #dispose)
-				(= seconds 5)
+				(= seconds 3) ;5
 			)
 			(4
 				(Wilbur loop: 0 cel: 3 setCycle: BegLoop)

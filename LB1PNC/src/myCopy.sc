@@ -273,7 +273,7 @@
 			(0
 ;;;				(theGame setCursor: 997 (HaveMouse))
 				(= saveBits2
-					(Display { 2024 DoomLazer y Pakolmo presentan:}
+					(Display { 2023 DoomLazer y Pakolmo presentan:}
 						p_at 26 8
 						p_width 265
 						p_color vRED

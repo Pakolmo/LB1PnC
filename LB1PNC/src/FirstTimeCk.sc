@@ -26,7 +26,8 @@
 				#icon myIcon 0 1
 				#mode teJustCenter
 				#font SYSFONT
-				#button {______Yes______} 0
+;;;				#button {______Yes______} 0
+				#button {______S-______} 0
 				#button {_______No_______} 1
 			)
 			(cSound fade:)

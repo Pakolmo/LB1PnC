@@ -1398,7 +1398,7 @@
 		owner 69
 		view 613
 ;;;		name "lantern__"
-		name "linterna_"
+		name "l*mpara__"
 	)
 	
 	(method (showSelf)

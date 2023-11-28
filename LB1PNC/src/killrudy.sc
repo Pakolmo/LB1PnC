@@ -136,7 +136,7 @@
 			(Duo observeBlocks: arena init:)
 		else
 			(Bset 33)
-			(HandsOff)
+;;;			(HandsOff)
 			(TheMenuBar state: FALSE)
 			(Rudy view: 385 loop: 2 posn: 130 126)
 			(Rudy cel: (Rudy lastCel:) init:)
@@ -167,454 +167,48 @@
 					(not (& (event modifiers?) emRIGHT_BUTTON))
 				)		
 
-						(if (and (ClickedOnObj Colonel (event x?) (event y?)) 
-							(== temp8 1) )
+						(if (ClickedOnObj Duo (event x?) (event y?)) 
+							
 					(event claimed: TRUE)
 					(switch theCursor	
 					
-					(602 ;necklace_
-						(DoVerb {tell Colonel about necklace})						
-					)
-					(604 ;monocle
-						(DoVerb {tell Colonel about monocle})						
-					)
-					
-					(613 ;lantern_
-						(DoVerb {tell Colonel about lantern})						
-					)
-					(611 ;oilcan_
-						(DoVerb {tell Colonel about oilcan})						
-					)
-					(626 ;rolling_pin_
-						(DoVerb {tell Colonel about pin})						
-					)
-					(620 ;skeleton_key_
-						(DoVerb {tell Colonel about skeleton key})						
-					)
-					(627 ;poker_
-						(DoVerb {tell Colonel about poker})						
-					)															
-					(607 ;crowbar_
-						(DoVerb {tell Colonel about crowbar})						
-					)
-					(628 ;cigar_butt_
-						(DoVerb {tell Colonel about butt})						
-					)
-					(625 ;broken_record_
-						(DoVerb {tell Colonel about broken record})						
-					)
-					(601 ;notebook___pencil_
-						(DoVerb {tell Colonel about notebook})						
-					)
-					(603 ;_7_crackers________
-						(DoVerb {tell Colonel about crackers})						
-					)
-					(605 ;soup_bone_
-						(DoVerb {tell Colonel about soup bone})						
-					)
-					(606 ;valve_handle_
-						(DoVerb {tell Colonel about valve})						
-					)
-					(618 ;bullet_
-						(DoVerb {tell Colonel about bullet})						
-					)
 					(617 ;derringer__
-						(DoVerb {shoot colonel})					
-					)
-					(614 ;matches_
-						(DoVerb {tell Colonel about matches})						
-					)
-					(615 ;carrot_
-						(DoVerb {tell Colonel about carrot})						
-					)
-					(619 ;brass_key_
-						(DoVerb {tell Colonel about brass key})						
-					)
-					(616 ;diary_
-						(DoVerb {tell Colonel about diary})						
-					)
-					(621 ;crank_
-						(DoVerb {tell Colonel about crank})						
-					)
-					(612 ;cane_
-						(DoVerb {tell Colonel about cane})						
-					)
-					(622 ;pouch_
-						(DoVerb {tell Colonel about pouch})						
-					)																																																																																
-					(630 ;handkerchief_
-						(DoVerb {tell Colonel about handkerchief})
-					)
-											
 						
-						
-				
-						
-					
-						
-							(930  ;gertrude
-								(event type: 1 claimed: 1)
-												(= temp7
-							(Print
-;;;								{Ask or Tell}
-;;;								#button {Ask} 1
-;;;								#button {Tell} 2
-								{Preguntar o Hablar de}
-								#button {Preguntar} 1
-								#button {Hablar de} 2												
-							)
-						)
-						(switch temp7
-							(1 
-								(DoVerb {ask colonel about gertie})
-							)
-							(2
-								(DoVerb {tell colonel about gertie})
-							)
-						(else
-							(event claimed: FALSE)
-						)
-					)
-				)
 							
-							(931 ;Celie
-								(event type: 1 claimed: 1)
-								(= temp7
-															(Print
-;;;								{Ask or Tell}
-;;;								#button {Ask} 1
-;;;								#button {Tell} 2
-								{Preguntar o Hablar de}
-								#button {Preguntar} 1
-								#button {Hablar de} 2												
+							(= temp7
+							(PrintSpecial
+								{Colonel or Rudy}
+;;;								#button {Shoot Colonel} 1
+;;;								#button {Shoot Rudy} 2
+								#button {Disparar a Coronel} 1
+								#button {Disparar a Rudy} 2
 							)
-						)
-						(switch temp7
-							(1 
-								(DoVerb {ask colonel about Celie})
 							)
-							(2
-								(DoVerb {tell colonel about Celie})
-							)
-						(else
-							(event claimed: FALSE)
-						)
-					)
-				)
-							
-							(932 ;Gloria
-								(event type: 1 claimed: 1)
-								(= temp7
-															(Print
-;;;								{Ask or Tell}
-;;;								#button {Ask} 1
-;;;								#button {Tell} 2
-								{Preguntar o Hablar de}
-								#button {Preguntar} 1
-								#button {Hablar de} 2												
-							)
-						)
-						(switch temp7
-							(1 
-								(DoVerb {ask colonel about gloria})
-							)
-							(2
-								(DoVerb {tell colonel about gloria})
-							)
-						(else
-							(event claimed: FALSE)
-						)
-					)
-				)												
-							(933 ;Ethel
-								
-								(event type: 1 claimed: 1)
-								(= temp7
-															(Print
-;;;								{Ask or Tell}
-;;;								#button {Ask} 1
-;;;								#button {Tell} 2
-								{Preguntar o Hablar de}
-								#button {Preguntar} 1
-								#button {Hablar de} 2												
-							)
-						)
-						(switch temp7
-							(1 
-								(DoVerb {ask colonel about ethel})
-							)
-							(2
-								(DoVerb {tell colonel about ethel})
-							)
-						(else
-							(event claimed: FALSE)
-						)
-					)
-				)
-							
-							(934 ;Fifi
-								(event type: 1 claimed: 1)
-								(= temp7
-														(Print
-;;;								{Ask or Tell}
-;;;								#button {Ask} 1
-;;;								#button {Tell} 2
-								{Preguntar o Hablar de}
-								#button {Preguntar} 1
-								#button {Hablar de} 2												
-							)
-						)
-						(switch temp7
-							(1 
-								(DoVerb {ask colonel about fifi})
-							)
-							(2
-								(DoVerb {tell colonel about fifi})
-							)
-						(else
-							(event claimed: FALSE)
-						)
-					)
-				)
-							(935 ;Lillian
-								(event type: 1 claimed: 1)
-								(= temp7
-															(Print
-;;;								{Ask or Tell}
-;;;								#button {Ask} 1
-;;;								#button {Tell} 2
-								{Preguntar o Hablar de}
-								#button {Preguntar} 1
-								#button {Hablar de} 2												
-							)
-						)
-						(switch temp7
-							(1 
-								(DoVerb {ask colonel about lillian})
-							)
-							(2
-								(DoVerb {tell colonel about lillian})
-							)
-						(else
-							(event claimed: FALSE)
-						)
-					)
-				)																				
-							(936 ;Clarence
-								(event type: 1 claimed: 1)
-								(= temp7
-															(Print
-;;;								{Ask or Tell}
-;;;								#button {Ask} 1
-;;;								#button {Tell} 2
-								{Preguntar o Hablar de}
-								#button {Preguntar} 1
-								#button {Hablar de} 2												
-							)
-						)
-						(switch temp7
-							(1 
-								(DoVerb {ask colonel about Clarence})
-							)
-							(2
-								(DoVerb {tell colonel about clarence})
-							)
-						(else
-							(event claimed: FALSE)
-						)
-					)
-				)
-							(937 ;Feels
-								(event type: 1 claimed: 1)
-								(= temp7
-															(Print
-;;;								{Ask or Tell}
-;;;								#button {Ask} 1
-;;;								#button {Tell} 2
-								{Preguntar o Hablar de}
-								#button {Preguntar} 1
-								#button {Hablar de} 2												
-							)
-						)
-						(switch temp7
-							(1 
-								(DoVerb {ask colonel about Wilbur})
-							)
-							(2
-								(DoVerb {tell colonel about Wilbur})
-							)
-						(else
-							(event claimed: FALSE)
-						)
-					)
-				)
-							(938 ;Rudy
-								(event type: 1 claimed: 1)
-								(= temp7
-															(Print
-;;;								{Ask or Tell}
-;;;								#button {Ask} 1
-;;;								#button {Tell} 2
-								{Preguntar o Hablar de}
-								#button {Preguntar} 1
-								#button {Hablar de} 2												
-							)
-						)
-						(switch temp7
-							(1 
-								(DoVerb {ask colonel about rudolph})
-							)
-							(2
-								(DoVerb {tell colonel about rudolph})
-							)
-						(else
-							(event claimed: FALSE)
-						)
-					)
-				)
-							(939 ;Colonel
-								(event type: 1 claimed: 1)
-								(= temp7
-															(Print
-;;;								{Ask or Tell}
-;;;								#button {Ask} 1
-;;;								#button {Tell} 2
-								{Preguntar o Hablar de}
-								#button {Preguntar} 1
-								#button {Hablar de} 2												
-							)
-						)
-						(switch temp7
-							(1 
-								(DoVerb {ask colonel about colonel})
-							)
-							(2
-								(DoVerb {tell colonel about colonel})
-							)
-						(else
-							(event claimed: FALSE)
-						)
-					)
-				)
-							(940 ;Jules
-								(event type: 1 claimed: 1)
-								(= temp7
-															(Print
-;;;								{Ask or Tell}
-;;;								#button {Ask} 1
-;;;								#button {Tell} 2
-								{Preguntar o Hablar de}
-								#button {Preguntar} 1
-								#button {Hablar de} 2												
-							)
-						)
-						(switch temp7
-							(1 
-								(DoVerb {ask colonel about Jeeves})
-							)
-							(2
-								(DoVerb {tell colonel about Jeeves})
-							)
-						(else
-							(event claimed: FALSE)
-						)
-					)
-				)
-		
-							(941 ;Dog
-								(event type: 1 claimed: 1)
-							(= temp7	
-							(Print
-;;;								{Ask or Tell}
-;;;								#button {Ask} 1
-;;;								#button {Tell} 2
-								{Preguntar o Hablar de}
-								#button {Preguntar} 1
-								#button {Hablar de} 2												
-							)
-						)
-						(switch temp7
-							(1 
-								(DoVerb {ask colonel about beauregard})
-							)
-							(2
-								(DoVerb {tell colonel about beauregard})
-							)
-						(else
-							(event claimed: FALSE)
-						)
-					)
-				)												
-							(942 ;Parrot
-								(event type: 1 claimed: 1)
-								(= temp7	
-							(Print
-;;;								{Ask or Tell}
-;;;								#button {Ask} 1
-;;;								#button {Tell} 2
-								{Preguntar o Hablar de}
-								#button {Preguntar} 1
-								#button {Hablar de} 2												
-							)
-						)
-						(switch temp7
-							(1 
-								(DoVerb {ask colonel about polly})
-							)
-							(2
-								(DoVerb {tell colonel about polly})
-							)
-						(else
-							(event claimed: FALSE)
-						)
-					)
-				)				
-							(943 ;Horse
-								(event type: 1 claimed: 1)
-								(= temp7	
-							(Print
-;;;								{Ask or Tell}
-;;;								#button {Ask} 1
-;;;								#button {Tell} 2
-								{Preguntar o Hablar de}
-								#button {Preguntar} 1
-								#button {Hablar de} 2												
-							)
-						)
-						(switch temp7
-							(1 
-								(DoVerb {ask colonel about blaze})
-							)
-							(2
-								(DoVerb {tell colonel about blaze})
-							)
-						(else
-							(event claimed: FALSE)
-						)
-					)
-				)															
-						(996 ;talk
-							(DoVerb {converse Colonel})
-						)
-						(998	
-							(DoVerb {Examine Colonel})
-						)
 
-						(995
-							(DoVerb {shoot colonel})
+						(switch temp7
+							(1
+
+							    (DoVerb {shoot colonel})
+													   
+													
+							)
+							(2
+								(DoVerb {shoot rudy})	
+							)	
+							(else
+								(event claimed: FALSE)
+							)			
 						)
-						(else
-						
-												(event claimed: FALSE)
-												)
-											)
-						)				
+					)
+					(else
+						(event claimed: FALSE)
+					)
+					)
+						)
+			
 		
-		
-	
-		
-			(if (and (ClickedOnObj Rudy (event x?) (event y?)) 
-					(== temp8 0) )
+			(if (ClickedOnObj Rudy (event x?) (event y?)) 
+					
 				(event claimed: TRUE)
 					(switch theCursor
 						
@@ -1121,7 +715,7 @@
 				(= cycles 4)
 			)
 			(1
-				(User canInput: TRUE canControl: FALSE)
+				(User canInput: TRUE canControl: TRUE)
 				(Print 290 0)
 				(myMusic number: 24 loop: -1 play:)
 				(Duo setLoop: 1 setCycle: Forward setMotion: Wander 10)
