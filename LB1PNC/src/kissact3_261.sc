@@ -104,8 +104,8 @@
 				
 		
 		
-				(if (ClickedOnObj Fifi (event x?) (event y?)) 
-					
+				(if (and (ClickedOnObj Fifi (event x?) (event y?)) 
+					(== (event claimed?) FALSE))
 					(event claimed: TRUE)
 					(switch theCursor
 						
@@ -647,7 +647,7 @@
 				(cls)
 				(Fifi view: 460 setPri: -1 setCycle: Walk ignoreActors: 0)
 				(Rudy loop: 2 cycleSpeed: 0 setCycle: Forward)
-				(Print 261 1 67 90 25 33 (= seconds 4) 70 80 83 88)
+				(Print 261 1 67 90 25 33 (= seconds 3) 70 80 83 88)
 
 
 			)
@@ -675,6 +675,7 @@
 						
 				(cls)
 				(Print 261 2 67 125 25 33 4 70 80 83 88)
+				(= seconds 3)
 				(Rudy
 					view: 380
 					setCycle: Walk
@@ -685,7 +686,7 @@
 			(7
 				(cls)
 				(Rudy setMotion: MoveTo 44 244 self)
-;;;				(= seconds 3)
+				(= seconds 3)
 			)
 			(8
 				(Rudy dispose:)

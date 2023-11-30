@@ -24,7 +24,7 @@
 (local
 	local0
 	temp7
-	desknew =0
+	
 )
 (instance mySound of Sound)
 

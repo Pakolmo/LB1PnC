@@ -793,7 +793,7 @@
 ;;;								#button {Ethel} 3
 								{Vaso}
 								#button {Examinar} 1
-								#button {"Pa>uelo"} 2
+								#button {"Pa=uelo"} 2
 								#button {Ethel} 3
 							)
 							)
@@ -824,7 +824,7 @@
 ;;;								#button {Get handkerchief} 2
 								{Vaso}
 								#button {Coger vaso} 1
-								#button {Coger pa>uelo} 2
+								#button {Coger pa=uelo} 2
 							)
 							)
 

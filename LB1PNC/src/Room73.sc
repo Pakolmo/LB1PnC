@@ -211,8 +211,8 @@
 				)
 		
 						
-				(if (ClickedOnObj bathtub (event x?) (event y?)) 
-					
+				(if (and (ClickedOnObj bathtub (event x?) (event y?)) 
+					(== (event claimed?) FALSE))
 					(event claimed: TRUE)
 					(switch theCursor	
 						(604 ;monocle

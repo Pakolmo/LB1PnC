@@ -414,7 +414,11 @@
 					(event claimed: TRUE)
 					(switch theCursor	
 						(604
-							(DoVerb {examine bootprint with monocle})
+							(if (< (ego distanceTo: boot) 10)
+								(Print 50 29)
+							else
+								(NotClose)
+							)
 						)						
 						(995
 							(DoVerb {get bootprint})

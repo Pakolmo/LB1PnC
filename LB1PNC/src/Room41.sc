@@ -215,6 +215,48 @@
 						)
 					)
 					)
+					(if (and (ClickedInRect 190 224 22 85 event) ;bed2 opened
+								(== (event claimed?) FALSE))
+					(event claimed: TRUE)
+					(switch theCursor
+						(995
+													(= temp7
+												(Print
+;;;													{Bed}
+;;;													#button {Open} 1
+;;;													#button {Close} 2								
+;;;													#button {Examine} 3
+													{Cama}
+													#button {Abrir} 1
+													#button {Cerrar} 2								
+													#button {Examinar} 3
+												)
+											)
+											(switch temp7
+												(1 
+													(DoVerb {open bed})
+												)
+												(2
+													(DoVerb {close bed})
+												)
+												(3
+													(DoVerb {examine below bed})
+												)(else
+													(event claimed: FALSE)
+												)
+											)
+						
+												
+						)
+						(998
+
+							(DoVerb {examine bed})
+						
+						)(else
+							(event claimed: FALSE)
+						)
+					)
+					)
 				
 					(if (ClickedOnObj bag (event x?) (event y?)) 
 							

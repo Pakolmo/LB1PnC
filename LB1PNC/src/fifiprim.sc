@@ -100,8 +100,8 @@
 					(== (event type?) evMOUSEBUTTON)
 					(not (& (event modifiers?) emRIGHT_BUTTON))
 				)
-				(if (ClickedOnObj Fifi (event x?) (event y?)) 
-					
+				(if (and (ClickedOnObj Fifi (event x?) (event y?)) 
+					(== (event claimed?) FALSE))
 					(event claimed: TRUE)
 					(switch theCursor
 					

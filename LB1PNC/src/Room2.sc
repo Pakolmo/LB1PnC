@@ -110,11 +110,16 @@
 										(= temp7
 												(Print
 		
-													{Crypt}
-													#button {open} 1
-													#button {Unbar} 2								
-													#button {Break} 3
-													#button {Bang} 4
+;;;													{Crypt}
+;;;													#button {open} 1
+;;;													#button {Unbar} 2								
+;;;													#button {Break} 3
+;;;													#button {Bang} 4
+													{Cripta}
+													#button {Abrir} 1
+													#button {Desbloquear} 2								
+													#button {Romper} 3
+													#button {Picar} 4													
 												)
 											)
 											(switch temp7
@@ -160,11 +165,16 @@
 										(= temp7
 												(Print
 		
-													{Crypt}
-													#button {open} 1
-													#button {Unbar} 2								
-													#button {Break} 3
-													#button {Bang} 4
+;;;													{Crypt}
+;;;													#button {open} 1
+;;;													#button {Unbar} 2								
+;;;													#button {Break} 3
+;;;													#button {Bang} 4
+													{Cripta}
+													#button {Abrir} 1
+													#button {Desbloquear} 2								
+													#button {Romper} 3
+													#button {Picar} 4
 												)
 											)
 											(switch temp7

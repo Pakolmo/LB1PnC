@@ -11,6 +11,7 @@
 (use User)
 (use Actor)
 (use System)
+(use PncMenu)
 
 (public
 	celiBrea 0
@@ -119,7 +120,7 @@
 		(if (and (< gameMinutes 3) (== global155 0))
 			(HandsOff)
 			(User mapKeyToDir: TRUE)
-			(User canControl: TRUE)
+;;;			(User canControl: TRUE)
 			(Jeeves
 				setAvoider: (Avoider new:)
 				setScript: jeevActions
@@ -134,7 +135,7 @@
 		(cond 
 			((cast contains: Jeeves)
 				(User canInput: FALSE)
-				(User canControl: TRUE)
+				(User canControl: FALSE)
 			)
 			((and (not local26) (not (ego script?)))
 				(User canInput: TRUE)
@@ -274,6 +275,7 @@
 								(DoVerb {ask lillian about gertie})
 							)
 							(2
+								(HandsOff)
 								(DoVerb {tell lillian about gertie})
 							)
 						(else
@@ -658,11 +660,11 @@
 					(== (event claimed?) FALSE))
 					(event claimed: TRUE)
 					(switch theCursor	
-						
-					
 					(602 ;necklace_
-						(DoVerb {tell celie about necklace})						
-					)
+						(DoVerb {deliver necklace to celie})						
+					)						
+	
+
 					(604 ;monocle
 						(DoVerb {tell celie about monocle})						
 					)
@@ -698,7 +700,7 @@
 						(DoVerb {tell celie about crackers})						
 					)
 					(605 ;soup_bone_
-						(DoVerb {ask celie for soup bone})						
+						(DoVerb {tell celie about soup bone})						
 					)
 					(606 ;valve_handle_
 						(DoVerb {tell celie about valve})						
@@ -724,15 +726,16 @@
 					(621 ;crank_
 						(DoVerb {tell celie about crank})						
 					)
-					(612 ;cane_
-						(DoVerb {tell celie about cane})						
-					)
+
 					(622 ;pouch_
 						(DoVerb {tell celie about pouch})						
 					)																																																																																
 					(630 ;handkerchief_
 						(DoVerb {tell celie about handkerchief})
 					)
+											
+							
+					
 											
 						
 							(994  ;ear
@@ -1100,6 +1103,24 @@
 						)
 					)
 				)
+							(if (ClickedOnObj roller (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(995
+							(DoVerb {get pin rolling})	
+						)
+						(998
+							(DoVerb {examine pin rolling})	
+						)							
+						(else
+						
+							(event claimed: FALSE)
+						)
+					)
+				)
+				
+				
 			)
 		)
 		
@@ -1116,6 +1137,8 @@
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
+				(User canInput: FALSE)
+				(User canControl: FALSE)				
 				(= local26 1)
 				(cond 
 					((not global216)
@@ -1135,6 +1158,7 @@
 			)
 			(1
 				(User canInput: FALSE)
+				(User canControl: FALSE)
 				(if (< global172 10)
 					(++ global172)
 				else
@@ -1254,6 +1278,7 @@
 		(if (and local5 (self client?))
 			(client setScript: 0)
 			(= local4 0)
+;;;			(User canControl: FALSE)
 		)
 		(super doit:)
 	)
@@ -1261,24 +1286,32 @@
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
+				(User canControl: FALSE)
 				(Lillian ignoreActors: 1 loop: 5 setCycle: Forward)
 				(= seconds 5)
+				(User canControl: TRUE)
 			)
 			(1
+				(User canControl: FALSE)
 				(Lillian loop: 5 setCycle: BegLoop)
 				(= seconds (Random 6 12))
+				(User canControl: TRUE)
 			)
 			(2
+				(User canControl: FALSE)
 				(Lillian loop: 6 setCycle: EndLoop)
 				(= seconds (Random 6 12))
+				(User canControl: TRUE)
 			)
 			(3
+				(User canControl: FALSE)
 				(Lillian loop: 6 setCycle: BegLoop)
 				(if (== local2 70)
 					(client setScript: 0)
 					(= local4 1)
 				)
 				(= seconds (Random 6 12))
+				(User canControl: TRUE)
 				(= state -1)
 			)
 		)
@@ -1293,7 +1326,9 @@
 				(2 (sprinkles show:))
 				(4 (roller show:))
 			)
+			
 		)
+		(User canControl: TRUE)
 		(super doit:)
 	)
 	
@@ -1381,6 +1416,7 @@
 			(0
 				(= local26 1)
 				(User canInput: FALSE)
+				(User canControl: FALSE)
 				(= local4 0)
 				(= local3 0)
 				(switch (++ gCurRoomNum_4)
@@ -1451,6 +1487,7 @@
 				(Celie setScript: celieActions)
 				(= local26 0)
 				(User canInput: TRUE)
+				(User canControl: TRUE)
 				(= local2 0)
 				(client setScript: 0)
 			)
@@ -1459,7 +1496,11 @@
 )
 
 (instance jeevActions of Script
-
+	(method (doit)
+				(User canInput: FALSE)
+				(User canControl: FALSE)
+				(super doit:)
+	)
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
@@ -1467,16 +1508,20 @@
 				(Jeeves loop: 4 setCycle: EndLoop self)
 			)
 			(1
+;;;				(User canControl: FALSE)
 				(Jeeves setCycle: Walk setMotion: MoveTo 221 119 self)
 			)
 			(2
+;;;				(User canControl: FALSE)
 				(gDoor setCycle: EndLoop)
 				(gMySound setCycle: EndLoop self)
 			)
 			(3
+;;;				(User canControl: FALSE)
 				(Jeeves setCycle: Walk setMotion: MoveTo 251 119 self)
 			)
 			(4
+;;;				(User canControl: FALSE)
 				(gDoor setCycle: BegLoop)
 				(gMySound setCycle: BegLoop self)
 			)
@@ -1487,27 +1532,32 @@
 				(= [global368 2] 1800)
 				(= global155 1)
 				(Jeeves setAvoider: 0 dispose:)
-				(HandsOn)
+				
 			)
 		)
 	)
 )
 
 (instance goSee of Script
-
+	(method (doit)
+		(User canControl: FALSE)
+		(super doit:)
+	)
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
-				(HandsOn)
+				(User canControl: FALSE)
 				(= theTalker talkLILLIAN)
 				(Say 1 236 27)
 				(if (ego inRect: 180 145 200 150)
+					(User canControl: FALSE)
 					(ego setMotion: MoveTo 212 160 self)
 				else
 					(= cycles 1)
 				)
 			)
 			(1
+				(User canControl: FALSE)
 				(Lillian
 					view: 499
 					loop: 0
@@ -1519,18 +1569,22 @@
 				)
 				(LHead hide: dispose:)
 				(if (ego inRect: 0 120 24 125)
+					(User canControl: FALSE)
 					(ego setMotion: MoveTo (+ (ego x?) 40) (ego y?))
 				)
 			)
 			(2
+				(User canControl: FALSE)
 				(Lillian view: 500 setCycle: Walk setMotion: PathOut self)
 			)
 			(3
+				(User canControl: FALSE)
 				(= global202 1)
 				(= local7 1)
 				(= seconds 2)
 			)
 			(4
+				(User canControl: FALSE)
 				(= global202 2)
 				(sprinkles hide:)
 				(roller hide:)
@@ -1538,6 +1592,7 @@
 				(= cycles 2)
 			)
 			(5
+				(User canControl: FALSE)
 				(Print 236 28 #dispose)
 				(Lillian setMotion: MoveTo 24 123 self)
 			)
@@ -1545,12 +1600,15 @@
 				(cls)
 				(= theTalker talkLILLIAN)
 				(Say 1 236 29)
+				(User canControl: FALSE)
 				(Lillian setMotion: PathIn self)
 			)
 			(7
+				(User canControl: FALSE)
 				(Lillian illegalBits: 0 setMotion: MoveTo 193 143 self)
 			)
-			(8
+			(8	
+				(User canControl: FALSE)
 				(Lillian view: 499)
 				(Lillian
 					cel: (Lillian lastCel:)
@@ -1559,9 +1617,10 @@
 				)
 			)
 			(9
+				(User canControl: TRUE)
 				(Lillian view: 515 posn: 201 132)
 				(LHead setPri: 10 ignoreActors: TRUE init: stopUpd:)
-				(HandsOn)
+
 				(= local5 0)
 				(= local6 1)
 				(client setScript: 0)
@@ -1736,7 +1795,7 @@
 					(if (& global145 $0001)
 						(Say 1 236 43)
 					else
-						(HandsOff)
+						(User canControl: FALSE)
 						(User mapKeyToDir: TRUE)
 ;;;						(|= global145 $0001)
 						(= global145 (| global145 $0001))

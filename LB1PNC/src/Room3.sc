@@ -325,14 +325,16 @@
 					
 					(event claimed: TRUE)
 					(switch theCursor
-						(999
-							(ego setScript: climbDown)
-						)
+;;;						(999
+;;;							(ego setScript: climbDown)
+;;;						)
 						(995
 							(DoVerb {climb ladder})
+							(User mapKeyToDir: TRUE)
 						)
 						(998
 							(DoVerb {examine ladder})
+							
 						)
 						(else
 							(event claimed: FALSE)
@@ -549,13 +551,25 @@
 	(method (doit event)
 		
 					(if (== theCursor 999) ;
+
 						(ego setMotion: 0)
+						(User mapKeyToDir: FALSE)
 						(= nearLadder 1)
-;;;							(event claimed: TRUE)
-;;;							(DoVerb {climb})
+
 							(= moving 1)
 
+
 					)
+					(if (== theCursor 995) ;
+
+						(ego setMotion: 0)
+						(User mapKeyToDir: FALSE)
+						(= nearLadder 1)
+
+							(= moving 1)
+
+
+					)					
 					)
 
 
@@ -566,6 +580,7 @@
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
+				(User mapKeyToDir: FALSE)
 				(= climbingUp TRUE)
 				(HandsOff)
 				(ego
@@ -596,7 +611,7 @@
 			(5
 				(ego setLoop: 3 cel: 0 posn: 39 55 setCycle: EndLoop self)
 				(HandsOn)
-				(User mapKeyToDir: FALSE)
+				(User mapKeyToDir: TRUE)
 				(ego setMotion: 0)
 				
 				(if (not local4)
@@ -613,6 +628,7 @@
 			)
 			(7
 				(= nearLadder 1)
+				(= moving 1)
 				(User canInput: TRUE)
 				(HandsOn)
 				(User mapKeyToDir: FALSE)
@@ -629,7 +645,9 @@
 		(switch (= state newState)
 			(0
 				(= nearLadder 0)
+				(= moving 0)
 				(User canInput: FALSE)
+				(User mapKeyToDir: FALSE)
 				(ego cel: 3 loop: 3 setCycle: BegLoop self)
 				(arm hide:)
 			)
@@ -661,6 +679,7 @@
 			(6
 				(ego setLoop: -1)
 				(HandsOn)
+				(User mapKeyToDir: TRUE)
 				(= moving 0)
 				(= local1 (= nearLadder (= climbingUp 0)))
 				(client setScript: 0)

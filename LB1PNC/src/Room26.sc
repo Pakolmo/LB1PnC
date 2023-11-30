@@ -96,11 +96,14 @@
 						(995
 														(= temp7
 												(PrintSpecial
-													{Door}
-													#button {Close} 1
-													#button {Open} 2
-													#button {Oil} 3								
-													
+;;;													{Door}
+;;;													#button {Close} 1
+;;;													#button {Open} 2
+;;;													#button {Oil} 3								
+													{Puerta}
+													#button {Cerrar} 1
+													#button {Abrir} 2
+													#button {Aceitar} 3													
 
 
 												)

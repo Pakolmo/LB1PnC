@@ -479,7 +479,7 @@
 					(event claimed: TRUE)
 					(switch theCursor
 						(604 ; Monocle
-							(DoVerb {use monocle glass})
+							(DoVerb {examine glass wiht monocle})
 						)
 						(995
 						(= temp7

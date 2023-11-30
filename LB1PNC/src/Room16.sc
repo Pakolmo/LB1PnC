@@ -174,7 +174,7 @@
 					(switch theCursor
 						(999
 
-							(ego setMotion: MoveTo (+ (ego x?) 315) (ego y?) )
+							(ego setMotion: MoveTo (- (ego x?) 315) (ego y?) )
 ;;;							
 						)
 						(else

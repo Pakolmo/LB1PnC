@@ -619,10 +619,10 @@
 													(DoVerb {bar door})
 												)
 												(2	
-													(DoVerb {open})							
+													(DoVerb {open door})							
 												)
 												(3	
-													(DoVerb {unbar})							
+													(DoVerb {unbar door})							
 												)										
 												(else
 														(event claimed: FALSE)

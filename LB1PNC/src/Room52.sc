@@ -496,7 +496,7 @@
 					(event claimed: TRUE)
 					(switch theCursor	
 						(621 ;crank
-							(DoVerb {control})
+							(DoVerb {put crank on hole})
 						)
 						(995
 							(= temp7
@@ -822,7 +822,7 @@
 				(= cycles 1)
 			)
 			(5
-				(HandsOff)
+;;;				(HandsOff)
 				(Print 52 19 #at 90 55)
 				(soundFX number: 126 loop: 1 play:)
 				(door cycleSpeed: 2 setCycle: EndLoop self)

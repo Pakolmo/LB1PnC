@@ -573,6 +573,7 @@
 		yPositionInventory
 		opendoor=0 ;room31 doorclosed first time
 		opendoor2=0 ;room31 other armoire
+		desknew ;from Clarence desk room48.
 )
 (procedure (Say whom &tmp theView [buffer 500])
 	(if
@@ -1627,7 +1628,7 @@
 		owner 57
 		view 622
 ;;;		name "pouch___"
-		name "bolsita_"
+		name "tesoro__"
 	)
 )
 
@@ -1696,7 +1697,7 @@
 	(properties
 ;;;		said '/Colonel'
 		view 939
-		name "Colonel__"
+		name "Coronel__"
 	)
 )	
 (instance Gloria_Swansong of InvI
@@ -1737,6 +1738,7 @@
 (instance Blaze_ of InvI
 	(properties
 ;;;		said '/Blaze'
+		owner 59 ;ADD
 		view 943
 		name "Blaze__"
 	)

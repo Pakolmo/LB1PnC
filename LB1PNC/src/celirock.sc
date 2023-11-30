@@ -67,84 +67,84 @@
 		
 
 		
-						(if (and (ClickedOnObj Celie (event x?) (event y?)) 
-					(== (event claimed?) FALSE))
+						(if (ClickedOnObj Celie (event x?) (event y?)) 
+					
 					(event claimed: TRUE)
 					(switch theCursor	
 						
 					
 					(602 ;necklace_
-						(DoVerb {give necklace to celie})						
+						(DoVerb {deliver necklace to celie})						
 					)
 					(604 ;monocle
-						(DoVerb {give celie monocle})						
+						(DoVerb {deliver celie monocle})						
 					)
 					
 					(613 ;lantern_
-						(DoVerb {give celie lantern})						
+						(DoVerb {deliver celie lantern})						
 					)
 					(611 ;oilcan_
-						(DoVerb {give celie oilcan})						
+						(DoVerb {deliver celie oilcan})						
 					)
 					(626 ;rolling_pin_
-						(DoVerb {give celie pin})						
+						(DoVerb {deliver celie pin})						
 					)
 					(620 ;skeleton_key_
-						(DoVerb {give celie skeleton key})						
+						(DoVerb {deliver celie skeleton key})						
 					)
 					(627 ;poker_
-						(DoVerb {give celie poker})						
+						(DoVerb {deliver celie poker})						
 					)															
 					(607 ;crowbar_
-						(DoVerb {give celie crowbar})						
+						(DoVerb {deliver celie crowbar})						
 					)
 					(628 ;cigar_butt_
-						(DoVerb {give celie butt})						
+						(DoVerb {deliver celie butt})						
 					)
 					(625 ;broken_record_
-						(DoVerb {give celie broken record})						
+						(DoVerb {deliver celie broken record})						
 					)
 					(601 ;notebook___pencil_
-						(DoVerb {give celie notebook})						
+						(DoVerb {deliver celie notebook})						
 					)
 					(603 ;_7_crackers________
-						(DoVerb {give celie crackers})						
+						(DoVerb {deliver celie crackers})						
 					)
 					(605 ;soup_bone_
-						(DoVerb {give celie soup bone})						
+						(DoVerb {deliver celie soup bone})						
 					)
 					(606 ;valve_handle_
-						(DoVerb {give celie valve})						
+						(DoVerb {deliver celie valve})						
 					)
 					(618 ;bullet_
-						(DoVerb {give celie bullet})						
+						(DoVerb {deliver celie bullet})						
 					)
 					(617 ;derringer__
-						(DoVerb {give celie derringer})						
+						(DoVerb {deliver celie derringer})						
 					)
 					(614 ;matches_
-						(DoVerb {give celie matches})						
+						(DoVerb {deliver celie matches})						
 					)
 					(615 ;carrot_
-						(DoVerb {give celie carrot})						
+						(DoVerb {deliver celie carrot})						
 					)
 					(619 ;brass_key_
-						(DoVerb {give celie brass key})						
+						(DoVerb {deliver celie brass key})						
 					)
 					(616 ;diary_
-						(DoVerb {give celie diary})						
+						(DoVerb {deliver celie diary})						
 					)
 					(621 ;crank_
-						(DoVerb {give celie crank})						
+						(DoVerb {deliver celie crank})						
 					)
 					(612 ;cane_
-						(DoVerb {give celie cane})						
+						(DoVerb {deliver celie cane})						
 					)
 					(622 ;pouch_
-						(DoVerb {give celie pouch})						
+						(DoVerb {deliver celie pouch})						
 					)																																																																																
 					(630 ;handkerchief_
-						(DoVerb {give celie handkerchief})
+						(DoVerb {deliver celie handkerchief})
 					)
 											
 						

@@ -177,9 +177,10 @@
 							
 							(= temp7
 							(PrintSpecial
-								{Colonel or Rudy}
+;;;								{Colonel or Rudy}
 ;;;								#button {Shoot Colonel} 1
 ;;;								#button {Shoot Rudy} 2
+								{Coronel o Rudy}
 								#button {Disparar a Coronel} 1
 								#button {Disparar a Rudy} 2
 							)

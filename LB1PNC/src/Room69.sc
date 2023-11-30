@@ -35,7 +35,7 @@
 	
 	(method (init)
 		(super init:)
-		(ego get: 37); inventory blaze horse
+
 	
 		(addToPics
 			add: saddle trough bridle
@@ -97,6 +97,7 @@
 	
 	(method (doit &tmp temp0)
 		(if (FirstEntry)
+			(ego get: 37); inventory blaze horse
 			(Print 69 0)
 		)
 		(if (and local0 (& (ego onControl: origin) cBLACK) (not script))
@@ -269,13 +270,13 @@
 					(event claimed: TRUE)
 					(switch theCursor	
 						(612 ;cane
-							(DoVerb {get lantern cane})
+							(DoVerb {get lantern with cane})
 						)
 						(995
-							(DoVerb {get ignite}) 
+							(DoVerb {get lantern}) 
 						)
 						(998
-							(DoVerb {examine ignite}) 
+							(DoVerb {examine lantern}) 
 						)						
 						(else
 							(event claimed: FALSE)

@@ -550,21 +550,22 @@
 							)
 						)
 					)		
-						(if (ClickedOnObj Desk (event x?) (event y?)) 
-					(event claimed: TRUE)
-					(switch theCursor
-						(995
-								(DoVerb {open desk})	
-						)
-						(998
-							(DoVerb {examine desk})
-						)
-						(else
-								(event claimed: FALSE)
-							)
-						)
-					)		
-
+;;;						(if (and (ClickedOnObj Desk (event x?) (event y?)) ;bug with derringer.
+;;;								(== (event claimed?) FALSE))
+;;;					(event claimed: TRUE)
+;;;					(switch theCursor
+;;;						(995
+;;;								(DoVerb {open desk})	
+;;;						)
+;;;						(998
+;;;							(DoVerb {examine desk})
+;;;						)
+;;;						(else
+;;;								(event claimed: FALSE)
+;;;							)
+;;;						)
+;;;					)		
+;;;
 
 						(if (or (ClickedOnObj Window1 (event x?) (event y?)) 
 								(ClickedOnObj Window2 (event x?) (event y?)) )
@@ -976,6 +977,9 @@
 				(if (ClickedOnObj derringer (event x?) (event y?)) 
 					(event claimed: TRUE)
 					(switch theCursor
+						(998
+							(DoVerb {examine desk})
+						)
 						(995					
 																(= temp7
 								(PrintSpecial

@@ -1,5 +1,5 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-(script# 53) ;OK
+(script# 53) ;OK 246
 (include game.sh)
 (use Main)
 (use Intrface)
@@ -155,7 +155,8 @@
 					)
 				)		
 			
-							(if (ClickedOnPicView sofa (event x?) (event y?)) 
+					(if (and (ClickedOnPicView sofa (event x?) (event y?)) 
+							(== (event claimed?) FALSE))
 				(event claimed: TRUE)
 					(switch theCursor	
 						(998

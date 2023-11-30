@@ -66,8 +66,8 @@
 					(not (& (event modifiers?) emRIGHT_BUTTON))
 				)
 				
-							(if (ClickedOnObj Body (event x?) (event y?)) 
-					
+							(if (and (ClickedOnObj Body (event x?) (event y?)) 
+							(== (event claimed?) FALSE))
 					(event claimed: TRUE)
 					(switch theCursor
 						(998

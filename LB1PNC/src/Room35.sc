@@ -344,7 +344,7 @@
 						
 					)		
 					(998
-							(DoVerb {examine at caldron coffee})
+							(DoVerb {look cauldron})
 					)									
 					(else
 							(event claimed: FALSE)

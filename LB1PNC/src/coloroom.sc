@@ -555,16 +555,38 @@
 						(996 ;talk
 							(DoVerb {converse Colonel})
 						)
-						(998	
-							(DoVerb {Examine Colonel})
+						(998
+							(= temp7
+												(PrintSpecial
+;;;													{Colonel}
+;;;													#button {Examine} 1	
+;;;													#button {Examine cigar} 2														
+													{Coronel}
+													#button {Examinar} 1	
+													#button {Mirar cigarro} 2	
+)
+											)
+											(switch temp7
+												(1 
+													(DoVerb {examine colonel})
+												)
+												(2 
+													(DoVerb {examine butt})
+												
+												)		
+												(else
+						
+												(event claimed: FALSE)
+												)
+											)
+						
 						)
 						(995
 							(= temp7
 												(PrintSpecial
 													{Colonel}
 													#button {Mover} 1
-													#button {Mirar Cigarro} 2								
-													#button {Coger Cigarro} 3
+													#button {Coger Cigarro} 2
 													#button {Oler Cigarro} 3
 												)
 											)
@@ -572,13 +594,11 @@
 												(1 
 													(DoVerb {move wheelchair})
 												)
+	
 												(2 
-													(DoVerb {examine butt})
-												)		
-												(3 
 													(DoVerb {get butt})
 												)		
-												(4 
+												(3
 													(DoVerb {smell butt})
 												)		
 												(else

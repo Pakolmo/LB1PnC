@@ -339,7 +339,7 @@
 													#button {Abrir} 1
 													#button {Mirar detr*s} 2
 													#button {Romper} 3	
-													#button {reflejo} 4	
+													#button {Reflejo} 4	
 													#button {Mover} 5								
 
 												)

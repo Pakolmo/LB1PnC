@@ -114,7 +114,9 @@
 					)
 				)			
 		
-			(if (ClickedOnObj Boat (event x?) (event y?)) 
+			(if (and (ClickedOnObj Boat (event x?) (event y?)) 
+				(== (event claimed?) FALSE))
+				
 					(event claimed: TRUE)
 					(switch theCursor	
 						(995
@@ -593,6 +595,7 @@
 				(if (& (ego onControl: FALSE) cCYAN)
 					(if local1
 						(Print 61 21)
+						(DoVerb {examine in ethel}) ;yes
 					else
 						(Print 61 22)
 					)
@@ -602,7 +605,12 @@
 			)
 			((or (MousedOn self event shiftDown) (Said 'examine/boat'))
 				(event claimed: TRUE)
-				(Print 61 23)
+				(if local1
+					(DoVerb {examine ethel}) ;yes
+				
+				else
+					(Print 61 23)
+				)
 			)
 		)
 	)

@@ -83,8 +83,8 @@
 	
 
 		
-						(if (and (ClickedOnObj Celie (event x?) (event y?)) 
-					(== (event claimed?) FALSE))
+						(if (ClickedOnObj Celie (event x?) (event y?)) 
+					
 					(event claimed: TRUE)
 					(switch theCursor	
 						

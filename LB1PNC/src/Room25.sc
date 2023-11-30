@@ -241,7 +241,7 @@
 							(Print 25 2)
 						)
 						(604 ;monocle
-							(DoVerb {examine monocle bootprint})
+							(DoVerb {examine bootprint with monocle})
 						)	
 						(else
 							(event claimed: FALSE)
