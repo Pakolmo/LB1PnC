@@ -37,6 +37,7 @@
 (instance Dethe of Region
 	
 	(method (init)
+		(= BoatEthel 1)
 		(proc415_1 8)
 		(if (== curRoomNum 61)
 			(Body view: 331 posn: 42 125 setPri: 11 init:)
@@ -72,6 +73,7 @@
 						)	
 						(995
 							(DoVerb {examine in ethel})
+							(= BoatEthel 0)
 						)
 						(996
 							(DoVerb {converse ethel})

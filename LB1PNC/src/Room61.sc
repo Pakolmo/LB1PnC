@@ -115,8 +115,8 @@
 				)			
 		
 			(if (and (ClickedOnObj Boat (event x?) (event y?)) 
-				(== (event claimed?) FALSE))
-				
+				(== (event claimed?) FALSE)
+				(== BoatEthel 0) )
 					(event claimed: TRUE)
 					(switch theCursor	
 						(995

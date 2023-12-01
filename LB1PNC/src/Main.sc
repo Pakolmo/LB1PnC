@@ -574,6 +574,9 @@
 		opendoor=0 ;room31 doorclosed first time
 		opendoor2=0 ;room31 other armoire
 		desknew ;from Clarence desk room48.
+		BathClarence = 0 ;from Clarence 
+		BoatEthel = 0; from Death ethel
+		nomorebones = 0 ;no more bones to dog. room12 room35
 )
 (procedure (Say whom &tmp theView [buffer 500])
 	(if

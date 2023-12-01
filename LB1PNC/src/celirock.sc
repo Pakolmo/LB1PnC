@@ -74,77 +74,77 @@
 						
 					
 					(602 ;necklace_
-						(DoVerb {deliver necklace to celie})						
+						(DoVerb {show necklace to celie})						
 					)
 					(604 ;monocle
-						(DoVerb {deliver celie monocle})						
+						(DoVerb {show monocle to celie})						
 					)
 					
 					(613 ;lantern_
-						(DoVerb {deliver celie lantern})						
+						(DoVerb {show lantern to celie})						
 					)
 					(611 ;oilcan_
-						(DoVerb {deliver celie oilcan})						
+						(DoVerb {show oilcan to celie})						
 					)
 					(626 ;rolling_pin_
-						(DoVerb {deliver celie pin})						
+						(DoVerb {show pin to celie})						
 					)
 					(620 ;skeleton_key_
-						(DoVerb {deliver celie skeleton key})						
+						(DoVerb {show skeleton key to celie})						
 					)
 					(627 ;poker_
-						(DoVerb {deliver celie poker})						
+						(DoVerb {show poker to celie})						
 					)															
 					(607 ;crowbar_
-						(DoVerb {deliver celie crowbar})						
+						(DoVerb {show crowbar to celie})						
 					)
 					(628 ;cigar_butt_
-						(DoVerb {deliver celie butt})						
+						(DoVerb {show butt to celie})						
 					)
 					(625 ;broken_record_
-						(DoVerb {deliver celie broken record})						
+						(DoVerb {show broken record to celie})						
 					)
 					(601 ;notebook___pencil_
-						(DoVerb {deliver celie notebook})						
+						(DoVerb {show notebook to celie})						
 					)
 					(603 ;_7_crackers________
-						(DoVerb {deliver celie crackers})						
+						(DoVerb {show crackers to celie})						
 					)
 					(605 ;soup_bone_
-						(DoVerb {deliver celie soup bone})						
+						(DoVerb {show soup bone to celie})						
 					)
 					(606 ;valve_handle_
-						(DoVerb {deliver celie valve})						
+						(DoVerb {show valve to celie})						
 					)
 					(618 ;bullet_
-						(DoVerb {deliver celie bullet})						
+						(DoVerb {show bullet to celie})						
 					)
 					(617 ;derringer__
-						(DoVerb {deliver celie derringer})						
+						(DoVerb {show derringer to celie})						
 					)
 					(614 ;matches_
-						(DoVerb {deliver celie matches})						
+						(DoVerb {show matches to celie})						
 					)
 					(615 ;carrot_
-						(DoVerb {deliver celie carrot})						
+						(DoVerb {show carrot to celie})						
 					)
 					(619 ;brass_key_
-						(DoVerb {deliver celie brass key})						
+						(DoVerb {show brass key to celie})						
 					)
 					(616 ;diary_
-						(DoVerb {deliver celie diary})						
+						(DoVerb {show diary to celie})						
 					)
 					(621 ;crank_
-						(DoVerb {deliver celie crank})						
+						(DoVerb {show crank to celie})						
 					)
 					(612 ;cane_
-						(DoVerb {deliver celie cane})						
+						(DoVerb {show cane to celie})						
 					)
 					(622 ;pouch_
-						(DoVerb {deliver celie pouch})						
+						(DoVerb {show pouch to celie})						
 					)																																																																																
 					(630 ;handkerchief_
-						(DoVerb {deliver celie handkerchief})
+						(DoVerb {show handkerchief to celie})
 					)
 											
 						

@@ -725,12 +725,16 @@
 						(Said 'get/bone')
 					)
 				)
-				(= itemIcon 605) ;clear menu inv item pic 
-				(theGame setCursor: 605 (HaveMouse)) ;clear inv cursor, switch to bone
-				(Print 35 18)
+;;;				(= itemIcon 605) ;clear menu inv item pic 
+;;;				(theGame setCursor: 605 (HaveMouse)) ;clear inv cursor, switch to bone
+;;;				(Print 35 18)
+				(Print {Beauregard sigue jugando con su hueso.})
 			)
 			((Said 'get/bone')
-				(cond 
+				(cond
+					((== nomorebones 1)
+						(Print {Ya no necesitas m*s huesos.})	
+					)
 					((ego has: iSoupBone)
 						(AlreadyTook)
 					)
@@ -738,7 +742,15 @@
 						(DontHave)
 					)
 					(else
-						(Print 35 19)
+					
+							
+							(= itemIcon 605) ;clear menu inv item pic 
+							(theGame setCursor: 605 (HaveMouse)) ;clear inv cursor, switch to bone
+	;;;						(Print 35 19)
+							(= gotItem TRUE)
+							(ego get: iSoupBone)
+							(Bone dispose:)
+							(Print {Vuelves a coger otro hueso.}) 
 					)
 				)
 			)

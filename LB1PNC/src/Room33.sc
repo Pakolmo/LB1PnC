@@ -282,8 +282,8 @@
 						
 													{Reloj}
 													#button {Abrir} 1
-													#button {mover} 2
-													#button {cerrar} 3	
+													#button {Mover} 2
+													#button {Cerrar} 3	
 
 												)
 											)

@@ -675,6 +675,7 @@
 						(Print 12 8)
 						(= gotItem TRUE)
 						(ego get: iNecklace)
+						(= nomorebones 1)
 					else
 						(Print 12 9)
 					)

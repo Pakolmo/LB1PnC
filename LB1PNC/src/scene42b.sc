@@ -123,7 +123,8 @@
 		(switch (= state newState)
 			(0
 				(= state -1)
-				(if (^= local3 $0001)
+;;;				(if (^= local3 $0001)
+				(if (= local3 (^ local3 $0001))
 					(coloEyes hide:)
 					(= seconds (Random 2 3))
 				else

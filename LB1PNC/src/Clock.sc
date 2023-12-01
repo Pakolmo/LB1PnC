@@ -149,7 +149,7 @@
 			)
 			(4
 				(clockFace hide: dispose: delete:)
-				(User canControl: TRUE)
+;;;				(User canControl: TRUE)
 				(client setScript: 0)
 			)
 		)

@@ -73,8 +73,9 @@
 
 					(605 ;soup_bone_
 ;;;						(Print {You think that is not the best moment.}) ;
-						(Print {Posiblemente no sea el mejor momento.})
-;;;						(DoVerb {give bone to beauregard})	;Deadend.					
+;;;						(Print {Posiblemente no sea el mejor momento.})
+						(DoVerb {give bone to beauregard})	;Fixed, not deadend.
+				
 					)
 
 							(994  ;ear
@@ -568,6 +569,8 @@
 						)
 						(if (ego has: iSoupBone)
 							(if (< (ego distanceTo: Rover) 60)
+								(= itemIcon 601) ;clear menu inv item pic 
+								(theGame setCursor: 999 (HaveMouse)) ;clear inv cursor, switch to walk
 								(self setScript: giveBone)
 							else
 								(NotClose)

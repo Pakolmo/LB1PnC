@@ -212,7 +212,8 @@
 		
 						
 				(if (and (ClickedOnObj bathtub (event x?) (event y?)) 
-					(== (event claimed?) FALSE))
+					(== (event claimed?) FALSE)
+					(== BathClarence 0) )
 					(event claimed: TRUE)
 					(switch theCursor	
 						(604 ;monocle
@@ -229,7 +230,28 @@
 						)
 					)
 				)	
-		
+				(if (and (ClickedOnObj bathtub (event x?) (event y?)) 
+					(== (event claimed?) FALSE)
+					(== BathClarence 1) )
+					(event claimed: TRUE)
+					(switch theCursor	
+						(998
+							(DoVerb {examine clarence})
+						)	
+						(994
+							(DoVerb {hear clarence})
+						)
+						(995
+							(DoVerb {examine in clarence})
+						)
+						(996
+							(DoVerb {converse clarence})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)			
 				(if (ClickedOnObj Cabinet (event x?) (event y?)) 
 					
 					(event claimed: TRUE)

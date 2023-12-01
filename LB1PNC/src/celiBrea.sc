@@ -275,7 +275,7 @@
 								(DoVerb {ask lillian about gertie})
 							)
 							(2
-								(HandsOff)
+								
 								(DoVerb {tell lillian about gertie})
 							)
 						(else
@@ -661,7 +661,8 @@
 					(event claimed: TRUE)
 					(switch theCursor	
 					(602 ;necklace_
-						(DoVerb {deliver necklace to celie})						
+;;;						(DoVerb {deliver necklace to celie})	
+						(Print {Muy buena idea. Pero mejor busca otro momento.})					
 					)						
 	
 
@@ -1549,8 +1550,9 @@
 				(User canControl: FALSE)
 				(= theTalker talkLILLIAN)
 				(Say 1 236 27)
+				(User canControl: FALSE)
 				(if (ego inRect: 180 145 200 150)
-					(User canControl: FALSE)
+;;;					(User canControl: FALSE)
 					(ego setMotion: MoveTo 212 160 self)
 				else
 					(= cycles 1)
@@ -1568,8 +1570,9 @@
 					setCycle: EndLoop self
 				)
 				(LHead hide: dispose:)
+				(User canControl: FALSE)
 				(if (ego inRect: 0 120 24 125)
-					(User canControl: FALSE)
+					
 					(ego setMotion: MoveTo (+ (ego x?) 40) (ego y?))
 				)
 			)
@@ -1736,6 +1739,8 @@
 						(Say 1 236 40)
 						(ego put: iNecklace)
 						(= global135 1)
+						(= itemIcon 601) ;clear menu inv item pic 
+						(theGame setCursor: 999 (HaveMouse)) ;clear inv cursor, switch to walk
 					else
 						(NotClose)
 					)

@@ -42,6 +42,7 @@
 			(Bclr 35)
 		)
 		(Body init:)
+		(= BathClarence 1)
 		(= global195 64)
 		(if (< global201 200)
 			(= global201 200)

@@ -647,7 +647,7 @@
 				(cls)
 				(Fifi view: 460 setPri: -1 setCycle: Walk ignoreActors: 0)
 				(Rudy loop: 2 cycleSpeed: 0 setCycle: Forward)
-				(Print 261 1 67 90 25 33 (= seconds 3) 70 80 83 88)
+				(Print 261 1 67 90 25 33 (= seconds 4) 70 80 83 88)
 
 
 			)

@@ -757,7 +757,7 @@
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
-				(HandsOff)
+;;;				(HandsOff)
 				(= theTalker talkLILLIAN)
 				(Say 1 264 13)
 				(if
@@ -832,7 +832,7 @@
 					setScript: lilActions
 				)
 				(DisposeScript AVOIDER)
-				(HandsOn)
+;;;				(HandsOn)
 				(client setScript: 0)
 			)
 		)

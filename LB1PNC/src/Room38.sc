@@ -241,39 +241,39 @@
 					(== (event type?) evMOUSEBUTTON)
 					(not (& (event modifiers?) emRIGHT_BUTTON))
 				)
-				(if (ClickedOnPicView bar (event x?) (event y?)) 
-					(event claimed: TRUE)
-					(switch theCursor	
-						(998	
-							
-							
-							(= temp7
-							(PrintSpecial
-								{Bar}
-;;;								#button {Examine} 1
-;;;								#button {Look} 2
-								#button {Examinar} 1
-								#button {Mirar} 2
-							)
-							)
-						
-						(switch temp7
-							(1
-							    (DoVerb {examine in bar})
-							)
-							(2
-								(DoVerb {examine bar})
-							)
-							(else
-								(event claimed: FALSE)
-							)
-										
-						)
-						)(else
-								(event claimed: FALSE)
-							)
-					)
-				)
+;;;				(if (ClickedOnPicView bar (event x?) (event y?)) ;bug with glass.
+;;;					(event claimed: TRUE)
+;;;					(switch theCursor	
+;;;						(998	
+;;;							
+;;;							
+;;;							(= temp7
+;;;							(PrintSpecial
+;;;								{Bar}
+;;;;;;								#button {Examine} 1
+;;;;;;								#button {Look} 2
+;;;								#button {Examinar} 1
+;;;								#button {Mirar} 2
+;;;							)
+;;;							)
+;;;						
+;;;						(switch temp7
+;;;							(1
+;;;							    (DoVerb {examine in bar})
+;;;							)
+;;;							(2
+;;;								(DoVerb {examine bar})
+;;;							)
+;;;							(else
+;;;								(event claimed: FALSE)
+;;;							)
+;;;										
+;;;						)
+;;;						)(else
+;;;								(event claimed: FALSE)
+;;;							)
+;;;					)
+;;;				)
 				(if (ClickedOnPicView table3 (event x?) (event y?)) 
 					(event claimed: TRUE)
 					(switch theCursor	
@@ -479,9 +479,9 @@
 					(event claimed: TRUE)
 					(switch theCursor
 						(604 ; Monocle
-							(DoVerb {examine glass wiht monocle})
+							(DoVerb {examine glass with monocle})
 						)
-						(995
+						(998
 						(= temp7
 							(PrintSpecial
 ;;;								{Glass}
@@ -1230,7 +1230,7 @@
 		view 138
 		loop 1
 		cel 4
-		priority 6
+		priority 8 ;6
 	)
 	
 	(method (handleEvent event)
