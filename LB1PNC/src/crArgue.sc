@@ -1013,21 +1013,8 @@
 							(DoVerb {converse Clarence})
 						)	
 						(998
-							(cond 
-								( (not (& global207 $0040)) 
-									(event claimed: TRUE)
-									(DoLook {clarence})
-								)
-								(
-									
-										(& global207 $0040)
-										
-									
-									(event claimed: TRUE)
-									(Print 259 17)
-								)
-							
-						)
+								(event claimed: TRUE)
+								(Print 259 17)
 						)
 						(else
 							(event claimed: FALSE)
@@ -1305,7 +1292,8 @@
 					setCycle: Walk
 					cycleSpeed: 0
 					setPri: -1
-					illegalBits: cWHITE
+;;;					illegalBits: cWHITE
+					illegalBits: -32768
 					setAvoider: ((Avoider new:) offScreenOK: TRUE)
 					setMotion: MoveTo -20 96 self
 				)

@@ -757,7 +757,7 @@
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
-;;;				(HandsOff)
+				(HandsOff)
 				(= theTalker talkLILLIAN)
 				(Say 1 264 13)
 				(if
@@ -821,6 +821,7 @@
 				(Lillian setMotion: MoveTo 262 120 self)
 			)
 			(10
+				(HandsOn)
 				(lHead show: setPri: 8 setScript: headActions)
 				(Lillian
 					view: 516
@@ -833,7 +834,7 @@
 				)
 				(DisposeScript AVOIDER)
 ;;;				(HandsOn)
-				(client setScript: 0)
+;;;				(client setScript: 0) ;fixed bug
 			)
 		)
 	)

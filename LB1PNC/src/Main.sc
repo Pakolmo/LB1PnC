@@ -577,6 +577,7 @@
 		BathClarence = 0 ;from Clarence 
 		BoatEthel = 0; from Death ethel
 		nomorebones = 0 ;no more bones to dog. room12 room35
+		gloriaMuerta = 0 ;
 )
 (procedure (Say whom &tmp theView [buffer 500])
 	(if

@@ -630,7 +630,8 @@
 		
 		
 			(if (and (ClickedOnObj Gazebo (event x?) (event y?)) 
-					(== (event claimed?) FALSE))
+					(== (event claimed?) FALSE)
+					(== gloriaMuerta 0))
 					(event claimed: TRUE)
 					(switch theCursor
 						(998		

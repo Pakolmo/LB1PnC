@@ -560,6 +560,16 @@
 
 
 					)
+					(if (== theCursor 998) ;
+
+						(ego setMotion: 0)
+						(User mapKeyToDir: FALSE)
+						(= nearLadder 1)
+
+							(= moving 1)
+
+
+					)					
 					(if (== theCursor 995) ;
 
 						(ego setMotion: 0)

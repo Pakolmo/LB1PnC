@@ -12,6 +12,9 @@
 (public
 	Dclar 0
 )
+(local
+	temp7
+)
 (synonyms
 	(attorney body fellow)
 )
@@ -78,7 +81,30 @@
 							(DoVerb {hear clarence})
 						)
 						(995
-							(DoVerb {examine in clarence})
+							(DoVerb {search clarence}) ;yes
+							(= temp7
+												(Print
+;;;													{Dagger}
+;;;													#button {Examine} 1
+;;;													#button {Get} 2	
+													{Daga}
+													#button {Examinar} 1
+													#button {Coger} 2								
+													
+												)
+											)
+											(switch temp7
+												(1 ;
+													(DoVerb {examine dagger})
+												)
+												(2	
+													(DoVerb {get dagger})							
+												)
+												(else
+														(event claimed: FALSE)
+												)
+											)
+
 						)
 						(996
 							(DoVerb {converse clarence})

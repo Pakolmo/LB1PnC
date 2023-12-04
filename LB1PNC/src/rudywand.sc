@@ -587,20 +587,9 @@
 							(DoVerb {converse rudolph})
 						)	
 						(998
-							(cond
-								((not (& global207 $0100)) 
-								(event claimed: TRUE)
+							
 								(DoLook {rudy})
-							)
-							(
-								
-									(& global207 $0100)
-									
-								
-								(event claimed: TRUE)
-								(Print 259 17)
-							)			
-							)
+							
 						)
 						(else
 							(event claimed: FALSE)

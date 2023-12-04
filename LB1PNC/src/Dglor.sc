@@ -40,6 +40,7 @@
 ;;;		(|= deadGuests deadGLORIA)
 		(= deadGuests (| deadGuests $0004))
 		(= global195 4)
+		(= gloriaMuerta 1)
 		(self setScript: showCloseup)
 	)
 	
@@ -62,9 +63,11 @@
 					(switch theCursor
 						(998
 							(DoVerb {examine gloria})
+							
 						)	
 						(995
-							(DoVerb {examine in gloria})
+							(DoVerb {search gloria})
+							
 						)
 						(996
 							(DoVerb {converse gloria})
@@ -206,6 +209,7 @@
 					setCycle: Walk
 				)
 				(HandsOn)
+				(= gloriaMuerta 0) ;return the clicks on gazebo
 				(client setScript: 0)
 			)
 		)

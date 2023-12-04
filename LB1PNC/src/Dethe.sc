@@ -72,7 +72,7 @@
 							(DoVerb {examine ethel})
 						)	
 						(995
-							(DoVerb {examine in ethel})
+							(DoVerb {search ethel})
 							(= BoatEthel 0)
 						)
 						(996

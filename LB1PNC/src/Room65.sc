@@ -1086,8 +1086,8 @@
 
 (instance shaft of Prop
 	(properties
-		y 106 ;95
-		x 244 ;243
+		y 95
+		x 243
 		view 165
 		loop 2
 		cel 3

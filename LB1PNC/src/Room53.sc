@@ -405,6 +405,7 @@
 				)
 				((== currentAct 4)
 					(Print 53 13)
+					(DoVerb {look flower})
 				)
 				(else
 					(Print 53 14)

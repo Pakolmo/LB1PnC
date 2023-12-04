@@ -173,13 +173,13 @@
 			
 			
 ;;;					(if (and (ClickedOnObj Bed (event x?) (event y?)) 
-					(if (and (ClickedInRect 178 223 75 98 event)
+					(if (and (ClickedInRect 178 223 90 98 event)
 								(== (event claimed?) FALSE))
 					(event claimed: TRUE)
 					(switch theCursor
 						(995
 													(= temp7
-												(Print
+												(PrintSpecial
 ;;;													{Bed}
 ;;;													#button {Open} 1
 ;;;													#button {Close} 2								
@@ -215,13 +215,13 @@
 						)
 					)
 					)
-					(if (and (ClickedInRect 190 224 22 85 event) ;bed2 opened
+					(if (and (ClickedInRect 190 224 22 69 event) ;bed2 opened
 								(== (event claimed?) FALSE))
 					(event claimed: TRUE)
 					(switch theCursor
 						(995
 													(= temp7
-												(Print
+												(PrintSpecial
 ;;;													{Bed}
 ;;;													#button {Open} 1
 ;;;													#button {Close} 2								

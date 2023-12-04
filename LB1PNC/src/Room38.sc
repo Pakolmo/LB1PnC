@@ -37,9 +37,10 @@
 		(super init:)
 		(= west 37)
 		(= local0 0)
+		(ego get: 36) ;we meet the parrot.
 		(= firstTime (FirstEntry))
 		(if (>= currentAct 5)
-			(addToPics add: glass)
+			(addToPics add: glass )
 			(self setFeatures: glass)
 			(Load VIEW 638)
 		)
@@ -475,7 +476,7 @@
 					)
 				)	
 				
-				(if (ClickedOnPicView glass (event x?) (event y?)) 	
+				(if (ClickedOnObj glass (event x?) (event y?)) 	
 					(event claimed: TRUE)
 					(switch theCursor
 						(604 ; Monocle
@@ -1222,7 +1223,7 @@
 	)
 )
 
-(instance glass of RPicView
+(instance glass of Prop ;RPicView
 	(properties
 		y 102
 		x 167
@@ -1230,7 +1231,7 @@
 		view 138
 		loop 1
 		cel 4
-		priority 8 ;6
+		priority 6 ;6
 	)
 	
 	(method (handleEvent event)

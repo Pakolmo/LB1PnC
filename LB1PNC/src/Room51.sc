@@ -32,6 +32,7 @@
 	)
 	
 	(method (init)
+		(curRoom setRegions: 950)
 		(= horizon 0)
 		(= west 55)
 		(= global189 51)
@@ -110,6 +111,20 @@
 				(== (event type?) evMOUSEBUTTON)
 				(not (& (event modifiers?) emRIGHT_BUTTON))
 			)
+
+					(if (ClickedInRect 0 10 152 172 event) ;exit room left
+					(event claimed: TRUE)
+					(switch theCursor
+						(999
+
+							(ego setMotion: MoveTo (- (ego x?) 315) (ego y?) )
+;;;							
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					 )
+				)
 			
 ;;;			(switch (event type:)
 ;;;				(evMOUSEBUTTON

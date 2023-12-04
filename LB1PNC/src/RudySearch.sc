@@ -570,23 +570,11 @@
 							(DoVerb {converse rudolph})
 						)	
 						(998
-							(cond
-								((not (& global207 $0100)) 
-									(event claimed: TRUE)
-;;;									(|= global207 $0100)
-									(= global207 (| global207 $0100))
-									(Say 0 385 0)
-							)
-							(
-								
-									(& global207 $0100)
-									
-								
 								(event claimed: TRUE)
 								(Print 385 1)
-							)			
-							)
 						)
+
+						
 						(else
 							(event claimed: FALSE)
 						)

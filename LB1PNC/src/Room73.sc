@@ -201,8 +201,8 @@
 						(998 ;look
 							(DoVerb {examine toilet})
 						)
-						(995 ;examine
-							(DoVerb {examine in toilet})
+						(995 ;use
+							(DoVerb {use toilet})
 						)
 						(else
 							(event claimed: FALSE)

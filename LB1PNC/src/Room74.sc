@@ -584,7 +584,7 @@
 ;;;													{Decanter}
 ;;;													#button {Examine in} 1
 ;;;													#button {Examine} 2	
-													{Vaso}
+													{Decantador}
 													#button {Coger} 1
 													#button {Mirar dentro} 2								
 													

@@ -233,8 +233,9 @@
 		
 		
 			
-			(if (ClickedOnObj Bucket (event x?) (event y?)) 
-					
+			(if (and (ClickedOnObj Bucket (event x?) (event y?)) 
+					(== (event claimed?) FALSE)
+					(== gloriaMuerta 0))
 					(event claimed: TRUE)
 					(switch theCursor
 						(998	

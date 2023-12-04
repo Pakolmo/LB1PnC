@@ -67,7 +67,7 @@
 							(Bset 51)
 						)	
 						(995
-							(DoVerb {examine in gertie})
+							(DoVerb {search gertie})
 							(Bset 51) ;Gertie death
 						)
 						(996

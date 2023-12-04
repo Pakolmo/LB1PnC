@@ -8,6 +8,7 @@
 (use Game)
 (use System)
 
+
 (public
 	tunnelReg 0
 )
@@ -18,6 +19,7 @@
 	
 	(method (init)
 		(super init:)
+		
 		(if (!= curRoomNum 52)
 			(myMusic number: 61 loop: -1 play:)
 		)

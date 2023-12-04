@@ -207,8 +207,22 @@
 					(== (event type?) evMOUSEBUTTON)
 					(not (& (event modifiers?) emRIGHT_BUTTON))
 				)
-				(if (or (ClickedOnObj chair1 (event x?) (event y?)) 
-						(ClickedOnObj chair2 (event x?) (event y?)) 
+				
+				(if (ClickedOnObj chair1 (event x?) (event y?)) 
+						
+						(event claimed: TRUE)
+					(switch theCursor	
+						(998
+							(event claimed: TRUE)
+							(DoLook {chair})
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+				
+				(if (or (ClickedOnObj chair2 (event x?) (event y?)) 
 						(ClickedOnObj chair3 (event x?) (event y?)) 
 						(ClickedOnObj chair4 (event x?) (event y?)) 
 						(ClickedOnObj chair5 (event x?) (event y?)) 

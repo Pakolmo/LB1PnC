@@ -241,18 +241,19 @@
 					(not (& (event modifiers?) emRIGHT_BUTTON))
 				)
 	
-			(if (and (ClickedOnObj marysCover (event x?) (event y?))  ;???
-					(& (ego onControl: origin) ctlNAVY)	)
+			(if (ClickedOnObj marysCover (event x?) (event y?))  ;???
+;;;					(& (ego onControl: origin) ctlNAVY)	)
+
 					(event claimed: TRUE)
 					(switch theCursor	
 					(612 ;cane
-						(DoVerb {pry vault with cane})
+						(DoVerb {open vault with cane})
 					)
 					(607 ;crowbar_
-						(DoVerb {pry vault with crowbar})						
+						(DoVerb {open vault with crowbar})						
 					)
 					(627 ;poker
-						(DoVerb {pry vault with poker})						
+						(DoVerb {open vault with poker})						
 					)
 						(995
 							(DoVerb {examine frances}) 
@@ -266,20 +267,21 @@
 						
 						)
 					)
-				)			
+				 )
+							
 		
-			(if (and (ClickedOnObj rubysCover (event x?) (event y?)) 
-					(& (ego onControl: origin) ctlGREEN)	)
+			(if (ClickedOnObj rubysCover (event x?) (event y?)) 
+;;;					(& (ego onControl: origin) ctlTEAL)	)
 					(event claimed: TRUE)
 					(switch theCursor
 						(612 ;cane
-						(DoVerb {pry vault with cane})
+						(DoVerb {open vault with cane})
 					)
 					(607 ;crowbar_
-						(DoVerb {pry vault with crowbar})						
+						(DoVerb {open vault with crowbar})						
 					)
 					(627 ;poker
-						(DoVerb {pry vault with poker})						
+						(DoVerb {open vault with poker})						
 					)				(995
 							(DoVerb {examine ruby}) 
 						)							
@@ -292,20 +294,22 @@
 							
 						)
 					)
-				)		
+
+				 )	
+		 	
 		
-			(if (and (ClickedOnObj tomsCover (event x?) (event y?)) 
-					(& (ego onControl: origin) ctlTEAL)	)
+			(if (ClickedOnObj tomsCover (event x?) (event y?)) 
+;;;					(& (ego onControl: origin) ctlTEAL)	)
 					(event claimed: TRUE)
 					(switch theCursor
 					(612 ;cane
-						(DoVerb {pry vault with cane})
+						(DoVerb {open vault with cane})
 					)
 					(607 ;crowbar_
-						(DoVerb {pry vault with crowbar})						
+						(DoVerb {open vault with crowbar})						
 					)
 					(627 ;poker
-						(DoVerb {pry vault with poker})						
+						(DoVerb {open vault with poker})						
 					)							
 						(995
 							(DoVerb {examine crouton}) 
@@ -319,19 +323,21 @@
 							
 						)
 					)
-				)		
-			(if (and (ClickedOnObj claudesCover (event x?) (event y?)) 
-					(& (ego onControl: origin) ctlMAROON)	)
+
+				 )	
+							 	
+			(if (ClickedOnObj claudesCover (event x?) (event y?)) 
+;;;					(& (ego onControl: origin) ctlMAROON)	)
 					(event claimed: TRUE)
 					(switch theCursor	
 					(612 ;cane
-						(DoVerb {pry vault with cane})
+						(DoVerb {open vault with cane})
 					)
 					(607 ;crowbar_
-						(DoVerb {pry vault with crowbar})						
+						(DoVerb {open vault with crowbar})						
 					)
 					(627 ;poker
-						(DoVerb {pry vault with poker})						
+						(DoVerb {open vault with poker})						
 					)						
 						(995
 							(DoVerb {examine claude}) 
@@ -345,7 +351,12 @@
 							
 						)
 					)
-				)				
+				
+
+				 )		
+		
+
+				 				 		
 			(if (ClickedOnObj pouch (event x?) (event y?)) 
 					
 					(event claimed: TRUE)
@@ -639,29 +650,29 @@
 									
 									
 												
-			(if (& (ego onControl: origin) cRED)	
-				(event claimed: TRUE)
-					(switch theCursor
-						(995
-							(NotClose)
-						)	
-						(998
-							(NotClose)
-						)									
-						(607
-							(NotClose)
-						)
-						(612
-							(NotClose)
-						)												
-						(627
-							(NotClose)
-						)
-						(else
-							(event claimed: FALSE)
-						)
-					)
-				)	
+;;;			(if (& (ego onControl: origin) cRED)	
+;;;				(event claimed: TRUE)
+;;;					(switch theCursor
+;;;						(995
+;;;							(NotClose)
+;;;						)	
+;;;						(998
+;;;							(NotClose)
+;;;						)									
+;;;						(607
+;;;							(NotClose)
+;;;						)
+;;;						(612
+;;;							(NotClose)
+;;;						)												
+;;;						(627
+;;;							(NotClose)
+;;;						)
+;;;						(else
+;;;							(event claimed: FALSE)
+;;;						)
+;;;					)
+;;;				)	
 														
 			)
 						)															
@@ -722,7 +733,7 @@
 						(if (& (ego onControl: origin) thisControl)
 							(= temp0 2)
 							(if theInvItem
-								(if (not haveInvItem) (return))
+;;;								(if (not haveInvItem) (return))
 								(= temp0 (!= whichItem iCrowbar))
 							)
 							(if (Said 'examine>')

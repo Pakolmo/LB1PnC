@@ -123,6 +123,8 @@
 	
 	(method (init)
 		(super init:)
+		(User mapKeyToDir: FALSE)
+		(User canControl: TRUE)
 		(Load FONT 4)
 		(LoadMany PICTURE 182 282 382)
 		(LoadMany VIEW 52 182 301 308 314 380 383 385 395)

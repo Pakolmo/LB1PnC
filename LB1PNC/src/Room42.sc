@@ -9,7 +9,7 @@
 (use Game)
 (use Actor)
 (use System)
-
+(use User)
 
 (public
 	Room42 0
@@ -213,7 +213,7 @@
 			(if (and (ClickedOnPicView newPV_2 (event x?) (event y?))
 				(== global111 42)
 				(if (& global109 $0010)))
-				
+							(HandsOn)
 
 					(event claimed: TRUE)
 
@@ -255,10 +255,10 @@
 									{ }
 									#button {Examinar Control} 1
 									#button {Examinar Agujero} 2	
-									#button {Examinar Eje} 3
+
 ;;;									#button {Examine Control} 1
 ;;;									#button {Examine Keyhole} 2	
-;;;									#button {Examine Shaft} 3							
+						
 								)
 							)
 							(switch temp7
@@ -268,37 +268,34 @@
 								(2
 									(DoVerb {examine keyhole})
 								)
-								(3
-									(DoVerb {examine shaft})
-								)						
 								(else
 									(event claimed: FALSE)
 								)
 							)
 						)
-						(999	
-							(= temp7
-								(PrintSpecial
-									{Ascensor}
-									#button {Entrar} 1
-									#button {Salir} 2
-;;;									{Elevator}
-;;;									#button {Enter} 1
-;;;									#button {Exit} 2							
-								)
-							)
-							(switch temp7
-								(1
-								    (DoVerb {open elevator})
-								)
-								(2
-									(DoVerb {close elevator})
-								)
-								(else
-									(event claimed: FALSE)
-								)
-							)
-						)
+;;;						(999	
+;;;							(= temp7
+;;;								(PrintSpecial
+;;;									{Ascensor}
+;;;									#button {Entrar} 1
+;;;									#button {Salir} 2
+;;;;;;									{Elevator}
+;;;;;;									#button {Enter} 1
+;;;;;;									#button {Exit} 2							
+;;;								)
+;;;							)
+;;;							(switch temp7
+;;;								(1
+;;;								    (DoVerb {open elevator})
+;;;								)
+;;;								(2
+;;;									(DoVerb {close elevator})
+;;;								)
+;;;								(else
+;;;									(event claimed: FALSE)
+;;;								)
+;;;							)
+;;;						)
 						(995
 							(= temp7
 								(PrintSpecial
@@ -334,6 +331,7 @@
 						)
 						(else
 							(event claimed: FALSE)
+
 						)
 					)
 				)
@@ -524,9 +522,12 @@
 						(995
 							(= temp7
 								(Print
-									{Bag}
-									#button {Get} 1
-									#button {Open} 2								
+;;;									{Bag}
+;;;									#button {Get} 1
+;;;									#button {Open} 2
+									{Malet-n}
+									#button {Coger} 1
+									#button {Abrir} 2																	
 								)
 							)
 							(switch temp7
@@ -541,9 +542,12 @@
 						(998
 							(= temp7
 								(Print
-									{Bag}
-									#button {look} 1
-									#button {examine} 2								
+;;;									{Bag}
+;;;									#button {Look} 1
+;;;									#button {Examine} 2	
+									{Malet-n}
+									#button {Mirar} 1
+									#button {Examinar} 2								
 								)
 							)
 							(switch temp7

@@ -90,12 +90,14 @@
 		(= global110 -1)
 		(switch curRoomNum
 			(32
+				
 				(= gateStMask 1)
 				(= upRoomNo 42)
 				(= downRoomNo -1)
 				(= ascensor 32)
 			)
 			(42
+				
 				(= gateStMask 2)
 				(= elevY (= gateY 126))
 				(= upRoomNo 75)
@@ -103,6 +105,7 @@
 				(= ascensor 42)
 			)
 			(75
+				
 				(= gateStMask 4)
 				(= gateX 39)
 				(= gateY 112)

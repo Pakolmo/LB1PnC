@@ -254,7 +254,7 @@
 				(if (and (ClickedOnPicView elevGate (event x?) (event y?))
 						(== global111 32)
 						(& global109 $0010))
-						
+ 						(HandsOn)
 				(event claimed: TRUE)
 
 					(switch theCursor
@@ -374,6 +374,7 @@
 						)
 						(else
 							(event claimed: FALSE)
+							
 						)
 					)
 				)

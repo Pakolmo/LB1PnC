@@ -25,13 +25,13 @@
 	(method (init)
 		(= state (= signal 0))
 		(sounds add: self)
-		(DoSound 0 self) ;InitSound/sndINIT
+		(DoSound sndINIT self) ;InitSound/sndINIT
 	)
 	
 	(method (dispose param1)
 		(if (and argc (not param1)) (= client 0))
 		(sounds delete: self)
-		(if handle (DoSound 3 handle) (= handle 0)) ;KillSound/sndDISPOSE
+		(if handle (DoSound sndDISPOSE handle) (= handle 0)) ;KillSound/sndDISPOSE
 		(super dispose:)
 	)
 	
@@ -40,7 +40,7 @@
 		(if (not loop) (= loop 1))
 		(self init:)
 		(= client (if argc param1 else 0))
-		(DoSound 1 self) ;PlaySound/sndPLAY
+		(DoSound sndPLAY self) ;PlaySound/sndPLAY
 	)
 	
 	(method (playMaybe)
@@ -50,7 +50,7 @@
 	
 	(method (stop param1)
 		(if (and argc (not param1)) (= client 0))
-		(if handle (DoSound 5 handle)) ;StopSound/sndSTOP
+		(if handle (DoSound sndSTOP handle)) ;StopSound/sndSTOP
 	)
 	
 	(method (check)
@@ -62,11 +62,11 @@
 	)
 	
 	(method (pause param1)
-		(DoSound 6 param1) ;PauseSound/sndPAUSE
+		(DoSound sndPAUSE param1) ;PauseSound/sndPAUSE
 	)
 	
 	(method (changeState)
-		(DoSound 9 self) ;ChangeSndState/sndUPDATE
+		(DoSound sndUPDATE self) ;ChangeSndState/sndUPDATE
 	)
 	
 	(method (clean param1)
@@ -77,6 +77,6 @@
 	
 	(method (fade param1)
 		(if (and argc (not param1)) (= client 0))
-		(DoSound 10 handle) ;FadeSound/sndFADE
+		(DoSound sndFADE handle) ;FadeSound/sndFADE
 	)
 )

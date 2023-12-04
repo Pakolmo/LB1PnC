@@ -978,7 +978,33 @@
 					(event claimed: TRUE)
 					(switch theCursor
 						(998
-							(DoVerb {examine desk})
+							
+							(= temp7
+								(PrintSpecial
+;;;									{ }
+;;;									#button {Break case} 1
+;;;									#button {get derringer} 2
+
+									{ }
+									#button {Examinar derringer} 1
+									#button {Examinar c{pula} 2											
+
+								)
+							)
+							(switch temp7
+								(1 		
+									(DoVerb {examine derringer})
+								)
+								(2
+									(DoVerb {look case})
+							
+								)
+															
+								(else
+									(event claimed: FALSE)
+								)
+							)
+						
 						)
 						(995					
 																(= temp7
@@ -1985,7 +2011,7 @@
 			(0
 ;;;				(HandsOff)
 ;;;				(User mapKeyToDir: TRUE)
-				(HandsOn)
+				(HandsOff)
 				(= cycles 3)
 			)
 			(1
@@ -1999,6 +2025,7 @@
 					(User canInput: TRUE)
 				)
 				(User canControl: TRUE)
+				(HandsOn)
 				(Bdoor stopUpd:)
 				(Fdoor stopUpd:)
 				(client setScript: 0)

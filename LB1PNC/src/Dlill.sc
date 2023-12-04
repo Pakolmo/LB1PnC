@@ -138,13 +138,13 @@
 									
 								(= temp7
 												(PrintSpecial
-;;;													{Lilian}
+;;;													{Lillian}
 ;;;													#button {Search} 1
 
 
 ;;;													#button {Examine in Cape} 2		
 ;;;													#button {Examine insignia} 3	
-													{Lilian}
+													{Lillian}
 													#button {Buscar} 1
 													#button {Examinar capa} 2
 													#button {Examinar insignia} 3
@@ -212,7 +212,7 @@
 						)
 						(998
 							(event claimed: TRUE)
-							(Print 280 2)
+							(Print 280 3)
 						)	
 						(else
 							(event claimed: FALSE)
@@ -279,6 +279,10 @@
 								(if (< (ego distanceTo: Body) 25)
 									(if (not (ego has: iSkeletonKey))
 										(= pickUpState 3)
+										(= gotItem TRUE)
+										(ego get: iSkeletonKey)
+										(Print 280 16)
+										(Print 280 28)										
 										(self setScript: pickUp)
 									else
 										(Print 280 8)
@@ -520,7 +524,7 @@
 				(if (or (== pickUpState 1) (== pickUpState 2))
 					(client dispose:)
 				)
-;;;				(client setScript: 0)
+				(client setScript: 0)
 			)
 		)
 	)

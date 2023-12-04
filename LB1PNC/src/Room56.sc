@@ -8,6 +8,7 @@
 (use Game)
 (use System)
 
+
 (public
 	Room56 0
 )
@@ -23,6 +24,7 @@
 	)
 	
 	(method (init)
+		
 		(= horizon 0)
 		(= south (= east 55))
 		(= global189 52)
@@ -35,6 +37,7 @@
 			(self setScript: GoingDown)
 		)
 		(glow deltaX: 8 deltaY: 8 init:)
+		
 	)
 	
 	(method (doit)
@@ -53,6 +56,33 @@
 	)
 	
 	(method (handleEvent event)
+		
+				(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)
+				(if (ClickedInRect 306 319 159 189 event) ;exit room right
+					(event claimed: TRUE)
+					(switch theCursor
+						(999
+
+							(ego setMotion: MoveTo (+ (ego x?) 315) (ego y?) )
+;;;							
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					 )
+				)			
+		
+			)
+				)
+		
+		
+		
+		
 		(if (event claimed?) (return))
 		(super handleEvent: event)
 		(if (== (event type?) saidEvent)

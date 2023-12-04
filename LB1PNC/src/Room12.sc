@@ -379,9 +379,9 @@
 					
 					(event claimed: TRUE)
 					(switch theCursor
-						(605 ;soup
-							(DoVerb {feed bone})
-						)
+;;;						(605 ;soup
+;;;							(DoVerb {hold bone beauregard})
+;;;						)
 						(998	
 								(= temp7
 												(Print
@@ -428,8 +428,35 @@
 					(event claimed: TRUE)
 					(switch theCursor
 						(998
-								(event claimed: TRUE)
-								(Print 12 18)
+								(= temp7
+												(Print
+;;;													{Doghouse}
+;;;													#button {Examine behind} 1
+;;;													#button {Search} 2								
+;;;													#button {Examine} 3
+
+													{Caseta}
+													#button {examinar por detr*s} 1
+													#button {Buscar} 2								
+													#button {Examinar} 3
+												)
+											)
+											(switch temp7
+												(1 							
+													(DoVerb {examine behind doghouse})	
+												)
+												(2
+													(DoVerb {search doghouse})
+												)
+												(3
+													(DoVerb {examine doghouse})
+												)												
+												(else
+													(event claimed: FALSE)
+												)
+											)
+						
+		
 						)
 						(else
 							(event claimed: FALSE)

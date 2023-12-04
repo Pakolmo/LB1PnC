@@ -48,6 +48,7 @@
 	)
 	
 	(method (init)
+		(curRoom setRegions: 950)
 		(= horizon 0)
 		(super init:)
 		(addToPics add: rags tub eachElementDo: #init doit:)
@@ -284,6 +285,9 @@
 						)
 						(607 ;crowbar
 							(DoVerb {attach crowbar})
+						)
+						(621 ;crank
+							(DoVerb {attach crank})
 						)	
 						(else
 							(event claimed: FALSE)
@@ -502,33 +506,28 @@
 							(= temp7
 							(PrintSpecial
 								{Panel}
-								#button {Manejar} 1
-								#button {Girar} 2
-								#button {Abrir} 3
-								#button {Coger} 4	
+
+								#button {Girar} 1
+								#button {Abrir} 2
+								#button {Coger} 3	
 ;;;								{Panel}
-;;;								#button {Control} 1
-;;;								#button {Rotate} 2
-;;;								#button {Open} 3
-;;;								#button {Get} 4															
+
+;;;								#button {Rotate} 1
+;;;								#button {Open} 2
+;;;								#button {Get} 3															
 							)
 							)
 
 						(switch temp7
 							(1
-							    (DoVerb {control})
-							   
-	
-							)
-							(2
 								(DoVerb {rotate control})
 							)
-							(3
+							(2
 							    (DoVerb {Open door})
 							   
 	
 							)
-							(4
+							(3
 								(DoVerb {get control})
 							)							
 							(else

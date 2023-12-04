@@ -49,6 +49,7 @@
 	)
 	
 	(method (init &tmp [obj 10] i j)
+		
 		(= horizon 0)
 		(if (== global189 51)
 			(= east 51)
@@ -102,6 +103,7 @@
 				hide:
 			)
 		)
+		
 	)
 	
 	(method (doit)
@@ -131,7 +133,32 @@
 					(== (event type?) evMOUSEBUTTON)
 					(not (& (event modifiers?) emRIGHT_BUTTON))
 				)
-		
+					(if (ClickedInRect 0 10 117 137 event) ;exit room left
+					(event claimed: TRUE)
+					(switch theCursor
+						(999
+
+							(ego setMotion: MoveTo (- (ego x?) 315) (ego y?) )
+;;;							
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					 )
+				)
+				(if (ClickedInRect 310 319 111 189 event) ;exit room right
+					(event claimed: TRUE)
+					(switch theCursor
+						(999
+
+							(ego setMotion: MoveTo (+ (ego x?) 315) (ego y?) )
+;;;							
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					 )
+				)			
 			(if (ClickedOnObj eyes (event x?) (event y?)) 
 					
 					(event claimed: TRUE)

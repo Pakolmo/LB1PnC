@@ -287,9 +287,11 @@
 						(995
 								(= temp7
 												(Print
-													{Rover}
-													#button {Pat} 1
-													#button {Feed} 2								
+													{Beauregard}
+;;;													#button {Pat} 1
+;;;													#button {Feed} 2
+													#button {Acariciar} 1
+													#button {Alimentar} 2								
 												)
 											)
 											(switch temp7
@@ -364,9 +366,12 @@
 									(998
 										(= temp7
 												(Print
-													{Mat}
-													#button {Examine} 1
-													#button {Examine below} 2								
+;;;													{Doormat}
+;;;													#button {Examine} 1
+;;;													#button {Examine below} 2			
+													{Felpudo}
+													#button {Examinar} 1
+													#button {Mirar debajo} 2																		
 												)
 											)
 											(switch temp7

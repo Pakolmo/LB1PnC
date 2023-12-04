@@ -101,7 +101,7 @@
 		(if (== global153 0)
 			(ego view: 0 setPri: -1 init:)
 		else
-			(HandsOff)
+;;;			(HandsOff)
 			(self setScript: leak)
 		)
 	)
@@ -631,6 +631,7 @@
 		(switch (= state newState)
 			(0 (= cycles 3))
 			(1
+				(HandsOff)
 				(Door setCycle: BegLoop self)
 				(myMusic number: 44 loop: 1 play:)
 			)
@@ -641,6 +642,7 @@
 				(myMusic number: 43 loop: 1 play:)
 			)
 			(5
+				(HandsOn)
 				(curRoom newRoom: 73)
 				(client setScript: 0)
 			)

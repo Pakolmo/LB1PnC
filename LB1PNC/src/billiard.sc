@@ -1748,7 +1748,8 @@ code_0662:
 					(= gloriaY (Gloria y?))
 					(= gloriaLoop (Gloria loop?))
 					(= gloriaCel (Gloria cel?))
-					(if (not (& (ego onControl: FALSE) cBLACK))
+;;;					(if (not (& (ego onControl: FALSE) cBLACK))
+					(if (not (& (ego onControl: 0) $0001))
 						(ego
 							setMotion: MoveTo (+ (ego x?) 20) (+ (ego y?) 20)
 						)

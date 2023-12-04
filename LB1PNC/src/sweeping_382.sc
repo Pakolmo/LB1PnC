@@ -531,7 +531,9 @@
 				(if (ClickedOnObj footprint (event x?) (event y?)) 	
 					(event claimed: TRUE)
 					(switch theCursor	
-					
+						(604
+							(DoVerb {examine mud with monocle})
+						)
 						(995
 								(DoVerb {get mud})
 						)	

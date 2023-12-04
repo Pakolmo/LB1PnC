@@ -20,6 +20,7 @@
 
 (local
 	[local0 2]
+	temp7
 )
 (instance Body of Prop
 	(properties
@@ -89,17 +90,129 @@
 					(event claimed: TRUE)
 					(switch theCursor
 						(998
-							(DoVerb {examine fifi})
-						)	
+									(= temp7
+
+								(PrintSpecial
+									{Examinar}
+									#button {Fifi} 1
+									#button {Jeeves} 2
+									
+;;;									{Examine}
+;;;									#button {Fifi} 1
+;;;									#button {Jeeves} 2							
+								)
+							)
+							(switch temp7
+								(1
+								    ;(DoVerb {latch elevator})
+								    (DoVerb {Examine Fifi})
+								)
+								(2
+									;(DoVerb {unbar elevator})
+									(DoVerb {Examine Jeeves})
+								)
+								(else
+									(event claimed: FALSE)
+								)
+							)
+						
+
+					
+					)
+						
 						(995
-							(DoVerb {examine in fifi})
-						)
+							(= temp7
+
+								(PrintSpecial
+									{Registrar}
+									#button {Fifi} 1
+									#button {Jeeves} 2
+									
+;;;									{Search}
+;;;									#button {Fifi} 1
+;;;									#button {Jeeves} 2							
+								)
+							)
+							(switch temp7
+								(1
+								  
+								    (DoVerb {search Fifi})
+								)
+								(2
+								
+									(DoVerb {search Jeeves})
+								)
+								(else
+									(event claimed: FALSE)
+								)
+							)
+						
+
+					
+					)
+				
 						(994
-							(DoVerb {hear fifi})
-						)						
+																(= temp7
+
+								(PrintSpecial
+									{Escuchar}
+									#button {Fifi} 1
+									#button {Jeeves} 2
+									
+;;;									{Hear}
+;;;									#button {Fifi} 1
+;;;									#button {Jeeves} 2							
+								)
+							)
+							(switch temp7
+								(1
+								   
+								    (DoVerb {Hear Fifi})
+								)
+								(2
+								
+									(DoVerb {Hear Jeeves})
+								)
+								(else
+									(event claimed: FALSE)
+								)
+							)
+						
+
+					
+					)
+						
 						(996
-							(DoVerb {converse fifi})
-						)		
+																(= temp7
+
+								(PrintSpecial
+									{Conversar}
+									#button {Fifi} 1
+									#button {Jeeves} 2
+									
+;;;									{Converse}
+;;;									#button {Fifi} 1
+;;;									#button {Jeeves} 2							
+								)
+							)
+							(switch temp7
+								(1
+								    
+								    (DoVerb {Converse Fifi})
+								)
+								(2
+								
+									(DoVerb {Converse Jeeves})
+								)
+								(else
+									(event claimed: FALSE)
+								)
+							)
+						
+
+					
+					)
+	
 						(else
 							(event claimed: FALSE)
 						)

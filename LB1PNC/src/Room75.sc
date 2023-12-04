@@ -63,7 +63,8 @@
 				(if (== prevRoomNum 42) (Bclr 46))
 				(ego posn: 80 188)
 			)
-			(ego view: 0 illegalBits: cWHITE)
+;;;			(ego view: 0 illegalBits: cWHITE)
+			(ego view: 0 illegalBits: -32768)
 		)
 		(paper init: stopUpd:)
 		((= gGate gate)
@@ -158,7 +159,11 @@
 						(== global111 75)
 						(if (& global109 $0010)))
 						
+							(HandsOn)
+;;;							(User mapKeyToDir: FALSE)
+;;;							(User canControl: TRUE)
 				(event claimed: TRUE)
+				
 
 					(switch theCursor
 						(619
@@ -245,11 +250,12 @@
 						(995
 							(= temp7
 								(PrintSpecial
-									{Elevator}
-									#button {Open} 1
-									#button {Close} 2
+									{Ascensor}
+									#button {Abrir} 1
+									#button {Cerrar} 2
 									#button {Arriba} 3
-									#button {Abajo} 4								
+									#button {Abajo} 4
+;;;									{Elevator}																	
 ;;;									#button {Open} 1
 ;;;									#button {Close} 2								
 ;;;									#button {Press Up} 3
@@ -277,6 +283,8 @@
 						)
 						(else
 							(event claimed: FALSE)
+;;;							(User mapKeyToDir: TRUE)
+;;;							(User canControl: TRUE)
 						)
 					)
 				)		

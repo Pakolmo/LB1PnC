@@ -78,7 +78,8 @@
 
 		
 			(if (or (ClickedOnObj Rudy (event x?) (event y?)) 
-				(ClickedOnObj RHead (event x?) (event y?)) )
+				(ClickedOnObj RHead (event x?) (event y?)) 
+				(== (event claimed?) FALSE))
 				(event claimed: TRUE)
 					(switch theCursor
 						
