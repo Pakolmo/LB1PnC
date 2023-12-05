@@ -216,15 +216,7 @@
 		(super dispose:)
 	)
 	
-	(method (handleEvent event)
-		
-
-		
-		
-		
-		
-				
-		
+	(method (handleEvent event)		
 		(if (event claimed?) (return))
 		(if (== (event type?) saidEvent)
 			(DisposeScript 990)
@@ -308,365 +300,152 @@
 				)
 			)
 		)
-
-
-
-		
-						(cond
+		(cond
 			(
 				(and
 					(== (event type?) evMOUSEBUTTON)
 					(not (& (event modifiers?) emRIGHT_BUTTON))
 				)
-				
-
-	
-
-	
 				(if (ClickedOnObj suit1 (event x?) (event y?)) 
-					
 					(event claimed: TRUE)
-					(switch theCursor	
+					(switch theCursor
 						(998
-							(DoVerb {search cloth}) 
+							(DoVerb {look cloth})
 						)
 						(995
-
-							
 							(= temp7
-							(PrintSpecial
-								44 22
-;;;								#button {Get} 1
-;;;								#button {luggage} 2
-								#button {Coger} 1
-								#button {Equipaje} 2
-							)
-							)
-
-						(switch temp7
-							(1
-
-													    (DoVerb {get cloth})
-													   
-													
-							)
-							(2
-
-													    
-
-								
-								
-
-								(switch theCursor
-									(998
-
-										(DoVerb {look cloth})
-									)
-									(995
-										(= temp7
-									(Print	
-										44 22
-;;;										#button {Open} 1
-;;;										#button {Close} 2
-;;;										#button {Get} 3									
-;;;										#button {Change cloth} 4
-										#button {Abrir} 1
-										#button {Cerrar} 2
-										#button {Coger} 3									
-										#button {Cambiar ropa} 4
-									)
-										)
-									
-
-								(switch temp7
-									(1		
-		
-										(DoVerb {Open cloth})
-									)
-									(2
-
-										(DoVerb {Close cloth})
-									)
-									(3
-
-										(DoVerb {Get cloth})
-									)
-									(4
-										(DoVerb {change cloth})
-									)
+								(Print	
+									44 22
+;;;									#button {Open} 1
+;;;									#button {Close} 2
+;;;									#button {Get} 3									
+;;;									#button {Change cloth} 4
+									#button {Abrir} 1
+									#button {Cerrar} 2
+									#button {Coger} 3									
+									#button {Cambiar ropa} 4
 								)
-									)
-									(else
-										(event claimed: FALSE)
-									)
-										
-						)
-						)
-						)
-							
-					)(else
-										(event claimed: FALSE)
-									)
-				
-					)
-					
-				)	
-								
-						
-				(if (and (ClickedOnObj chutefake (event x?) (event y?)) 
-						(== chuteIsOpen 1))
-					(event claimed: TRUE)
-					(switch theCursor	
-						(999
-							
-							(DoVerb {close chute})
-						)
-						(998		
-	
-							(if chuteIsOpen
-								(Print 44 10)
-							else
-								(DoLook {chute})
+							)
+							(switch temp7
+								(1
+									(DoVerb {Open cloth})
+								)
+								(2
+									(DoVerb {Close cloth})
+								)
+								(3
+									(DoVerb {Get cloth})
+								)
+								(4
+									(DoVerb {change cloth})
+								)
 							)
 						)
-						(995
-								(= chutes
-												(Print
-;;;													{Chute Actions}
-;;;													#button {Open Door} 1
-;;;													#button {Enter Chute} 2
-;;;													#button {Close Door} 3		
-													{Rampa}
-													#button {Abrir Puerta} 1
-													#button {Entrar} 2								
-													#button {Cerrar Puerta} 3
-												)
-											)
-											(switch chutes
-												(1 ;Abrir Puerta
-	
-
-													(= newEvent (Event new:))
-													(newEvent
-													    type: evKEYBOARD
-													    message: {open chute}
-													    modifiers: 999
-													    claimed: 0
-													)
-													(User handleEvent: newEvent)
-													(newEvent dispose:)
-													(User mapKeyToDir: FALSE)
-													(= chutemoving 1)
-													
-												
-												)
-						
-										
-
-												(2
-													
-
-					
-													(= newEvent (Event new:))
-													(newEvent
-													    type: evKEYBOARD
-													    message: {enter chute}
-													    modifiers: 999
-													    claimed: 0
-													)
-													(User handleEvent: newEvent)
-													(newEvent dispose:)
-					
-											)	
-												
-												(3
-								
-
-					
-													(= newEvent (Event new:))
-													(newEvent
-													    type: evKEYBOARD
-													    message: {close chute}
-													    modifiers: 999
-													    claimed: 0
-													)
-													(User handleEvent: newEvent)
-													(newEvent dispose:)
-													(User mapKeyToDir: TRUE)
-													(= chutemoving 0)
-											)
-											
-								
-
-
-						
-
 						(else
-						
 							(event claimed: FALSE)
-						)
+						)			
 					)
-
-						)
-
-				
-
 				)
-
-				)	
-				
-				
-				
-				(if (and (ClickedOnObj chutefake (event x?) (event y?)) 
-						(== chuteIsOpen 0))
-					(event claimed: TRUE)
-					(switch theCursor	
-
-						(998		
-	
-							(if chuteIsOpen
-								(Print 44 10)
-							else
-								(DoLook {chute})
-							)
-						)
-						(995
-								(= chutes
-												(Print
-;;;													{Chute Actions}
-;;;													#button {Open Door} 1
-;;;													#button {Enter Chute} 2
-;;;													#button {Close Door} 3		
-													{Rampa}
-													#button {Abrir Puerta} 1
-													#button {Entrar} 2								
-													#button {Cerrar Puerta} 3
-												)
-											)
-											(switch chutes
-												(1 ;Abrir Puerta
-	
-
-													(= newEvent (Event new:))
-													(newEvent
-													    type: evKEYBOARD
-													    message: {open chute}
-													    modifiers: 999
-													    claimed: 0
-													)
-													(User handleEvent: newEvent)
-													(newEvent dispose:)
-													(User mapKeyToDir: FALSE)
-													(= chutemoving 1)
-													
-													
-												
-												)
-						
-										
-
-												(2
-													
-
-					
-													(= newEvent (Event new:))
-													(newEvent
-													    type: evKEYBOARD
-													    message: {enter chute}
-													    modifiers: 999
-													    claimed: 0
-													)
-													(User handleEvent: newEvent)
-													(newEvent dispose:)
-					
-											)	
-												
-												(3
-								
-
-					
-													(= newEvent (Event new:))
-													(newEvent
-													    type: evKEYBOARD
-													    message: {close chute}
-													    modifiers: 999
-													    claimed: 0
-													)
-													(User handleEvent: newEvent)
-													(newEvent dispose:)
-													(User mapKeyToDir: TRUE)
-;;;													(= chutemoving 0)
-											)
-											
-								
-
-
-						
-
-						(else
-						
-							(event claimed: FALSE)
-						)
-					)
-
-						)
-
-				
-
-				)
-				)		
-				
-
 				(if (ClickedOnObj suit2 (event x?) (event y?)) ;Get diary
-					
 					(event claimed: TRUE)
 					(switch theCursor	
 						(995		
 							(cond 
-							((ego has: iDiary)
-								(AlreadyTook)
-							)
-							((< (ego distanceTo: suit2) 15)
-								(if (>= currentAct 6)
-									(HandsOff)
-									(= suitcaseIsClosed 1)
-									(= gotItem TRUE)
-									(ego get: iDiary)
-									(= local2 1)
-									(suit2 setScript: OpenSuit)
-								else
-									(Print 44 9)
+								((ego has: iDiary)
+									(AlreadyTook)
+								)
+								((< (ego distanceTo: suit2) 15)
+									(if (>= currentAct 6)
+										(HandsOff)
+										(= suitcaseIsClosed 1)
+										(= gotItem TRUE)
+										(ego get: iDiary)
+										(= local2 1)
+										(suit2 setScript: OpenSuit)
+									else
+										(Print 44 9)
+									)
+								)
+								(else
+									(NotClose)
 								)
 							)
-							(else
-								(NotClose)
-							)
 						)
-						)
-						(else
-						
+						(else	
 							(event claimed: FALSE)
 						)
 					)
-
 				)
-				(if (and (ClickedInRect 280 293 80 114 event)
-;;;				(if (and (ClickedOnObj mirror (event x?) (event y?)) 
-					(== (event claimed?) FALSE))
+				(if (ClickedOnObj chutefake (event x?) (event y?)) 
 					(event claimed: TRUE)
 					(switch theCursor	
-						(996 		
-							
-							(cond 
-								(
-					
-									(if (< (ego distanceTo: mirror) 80)
-										(= theTalker talkLAURA)
-										(Say 0 44 23)
-									else
-										(NotClose)
+;;;						(999	
+;;;							(DoVerb {close chute})
+;;;						)
+						(998		
+							(if chuteIsOpen
+								(Print 44 10)
+							else
+								(DoLook {chute})
+							)
+						)
+						(995
+							(if chuteIsOpen 1
+								(= chutes
+									(Print
+;;;										{Chute Actions}
+;;;										#button {Enter Chute} 2
+;;;										#button {Close Door} 3		
+										{Rampa}
+										#button {Entrar} 2								
+										#button {Cerrar Puerta} 3
 									)
 								)
+ 							else 
+ 								(= chutes
+									(Print
+;;;										{Chute Actions}
+;;;										#button {Open Door} 1
+;;;										#button {Enter Chute} 2		
+										{Rampa}
+										#button {Abrir Puerta} 1
+										#button {Entrar} 2
+									)
+								)
+							)
+							(switch chutes
+								(1 ;Abrir Puerta
+									(DoVerb {open chute})
+									(= chutemoving 1)
+								)
+								(2
+									(DoVerb {enter chute})
+								)	
+								(3
+									(DoVerb {close chute})
+									(= chutemoving 0)
+								)
+							)
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)
+				(if
+					(and
+						(ClickedInRect 280 293 80 114 event)
+;;;						(if (and (ClickedOnObj mirror (event x?) (event y?)) 
+						(== (event claimed?) FALSE)
+					)
+					(event claimed: TRUE)
+					(switch theCursor	
+						(996
+							(if (< (ego distanceTo: mirror) 80)
+								(= theTalker talkLAURA)
+								(Say 0 44 23)
+							else
+								(NotClose)
 							)
 						)
 						(998 ;examine
@@ -674,15 +453,12 @@
 						)
 						(995 ;get
 							(Print 44 25)
-
-	
 						)
 						(else
 						
 							(event claimed: FALSE)
 						)
 					)
-
 				)
 ;;;				(if (ClickedOnObj Fireplace (event x?) (event y?)) 
 ;;;					(event claimed: TRUE)
@@ -698,9 +474,7 @@
 ;;;					)
 ;;;
 ;;;				)
-	
 				(if (ClickedOnObj Fireplace (event x?) (event y?)) 
-					
 					(event claimed: TRUE)
 					(switch theCursor	
 						(998		
@@ -734,12 +508,11 @@
 						(995
 							(DoVerb {get fire})
 						)								
-								(else
-									(event claimed: FALSE)
-								)
-							)
+						(else
+							(event claimed: FALSE)
 						)
-						
+					)
+				)		
 				(if (ClickedOnObj table2 (event x?) (event y?)) 
 					(event claimed: TRUE)
 					(switch theCursor	
@@ -747,91 +520,47 @@
 							(event claimed: TRUE)
 							(DoLook {table})	
 						)
-						(else
-						
+						(else	
 							(event claimed: FALSE)
 						)
 					)
-
 				)
-				(if (ClickedOnObj lamp1 (event x?) (event y?)) 
-					(event claimed: TRUE)
-					(switch theCursor	
-						(998 		
-							
-								(event claimed: TRUE)
-								(DoLook {lamp})
-								)
-						(else
-						
-							(event claimed: FALSE)
-						)
+				(if
+					(or
+						(ClickedOnObj lamp1 (event x?) (event y?))
+						(ClickedOnObj lamp2 (event x?) (event y?))
 					)
-
+					(if (== theCursor 998) 		
+						(DoLook {lamp})
+						(event claimed: TRUE)
+					)
 				)
-				(if (ClickedOnObj lamp2 (event x?) (event y?)) 
-					(event claimed: TRUE)
-					(switch theCursor	
-						(998 		
-							
-							(event claimed: TRUE)
-							(DoLook {lamp})	
-						)
-						(else
-						
-							(event claimed: FALSE)
-						)
+				(if
+					(and
+						(ClickedOnObj sofa (event x?) (event y?)) 
+						(== (event claimed?) FALSE)
 					)
-
+					(if (== theCursor 998) 		
+						(DoLook {couch})
+						(event claimed: TRUE)
+					)
 				)
-				(if (and (ClickedOnObj sofa (event x?) (event y?)) 
-					(== (event claimed?) FALSE))
-					(event claimed: TRUE)
-					(switch theCursor	
-						(998 		
-							
-							(event claimed: TRUE)
-							(DoLook {couch})	
-						)
-						(else
-						
-							(event claimed: FALSE)
-						)
+				(if
+					(and
+						;(ClickedOnObj wingback (event x?) (event y?)) 
+						(ClickedInRect 99 116 119 138 event)
+						(== (event claimed?) FALSE)
 					)
-
-				)
-;;;				(if (and (ClickedOnObj wingback (event x?) (event y?)) 
-				(if (and (ClickedInRect 99 116 119 138 event)
-
-					(== (event claimed?) FALSE))
-					(event claimed: TRUE)
-					(switch theCursor	
-						(998 		
-							
-							(event claimed: TRUE)
-							(DoLook {chair})		
-						)
-						(else
-						
-							(event claimed: FALSE)
-						)
+					(if (== theCursor 998) 		
+						(DoLook {chair})
+						(event claimed: TRUE)
 					)
-
 				)				
-				(if (ClickedOnObj item3 (event x?) (event y?)) 
-					(event claimed: TRUE)
-					(switch theCursor	
-						(998 		
-							
-			(event claimed: TRUE)
-			(DoLook {table})		
-						)
-						(else
-						
-							(event claimed: FALSE)
-						)
+				(if (ClickedOnObj item3 (event x?) (event y?))
+					(if (== theCursor 998) 		
+						(DoLook {table})
+						(event claimed: TRUE)
 					)
-
 				)
 				(if (ClickedOnObj item4 (event x?) (event y?)) 
 					(event claimed: TRUE)
@@ -840,164 +569,83 @@
 							(Print 44 29)
 						)
 						(998 		
-							
-								(= girleyes
-												(Print
-;;;													{Painting}
-;;;													#button {Colonel Eye} 1
-;;;													#button {Girl Eye} 2
-;;;													#button {below painting} 3		
-													{Cuadro}
-													#button {Ojo Coronel} 1
-													#button {Ojo Chica} 2								
-													#button {Tras Cuadro} 3
-												)
-											)
-											(switch girleyes
-												(1 
-													(Print 44 27)
-														
-												)
-						
-										
-
-												(2
-															(Print 44 28)
-													
-				
-												)
-												(3
-													(Print 44 30)												
-												)
-											)
+							(= girleyes
+								(Print
+;;;									{Painting}
+;;;									#button {Colonel Eye} 1
+;;;									#button {Girl Eye} 2
+;;;									#button {below painting} 3		
+									{Cuadro}
+									#button {Ojo Coronel} 1
+									#button {Ojo Chica} 2								
+									#button {Tras Cuadro} 3
+								)
+							)
+							(switch girleyes
+								(1 
+									(Print 44 27)	
+								)
+								(2
+									(Print 44 28)
+								)
+								(3
+									(Print 44 30)												
+								)
+							)
 						)
 						(else
-						
 							(event claimed: FALSE)
 						)
 					)
-
-						)
-
-				
-
-
-		
-		
-				(if (and (ClickedOnObj chest1 (event x?) (event y?)) 
-					(== (event claimed?) FALSE))
-					(event claimed: TRUE)
-					(switch theCursor	
-						(998 		
-							
-								(event claimed: TRUE)
-								(Print 44 21)		
-						)
-						(else
-						
-							(event claimed: FALSE)
-						)
-					)
-
 				)
-;;;				(if (ClickedOnObj chest2 (event x?) (event y?)) 
-;;;					
+				(if
+					(and
+						(ClickedOnObj chest1 (event x?) (event y?)) 
+						(== (event claimed?) FALSE)
+					)
+					(if (== theCursor 998) 		
+						(Print 44 21)
+						(event claimed: TRUE)
+					) 
+				)
+;;;				(if (ClickedOnObj chest2 (event x?) (event y?))
 ;;;					(event claimed: TRUE)
 ;;;					(switch theCursor	
-;;;						(998 		
-;;;							
-;;;								(event claimed: TRUE)
-;;;								(Print 44 21)		
+;;;						(998
+;;;							(event claimed: TRUE)
+;;;							(Print 44 21)		
 ;;;						)
-;;;						(else
-;;;						
+;;;						(else	
 ;;;							(event claimed: FALSE)
 ;;;						)
 ;;;					)
-;;;
 ;;;				)	
-				(if (and (ClickedInRect 225 308	137 153 event)	
-								
-;;;				(if (and (ClickedOnObj bed2 (event x?) (event y?)) 
-					(== (event claimed?) FALSE))
-					(event claimed: TRUE)
-					(switch theCursor	
-						(998 		
-							
-							(event claimed: TRUE)
-							(Print 44 22)		
-						)
-						(else
-						
-							(event claimed: FALSE)
-						)
+				(if
+					(and
+						(or
+							(ClickedInRect 170 230 87 106 event) ;bed1
+							(ClickedInRect 225 308	137 153 event) ;bed2
+						) 
+						(== (event claimed?) FALSE)
 					)
-
-				)
-
-
-
-				(if (ClickedInRect 170 230 87 106 event)
-;;;				(if (ClickedOnObj bed1 (event x?) (event y?))
-					
-					(event claimed: TRUE)
-					(switch theCursor	
-						(998 		
-							
-							(event claimed: TRUE)
-							(Print 44 22)		
-						)
-						(else
-						
-							(event claimed: FALSE)
-						)
+					(if (== theCursor 998) 		
+						(Print 44 22)
+						(event claimed: TRUE)
 					)
-
 				)
-				
-	
-			(if (== chutemoving 1)
-
-				(ego setMotion: 0)
-				(SetCursor 998)
-					(event claimed: TRUE)
-;;;					(switch theCursor
-;;;						(999
-;;;;;;							(ego setMotion: 0)
-;;;;;;							(theGame setCursor: 998 (HaveMouse))
-;;;							(DoVerb {close chute})
-;;;							
-;;;						)
-;;;						(else
-;;;								(event claimed: FALSE)
-;;;						)
-;;;					 )
-				
-			)
-	
-					
-			(if (ClickedInRect 0 5 139 154 event) ;exit room
-			(event claimed: TRUE)
-					(switch theCursor
-						(999
-							(ego setMotion: MoveTo -5 146)
-						)
-						(else
-								(event claimed: FALSE)
-						)
-					 )
-				
-				)
-				
-
-					)		
-				
-				
-				
-				)
+				(if
+					(and
+						(ClickedInRect 0 5 139 154 event) ;exit room
+						(== (event claimed?) FALSE)
 					)
-					
-					
+					(if (== theCursor 999) 		
+						(ego setMotion: MoveTo -5 146)
+						(event claimed: TRUE)
+					)
+				)
+			)	
+		)
+	)
 
 	(method (newRoom n)
 		(cls)
@@ -1170,8 +818,6 @@
 			)
 			(1
 				(HandsOff)
-				
-				
 				(= seconds 2)
 			)
 			(2
@@ -1199,7 +845,6 @@
 			(4
 				(HandsOn)
 				(client stopUpd: setScript: 0)
-				
 			)
 		)
 	)
@@ -1379,7 +1024,10 @@
 		(cond 
 			(
 				(or
-					(and (Said 'examine/eye>') (Said 'examine/colonel'))
+					(and
+						(Said 'examine/eye>')
+						(Said 'examine/colonel')
+					)
 					(Said 'examine/eye<colonel')
 					(Said 'examine/eye/colonel')
 				)
@@ -1387,7 +1035,10 @@
 			)
 			(
 				(or
-					(and (Said 'examine/eye>') (Said 'examine/girl'))
+					(and
+						(Said 'examine/eye>')
+						(Said 'examine/girl')
+					)
 					(Said 'examine/eye[<girl,painting]')
 					(Said 'examine/eye/girl')
 				)
@@ -1464,10 +1115,10 @@
 	)
 	
 	(method (handleEvent event)
-		(if (MousedOn self event shiftDown)
-			(event claimed: TRUE)
-			(DoLook {lamp})
-		)
+;;;		(if (MousedOn self event shiftDown)
+;;;			(event claimed: TRUE)
+;;;			(DoLook {lamp})
+;;;		)
 	)
 )
 
@@ -1562,59 +1213,7 @@
 		)
 	)		
 )	
-;;;
-;;;			(
-;;;				(and
-;;;					(== (event type?) evMOUSEBUTTON)
-;;;					(not (& (event modifiers?) emRIGHT_BUTTON))
-;;;				)
-;;;
-;;;
-;;;			
-;;;			
-;;;			
-;;;;;;			(
-;;;;;;				(and
-;;;;;;					(MousedOn self event 3)
-;;;;;;					(== (event claimed?) FALSE)
-;;;;;;				)
-;;;				(event claimed: 1)
-;;;				;(DoLook {suitcase})
-;;;				(= temp6
-;;;					(Print
-;;;						44 22 ; "There is a suitcase lying on each bed."
-;;;						#button {Get suitcase} 1
-;;;						#button {Open suitcase} 2
-;;;						#button {Use Item} 3
-;;;						#button {Show Item} 4
-;;;					)
-;;;				)
-;;;				(switch temp5
-;;;					(1
-;;;						(if (MousedOn self event 3)
-;;;							(== (event claimed?) FALSE)
-;;;						
-;;;						else
-;;;						
-;;;						(DoVerb {get suitcase})
-;;;						)
-;;;					)
-;;;					(2
-;;;						(DoVerb {open suitcase})
-;;;					)
-;;;					(3
-;;;						(Inv showSelf: 777) ;select inv item to use.
-;;;						(DoUseItem name event) ;use selected inv item on suitcase
-;;;					)
-;;;					(4
-;;;						(Inv showSelf: 777) ;select inv item to use.
-;;;						(DoShowItem name event)
-;;;					)
-;;;				)
-;;;			)
-;;;		)
-;;;	)
-;;;)
+
 (instance suit2 of Prop
 	(properties
 		y 133
@@ -1624,10 +1223,10 @@
 	)
 	
 	(method (handleEvent event)
-		(if (MousedOn self event shiftDown)
-			(event claimed: TRUE)
-			(DoLook {suitcase})
-		)
+;;;		(if (MousedOn self event shiftDown)
+;;;			(event claimed: TRUE)
+;;;			(DoLook {suitcase})
+;;;		)
 	)
 )
 
@@ -1664,12 +1263,12 @@
 		nsRight 154
 	)
 	
-	(method (handleEvent event)
-		(if (MousedOn self event shiftDown)
-			(event claimed: TRUE)
-			(DoLook {fireplace})
-		)
-	)
+;;;	(method (handleEvent event)
+;;;		(if (MousedOn self event shiftDown)
+;;;			(event claimed: TRUE)
+;;;			(DoLook {fireplace})
+;;;		)
+;;;	)
 )
 
 (instance myMusic of Sound)
