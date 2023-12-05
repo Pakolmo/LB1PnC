@@ -428,10 +428,12 @@
 						(995
 							(= temp7
 												(Print
-													{Box}
-													#button {move} 1
-													#button {Open} 2	
-
+;;;													{Box}
+;;;													#button {Move} 1
+;;;													#button {Open} 2	
+													{Caja}
+													#button {Mover} 1
+													#button {Abrir} 2	
 												)
 											)
 											(switch temp7

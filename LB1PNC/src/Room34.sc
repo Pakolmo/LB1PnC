@@ -250,6 +250,9 @@
 						(== local0 1))
 					(event claimed: TRUE)
 					(switch theCursor	
+						(999
+							(DoVerb {close chute})
+						)
 						(998		
 	
 							(if local0
@@ -356,6 +359,7 @@
 						(== local0 0))
 					(event claimed: TRUE)
 					(switch theCursor	
+
 						(998		
 	
 							(if local0
@@ -391,7 +395,7 @@
 													(User handleEvent: newEvent)
 													(newEvent dispose:)
 													(User mapKeyToDir: FALSE)
-;;;													(= local0 1)
+													(= local0 1)
 													(= chutemoving 1)
 													
 												
@@ -429,7 +433,7 @@
 													(User handleEvent: newEvent)
 													(newEvent dispose:)
 													(User mapKeyToDir: TRUE)
-;;;													(= local0 0)
+													(= local0 0)
 													(= chutemoving 0)
 											)
 											
@@ -460,20 +464,28 @@
 
 
 			(if (== chutemoving 1)
+			(cond 
+				((or (Said 'stand') (Said 'close/door,chute'))
+					(if local0
+						(= local0 0)
+						(= chutemoving 0)
+					)
+				)
+			)				
 				(ego setMotion: 0)
 				(SetCursor 998)
 					(event claimed: TRUE)
-					(switch theCursor
-						(999
-;;;							(ego setMotion: 0)
-;;;							(theGame setCursor: 998 (HaveMouse))
-							(DoVerb {close chute})
-							(= chutemoving 0)
-						)
-						(else
-								(event claimed: FALSE)
-						)
-					 )
+;;;					(switch theCursor
+;;;						(999
+;;;;;;							(ego setMotion: 0)
+;;;;;;							(theGame setCursor: 998 (HaveMouse))
+;;;							(DoVerb {close chute})
+;;;							
+;;;						)
+;;;						(else
+;;;								(event claimed: FALSE)
+;;;						)
+;;;					 )
 				
 			)
 					

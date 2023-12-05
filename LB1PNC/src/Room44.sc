@@ -175,7 +175,6 @@
 	)
 	
 	(method (doit)
-				
 		(if local7
 			(= local7 0)
 			(Print 44 0)
@@ -418,6 +417,10 @@
 						(== chuteIsOpen 1))
 					(event claimed: TRUE)
 					(switch theCursor	
+						(999
+							
+							(DoVerb {close chute})
+						)
 						(998		
 	
 							(if chuteIsOpen
@@ -518,6 +521,7 @@
 						(== chuteIsOpen 0))
 					(event claimed: TRUE)
 					(switch theCursor	
+
 						(998		
 	
 							(if chuteIsOpen
@@ -591,7 +595,7 @@
 													(User handleEvent: newEvent)
 													(newEvent dispose:)
 													(User mapKeyToDir: TRUE)
-													(= chutemoving 0)
+;;;													(= chutemoving 0)
 											)
 											
 								
@@ -952,7 +956,24 @@
 				)
 				
 	
+			(if (== chutemoving 1)
 
+				(ego setMotion: 0)
+				(SetCursor 998)
+					(event claimed: TRUE)
+;;;					(switch theCursor
+;;;						(999
+;;;;;;							(ego setMotion: 0)
+;;;;;;							(theGame setCursor: 998 (HaveMouse))
+;;;							(DoVerb {close chute})
+;;;							
+;;;						)
+;;;						(else
+;;;								(event claimed: FALSE)
+;;;						)
+;;;					 )
+				
+			)
 	
 					
 			(if (ClickedInRect 0 5 139 154 event) ;exit room
@@ -985,25 +1006,7 @@
 )
 
 (instance chuteActions of Script
-	(method (doit)
-					(if (== chutemoving 1)
-				(ego setMotion: 0)
-				(SetCursor 998)
-;;;					(event claimed: TRUE)
-					(switch theCursor
-						(999
-;;;							(ego setMotion: 0)
-;;;							(theGame setCursor: 998 (HaveMouse))
-							(DoVerb {close chute})
-							(= chutemoving 0)
-						)
-						(else
-;;;								(event claimed: FALSE)
-						)
-					 )
-				
-			)
-	)
+
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
@@ -1148,6 +1151,7 @@
 				((or (Said 'stand') (Said 'close/door,chute'))
 					(if chuteIsOpen
 						(= cycles 1)
+						(= chutemoving 0)
 					else
 						(Print 44 14)
 					)
