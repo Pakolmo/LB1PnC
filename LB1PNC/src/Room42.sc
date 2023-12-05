@@ -1051,6 +1051,7 @@
 		(cond 
 			((Said 'get/bag')
 				(Print 42 33)
+				(Bset 32)
 			)
 			((Said 'open/bag')
 				(AlreadyOpen)
@@ -1058,6 +1059,7 @@
 			((Said 'examine<in/bag')
 				(if (< (ego distanceTo: Dbag) 10)
 					(Print 42 34)
+					(Bset 32)
 				else
 					(NotClose)
 				)
@@ -1070,6 +1072,7 @@
 				)
 				(event claimed: TRUE)
 				(Print 42 35)
+				(Bset 32)
 			)
 		)
 		(if (event claimed?)

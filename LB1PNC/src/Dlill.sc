@@ -524,7 +524,7 @@
 				(if (or (== pickUpState 1) (== pickUpState 2))
 					(client dispose:)
 				)
-				(client setScript: 0)
+;;;				(client setScript: 0)
 			)
 		)
 	)

@@ -9,6 +9,7 @@
 (use User)
 (use Actor)
 (use System)
+(use PncMenu)
 
 (public
 	crArgue 0
@@ -52,14 +53,18 @@
 (procedure (localproc_0084)
 	(cast eachElementDo: #hide)
 	(DrawPic 992 IRISIN TRUE 0)
+;;;	(DrawPic 992 dpOPEN_EDGECENTER dpCLEAR 0)
 )
 
 (procedure (localproc_009b)
 	(DrawPic 48 IRISOUT TRUE 0)
+;;;	(DrawPic 48 dpOPEN_CENTEREDGE dpCLEAR 0)
 	(addToPics doit:)
 	(cast eachElementDo: #show)
 	(rHead hide:)
 	(CHead hide:)
+;;;	(glass show:)
+	(ShowMenu)
 )
 
 (instance crArgue of Region
@@ -68,9 +73,11 @@
 		(super init:)
 		(if (not (& global118 $0004))
 			(LoadMany FONT 4 41)
-			(Load VIEW 642)
+;;;			(Load VIEW 642)
+			(Load rsVIEW 642)
 			(LoadMany SOUND 29 94 95 96)
-			(Load SCRIPT 406)
+;;;			(Load SCRIPT 406)
+			(Load rsSCRIPT 406)
 		)
 		(Load SCRIPT 985)
 		(LoadMany 143 243 284 289)
@@ -209,7 +216,7 @@
 								
 						
 							(930  ;gertrude
-								(event type: 1 claimed: 1)
+;;;								(event type: 1 claimed: 1)
 												(= temp7
 							(Print
 ;;;								{Ask or Tell}
@@ -225,7 +232,7 @@
 								(DoVerb {ask rudolph about gertie})
 							)
 							(2
-								(DoVerb {tell rudolph about gertie})
+								(Print {Estamos ocupados. Ahora no es el momento.}) ;fixed bug.
 							)
 						(else
 							(event claimed: FALSE)
@@ -1305,7 +1312,8 @@
 			)
 			(3
 				(localproc_009b)
-				(Print 259 13 #dispose)
+;;;				(Print 259 13 #dispose)
+				(Print 259 13 88)
 				(Rudy setMotion: MoveTo 201 142 self)
 				(= saveDisabled FALSE)
 			)

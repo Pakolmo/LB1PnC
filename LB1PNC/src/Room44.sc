@@ -175,6 +175,7 @@
 	)
 	
 	(method (doit)
+				
 		(if local7
 			(= local7 0)
 			(Print 44 0)
@@ -951,23 +952,7 @@
 				)
 				
 	
-			(if (== chutemoving 1)
-				(ego setMotion: 0)
-				(SetCursor 998)
-					(event claimed: TRUE)
-					(switch theCursor
-						(999
-;;;							(ego setMotion: 0)
-;;;							(theGame setCursor: 998 (HaveMouse))
-							(DoVerb {close chute})
-							(= chutemoving 0)
-						)
-						(else
-								(event claimed: FALSE)
-						)
-					 )
-				
-			)
+
 	
 					
 			(if (ClickedInRect 0 5 139 154 event) ;exit room
@@ -1000,7 +985,25 @@
 )
 
 (instance chuteActions of Script
-
+	(method (doit)
+					(if (== chutemoving 1)
+				(ego setMotion: 0)
+				(SetCursor 998)
+;;;					(event claimed: TRUE)
+					(switch theCursor
+						(999
+;;;							(ego setMotion: 0)
+;;;							(theGame setCursor: 998 (HaveMouse))
+							(DoVerb {close chute})
+							(= chutemoving 0)
+						)
+						(else
+;;;								(event claimed: FALSE)
+						)
+					 )
+				
+			)
+	)
 	(method (changeState newState)
 		(switch (= state newState)
 			(0

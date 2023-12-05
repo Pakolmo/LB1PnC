@@ -233,11 +233,11 @@
 					(event claimed: TRUE)
 					(switch theCursor
 						(995
-							(DoVerb {capture esquirrel})
+							(DoVerb {capture squirrel})
 						)
 						
 						(998
-							(DoVerb {examine esquirrel})
+							(DoVerb {examine squirrel})
 						)
 						
 						(else

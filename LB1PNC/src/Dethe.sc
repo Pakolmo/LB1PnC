@@ -73,7 +73,7 @@
 						)	
 						(995
 							(DoVerb {search ethel})
-							(= BoatEthel 0)
+							
 						)
 						(996
 							(DoVerb {converse ethel})
@@ -214,6 +214,7 @@
 				(ego setCycle: BegLoop self)
 			)
 			(4
+				(= BoatEthel 0)
 				(ego view: 0 setCycle: Walk)
 				(client setScript: 0)
 			)

@@ -136,6 +136,7 @@
 		(if (!= [global368 0] 1)
 			(arena left: 95 right: 213 bottom: 144 top: 124 init:)
 			(Duo observeBlocks: arena init:)
+			(Bset 33) ;force Colonel's finish game.
 		else
 			(Bset 33)
 ;;;			(HandsOff)

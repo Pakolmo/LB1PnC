@@ -1559,7 +1559,7 @@
 				)
 			)
 			(1
-				(User canControl: FALSE)
+;;;				(User canControl: FALSE)
 				(Lillian
 					view: 499
 					loop: 0
@@ -1577,17 +1577,17 @@
 				)
 			)
 			(2
-				(User canControl: FALSE)
+;;;				(User canControl: FALSE)
 				(Lillian view: 500 setCycle: Walk setMotion: PathOut self)
 			)
 			(3
-				(User canControl: FALSE)
+;;;				(User canControl: FALSE)
 				(= global202 1)
 				(= local7 1)
 				(= seconds 2)
 			)
 			(4
-				(User canControl: FALSE)
+;;;				(User canControl: FALSE)
 				(= global202 2)
 				(sprinkles hide:)
 				(roller hide:)
@@ -1595,7 +1595,7 @@
 				(= cycles 2)
 			)
 			(5
-				(User canControl: FALSE)
+;;;				(User canControl: FALSE)
 				(Print 236 28 #dispose)
 				(Lillian setMotion: MoveTo 24 123 self)
 			)
@@ -1603,15 +1603,15 @@
 				(cls)
 				(= theTalker talkLILLIAN)
 				(Say 1 236 29)
-				(User canControl: FALSE)
+;;;				(User canControl: FALSE)
 				(Lillian setMotion: PathIn self)
 			)
 			(7
-				(User canControl: FALSE)
+;;;				(User canControl: FALSE)
 				(Lillian illegalBits: 0 setMotion: MoveTo 193 143 self)
 			)
 			(8	
-				(User canControl: FALSE)
+;;;				(User canControl: FALSE)
 				(Lillian view: 499)
 				(Lillian
 					cel: (Lillian lastCel:)

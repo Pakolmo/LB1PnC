@@ -189,7 +189,8 @@
 					
 ;;;			(if (and (ClickedOnPicView Well (event x?) (event y?)) 
 			(if (and (ClickedInRect 206 240 125 135 event)
-					(== (event claimed?) FALSE) )
+					(== (event claimed?) FALSE) 
+					(== gloriaMuerta 0))
 					(event claimed: TRUE)
 					(switch theCursor
 						(995
