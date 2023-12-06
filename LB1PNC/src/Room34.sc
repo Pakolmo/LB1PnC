@@ -200,17 +200,14 @@
 	)
 	
 	(method (handleEvent event &tmp temp0)
-
-			(cond
+		(cond
 			(
 				(and
 					(== (event type?) evMOUSEBUTTON)
 					(not (& (event modifiers?) emRIGHT_BUTTON))
 				)
-				
-				(if (ClickedOnObj chair1 (event x?) (event y?)) 
-						
-						(event claimed: TRUE)
+				(if (ClickedOnObj chair1 (event x?) (event y?)) 	
+					(event claimed: TRUE)
 					(switch theCursor	
 						(998
 							(event claimed: TRUE)
@@ -221,8 +218,9 @@
 						)
 					)
 				)
-				
-				(if (or (ClickedOnObj chair2 (event x?) (event y?)) 
+				(if
+					(or
+						(ClickedOnObj chair2 (event x?) (event y?)) 
 						(ClickedOnObj chair3 (event x?) (event y?)) 
 						(ClickedOnObj chair4 (event x?) (event y?)) 
 						(ClickedOnObj chair5 (event x?) (event y?)) 
@@ -232,8 +230,8 @@
 						(ClickedOnObj chair9 (event x?) (event y?)) 
 						(ClickedOnObj chair10 (event x?) (event y?)) 
 						(ClickedOnObj chair11 (event x?) (event y?)) 
-						(ClickedOnObj chair12 (event x?) (event y?)) )
-						
+						(ClickedOnObj chair12 (event x?) (event y?))
+					)	
 					(event claimed: TRUE)
 					(switch theCursor	
 						(998
@@ -245,16 +243,17 @@
 						)
 					)
 				)
-				
-				(if (and (ClickedOnObj chutefake (event x?) (event y?)) 
-						(== local0 1))
+				(if
+					(and
+						(ClickedOnObj chutefake (event x?) (event y?)) 
+						(== local0 1)
+					)
 					(event claimed: TRUE)
 					(switch theCursor	
 						(999
 							(DoVerb {close chute})
 						)
 						(998		
-	
 							(if local0
 								(Print 44 10)
 							else
@@ -262,106 +261,76 @@
 							)
 						)
 						(995
-								(= chutes
-												(Print
-;;;													{Chute Actions}
-;;;													#button {Open Door} 1
-;;;													#button {Enter Chute} 2
-;;;													#button {Close Door} 3		
-													{Rampa}
-													#button {Abrir Puerta} 1
-													#button {Entrar} 2								
-													#button {Cerrar Puerta} 3
-												)
-											)
-											(switch chutes
-												(1 ;Abrir Puerta
-	
-
-													(= newEvent (Event new:))
-													(newEvent
-													    type: evKEYBOARD
-													    message: {open chute door}
-													    modifiers: 999
-													    claimed: 0
-													)
-													(User handleEvent: newEvent)
-													(newEvent dispose:)
-													(User mapKeyToDir: FALSE)
-;;;													(= local0 1)
-													(= chutemoving 1)
-												
-												)
-						
-										
-
-												(2
-													
-
-					
-													(= newEvent (Event new:))
-													(newEvent
-													    type: evKEYBOARD
-													    message: {enter chute}
-													    modifiers: 999
-													    claimed: 0
-													)
-													(User handleEvent: newEvent)
-													(newEvent dispose:)
-					
-											)	
-												
-												(3
-								
-
-					
-													(= newEvent (Event new:))
-													(newEvent
-													    type: evKEYBOARD
-													    message: {close chute door}
-													    modifiers: 999
-													    claimed: 0
-													)
-													(User handleEvent: newEvent)
-													(newEvent dispose:)
-													(User mapKeyToDir: TRUE)
-;;;													(= local0 0)
-													(= chutemoving 0)
-											)
-											
-								
-
-
-						
-
-											(else
-											
-												(event claimed: FALSE)
-											)
-											)
-						
-
+							(= chutes
+								(Print
+;;;									{Chute Actions}
+;;;									#button {Open Door} 1
+;;;									#button {Enter Chute} 2
+;;;									#button {Close Door} 3		
+									{Rampa}
+									#button {Abrir Puerta} 1
+									#button {Entrar} 2								
+									#button {Cerrar Puerta} 3
+								)
+							)
+							(switch chutes
+								(1 ;Abrir Puerta
+									(= newEvent (Event new:))
+									(newEvent
+										type: evKEYBOARD
+										message: {open chute door}
+										modifiers: 999
+										claimed: 0
+									)
+									(User handleEvent: newEvent)
+									(newEvent dispose:)
+									(User mapKeyToDir: FALSE)
+;;;									(= local0 1)
+									(= chutemoving 1)
+								)
+								(2
+									(= newEvent (Event new:))
+									(newEvent
+									    type: evKEYBOARD
+									    message: {enter chute}
+									    modifiers: 999
+									    claimed: 0
+									)
+									(User handleEvent: newEvent)
+									(newEvent dispose:)
+								)
+								(3
+									(= newEvent (Event new:))
+									(newEvent
+									    type: evKEYBOARD
+									    message: {close chute door}
+									    modifiers: 999
+									    claimed: 0
+									)
+									(User handleEvent: newEvent)
+									(newEvent dispose:)
+									(User mapKeyToDir: TRUE)
+;;;									(= local0 0)
+									(= chutemoving 0)
+								)
+								(else
+									(event claimed: FALSE)
+								)
+							)
 						)
-						(else
-											
-												(event claimed: FALSE)
-											)
-
-				
-
+						(else				
+							(event claimed: FALSE)
+						)
+					)
 				)
-
-				)	
-				
-				
-				
-				(if (and (ClickedOnObj chutefake (event x?) (event y?)) 
-						(== local0 0))
+				(if
+					(and
+						(ClickedOnObj chutefake (event x?) (event y?)) 
+						(== local0 0)
+					)
 					(event claimed: TRUE)
 					(switch theCursor	
-
 						(998		
-	
 							(if local0
 								(Print 44 10)
 							else
@@ -369,127 +338,68 @@
 							)
 						)
 						(995
-								(= chutes
-												(Print
-;;;													{Chute Actions}
-;;;													#button {Open Door} 1
-;;;													#button {Enter Chute} 2
-;;;													#button {Close Door} 3		
-													{Rampa}
-													#button {Abrir Puerta} 1
-													#button {Entrar} 2								
-													#button {Cerrar Puerta} 3
-												)
-											)
-											(switch chutes
-												(1 ;Abrir Puerta
-	
-
-													(= newEvent (Event new:))
-													(newEvent
-													    type: evKEYBOARD
-													    message: {open chute door}
-													    modifiers: 999
-													    claimed: 0
-													)
-													(User handleEvent: newEvent)
-													(newEvent dispose:)
-													(User mapKeyToDir: FALSE)
-													(= local0 1)
-													(= chutemoving 1)
-													
-												
-												)
-						
-										
-
-												(2
-													
-
-					
-													(= newEvent (Event new:))
-													(newEvent
-													    type: evKEYBOARD
-													    message: {enter chute}
-													    modifiers: 999
-													    claimed: 0
-													)
-													(User handleEvent: newEvent)
-													(newEvent dispose:)
-					
-											)	
-												
-												(3
-								
-
-					
-													(= newEvent (Event new:))
-													(newEvent
-													    type: evKEYBOARD
-													    message: {close chute door}
-													    modifiers: 999
-													    claimed: 0
-													)
-													(User handleEvent: newEvent)
-													(newEvent dispose:)
-													(User mapKeyToDir: TRUE)
-													(= local0 0)
-													(= chutemoving 0)
-											)
-											
-								
-
-
-						
-
+							(= chutes
+								(Print
+;;;									{Chute Actions}
+;;;									#button {Open Door} 1
+;;;									#button {Enter Chute} 2
+;;;									#button {Close Door} 3		
+									{Rampa}
+									#button {Abrir Puerta} 1
+									#button {Entrar} 2								
+									#button {Cerrar Puerta} 3
+								)
+							)
+							(switch chutes
+								(1 ;Abrir Puerta
+									(= newEvent (Event new:))
+									(newEvent
+									    type: evKEYBOARD
+									    message: {open chute door}
+									    modifiers: 999
+									    claimed: 0
+									)
+									(User handleEvent: newEvent)
+									(newEvent dispose:)
+									(User mapKeyToDir: FALSE)
+									(= local0 1)
+									(= chutemoving 1)
+								)
+								(2
+									(= newEvent (Event new:))
+									(newEvent
+									    type: evKEYBOARD
+									    message: {enter chute}
+									    modifiers: 999
+									    claimed: 0
+									)
+									(User handleEvent: newEvent)
+									(newEvent dispose:)
+								)
+								(3
+									(= newEvent (Event new:))
+									(newEvent
+									    type: evKEYBOARD
+									    message: {close chute door}
+									    modifiers: 999
+									    claimed: 0
+									)
+									(User handleEvent: newEvent)
+									(newEvent dispose:)
+									(User mapKeyToDir: TRUE)
+									(= local0 0)
+									(= chutemoving 0)
+								)
+								(else
+									(event claimed: FALSE)
+								)
+							)
+						)
 						(else
-						
 							(event claimed: FALSE)
 						)
 					)
-
-						)
-						(else
-						
-							(event claimed: FALSE)
-						)
-
-				
-
 				)
-				)		
-
-
-
-
-
-			(if (== chutemoving 1)
-			(cond 
-				((or (Said 'stand') (Said 'close/door,chute'))
-					(if local0
-						(= local0 0)
-						(= chutemoving 0)
-					)
-				)
-			)				
-				(ego setMotion: 0)
-				(SetCursor 998)
-					(event claimed: TRUE)
-;;;					(switch theCursor
-;;;						(999
-;;;;;;							(ego setMotion: 0)
-;;;;;;							(theGame setCursor: 998 (HaveMouse))
-;;;							(DoVerb {close chute})
-;;;							
-;;;						)
-;;;						(else
-;;;								(event claimed: FALSE)
-;;;						)
-;;;					 )
-				
-			)
-					
-
 				(if (ClickedOnObj coffee (event x?) (event y?)) 
 					(event claimed: TRUE)
 					(switch theCursor	
@@ -497,9 +407,7 @@
 							(DoVerb {Examine urn})
 						)
 						(995
-								    (DoVerb {Examine in coffee})
-								
-								
+							(DoVerb {Examine in coffee})	
 						)
 						(else
 							(event claimed: FALSE)
@@ -512,7 +420,6 @@
 						(998
 							(DoVerb {Examine chandelier})
 						)
-						
 						(else
 							(event claimed: FALSE)
 						)
@@ -536,7 +443,6 @@
 					(event claimed: TRUE)
 					(switch theCursor	
 						(998
-							(event claimed: TRUE)
 							(DoLook {lamp})
 						)
 						(else
@@ -544,17 +450,6 @@
 						)
 					)
 				)
-;;;				(if (ClickedOnObj chute (event x?) (event y?)) 
-;;;					(event claimed: TRUE)
-;;;					(switch theCursor	
-;;;						(998
-;;;							(DoVerb {examine door})
-;;;						)
-;;;						(else
-;;;							(event claimed: FALSE)
-;;;						)
-;;;					)
-;;;				)
 				(if (ClickedOnObj Hutch (event x?) (event y?)) 
 					(event claimed: TRUE)
 					(switch theCursor	
@@ -569,8 +464,11 @@
 						)
 					)
 				)
-				(if (and (ClickedOnObj BigTable (event x?) (event y?)) 
-					(== (event claimed?) FALSE))
+				(if
+					(and
+						(ClickedOnObj BigTable (event x?) (event y?)) 
+						(== (event claimed?) FALSE)
+					)
 					(event claimed: TRUE)
 					(switch theCursor	
 						(998
@@ -581,8 +479,11 @@
 						)
 					)
 				)
-				(if (and (ClickedOnObj Table (event x?) (event y?)) 
-						(== (event claimed?) FALSE))
+				(if
+					(and
+						(ClickedOnObj Table (event x?) (event y?)) 
+						(== (event claimed?) FALSE)
+					)
 					(event claimed: TRUE)
 					(switch theCursor	
 						(998
@@ -593,25 +494,26 @@
 						)
 					)
 				)
-			(if (ClickedInRect 0 10 139 154 event) ;exit room
-			(event claimed: TRUE)
+				(if (ClickedInRect 0 10 139 154 event) ;exit room
+					(event claimed: TRUE)
 					(switch theCursor
 						(999
 							(ego setMotion: MoveTo -2 145)
 						)
 						(else
-								(event claimed: FALSE)
+							(event claimed: FALSE)
 						)
-					 )
-				
+					)
 				)
-				
-				(if (and (ClickedOnObj Mirror (event x?) (event y?)) 
-						(== (event claimed?) FALSE))
+				(if
+					(and
+						(ClickedOnObj Mirror (event x?) (event y?)) 
+						(== (event claimed?) FALSE)
+					)
 					(event claimed: TRUE)
 					(switch theCursor	
 						(998
-								(= temp7
+							(= temp7
 								(PrintSpecial
 									{Espejo}
 									#button {Examinar} 1
@@ -637,336 +539,121 @@
 									(event claimed: FALSE)
 								)
 							)
-						)
-							
-							
-							
-							
-									
+						)	
 						(else
 							(event claimed: FALSE)
 						)
 					)
 				)				
 			)
+		)
+		
+		(if (event claimed:)
+			(return 1)
+		)
+		(if (== (event type:) evSAID)
+			(= temp0
+				(or
+					(!= currentAct 1)
+					(!= global154 3) ;gClarenceWilburState
+					(and
+						(not (Said 'ask[/c]/attorney<about>'))
+						(not (Said 'ask[/attorney]/c<about>'))
+					)
+				)
 			)
-
-
-
-
-
-		(asm
-			pushi    #claimed
-			pushi    0
-			lap      event
-			send     4
-			bnt      code_0363
-			ldi      1
-			ret     
-code_0363:
-			pushi    #type
-			pushi    0
-			lap      event
-			send     4
-			push    
-			ldi      128
-			eq?     
-			bnt      code_05bf
-			lsg      currentAct
-			ldi      1
-			ne?     
-			bt       code_0397
-			lsg      global154
-			ldi      3
-			ne?     
-			bt       code_0397
-			pushi    1
-			lofsa    'ask[/c]/attorney<about>'
-			push    
-			callk    Said,  2
-			not     
-			bnt      code_0397
-			pushi    1
-			lofsa    'ask[/attorney]/c<about>'
-			push    
-			callk    Said,  2
-			not     
-code_0397:
-			sat      temp0
-			lag      global208
-			bnt      code_03dc
-			lat      temp0
-			bnt      code_03dc
-			pushi    1
-			lofsa    'ask,tell,hold,deliver,examine,get,kill,kiss,embrace,flirt>'
-			push    
-			callk    Said,  2
-			bnt      code_03dc
-			pushi    1
-			pushi    990
-			callk    DisposeScript,  2
-			pushi    #setScript
-			pushi    1
-			pushi    2
-			pushi    243
-			pushi    0
-			callk    ScriptID,  4
-			push    
-			self     6
-			pushi    #handleEvent
-			pushi    1
-			lsp      event
-			pushi    #script
-			pushi    0
-			self     4
-			send     6
-			pushi    #claimed
-			pushi    0
-			lap      event
-			send     4
-			bnt      code_03dc
-			ldi      1
-			ret     
-code_03dc:
-			pushi    1
-			lofsa    '/panel,(door<hidden)>'
-			push    
-			callk    Said,  2
-			bnt      code_045a
-			pushi    1
-			lofsa    'examine'
-			push    
-			callk    Said,  2
-			bnt      code_0411
-			lsg      global175
-			ldi      2
-			and     
-			bnt      code_0405
-			pushi    2
-			pushi    34
-			pushi    2
-			calle    Print,  4
-			jmp      code_05bf
-code_0405:
-			pushi    2
-			pushi    34
-			pushi    3
-			calle    Print,  4
-			jmp      code_05bf
-code_0411:
-			lsg      global175
-			ldi      2
-			and     
-			bnt      code_05bf
-			pushi    1
-			lofsa    'open,move'
-			push    
-			callk    Said,  2
-			bnt      code_05bf
-			lal      local2
-			not     
-			bnt      code_044e
-			pushi    #onControl
-			pushi    1
-			pushi    1
-			lag      ego
-			send     6
-			push    
-			ldi      8
-			and     
-			bnt      code_0447
-			pushi    #newRoom
-			pushi    1
-			pushi    50
-			lag      curRoom
-			send     6
-			jmp      code_05bf
-code_0447:
-			pushi    0
-			callb    NotClose,  0
-			jmp      code_05bf
-code_044e:
-			pushi    2
-			pushi    34
-			pushi    4
-			calle    Print,  4
-			jmp      code_05bf
-code_045a:
-			pushi    1
-			lofsa    'examine>'
-			push    
-			callk    Said,  2
-			bnt      code_055b
-			pushi    1
-			lofsa    '[<around,at][/room]'
-			push    
-			callk    Said,  2
-			bnt      code_047b
-			pushi    2
-			pushi    34
-			pushi    1
-			calle    Print,  4
-			jmp      code_05bf
-code_047b:
-			pushi    1
-			lofsa    'examine/panel[<hidden]'
-			push    
-			callk    Said,  2
-			bnt      code_04a5
-			lsg      global175
-			ldi      2
-			and     
-			bnt      code_0499
-			pushi    2
-			pushi    34
-			pushi    2
-			calle    Print,  4
-			jmp      code_05bf
-code_0499:
-			pushi    2
-			pushi    34
-			pushi    3
-			calle    Print,  4
-			jmp      code_05bf
-code_04a5:
-			pushi    1
-			lofsa    '/wall,door'
-			push    
-			callk    Said,  2
-			bnt      code_04bc
-			pushi    2
-			pushi    34
-			pushi    5
-			calle    Print,  4
-			jmp      code_05bf
-code_04bc:
-			pushi    1
-			lofsa    '<below/nightstand'
-			push    
-			callk    Said,  2
-			bnt      code_04d3
-			pushi    2
-			pushi    34
-			pushi    6
-			calle    Print,  4
-			jmp      code_05bf
-code_04d3:
-			pushi    1
-			lofsa    '/nightstand'
-			push    
-			callk    Said,  2
-			bnt      code_04ea
-			pushi    2
-			pushi    34
-			pushi    7
-			calle    Print,  4
-			jmp      code_05bf
-code_04ea:
-			pushi    1
-			lofsa    'examine/eye>'
-			push    
-			callk    Said,  2
-			bnt      code_0500
-			pushi    1
-			lofsa    'examine/fellow'
-			push    
-			callk    Said,  2
-			bt       code_0516
-code_0500:
-			pushi    1
-			lofsa    'examine/eye[<fellow,painting]'
-			push    
-			callk    Said,  2
-			bt       code_0516
-			pushi    1
-			lofsa    'examine/eye/fellow'
-			push    
-			callk    Said,  2
-			bnt      code_0522
-code_0516:
-			pushi    2
-			pushi    34
-			pushi    8
-			calle    Print,  4
-			jmp      code_05bf
-code_0522:
-			pushi    1
-			lofsa    '<behind,below/painting'
-			push    
-			callk    Said,  2
-			bnt      code_0539
-			pushi    2
-			pushi    34
-			pushi    9
-			calle    Print,  4
-			jmp      code_05bf
-code_0539:
-			pushi    1
-			lofsa    '/painting'
-			push    
-			callk    Said,  2
-			bt       code_054f
-			pushi    1
-			lofsa    '/fellow/painting'
-			push    
-			callk    Said,  2
-			bnt      code_05bf
-code_054f:
-			pushi    2
-			pushi    34
-			pushi    10
-			calle    Print,  4
-			jmp      code_05bf
-code_055b:
-			pushi    1
-			lofsa    'move,get/painting'
-			push    
-			callk    Said,  2
-			bnt      code_0572
-			pushi    2
-			pushi    34
-			pushi    11
-			calle    Print,  4
-			jmp      code_05bf
-code_0572:
-			pushi    1
-			lofsa    'get>'
-			push    
-			callk    Said,  2
-			bnt      code_05bf
-			pushi    1
-			lofsa    '/mirror'
-			push    
-			callk    Said,  2
-			bnt      code_0594
-			pushi    2
-			pushi    34
-			pushi    12
-			calle    Print,  4
-			jmp      code_05bf
-code_0594:
-			pushi    1
-			lofsa    '/coffee'
-			push    
-			callk    Said,  2
-			bnt      code_05ab
-			pushi    2
-			pushi    34
-			pushi    13
-			calle    Print,  4
-			jmp      code_05bf
-code_05ab:
-			pushi    1
-			lofsa    '/fire,log'
-			push    
-			callk    Said,  2
-			bnt      code_05bf
-			pushi    2
-			pushi    34
-			pushi    14
-			calle    Print,  4
-code_05bf:
-			ret     
+			(if
+				(and
+					global208
+					temp0
+					(Said
+						'ask,tell,show,give,look,get,kill,kiss,embrace,flirt>'
+					)
+				)
+				(DisposeScript 990)
+				(self setScript: (ScriptID 243 0)) ; atsgl
+				((self script:) handleEvent: event)
+				(if (event claimed:)
+					(return 1)
+				)
+			)
+			(cond
+				((Said '/panel,(door<hidden)>')
+					(cond
+						((Said 'look')
+							(if (& global175 $0002)
+								(Print 34 2) ; "Even though you know where it is, you can't see it."
+							else
+								(Print 34 3) ; "You don't see one."
+							)
+						)
+						((and (& global175 $0002) (Said 'open,move'))
+							(if (not local2)
+								(if (& (ego onControl: 1) $0008)
+									(curRoom newRoom: 50)
+								else
+									(NotClose) ; "You're not close enough."
+								)
+							else
+								(Print 34 4) ; "Better not while someone is in the room."
+							)
+						)
+					)
+				)
+				((Said 'look>')
+					(cond
+						((Said '[<around,at][/room]')
+							(Print 34 1) ; "This is a very elegant dining room. It looks like the Colonel has some class after all!"
+						)
+						((Said 'look/panel[<hidden]')
+							(if (& global175 $0002)
+								(Print 34 2) ; "Even though you know where it is, you can't see it."
+							else
+								(Print 34 3) ; "You don't see one."
+							)
+						)
+						((Said '/wall,door')
+							(Print 34 5) ; "You notice a small door below the wall light."
+						)
+						((Said '<below/nightstand')
+							(Print 34 6) ; "There is nothing special under the table."
+						)
+						((Said '/nightstand')
+							(Print 34 7) ; "Which table do you mean...the small table or the dining table?"
+						)
+						(
+							(or
+								(and (Said 'look/eye>') (Said 'look/man'))
+								(Said 'look/eye[<man,painting]')
+								(Said 'look/eye/man')
+							)
+							(Print 34 8) ; "The eyes of the man appear oddly vacant."
+						)
+						((Said '<behind,below/painting')
+							(Print 34 9) ; "You can see nothing behind the picture."
+						)
+						((or (Said '/painting') (Said '/man/painting'))
+							(Print 34 10) ; "Upon the wall opposite the fireplace hangs a picture of an aristocratic-looking, older man. That's strange...the eyes of the man appear oddly vacant."
+						)
+					)
+				)
+				((Said 'move,get/painting')
+					(Print 34 11) ; "The portrait is firmly attached to the wall."
+				)
+				((Said 'get>')
+					(cond
+						((Said '/mirror')
+							(Print 34 12) ; "The mirror is firmly attached to the wall."
+						)
+						((Said '/coffee')
+							(Print 34 13) ; "The coffee urn is empty."
+						)
+						((Said '/fire,log')
+							(Print 34 14) ; "Don't play with fire!"
+						)
+					)
+				)
+			)
 		)
 	)
 	
