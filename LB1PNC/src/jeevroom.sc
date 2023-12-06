@@ -771,7 +771,8 @@
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
-				(ego observeControl: cYELLOW)
+;;;				(ego observeControl: cYELLOW)
+				(ego observeControl: 16384)
 				(Jeeves
 					cycleSpeed: 1
 					cel: 2
@@ -841,7 +842,8 @@
 				)
 			)
 			(17
-				(ego ignoreControl: cYELLOW)
+;;;				(ego ignoreControl: cYELLOW)
+				(ego ignoreControl: 16384)
 				(Jeeves
 					view: 456
 					setPri: -1
@@ -876,7 +878,7 @@
 					init:
 					setScript: headActions
 				)
-				(client setScript: 0)
+;;;				(client setScript: 0)
 			)
 		)
 	)

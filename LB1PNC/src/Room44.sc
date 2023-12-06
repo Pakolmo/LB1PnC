@@ -557,7 +557,7 @@
 													(User handleEvent: newEvent)
 													(newEvent dispose:)
 													(User mapKeyToDir: FALSE)
-													(= chutemoving 1)
+;;;													(= chutemoving 1)
 													
 													
 												
@@ -1133,6 +1133,7 @@
 						((ego inRect: 10 127 40 135)
 							(= state 0)
 							(= cycles 1)
+							(= chutemoving 1)
 						)
 						(else
 							(NotClose)
