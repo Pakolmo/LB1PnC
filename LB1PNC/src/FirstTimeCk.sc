@@ -32,6 +32,7 @@
 			)
 			(cSound fade:)
 			(theGame setCursor: 997 (HaveMouse))
+			(Print {Recuerda que para activar el nuevo men{ point and click, tan s/lo debes hacer un click izquierdo con el rat/n en la zona superior oscura durante el juego.})
 			(curRoom newRoom: 777)
 		else
 			(cSound fade:)
@@ -40,6 +41,7 @@
 ;;;			(TheMenuBar hide:)
 ;;;		)
 ;;;			(theGame setCursor: 997 (HaveMouse))
+			(Print {Recuerda que para activar el nuevo men{ point and click, tan s/lo debes hacer un click izquierdo con el rat/n en la zona superior oscura durante el juego.})
 			(curRoom newRoom: 44)
 		)
 	)

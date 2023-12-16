@@ -181,10 +181,12 @@
 							
 							(= temp7
 												(Print
-													{Frog}
-													#button {converse} 1
-													#button {kiss} 2	
-						
+;;;													{Frog}
+;;;													#button {converse} 1
+;;;													#button {kiss} 2	
+													{Rana}
+													#button {Hablar} 1
+													#button {Besar} 2						
 
 
 												)
@@ -214,11 +216,14 @@
 						(995
 														(= temp7
 												(Print
-													{Frog}
-													#button {capture} 1
-													#button {kill} 2	
-													#button {pat} 3							
-
+;;;													{Frog}
+;;;													#button {capture} 1
+;;;													#button {kill} 2	
+;;;													#button {pat} 3							
+													{Rana}
+													#button {Cazar} 1
+													#button {Matar} 2	
+													#button {Abrazar} 3	
 
 												)
 											)
@@ -260,10 +265,12 @@
 							
 							(= temp7
 												(Print
-													{Turtle}
-													#button {converse} 1
-													#button {kiss} 2	
-						
+;;;													{Turtle}
+;;;													#button {converse} 1
+;;;													#button {kiss} 2	
+													{Tortuga}
+													#button {Hablar} 1
+													#button {Besar} 2						
 
 
 												)
@@ -293,11 +300,14 @@
 						(995
 														(= temp7
 												(Print
-													{turtle}
-													#button {capture} 1
-													#button {kill} 2	
-													#button {pat} 3							
-
+;;;													{turtle}
+;;;													#button {capture} 1
+;;;													#button {kill} 2	
+;;;													#button {pat} 3							
+													{Tortuga}
+													#button {Capturar} 1
+													#button {Matar} 2	
+													#button {Abrazar} 3
 
 												)
 											)
@@ -343,11 +353,14 @@
 						(995
 							(= temp7
 												(Print
-													{Gator}
-													#button {capture} 1
-													#button {pat} 2	
-													#button {kill}3
-
+;;;													{Gator}
+;;;													#button {capture} 1
+;;;													#button {pat} 2	
+;;;													#button {kill}3
+													{Cocodrilo}
+													#button {Capturar} 1
+													#button {Abrazar} 2	
+													#button {Matar}3
 												)
 											)
 											(switch temp7
@@ -382,10 +395,12 @@
 						(996
 								(= temp7
 												(Print
-													{Gator}
-													#button {converse} 1
-													#button {kiss} 2	
-
+;;;													{Gator}
+;;;													#button {converse} 1
+;;;													#button {kiss} 2	
+													{Cocodrilo}
+													#button {Hablar} 1
+													#button {Besar} 2
 												)
 											)
 											(switch temp7

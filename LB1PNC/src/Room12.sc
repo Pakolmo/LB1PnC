@@ -391,7 +391,7 @@
 ;;;													#button {Examine} 3
 
 													{Caseta}
-													#button {examinar por detr*s} 1
+													#button {Examinar por detr*s} 1
 													#button {Buscar} 2								
 													#button {Examinar} 3
 												)
@@ -436,7 +436,7 @@
 ;;;													#button {Examine} 3
 
 													{Caseta}
-													#button {examinar por detr*s} 1
+													#button {Examinar por detr*s} 1
 													#button {Buscar} 2								
 													#button {Examinar} 3
 												)

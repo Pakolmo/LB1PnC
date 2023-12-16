@@ -314,7 +314,7 @@
 													{Puerta}
 													#button {Romper} 1
 													#button {Desatrancar} 2								
-													#button {Golpear} 3
+													#button {Picar} 3
 													#button {Abrir} 4
 												)
 											)

@@ -212,8 +212,8 @@
 														(= temp7
 												(PrintSpecial
 													{Cuadro}
-													#button {examinar} 1
-													#button {examinar por detr*s} 2								
+													#button {Examinar} 1
+													#button {Examinar por detr*s} 2								
 ;;;													{Picture}
 ;;;													#button {examine} 1
 ;;;													#button {examine behind} 2														

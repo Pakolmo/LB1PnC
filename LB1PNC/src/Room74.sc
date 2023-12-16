@@ -454,7 +454,7 @@
 ;;;													#button {Get} 4
 													{Espejo}
 													#button {Reflejo} 1
-													#button {Mirar debajo} 2								
+													#button {Mirar detr*s} 2								
 													#button {Mirar} 3
 													#button {Coger} 4
 													
@@ -641,10 +641,10 @@
 											)
 											(switch temp7
 												(1 ;
-													(DoVerb {examine record})
+													(DoVerb {examine gramophone})
 												)
 												(2	
-													(DoVerb {examine gramophone})							
+													(DoVerb {examine record})							
 												)
 												(else
 														(event claimed: FALSE)
@@ -808,7 +808,7 @@
 													{Puerta}
 													#button {Abrir} 1
 													#button {Cerrar} 2								
-													#button {Golpear} 3
+													#button {Picar} 3
 													#button {Entrar} 4
 												)
 											)
@@ -839,7 +839,7 @@
 ;;;													{Door}
 ;;;													#button {Examine door} 1
 ;;;													#button {Examine keyhole} 2	
-													{Door}
+													{Puerta}
 													#button {Examinar puerta} 1
 													#button {Examinar cerradura} 2								
 												)
@@ -880,7 +880,7 @@
 ;;;													{Door}
 ;;;													#button {Examine door} 1
 ;;;													#button {Examine keyhole} 2	
-													{Door}
+													{Puerta}
 													#button {Examinar puerta} 1
 													#button {Examinar cerradura} 2								
 												)

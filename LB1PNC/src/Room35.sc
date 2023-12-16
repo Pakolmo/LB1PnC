@@ -312,7 +312,7 @@
 ;;;													#button {Open} 1
 ;;;													#button {Get} 2
 ;;;													#button {Drink} 3
-													{Caldero}
+													{Cafetera}
 													#button {Abrir} 1
 													#button {Coger} 2
 													#button {Beber} 3						

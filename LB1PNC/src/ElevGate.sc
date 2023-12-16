@@ -753,7 +753,7 @@
 		(if (!= param2 -1)
 			(ego loop: param2)
 		)
-		(HandsOn)
+;;;		(HandsOn) ;elevator bug
 	)
 
 	(method (elevatorFunc)

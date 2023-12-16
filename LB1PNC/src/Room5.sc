@@ -275,7 +275,7 @@
 ;;;													#button {examine below} 1
 ;;;													#button {examine} 2	
 													{Banco}
-													#button {examinar por debajo} 1
+													#button {Examinar por debajo} 1
 													#button {Mirar} 2													
 													
 												)

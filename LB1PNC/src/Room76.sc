@@ -234,7 +234,7 @@
 ;;;									{Chest}
 ;;;									#button {Search} 1
 ;;;									#button {Examine} 2
-									{Cofre}
+									{Ba{l}
 									#button {Buscar} 1
 									#button {Examinar} 2
 								)

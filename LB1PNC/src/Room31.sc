@@ -241,7 +241,7 @@
 ;;;									{Rhino}
 ;;;									#button {Examine} 1
 ;;;									#button {Examine in} 2
-									{Rhino}
+									{Rino}
 									#button {Mirar} 1
 									#button {Examinar} 2		
 								)
@@ -625,8 +625,8 @@
 
 									#button {Armario} 1
 									#button {Arma} 2
-									#button {boomerang} 3
-									#button {Cutlass} 4
+									#button {B{meran} 3
+									#button {Alfanje} 4
 									#button {Daga} 5
 									#button {Mazo} 6
 ;;;									#button {Rifle} 7
@@ -692,8 +692,8 @@
 		;;;									#button {Close armoire} 8
 											{Coger}
 											#button {Arma} 1
-											#button {boomerang} 2
-											#button {Cutlass} 3
+											#button {b{meran} 2
+											#button {Alfanje} 3
 											#button {Daga} 4
 											#button {Mazo} 5
 ;;;											#button {Rifle} 6

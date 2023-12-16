@@ -207,7 +207,7 @@
 													{Cuadro}
 													#button {Ojo} 1
 													#button {Mirar atr*s} 2	
-													#button {examinar} 3	
+													#button {Examinar} 3	
 												)
 											)
 											(switch temp7
@@ -503,7 +503,7 @@
 ;;;													#button {Examine} 1
 ;;;													#button {Read} 2
 													{Libreta}
-													#button {examinar} 1
+													#button {Examinar} 1
 													#button {Leer} 2												
 												)
 												

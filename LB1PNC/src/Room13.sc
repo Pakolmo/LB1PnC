@@ -249,10 +249,12 @@
 						(995
 							(= temp7
 												(Print
-													{Window}
-													#button {Open} 1
-													#button {Break} 2								
-
+;;;													{Window}
+;;;													#button {Open} 1
+;;;													#button {Break} 2								
+													{Ventana}
+													#button {Abrir} 1
+													#button {Romper} 2
 
 												)
 											)
@@ -333,10 +335,12 @@
 						(995
 								(= temp7
 												(Print
-													{Bale}
-													#button {Move} 1
-													#button {Get} 2								
-
+;;;													{Bale}
+;;;													#button {Move} 1
+;;;													#button {Get} 2								
+													{Heno}
+													#button {Mover} 1
+													#button {Coger} 2	
 
 												)
 											)

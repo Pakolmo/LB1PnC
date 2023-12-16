@@ -299,9 +299,9 @@
 						(995
 							(= temp7
 								(PrintSpecial
-									{Elevator}
-									#button {Open} 1
-									#button {Close} 2
+									{Ascensor}
+									#button {Abrir} 1
+									#button {Cerrar} 2
 									#button {Arriba} 3
 									#button {Abajo} 4								
 ;;;									#button {Open} 1

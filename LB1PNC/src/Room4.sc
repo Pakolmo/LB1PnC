@@ -163,7 +163,7 @@
 ;;;													#button {examine in} 2								
 													{Banco}
 													#button {Mirar} 1
-													#button {examinar} 2														
+													#button {Examinar} 2														
 												)
 											)
 											(switch temp7
