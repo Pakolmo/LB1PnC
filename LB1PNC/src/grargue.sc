@@ -520,8 +520,59 @@
 						)
 					)
 				)												
-																								
-						(996 ;talk
+							
+						
+												(944 ;Sarah
+								(event type: 1 claimed: 1)
+								(= temp7	
+							(Print
+;;;								{Ask or Tell}
+;;;								#button {Ask} 1
+;;;								#button {Tell} 2
+								{Preguntar o Hablar de}
+								#button {Preguntar} 1
+								#button {Hablar de} 2												
+							)
+						)
+						(switch temp7
+							(1 
+								(DoVerb {ask gloria about sarah})
+							)
+							(2
+								(DoVerb {tell gloria about sarah})
+							)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)								
+																													
+
+							(945 ;Crouton
+								(event type: 1 claimed: 1)
+								(= temp7	
+							(Print
+;;;								{Ask or Tell}
+;;;								#button {Ask} 1
+;;;								#button {Tell} 2
+								{Preguntar o Hablar de}
+								#button {Preguntar} 1
+								#button {Hablar de} 2												
+							)
+						)
+						(switch temp7
+							(1 
+								(DoVerb {ask Gloria about crouton})
+							)
+							(2
+								(DoVerb {tell Gloria about crouton})
+							)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)				
+										(996 ;talk
 							(DoVerb {converse Gloria})
 						)
 						(994
@@ -997,7 +1048,32 @@
 							(event claimed: FALSE)
 						)
 					)
-				)																				
+				)
+												(944 ;Sarah
+								(event type: 1 claimed: 1)
+								(= temp7	
+							(Print
+;;;								{Ask or Tell}
+;;;								#button {Ask} 1
+;;;								#button {Tell} 2
+								{Preguntar o Hablar de}
+								#button {Preguntar} 1
+								#button {Hablar de} 2												
+							)
+						)
+						(switch temp7
+							(1 
+								(DoVerb {ask rudolph about sarah})
+							)
+							(2
+								(DoVerb {tell rudolph about sarah})
+							)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)								
+																												
 						(996 ;talk
 							(DoVerb {converse rudolph})
 						)

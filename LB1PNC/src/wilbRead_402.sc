@@ -494,6 +494,59 @@
 						)
 					)
 				)				
+					
+					
+
+									
+							(944 ;Sarah
+								(event type: 1 claimed: 1)
+								(= temp7	
+							(Print
+;;;								{Ask or Tell}
+;;;								#button {Ask} 1
+;;;								#button {Tell} 2
+								{Preguntar o Hablar de}
+								#button {Preguntar} 1
+								#button {Hablar de} 2												
+							)
+						)
+						(switch temp7
+							(1 
+								(DoVerb {ask wilbur about sarah})
+							)
+							(2
+								(DoVerb {tell wilbur about sarah})
+							)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)								
+							
+							(945 ;Crouton
+								(event type: 1 claimed: 1)
+								(= temp7	
+							(Print
+;;;								{Ask or Tell}
+;;;								#button {Ask} 1
+;;;								#button {Tell} 2
+								{Preguntar o Hablar de}
+								#button {Preguntar} 1
+								#button {Hablar de} 2												
+							)
+						)
+						(switch temp7
+							(1 
+								(DoVerb {ask wilbur about crouton})
+							)
+							(2
+								(DoVerb {tell wilbur about crouton})
+							)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)						
 							(943 ;Horse
 								(event type: 1 claimed: 1)
 								(= temp7	

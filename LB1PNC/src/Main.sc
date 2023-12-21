@@ -1161,6 +1161,8 @@
 				Beauregard_
 				Polly_
 				Blaze_
+				Sarah_
+				Crouton_
 				
 		)
 		(= global181 1)
@@ -1745,5 +1747,19 @@
 		owner 59 ;ADD
 		view 943
 		name "Blaze__"
+	)
+)
+(instance Sarah_ of InvI
+	(properties
+;;;		said '/Sarah'
+		view 944
+		name "Sarah_Crouton_"
+	)
+)
+(instance Crouton_ of InvI
+	(properties
+;;;		said '/Crouton'
+		view 945
+		name "Los_Crouton__"
 	)
 )						

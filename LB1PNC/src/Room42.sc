@@ -518,6 +518,7 @@
 ;;;				)	
 				(if (ClickedOnObj Dbag (event x?) (event y?))
 					(event claimed: TRUE)
+
 					(switch theCursor	
 						(995
 							(= temp7
@@ -533,9 +534,13 @@
 							(switch temp7
 								(1
 									(DoVerb {get bag})
+									(Bset 31)
+									(Bset 32)
 								)
 								(2
 									(DoVerb {open bag})
+									(Bset 31)
+									(Bset 32)									
 								)
 							)
 						)
@@ -553,9 +558,13 @@
 							(switch temp7
 								(1 
 									(DoVerb {look bag})
+									(Bset 31)
+									(Bset 32)
 								)
 								(2
 									(DoVerb {examine in bag})
+									(Bset 31)
+									(Bset 32)									
 								)
 							)
 						)	
@@ -1051,6 +1060,7 @@
 		(cond 
 			((Said 'get/bag')
 				(Print 42 33)
+				(Bset 31)
 				(Bset 32)
 			)
 			((Said 'open/bag')
@@ -1059,6 +1069,7 @@
 			((Said 'examine<in/bag')
 				(if (< (ego distanceTo: Dbag) 10)
 					(Print 42 34)
+					(Bset 31)
 					(Bset 32)
 				else
 					(NotClose)
@@ -1072,11 +1083,13 @@
 				)
 				(event claimed: TRUE)
 				(Print 42 35)
+				(Bset 31)
 				(Bset 32)
 			)
 		)
 		(if (event claimed?)
 			(Bset 32)
+			(Bset 31)
 		)
 	)
 )

@@ -2197,6 +2197,7 @@ code_0f17:
 				(= cycles 1)
 			)
 			(11
+				(ego get: 38); inventory Sarah				
 				(HandsOn)
 				(client setScript: 0)
 			)

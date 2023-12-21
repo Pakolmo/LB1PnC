@@ -35,6 +35,7 @@
 		(Load SOUND 48)
 		(Load VIEW 56)
 		(addToPics add: dijon crouton doit:)
+		(ego get: 39); inventory crouton
 		(self setFeatures: Yard)
 		(if howFast
 			(light1 setScript: showers init: hide:)
@@ -47,6 +48,8 @@
 		(and (< (Random 1 100) 25) (== prevRoomNum 9))
 			(Load SOUND 12)
 			(ghost setLoop: 3 setPri: 10 setScript: Spectre init:)
+				(ego get: 38); inventory sarah
+			
 			(moodMusic number: 46 loop: -1 play:)
 		)
 		(if (== prevRoomNum 57)

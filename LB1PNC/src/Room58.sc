@@ -913,6 +913,8 @@
 	(method (changeState newState)
 		(switch (= state newState)
 			(0
+				(ego get: 38); inventory sarah
+				(ego get: 39); inventory crouton
 				(HandsOff)
 				(ego
 					setAvoider: (Avoider new:)

@@ -651,7 +651,56 @@
 						)
 					)
 				)												
-																
+							(944 ;Sarah
+								(event type: 1 claimed: 1)
+								(= temp7	
+							(Print
+;;;								{Ask or Tell}
+;;;								#button {Ask} 1
+;;;								#button {Tell} 2
+								{Preguntar o Hablar de}
+								#button {Preguntar} 1
+								#button {Hablar de} 2												
+							)
+						)
+						(switch temp7
+							(1 
+								(DoVerb {ask gloria about sarah})
+							)
+							(2
+								(DoVerb {tell gloria about sarah})
+							)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)								
+							
+							(945 ;Crouton
+								(event type: 1 claimed: 1)
+								(= temp7	
+							(Print
+;;;								{Ask or Tell}
+;;;								#button {Ask} 1
+;;;								#button {Tell} 2
+								{Preguntar o Hablar de}
+								#button {Preguntar} 1
+								#button {Hablar de} 2												
+							)
+						)
+						(switch temp7
+							(1 
+								(DoVerb {ask gloria about crouton})
+							)
+							(2
+								(DoVerb {tell gloria about crouton})
+							)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)								
+																					
 						(996 ;talk
 							(DoVerb {converse Gloria})
 						)
@@ -1095,7 +1144,58 @@
 							(event claimed: FALSE)
 						)
 					)
-				)				(996 ;talk
+				)
+							(944 ;Sarah
+								(event type: 1 claimed: 1)
+								(= temp7	
+							(Print
+;;;								{Ask or Tell}
+;;;								#button {Ask} 1
+;;;								#button {Tell} 2
+								{Preguntar o Hablar de}
+								#button {Preguntar} 1
+								#button {Hablar de} 2												
+							)
+						)
+						(switch temp7
+							(1 
+								(DoVerb {ask clarence about sarah})
+							)
+							(2
+								(DoVerb {tell clarence about sarah})
+							)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)								
+							
+							(945 ;Crouton
+								(event type: 1 claimed: 1)
+								(= temp7	
+							(Print
+;;;								{Ask or Tell}
+;;;								#button {Ask} 1
+;;;								#button {Tell} 2
+								{Preguntar o Hablar de}
+								#button {Preguntar} 1
+								#button {Hablar de} 2												
+							)
+						)
+						(switch temp7
+							(1 
+								(DoVerb {ask clarence about crouton})
+							)
+							(2
+								(DoVerb {tell clarence about crouton})
+							)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)								
+													
+								(996 ;talk
 							(DoVerb {converse Clarence})
 						)
 						(994

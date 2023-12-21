@@ -548,7 +548,56 @@
 							(event claimed: FALSE)
 						)
 					)
-				)															
+				)
+							(944 ;Sarah
+								(event type: 1 claimed: 1)
+								(= temp7	
+							(Print
+;;;								{Ask or Tell}
+;;;								#button {Ask} 1
+;;;								#button {Tell} 2
+								{Preguntar o Hablar de}
+								#button {Preguntar} 1
+								#button {Hablar de} 2												
+							)
+						)
+						(switch temp7
+							(1 
+								(DoVerb {ask colonel about sarah})
+							)
+							(2
+								(DoVerb {tell colonel about sarah})
+							)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)								
+							
+							(945 ;Crouton
+								(event type: 1 claimed: 1)
+								(= temp7	
+							(Print
+;;;								{Ask or Tell}
+;;;								#button {Ask} 1
+;;;								#button {Tell} 2
+								{Preguntar o Hablar de}
+								#button {Preguntar} 1
+								#button {Hablar de} 2												
+							)
+						)
+						(switch temp7
+							(1 
+								(DoVerb {ask colonel about crouton})
+							)
+							(2
+								(DoVerb {tell colonel about crouton})
+							)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)																				
 						(996 ;talk
 							(DoVerb {converse Colonel})
 						)

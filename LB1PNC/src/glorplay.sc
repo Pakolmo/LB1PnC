@@ -948,7 +948,8 @@
 							(943 ;Horse
 								(event type: 1 claimed: 1)
 								(DoVerb {ask Gloria about blaze})
-							)															
+							)	
+																					
 						(996 ;talk
 							(DoVerb {converse Gloria})
 						)

@@ -431,7 +431,7 @@
 						(994
 								(DoVerb {hear blaze})
 						)						
-						(615 ;Kakarot
+						(615 ;carrot
 							(DoVerb {deliver carrot})
 						)
 						(995							
@@ -647,7 +647,15 @@
 							(943 ;Horse
 								(event type: 1 claimed: 1)
 								(DoVerb {ask butler about blaze})
-							)															
+							)
+							(944 ;Sarah
+								(event type: 1 claimed: 1)
+								(DoVerb {ask butler about sarah})
+							)
+							(945 ;Crouton
+								(event type: 1 claimed: 1)
+								(DoVerb {ask butler about crouton})
+							)																													
 						(996 ;talk
 							(DoVerb {converse butler})
 						)

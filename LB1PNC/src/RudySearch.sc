@@ -50,14 +50,14 @@
 				(= global207 (| global207 $0100))				
 				(Say 0 385 0)
 			)
-			(
-				(and
-					(& global207 $0100)
-					(or (MousedOn self event shiftDown) (Said 'examine/rudolph'))
-				)
-				(event claimed: TRUE)
-				(Print 385 1)
-			)
+;;;			( ;Bug look rudy.
+;;;				(and
+;;;					(& global207 $0100)
+;;;					(or (MousedOn self event shiftDown) (Said 'examine/rudolph'))
+;;;				)
+;;;				(event claimed: TRUE)
+;;;				(Print 385 1)
+;;;			)
 			((Said 'ask,tell//*<about')
 				(= theTalker talkRUDY)
 				(switch askCount
@@ -564,7 +564,58 @@
 					)
 				)						
 						
-						
+
+									
+							(944 ;Sarah
+								(event type: 1 claimed: 1)
+								(= temp7	
+							(Print
+;;;								{Ask or Tell}
+;;;								#button {Ask} 1
+;;;								#button {Tell} 2
+								{Preguntar o Hablar de}
+								#button {Preguntar} 1
+								#button {Hablar de} 2												
+							)
+						)
+						(switch temp7
+							(1 
+								(DoVerb {ask rudolph about sarah})
+							)
+							(2
+								(DoVerb {tell rudolph about sarah})
+							)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)								
+							
+							(945 ;Crouton
+								(event type: 1 claimed: 1)
+								(= temp7	
+							(Print
+;;;								{Ask or Tell}
+;;;								#button {Ask} 1
+;;;								#button {Tell} 2
+								{Preguntar o Hablar de}
+								#button {Preguntar} 1
+								#button {Hablar de} 2												
+							)
+						)
+						(switch temp7
+							(1 
+								(DoVerb {ask rudolph about crouton})
+							)
+							(2
+								(DoVerb {tell rudolph about crouton})
+							)
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)														
+													
 						
 						(996
 							(DoVerb {converse rudolph})
