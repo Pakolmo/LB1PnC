@@ -1,0 +1,212 @@
+;;; Sierra Script 1.0 - (do not remove this comment)
+(script# 27)
+(include game.sh)
+(use Main)
+(use Intrface)
+(use RFeature)
+(use Motion)
+(use Game)
+(use Actor)
+(use System)
+
+(public
+	Room27 0
+)
+
+(instance Room27 of Room
+	(properties
+		picture 27
+	)
+	
+	(method (init)
+		(= horizon 120)
+		(= east 28)
+		(= west 26)
+		(= north 21)
+		(super init:)
+		(if howFast
+			(star1 cycleSpeed: 2 setCycle: Forward init:)
+			(star2 init: setScript: twinkle)
+		)
+		(self setRegions: 207 405 setFeatures: House)
+		(if (and (>= currentAct 2) (< currentAct 4))
+			(self setRegions: 202)
+		)
+		(if
+			(or
+				(and (== currentAct 3) (!= global114 10))
+				(and (== currentAct 6) (not (& global118 $0002)))
+			)
+			(self setRegions: 281)
+		)
+		(switch prevRoomNum
+			(21 (ego posn: 162 122))
+		)
+		(ego view: 0 init:)
+		(HandsOn)
+	)
+	
+	(method (doit)
+		(if (FirstEntry)
+			(Print 27 0)
+		)
+		(super doit:)
+	)
+	
+	(method (dispose)
+		(super dispose:)
+	)
+	
+	(method (handleEvent event)
+		
+	
+			(cond
+			(
+				(and
+					(== (event type?) evMOUSEBUTTON)
+					(not (& (event modifiers?) emRIGHT_BUTTON))
+				)
+						
+		
+	
+					(if (ClickedInRect 0 5 80 103 event) ;exit room left
+					(event claimed: TRUE)
+					(switch theCursor
+						(999
+
+							(ego setMotion: MoveTo (- (ego x?) 315) (ego y?) )
+;;;							
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					 )
+				)
+					(if (ClickedInRect 0 5 127 149 event) ;exit room left2
+					(event claimed: TRUE)
+					(switch theCursor
+						(999
+
+							(ego setMotion: MoveTo (- (ego x?) 315) (ego y?) )
+;;;							
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					 )
+				)					
+					(if (ClickedInRect 313 319 117 157 event) ;exit room right
+					(event claimed: TRUE)
+					(switch theCursor
+						(999
+
+							(ego setMotion: MoveTo (+ (ego x?) 315) (ego y?) )
+;;;							
+						)
+						(else
+							(event claimed: FALSE)
+						)
+					 )
+				)			
+		
+		
+		
+		
+		
+		
+		
+			
+					(if (ClickedOnObj House (event x?) (event y?)) 
+					
+					(event claimed: TRUE)
+					(switch theCursor
+						(998
+							(DoVerb {examine playhouse})
+						)
+						
+						(else
+							(event claimed: FALSE)
+						)
+					)
+				)		
+		
+			)
+			)		
+		
+		
+		
+		(if (event claimed?) (return TRUE))
+		(return
+			(if
+			(and (== (event type?) saidEvent) (Said 'examine>'))
+				(cond 
+					((Said '[<around,at][/room]')
+						(Print 27 0)
+					)
+					((Said '/cabin,mansion')
+						(Print 27 1)
+					)
+				)
+			else
+				FALSE
+			)
+		)
+	)
+	
+	(method (newRoom n)
+		(super newRoom: n)
+	)
+)
+
+(instance twinkle of Script
+
+	(method (changeState newState)
+		(switch (= state newState)
+			(0
+				(star2 setCycle: EndLoop self)
+			)
+			(1
+				(if (< (Random 1 100) 35)
+					(= state -1)
+				else
+					(= state 0)
+				)
+				(= seconds (Random 7 15))
+			)
+		)
+	)
+)
+
+(instance star1 of Prop
+	(properties
+		y 3
+		x 116
+		view 107
+		loop 1
+	)
+)
+
+(instance star2 of Prop
+	(properties
+		y 43
+		x 228
+		view 107
+		loop 2
+	)
+)
+
+(instance House of RFeature
+	(properties
+		nsTop 69
+		nsLeft 74
+		nsBottom 82
+		nsRight 90
+	)
+	
+	(method (handleEvent event)
+		(if (or (MousedOn self event shiftDown) (Said 'examine/playhouse'))
+			(event claimed: TRUE)
+			(Print 27 2)
+		)
+	)
+)
