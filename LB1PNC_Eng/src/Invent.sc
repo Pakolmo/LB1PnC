@@ -279,47 +279,47 @@
 					(995 ;use
 						(cond
 							((== ((temp0 value?) view?) 930) ;celie
-								(Print {Elige el personaje para hablar sobre +l.})
+								(Print {Choose the character to talk about.})
 								(theGame setCursor: ((temp0 value?) view?))
 							)
 							((== ((temp0 value?) view?) 931) 
-								(Print {Elige el personaje para hablar sobre +l.})
+								(Print {Choose the character to talk about.})
 								(theGame setCursor: ((temp0 value?) view?))
 							)							
 							((== ((temp0 value?) view?) 932) 
-								(Print {Elige el personaje para hablar sobre +l.})
+								(Print {Choose the character to talk about.})
 								(theGame setCursor: ((temp0 value?) view?))
 							)
 							((== ((temp0 value?) view?) 933) ;celie
-								(Print {Elige el personaje para hablar sobre +l.})
+								(Print {Choose the character to talk about.})
 								(theGame setCursor: ((temp0 value?) view?))
 							)
 							((== ((temp0 value?) view?) 934) 
-								(Print {Elige el personaje para hablar sobre +l.})
+								(Print {Choose the character to talk about.})
 								(theGame setCursor: ((temp0 value?) view?))
 							)
 							((== ((temp0 value?) view?) 935) 
-								(Print {Elige el personaje para hablar sobre +l.})
+								(Print {Choose the character to talk about.})
 								(theGame setCursor: ((temp0 value?) view?))
 							)
 							((== ((temp0 value?) view?) 936) 
-								(Print {Elige el personaje para hablar sobre +l.})
+								(Print {Choose the character to talk about.})
 								(theGame setCursor: ((temp0 value?) view?))
 							)
 							((== ((temp0 value?) view?) 937) 
-								(Print {Elige el personaje para hablar sobre +l.})
+								(Print {Choose the character to talk about.})
 								(theGame setCursor: ((temp0 value?) view?))
 							)
 							((== ((temp0 value?) view?) 938) 
-								(Print {Elige el personaje para hablar sobre +l.})
+								(Print {Choose the character to talk about.})
 								(theGame setCursor: ((temp0 value?) view?))
 							)																												
 							((== ((temp0 value?) view?) 939) 
-								(Print {Elige el personaje para hablar sobre +l.})
+								(Print {Choose the character to talk about.})
 								(theGame setCursor: ((temp0 value?) view?))
 							)	
 							((== ((temp0 value?) view?) 940) 
-								(Print {Elige el personaje para hablar sobre +l.})
+								(Print {Choose the character to talk about.})
 								(theGame setCursor: ((temp0 value?) view?))
 							)																											
 							((== ((temp0 value?) view?) 616) ;selected use diary
@@ -366,8 +366,8 @@
 								)
 							)
 							(else
-;;;								(Print {You don't need to use that item.})
-								(Print {Eso no hace nada.})
+								(Print {You don't need to use that item.})
+;;;								(Print {Eso no hace nada.})
 ;;;								((temp0 value?) showSelf:) ;display the inventory item normally.
 ;;;								(theGame setCursor: ((temp0 value?) view?))
 							)
@@ -890,8 +890,8 @@
 					)						
 					
 					(else
-;;;						(Print {You can't use those items together.}) ;English
-						(Print {No puedes usar esos dos objetos juntos.}) ;Spanish
+						(Print {You can't use those items together.}) ;English
+;;;						(Print {No puedes usar esos dos objetos juntos.}) ;Spanish
 ;;;						(theGame setCursor: ((temp0 value?) view?))
 						((temp0 value?) showSelf:) ;display the inventory item normally.
 						(theGame setCursor: ((temp0 value?) view?))

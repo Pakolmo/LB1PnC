@@ -123,15 +123,15 @@
 							 
 								(= temp7
 												(Print
-;;;													{Boat}
-;;;													#button {Get} 1
-;;;													#button {Enter} 2	
+													{Boat}
+													#button {Get} 1
+													#button {Enter} 2	
 	
 
 
-													{Bote}
-													#button {Recoger} 1
-													#button {Entrar} 2								
+;;;													{Bote}
+;;;													#button {Recoger} 1
+;;;													#button {Entrar} 2								
 
 												)
 											)
@@ -162,16 +162,16 @@
 						(998
 									(= temp7
 												(PrintSpecial
-;;;													{Boat}
-;;;													#button {Examine below} 1
-;;;													#button {Examine in} 2	
-;;;													#button {Examine} 3	
+													{Boat}
+													#button {Examine below} 1
+													#button {Examine in} 2	
+													#button {Examine} 3	
 
 
-													{Bote}
-													#button {Examinar debajo} 1
-													#button {Examinar} 2								
-													#button {Mirar} 3
+;;;													{Bote}
+;;;													#button {Examinar debajo} 1
+;;;													#button {Examinar} 2								
+;;;													#button {Mirar} 3
 												)
 											)
 											(switch temp7
@@ -211,15 +211,15 @@
 									 
 								(= temp7
 												(Print
-;;;													{Box}
-;;;													#button {Open} 1
-;;;													#button {Get} 2	
+													{Box}
+													#button {Open} 1
+													#button {Get} 2	
 	
 
 
-													{Caja}
-													#button {Abrir} 1
-													#button {Recoger} 2								
+;;;													{Caja}
+;;;													#button {Abrir} 1
+;;;													#button {Recoger} 2								
 
 												)
 											)
@@ -251,15 +251,15 @@
 									 
 								(= temp7
 												(Print
-;;;													{Box}
-;;;													#button {Examine in} 1
-;;;													#button {Look} 2	
+													{Box}
+													#button {Examine in} 1
+													#button {Look} 2	
 	
 
 
-													{Caja}
-													#button {Examinar} 1
-													#button {Mirar} 2								
+;;;													{Caja}
+;;;													#button {Examinar} 1
+;;;													#button {Mirar} 2								
 
 												)
 											)
@@ -297,15 +297,15 @@
 									 
 								(= temp7
 												(Print
-;;;													{Buggy}
-;;;													#button {Enter} 1
-;;;													#button {Get} 2	
+													{Buggy}
+													#button {Enter} 1
+													#button {Get} 2	
 	
 
 
-													{Buggy}
-													#button {Entrar} 1
-													#button {Recoger} 2								
+;;;													{Buggy}
+;;;													#button {Entrar} 1
+;;;													#button {Recoger} 2								
 
 												)
 											)
@@ -337,15 +337,15 @@
 									 
 								(= temp7
 												(Print
-;;;													{Buggy}
-;;;													#button {Examine in} 1
-;;;													#button {Look} 2	
+													{Buggy}
+													#button {Examine in} 1
+													#button {Look} 2	
 	
 
 
-													{Buggy}
-													#button {Examinar} 1
-													#button {Mirar} 2								
+;;;													{Buggy}
+;;;													#button {Examinar} 1
+;;;													#button {Mirar} 2								
 
 												)
 											)

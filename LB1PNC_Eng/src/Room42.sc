@@ -222,13 +222,13 @@
 							(= temp7
 
 								(PrintSpecial
-									{Ascensor}
-									#button {Bloquear} 1
-									#button {Desbloquear} 2
+;;;									{Ascensor}
+;;;									#button {Bloquear} 1
+;;;									#button {Desbloquear} 2
 									
-;;;									{Elevator}
-;;;									#button {Lock} 1
-;;;									#button {Unlock} 2							
+									{Elevator}
+									#button {Lock} 1
+									#button {Unlock} 2							
 								)
 							)
 							(switch temp7
@@ -253,11 +253,11 @@
 							(= temp7
 								(PrintSpecial
 									{ }
-									#button {Examinar Control} 1
-									#button {Examinar Agujero} 2	
+;;;									#button {Examinar Control} 1
+;;;									#button {Examinar Agujero} 2	
 
-;;;									#button {Examine Control} 1
-;;;									#button {Examine Keyhole} 2	
+									#button {Examine Control} 1
+									#button {Examine Keyhole} 2	
 						
 								)
 							)
@@ -299,15 +299,16 @@
 						(995
 							(= temp7
 								(PrintSpecial
-									{Ascensor}
-									#button {Abrir} 1
-									#button {Cerrar} 2
-									#button {Arriba} 3
-									#button {Abajo} 4								
-;;;									#button {Open} 1
-;;;									#button {Close} 2								
-;;;									#button {Press Up} 3
-;;;									#button {Press Down} 4
+;;;									{Ascensor}
+;;;									#button {Abrir} 1
+;;;									#button {Cerrar} 2
+;;;									#button {Arriba} 3
+;;;									#button {Abajo} 4
+									{Elevator}								
+									#button {Open} 1
+									#button {Close} 2								
+									#button {Press Up} 3
+									#button {Press Down} 4
 								)		
 
 							)
@@ -448,12 +449,12 @@
 						(998
 							(= temp7
 								(Print
-;;;									{Cannon}
-;;;									#button {Look} 1
-;;;									#button {Examine in} 2	
-									{Ca=on}
-									#button {Mirar} 1
-									#button {Examinar} 2										
+									{Cannon}
+									#button {Look} 1
+									#button {Look inside} 2	
+;;;									{Ca=on}
+;;;									#button {Mirar} 1
+;;;									#button {Examinar} 2										
 								)
 							)
 							(switch temp7
@@ -523,12 +524,12 @@
 						(995
 							(= temp7
 								(Print
-;;;									{Bag}
-;;;									#button {Get} 1
-;;;									#button {Open} 2
-									{Malet-n}
-									#button {Coger} 1
-									#button {Abrir} 2																	
+									{Bag}
+									#button {Get} 1
+									#button {Open} 2
+;;;									{Malet-n}
+;;;									#button {Coger} 1
+;;;									#button {Abrir} 2																	
 								)
 							)
 							(switch temp7
@@ -547,12 +548,12 @@
 						(998
 							(= temp7
 								(Print
-;;;									{Bag}
-;;;									#button {Look} 1
-;;;									#button {Examine} 2	
-									{Malet-n}
-									#button {Mirar} 1
-									#button {Examinar} 2								
+									{Bag}
+									#button {Look} 1
+									#button {Examine} 2	
+;;;									{Malet-n}
+;;;									#button {Mirar} 1
+;;;									#button {Examinar} 2								
 								)
 							)
 							(switch temp7

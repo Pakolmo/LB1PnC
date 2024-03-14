@@ -212,11 +212,11 @@
 	(= i (DoSound SoundOn))
 	(DoSound SoundOn (not i))
 	(if i
-;;;		(SetMenu soundI p_text {Turn On}) ;English
-		(SetMenu soundI p_text {Encender}) ;Spanish
+		(SetMenu soundI p_text {Turn On}) ;English
+;;;		(SetMenu soundI p_text {Encender}) ;Spanish
 	else
-;;;		(SetMenu soundI p_text {Turn Off}) ;English
-		(SetMenu soundI p_text {Apagar}) ;Spanish
+		(SetMenu soundI p_text {Turn Off}) ;English
+;;;		(SetMenu soundI p_text {Apagar}) ;Spanish
 	)
 )
 

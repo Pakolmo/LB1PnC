@@ -449,16 +449,16 @@
 						(995
 								(= temp7
 												(Print
-;;;													{Window}
-;;;													#button {Open} 1
-;;;													#button {Break} 2	
+													{Window}
+													#button {Open} 1
+													#button {Break} 2	
 
 	
 
 
-													{Ventana}
-													#button {Abrir} 1
-													#button {Romper} 2
+;;;													{Ventana}
+;;;													#button {Abrir} 1
+;;;													#button {Romper} 2
 							
  
 												)
@@ -611,17 +611,17 @@
 						(995
 								(= temp7
 												(Print
-;;;													{ }
-;;;													#button {Bar} 1
-;;;													#button {Open} 2	
-;;;													#button {Unbar} 3
+													{ }
+													#button {Bar} 1
+													#button {Open} 2	
+													#button {Unbar} 3
 	
 
 
-													{ }
-													#button {Bloquear} 1
-													#button {Abrir} 2
-													#button {Desbloquear} 3								
+;;;													{ }
+;;;													#button {Bloquear} 1
+;;;													#button {Abrir} 2
+;;;													#button {Desbloquear} 3								
  
 												)
 											)

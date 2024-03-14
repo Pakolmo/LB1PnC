@@ -311,12 +311,12 @@
 						(995
 							(= temp7
 												(Print
-;;;													{Door}
-;;;													#button {close} 1
-;;;													#button {open} 2								
-													{Puerta}
-													#button {Cerrar} 1
-													#button {Abrir} 2
+													{Door}
+													#button {close} 1
+													#button {open} 2								
+;;;													{Puerta}
+;;;													#button {Cerrar} 1
+;;;													#button {Abrir} 2
 
 												)
 											)

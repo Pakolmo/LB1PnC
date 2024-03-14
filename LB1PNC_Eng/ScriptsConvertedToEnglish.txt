@@ -31,8 +31,68 @@ Completed:
 030
 031
 032
+033
+034
+035
+036
+037
+038
+041
+042
+043
+044
+045
+046
+047
+048
+049
+050
+051
+052
+053
+055
+056
+057
+058
+059
+061
+063
+064
+065
+069
+073
+074
+075
+076
+099
+201 - ElevGate
+202 - EthelDrunk
+203 - clarwand
+204 - servent
+205 - swampReg
+206 - houseOReg
+207 - fenceReg
+208 - outsideReg
+209 - Dinner
+210 - insideReg
+211 - stairReg
+212 - passReg
+213 - fireReg
+214 - HighLite
+215 - showerReg
+216 - Mgert
+217 - GertieClarArgue
+
+
+
 
 
 409 - firstTimeCk
 
 414 - myCopy
+
+995 - Invent
+996 - User
+997 - Menu
+998 - Actor
+999 - System

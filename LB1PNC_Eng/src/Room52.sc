@@ -505,16 +505,16 @@
 						(995
 							(= temp7
 							(PrintSpecial
+;;;								{Panel}
+;;;
+;;;								#button {Girar} 1
+;;;								#button {Abrir} 2
+;;;								#button {Coger} 3	
 								{Panel}
 
-								#button {Girar} 1
-								#button {Abrir} 2
-								#button {Coger} 3	
-;;;								{Panel}
-
-;;;								#button {Rotate} 1
-;;;								#button {Open} 2
-;;;								#button {Get} 3															
+								#button {Rotate} 1
+								#button {Open} 2
+								#button {Get} 3															
 							)
 							)
 
@@ -554,7 +554,7 @@
 							(DoVerb {examine rat})
 						)
 						(995
-							(switch (Random 1 2) ;randomly select a sentance between 0-2
+							(switch (Random 1 2) ;randomly select a sentance between 1-2
 									(1 (DoVerb {kill rat})) 
 									(2 (DoVerb {get rat}))
 									

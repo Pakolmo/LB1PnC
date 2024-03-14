@@ -151,12 +151,12 @@
 					(995
 						(= temp7
 							(Print
-								{Rata}
-								#button {Matar} 1
-								#button {Capturar} 2
-;;;									{Rat}
-;;;									#button {Kill} 1
-;;;									#button {Capture} 2								
+;;;								{Rata}
+;;;								#button {Matar} 1
+;;;								#button {Capturar} 2
+									{Rat}
+									#button {Kill} 1
+									#button {Capture} 2								
 							)
 						)
 						(switch temp7
@@ -185,12 +185,12 @@
 					(995	
 						(= temp7
 							(Print
-;;;								{Trap}
-;;;								#button {Open} 1
-;;;								#button {Close} 2
-								{Trampilla}
-								#button {Abrir} 1
-								#button {Cerrar} 2								
+								{Trap}
+								#button {Open} 1
+								#button {Close} 2
+;;;								{Trampilla}
+;;;								#button {Abrir} 1
+;;;								#button {Cerrar} 2								
 							)
 						)
 						(switch temp7

@@ -319,13 +319,13 @@
 						(998
 							(= temp7
 							(PrintSpecial
-;;;								{Portrait}
-;;;								#button {Get} 1
-;;;								#button {Open} 2
+								{Portrait}
+								#button {Get} 1
+								#button {Open} 2
 
-								{Retrato}
-								#button {Coger} 1
-								#button {Abrir} 2
+;;;								{Retrato}
+;;;								#button {Coger} 1
+;;;								#button {Abrir} 2
 								
 							)
 							)
@@ -346,14 +346,14 @@
 						(995						
 							(= temp7
 							(PrintSpecial
-;;;								{Portrait}
-;;;								#button {Examine behind} 1
-;;;								#button {Look} 2
-;;;								#button {Examine eye} 3
-								{Retrato}
-								#button {Examinar} 1
-								#button {Mirar} 2
-								#button {Mirar ojo} 3								
+								{Portrait}
+								#button {Examine behind} 1
+								#button {Look} 2
+								#button {Examine eye} 3
+;;;								{Retrato}
+;;;								#button {Examinar} 1
+;;;								#button {Mirar} 2
+;;;								#button {Mirar ojo} 3								
 							)
 							)
 
@@ -444,14 +444,14 @@
 						(998
 								(= temp7
 							(PrintSpecial
-;;;								{Decanter}
-;;;								#button {Examine alcohol} 1
-;;;								#button {examine in} 2
-;;;								#button {Look} 3
-								{Decantador}
-								#button {Examinar alcohol} 1
-								#button {Mirar dentro} 2
-								#button {Mirar} 3								
+								{Decanter}
+								#button {Examine alcohol} 1
+								#button {examine in} 2
+								#button {Look} 3
+;;;								{Decantador}
+;;;								#button {Examinar alcohol} 1
+;;;								#button {Mirar dentro} 2
+;;;								#button {Mirar} 3								
 							)
 							)
 
@@ -485,13 +485,13 @@
 						(998
 						(= temp7
 							(PrintSpecial
-;;;								{Glass}
-;;;								#button {Examine in} 1
-;;;								#button {examine} 2
+								{Glass}
+								#button {Examine in} 1
+								#button {examine} 2
 
-								{Vaso}
-								#button {Examinar dentro} 1
-								#button {Examinar} 2
+;;;								{Vaso}
+;;;								#button {Examinar dentro} 1
+;;;								#button {Examinar} 2
 								
 							)
 							)
@@ -574,12 +574,12 @@
 						(995 	
 						(= temp7
 							(PrintSpecial
-;;;								{Parrot}
-;;;								#button {Capture} 1
-;;;								#button {Kill} 2
-								{Loro}
-								#button {Capturar} 1
-								#button {Matar} 2							
+								{Parrot}
+								#button {Capture} 1
+								#button {Kill} 2
+;;;								{Loro}
+;;;								#button {Capturar} 1
+;;;								#button {Matar} 2							
 							)
 							)
 

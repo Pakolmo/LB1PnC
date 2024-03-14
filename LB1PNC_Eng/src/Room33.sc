@@ -243,12 +243,12 @@
 						(998
 							(= temp7
 												(Print
-;;;													{Clock}
-;;;													#button {Examine behind} 1
-;;;													#button {Time} 2	
-													{Reloj}
-													#button {Mirar por detr*s} 1
-													#button {Hora} 2
+													{Clock}
+													#button {Examine behind} 1
+													#button {Time} 2	
+;;;													{Reloj}
+;;;													#button {Mirar por detr*s} 1
+;;;													#button {Hora} 2
 												)
 											)
 											(switch temp7
@@ -275,15 +275,15 @@
 					(995
 								(= temp7
 												(Print
-;;;													{Clock}
-;;;													#button {open} 1
-;;;													#button {move} 2
-;;;													#button {close} 3
+													{Clock}
+													#button {open} 1
+													#button {move} 2
+													#button {close} 3
 						
-													{Reloj}
-													#button {Abrir} 1
-													#button {Mover} 2
-													#button {Cerrar} 3	
+;;;													{Reloj}
+;;;													#button {Abrir} 1
+;;;													#button {Mover} 2
+;;;													#button {Cerrar} 3	
 
 												)
 											)
@@ -329,18 +329,18 @@
 						(995
 								(= temp7
 												(PrintSpecial
-;;;													{Mirror}
-;;;													#button {open} 1
-;;;													#button {behind} 2
-;;;													#button {break} 3	
-;;;													#button {reflection} 4	
-;;;													#button {move} 5							
-													{Espejo}
-													#button {Abrir} 1
-													#button {Mirar detr*s} 2
-													#button {Romper} 3	
-													#button {Reflejo} 4	
-													#button {Mover} 5								
+													{Mirror}
+													#button {open} 1
+													#button {behind} 2
+													#button {break} 3	
+													#button {reflection} 4	
+													#button {move} 5							
+;;;													{Espejo}
+;;;													#button {Abrir} 1
+;;;													#button {Mirar detr*s} 2
+;;;													#button {Romper} 3	
+;;;													#button {Reflejo} 4	
+;;;													#button {Mover} 5								
 
 												)
 											)
@@ -458,14 +458,14 @@
 						(995
 								(= temp7
 												(Print
-;;;													{Armoire}
-;;;													#button {open} 1
-;;;													#button {move} 2								
-;;;													#button {unbar} 3
-													{Armario}
-													#button {Abrir} 1
-													#button {Mover} 2								
-													#button {Desbloquear} 3								
+													{Armoire}
+													#button {open} 1
+													#button {move} 2								
+													#button {unlock} 3
+;;;													{Armario}
+;;;													#button {Abrir} 1
+;;;													#button {Mover} 2								
+;;;													#button {Desbloquear} 3								
 
 												)
 											)

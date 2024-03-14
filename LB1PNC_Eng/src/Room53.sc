@@ -109,12 +109,12 @@
 						(998
 	(= temp7
 							(Print
-;;;								{Bed}
-;;;								#button {Examine} 1
-;;;								#button {Examine in} 2
-								{Cama}
-								#button {Mirar} 1
-								#button {Examinar} 2								
+								{Bed}
+								#button {Examine} 1
+								#button {Examine in} 2
+;;;								{Cama}
+;;;								#button {Mirar} 1
+;;;								#button {Examinar} 2								
 							)
 							)
 
@@ -198,18 +198,18 @@
 						)
 						(998
 								(= temp7
-;;;							(PrintSpecial
-;;;								{Sink}
-;;;								#button {Examine in} 1
-;;;								#button {Examine} 2
-;;;								
-;;;							)
 							(PrintSpecial
-								{Lavamanos}
-								#button {Examinar} 1
-								#button {Mirar} 2
+								{Sink}
+								#button {Examine in} 1
+								#button {Examine} 2
 								
 							)
+;;;							(PrintSpecial
+;;;								{Lavamanos}
+;;;								#button {Examinar} 1
+;;;								#button {Mirar} 2
+;;;								
+;;;							)
 							)
 
 						(switch temp7

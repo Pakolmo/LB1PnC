@@ -308,14 +308,14 @@
 					(995
 						(= temp7
 												(Print
-;;;													{Caldron}
-;;;													#button {Open} 1
-;;;													#button {Get} 2
-;;;													#button {Drink} 3
-													{Cafetera}
-													#button {Abrir} 1
-													#button {Coger} 2
-													#button {Beber} 3						
+													{Caldron}
+													#button {Open} 1
+													#button {Get} 2
+													#button {Drink} 3
+;;;													{Cafetera}
+;;;													#button {Abrir} 1
+;;;													#button {Coger} 2
+;;;													#button {Beber} 3						
 	
 
 												)
@@ -728,12 +728,12 @@
 ;;;				(= itemIcon 605) ;clear menu inv item pic 
 ;;;				(theGame setCursor: 605 (HaveMouse)) ;clear inv cursor, switch to bone
 ;;;				(Print 35 18)
-				(Print {Beauregard sigue jugando con su hueso.})
+				(Print {Beauregard continues to play with his bone.})
 			)
 			((Said 'get/bone')
 				(cond
 					((== nomorebones 1)
-						(Print {Ya no necesitas m*s huesos.})	
+						(Print {You don't need any more bones.})	
 					)
 					((ego has: iSoupBone)
 						(AlreadyTook)
@@ -750,7 +750,7 @@
 							(= gotItem TRUE)
 							(ego get: iSoupBone)
 							(Bone dispose:)
-							(Print {Vuelves a coger otro hueso.}) 
+							(Print {You pick up another bone.}) 
 					)
 				)
 			)

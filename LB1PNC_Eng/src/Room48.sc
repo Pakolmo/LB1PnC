@@ -200,14 +200,14 @@
 						(998
 														(= temp7
 												(Print
-;;;													{Picture}
-;;;													#button {Eye} 1
-;;;													#button {Behind} 2	
-;;;													#button {examine} 3							
-													{Cuadro}
-													#button {Ojo} 1
-													#button {Mirar atr*s} 2	
-													#button {Examinar} 3	
+													{Picture}
+													#button {Eye} 1
+													#button {Behind} 2	
+													#button {examine} 3							
+;;;													{Cuadro}
+;;;													#button {Ojo} 1
+;;;													#button {Mirar atr*s} 2	
+;;;													#button {Examinar} 3	
 												)
 											)
 											(switch temp7
@@ -238,12 +238,12 @@
 						(995 							
 							(= temp7
 												(Print
-;;;													{Picture}
-;;;													#button {Get} 1
-;;;													#button {Open} 2								
-													{Cuadro}
-													#button {Coger} 1
-													#button {Abrir} 2
+													{Picture}
+													#button {Get} 1
+													#button {Open} 2								
+;;;													{Cuadro}
+;;;													#button {Coger} 1
+;;;													#button {Abrir} 2
 												)
 											)
 											(switch temp7
@@ -293,12 +293,12 @@
 						(998
 							(= temp7
 												(Print
-;;;													{chest}
-;;;													#button {drawer} 1
-;;;													#button {luggage} 2								
-													{C/moda}
-													#button {Caj/n} 1
-													#button {Equipaje} 2	
+													{chest}
+													#button {drawer} 1
+													#button {luggage} 2								
+;;;													{C/moda}
+;;;													#button {Caj/n} 1
+;;;													#button {Equipaje} 2	
 												)
 											)
 											(switch temp7
@@ -323,12 +323,12 @@
 						(995 
 							(= temp7
 												(Print
-;;;													{Chest}
-;;;													#button {Get} 1
-;;;													#button {Open} 2								
-													{C/moda}
-													#button {Coger} 1
-													#button {Abrir} 2
+													{Chest}
+													#button {Get} 1
+													#button {Open} 2								
+;;;													{C/moda}
+;;;													#button {Coger} 1
+;;;													#button {Abrir} 2
 												)
 											)
 											(switch temp7
@@ -499,12 +499,12 @@
 						(998
 													(= temp7
 												(Print
-;;;													{Notebook}
-;;;													#button {Examine} 1
-;;;													#button {Read} 2
-													{Libreta}
-													#button {Examinar} 1
-													#button {Leer} 2												
+													{Notebook}
+													#button {Examine} 1
+													#button {Read} 2
+;;;													{Libreta}
+;;;													#button {Examinar} 1
+;;;													#button {Leer} 2												
 												)
 												
 											)
@@ -539,16 +539,16 @@
 						
 						(= temp7
 												(Print
-;;;													{notebook}
-;;;													#button {Rotate} 1
-;;;													#button {Open} 2	
-;;;													#button {Close} 3								
-;;;													#button {get} 4
-													{Libreta}
-													#button {Pasar p*gina} 1
-													#button {Abrir} 2	
-													#button {Cerrar} 3								
-													#button {Coger} 4
+													{notebook}
+													#button {Rotate} 1
+													#button {Open} 2	
+													#button {Close} 3								
+													#button {get} 4
+;;;													{Libreta}
+;;;													#button {Pasar p*gina} 1
+;;;													#button {Abrir} 2	
+;;;													#button {Cerrar} 3								
+;;;													#button {Coger} 4
 												)
 											)
 											(switch temp7

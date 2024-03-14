@@ -72,15 +72,15 @@
 			elevatorID: elevator
 			downID: down
 			upID: up
-;;;			msgID:
-;;;				{What a dark and creepy attic! It helps to have the moonlight shining in through those big windows. 
-;;;				Among all the junk, a stack of old newspapers catches your eye.}
 			msgID:
-
-
-				{^Qu+ *tico tan oscuro y espeluznante! Ayuda tener la luz de la luna brillando a trav+s de esas grandes ventanas. 
-				
-				Entre todos los trastos, te llama la atenci/n una pila de peri/dicos viejos.}
+				{What a dark and creepy attic! It helps to have the moonlight shining in through those big windows. 
+				Among all the junk, a stack of old newspapers catches your eye.}
+;;;			msgID:
+;;;
+;;;
+;;;				{^Qu+ *tico tan oscuro y espeluznante! Ayuda tener la luz de la luna brillando a trav+s de esas grandes ventanas. 
+;;;				
+;;;				Entre todos los trastos, te llama la atenci/n una pila de peri/dicos viejos.}
 			init:
 		)
 	)
@@ -170,13 +170,13 @@
 							(= temp7
 
 								(PrintSpecial
-									{Ascensor}
-									#button {Bloquear} 1
-									#button {Desbloquear} 2
+;;;									{Ascensor}
+;;;									#button {Bloquear} 1
+;;;									#button {Desbloquear} 2
 									
-;;;									{Elevator}
-;;;									#button {Lock} 1
-;;;									#button {Unlock} 2							
+									{Elevator}
+									#button {Lock} 1
+									#button {Unlock} 2							
 								)
 							)
 							(switch temp7
@@ -201,12 +201,12 @@
 							(= temp7
 								(PrintSpecial
 									{ }
-									#button {Examinar Control} 1
-									#button {Examinar Agujero} 2	
-									#button {Examinar Eje} 3
-;;;									#button {Examine Control} 1
-;;;									#button {Examine Keyhole} 2	
-;;;									#button {Examine Shaft} 3							
+;;;									#button {Examinar Control} 1
+;;;									#button {Examinar Agujero} 2	
+;;;									#button {Examinar Eje} 3
+									#button {Examine Control} 1
+									#button {Examine Keyhole} 2	
+									#button {Examine Shaft} 3							
 								)
 							)
 							(switch temp7
@@ -250,16 +250,16 @@
 						(995
 							(= temp7
 								(PrintSpecial
-									{Ascensor}
-									#button {Abrir} 1
-									#button {Cerrar} 2
-									#button {Arriba} 3
-									#button {Abajo} 4
-;;;									{Elevator}																	
-;;;									#button {Open} 1
-;;;									#button {Close} 2								
-;;;									#button {Press Up} 3
-;;;									#button {Press Down} 4
+;;;									{Ascensor}
+;;;									#button {Abrir} 1
+;;;									#button {Cerrar} 2
+;;;									#button {Arriba} 3
+;;;									#button {Abajo} 4
+									{Elevator}																	
+									#button {Open} 1
+									#button {Close} 2								
+									#button {Press Up} 3
+									#button {Press Down} 4
 								)		
 
 							)

@@ -196,12 +196,12 @@
 							(998
 							(= temp7
 												(Print
-;;;													{Mirror}
-;;;													#button {Examine} 1
-;;;													#button {Examine in} 2								
-													{Espejo}
-													#button {Mirar} 1
-													#button {Examinar} 2														
+													{Mirror}
+													#button {Examine} 1
+													#button {Examine in} 2								
+;;;													{Espejo}
+;;;													#button {Mirar} 1
+;;;													#button {Examinar} 2														
 												)
 											)
 											(switch temp7
@@ -235,12 +235,12 @@
 							(998
 			(= temp7
 												(Print
-;;;													{Shelf}
-;;;													#button {Examine} 1
-;;;													#button {Examine in} 2								
-													{Estanter-a}
-													#button {Mirar} 1
-													#button {Examinar} 2														
+													{Shelf}
+													#button {Examine} 1
+													#button {Examine in} 2								
+;;;													{Estanter-a}
+;;;													#button {Mirar} 1
+;;;													#button {Examinar} 2														
 												)
 											)
 											(switch temp7
@@ -278,12 +278,12 @@
 							(995
 							(= temp7
 												(Print
-;;;													{Chair}
-;;;													#button {Sit} 1
-;;;													#button {Stand} 2								
-													{Silla}
-													#button {Sentarse} 1
-													#button {Levantarse} 2														
+													{Chair}
+													#button {Sit} 1
+													#button {Stand} 2								
+;;;													{Silla}
+;;;													#button {Sentarse} 1
+;;;													#button {Levantarse} 2														
 												)
 											)
 											(switch temp7

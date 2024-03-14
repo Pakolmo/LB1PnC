@@ -264,12 +264,12 @@
 						(930  ;gertrude
 							(= temp7
 								(Print
-;;;									{Ask or Tell}
-;;;									#button {Ask} 1
-;;;									#button {Tell} 2
-									{Preguntar o Hablar de}
-									#button {Preguntar} 1
-									#button {Hablar de} 2												
+									{Ask or Tell}
+									#button {Ask} 1
+									#button {Tell} 2
+;;;									{Preguntar o Hablar de}
+;;;									#button {Preguntar} 1
+;;;									#button {Hablar de} 2												
 								)
 							)
 							(switch temp7
@@ -284,12 +284,12 @@
 						(931 ;Celie
 							(= temp7
 								(Print
-;;;									{Ask or Tell}
-;;;									#button {Ask} 1
-;;;									#button {Tell} 2
-									{Preguntar o Hablar de}
-									#button {Preguntar} 1
-									#button {Hablar de} 2												
+									{Ask or Tell}
+									#button {Ask} 1
+									#button {Tell} 2
+;;;									{Preguntar o Hablar de}
+;;;									#button {Preguntar} 1
+;;;									#button {Hablar de} 2												
 								)
 							)
 							(switch temp7
@@ -304,12 +304,12 @@
 						(932 ;Gloria
 							(= temp7
 								(Print
-;;;									{Ask or Tell}
-;;;									#button {Ask} 1
-;;;									#button {Tell} 2
-									{Preguntar o Hablar de}
-									#button {Preguntar} 1
-									#button {Hablar de} 2												
+									{Ask or Tell}
+									#button {Ask} 1
+									#button {Tell} 2
+;;;									{Preguntar o Hablar de}
+;;;									#button {Preguntar} 1
+;;;									#button {Hablar de} 2												
 								)
 							)
 							(switch temp7
@@ -324,12 +324,12 @@
 						(933 ;Ethel	
 							(= temp7
 								(Print
-;;;									{Ask or Tell}
-;;;									#button {Ask} 1
-;;;									#button {Tell} 2
-									{Preguntar o Hablar de}
-									#button {Preguntar} 1
-									#button {Hablar de} 2												
+									{Ask or Tell}
+									#button {Ask} 1
+									#button {Tell} 2
+;;;									{Preguntar o Hablar de}
+;;;									#button {Preguntar} 1
+;;;									#button {Hablar de} 2												
 								)
 							)
 							(switch temp7
@@ -344,12 +344,12 @@
 						(934 ;Fifi
 							(= temp7
 								(Print
-;;;									{Ask or Tell}
-;;;									#button {Ask} 1
-;;;									#button {Tell} 2
-									{Preguntar o Hablar de}
-									#button {Preguntar} 1
-									#button {Hablar de} 2												
+									{Ask or Tell}
+									#button {Ask} 1
+									#button {Tell} 2
+;;;									{Preguntar o Hablar de}
+;;;									#button {Preguntar} 1
+;;;									#button {Hablar de} 2												
 								)
 							)
 							(switch temp7
@@ -364,12 +364,12 @@
 						(935 ;Lillian
 							(= temp7
 								(Print
-;;;									{Ask or Tell}
-;;;									#button {Ask} 1
-;;;									#button {Tell} 2
-									{Preguntar o Hablar de}
-									#button {Preguntar} 1
-									#button {Hablar de} 2												
+									{Ask or Tell}
+									#button {Ask} 1
+									#button {Tell} 2
+;;;									{Preguntar o Hablar de}
+;;;									#button {Preguntar} 1
+;;;									#button {Hablar de} 2												
 								)
 							)
 							(switch temp7
@@ -384,12 +384,12 @@
 						(936 ;Clarence
 							(= temp7
 								(Print
-;;;									{Ask or Tell}
-;;;									#button {Ask} 1
-;;;									#button {Tell} 2
-									{Preguntar o Hablar de}
-									#button {Preguntar} 1
-									#button {Hablar de} 2												
+									{Ask or Tell}
+									#button {Ask} 1
+									#button {Tell} 2
+;;;									{Preguntar o Hablar de}
+;;;									#button {Preguntar} 1
+;;;									#button {Hablar de} 2												
 								)
 							)
 							(switch temp7
@@ -404,12 +404,12 @@
 						(937 ;Feels
 							(= temp7
 								(Print
-;;;									{Ask or Tell}
-;;;									#button {Ask} 1
-;;;									#button {Tell} 2
-									{Preguntar o Hablar de}
-									#button {Preguntar} 1
-									#button {Hablar de} 2												
+									{Ask or Tell}
+									#button {Ask} 1
+									#button {Tell} 2
+;;;									{Preguntar o Hablar de}
+;;;									#button {Preguntar} 1
+;;;									#button {Hablar de} 2												
 								)
 							)
 							(switch temp7
@@ -424,12 +424,12 @@
 						(938 ;Rudy
 							(= temp7
 								(Print
-;;;									{Ask or Tell}
-;;;									#button {Ask} 1
-;;;									#button {Tell} 2
-									{Preguntar o Hablar de}
-									#button {Preguntar} 1
-									#button {Hablar de} 2												
+									{Ask or Tell}
+									#button {Ask} 1
+									#button {Tell} 2
+;;;									{Preguntar o Hablar de}
+;;;									#button {Preguntar} 1
+;;;									#button {Hablar de} 2												
 								)
 							)
 							(switch temp7
@@ -444,12 +444,12 @@
 						(939 ;Colonel
 							(= temp7
 								(Print
-;;;									{Ask or Tell}
-;;;									#button {Ask} 1
-;;;									#button {Tell} 2
-									{Preguntar o Hablar de}
-									#button {Preguntar} 1
-									#button {Hablar de} 2												
+									{Ask or Tell}
+									#button {Ask} 1
+									#button {Tell} 2
+;;;									{Preguntar o Hablar de}
+;;;									#button {Preguntar} 1
+;;;									#button {Hablar de} 2												
 								)
 							)
 							(switch temp7
@@ -464,12 +464,12 @@
 						(940 ;Jules
 							(= temp7
 								(Print
-;;;									{Ask or Tell}
-;;;									#button {Ask} 1
-;;;									#button {Tell} 2
-									{Preguntar o Hablar de}
-									#button {Preguntar} 1
-									#button {Hablar de} 2												
+									{Ask or Tell}
+									#button {Ask} 1
+									#button {Tell} 2
+;;;									{Preguntar o Hablar de}
+;;;									#button {Preguntar} 1
+;;;									#button {Hablar de} 2												
 								)
 							)
 							(switch temp7
@@ -484,12 +484,12 @@
 						(941 ;Dog
 							(= temp7	
 								(Print
-;;;									{Ask or Tell}
-;;;									#button {Ask} 1
-;;;									#button {Tell} 2
-									{Preguntar o Hablar de}
-									#button {Preguntar} 1
-									#button {Hablar de} 2												
+									{Ask or Tell}
+									#button {Ask} 1
+									#button {Tell} 2
+;;;									{Preguntar o Hablar de}
+;;;									#button {Preguntar} 1
+;;;									#button {Hablar de} 2												
 								)
 							)
 							(switch temp7
@@ -504,12 +504,12 @@
 						(942 ;Parrot
 							(= temp7	
 								(Print
-;;;									{Ask or Tell}
-;;;									#button {Ask} 1
-;;;									#button {Tell} 2
-									{Preguntar o Hablar de}
-									#button {Preguntar} 1
-									#button {Hablar de} 2												
+									{Ask or Tell}
+									#button {Ask} 1
+									#button {Tell} 2
+;;;									{Preguntar o Hablar de}
+;;;									#button {Preguntar} 1
+;;;									#button {Hablar de} 2												
 								)
 							)
 							(switch temp7
@@ -524,12 +524,12 @@
 						(943 ;Horse
 							(= temp7	
 								(Print
-;;;									{Ask or Tell}
-;;;									#button {Ask} 1
-;;;									#button {Tell} 2
-									{Preguntar o Hablar de}
-									#button {Preguntar} 1
-									#button {Hablar de} 2												
+									{Ask or Tell}
+									#button {Ask} 1
+									#button {Tell} 2
+;;;									{Preguntar o Hablar de}
+;;;									#button {Preguntar} 1
+;;;									#button {Hablar de} 2												
 								)
 							)
 							(switch temp7
@@ -546,12 +546,12 @@
 								(event type: 1 claimed: 1)
 								(= temp7	
 							(Print
-;;;								{Ask or Tell}
-;;;								#button {Ask} 1
-;;;								#button {Tell} 2
-								{Preguntar o Hablar de}
-								#button {Preguntar} 1
-								#button {Hablar de} 2												
+								{Ask or Tell}
+								#button {Ask} 1
+								#button {Tell} 2
+;;;								{Preguntar o Hablar de}
+;;;								#button {Preguntar} 1
+;;;								#button {Hablar de} 2												
 							)
 						)
 						(switch temp7
@@ -571,12 +571,12 @@
 								(event type: 1 claimed: 1)
 								(= temp7	
 							(Print
-;;;								{Ask or Tell}
-;;;								#button {Ask} 1
-;;;								#button {Tell} 2
-								{Preguntar o Hablar de}
-								#button {Preguntar} 1
-								#button {Hablar de} 2												
+								{Ask or Tell}
+								#button {Ask} 1
+								#button {Tell} 2
+;;;								{Preguntar o Hablar de}
+;;;								#button {Preguntar} 1
+;;;								#button {Hablar de} 2												
 							)
 						)
 						(switch temp7

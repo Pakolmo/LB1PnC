@@ -336,10 +336,10 @@
 							(= temp7
 							(PrintSpecial
 								44 22
-;;;								#button {Get} 1
-;;;								#button {luggage} 2
-								#button {Coger} 1
-								#button {Equipaje} 2
+								#button {Get} 1
+								#button {luggage} 2
+;;;								#button {Coger} 1
+;;;								#button {Equipaje} 2
 							)
 							)
 
@@ -366,14 +366,14 @@
 										(= temp7
 									(Print	
 										44 22
-;;;										#button {Open} 1
-;;;										#button {Close} 2
-;;;										#button {Get} 3									
-;;;										#button {Change cloth} 4
-										#button {Abrir} 1
-										#button {Cerrar} 2
-										#button {Coger} 3									
-										#button {Cambiar ropa} 4
+										#button {Open} 1
+										#button {Close} 2
+										#button {Get} 3									
+										#button {Change cloth} 4
+;;;										#button {Abrir} 1
+;;;										#button {Cerrar} 2
+;;;										#button {Coger} 3									
+;;;										#button {Cambiar ropa} 4
 									)
 										)
 									
@@ -432,14 +432,14 @@
 						(995
 								(= chutes
 												(Print
-;;;													{Chute Actions}
-;;;													#button {Open Door} 1
-;;;													#button {Enter Chute} 2
-;;;													#button {Close Door} 3		
-													{Rampa}
-													#button {Abrir Puerta} 1
-													#button {Entrar} 2								
-													#button {Cerrar Puerta} 3
+													{Chute Actions}
+													#button {Open Door} 1
+													#button {Enter Chute} 2
+													#button {Close Door} 3		
+;;;													{Rampa}
+;;;													#button {Abrir Puerta} 1
+;;;													#button {Entrar} 2								
+;;;													#button {Cerrar Puerta} 3
 												)
 											)
 											(switch chutes
@@ -532,14 +532,14 @@
 						(995
 								(= chutes
 												(Print
-;;;													{Chute Actions}
-;;;													#button {Open Door} 1
-;;;													#button {Enter Chute} 2
-;;;													#button {Close Door} 3		
-													{Rampa}
-													#button {Abrir Puerta} 1
-													#button {Entrar} 2								
-													#button {Cerrar Puerta} 3
+													{Chute Actions}
+													#button {Open Door} 1
+													#button {Enter Chute} 2
+													#button {Close Door} 3		
+;;;													{Rampa}
+;;;													#button {Abrir Puerta} 1
+;;;													#button {Entrar} 2								
+;;;													#button {Cerrar Puerta} 3
 												)
 											)
 											(switch chutes
@@ -705,14 +705,14 @@
 						(998		
 							(= temp7
 								(PrintSpecial
-									{Chimenea}
-									#button {Examinar} 1
-									#button {Mirar dentro} 2
-									#button {Mirar troncos} 3
-;;;									{Fireplace}
-;;;									#button {Examine} 1
-;;;									#button {Examine in} 2							
-;;;									#button {Examine fire} 3
+;;;									{Chimenea}
+;;;									#button {Examinar} 1
+;;;									#button {Mirar dentro} 2
+;;;									#button {Mirar troncos} 3
+									{Fireplace}
+									#button {Examine} 1
+									#button {Examine in} 2							
+									#button {Examine fire} 3
 								)
 							)
 							(switch temp7
@@ -842,14 +842,14 @@
 							
 								(= girleyes
 												(Print
-;;;													{Painting}
-;;;													#button {Colonel Eye} 1
-;;;													#button {Girl Eye} 2
-;;;													#button {below painting} 3		
-													{Cuadro}
-													#button {Ojo Coronel} 1
-													#button {Ojo Chica} 2								
-													#button {Tras Cuadro} 3
+													{Painting}
+													#button {Colonel Eye} 1
+													#button {Girl Eye} 2
+													#button {below painting} 3		
+;;;													{Cuadro}
+;;;													#button {Ojo Coronel} 1
+;;;													#button {Ojo Chica} 2								
+;;;													#button {Tras Cuadro} 3
 												)
 											)
 											(switch girleyes

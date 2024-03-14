@@ -115,19 +115,19 @@
 
 												(PrintSpecial
 		
-;;;													{Get}
-;;;													#button {Cape} 1	
-;;;													#button {Gloves} 2	
-;;;													#button {Boots} 3
-;;;													#button {Hat} 4	
-;;;													#button {Insignia} 5	
+													{Get}
+													#button {Cape} 1	
+													#button {Gloves} 2	
+													#button {Boots} 3
+													#button {Hat} 4	
+													#button {Insignia} 5	
 		
-													{Coger}
-													#button {Capa} 1
-													#button {Guantes} 2	
-													#button {Botas} 3
-													#button {Gorro} 4														
-													#button {Insignia} 5
+;;;													{Coger}
+;;;													#button {Capa} 1
+;;;													#button {Guantes} 2	
+;;;													#button {Botas} 3
+;;;													#button {Gorro} 4														
+;;;													#button {Insignia} 5
 																									
 												)
 											)
@@ -157,18 +157,18 @@
 						(998
 							(= temp7
 								(PrintSpecial
-;;;									{Examine}
-;;;									#button {Cape} 1
-;;;									#button {Gloves} 2
-;;;									#button {Boots} 3
-;;;									#button {Hat} 4
-;;;									#button {Insignia} 5
-									{Examinar}
-									#button {Capa} 1
-									#button {Guantes} 2
-									#button {Botas} 3
-									#button {Gorro} 4
+									{Examine}
+									#button {Cape} 1
+									#button {Gloves} 2
+									#button {Boots} 3
+									#button {Hat} 4
 									#button {Insignia} 5
+;;;									{Examinar}
+;;;									#button {Capa} 1
+;;;									#button {Guantes} 2
+;;;									#button {Botas} 3
+;;;									#button {Gorro} 4
+;;;									#button {Insignia} 5
 								)
 							)
 							(switch temp7
@@ -208,12 +208,12 @@
 						(995
 							(= temp7
 								(PrintSpecial
-;;;									{ }
-;;;									#button {Get box} 1
-;;;									#button {Get chest} 2
 									{ }
-									#button {Coger caja} 1
-									#button {Coger cofre} 2
+									#button {Get box} 1
+									#button {Get chest} 2
+;;;									{ }
+;;;									#button {Coger caja} 1
+;;;									#button {Coger cofre} 2
 								)
 							)
 							(switch temp7
@@ -231,12 +231,12 @@
 						(998
 							(= temp7
 								(PrintSpecial
-;;;									{Chest}
-;;;									#button {Search} 1
-;;;									#button {Examine} 2
-									{Ba{l}
-									#button {Buscar} 1
-									#button {Examinar} 2
+									{Chest}
+									#button {Search} 1
+									#button {Examine} 2
+;;;									{Ba{l}
+;;;									#button {Buscar} 1
+;;;									#button {Examinar} 2
 								)
 							)
 							(switch temp7

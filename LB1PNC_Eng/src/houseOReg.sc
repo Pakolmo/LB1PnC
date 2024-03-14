@@ -148,8 +148,8 @@
 					)
 					((Said 'open/door')
 						(if (< curRoomNum 20)
-;;;							(Print 206 9)
-							(Print {No est*s lo bastante cerca.})
+							(Print 206 9)
+;;;							(Print {No est*s lo bastante cerca.})
 						else
 							(NotClose)
 						)

@@ -229,14 +229,14 @@
 						(995
 							(= temp7
 								(PrintSpecial
-;;;									{Trap}
-;;;									#button {Close} 1
-;;;									#button {Open} 2
-;;;									#button {Search} 3
-									{Trampilla}
-									#button {Cerrar} 1
-									#button {Abrir} 2	
-									#button {Buscar} 3	
+									{Trapdoor}
+									#button {Close} 1
+									#button {Open} 2
+									#button {Search} 3
+;;;									{Trampilla}
+;;;									#button {Cerrar} 1
+;;;									#button {Abrir} 2	
+;;;									#button {Buscar} 3	
 								)
 							)
 							(switch temp7
@@ -257,12 +257,12 @@
 						(998	
 							(= temp7
 								(PrintSpecial
-;;;									{Trap}
-;;;									#button {Examine down} 1
-;;;									#button {Examine} 2
-									{Trampilla}
-									#button {Mirar Abajo} 1
-									#button {Examinar} 2	
+									{Trapdoor}
+									#button {Examine down} 1
+									#button {Examine} 2
+;;;									{Trampilla}
+;;;									#button {Mirar Abajo} 1
+;;;									#button {Examinar} 2	
 								)
 							)
 							(switch temp7
@@ -291,12 +291,12 @@
 						(995
 							(= temp7
 								(PrintSpecial
-;;;									{Statue}
-;;;									#button {Get} 1
-;;;									#button {Move} 2
-									{Estatua}
-									#button {Coger} 1
-									#button {Mover} 2
+									{Statue}
+									#button {Get} 1
+									#button {Move} 2
+;;;									{Estatua}
+;;;									#button {Coger} 1
+;;;									#button {Mover} 2
 								)
 							)
 							(switch temp7
@@ -325,14 +325,14 @@
 						(995
 							(= temp7
 								(PrintSpecial
-;;;									{Urn}
-;;;									#button {Get} 1
-;;;									#button {Move} 2
-;;;									#button {Search} 3
-									{Urna}
-									#button {Coger} 1
-									#button {Mover} 2
-									#button {Buscar} 3	
+									{Urn}
+									#button {Get} 1
+									#button {Move} 2
+									#button {Search} 3
+;;;									{Urna}
+;;;									#button {Coger} 1
+;;;									#button {Mover} 2
+;;;									#button {Buscar} 3	
 								)
 							)
 							(switch temp7
@@ -379,16 +379,16 @@
 						(998
 							(= temp7
 								(PrintSpecial
-;;;									{Fountain}
-;;;									#button {Examine in} 1
-;;;									#button {Examine} 2
-;;;									#button {Rotate on} 3
-;;;									#button {Rotate off} 4
-									{Fuente}
-									#button {Mirar dentro} 1
-									#button {Examinar} 2	
-									#button {Girar sobre} 3
-									#button {Girar} 4	
+									{Fountain}
+									#button {Examine in} 1
+									#button {Examine} 2
+									#button {Rotate on} 3
+									#button {Rotate off} 4
+;;;									{Fuente}
+;;;									#button {Mirar dentro} 1
+;;;									#button {Examinar} 2	
+;;;									#button {Girar sobre} 3
+;;;									#button {Girar} 4	
 								)
 							)
 							(switch temp7
@@ -439,18 +439,18 @@
 						(995
 							(= temp7
 								(PrintSpecial
-;;;									{Shaft}
-;;;									#button {Get} 1
-;;;									#button {Move} 2
-;;;									#button {Rotate} 3
-;;;									#button {Take valve handle} 4
-;;;									#button {Rotate valve handle} 5	
-									{Hueco}
-									#button {Coger} 1
-									#button {Mover} 2
-									#button {Rotar} 3	
-									#button {Coger V*lvula} 4
-									#button {Rotar V*vula} 5													
+									{Shaft}
+									#button {Get} 1
+									#button {Move} 2
+									#button {Rotate} 3
+									#button {Take valve handle} 4
+									#button {Rotate valve handle} 5	
+;;;									{Hueco}
+;;;									#button {Coger} 1
+;;;									#button {Mover} 2
+;;;									#button {Rotar} 3	
+;;;									#button {Coger V*lvula} 4
+;;;									#button {Rotar V*vula} 5													
 								)
 							)
 							(switch temp7

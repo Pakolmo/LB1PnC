@@ -268,13 +268,13 @@
 					(995
 								(= temp7
 												(Print
-;;;													{Candle}
-;;;													#button {Get} 1
-;;;													#button {Ignite} 2
+													{Candle}
+													#button {Get} 1
+													#button {Ignite} 2
 
-													{Vela}
-													#button {Coger} 1
-													#button {Encender} 2
+;;;													{Vela}
+;;;													#button {Coger} 1
+;;;													#button {Encender} 2
 						
 	
 
@@ -325,13 +325,13 @@
 					(995
 							(= temp7
 												(Print
-;;;													{Altar}
-;;;													#button {Examine} 1
-;;;													#button {Pray} 2
-
 													{Altar}
-													#button {Examinar dentro} 1
-													#button {Rezar} 2
+													#button {Examine} 1
+													#button {Pray} 2
+
+;;;													{Altar}
+;;;													#button {Examinar dentro} 1
+;;;													#button {Rezar} 2
 						
 	
 
@@ -372,13 +372,13 @@
 					(995
 							(= temp7
 												(Print
-;;;													{Window}
-;;;													#button {Break} 1
-;;;													#button {Open} 2
+													{Window}
+													#button {Break} 1
+													#button {Open} 2
 
-													{Ventana}
-													#button {Romper} 1
-													#button {Abrir} 2
+;;;													{Ventana}
+;;;													#button {Romper} 1
+;;;													#button {Abrir} 2
 						
 	
 
@@ -407,13 +407,13 @@
 					(998
 							(= temp7
 												(PrintSpecial
-;;;													{Window}
-;;;													#button {Examine out} 1
-;;;													#button {Examine} 2
+													{Window}
+													#button {Examine out} 1
+													#button {Examine} 2
 
-													{Ventana}
-													#button {Examinar por fuera} 1
-													#button {Examinar} 2
+;;;													{Ventana}
+;;;													#button {Examinar por fuera} 1
+;;;													#button {Examinar} 2
 						
 	
 
@@ -467,13 +467,13 @@
 					(998
 						(= temp7
 												(PrintSpecial
-;;;													{Bench}
-;;;													#button {Examine below} 1
-;;;													#button {Examine} 2
+													{Bench}
+													#button {Examine below} 1
+													#button {Examine} 2
 
-													{Banco}
-													#button {Examinar por abajo} 1
-													#button {Examinar} 2
+;;;													{Banco}
+;;;													#button {Examinar por abajo} 1
+;;;													#button {Examinar} 2
 						
 	
 

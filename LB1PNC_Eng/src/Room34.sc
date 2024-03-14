@@ -263,14 +263,14 @@
 						(995
 							(= chutes
 								(Print
-;;;									{Chute Actions}
-;;;									#button {Open Door} 1
-;;;									#button {Enter Chute} 2
-;;;									#button {Close Door} 3		
-									{Rampa}
-									#button {Abrir Puerta} 1
-									#button {Entrar} 2								
-									#button {Cerrar Puerta} 3
+									{Chute Actions}
+									#button {Open Door} 1
+									#button {Enter Chute} 2
+									#button {Close Door} 3		
+;;;									{Rampa}
+;;;									#button {Abrir Puerta} 1
+;;;									#button {Entrar} 2								
+;;;									#button {Cerrar Puerta} 3
 								)
 							)
 							(switch chutes
@@ -340,14 +340,14 @@
 						(995
 							(= chutes
 								(Print
-;;;									{Chute Actions}
-;;;									#button {Open Door} 1
-;;;									#button {Enter Chute} 2
-;;;									#button {Close Door} 3		
-									{Rampa}
-									#button {Abrir Puerta} 1
-									#button {Entrar} 2								
-									#button {Cerrar Puerta} 3
+									{Chute Actions}
+									#button {Open Door} 1
+									#button {Enter Chute} 2
+									#button {Close Door} 3		
+;;;									{Rampa}
+;;;									#button {Abrir Puerta} 1
+;;;									#button {Entrar} 2								
+;;;									#button {Cerrar Puerta} 3
 								)
 							)
 							(switch chutes
@@ -515,14 +515,14 @@
 						(998
 							(= temp7
 								(PrintSpecial
-									{Espejo}
-									#button {Examinar} 1
-									#button {Mirar dentro} 2
-									#button {Reflejo} 3
-;;;									{Mirror}
-;;;									#button {Examine} 1
-;;;									#button {Examine below} 2							
-;;;									#button {Reflexion} 3
+;;;									{Espejo}
+;;;									#button {Examinar} 1
+;;;									#button {Mirar dentro} 2
+;;;									#button {Reflejo} 3
+									{Mirror}
+									#button {Examine} 1
+									#button {Examine below} 2							
+									#button {Reflexion} 3
 								)
 							)
 							(switch temp7

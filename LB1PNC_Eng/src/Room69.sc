@@ -229,16 +229,16 @@
 						(995
 										(= temp7
 												(Print
-;;;													{Door}
-;;;													#button {Enter} 1
-;;;													#button {Open} 2	
-;;;													#button {Close} 3	
+													{Door}
+													#button {Enter} 1
+													#button {Open} 2	
+													#button {Close} 3	
 
 
-													{Puerta}
-													#button {Entrar} 1
-													#button {Abrir} 2								
-													#button {Cerrar} 3
+;;;													{Puerta}
+;;;													#button {Entrar} 1
+;;;													#button {Abrir} 2								
+;;;													#button {Cerrar} 3
 												)
 											)
 											(switch temp7
@@ -437,17 +437,17 @@
 						(995							
 							(= temp7
 												(PrintSpecial
-;;;													{Blaze}
-
-;;;													#button {Mount} 1	
-;;;													#button {Move} 2
-;;;													#button {Kill} 3
-;;;													#button {Pat} 4
 													{Blaze}
-													#button {Montar} 1
-													#button {Mover} 2								
-													#button {Matar} 3
-													#button {Acariciar} 4
+
+													#button {Mount} 1	
+													#button {Move} 2
+													#button {Kill} 3
+													#button {Pat} 4
+;;;													{Blaze}
+;;;													#button {Montar} 1
+;;;													#button {Mover} 2								
+;;;													#button {Matar} 3
+;;;													#button {Acariciar} 4
 													
 												)
 											)
@@ -472,17 +472,17 @@
 						(996
 														(= temp7
 												(PrintSpecial
-;;;													{Blaze}
-
-;;;													#button {Converse} 1	
-;;;													#button {Bit} 2
-;;;													#button {Call} 3
-;;;													#button {Kiss} 4
 													{Blaze}
-													#button {Conversar} 1
-													#button {Morder} 2								
-													#button {Llamar} 3
-													#button {Besar} 4
+
+													#button {Converse} 1	
+													#button {Bit} 2
+													#button {Call} 3
+													#button {Kiss} 4
+;;;													{Blaze}
+;;;													#button {Conversar} 1
+;;;													#button {Morder} 2								
+;;;													#button {Llamar} 3
+;;;													#button {Besar} 4
 													
 												)
 											)
@@ -676,12 +676,12 @@
 					(995
 							(= temp7
 												(PrintSpecial
-;;;													{ }
-;;;													#button {Get bale} 1
-;;;													#button {Get water} 2	
-													{Cama}
-													#button {Coger heno} 1
-													#button {Coger agua} 2								
+													{ }
+													#button {Get bale} 1
+													#button {Get water} 2	
+;;;													{Cama}
+;;;													#button {Coger heno} 1
+;;;													#button {Coger agua} 2								
 													
 												)
 											)
@@ -703,14 +703,14 @@
 					(998
 													(= temp7
 												(PrintSpecial
-;;;													{ }
-;;;													#button {Examine in water} 1
-;;;													#button {Examine in bale} 2
-;;;													#button {Examine bale} 3		
 													{ }
-													#button {Mirar en agua} 1
-													#button {Mirar en heno} 2								
-													#button {Mirar heno} 3													
+													#button {Look in water} 1
+													#button {Search bale} 2
+													#button {Look bale} 3		
+;;;													{ }
+;;;													#button {Mirar en agua} 1
+;;;													#button {Mirar en heno} 2								
+;;;													#button {Mirar heno} 3													
 												)
 											)
 											(switch temp7

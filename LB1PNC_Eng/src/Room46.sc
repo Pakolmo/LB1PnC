@@ -188,12 +188,12 @@
 	
 								(= temp7
 												(Print
-;;;													{Picture}
-;;;													#button {Get} 1
-;;;													#button {Open} 2								
-													{Cuadro}
-													#button {Coger} 1
-													#button {Abrir} 2													
+													{Picture}
+													#button {Get} 1
+													#button {Open} 2								
+;;;													{Cuadro}
+;;;													#button {Coger} 1
+;;;													#button {Abrir} 2													
 												)
 											)
 											(switch temp7
@@ -211,12 +211,12 @@
 						(998
 														(= temp7
 												(PrintSpecial
-													{Cuadro}
-													#button {Examinar} 1
-													#button {Examinar por detr*s} 2								
-;;;													{Picture}
-;;;													#button {examine} 1
-;;;													#button {examine behind} 2														
+;;;													{Cuadro}
+;;;													#button {Examinar} 1
+;;;													#button {Examinar por detr*s} 2								
+													{Picture}
+													#button {examine} 1
+													#button {examine behind} 2														
 												)
 											)
 											(switch temp7
@@ -314,12 +314,12 @@
 						(995 ;hand
 							(= temp7
 												(Print
-;;;													{luggage}
-;;;													#button {open} 1
-;;;													#button {get} 2								
-													{Equipaje}
-													#button {Abrir} 1
-													#button {Coger} 2														
+													{luggage}
+													#button {open} 1
+													#button {get} 2								
+;;;													{Equipaje}
+;;;													#button {Abrir} 1
+;;;													#button {Coger} 2														
 												)
 											)
 											(switch temp7
@@ -349,12 +349,12 @@
 						(995 ;hand
 							(= temp7
 												(Print
-;;;													{luggage}
-;;;													#button {open} 1
-;;;													#button {get} 2								
-													{Equipaje}
-													#button {Abrir} 1
-													#button {Coger} 2														
+													{luggage}
+													#button {open} 1
+													#button {get} 2								
+;;;													{Equipaje}
+;;;													#button {Abrir} 1
+;;;													#button {Coger} 2														
 												)
 											)
 											(switch temp7
@@ -386,14 +386,14 @@
 						(998 ;examine
 							(= temp7
 												(PrintSpecial
-;;;													{Window}
-;;;													#button {examine curtain} 1
-;;;													#button {examine down} 2	
-;;;													#button {examine window} 3								
-													{Ventana}
-													#button {Examinar cortina} 1
-													#button {Examinar fuera} 2	
-													#button {Examinar ventana} 3													
+													{Window}
+													#button {examine curtain} 1
+													#button {examine down} 2	
+													#button {examine window} 3								
+;;;													{Ventana}
+;;;													#button {Examinar cortina} 1
+;;;													#button {Examinar fuera} 2	
+;;;													#button {Examinar ventana} 3													
 												)
 											)
 											(switch temp7
@@ -414,14 +414,14 @@
 						(995
 							(= temp7
 												(Print
-;;;													{Window}
-;;;													#button {climb out} 1
-;;;													#button {Open} 2	
-;;;													#button {Close} 3								
-													{Ventana}
-													#button {Subir a} 1
-													#button {Abrir} 2	
-													#button {Cerrar} 3													
+													{Window}
+													#button {climb out} 1
+													#button {Open} 2	
+													#button {Close} 3								
+;;;													{Ventana}
+;;;													#button {Subir a} 1
+;;;													#button {Abrir} 2	
+;;;													#button {Cerrar} 3													
 												)
 											)
 											(switch temp7

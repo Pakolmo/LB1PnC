@@ -145,15 +145,15 @@
 								 
 								(= temp7
 												(Print
-;;;													{Doll}
-;;;													#button {Play} 1
-;;;													#button {Get} 2	
+													{Doll}
+													#button {Play} 1
+													#button {Get} 2	
 	
 
 
-													{Mu=eco}
-													#button {Jugar} 1
-													#button {Coger} 2								
+;;;													{Mu=eco}
+;;;													#button {Jugar} 1
+;;;													#button {Coger} 2								
 
 												)
 											)
