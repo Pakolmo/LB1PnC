@@ -82,7 +82,24 @@ Completed:
 215 - showerReg
 216 - Mgert
 217 - GertieClarArgue
-
+218
+219
+220 - WilbRead
+221
+222
+223
+224 - sleeping
+225
+226
+227
+228
+229 - celiWash
+230 - leargue
+231 - kisscolo
+232 - grargue
+233 - glorplay
+235 - Dgert
+236 - celiBrea
 
 
 
@@ -91,6 +108,29 @@ Completed:
 
 414 - myCopy
 
+
+
+
+950 - PNCMenu
+967 - DCIcon
+973 - Reverse
+974 - Follow
+975 - Chase
+976 - Wander
+977 - Timer
+978 - RFeature
+981 - Window
+982 - Sight
+983 - Path
+984 - SortCopy
+985 - Avoider
+987 - Gauge
+989 - Sound
+990 - Save
+991 - Jump
+992 - Motion
+993 - File
+994 - Game
 995 - Invent
 996 - User
 997 - Menu

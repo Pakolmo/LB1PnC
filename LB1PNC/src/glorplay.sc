@@ -960,10 +960,10 @@
 							
 							(= temp7
 								(PrintSpecial
-									{Gloria}
-									#button {Examine} 1
-									#button {Examine cigar} 2
-									#button {Examine boa} 3
+;;;									{Gloria}
+;;;									#button {Examine} 1
+;;;									#button {Examine cigar} 2
+;;;									#button {Examine boa} 3
 		
 									{Gloria}
 									#button {Mirar} 1

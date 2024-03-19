@@ -94,8 +94,8 @@
 			moveTo: (+ (okI nsRight?) MARGIN) nsBottom
 		)
 		((= noI (DButton new:))
-;;;			text: {Cancel},  ;ENGLISH
-			text: {Cancelar}, ;SPANISH
+			text: {Cancel},  ;ENGLISH
+;;;			text: {Cancelar}, ;SPANISH
 			setSize:,
 			moveTo: (+ (normalI nsRight?) MARGIN) nsBottom
 		)

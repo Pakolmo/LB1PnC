@@ -448,8 +448,8 @@
 							(theGame setCursor: itemIcon haveMouse)
 							(= theCursor itemIcon)
 						else
-;;;							(Print {You must first selected an item.}) ;English
-							(Print {Primero debes elegir un objeto.}) ;Spanish
+							(Print {You must first selected an item.}) ;English
+;;;							(Print {Primero debes elegir un objeto.}) ;Spanish
 						)
 					)
 					(
@@ -578,26 +578,26 @@
 							)
 							(996 ;talk 
 								(event type: 1 claimed: 1)
-;;;								(Print {(There is no response.)} #at -1 144) ;"(There is no response.)"
-								(Print {(No hay respuesta.)} #at -1 144) ;"(There is no response.)"
+								(Print {(There is no response.)} #at -1 144) ;"(There is no response.)"
+;;;								(Print {(No hay respuesta.)} #at -1 144) ;"(There is no response.)"
 							)
 							(995 ;hand
 								(event type: 1 claimed: 1)
-;;;								(Print {(What do you want to take?.)}) ;"What do you want to take?"
-								(Print {(&Qu+ quieres coger?)}) ;"What do you want to take?"
+								(Print {(What do you want to take?.)}) ;"What do you want to take?"
+;;;								(Print {(&Qu+ quieres coger?)}) ;"What do you want to take?"
 							)
 							(994 ;smell
 								(event type: 1 claimed: 1)
-;;;								(Print {(What do you want to take?.)}) ;"What do you want to take?"
-								(Print {(No oigo nada.)}) ;"What do you want to take?"
+								(Print {(What do you want to take?.)}) ;"What do you want to take?"
+;;;								(Print {(No oigo nada.)}) ;"What do you want to take?"
 							)							
 							(997 ;wait sierra
 								(event type: 1 claimed: 0)
 							)
 							(else ;inventory item
 								(event type: 1 claimed: 1)
-;;;								(Print {no need to use that here.}) ;"no need to use that here"
-								(Print {No hay ninguna necesidad de usar esto ah-.}) ;"no need to use that here"
+								(Print {no need to use that here.}) ;"no need to use that here"
+;;;								(Print {No hay ninguna necesidad de usar esto ah-.}) ;"no need to use that here"
 							)
 						
 						)
@@ -623,14 +623,14 @@
 			(1
 				(if
 					(Print
-						950 26
-;;;						#title {Quit} ;English
-						#title {Salir} ;Spanish
+						{Do you really want to quit?}
+						#title {Quit} ;English
+;;;						#title {Salir} ;Spanish
 						#font 1
-;;;						#button { Quit_} 1 ;English
-;;;						#button { Oops } 0 ;English
-						#button { Salir_} 1 ;Spanish
-						#button { Ups } 0 ;Spanish
+						#button { Quit_} 1 ;English
+						#button { Oops } 0 ;English
+;;;						#button { Salir_} 1 ;Spanish
+;;;						#button { Ups } 0 ;Spanish
 					)
 					(= quit 1)
 				else
@@ -657,11 +657,11 @@
 			(1
 				(= loadOrSave 
 					(Print
-						950 30 
-;;;						#button {\n__SAVE__\n_} 1 ;#button (string) (pickedLoad==1) ;ENGLISH
-;;;						#button {\n__LOAD__\n_} 2 ;(pickedLoad=0) ;ENGLISH
-						#button {\n__SALVAR__\n_} 1 ;#button (string) (pickedLoad==1) ;SPANISH
-						#button {\n__CARGAR__\n_} 2 ;(pickedLoad=0) ;SPANISH
+						{Save or Load}
+						#button {\n__SAVE__\n_} 1 ;#button (string) (pickedLoad==1) ;ENGLISH
+						#button {\n__LOAD__\n_} 2 ;(pickedLoad=0) ;ENGLISH
+;;;						#button {\n__SALVAR__\n_} 1 ;#button (string) (pickedLoad==1) ;SPANISH
+;;;						#button {\n__CARGAR__\n_} 2 ;(pickedLoad=0) ;SPANISH
 					)
 				)
 				(switch loadOrSave
@@ -742,11 +742,11 @@
 			(1
 				(= sGauge2
 					(Print
-						950 33 ;"configuration:" 
-;;;						#button {\n_SPEED_\n_} 1 ;#button (string) (pickedLoad==1) ;ENGLISH
-;;;						#button {\n_VOLUME_\n_} 0 ;(pickedLoad=0) ;ENGLISH
-						#button {\n_VELOCIDAD_\n_} 1 ;#button (string) (pickedLoad==1) ;SPANISH
-						#button {\n_VOLUMEN_\n_} 2 ;(pickedLoad=0) ;SPANISH
+						{Configuration} 
+						#button {\n_SPEED_\n_} 1 ;#button (string) (pickedLoad==1) ;ENGLISH
+						#button {\n_VOLUME_\n_} 0 ;(pickedLoad=0) ;ENGLISH
+;;;						#button {\n_VELOCIDAD_\n_} 1 ;#button (string) (pickedLoad==1) ;SPANISH
+;;;						#button {\n_VOLUMEN_\n_} 2 ;(pickedLoad=0) ;SPANISH
 ;;;						#button {\n_INSULT_\n_} 3 ;ENGLISH
 ;;;						#button {\n_AUTOSAVE_\n_} 4 ;ENGLISH
 ;;;						#button {\n_ABOUT_\n_} 5 ;ENGLISH
@@ -790,14 +790,14 @@
 					(= pncSpeed
 						((Gauge new:)
 							description:
-								(Format @str 950 34)
-;;;							text: {Animation Speed} ;ENGLISH
-							text: {Velocidad del Juego} ;SPANISH
+								{Use the mouse or the left and right keys to adjust the speed.}
+							text: {Animation Speed} ;ENGLISH
+;;;							text: {Velocidad del Juego} ;SPANISH
 							normal: 10
-;;;							higher: {Faster} ;ENGLISH
-;;;							lower: {Slower} ;ENGLISH
-							higher: {Subir} ;SPANISH
-							lower: {Bajar} ;SPANISH
+							higher: {Faster} ;ENGLISH
+							lower: {Slower} ;ENGLISH
+;;;							higher: {Subir} ;SPANISH
+;;;							lower: {Bajar} ;SPANISH
 							doit: (- 16 speed)
 						)
 					)
@@ -812,14 +812,14 @@
 				(if (HaveMem GaugeSize)
 					(= pncVolume
 						((Gauge new:)
-							description: (Format @str 950 35)
-;;;							text: {Sound Volume} ;ENGLISH
-							text: {Volumen} ;SPANISH
+							description: {Use the mouse or the left and right keys to adjust the volume.}
+							text: {Sound Volume} ;ENGLISH
+;;;							text: {Volumen} ;SPANISH
 							normal: 11
-;;;							higher: {Louder} ;ENGLISH
-;;;							lower: {Softer} ;ENGLISH
-							higher: {Subir} ;SPANISH
-							lower: {Bajar} ;SPANISH
+							higher: {Louder} ;ENGLISH
+							lower: {Softer} ;ENGLISH
+;;;							higher: {Subir} ;SPANISH
+;;;							lower: {Bajar} ;SPANISH
 							doit: (DoSound 8 pncVolume) 
 							
 						)
@@ -837,8 +837,8 @@
 				(Print MENU 14 ;MENU 0
 					#font smallFont
 					#mode teJustCenter
-;;;					#title {An Al Lowe Production} ;english
-					#title {Una Producci>n de Al Lowe} ;spanish
+					#title {An Al Lowe Production} ;english
+;;;					#title {Una Producci>n de Al Lowe} ;spanish
 					#icon 51 0 0
 				)
 				(Print
@@ -846,7 +846,7 @@
 					#font smallFont
 					#mode teJustCenter
 					#title {The Cast of Thousands} ;english
-					#title {El elenco de los miles} ;spanish
+;;;					#title {El elenco de los miles} ;spanish
 					#at -1 30
 					#width 234
 				)
@@ -871,7 +871,8 @@
 					(invIcon loop: 1)
 					(= cycles 3)
 				else
-					(Print 950 9)
+					;(Print 950 9)
+					(Print {Error: How did you get here?})
 				)
 			)
 			(1 (= doInventory 1)

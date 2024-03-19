@@ -60,28 +60,28 @@
 	numGames
 	selected
 	status
-;;;	okIText = [{Restore} {__Save__} {Replace} {Replace}]
-;;;	textIText = [
-;;;					{Select the game that you would like to restore.}
-;;;					{Type the description of this saved game.}
-;;;					{This directory/disk can hold no more saved games. 
-;;;	You must replace one of your saved games or use
-;;;	Change Directory to save on a different directory/disk.}
-;;;					{This directory/disk can hold no more saved games. 
-;;;	You must replace one of your saved games or use
-;;;	Change Directory to save on a different directory/disk.}
-;;;					]
-	okIText = [{Restaurar} {__Salvar__} {Reemplazar} {Reemplazar}]
+	okIText = [{Restore} {__Save__} {Replace} {Replace}]
 	textIText = [
-					{Selecciona el juego que quieres cargar.}
-					{Escribe la descripci/n de esta partida guardada.}
-					{Este directorio o disco no puede contener m*s partidas guardadas. 
-	Debes sustituir una de tus partidas guardadas o Cambiar
-	el directorio para guardar en un directorio o disco diferente.}
-					{Este directorio o disco no puede contener m*s partidas guardadas. 
-	Debes sustituir una de tus partidas guardadas o Cambiar
-	el directorio para guardar en un directorio o disco diferente.}
-					]					
+					{Select the game that you would like to restore.}
+					{Type the description of this saved game.}
+					{This directory/disk can hold no more saved games. 
+	You must replace one of your saved games or use
+	Change Directory to save on a different directory/disk.}
+					{This directory/disk can hold no more saved games. 
+	You must replace one of your saved games or use
+	Change Directory to save on a different directory/disk.}
+					]
+;;;	okIText = [{Restaurar} {__Salvar__} {Reemplazar} {Reemplazar}]
+;;;	textIText = [
+;;;					{Selecciona el juego que quieres cargar.}
+;;;					{Escribe la descripci/n de esta partida guardada.}
+;;;					{Este directorio o disco no puede contener m*s partidas guardadas. 
+;;;	Debes sustituir una de tus partidas guardadas o Cambiar
+;;;	el directorio para guardar en un directorio o disco diferente.}
+;;;					{Este directorio o disco no puede contener m*s partidas guardadas. 
+;;;	Debes sustituir una de tus partidas guardadas o Cambiar
+;;;	el directorio para guardar en un directorio o disco diferente.}
+;;;					]					
 
 
 
