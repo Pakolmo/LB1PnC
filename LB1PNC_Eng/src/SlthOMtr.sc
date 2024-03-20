@@ -1669,19 +1669,19 @@ code_0875:
 		pushi    70
 		pushi    280
 		pushi    81
-		lofsa    {__MAS___}
+		lofsa    {__MORE__}
 		push    
 		pushi    1
 		pushi    81
-		lofsa    { CARGAR__}
+		lofsa    { RESTORE_}
 		push    
 		pushi    2
 		pushi    81
-		lofsa    {REINICIAR}
+		lofsa    { RESTART_}
 		push    
 		pushi    3
 		pushi    81
-		lofsa    { SALIR__}
+		lofsa    {__QUIT__}
 		push    
 		pushi    4
 		calle    Print,  34
@@ -1955,11 +1955,11 @@ code_0c33:
 			pushi    30
 			pushi    1
 			pushi    81
-			lofsa    {___S-___}
+			lofsa    {___Yes__}
 			push    
 			pushi    1
 			pushi    81
-			lofsa    {__Salir_}
+			lofsa    {__Quit__}
 			push    
 			pushi    2
 			calle    Print,  30
@@ -2054,11 +2054,11 @@ code_0cf9:
 			pushi    30
 			pushi    1
 			pushi    81
-			lofsa    { Abrir}
+			lofsa    { Open_}
 			push    
 			pushi    1
 			pushi    81
-			lofsa    { Salir}
+			lofsa    { Exit_}
 			push    
 			pushi    2
 			calle    Print,  26
@@ -2093,7 +2093,7 @@ code_0d36:
 			push    
 			pushi    2
 			pushi    81
-			lofsa    {_CERRAR_}
+			lofsa    {CLOSE}
 			push    
 			pushi    3
 			calle    Print,  32
@@ -2146,15 +2146,15 @@ code_0dac:
 			pushi    30
 			pushi    1
 			pushi    81
-			lofsa    {__CARGAR___}
+			lofsa    {__RESTORE__}
 			push    
 			pushi    1
 			pushi    81
-			lofsa    { REINICIAR_}
+			lofsa    {__RESTART__}
 			push    
 			pushi    2
 			pushi    81
-			lofsa    {__SALIR___}
+			lofsa    {___QUIT___}
 			push    
 			pushi    3
 			calle    Print,  30
@@ -2199,19 +2199,19 @@ code_0e0e:
 			pushi    30
 			pushi    1
 			pushi    81
-			lofsa    {__PISTAS_}
+			lofsa    {__HINTS__}
 			push    
 			pushi    1
 			pushi    81
-			lofsa    { CARGAR__}
+			lofsa    { RESTORE_}
 			push    
 			pushi    2
 			pushi    81
-			lofsa    {REINICIAR}
+			lofsa    { RESTART_}
 			push    
 			pushi    3
 			pushi    81
-			lofsa    { SALIR__}
+			lofsa    {__QUIT__}
 			push    
 			pushi    4
 			calle    Print,  36

@@ -160,14 +160,14 @@
 				(996
 													(= temp7
 												(Print
-;;;													{beauregard}
-;;;													#button {Call} 1
-;;;													#button {Converse} 2
-;;;													#button {Kiss} 3		
-													{Beauregard}
-													#button {Llamar} 1
-													#button {Hablar} 2								
-													#button {Besar} 3
+													{beauregard}
+													#button {Call} 1
+													#button {Converse} 2
+													#button {Kiss} 3		
+;;;													{Beauregard}
+;;;													#button {Llamar} 1
+;;;													#button {Hablar} 2								
+;;;													#button {Besar} 3
 												)
 											)
 											(switch temp7
@@ -195,16 +195,16 @@
 				(995
 								(= temp7
 												(Print
-;;;													{beauregard}
-;;;													#button {Get} 1
-;;;													#button {Pat} 2
-;;;													#button {Feed} 3		
-;;;													#button {Kill} 4
-													{Beauregard}
-													#button {Coger} 1
-													#button {Acariciar} 2								
-													#button {Alimentar} 3
-													#button {Matar} 4
+													{beauregard}
+													#button {Get} 1
+													#button {Pat} 2
+													#button {Feed} 3		
+													#button {Kill} 4
+;;;													{Beauregard}
+;;;													#button {Coger} 1
+;;;													#button {Acariciar} 2								
+;;;													#button {Alimentar} 3
+;;;													#button {Matar} 4
 												)
 											)
 											(switch temp7
