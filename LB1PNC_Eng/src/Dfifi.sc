@@ -93,13 +93,13 @@
 									(= temp7
 
 								(PrintSpecial
-									{Examinar}
-									#button {Fifi} 1
-									#button {Jeeves} 2
-									
-;;;									{Examine}
+;;;									{Examinar}
 ;;;									#button {Fifi} 1
-;;;									#button {Jeeves} 2							
+;;;									#button {Jeeves} 2
+									
+									{Examine}
+									#button {Fifi} 1
+									#button {Jeeves} 2							
 								)
 							)
 							(switch temp7
@@ -124,13 +124,13 @@
 							(= temp7
 
 								(PrintSpecial
-									{Registrar}
-									#button {Fifi} 1
-									#button {Jeeves} 2
-									
-;;;									{Search}
+;;;									{Registrar}
 ;;;									#button {Fifi} 1
-;;;									#button {Jeeves} 2							
+;;;									#button {Jeeves} 2
+									
+									{Search}
+									#button {Fifi} 1
+									#button {Jeeves} 2							
 								)
 							)
 							(switch temp7
@@ -155,13 +155,13 @@
 																(= temp7
 
 								(PrintSpecial
-									{Escuchar}
-									#button {Fifi} 1
-									#button {Jeeves} 2
-									
-;;;									{Hear}
+;;;									{Escuchar}
 ;;;									#button {Fifi} 1
-;;;									#button {Jeeves} 2							
+;;;									#button {Jeeves} 2
+									
+									{Listen}
+									#button {Fifi} 1
+									#button {Jeeves} 2							
 								)
 							)
 							(switch temp7
@@ -186,13 +186,13 @@
 																(= temp7
 
 								(PrintSpecial
-									{Conversar}
-									#button {Fifi} 1
-									#button {Jeeves} 2
-									
-;;;									{Converse}
+;;;									{Conversar}
 ;;;									#button {Fifi} 1
-;;;									#button {Jeeves} 2							
+;;;									#button {Jeeves} 2
+									
+									{Converse}
+									#button {Fifi} 1
+									#button {Jeeves} 2							
 								)
 							)
 							(switch temp7

@@ -142,12 +142,12 @@
 								(event type: 1 claimed: 1)
 												(= temp7
 							(Print
-;;;								{Ask or Tell}
-;;;								#button {Ask} 1
-;;;								#button {Tell} 2
-								{Preguntar o Hablar de}
-								#button {Preguntar} 1
-								#button {Hablar de} 2												
+								{Ask or Tell}
+								#button {Ask} 1
+								#button {Tell} 2
+;;;								{Preguntar o Hablar de}
+;;;								#button {Preguntar} 1
+;;;								#button {Hablar de} 2												
 							)
 						)
 						(switch temp7
@@ -167,12 +167,12 @@
 								(event type: 1 claimed: 1)
 								(= temp7
 															(Print
-;;;								{Ask or Tell}
-;;;								#button {Ask} 1
-;;;								#button {Tell} 2
-								{Preguntar o Hablar de}
-								#button {Preguntar} 1
-								#button {Hablar de} 2												
+								{Ask or Tell}
+								#button {Ask} 1
+								#button {Tell} 2
+;;;								{Preguntar o Hablar de}
+;;;								#button {Preguntar} 1
+;;;								#button {Hablar de} 2												
 							)
 						)
 						(switch temp7
@@ -192,12 +192,12 @@
 								(event type: 1 claimed: 1)
 								(= temp7
 															(Print
-;;;								{Ask or Tell}
-;;;								#button {Ask} 1
-;;;								#button {Tell} 2
-								{Preguntar o Hablar de}
-								#button {Preguntar} 1
-								#button {Hablar de} 2												
+								{Ask or Tell}
+								#button {Ask} 1
+								#button {Tell} 2
+;;;								{Preguntar o Hablar de}
+;;;								#button {Preguntar} 1
+;;;								#button {Hablar de} 2												
 							)
 						)
 						(switch temp7
@@ -217,12 +217,12 @@
 								(event type: 1 claimed: 1)
 								(= temp7
 															(Print
-;;;								{Ask or Tell}
-;;;								#button {Ask} 1
-;;;								#button {Tell} 2
-								{Preguntar o Hablar de}
-								#button {Preguntar} 1
-								#button {Hablar de} 2												
+								{Ask or Tell}
+								#button {Ask} 1
+								#button {Tell} 2
+;;;								{Preguntar o Hablar de}
+;;;								#button {Preguntar} 1
+;;;								#button {Hablar de} 2												
 							)
 						)
 						(switch temp7
@@ -242,12 +242,12 @@
 								(event type: 1 claimed: 1)
 								(= temp7
 														(Print
-;;;								{Ask or Tell}
-;;;								#button {Ask} 1
-;;;								#button {Tell} 2
-								{Preguntar o Hablar de}
-								#button {Preguntar} 1
-								#button {Hablar de} 2												
+								{Ask or Tell}
+								#button {Ask} 1
+								#button {Tell} 2
+;;;								{Preguntar o Hablar de}
+;;;								#button {Preguntar} 1
+;;;								#button {Hablar de} 2												
 							)
 						)
 						(switch temp7
@@ -266,12 +266,12 @@
 								(event type: 1 claimed: 1)
 								(= temp7
 															(Print
-;;;								{Ask or Tell}
-;;;								#button {Ask} 1
-;;;								#button {Tell} 2
-								{Preguntar o Hablar de}
-								#button {Preguntar} 1
-								#button {Hablar de} 2												
+								{Ask or Tell}
+								#button {Ask} 1
+								#button {Tell} 2
+;;;								{Preguntar o Hablar de}
+;;;								#button {Preguntar} 1
+;;;								#button {Hablar de} 2												
 							)
 						)
 						(switch temp7
@@ -290,12 +290,12 @@
 								(event type: 1 claimed: 1)
 								(= temp7
 															(Print
-;;;								{Ask or Tell}
-;;;								#button {Ask} 1
-;;;								#button {Tell} 2
-								{Preguntar o Hablar de}
-								#button {Preguntar} 1
-								#button {Hablar de} 2												
+								{Ask or Tell}
+								#button {Ask} 1
+								#button {Tell} 2
+;;;								{Preguntar o Hablar de}
+;;;								#button {Preguntar} 1
+;;;								#button {Hablar de} 2												
 							)
 						)
 						(switch temp7
@@ -314,12 +314,12 @@
 								(event type: 1 claimed: 1)
 								(= temp7
 															(Print
-;;;								{Ask or Tell}
-;;;								#button {Ask} 1
-;;;								#button {Tell} 2
-								{Preguntar o Hablar de}
-								#button {Preguntar} 1
-								#button {Hablar de} 2												
+								{Ask or Tell}
+								#button {Ask} 1
+								#button {Tell} 2
+;;;								{Preguntar o Hablar de}
+;;;								#button {Preguntar} 1
+;;;								#button {Hablar de} 2												
 							)
 						)
 						(switch temp7
@@ -338,12 +338,12 @@
 								(event type: 1 claimed: 1)
 								(= temp7
 															(Print
-;;;								{Ask or Tell}
-;;;								#button {Ask} 1
-;;;								#button {Tell} 2
-								{Preguntar o Hablar de}
-								#button {Preguntar} 1
-								#button {Hablar de} 2												
+								{Ask or Tell}
+								#button {Ask} 1
+								#button {Tell} 2
+;;;								{Preguntar o Hablar de}
+;;;								#button {Preguntar} 1
+;;;								#button {Hablar de} 2												
 							)
 						)
 						(switch temp7
@@ -362,12 +362,12 @@
 								(event type: 1 claimed: 1)
 								(= temp7
 															(Print
-;;;								{Ask or Tell}
-;;;								#button {Ask} 1
-;;;								#button {Tell} 2
-								{Preguntar o Hablar de}
-								#button {Preguntar} 1
-								#button {Hablar de} 2												
+								{Ask or Tell}
+								#button {Ask} 1
+								#button {Tell} 2
+;;;								{Preguntar o Hablar de}
+;;;								#button {Preguntar} 1
+;;;								#button {Hablar de} 2												
 							)
 						)
 						(switch temp7
@@ -386,12 +386,12 @@
 								(event type: 1 claimed: 1)
 								(= temp7
 															(Print
-;;;								{Ask or Tell}
-;;;								#button {Ask} 1
-;;;								#button {Tell} 2
-								{Preguntar o Hablar de}
-								#button {Preguntar} 1
-								#button {Hablar de} 2												
+								{Ask or Tell}
+								#button {Ask} 1
+								#button {Tell} 2
+;;;								{Preguntar o Hablar de}
+;;;								#button {Preguntar} 1
+;;;								#button {Hablar de} 2												
 							)
 						)
 						(switch temp7
@@ -411,12 +411,12 @@
 								(event type: 1 claimed: 1)
 							(= temp7	
 							(Print
-;;;								{Ask or Tell}
-;;;								#button {Ask} 1
-;;;								#button {Tell} 2
-								{Preguntar o Hablar de}
-								#button {Preguntar} 1
-								#button {Hablar de} 2												
+								{Ask or Tell}
+								#button {Ask} 1
+								#button {Tell} 2
+;;;								{Preguntar o Hablar de}
+;;;								#button {Preguntar} 1
+;;;								#button {Hablar de} 2												
 							)
 						)
 						(switch temp7
@@ -435,12 +435,12 @@
 								(event type: 1 claimed: 1)
 								(= temp7	
 							(Print
-;;;								{Ask or Tell}
-;;;								#button {Ask} 1
-;;;								#button {Tell} 2
-								{Preguntar o Hablar de}
-								#button {Preguntar} 1
-								#button {Hablar de} 2												
+								{Ask or Tell}
+								#button {Ask} 1
+								#button {Tell} 2
+;;;								{Preguntar o Hablar de}
+;;;								#button {Preguntar} 1
+;;;								#button {Hablar de} 2												
 							)
 						)
 						(switch temp7
@@ -459,12 +459,12 @@
 								(event type: 1 claimed: 1)
 								(= temp7	
 							(Print
-;;;								{Ask or Tell}
-;;;								#button {Ask} 1
-;;;								#button {Tell} 2
-								{Preguntar o Hablar de}
-								#button {Preguntar} 1
-								#button {Hablar de} 2												
+								{Ask or Tell}
+								#button {Ask} 1
+								#button {Tell} 2
+;;;								{Preguntar o Hablar de}
+;;;								#button {Preguntar} 1
+;;;								#button {Hablar de} 2												
 							)
 						)
 						(switch temp7
@@ -483,12 +483,12 @@
 								(event type: 1 claimed: 1)
 								(= temp7	
 							(Print
-;;;								{Ask or Tell}
-;;;								#button {Ask} 1
-;;;								#button {Tell} 2
-								{Preguntar o Hablar de}
-								#button {Preguntar} 1
-								#button {Hablar de} 2												
+								{Ask or Tell}
+								#button {Ask} 1
+								#button {Tell} 2
+;;;								{Preguntar o Hablar de}
+;;;								#button {Preguntar} 1
+;;;								#button {Hablar de} 2												
 							)
 						)
 						(switch temp7
@@ -508,12 +508,12 @@
 								(event type: 1 claimed: 1)
 								(= temp7	
 							(Print
-;;;								{Ask or Tell}
-;;;								#button {Ask} 1
-;;;								#button {Tell} 2
-								{Preguntar o Hablar de}
-								#button {Preguntar} 1
-								#button {Hablar de} 2												
+								{Ask or Tell}
+								#button {Ask} 1
+								#button {Tell} 2
+;;;								{Preguntar o Hablar de}
+;;;								#button {Preguntar} 1
+;;;								#button {Hablar de} 2												
 							)
 						)
 						(switch temp7
@@ -540,12 +540,12 @@
 								
 							(= temp7	
 							(Print
-;;;								{Clarence}
-;;;								#button {Look} 1
-;;;								#button {Look cigar} 2
 								{Clarence}
-								#button {Mirar} 1
-								#button {Mirar cigarro} 2												
+								#button {Look} 1
+								#button {Look cigar} 2
+;;;								{Clarence}
+;;;								#button {Mirar} 1
+;;;								#button {Mirar cigarro} 2												
 							)
 						)
 						(switch temp7

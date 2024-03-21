@@ -84,12 +84,12 @@
 							(DoVerb {search clarence}) ;yes
 							(= temp7
 												(Print
-;;;													{Dagger}
-;;;													#button {Examine} 1
-;;;													#button {Get} 2	
-													{Daga}
-													#button {Examinar} 1
-													#button {Coger} 2								
+													{Dagger}
+													#button {Examine} 1
+													#button {Get} 2	
+;;;													{Daga}
+;;;													#button {Examinar} 1
+;;;													#button {Coger} 2								
 													
 												)
 											)

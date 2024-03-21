@@ -138,16 +138,14 @@
 									
 								(= temp7
 												(PrintSpecial
-;;;													{Lillian}
-;;;													#button {Search} 1
-
-
-;;;													#button {Examine in Cape} 2		
-;;;													#button {Examine insignia} 3	
 													{Lillian}
-													#button {Buscar} 1
-													#button {Examinar capa} 2
-													#button {Examinar insignia} 3
+													#button {Search} 1
+													#button {Look inside Cape} 2		
+													#button {Examine insignia} 3	
+;;;													{Lillian}
+;;;													#button {Buscar} 1
+;;;													#button {Examinar capa} 2
+;;;													#button {Examinar insignia} 3
 												)
 											)
 											(switch temp7
