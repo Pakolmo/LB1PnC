@@ -288,14 +288,14 @@
 		)
 		(if (== evMOUSEBUTTON (event type:))
 			(= temp7
-;;;				(Print {Skip scene?}
-;;;					#button {Yes} 1
-;;;					#button {No} 0
-;;;				)
-				(Print {&Saltar escena?}
-					#button {S-} 1
+				(Print {Skip scene?}
+					#button {Yes} 1
 					#button {No} 0
 				)
+;;;				(Print {&Saltar escena?}
+;;;					#button {S-} 1
+;;;					#button {No} 0
+;;;				)
 			)
 			(if (== temp7 1)
 				(cls)
