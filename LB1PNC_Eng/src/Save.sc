@@ -512,8 +512,8 @@
 				#font: SYSFONT
 				#edit: (StrCpy @newDir where) DIRECTORYSIZE
 				#button: {OK} 1
-;;;				#button: {Cancel} 0 ;english
-				#button: {Cancelar} 0 ;spanish
+				#button: {Cancel} 0 ;english
+;;;				#button: {Cancelar} 0 ;spanish
 			)
 		)
 
@@ -569,14 +569,14 @@
 )
 (instance cancelI of DButton
 	(properties
-;;;		text "_Cancel_"
-		text "_Cancelar_" ;spanish		
+		text "_Cancel_"
+;;;		text "_Cancelar_" ;spanish		
 	)
 )
 (instance changeDirI of DButton
 	(properties
-;;;		text {Change\nDirectory}
-		text {Cambiar\nDirectorio} ;spanish
+		text {Change\nDirectory}
+;;;		text {Cambiar\nDirectorio} ;spanish
 	)
 )
 (instance textI of DText
@@ -589,15 +589,15 @@
 (instance text1 of DText
 	(properties
 		font SYSFONT
-;;;		text "Replace"
-		text "Reemplazar" ;spanish
+		text "Replace"
+;;;		text "Reemplazar" ;spanish
 	)
 )
 (instance text2 of DText
 	(properties
 		font SYSFONT
-;;;		text "with:"
-		text "con:" ;spanish
+		text "with:"
+;;;		text "con:" ;spanish
 	)
 )
 (instance oldName of DText
@@ -609,13 +609,13 @@
 )
 (instance button1 of DButton
 	(properties
-;;;		text "Replace" ;english
-		text "Reemplazar"	 ;spanish
+		text "Replace" ;english
+;;;		text "Reemplazar"	 ;spanish
 	)
 )
 (instance button2 of DButton
 	(properties
-;;;		text "Cancel" ;english
-		text "Cancelar" ;spanish
+		text "Cancel" ;english
+;;;		text "Cancelar" ;spanish
 	)
 )
